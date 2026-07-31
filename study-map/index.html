@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>スタディスポットMAP — 無料で勉強できる場所をみんなでランク付け</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+:root{
+  --bg:#0f1214; --panel:#171b1f; --panel2:#1e242a; --line:#2b333b;
+  --tx:#e8edf2; --tx2:#9aa7b4; --tx3:#6c7a88;
+  --accent:#3fbf8f;
+  --s:#f0b429; --a:#3fbf8f; --b:#4d9de0; --c:#7c8894;
+  --ok:#3fbf8f; --mid:#e0a33e; --busy:#d9534f;
+  --shadow:0 8px 28px rgba(0,0,0,.45);
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{
+  font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP",system-ui,sans-serif;
+  background:var(--bg); color:var(--tx); overflow:hidden; -webkit-font-smoothing:antialiased;
+}
+button,input,select,textarea{font-family:inherit;font-size:inherit;color:inherit}
+button{cursor:pointer}
+
+/* ---------- top bar ---------- */
+#top{
+  height:58px;display:flex;align-items:center;gap:14px;padding:0 16px;
+  background:var(--panel);border-bottom:1px solid var(--line);position:relative;z-index:900
+}
+.brand{display:flex;align-items:center;gap:9px;flex:0 0 auto}
+.logo{
+  width:30px;height:30px;border-radius:9px;flex:0 0 30px;
+  background:linear-gradient(135deg,var(--accent),#2b8f6c);display:grid;place-items:center;font-size:16px
+}
+#top h1{font-size:15px;margin:0;font-weight:700;letter-spacing:.02em;white-space:nowrap}
+#top .tag{font-size:10.5px;color:var(--tx3);margin-top:2px;white-space:nowrap}
+.region{display:flex;align-items:center;gap:7px;margin-left:6px}
+.region .sep{color:var(--tx3);font-size:12px}
+.region select{
+  background:var(--panel2);border:1px solid var(--line);border-radius:9px;
+  padding:8px 10px;font-size:13px;outline:none;min-width:118px
+}
+.region select:focus{border-color:var(--accent)}
+.region select#pref{font-weight:700}
+#topsearch{
+  flex:1;max-width:300px;background:var(--panel2);border:1px solid var(--line);
+  border-radius:9px;padding:8px 11px;font-size:13px;outline:none
+}
+#topsearch:focus{border-color:var(--accent)}
+#topcount{margin-left:auto;font-size:11.5px;color:var(--tx3);white-space:nowrap}
+#dbstat{font-size:10.5px;padding:4px 9px;border-radius:999px;white-space:nowrap;
+  border:1px solid var(--line);background:var(--panel2);color:var(--tx3);cursor:pointer}
+#dbstat.cloud{border-color:var(--accent);color:var(--accent);background:rgba(63,191,143,.12)}
+
+/* ---------- layout ---------- */
+#app{display:flex;height:calc(100vh - 58px);height:calc(100dvh - 58px)}
+#side{
+  width:400px;flex:0 0 400px;background:var(--panel);
+  border-right:1px solid var(--line);display:flex;flex-direction:column;position:relative;z-index:500
+}
+#mapwrap{flex:1;position:relative}
+#map{position:absolute;inset:0;background:#20262c}
+
+/* ---------- filters ---------- */
+.controls{padding:12px 16px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:9px}
+.rankfilter{display:flex;gap:6px}
+.rankfilter button{
+  flex:1;background:var(--panel2);border:1px solid var(--line);border-radius:8px;
+  padding:6px 0;font-size:12.5px;font-weight:700;color:var(--tx2);transition:.12s
+}
+.rankfilter button[data-on="1"]{color:#0f1214}
+.rankfilter button[data-r="S"][data-on="1"]{background:var(--s);border-color:var(--s)}
+.rankfilter button[data-r="A"][data-on="1"]{background:var(--a);border-color:var(--a)}
+.rankfilter button[data-r="B"][data-on="1"]{background:var(--b);border-color:var(--b)}
+.rankfilter button[data-r="C"][data-on="1"]{background:var(--c);border-color:var(--c)}
+.row{display:flex;gap:6px}
+.row select{
+  flex:1;background:var(--panel2);border:1px solid var(--line);border-radius:8px;
+  padding:7px 8px;font-size:12.5px;outline:none
+}
+.chips{display:flex;gap:5px;flex-wrap:wrap}
+.chip{
+  background:var(--panel2);border:1px solid var(--line);border-radius:999px;
+  padding:4px 9px;font-size:11px;color:var(--tx2)
+}
+.chip[data-on="1"]{background:rgba(63,191,143,.16);border-color:var(--accent);color:var(--accent)}
+.chip.now[data-on="1"]{background:rgba(240,180,41,.16);border-color:var(--s);color:var(--s)}
+
+/* ---------- list ---------- */
+#listhead{padding:10px 16px 6px;display:flex;justify-content:space-between;align-items:baseline}
+#listhead span{font-size:11.5px;color:var(--tx3)}
+#list{flex:1;overflow-y:auto;padding:0 10px 14px}
+.card{display:flex;gap:11px;padding:11px;border-radius:11px;cursor:pointer;border:1px solid transparent;transition:.12s}
+.card:hover{background:var(--panel2)}
+.card.sel{background:var(--panel2);border-color:var(--accent)}
+.badge{width:38px;height:38px;flex:0 0 38px;border-radius:10px;display:grid;place-items:center;
+  font-weight:800;font-size:17px;color:#0f1214;font-family:Georgia,serif}
+.badge.S{background:var(--s)} .badge.A{background:var(--a)}
+.badge.B{background:var(--b)} .badge.C{background:var(--c)}
+.cbody{min-width:0;flex:1}
+.cname{font-size:13.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cmeta{font-size:11px;color:var(--tx3);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cscore{font-size:11.5px;color:var(--tx2);margin-top:5px;display:flex;align-items:center;gap:6px}
+.bar{flex:1;height:4px;background:#2b333b;border-radius:2px;overflow:hidden}
+.bar i{display:block;height:100%;border-radius:2px}
+.ctags{display:flex;gap:4px;margin-top:6px;flex-wrap:wrap}
+.tg{font-size:10px;padding:2px 6px;border-radius:5px;background:#232a31;color:var(--tx2)}
+.tg.free{background:rgba(63,191,143,.15);color:var(--accent)}
+.tg.time{background:rgba(240,180,41,.14);color:var(--s)}
+.empty{padding:34px 18px;text-align:center;color:var(--tx3);font-size:12.5px;line-height:1.9}
+
+/* ---------- detail ---------- */
+#detail{position:absolute;inset:0;background:var(--panel);display:none;flex-direction:column;z-index:10}
+#detail.on{display:flex}
+.dhead{padding:12px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px}
+.back{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:5px 10px;font-size:12px;color:var(--tx2)}
+.dbody{flex:1;overflow-y:auto;padding:16px}
+.dtitle{display:flex;gap:12px;align-items:flex-start}
+.dtitle h2{margin:0;font-size:17px;line-height:1.45;font-weight:700}
+.dtitle .sub{font-size:11.5px;color:var(--tx3);margin-top:5px}
+.scorebox{margin-top:14px;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:12px}
+.sbtop{display:flex;align-items:center;gap:14px;margin-bottom:11px}
+.big{font-size:30px;font-weight:800;line-height:1;font-family:Georgia,serif}
+.big small{font-size:12px;color:var(--tx3);font-weight:400;margin-left:2px;font-family:inherit}
+.axgrid{display:grid;grid-template-columns:1fr 1fr;gap:5px 14px}
+.ax{display:flex;align-items:center;gap:6px;font-size:10.5px;color:var(--tx2)}
+.ax label{width:52px;flex:0 0 52px}
+.ax .bar{height:5px}
+.ax b{width:20px;text-align:right;font-weight:600;color:var(--tx)}
+.sect{margin-top:18px}
+.sect h3{font-size:12px;color:var(--tx3);margin:0 0 8px;font-weight:600;letter-spacing:.06em}
+.info{font-size:12.5px;line-height:1.85;color:var(--tx2)}
+.kv{display:flex;gap:8px;padding:5px 0;border-bottom:1px dashed var(--line)}
+.kv span:first-child{width:80px;flex:0 0 80px;color:var(--tx3);font-size:11.5px}
+.kv span:last-child{font-size:12.5px;flex:1}
+.openstat{display:inline-block;font-size:11px;font-weight:700;padding:3px 9px;border-radius:6px;margin-left:8px}
+.openstat.o{background:rgba(63,191,143,.18);color:var(--accent)}
+.openstat.x{background:rgba(124,136,148,.2);color:var(--tx3)}
+
+/* heatmap */
+.heat{width:100%;border-collapse:separate;border-spacing:3px;table-layout:fixed}
+.heat th{font-size:9.5px;color:var(--tx3);font-weight:500;padding:0 0 3px}
+.heat td.d{font-size:10.5px;color:var(--tx2);width:34px;text-align:left}
+.heat td.cell{height:26px;border-radius:5px;text-align:center;font-size:9.5px;color:#0f1214;font-weight:700}
+.heat td.cell.nodata{background:#232a31;color:var(--tx3);font-weight:400}
+.heat td.cell.now{outline:2px solid #fff;outline-offset:-2px}
+.heatleg{display:flex;gap:12px;margin-top:8px;font-size:10px;color:var(--tx3)}
+.heatleg span{display:flex;align-items:center;gap:4px}
+.heatleg i{width:9px;height:9px;border-radius:2px;display:block}
+
+.rev{background:var(--panel2);border-radius:10px;padding:10px 12px;margin-bottom:8px}
+.rev .top{display:flex;justify-content:space-between;font-size:11px;color:var(--tx3);margin-bottom:5px}
+.rev .top b{color:var(--tx2);font-weight:600}
+.rev p{margin:0;font-size:12.5px;line-height:1.75;color:var(--tx2)}
+.rev .mini{margin-top:6px;font-size:10px;color:var(--tx3);letter-spacing:.03em;line-height:1.7}
+.btn{display:block;width:100%;text-align:center;background:var(--accent);color:#08120e;
+  border:none;border-radius:10px;padding:11px;font-weight:700;font-size:13px;margin-top:10px}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--tx2);font-weight:600}
+.btn.ghost:hover{border-color:var(--accent);color:var(--accent)}
+.hint{font-size:11px;color:var(--tx3);line-height:1.7;margin:8px 0 0}
+
+/* ---------- form ---------- */
+.field{margin-bottom:11px}
+.field label{display:block;font-size:11.5px;color:var(--tx3);margin-bottom:5px}
+.field input,.field select,.field textarea{
+  width:100%;background:var(--panel2);border:1px solid var(--line);border-radius:8px;
+  padding:8px 10px;font-size:13px;outline:none}
+.field textarea{resize:vertical;min-height:62px;line-height:1.7}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--accent)}
+.stars{display:flex;align-items:center;gap:8px;margin-bottom:7px}
+.stars>label{width:92px;flex:0 0 92px;font-size:11.5px;color:var(--tx2)}
+.stars .st{display:flex;gap:2px}
+.stars .st button{background:none;border:none;padding:0;font-size:18px;line-height:1;color:#39424b;transition:.1s}
+.stars .st button.on{color:var(--s)}
+.seg{display:flex;gap:5px;flex-wrap:wrap}
+.seg button{background:var(--panel2);border:1px solid var(--line);border-radius:7px;
+  padding:5px 10px;font-size:11.5px;color:var(--tx2)}
+.seg button.on{background:rgba(63,191,143,.16);border-color:var(--accent);color:var(--accent)}
+
+/* ---------- map ui ---------- */
+.mapui{position:absolute;z-index:600}
+#addbtn{right:16px;bottom:26px;background:var(--accent);color:#08120e;border:none;
+  border-radius:999px;padding:12px 20px;font-weight:700;font-size:13.5px;box-shadow:var(--shadow)}
+#addbtn.arm{background:var(--s)}
+#toolbar{right:16px;top:16px;display:flex;flex-direction:column;gap:7px}
+#toolbar button{background:rgba(23,27,31,.94);border:1px solid var(--line);border-radius:9px;
+  padding:8px 11px;font-size:11.5px;color:var(--tx2);box-shadow:var(--shadow);white-space:nowrap}
+#toolbar button:hover{color:var(--accent);border-color:var(--accent)}
+#legend{left:16px;bottom:16px;background:rgba(23,27,31,.94);border:1px solid var(--line);
+  border-radius:10px;padding:10px 12px;font-size:11px;color:var(--tx2);box-shadow:var(--shadow)}
+#legend div{display:flex;align-items:center;gap:7px;margin-top:5px}
+#legend i{width:11px;height:11px;border-radius:3px;display:block}
+#banner{left:50%;transform:translateX(-50%);top:16px;background:rgba(240,180,41,.14);
+  border:1px solid rgba(240,180,41,.4);color:#f0b429;border-radius:9px;
+  padding:7px 14px;font-size:11.5px;box-shadow:var(--shadow);display:none;white-space:nowrap}
+#banner.on{display:block}
+
+.pin{width:26px;height:26px;border-radius:50% 50% 50% 4px;transform:rotate(-45deg);
+  display:grid;place-items:center;border:2px solid rgba(0,0,0,.35);box-shadow:0 3px 8px rgba(0,0,0,.5)}
+.pin b{transform:rotate(45deg);font-size:12px;font-weight:800;color:#0f1214;font-family:Georgia,serif}
+.pin.S{background:var(--s)} .pin.A{background:var(--a)}
+.pin.B{background:var(--b)} .pin.C{background:var(--c)}
+.pin.act{outline:3px solid rgba(255,255,255,.85);outline-offset:1px}
+.leaflet-tooltip.tip{
+  background:rgba(23,27,31,.96);border:1px solid var(--line);color:var(--tx);
+  font-size:11.5px;padding:5px 9px;border-radius:7px;box-shadow:var(--shadow)}
+.leaflet-tooltip.tip::before{display:none}
+.tip em{font-style:normal;color:var(--tx3);font-size:10.5px}
+
+/* modal */
+#modal{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:2000;display:none;
+  align-items:center;justify-content:center;padding:20px}
+#modal.on{display:flex}
+.sheet{background:var(--panel);border:1px solid var(--line);border-radius:14px;
+  width:100%;max-width:460px;max-height:88vh;overflow-y:auto;padding:18px;box-shadow:var(--shadow)}
+.sheet h2{margin:0 0 4px;font-size:16px}
+.sheet .lead{font-size:11.5px;color:var(--tx3);margin:0 0 14px;line-height:1.7}
+.sheet .grp{margin:14px 0 7px;font-size:11.5px;color:var(--tx3);font-weight:600}
+
+@media (max-width:900px){
+  #top{height:auto;flex-wrap:wrap;padding:10px 12px;gap:8px}
+  #top .brand{width:100%}
+  .region{margin-left:0;width:100%}
+  .region select{flex:1;min-width:0}
+  #topsearch{max-width:none;flex:1 1 100%}
+  #topcount{display:none}
+  #app{height:auto;flex:1;flex-direction:column-reverse}
+  body{display:flex;flex-direction:column}
+  #side{width:100%;flex:0 0 50vh;border-right:none;border-top:1px solid var(--line)}
+  #mapwrap{flex:1;min-height:38vh}
+  #addbtn{bottom:14px;right:12px;padding:10px 16px}
+  #legend{display:none}
+  .axgrid{grid-template-columns:1fr}
+}
+::-webkit-scrollbar{width:8px} ::-webkit-scrollbar-thumb{background:#2b333b;border-radius:4px}
+.leaflet-container{background:#20262c}
+.leaflet-control-attribution{background:rgba(15,18,20,.75)!important;color:#6c7a88!important;font-size:9px!important}
+.leaflet-control-attribution a{color:#9aa7b4!important}
+</style>
+</head>
+<body>
+
+<div id="top">
+  <div class="brand">
+    <div class="logo">📚</div>
+    <div>
+      <h1>スタディスポットMAP</h1>
+      <div class="tag">無料で勉強できる場所を、みんなでランク付け</div>
+    </div>
+  </div>
+  <div class="region">
+    <select id="pref"></select>
+    <span class="sep">›</span>
+    <select id="city"></select>
+  </div>
+  <input id="topsearch" placeholder="施設名で検索（例: 図書館、みるる）">
+  <div id="topcount"></div>
+  <div id="dbstat" title="データの保存先">…</div>
+</div>
+
+<div id="app">
+  <aside id="side">
+    <div class="controls">
+      <div class="rankfilter" id="rankf">
+        <button data-r="S" data-on="1">S</button>
+        <button data-r="A" data-on="1">A</button>
+        <button data-r="B" data-on="1">B</button>
+        <button data-r="C" data-on="1">C</button>
+      </div>
+      <div class="row">
+        <select id="cat">
+          <option value="">すべての種別</option>
+          <option>図書館</option><option>公民館・生涯学習センター</option>
+          <option>市民活動センター</option><option>道の駅</option>
+          <option>大学・学習施設</option><option>商業施設</option>
+        </select>
+        <select id="sort">
+          <option value="score">スコア順</option>
+          <option value="rank">ランク順</option>
+          <option value="late">遅くまで開いている順</option>
+          <option value="rev">口コミ数順</option>
+          <option value="name">名前順</option>
+        </select>
+      </div>
+      <div class="chips" id="chips">
+        <button class="chip now" data-f="now">🕐 いま空いてる</button>
+        <button class="chip" data-f="open">いま開いてる</button>
+        <button class="chip" data-f="power">電源</button>
+        <button class="chip" data-f="wifi">Wi-Fi</button>
+        <button class="chip" data-f="aircon">空調</button>
+        <button class="chip" data-f="water">水</button>
+        <button class="chip" data-f="privacy">人目が気にならない</button>
+        <button class="chip" data-f="quiet">静か</button>
+        <button class="chip" data-f="free">完全無料</button>
+      </div>
+    </div>
+
+    <div id="listhead"><span id="count"></span><span>ピンをクリックで詳細</span></div>
+    <div id="list"></div>
+
+    <div id="detail">
+      <div class="dhead">
+        <button class="back" id="back">← 一覧</button>
+        <div style="font-size:12px;color:var(--tx3)">スポット詳細</div>
+      </div>
+      <div class="dbody" id="dbody"></div>
+    </div>
+  </aside>
+
+  <div id="mapwrap">
+    <div id="map"></div>
+    <div class="mapui" id="toolbar">
+      <button id="btnCloud">☁ 共有DBの設定</button>
+      <button id="btnKey">🗺 Google Mapsに切替</button>
+      <button id="btnExport">⬇ データ書き出し</button>
+      <button id="btnImport">⬆ データ読み込み</button>
+      <button id="btnReset">↺ サンプルに戻す</button>
+    </div>
+    <div class="mapui" id="banner"></div>
+    <button class="mapui" id="addbtn">＋ スポットを追加</button>
+    <div class="mapui" id="legend">
+      <div style="color:var(--tx3);margin:0 0 2px">ランク</div>
+      <div><i style="background:var(--s)"></i>S — 神スポット（85点〜）</div>
+      <div><i style="background:var(--a)"></i>A — かなり快適（72〜84）</div>
+      <div><i style="background:var(--b)"></i>B — 普通に使える（58〜71）</div>
+      <div><i style="background:var(--c)"></i>C — 条件つき（〜57）</div>
+    </div>
+  </div>
+</div>
+
+<div id="modal"><div class="sheet" id="sheet"></div></div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+/* =========================================================
+   スタディスポットMAP — プロトタイプ
+   ※ 掲載データはすべて動作確認用のサンプルです。
+   ========================================================= */
+
+/* ---------- 評価軸 ---------- */
+const AXES = [
+  {k:'quiet',  label:'静音性',   w:.18, chip:'静か'},
+  {k:'power',  label:'電源',     w:.15, chip:'電源'},
+  {k:'wifi',   label:'Wi-Fi',    w:.13, chip:'Wi-Fi'},
+  {k:'seat',   label:'座席・机', w:.13, chip:'座席'},
+  {k:'privacy',label:'人目',     w:.12, chip:'人目が気にならない'},
+  {k:'aircon', label:'空調',     w:.11, chip:'空調'},
+  {k:'access', label:'アクセス', w:.10, chip:'アクセス'},
+  {k:'water',  label:'水',       w:.08, chip:'水'},
+];
+const RANKS=[{r:'S',min:85},{r:'A',min:72},{r:'B',min:58},{r:'C',min:0}];
+const RCOL={S:'var(--s)',A:'var(--a)',B:'var(--b)',C:'var(--c)'};
+
+/* ---------- 時間帯 ---------- */
+const SLOTS=[[9,11],[11,13],[13,15],[15,17],[17,19],[19,21]];
+const SLOT_LABEL=SLOTS.map(x=>`${x[0]}–${x[1]}`);
+const DAYS=[{k:'wd',label:'平日'},{k:'we',label:'土日'}];
+const LEVELS={1:{t:'混雑',c:'var(--busy)'},2:{t:'ふつう',c:'var(--mid)'},3:{t:'空き',c:'var(--ok)'}};
+
+function nowCell(){
+  const d=new Date(), h=d.getHours()+d.getMinutes()/60;
+  const day=(d.getDay()===0||d.getDay()===6)?'we':'wd';
+  const i=SLOTS.findIndex(s=>h>=s[0]&&h<s[1]);
+  return i<0?null:{day,slot:i};
+}
+
+/* ---------- 都道府県 ---------- */
+const PREFS=['北海道','青森県','岩手県','宮城県','秋田県','山形県','福島県','茨城県','栃木県','群馬県',
+'埼玉県','千葉県','東京都','神奈川県','新潟県','富山県','石川県','福井県','山梨県','長野県','岐阜県',
+'静岡県','愛知県','三重県','滋賀県','京都府','大阪府','兵庫県','奈良県','和歌山県','鳥取県','島根県',
+'岡山県','広島県','山口県','徳島県','香川県','愛媛県','高知県','福岡県','佐賀県','長崎県','熊本県',
+'大分県','宮崎県','鹿児島県','沖縄県'];
+
+/* ---------- サンプルデータ ---------- */
+const rid=()=>Math.random().toString(36).slice(2,9);
+// r(user, [quiet,power,wifi,seat,privacy,aircon,access,water], comment, visit)
+// visit: 'wd:2:3' = 平日 / 時間帯index / 1混雑 2ふつう 3空き
+function r(user,v,comment,visit){
+  const axes={}; AXES.forEach((a,i)=>axes[a.k]=v[i]);
+  let vi=null;
+  if(visit){ const p=visit.split(':'); vi={day:p[0],slot:+p[1],level:+p[2]}; }
+  return {id:rid(),user,axes,comment,visit:vi,date:'2026-06'};
+}
+function s(o){ return Object.assign({id:'seed-'+rid(),pref:'栃木県',seed:true},o); }
+
+const SEED=[
+ s({name:'栃木県立図書館',category:'図書館',city:'宇都宮市',address:'宇都宮市塙田1-3-23',
+   lat:36.5661,lng:139.8845,hoursWd:'9:00–19:00',hoursWe:'9:00–17:00',closed:'月曜・第4木曜',
+   fee:'無料',note:'閲覧席が広く長時間でも疲れにくい。館内は原則私語厳禁。給水機あり。',
+   reviews:[
+     r('ゆう',[5,4,4,5,4,4,4,4],'席数が多くて土曜の昼でも座れた。県内で一番安定して勉強できる場所だと思う。','we:2:2'),
+     r('takumi',[5,3,4,5,4,4,4,3],'電源席は数が限られるのでモバイルバッテリー推奨。静けさは文句なし。','wd:1:3'),
+   ]}),
+
+ s({name:'宇都宮市立中央図書館',category:'図書館',city:'宇都宮市',address:'宇都宮市明保野町7-57',
+   lat:36.5530,lng:139.8797,hoursWd:'9:30–19:00',hoursWe:'9:30–17:00',closed:'月曜',
+   fee:'無料',note:'2階の学習室が定番。試験期は朝一で埋まる。',
+   reviews:[
+     r('りん',[5,3,3,4,4,4,4,3],'学習室は静かで集中できる。ただ土日は開館前から並ぶくらい混む。','we:0:1'),
+     r('H.S',[4,3,3,4,3,4,5,3],'駅からバスですぐ。館内Wi-Fiは繋がるが少し遅い。','wd:3:2'),
+   ]}),
+
+ s({name:'那須塩原市図書館 みるる',category:'図書館',city:'那須塩原市',address:'那須塩原市本町1-1',
+   lat:36.9617,lng:140.0466,hoursWd:'9:00–21:00',hoursWe:'9:00–21:00',closed:'水曜',
+   fee:'無料',note:'夜21時まで開いている。館内が明るく席の種類が豊富。カフェ併設。',
+   reviews:[
+     r('なす民',[4,5,5,5,3,5,5,4],'黒磯駅の目の前。電源席もWi-Fiも充実していて21時まで居られるのが最強。','wd:5:3'),
+     r('ao',[4,5,5,5,3,5,5,4],'建築がきれいでモチベが上がる。多少の話し声はあるが気にならないレベル。','we:2:1'),
+     r('kenta',[3,4,5,4,2,4,5,4],'子ども連れも多いので完全に無音ではない。イヤホンがあると快適。','we:1:1'),
+   ]}),
+
+ s({name:'道の駅 うつのみや ろまんちっく村',category:'道の駅',city:'宇都宮市',address:'宇都宮市新里町丙254',
+   lat:36.6265,lng:139.8309,hoursWd:'9:00–18:00',hoursWe:'9:00–18:00',closed:'第3火曜',
+   fee:'無料（駐車場も無料）',note:'休憩スペースが広く車で来る人向け。長時間の滞在も咎められにくい。',
+   reviews:[
+     r('車中泊系',[3,2,3,4,3,3,3,4],'テーブル席が多くて作業しやすい。電源は基本ないので注意。','wd:1:3'),
+     r('もも',[3,1,3,3,2,3,2,4],'週末は家族連れでにぎやか。平日午前ならかなり快適。','we:2:1'),
+   ]}),
+
+ s({name:'宇都宮市中央生涯学習センター',category:'公民館・生涯学習センター',city:'宇都宮市',
+   address:'宇都宮市中央1-1-13',lat:36.5586,lng:139.8828,hoursWd:'9:00–21:30',hoursWe:'9:00–21:30',
+   closed:'第3月曜',fee:'無料',note:'ロビーの自習スペースが開放されている。夜遅くまで使える穴場。',
+   reviews:[
+     r('nao',[4,3,2,4,4,4,5,3],'市役所の近く。予約なしで使えるフリースペースがあるのが助かる。','wd:4:3'),
+     r('ゆう',[4,3,2,3,4,4,5,3],'Wi-Fiは弱め。静かさと営業時間の長さで選ぶ場所。','wd:5:3'),
+   ]}),
+
+ s({name:'小山市立中央図書館',category:'図書館',city:'小山市',address:'小山市中央町3-7-1',
+   lat:36.3143,lng:139.8007,hoursWd:'9:30–19:00',hoursWe:'9:30–18:00',closed:'月曜',
+   fee:'無料',note:'小山駅西口から徒歩圏。学習室あり。',
+   reviews:[
+     r('oyama_k',[5,3,3,4,4,4,5,3],'駅近で通いやすい。学習室は静かだが席数はそこまで多くない。','wd:3:2'),
+     r('SATO',[4,2,3,4,3,4,5,3],'電源はほぼ無いと思ったほうがいい。','we:1:1'),
+   ]}),
+
+ s({name:'足利市立図書館',category:'図書館',city:'足利市',address:'足利市有楽町832',
+   lat:36.3388,lng:139.4506,hoursWd:'9:00–18:00',hoursWe:'9:00–17:00',closed:'月曜',
+   fee:'無料',note:'落ち着いた雰囲気。市民会館に隣接。',
+   reviews:[
+     r('ashi',[4,2,3,4,4,3,3,3],'こぢんまりしているが人が少なく静か。長時間こもるのに向いている。','wd:2:3'),
+   ]}),
+
+ s({name:'栃木市立図書館',category:'図書館',city:'栃木市',address:'栃木市入舟町18-30',
+   lat:36.3810,lng:139.7333,hoursWd:'9:30–18:00',hoursWe:'9:30–17:00',closed:'月曜',
+   fee:'無料',note:'蔵の街エリア。閲覧席は落ち着いている。',
+   reviews:[
+     r('kura',[4,2,2,3,3,3,3,3],'席は少なめ。近くにカフェもあるので併用する人が多い。','wd:3:2'),
+   ]}),
+
+ s({name:'鹿沼市立図書館 本館',category:'図書館',city:'鹿沼市',address:'鹿沼市睦町287-14',
+   lat:36.5670,lng:139.7449,hoursWd:'9:30–18:00',hoursWe:'9:30–17:00',closed:'月曜',
+   fee:'無料',note:'駐車場が広く車で来やすい。',
+   reviews:[
+     r('kanuma',[4,2,2,4,4,4,3,3],'車前提の立地。静けさは十分。','wd:1:3'),
+     r('ぴー',[4,3,3,4,3,4,3,3],'新聞コーナーの近くは少し人の出入りがある。','we:2:2'),
+   ]}),
+
+ s({name:'佐野市立図書館',category:'図書館',city:'佐野市',address:'佐野市大蔵町2977',
+   lat:36.3148,lng:139.5788,hoursWd:'9:00–19:00',hoursWe:'9:00–17:00',closed:'月曜',
+   fee:'無料',note:'平日は空いていて席を取りやすい。',
+   reviews:[
+     r('sano3',[4,2,3,4,4,4,3,3],'19時まで開いているのが地味にありがたい。','wd:4:3'),
+   ]}),
+
+ s({name:'真岡市立図書館',category:'図書館',city:'真岡市',address:'真岡市，真岡駅周辺',
+   lat:36.4409,lng:140.0125,hoursWd:'9:00–19:00',hoursWe:'9:00–17:00',closed:'月曜',
+   fee:'無料',note:'駅から近く、学習席が確保しやすい。',
+   reviews:[
+     r('moka',[4,3,3,4,3,4,4,3],'高校生が多い時間帯は席が埋まる。午前中が狙い目。','wd:0:3'),
+     r('moka',[4,3,3,4,2,4,4,3],'夕方は制服だらけになる。','wd:4:1'),
+   ]}),
+
+ s({name:'日光市立今市図書館',category:'図書館',city:'日光市',address:'日光市今市，今市駅周辺',
+   lat:36.7196,lng:139.6987,hoursWd:'9:30–18:00',hoursWe:'9:30–17:00',closed:'月曜',
+   fee:'無料',note:'観光エリアから離れていて落ち着いている。',
+   reviews:[
+     r('nikko',[5,2,2,3,5,3,2,3],'とにかく静か。設備は最低限だが集中したい日には最適。','wd:2:3'),
+   ]}),
+
+ s({name:'宇都宮大学 峰キャンパス 附属図書館',category:'大学・学習施設',city:'宇都宮市',
+   address:'宇都宮市峰町350',lat:36.5478,lng:139.9075,hoursWd:'9:00–21:00',hoursWe:'10:00–17:00',
+   closed:'日曜（学外者は要確認）',fee:'無料（学外利用は受付で手続き）',
+   note:'学外利用の可否・時間は事前に電話で確認が必要。',
+   reviews:[
+     r('ohb',[5,5,5,5,4,5,3,4],'学外者でも閲覧利用ができる日がある。設備は圧倒的。行く前に確認推奨。','wd:5:3'),
+   ]}),
+
+ s({name:'ベルモール（フードコート）',category:'商業施設',city:'宇都宮市',address:'宇都宮市陽東6-2-1',
+   lat:36.5619,lng:139.9243,hoursWd:'10:00–21:00',hoursWe:'10:00–21:00',closed:'年中無休',
+   fee:'無料（飲食代は別）',note:'混雑時の長居はマナー的にNG。空いている時間帯向け。',
+   reviews:[
+     r('bell',[2,3,4,3,2,5,4,4],'平日夕方前なら空いていて作業しやすい。ただし完全に静かではない。','wd:3:3'),
+     r('むー',[2,2,4,3,1,5,4,4],'ランチタイムは勉強どころではないので避けたほうがいい。','wd:1:1'),
+   ]}),
+];
+
+/* ---------- スコア ---------- */
+function avgAxes(sp){
+  const o={}; AXES.forEach(a=>o[a.k]=0);
+  if(!sp.reviews.length) return o;
+  sp.reviews.forEach(rv=>AXES.forEach(a=>o[a.k]+=(rv.axes[a.k]??3)));
+  AXES.forEach(a=>o[a.k]/=sp.reviews.length);
+  return o;
+}
+function score100(sp){
+  if(!sp.reviews.length) return 0;
+  const a=avgAxes(sp);
+  return Math.round(AXES.reduce((t,x)=>t+a[x.k]*x.w,0)/5*100);
+}
+const rankOf=sc=>RANKS.find(x=>sc>=x.min).r;
+
+/* ---------- 空き状況 ---------- */
+function heatData(sp){
+  const g={}; DAYS.forEach(d=>g[d.k]=SLOTS.map(()=>({n:0,t:0})));
+  sp.reviews.forEach(rv=>{
+    const v=rv.visit; if(!v||!g[v.day]||v.slot==null) return;
+    const c=g[v.day][v.slot]; if(!c) return;
+    c.n++; c.t+=v.level;
+  });
+  return g;
+}
+function bestSlot(sp){
+  const g=heatData(sp); let best=null;
+  DAYS.forEach(d=>g[d.k].forEach((c,i)=>{
+    if(!c.n) return; const a=c.t/c.n;
+    if(!best||a>best.avg) best={avg:a,day:d.label,slot:SLOT_LABEL[i]};
+  }));
+  return best&&best.avg>=2.5?best:null;
+}
+function freeNow(sp){
+  const n=nowCell(); if(!n) return false;
+  const c=heatData(sp)[n.day][n.slot];
+  return c.n>0 && c.t/c.n>=2.5;
+}
+/* 営業時間（"9:00–19:00" 形式）から開館中か判定 */
+function parseHM(t){ const m=/(\d{1,2}):(\d{2})/.exec(t||''); return m?+m[1]+ +m[2]/60:null; }
+function hoursFor(sp){
+  const d=new Date().getDay();
+  return (d===0||d===6)?(sp.hoursWe||sp.hoursWd):(sp.hoursWd||sp.hoursWe);
+}
+function isOpenNow(sp){
+  const h=hoursFor(sp); if(!h) return null;
+  const p=h.split(/[–~-]/); if(p.length<2) return null;
+  const a=parseHM(p[0]), b=parseHM(p[1]); if(a==null||b==null) return null;
+  const now=new Date().getHours()+new Date().getMinutes()/60;
+  return now>=a&&now<b;
+}
+function closeHour(sp){ const h=hoursFor(sp)||''; const p=h.split(/[–~-]/); return p[1]?(parseHM(p[1])??0):0; }
+
+/* =========================================================
+   ストア — 共有DB(Supabase)が設定されていればそちら、
+   なければブラウザのlocalStorageにフォールバックする。
+   ========================================================= */
+const KEY='tsm.spots.v3', CKEY='tsm.supabase';
+let SPOTS=[];
+
+function loadLocal(){
+  try{ const j=localStorage.getItem(KEY); if(j){ const d=JSON.parse(j); if(Array.isArray(d)&&d.length) return d; } }catch(e){}
+  return JSON.parse(JSON.stringify(SEED));
+}
+const saveLocal=()=>{ try{ localStorage.setItem(KEY,JSON.stringify(SPOTS)); }catch(e){} };
+const cloudCfg=()=>{ try{ return JSON.parse(localStorage.getItem(CKEY)||'null'); }catch(e){ return null; } };
+
+function loadScript(src){
+  return new Promise((res,rej)=>{
+    const s=document.createElement('script'); s.src=src;
+    s.onload=()=>res(); s.onerror=()=>rej(new Error('スクリプトを読み込めませんでした'));
+    document.head.appendChild(s);
+  });
+}
+
+/* DBの行 <-> アプリのオブジェクト */
+function rowToReview(r){
+  const axes={}; AXES.forEach(a=>axes[a.k]=r['ax_'+a.k]??3);
+  return {id:r.id,user:r.user_name||'名無し',axes,comment:r.comment||'',
+    visit:(r.visit_day!=null&&r.visit_slot!=null)?{day:r.visit_day,slot:r.visit_slot,level:r.visit_level}:null,
+    date:(r.created_at||'').slice(0,7)};
+}
+function rowToSpot(r,revs){
+  return {id:r.id,name:r.name,pref:r.pref||'栃木県',city:r.city||'—',category:r.category||'図書館',
+    address:r.address||'',lat:r.lat,lng:r.lng,hoursWd:r.hours_wd||'',hoursWe:r.hours_we||'',
+    closed:r.closed_days||'',fee:r.fee||'',note:r.note||'',reviews:revs};
+}
+const spotToRow=sp=>({name:sp.name,pref:sp.pref,city:sp.city,category:sp.category,address:sp.address,
+  lat:sp.lat,lng:sp.lng,hours_wd:sp.hoursWd,hours_we:sp.hoursWe,closed_days:sp.closed,fee:sp.fee,note:sp.note});
+function reviewToRow(spotId,rv){
+  const o={spot_id:spotId,user_name:rv.user,comment:rv.comment,
+    visit_day:rv.visit?.day??null,visit_slot:rv.visit?.slot??null,visit_level:rv.visit?.level??null};
+  AXES.forEach(a=>o['ax_'+a.k]=rv.axes[a.k]);
+  return o;
+}
+
+const DB={
+  mode:'local', sb:null, err:'',
+  async init(){
+    const cfg=cloudCfg(); if(!cfg||!cfg.url||!cfg.key) return 'local';
+    try{
+      if(!window.supabase) await loadScript('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2');
+      this.sb=window.supabase.createClient(cfg.url,cfg.key);
+      const {error}=await this.sb.from('spots').select('id',{count:'exact',head:true});
+      if(error) throw error;
+      this.mode='cloud'; return 'cloud';
+    }catch(e){ this.err=e.message||String(e); this.mode='local'; return 'local'; }
+  },
+  async list(){
+    if(this.mode==='local') return loadLocal();
+    const [sp,rv]=await Promise.all([
+      this.sb.from('spots').select('*'),
+      this.sb.from('reviews').select('*').order('created_at',{ascending:true})
+    ]);
+    if(sp.error) throw sp.error;
+    if(rv.error) throw rv.error;
+    const by={}; (rv.data||[]).forEach(r=>{ (by[r.spot_id]??=[]).push(rowToReview(r)); });
+    return (sp.data||[]).map(r=>rowToSpot(r,by[r.id]||[]));
+  },
+  async addSpot(sp){
+    if(this.mode==='local'){ SPOTS.push(sp); saveLocal(); return sp; }
+    const ins=await this.sb.from('spots').insert(spotToRow(sp)).select().single();
+    if(ins.error) throw ins.error;
+    const rv=sp.reviews[0];
+    if(rv){
+      const r2=await this.sb.from('reviews').insert(reviewToRow(ins.data.id,rv)).select().single();
+      if(r2.error) throw r2.error;
+      rv.id=r2.data.id;
+    }
+    sp.id=ins.data.id; SPOTS.push(sp); return sp;
+  },
+  async addReview(sp,rv){
+    if(this.mode==='local'){ sp.reviews.push(rv); saveLocal(); return rv; }
+    const r=await this.sb.from('reviews').insert(reviewToRow(sp.id,rv)).select().single();
+    if(r.error) throw r.error;
+    rv.id=r.data.id; sp.reviews.push(rv); return rv;
+  },
+  /* サンプル14件を共有DBに流し込む（初回セットアップ用） */
+  async seed(){
+    if(this.mode!=='cloud') throw new Error('共有DBに接続していません');
+    const src=JSON.parse(JSON.stringify(SEED));
+    for(const sp of src){
+      const ins=await this.sb.from('spots').insert(spotToRow(sp)).select().single();
+      if(ins.error) throw ins.error;
+      const rows=sp.reviews.map(rv=>reviewToRow(ins.data.id,rv));
+      if(rows.length){ const e=await this.sb.from('reviews').insert(rows); if(e.error) throw e.error; }
+    }
+    return src.length;
+  }
+};
+
+function renderDbStat(){
+  const el=document.getElementById('dbstat');
+  if(DB.mode==='cloud'){ el.className='cloud'; el.textContent='☁ 共有DB'; el.title='共有データベースに接続中。書き込みは全員に反映されます'; }
+  else { el.className=''; el.textContent='端末内に保存'; el.title='この端末のブラウザ内にのみ保存されます。クリックで共有DBの設定'+(DB.err?`（接続エラー: ${DB.err}）`:''); }
+}
+
+/* ---------- 状態 ---------- */
+const state={pref:'栃木県',city:'',q:'',cat:'',sort:'score',ranks:{S:1,A:1,B:1,C:1},chips:{},sel:null,adding:false};
+
+/* ---------- 地図アダプタ ---------- */
+const GKEY='tsm.gmapskey';
+let MapA=null;
+
+function LeafletAdapter(){
+  const map=L.map('map',{zoomControl:false}).setView([36.62,139.83],9.4);
+  L.control.zoom({position:'topleft'}).addTo(map);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+    {attribution:'&copy; OpenStreetMap &copy; CARTO',maxZoom:19}).addTo(map);
+  let markers=[];
+  return {
+    kind:'leaflet',
+    clear(){ markers.forEach(m=>map.removeLayer(m)); markers=[]; },
+    add(sp,rank,sc,onClick){
+      const icon=L.divIcon({html:`<div class="pin ${rank}" data-id="${sp.id}"><b>${rank}</b></div>`,
+        className:'',iconSize:[26,26],iconAnchor:[13,26]});
+      const m=L.marker([sp.lat,sp.lng],{icon}).addTo(map).on('click',()=>onClick(sp.id));
+      m.bindTooltip(`<b>${esc(sp.name)}</b><br><em>${sc}点 ・ ${esc(hoursFor(sp)||'—')}</em>`,
+        {className:'tip',direction:'top',offset:[0,-28]});
+      markers.push(m);
+    },
+    highlight(id){ document.querySelectorAll('.pin').forEach(p=>p.classList.toggle('act',p.dataset.id===id)); },
+    focus(sp){ map.setView([sp.lat,sp.lng],Math.max(map.getZoom(),13),{animate:true}); },
+    fit(rows){ if(!rows.length) return; map.fitBounds(rows.map(x=>[x.lat,x.lng]),{padding:[60,60],maxZoom:13}); },
+    onMapClick(fn){ map.on('click',e=>fn(e.latlng.lat,e.latlng.lng)); },
+    cursor(on){ document.getElementById('map').style.cursor=on?'crosshair':''; }
+  };
+}
+
+function GoogleAdapter(){
+  const map=new google.maps.Map(document.getElementById('map'),{
+    center:{lat:36.62,lng:139.83},zoom:9,disableDefaultUI:true,zoomControl:true,
+    zoomControlOptions:{position:google.maps.ControlPosition.LEFT_TOP},
+    styles:[{elementType:'geometry',stylers:[{color:'#20262c'}]},
+      {elementType:'labels.text.fill',stylers:[{color:'#9aa7b4'}]},
+      {elementType:'labels.text.stroke',stylers:[{color:'#0f1214'}]},
+      {featureType:'water',elementType:'geometry',stylers:[{color:'#141a1f'}]},
+      {featureType:'road',elementType:'geometry',stylers:[{color:'#2b333b'}]},
+      {featureType:'poi',elementType:'labels',stylers:[{visibility:'off'}]}]
+  });
+  let markers=[];
+  const col={S:'#f0b429',A:'#3fbf8f',B:'#4d9de0',C:'#7c8894'};
+  return {
+    kind:'google',
+    clear(){ markers.forEach(m=>m.setMap(null)); markers=[]; },
+    add(sp,rank,sc,onClick){
+      const m=new google.maps.Marker({position:{lat:sp.lat,lng:sp.lng},map,
+        title:`${sp.name}（${sc}点 / ${hoursFor(sp)||'—'}）`,
+        label:{text:rank,color:'#0f1214',fontWeight:'800',fontSize:'12px'},
+        icon:{path:google.maps.SymbolPath.CIRCLE,scale:13,fillColor:col[rank],
+          fillOpacity:1,strokeColor:'rgba(0,0,0,.4)',strokeWeight:2}});
+      m._sid=sp.id; m.addListener('click',()=>onClick(sp.id)); markers.push(m);
+    },
+    highlight(id){ markers.forEach(m=>{const on=m._sid===id,ic=m.getIcon();
+      m.setIcon({...ic,scale:on?16:13,strokeColor:on?'#ffffff':'rgba(0,0,0,.4)',strokeWeight:on?3:2});}); },
+    focus(sp){ map.panTo({lat:sp.lat,lng:sp.lng}); if(map.getZoom()<13) map.setZoom(13); },
+    fit(rows){ if(!rows.length) return;
+      const b=new google.maps.LatLngBounds();
+      rows.forEach(x=>b.extend({lat:x.lat,lng:x.lng}));
+      map.fitBounds(b,60); },
+    onMapClick(fn){ map.addListener('click',e=>fn(e.latLng.lat(),e.latLng.lng())); },
+    cursor(on){ map.setOptions({draggableCursor:on?'crosshair':null}); }
+  };
+}
+
+function bootMap(){
+  const k=localStorage.getItem(GKEY);
+  if(k){
+    const sc=document.createElement('script');
+    sc.src=`https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(k)}&language=ja&region=JP`;
+    sc.onload=()=>initAdapter(GoogleAdapter());
+    sc.onerror=()=>{ toast('Google Mapsの読み込みに失敗。OpenStreetMapで表示します'); initAdapter(LeafletAdapter()); };
+    document.head.appendChild(sc);
+  }else initAdapter(LeafletAdapter());
+}
+function initAdapter(a){
+  MapA=a;
+  MapA.onMapClick((lat,lng)=>{ if(state.adding) openAddForm(lat,lng); });
+  document.getElementById('btnKey').textContent=a.kind==='google'?'🗺 OpenStreetMapに切替':'🗺 Google Mapsに切替';
+  render();
+  const rows=filtered();
+  MapA.fit(rows);
+  if(rows.length) selectSpot(rows[0].id,false);   // ← 開いてすぐ1位の情報が見える
+}
+
+/* ---------- 絞り込み ---------- */
+function filtered(){
+  const q=state.q.trim().toLowerCase();
+  let out=SPOTS.filter(sp=>{
+    if(state.pref && (sp.pref||'栃木県')!==state.pref) return false;
+    if(state.city && sp.city!==state.city) return false;
+    const sc=score100(sp);
+    if(!state.ranks[rankOf(sc)]) return false;
+    if(state.cat && sp.category!==state.cat) return false;
+    if(q && !(sp.name+sp.city+(sp.address||'')+sp.category).toLowerCase().includes(q)) return false;
+    const a=avgAxes(sp);
+    for(const k of ['power','wifi','aircon','water','privacy'])
+      if(state.chips[k] && a[k]<3.5) return false;
+    if(state.chips.quiet && a.quiet<4) return false;
+    if(state.chips.free && !/無料/.test(sp.fee||'')) return false;
+    if(state.chips.open && isOpenNow(sp)!==true) return false;
+    if(state.chips.now && !freeNow(sp)) return false;
+    return true;
+  });
+  const key={score:x=>-score100(x),rank:x=>-score100(x),late:x=>-closeHour(x),
+             rev:x=>-x.reviews.length,name:x=>x.name}[state.sort];
+  out.sort((x,y)=>{const a=key(x),b=key(y);return a<b?-1:a>b?1:0;});
+  return out;
+}
+
+/* ---------- 地域セレクタ ---------- */
+function fillRegion(){
+  const pf=document.getElementById('pref');
+  const counts={}; SPOTS.forEach(sp=>{const p=sp.pref||'栃木県';counts[p]=(counts[p]||0)+1;});
+  pf.innerHTML=`<option value="">全国</option>`+
+    PREFS.map(p=>`<option value="${p}" ${p===state.pref?'selected':''}>${p}${counts[p]?` (${counts[p]})`:''}</option>`).join('');
+  const cs=[...new Set(SPOTS.filter(sp=>!state.pref||(sp.pref||'栃木県')===state.pref).map(sp=>sp.city))].sort();
+  const cy=document.getElementById('city');
+  cy.innerHTML=`<option value="">すべての市町村</option>`+
+    cs.map(c=>`<option value="${c}" ${c===state.city?'selected':''}>${c}</option>`).join('');
+}
+
+/* ---------- 描画 ---------- */
+function render(){
+  const rows=filtered();
+  document.getElementById('count').textContent=`${rows.length} 件`;
+  document.getElementById('topcount').textContent=
+    `${state.pref||'全国'}${state.city?' / '+state.city:''} — ${rows.length}件`;
+
+  const list=document.getElementById('list');
+  list.innerHTML= rows.length ? rows.map(sp=>{
+    const sc=score100(sp),rk=rankOf(sc),a=avgAxes(sp),bs=bestSlot(sp),op=isOpenNow(sp);
+    const tags=[];
+    if(op===true) tags.push(`<span class="tg free">開館中 ${esc(hoursFor(sp)||'')}</span>`);
+    else if(op===false) tags.push(`<span class="tg">${esc(hoursFor(sp)||'')}</span>`);
+    if(bs) tags.push(`<span class="tg time">${bs.day}${bs.slot}時が空き</span>`);
+    AXES.filter(x=>['power','wifi','aircon','water'].includes(x.k)&&a[x.k]>=4)
+        .forEach(x=>tags.push(`<span class="tg">${x.chip}</span>`));
+    return `<div class="card ${state.sel===sp.id?'sel':''}" data-id="${sp.id}">
+      <div class="badge ${rk}">${rk}</div>
+      <div class="cbody">
+        <div class="cname">${esc(sp.name)}</div>
+        <div class="cmeta">${esc(sp.city)}・${esc(sp.category)}</div>
+        <div class="cscore"><span style="width:30px">${sc}点</span>
+          <span class="bar"><i style="width:${sc}%;background:${RCOL[rk]}"></i></span>
+          <span>口コミ${sp.reviews.length}</span></div>
+        <div class="ctags">${tags.join('')}</div>
+      </div></div>`;
+  }).join('') : `<div class="empty">${state.pref||'この地域'}にはまだスポットがありません。<br>
+      右下の「＋ スポットを追加」から、<br>あなたの知っている場所を最初に登録してみてください。</div>`;
+
+  list.querySelectorAll('.card').forEach(c=>c.onclick=()=>selectSpot(c.dataset.id));
+
+  if(MapA){
+    MapA.clear();
+    rows.forEach(sp=>MapA.add(sp,rankOf(score100(sp)),score100(sp),selectSpot));
+    if(state.sel) MapA.highlight(state.sel);
+  }
+}
+
+function selectSpot(id,focus=true){
+  const sp=SPOTS.find(x=>x.id===id); if(!sp) return;
+  state.sel=id;
+  if(MapA){ if(focus) MapA.focus(sp); MapA.highlight(id); }
+  document.getElementById('dbody').innerHTML=detailHTML(sp);
+  document.getElementById('detail').classList.add('on');
+  document.getElementById('dbody').scrollTop=0;
+  const b=document.getElementById('addRev'); if(b) b.onclick=()=>openReviewForm(sp);
+  render();
+}
+
+function heatHTML(sp){
+  const g=heatData(sp),n=nowCell();
+  const head=`<tr><th></th>${SLOT_LABEL.map(l=>`<th>${l}</th>`).join('')}</tr>`;
+  const body=DAYS.map(d=>`<tr><td class="d">${d.label}</td>`+
+    g[d.k].map((c,i)=>{
+      const isNow=n&&n.day===d.k&&n.slot===i?' now':'';
+      if(!c.n) return `<td class="cell nodata${isNow}">–</td>`;
+      const a=c.t/c.n, lv=a>=2.5?3:a>=1.7?2:1;
+      return `<td class="cell${isNow}" style="background:${LEVELS[lv].c}">${LEVELS[lv].t}</td>`;
+    }).join('')+`</tr>`).join('');
+  return `<table class="heat">${head}${body}</table>
+    <div class="heatleg">
+      <span><i style="background:var(--ok)"></i>空き</span>
+      <span><i style="background:var(--mid)"></i>ふつう</span>
+      <span><i style="background:var(--busy)"></i>混雑</span>
+      <span><i style="background:#232a31"></i>情報なし</span>
+      <span style="margin-left:auto">白枠＝現在</span>
+    </div>`;
+}
+
+function detailHTML(sp){
+  const sc=score100(sp),rk=rankOf(sc),a=avgAxes(sp),op=isOpenNow(sp);
+  const ax=AXES.map(x=>`<div class="ax"><label>${x.label}</label>
+      <span class="bar"><i style="width:${a[x.k]/5*100}%;background:${RCOL[rk]}"></i></span>
+      <b>${a[x.k].toFixed(1)}</b></div>`).join('');
+  const revs= sp.reviews.length ? sp.reviews.slice().reverse().map(rv=>{
+    const v=rv.visit?`　訪問: ${DAYS.find(d=>d.k===rv.visit.day)?.label||''} ${SLOT_LABEL[rv.visit.slot]||''}時 / ${LEVELS[rv.visit.level]?.t||''}`:'';
+    return `<div class="rev">
+      <div class="top"><b>${esc(rv.user||'名無し')}</b><span>${esc(rv.date||'')}</span></div>
+      <p>${esc(rv.comment||'（コメントなし）')}</p>
+      <div class="mini">${AXES.map(x=>x.label+' '+(rv.axes[x.k]??'-')).join('　')}${esc(v)}</div>
+    </div>`;}).join('')
+    : `<div class="info" style="color:var(--tx3)">まだ口コミがありません。最初の一人になりませんか？</div>`;
+
+  return `
+  <div class="dtitle">
+    <div class="badge ${rk}" style="width:44px;height:44px;flex:0 0 44px;font-size:20px">${rk}</div>
+    <div><h2>${esc(sp.name)}</h2>
+      <div class="sub">${esc(sp.pref||'')} ${esc(sp.city)}・${esc(sp.category)}</div></div>
+  </div>
+
+  <div class="scorebox">
+    <div class="sbtop">
+      <div style="text-align:center;min-width:66px">
+        <div class="big" style="color:${RCOL[rk]}">${sc}<small>/100</small></div>
+        <div style="font-size:10.5px;color:var(--tx3);margin-top:5px">口コミ ${sp.reviews.length}件</div>
+      </div>
+      <div style="flex:1;font-size:11.5px;color:var(--tx2);line-height:1.8">
+        本日 ${esc(hoursFor(sp)||'—')}
+        ${op===true?'<span class="openstat o">開館中</span>':op===false?'<span class="openstat x">時間外</span>':''}
+        <br><span style="color:var(--tx3)">休館: ${esc(sp.closed||'—')}</span>
+      </div>
+    </div>
+    <div class="axgrid">${ax}</div>
+  </div>
+
+  <div class="sect">
+    <h3>時間帯ごとの空き状況</h3>
+    ${heatHTML(sp)}
+    <p class="hint">口コミ投稿時の「行った時間帯と混み具合」から集計しています。</p>
+  </div>
+
+  <div class="sect">
+    <h3>基本情報</h3>
+    <div class="kv"><span>住所</span><span>${esc(sp.address||'—')}</span></div>
+    <div class="kv"><span>平日</span><span>${esc(sp.hoursWd||'—')}</span></div>
+    <div class="kv"><span>土日祝</span><span>${esc(sp.hoursWe||'—')}</span></div>
+    <div class="kv"><span>休館日</span><span>${esc(sp.closed||'—')}</span></div>
+    <div class="kv"><span>料金</span><span>${esc(sp.fee||'—')}</span></div>
+    <div class="kv" style="border:none"><span>メモ</span><span>${esc(sp.note||'—')}</span></div>
+    <a class="btn ghost" style="text-decoration:none;margin-top:12px" target="_blank" rel="noopener"
+       href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(sp.name+' '+(sp.address||''))}">
+       Googleマップで開く（営業時間・写真を確認）</a>
+  </div>
+
+  <div class="sect">
+    <h3>みんなの口コミ・評価</h3>
+    ${revs}
+    <button class="btn" id="addRev">＋ 評価・口コミを書く</button>
+  </div>
+
+  <p class="hint">※ サンプルデータを含みます。データはこのブラウザ内にのみ保存されます。</p>`;
+}
+
+/* ---------- 入力部品 ---------- */
+function starsRow(k,label,val){
+  return `<div class="stars"><label>${label}</label><div class="st" data-k="${k}">
+    ${[1,2,3,4,5].map(i=>`<button type="button" data-v="${i}" class="${i<=val?'on':''}">★</button>`).join('')}
+  </div></div>`;
+}
+function wireStars(root,vals){
+  root.querySelectorAll('.st').forEach(st=>st.querySelectorAll('button').forEach(b=>{
+    b.onclick=()=>{ const v=+b.dataset.v; vals[st.dataset.k]=v;
+      st.querySelectorAll('button').forEach(x=>x.classList.toggle('on',+x.dataset.v<=v)); };
+  }));
+}
+function segHTML(name,items,sel){
+  return `<div class="seg" data-seg="${name}">${items.map(it=>
+    `<button type="button" data-v="${it.v}" class="${it.v==sel?'on':''}">${it.t}</button>`).join('')}</div>`;
+}
+function wireSeg(root,store){
+  root.querySelectorAll('.seg').forEach(sg=>sg.querySelectorAll('button').forEach(b=>{
+    b.onclick=()=>{ store[sg.dataset.seg]=b.dataset.v;
+      sg.querySelectorAll('button').forEach(x=>x.classList.remove('on')); b.classList.add('on'); };
+  }));
+}
+function visitBlock(sel){
+  return `<div class="grp">行った曜日・時間帯（空き状況の集計に使います）</div>
+    ${segHTML('day',DAYS.map(d=>({v:d.k,t:d.label})),sel.day)}
+    <div style="height:5px"></div>
+    ${segHTML('slot',SLOT_LABEL.map((l,i)=>({v:i,t:l+'時'})),sel.slot)}
+    <div class="grp">その時の混み具合</div>
+    ${segHTML('level',[{v:3,t:'空いていた'},{v:2,t:'ふつう'},{v:1,t:'混んでいた'}],sel.level)}`;
+}
+
+/* ---------- 口コミ投稿 ---------- */
+function openReviewForm(sp){
+  const vals={}; AXES.forEach(x=>vals[x.k]=3);
+  const n=nowCell()||{day:'wd',slot:2};
+  const sel={day:n.day,slot:String(n.slot),level:'3'};
+  openModal(`<h2>${esc(sp.name)}</h2>
+    <p class="lead">8つの観点で評価してください。全員の平均からスコアとランクが自動計算されます。</p>
+    ${AXES.map(x=>starsRow(x.k,x.label,3)).join('')}
+    ${visitBlock(sel)}
+    <div class="field" style="margin-top:14px"><label>ニックネーム</label><input id="ru" placeholder="名無しでもOK"></div>
+    <div class="field"><label>コメント</label>
+      <textarea id="rc" placeholder="例）平日の午前中は空いていて席を選べる。電源は窓際の6席のみ。"></textarea></div>
+    <button class="btn" id="rsave">投稿する</button>
+    <button class="btn ghost" id="rcancel">キャンセル</button>`);
+  const sh=document.getElementById('sheet');
+  wireStars(sh,vals); wireSeg(sh,sel);
+  sh.querySelector('#rcancel').onclick=closeModal;
+  sh.querySelector('#rsave').onclick=async(e)=>{
+    const btn=e.currentTarget; btn.disabled=true; btn.textContent='保存中…';
+    const rv={id:rid(),user:sh.querySelector('#ru').value.trim()||'名無し',
+      axes:{...vals},comment:sh.querySelector('#rc').value.trim(),
+      visit:{day:sel.day,slot:+sel.slot,level:+sel.level},
+      date:new Date().toISOString().slice(0,7)};
+    try{ await DB.addReview(sp,rv); }
+    catch(err){ btn.disabled=false; btn.textContent='投稿する'; toast('保存できませんでした: '+(err.message||err)); return; }
+    closeModal(); selectSpot(sp.id,false);
+    toast(DB.mode==='cloud'?'口コミを投稿しました（全員に公開）':'口コミを投稿しました（この端末内）');
+  };
+}
+
+/* ---------- スポット追加 ---------- */
+function openAddForm(lat,lng){
+  setAdding(false);
+  const vals={}; AXES.forEach(x=>vals[x.k]=3);
+  const n=nowCell()||{day:'wd',slot:2};
+  const sel={day:n.day,slot:String(n.slot),level:'3'};
+  openModal(`<h2>スポットを追加</h2>
+    <p class="lead">緯度 ${lat.toFixed(5)} / 経度 ${lng.toFixed(5)} に登録します。<br>
+    最初の評価がそのままこのスポットのスコアになります。</p>
+    <div class="field"><label>施設名 <span style="color:var(--s)">*</span></label><input id="n" placeholder="例）○○市立図書館"></div>
+    <div class="row" style="gap:8px">
+      <div class="field" style="flex:1"><label>都道府県</label>
+        <select id="pf">${PREFS.map(p=>`<option ${p===(state.pref||'栃木県')?'selected':''}>${p}</option>`).join('')}</select></div>
+      <div class="field" style="flex:1"><label>市町村</label><input id="ci" value="${esc(state.city||'')}" placeholder="例）宇都宮市"></div>
+    </div>
+    <div class="field"><label>種別</label>
+      <select id="ca"><option>図書館</option><option>公民館・生涯学習センター</option>
+      <option>市民活動センター</option><option>道の駅</option>
+      <option>大学・学習施設</option><option>商業施設</option></select></div>
+    <div class="field"><label>住所</label><input id="ad" placeholder="例）宇都宮市○○町1-2-3"></div>
+    <div class="row" style="gap:8px">
+      <div class="field" style="flex:1"><label>平日の利用時間</label><input id="hw" placeholder="9:00–19:00"></div>
+      <div class="field" style="flex:1"><label>土日祝の利用時間</label><input id="he" placeholder="9:00–17:00"></div>
+    </div>
+    <div class="row" style="gap:8px">
+      <div class="field" style="flex:1"><label>休館日</label><input id="cl" placeholder="例）月曜"></div>
+      <div class="field" style="flex:1"><label>料金</label><input id="fe" value="無料"></div>
+    </div>
+    <div class="grp">あなたの評価</div>
+    ${AXES.map(x=>starsRow(x.k,x.label,3)).join('')}
+    ${visitBlock(sel)}
+    <div class="field" style="margin-top:14px"><label>コメント・注意点</label>
+      <textarea id="no" placeholder="例）2階の学習室が自由に使える。土日は混雑。給水機は1階。"></textarea></div>
+    <button class="btn" id="asave">登録する</button>
+    <button class="btn ghost" id="acancel">キャンセル</button>`);
+  const sh=document.getElementById('sheet');
+  wireStars(sh,vals); wireSeg(sh,sel);
+  sh.querySelector('#acancel').onclick=closeModal;
+  sh.querySelector('#asave').onclick=async(e)=>{
+    const name=sh.querySelector('#n').value.trim();
+    if(!name){ toast('施設名を入力してください'); return; }
+    const btn=e.currentTarget; btn.disabled=true; btn.textContent='保存中…';
+    const note=sh.querySelector('#no').value.trim();
+    const sp={id:'u-'+rid(),name,
+      pref:sh.querySelector('#pf').value,
+      city:sh.querySelector('#ci').value.trim()||'—',
+      category:sh.querySelector('#ca').value,
+      address:sh.querySelector('#ad').value.trim(),lat,lng,
+      hoursWd:sh.querySelector('#hw').value.trim(),
+      hoursWe:sh.querySelector('#he').value.trim(),
+      closed:sh.querySelector('#cl').value.trim(),
+      fee:sh.querySelector('#fe').value.trim(),note,
+      reviews:[{id:rid(),user:'投稿者',axes:{...vals},comment:note||'（登録時の評価）',
+        visit:{day:sel.day,slot:+sel.slot,level:+sel.level},
+        date:new Date().toISOString().slice(0,7)}]};
+    try{ await DB.addSpot(sp); }
+    catch(err){ btn.disabled=false; btn.textContent='登録する'; toast('保存できませんでした: '+(err.message||err)); return; }
+    closeModal();
+    state.pref=sp.pref; state.city='';
+    fillRegion(); render(); selectSpot(sp.id);
+    toast(DB.mode==='cloud'?'スポットを登録しました（全員に公開）':'スポットを登録しました（この端末内）');
+  };
+}
+
+function setAdding(on){
+  state.adding=on;
+  const b=document.getElementById('addbtn');
+  b.classList.toggle('arm',on);
+  b.textContent=on?'✕ 追加をやめる':'＋ スポットを追加';
+  MapA&&MapA.cursor(on);
+  banner(on?'地図をクリックして場所を指定してください':'');
+}
+
+/* ---------- モーダル / トースト ---------- */
+function openModal(html){
+  document.getElementById('sheet').innerHTML=html;
+  document.getElementById('modal').classList.add('on');
+  document.getElementById('sheet').scrollTop=0;
+}
+const closeModal=()=>document.getElementById('modal').classList.remove('on');
+document.getElementById('modal').onclick=e=>{ if(e.target.id==='modal') closeModal(); };
+
+let tTimer=null;
+function banner(msg){ const b=document.getElementById('banner'); b.textContent=msg; b.classList.toggle('on',!!msg); }
+function toast(msg){ banner(msg); clearTimeout(tTimer); tTimer=setTimeout(()=>{ if(!state.adding) banner(''); },2400); }
+function esc(s){ return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+/* ---------- イベント ---------- */
+function backToList(){
+  document.getElementById('detail').classList.remove('on');
+  state.sel=null; MapA&&MapA.highlight(null); render();
+}
+document.getElementById('pref').onchange=e=>{
+  state.pref=e.target.value; state.city=''; fillRegion(); backToList();
+  const rows=filtered(); MapA&&MapA.fit(rows);
+  if(rows.length) selectSpot(rows[0].id,false);
+};
+document.getElementById('city').onchange=e=>{
+  state.city=e.target.value; backToList();
+  const rows=filtered(); MapA&&MapA.fit(rows);
+};
+document.getElementById('topsearch').oninput=e=>{ state.q=e.target.value; render(); };
+document.getElementById('cat').onchange=e=>{ state.cat=e.target.value; render(); };
+document.getElementById('sort').onchange=e=>{ state.sort=e.target.value; render(); };
+document.getElementById('rankf').onclick=e=>{
+  const b=e.target.closest('button'); if(!b) return;
+  const on=b.dataset.on==='1'?'0':'1'; b.dataset.on=on; state.ranks[b.dataset.r]=on==='1'; render();
+};
+document.getElementById('chips').onclick=e=>{
+  const b=e.target.closest('.chip'); if(!b) return;
+  const on=b.dataset.on==='1'?'0':'1'; b.dataset.on=on; state.chips[b.dataset.f]=on==='1'; render();
+};
+document.getElementById('back').onclick=backToList;
+document.getElementById('addbtn').onclick=()=>setAdding(!state.adding);
+
+document.getElementById('btnKey').onclick=()=>{
+  if(localStorage.getItem(GKEY)){ localStorage.removeItem(GKEY); location.reload(); return; }
+  openModal(`<h2>Google Maps に切り替える</h2>
+    <p class="lead">Google Cloud で発行した <b>Maps JavaScript API</b> のキーを入力すると地図がGoogleマップに切り替わります。
+    キーはこのブラウザ内にのみ保存され、送信されません。未入力でも OpenStreetMap で動作します。</p>
+    <div class="field"><label>APIキー</label><input id="gk" placeholder="AIza..."></div>
+    <button class="btn" id="gksave">保存して読み込む</button>
+    <button class="btn ghost" id="gkcancel">キャンセル</button>`);
+  const sh=document.getElementById('sheet');
+  sh.querySelector('#gkcancel').onclick=closeModal;
+  sh.querySelector('#gksave').onclick=()=>{
+    const v=sh.querySelector('#gk').value.trim();
+    if(!v){ toast('キーを入力してください'); return; }
+    localStorage.setItem(GKEY,v); location.reload();
+  };
+};
+document.getElementById('btnExport').onclick=()=>{
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([JSON.stringify(SPOTS,null,2)],{type:'application/json'}));
+  a.download='study-spots.json'; a.click(); toast('JSONを書き出しました');
+};
+document.getElementById('btnImport').onclick=()=>{
+  const i=document.createElement('input'); i.type='file'; i.accept='.json';
+  i.onchange=()=>{ const f=i.files[0]; if(!f) return;
+    const fr=new FileReader();
+    fr.onload=()=>{ try{
+        const d=JSON.parse(fr.result); if(!Array.isArray(d)) throw 0;
+        SPOTS=d; saveLocal(); backToList(); fillRegion(); render();
+        toast(`${d.length}件を読み込みました${DB.mode==='cloud'?'（表示のみ・共有DBには書き込まれません）':''}`);
+      }catch(e){ toast('読み込めませんでした（JSON形式を確認してください）'); } };
+    fr.readAsText(f); };
+  i.click();
+};
+document.getElementById('btnReset').onclick=()=>{
+  if(DB.mode==='cloud'){ toast('共有DB接続中は使えません（消すならSupabase側で操作してください）'); return; }
+  if(!confirm('この端末に登録したスポットと口コミをすべて消して、サンプルデータに戻します。よろしいですか？')) return;
+  localStorage.removeItem(KEY); SPOTS=loadLocal(); state.pref='栃木県'; state.city='';
+  backToList(); fillRegion(); render(); toast('サンプルデータに戻しました');
+};
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){ closeModal(); if(state.adding) setAdding(false); }
+});
+
+/* ---------- 共有DB(Supabase)の設定 ---------- */
+function openCloudForm(){
+  const cfg=cloudCfg()||{url:'',key:''};
+  openModal(`<h2>共有データベースに接続</h2>
+    <p class="lead">Supabase のプロジェクトURLと <b>anon public</b> キーを入れると、
+    スポットと口コミが全員で共有されます。未設定ならこの端末内にだけ保存されます。<br>
+    テーブルは同梱の <b>supabase-schema.sql</b> を Supabase の SQL Editor に貼って実行すると作れます。</p>
+    <div class="field"><label>Project URL</label><input id="su" value="${esc(cfg.url)}" placeholder="https://xxxx.supabase.co"></div>
+    <div class="field"><label>anon public key</label><input id="sk" value="${esc(cfg.key)}" placeholder="eyJhbGciOi..."></div>
+    <p class="hint">anonキーは公開前提の鍵なのでブラウザに置いて問題ありませんが、
+    テーブルのRLS（行レベルセキュリティ）は必ず設定してください。schema.sqlに雛形が入っています。</p>
+    <button class="btn" id="ssave">接続する</button>
+    ${DB.mode==='cloud'?`<button class="btn ghost" id="sseed">サンプル14件を共有DBに投入する</button>`:''}
+    <button class="btn ghost" id="soff">接続を解除（端末内保存に戻す）</button>
+    <button class="btn ghost" id="scancel">キャンセル</button>`);
+  const sh=document.getElementById('sheet');
+  sh.querySelector('#scancel').onclick=closeModal;
+  sh.querySelector('#soff').onclick=()=>{ localStorage.removeItem(CKEY); location.reload(); };
+  sh.querySelector('#ssave').onclick=()=>{
+    const url=sh.querySelector('#su').value.trim().replace(/\/+$/,'');
+    const key=sh.querySelector('#sk').value.trim();
+    if(!/^https?:\/\//.test(url)||!key){ toast('URLとキーを両方入力してください'); return; }
+    localStorage.setItem(CKEY,JSON.stringify({url,key})); location.reload();
+  };
+  const sd=sh.querySelector('#sseed');
+  if(sd) sd.onclick=async()=>{
+    if(!confirm('サンプル14件を共有DBに追加します。すでに入っている場合は重複します。よろしいですか？')) return;
+    sd.disabled=true; sd.textContent='投入中…';
+    try{ const n=await DB.seed(); SPOTS=await DB.list(); closeModal(); fillRegion(); render(); toast(`${n}件を投入しました`); }
+    catch(e){ sd.disabled=false; sd.textContent='サンプル14件を共有DBに投入する'; toast('投入に失敗: '+(e.message||e)); }
+  };
+}
+document.getElementById('btnCloud').onclick=openCloudForm;
+document.getElementById('dbstat').onclick=openCloudForm;
+
+/* ---------- 起動 ---------- */
+(async function boot(){
+  await DB.init();
+  try{ SPOTS=await DB.list(); }
+  catch(e){ DB.mode='local'; DB.err=e.message||String(e); SPOTS=loadLocal(); }
+  if(DB.mode==='cloud'&&!SPOTS.length){
+    toast('共有DBは空です。右上「☁ 共有DBの設定」からサンプルを投入できます');
+  }
+  renderDbStat();
+  fillRegion();
+  bootMap();
+})();
+</script>
+</body>
+</html>
