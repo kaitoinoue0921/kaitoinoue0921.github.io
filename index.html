@@ -233,6 +233,17 @@
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     border-bottom: 1px solid var(--line-faint);
+    transition: transform 0.35s cubic-bezier(0.4,0,0.2,1), opacity 0.3s ease;
+    will-change: transform;
+  }
+  /* slide out of the way while reading downward; comes back on scroll up */
+  .tags-wrap.is-tucked{
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+  }
+  @media (prefers-reduced-motion: reduce){
+    .tags-wrap{ transition: none; }
   }
   .tags{
     display: flex;
@@ -824,6 +835,45 @@
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(setAllHeights, 150);
   });
+
+  /* ---------------- auto-tucking tag nav ---------------- */
+  var tagsWrap = document.querySelector('.tags-wrap');
+  if (tagsWrap){
+    var lastY = window.scrollY || window.pageYOffset || 0;
+    var navTicking = false;
+    var THRESHOLD = 6;   // ignore tiny jitters
+    var TOP_ZONE  = 80;  // always visible near the very top
+
+    function updateNav(){
+      var y = window.scrollY || window.pageYOffset || 0;
+      var delta = y - lastY;
+
+      if (y <= TOP_ZONE){
+        tagsWrap.classList.remove('is-tucked');
+      } else if (delta > THRESHOLD){
+        tagsWrap.classList.add('is-tucked');      // scrolling down -> get out of the way
+        lastY = y;
+      } else if (delta < -THRESHOLD){
+        tagsWrap.classList.remove('is-tucked');   // scrolling up -> bring it back
+        lastY = y;
+      }
+
+      if (y <= TOP_ZONE) lastY = y;
+      navTicking = false;
+    }
+
+    window.addEventListener('scroll', function(){
+      if (!navTicking){
+        window.requestAnimationFrame(updateNav);
+        navTicking = true;
+      }
+    }, { passive: true });
+
+    // never leave the nav hidden while someone is using it
+    tagsWrap.addEventListener('focusin', function(){
+      tagsWrap.classList.remove('is-tucked');
+    });
+  }
 
   /* ---------------- friend list search ---------------- */
   var friendSearch = document.getElementById('friendSearch');
