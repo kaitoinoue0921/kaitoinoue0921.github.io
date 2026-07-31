@@ -380,6 +380,84 @@
     fill: none;
   }
 
+  /* ---------- relationship map ---------- */
+  .relmap-wrap{
+    margin: 32px 0 8px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .relmap{
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .relmap .rel-edge{
+    stroke: var(--line-faint);
+    stroke-width: 1;
+    fill: none;
+    transition: stroke 0.3s ease, stroke-width 0.3s ease;
+  }
+  .relmap .rel-node{ cursor: default; }
+  .relmap .rel-node.is-person{ cursor: pointer; }
+  .relmap .rel-dot{
+    fill: var(--bg);
+    stroke: var(--ink);
+    stroke-width: 1.2;
+    transition: fill 0.3s ease, stroke-width 0.3s ease, r 0.3s ease;
+  }
+  .relmap .rel-name{
+    font-family: var(--serif);
+    font-weight: 600;
+    fill: var(--ink);
+    font-size: 15px;
+    text-anchor: middle;
+    transition: fill 0.3s ease;
+  }
+  .relmap .rel-sub{
+    font-family: var(--mono);
+    fill: var(--ink-faint);
+    font-size: 9.5px;
+    letter-spacing: 0.14em;
+    text-anchor: middle;
+    text-transform: uppercase;
+  }
+  /* centre node reads heavier than the rest */
+  .relmap .rel-center .rel-dot{ fill: var(--ink); stroke: var(--ink); }
+  .relmap .rel-center .rel-name{ font-size: 18px; }
+  /* category nodes are quieter than people */
+  .relmap .rel-group .rel-name{
+    font-family: var(--mono);
+    font-weight: 400;
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+    fill: var(--ink-faint);
+  }
+  .relmap .rel-group .rel-dot{ stroke: var(--line-faint); }
+
+  .relmap .rel-node.is-person:hover .rel-dot,
+  .relmap .rel-node.is-person:focus-visible .rel-dot{
+    fill: var(--ink);
+    stroke-width: 1.6;
+  }
+  .relmap .rel-node.is-person:focus-visible{
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+  }
+  .relmap .rel-edge.is-lit{
+    stroke: var(--ink);
+    stroke-width: 1.4;
+  }
+  .relmap-note{
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.12em;
+    color: var(--ink-faint);
+    margin: 0 0 4px;
+  }
+  @media (prefers-reduced-motion: reduce){
+    .relmap *{ transition: none !important; }
+  }
+
   /* ---------- friend list ---------- */
   .friend-search-label{
     display: block;
@@ -583,7 +661,7 @@
             <span class="tag-jp">ガジェット</span><span class="tag-en">GADGET</span>
           </button></li>
           <li><button class="tag" data-category="friend" aria-pressed="false">
-            <span class="tag-jp">友人</span><span class="tag-en">FRIEND</span>
+            <span class="tag-jp">人間関係</span><span class="tag-en">RELATIONS</span>
           </button></li>
         </ul>
       </div>
@@ -680,25 +758,32 @@
             <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true"><path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="15" cy="10" r="1.6" fill="currentColor"/><circle cx="9" cy="38" r="1.6" fill="currentColor"/></svg>
             <span class="divider-line"></span>
           </div>
-          <p class="block-label">FRIEND · 01</p>
-          <h2 class="block-title">友人一覧</h2>
-          <p class="block-text">名前で探せるようにしています。※紹介文はネタページです。</p>
+          <p class="block-label">RELATIONS · 01</p>
+          <h2 class="block-title">人間関係マップ</h2>
+          <p class="block-text">自分を中心に、関わりのある人を地図として並べています。名前をクリックすると、その人のページに移動します。</p>
 
-          <label class="friend-search-label" for="friendSearch">友人を検索</label>
-          <input class="friend-search" id="friendSearch" type="search" placeholder="名前・店名で検索（例：藤原）" autocomplete="off">
+          <!-- relationship map (rendered by JS from the data array below) -->
+          <div class="relmap-wrap">
+            <svg class="relmap" id="relMap" viewBox="0 0 760 520" role="img" aria-labelledby="relMapTitle">
+              <title id="relMapTitle">井上凱斗を中心とした人間関係のマップ</title>
+            </svg>
+          </div>
+
+          <label class="friend-search-label" for="friendSearch">名前で検索</label>
+          <input class="friend-search" id="friendSearch" type="search" placeholder="名前・所属で検索（例：藤原）" autocomplete="off">
 
           <ul class="friend-list" id="friendList">
-            <li class="friend-item" data-search="藤原東太 ふじはらとうた FUJIHARA TOUTA 藤原豆腐店 ふじはら豆腐店 とうふ 豆腐">
+            <li class="friend-item" data-search="藤原東太 ふじはらとうた FUJIHARA TOUTA 藤原豆腐店 ふじはら豆腐店 とうふ 豆腐 友人">
               <a class="friend-link" href="./fujihara.html">
                 <span class="friend-name">藤原東太</span>
-                <span class="friend-meta">藤原豆腐店 — 資格の数と、家族の濃さで戦う男</span>
+                <span class="friend-meta">友人 — 藤原豆腐店。資格の数と、家族の濃さで戦う男</span>
                 <svg class="action-icon friend-arrow" viewBox="0 0 16 16" aria-hidden="true">
                   <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </a>
             </li>
           </ul>
-          <p class="friend-empty" id="friendEmpty" hidden>該当する友人が見つかりません。</p>
+          <p class="friend-empty" id="friendEmpty" hidden>該当する人が見つかりません。</p>
         </article>
 
       </main>
@@ -735,7 +820,7 @@
     note: '日記',
     tutor: '教育',
     gadget: 'ガジェット',
-    friend: '友人'
+    friend: '人間関係'
   };
 
   function measure(block){
@@ -874,6 +959,123 @@
       tagsWrap.classList.remove('is-tucked');
     });
   }
+
+  /* ---------------- relationship map ----------------
+     To add someone, append one row here. Layout is computed automatically. */
+  var RELATIONS = [
+    { name: '藤原東太', sub: '藤原豆腐店', group: '友人', href: './fujihara.html' }
+  ];
+
+  function renderRelMap(){
+    var svg = document.getElementById('relMap');
+    if (!svg || !RELATIONS.length) return;
+
+    var NS = 'http://www.w3.org/2000/svg';
+
+    // narrow screens get a tighter span so nobody sits off-canvas
+    var avail = svg.parentNode ? svg.parentNode.clientWidth : 760;
+    var compact = avail > 0 && avail < 560;
+
+    var W        = compact ? 420 : 760;
+    var ROW      = compact ? 88  : 96;
+    var PAD      = compact ? 50  : 58;
+    var X_SELF   = compact ? 56  : 108;
+    var X_GROUP  = compact ? 210 : 372;
+    var X_PERSON = compact ? 356 : 640;
+
+    // wipe any previous render, keeping the <title> for screen readers
+    Array.prototype.slice.call(svg.querySelectorAll('g')).forEach(function(g){ g.remove(); });
+
+    // group people, preserving first-seen order
+    var order = [], byGroup = {};
+    RELATIONS.forEach(function(p){
+      if (!byGroup[p.group]){ byGroup[p.group] = []; order.push(p.group); }
+      byGroup[p.group].push(p);
+    });
+
+    var H = Math.max(RELATIONS.length * ROW + PAD * 2, 240);
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+
+    function el(tag, attrs){
+      var n = document.createElementNS(NS, tag);
+      for (var k in attrs) n.setAttribute(k, attrs[k]);
+      return n;
+    }
+    function curve(x1, y1, x2, y2){
+      var mx = (x1 + x2) / 2;
+      return 'M' + x1 + ',' + y1 + ' C' + mx + ',' + y1 + ' ' + mx + ',' + y2 + ' ' + x2 + ',' + y2;
+    }
+    function node(x, y, cls, name, sub){
+      var g = el('g', { class: 'rel-node ' + cls, transform: 'translate(' + x + ',' + y + ')' });
+      g.appendChild(el('circle', { class: 'rel-dot', r: 6, cx: 0, cy: 0 }));
+      var t = el('text', { class: 'rel-name', x: 0, y: 27 });
+      t.textContent = name;
+      g.appendChild(t);
+      if (sub){
+        var s = el('text', { class: 'rel-sub', x: 0, y: 44 });
+        s.textContent = sub;
+        g.appendChild(s);
+      }
+      return g;
+    }
+
+    var edges = el('g', {});
+    var nodes = el('g', {});
+    svg.appendChild(edges);
+    svg.appendChild(nodes);
+
+    var row = 0, groupYs = [];
+
+    order.forEach(function(gName){
+      var members = byGroup[gName];
+      var ys = members.map(function(_, i){ return PAD + (row + i) * ROW + ROW / 2; });
+      var gy = ys.reduce(function(a, b){ return a + b; }, 0) / ys.length;
+      groupYs.push(gy);
+
+      members.forEach(function(p, i){
+        var py = ys[i];
+        var edge = el('path', { class: 'rel-edge', d: curve(X_GROUP, gy, X_PERSON, py) });
+        edges.appendChild(edge);
+
+        var n = node(X_PERSON, py, 'is-person', p.name, p.sub);
+        n.setAttribute('tabindex', '0');
+        n.setAttribute('role', 'link');
+        n.setAttribute('aria-label', p.name + '（' + p.group + '・' + p.sub + '）のページを開く');
+
+        function go(){ if (p.href) window.location.href = p.href; }
+        function lit(on){ edge.classList.toggle('is-lit', on); }
+
+        n.addEventListener('click', go);
+        n.addEventListener('keydown', function(e){
+          if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); go(); }
+        });
+        n.addEventListener('mouseenter', function(){ lit(true); });
+        n.addEventListener('mouseleave', function(){ lit(false); });
+        n.addEventListener('focus', function(){ lit(true); });
+        n.addEventListener('blur', function(){ lit(false); });
+
+        nodes.appendChild(n);
+      });
+
+      nodes.appendChild(node(X_GROUP, gy, 'rel-group', gName, ''));
+      row += members.length;
+    });
+
+    var selfY = groupYs.reduce(function(a, b){ return a + b; }, 0) / groupYs.length;
+    groupYs.forEach(function(gy){
+      edges.appendChild(el('path', { class: 'rel-edge', d: curve(X_SELF, selfY, X_GROUP, gy) }));
+    });
+    nodes.appendChild(node(X_SELF, selfY, 'rel-center', '井上凱斗', 'ME'));
+  }
+
+  renderRelMap();
+
+  // re-lay out when the viewport crosses the compact breakpoint
+  var relResizeTimer;
+  window.addEventListener('resize', function(){
+    clearTimeout(relResizeTimer);
+    relResizeTimer = setTimeout(renderRelMap, 180);
+  });
 
   /* ---------------- friend list search ---------------- */
   var friendSearch = document.getElementById('friendSearch');
