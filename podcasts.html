@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>おすすめのポッドキャスト | 井上凱斗</title>
+<meta name="description" content="井上凱斗がよく聴いているポッドキャストの紹介。歴史、ライフハック、言語など。">
+<link rel="canonical" href="https://kaitoinoue0921-sudo.github.io/podcasts.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="おすすめのポッドキャスト | 井上凱斗">
+<meta property="og:description" content="よく聴いているポッドキャストの紹介。">
+<meta property="og:url" content="https://kaitoinoue0921-sudo.github.io/podcasts.html">
+<meta property="og:image" content="https://kaitoinoue0921-sudo.github.io/ogp.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="./favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #ffffff;
+    --ink: #121212;
+    --ink-soft: #3a3a3a;
+    --ink-faint: #8f8f8f;
+    --line-faint: rgba(18,18,18,0.14);
+    --serif: 'Shippori Mincho', serif;
+    --sans: 'Zen Kaku Gothic New', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+    --gap: clamp(48px, 9vh, 96px);
+    --side: clamp(24px, 7vw, 64px);
+    --measure: 700px;
+  }
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink-soft);
+    font-family: var(--sans);
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  ::selection{ background: var(--ink); color: #fff; }
+
+  /* ---------- corner marks ---------- */
+  .corner-marks{ position: fixed; inset: 0; z-index: 3; pointer-events: none; }
+  .corner{
+    position: absolute; width: 18px; height: 18px;
+    border: 1px solid var(--ink); opacity: 0.28;
+  }
+  .corner.tl{ top: 18px; left: 18px; border-right: none; border-bottom: none; }
+  .corner.tr{ top: 18px; right: 18px; border-left: none; border-bottom: none; }
+  .corner.bl{ bottom: 18px; left: 18px; border-right: none; border-top: none; }
+  .corner.br{ bottom: 18px; right: 18px; border-left: none; border-top: none; }
+
+  /* ---------- layout ---------- */
+  .page{ position: relative; z-index: 1; }
+  .container{ max-width: var(--measure); margin: 0 auto; padding: 0 var(--side); }
+  .hero{ padding-top: clamp(72px, 14vh, 148px); padding-bottom: var(--gap); }
+  .eyebrow{
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.22em;
+    color: var(--ink-faint); text-transform: uppercase; margin: 0 0 28px;
+  }
+  .name{
+    font-family: var(--serif); font-weight: 600; color: var(--ink);
+    font-size: clamp(32px, 6vw, 54px); line-height: 1.3; margin: 0; letter-spacing: 0.04em;
+  }
+  .name-en{
+    display: block; font-family: var(--mono); font-weight: 400; font-size: 12.5px;
+    letter-spacing: 0.3em; color: var(--ink-faint); margin-top: 14px;
+  }
+  .tagline{
+    font-size: 16.5px; line-height: 2; color: var(--ink-soft);
+    max-width: 42ch; margin: 32px 0 0;
+  }
+
+  /* ---------- hero illustration: waveform ---------- */
+  .wave{
+    display: block; width: min(340px, 70vw); height: auto; margin: 42px 0 0;
+    overflow: visible;
+  }
+  .wave line{
+    stroke: var(--ink); stroke-linecap: round; stroke-width: 3;
+    transform-origin: center; transform-box: fill-box;
+    animation: pulse 1.9s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{ transform: scaleY(0.35); opacity: 0.45; }
+    50%    { transform: scaleY(1);    opacity: 1; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .wave line{ animation: none; transform: scaleY(0.7); }
+  }
+
+  /* ---------- divider ---------- */
+  .divider{ display: flex; align-items: center; gap: 14px; margin: 0 0 26px; }
+  .divider-line{ flex: 1; height: 1px; background: var(--line-faint); }
+  .fhole{ flex-shrink: 0; color: var(--ink); opacity: 0.5; width: 11px; height: 26px; }
+  .divider--major{ margin: 0 0 var(--gap); }
+  .divider--major .fhole{ width: 16px; height: 38px; opacity: 0.75; }
+
+  /* ---------- podcast list ---------- */
+  .stack{ padding-top: var(--gap); padding-bottom: var(--gap); }
+  .pod-list{ list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--line-faint); }
+  .pod{
+    display: grid;
+    grid-template-columns: 52px 1fr;
+    gap: 4px 20px;
+    grid-template-areas:
+      "num  title"
+      ".    host"
+      ".    body"
+      ".    link";
+    padding: 34px 0;
+    border-bottom: 1px solid var(--line-faint);
+  }
+  .pod-num{
+    grid-area: num;
+    font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.14em;
+    color: var(--ink-faint); padding-top: 7px;
+  }
+  .pod-title{
+    grid-area: title;
+    font-family: var(--serif); font-weight: 600; color: var(--ink);
+    font-size: clamp(18px, 2.4vw, 22px); margin: 0; letter-spacing: 0.02em; line-height: 1.5;
+  }
+  .pod-host{
+    grid-area: host;
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.16em;
+    color: var(--ink-faint); text-transform: uppercase; margin: 6px 0 0;
+  }
+  .pod-body{
+    grid-area: body;
+    font-size: 15px; line-height: 2; color: var(--ink-soft); margin: 14px 0 0; max-width: 54ch;
+  }
+  .pod-link{
+    grid-area: link;
+    justify-self: start;
+    display: inline-flex; align-items: center; gap: 9px;
+    border: 1px solid var(--ink); color: var(--ink); background: transparent;
+    padding: 10px 18px; margin-top: 20px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em;
+    text-transform: uppercase; text-decoration: none;
+    transition: background 0.35s ease, color 0.35s ease, transform 0.2s ease;
+  }
+  .pod-link:hover{ background: var(--ink); color: #fff; transform: translateY(-2px); }
+  .pod-link:active{ transform: translateY(0); }
+  .pod-link:focus-visible{ outline: 2px solid var(--ink); outline-offset: 3px; }
+  .action-icon{ width: 13px; height: 13px; flex-shrink: 0; }
+  .action-icon path{ stroke: currentColor; fill: none; }
+  @media (max-width: 520px){
+    .pod{
+      grid-template-columns: 1fr;
+      grid-template-areas: "num" "title" "host" "body" "link";
+      gap: 0;
+    }
+    .pod-num{ padding-top: 0; margin-bottom: 8px; }
+  }
+
+  /* ---------- footer ---------- */
+  .footer{ padding-bottom: clamp(64px, 12vh, 120px); }
+  .footer-signature{ display: flex; justify-content: center; margin-bottom: 28px; opacity: 0.5; }
+  .footer-signature svg{ width: 22px; height: 52px; color: var(--ink); }
+  .footer-note{
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em;
+    color: var(--ink-faint); text-align: center; text-transform: uppercase; margin: 0;
+  }
+  .backlink{
+    display: block; text-align: center; margin-top: 26px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em;
+    color: var(--ink-faint); text-decoration: none; text-transform: uppercase;
+  }
+  .backlink:hover{ color: var(--ink); }
+
+  @media (max-width: 640px){ .corner{ width: 12px; height: 12px; } }
+</style>
+</head>
+<body>
+
+  <div class="corner-marks">
+    <span class="corner tl"></span><span class="corner tr"></span>
+    <span class="corner bl"></span><span class="corner br"></span>
+  </div>
+
+  <div class="page">
+    <div class="container">
+      <header class="hero">
+        <p class="eyebrow">Podcast — おすすめ</p>
+        <h1 class="name">聴いているもの<span class="name-en">PODCASTS</span></h1>
+        <p class="tagline">通学や移動の時間に聴いているポッドキャストを並べています。歴史、思考法、言語。ジャンルはばらばらですが、どれも「知らない考え方に触れられる」という一点で共通しています。</p>
+
+        <!-- waveform, echoing the audio theme -->
+        <svg class="wave" viewBox="0 0 340 80" aria-hidden="true" focusable="false">
+          <line x1="8"   y1="28" x2="8"   y2="52" style="animation-delay:-0.10s"/>
+          <line x1="26"  y1="18" x2="26"  y2="62" style="animation-delay:-0.55s"/>
+          <line x1="44"  y1="30" x2="44"  y2="50" style="animation-delay:-0.95s"/>
+          <line x1="62"  y1="10" x2="62"  y2="70" style="animation-delay:-0.30s"/>
+          <line x1="80"  y1="24" x2="80"  y2="56" style="animation-delay:-1.30s"/>
+          <line x1="98"  y1="16" x2="98"  y2="64" style="animation-delay:-0.72s"/>
+          <line x1="116" y1="32" x2="116" y2="48" style="animation-delay:-0.18s"/>
+          <line x1="134" y1="8"  x2="134" y2="72" style="animation-delay:-1.05s"/>
+          <line x1="152" y1="22" x2="152" y2="58" style="animation-delay:-0.44s"/>
+          <line x1="170" y1="30" x2="170" y2="50" style="animation-delay:-1.55s"/>
+          <line x1="188" y1="14" x2="188" y2="66" style="animation-delay:-0.86s"/>
+          <line x1="206" y1="26" x2="206" y2="54" style="animation-delay:-0.24s"/>
+          <line x1="224" y1="12" x2="224" y2="68" style="animation-delay:-1.18s"/>
+          <line x1="242" y1="31" x2="242" y2="49" style="animation-delay:-0.63s"/>
+          <line x1="260" y1="20" x2="260" y2="60" style="animation-delay:-1.42s"/>
+          <line x1="278" y1="28" x2="278" y2="52" style="animation-delay:-0.38s"/>
+          <line x1="296" y1="16" x2="296" y2="64" style="animation-delay:-0.98s"/>
+          <line x1="314" y1="30" x2="314" y2="50" style="animation-delay:-0.52s"/>
+          <line x1="332" y1="26" x2="332" y2="54" style="animation-delay:-1.24s"/>
+        </svg>
+      </header>
+
+      <div class="divider divider--major">
+        <span class="divider-line"></span>
+        <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
+          <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+          <circle cx="15" cy="10" r="1.6" fill="currentColor"/><circle cx="9" cy="38" r="1.6" fill="currentColor"/>
+        </svg>
+        <span class="divider-line"></span>
+      </div>
+    </div>
+
+    <div class="container">
+      <main class="stack">
+        <ul class="pod-list">
+
+          <li class="pod">
+            <span class="pod-num">01</span>
+            <h2 class="pod-title">歴史を面白く学ぶコテンラジオ（COTEN RADIO）</h2>
+            <p class="pod-host">COTEN inc.</p>
+            <p class="pod-body">歴史を切り口に「人間とは何か」を掘っていく番組。出来事の暗記ではなく、なぜその構造が生まれたのかを追うので、現代の話に接続されて聞こえてくる。Japan Podcast Awards 2019 の大賞受賞作。</p>
+            <a class="pod-link" href="https://podcasts.apple.com/jp/podcast/id1450522865" target="_blank" rel="noopener noreferrer">
+              <span>聴く</span>
+              <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </li>
+
+          <li class="pod">
+            <span class="pod-num">02</span>
+            <h2 class="pod-title">限界突破ライフハック</h2>
+            <p class="pod-host">田中渓 / けんすう</p>
+            <p class="pod-body">毎朝3時45分に起きる田中渓と、ガジェットを使い倒すけんすうの二人が、日常のハックを語る番組。真似することより「なぜそこまでやるのか」という思考の過程をなぞれるのが面白い。</p>
+            <a class="pod-link" href="https://podcasts.apple.com/jp/podcast/id1866434136" target="_blank" rel="noopener noreferrer">
+              <span>聴く</span>
+              <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </li>
+
+          <li class="pod">
+            <span class="pod-num">03</span>
+            <h2 class="pod-title">VALTURE RADIO</h2>
+            <p class="pod-host">Podcast</p>
+            <p class="pod-body">言語や翻訳をめぐる回が面白い番組。「この歌詞をどう英訳するか」といった、正解のない問いを何人かで延々と考えていく。</p>
+            <a class="pod-link" href="https://podcasts.apple.com/jp/podcast/id1891021458" target="_blank" rel="noopener noreferrer">
+              <span>聴く</span>
+              <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </li>
+
+        </ul>
+      </main>
+    </div>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-signature">
+          <svg viewBox="0 0 24 56" aria-hidden="true">
+            <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+            <circle cx="15" cy="10" r="1.6" fill="currentColor"/><circle cx="9" cy="38" r="1.6" fill="currentColor"/>
+          </svg>
+        </div>
+        <p class="footer-note">Podcast — おすすめ</p>
+        <a class="backlink" href="./">← 井上凱斗 プロフィールに戻る</a>
+      </div>
+    </footer>
+  </div>
+
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
