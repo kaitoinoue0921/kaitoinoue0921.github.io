@@ -573,6 +573,20 @@
     text-transform: uppercase;
     margin: 0;
   }
+  /* stays hidden unless the count is actually retrieved */
+  .visit-count{
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    text-align: center;
+    text-transform: uppercase;
+    margin: 12px 0 0;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+  .visit-count.is-shown{ opacity: 0.85; }
+  .visit-count[hidden]{ display: none; }
 
   @media (max-width: 640px){
     .tags{ justify-content: center; }
@@ -821,6 +835,7 @@
           </svg>
         </div>
         <p class="footer-note">Prototype — 自己紹介ウェブサイト</p>
+        <p class="visit-count" id="visitCount" hidden></p>
       </div>
     </footer>
   </div>
@@ -942,6 +957,28 @@
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(setAllHeights, 150);
   });
+
+  /* ---------------- visitor count (GoatCounter) ----------------
+     Requires "Allow adding visitor counts on your website" to be ON in the
+     GoatCounter site settings. Until then the endpoint 403s and we simply
+     stay hidden rather than showing a broken number. */
+  (function showVisitCount(){
+    var elc = document.getElementById('visitCount');
+    if (!elc || !window.fetch) return;
+
+    fetch('https://kaitoinoue.goatcounter.com/counter/TOTAL.json')
+      .then(function(r){ return r.ok ? r.json() : Promise.reject(r.status); })
+      .then(function(d){
+        if (!d || !d.count) return;
+        elc.textContent = d.count + ' visits';
+        elc.hidden = false;
+        // next frame so the fade actually runs
+        window.requestAnimationFrame(function(){
+          elc.classList.add('is-shown');
+        });
+      })
+      .catch(function(){ /* setting still off, or offline — leave it hidden */ });
+  })();
 
   /* ---------------- auto-tucking tag nav ---------------- */
   var tagsWrap = document.querySelector('.tags-wrap');
@@ -1153,5 +1190,7 @@
   }
 })();
 </script>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
