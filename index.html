@@ -638,7 +638,24 @@
   .visit-count[hidden]{ display: none; }
 
   @media (max-width: 640px){
-    .tags{ justify-content: center; }
+    /* one swipeable row instead of four stacked ones, so the nav stops
+       eating a quarter of the screen */
+    .tags{
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x proximity;
+      gap: 8px;
+      padding: 12px var(--side);
+      margin: 0 calc(-1 * var(--side));
+      scrollbar-width: none;
+    }
+    .tags::-webkit-scrollbar{ display: none; }
+    .tags > li{ flex: 0 0 auto; scroll-snap-align: start; }
+    .tag{ padding: 8px 15px; }
+    .tag-jp{ font-size: 13.5px; }
+    .tag-en{ font-size: 8.5px; margin-top: 2px; }
     .corner{ width: 12px; height: 12px; }
   }
 
