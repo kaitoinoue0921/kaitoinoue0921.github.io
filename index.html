@@ -1082,11 +1082,24 @@
     }
 
     window.addEventListener('scroll', function(){
-      if (!navTicking){
+      if (navTicking) return;
+      navTicking = true;
+      // rAF is frozen while the tab is hidden; running inline there keeps the
+      // ticking flag from latching on and killing the handler for good.
+      if (document.hidden){
+        updateNav();
+      } else {
         window.requestAnimationFrame(updateNav);
-        navTicking = true;
       }
     }, { passive: true });
+
+    // resync when returning to the tab, in case a frame was dropped
+    document.addEventListener('visibilitychange', function(){
+      if (!document.hidden){
+        navTicking = false;
+        lastY = window.scrollY || window.pageYOffset || 0;
+      }
+    });
 
     // never leave the nav hidden while someone is using it
     tagsWrap.addEventListener('focusin', function(){
