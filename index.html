@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>井上凱斗 — Profile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #ffffff;
+    --ink: #121212;
+    --ink-soft: #3a3a3a;
+    --ink-faint: #8f8f8f;
+    --line: rgba(18,18,18,0.9);
+    --line-faint: rgba(18,18,18,0.14);
+    --line-ghost: rgba(18,18,18,0.06);
+    --serif: 'Shippori Mincho', serif;
+    --sans: 'Zen Kaku Gothic New', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+    --gap: clamp(48px, 9vh, 96px);
+    --side: clamp(24px, 7vw, 64px);
+    --measure: 700px;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink-soft);
+    font-family: var(--sans);
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  ::selection{ background: var(--ink); color: #fff; }
+
+  .sr-only{
+    position: absolute; width: 1px; height: 1px;
+    padding: 0; margin: -1px; overflow: hidden;
+    clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+  }
+
+  /* ---------- shark attack (end-of-page easter egg) ---------- */
+  .shark-attack{
+    position: fixed;
+    top: 46%;
+    left: 50%;
+    width: min(46vw, 420px);
+    height: auto;
+    z-index: 5;
+    pointer-events: none;
+    opacity: 0;
+    transform: translate(160%, -50%) rotate(-8deg) scale(0.8);
+  }
+  .shark-attack path{
+    fill: none;
+    stroke: var(--ink);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+  }
+  .shark-attack.is-active{
+    animation: sharkAttack 1.15s cubic-bezier(0.22,0.68,0.24,1) forwards;
+  }
+  @keyframes sharkAttack{
+    0%{ opacity: 0; transform: translate(160%, -50%) rotate(-8deg) scale(0.8); }
+    10%{ opacity: 0.85; }
+    50%{ opacity: 0.9; transform: translate(-8%, -46%) rotate(2deg) scale(1.25); }
+    72%{ opacity: 0.85; transform: translate(-70%, -54%) rotate(6deg) scale(1.05); }
+    100%{ opacity: 0; transform: translate(-170%, -58%) rotate(10deg) scale(0.85); }
+  }
+  @keyframes pageShake{
+    0%,100%{ transform: translate(0,0); }
+    20%{ transform: translate(-6px,2px); }
+    40%{ transform: translate(5px,-3px); }
+    60%{ transform: translate(-4px,3px); }
+    80%{ transform: translate(3px,-2px); }
+  }
+  .page.is-bitten{
+    animation: pageShake 0.4s ease-in-out;
+  }
+
+  /* ---------- corner marks ---------- */
+  .corner-marks{
+    position: fixed;
+    inset: 0;
+    z-index: 3;
+    pointer-events: none;
+  }
+  .corner{
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border: 1px solid var(--ink);
+    opacity: 0.28;
+  }
+  .corner.tl{ top: 18px; left: 18px; border-right: none; border-bottom: none; }
+  .corner.tr{ top: 18px; right: 18px; border-left: none; border-bottom: none; }
+  .corner.bl{ bottom: 18px; left: 18px; border-right: none; border-top: none; }
+  .corner.br{ bottom: 18px; right: 18px; border-left: none; border-top: none; }
+
+  /* ---------- layout shell ---------- */
+  .page{
+    position: relative;
+    z-index: 1;
+  }
+  .container{
+    max-width: var(--measure);
+    margin: 0 auto;
+    padding: 0 var(--side);
+  }
+
+  /* ---------- header ---------- */
+  .hero{
+    padding-top: clamp(72px, 14vh, 148px);
+    padding-bottom: var(--gap);
+  }
+  .eyebrow{
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin: 0 0 28px;
+  }
+  .name{
+    font-family: var(--serif);
+    font-weight: 600;
+    color: var(--ink);
+    font-size: clamp(38px, 7vw, 64px);
+    line-height: 1.25;
+    margin: 0;
+    letter-spacing: 0.04em;
+  }
+  .name-en{
+    display: block;
+    font-family: var(--mono);
+    font-weight: 400;
+    font-size: 12.5px;
+    letter-spacing: 0.3em;
+    color: var(--ink-faint);
+    margin-top: 14px;
+  }
+  .tagline{
+    font-size: 16.5px;
+    line-height: 2;
+    color: var(--ink-soft);
+    max-width: 42ch;
+    margin: 32px 0 0;
+  }
+
+  .socials{
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    margin-top: 22px;
+    padding: 0;
+    list-style: none;
+  }
+  .social-link{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--ink-faint);
+    text-decoration: none;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    transition: color 0.3s ease, opacity 0.3s ease;
+    opacity: 0.75;
+  }
+  .social-link:hover{ color: var(--ink); opacity: 1; }
+  .social-link:focus-visible{
+    outline: 2px solid var(--ink);
+    outline-offset: 3px;
+  }
+  .social-icon{
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+  .social-icon rect,
+  .social-icon circle,
+  .social-icon path,
+  .social-icon line{
+    stroke: currentColor;
+    fill: none;
+  }
+
+  /* ---------- divider / f-hole ---------- */
+  .divider{
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 0 0 26px;
+  }
+  .divider-line{
+    flex: 1;
+    height: 1px;
+    background: var(--line-faint);
+  }
+  .fhole{
+    flex-shrink: 0;
+    color: var(--ink);
+    opacity: 0.5;
+    width: 11px;
+    height: 26px;
+  }
+  .divider--major{
+    margin: 0 0 var(--gap);
+  }
+  .divider--major .divider-line{
+    background: var(--line-faint);
+  }
+  .divider--major .fhole{
+    width: 16px;
+    height: 38px;
+    opacity: 0.75;
+  }
+
+  /* ---------- tag nav ---------- */
+  .tags-wrap{
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: rgba(255,255,255,0.86);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line-faint);
+  }
+  .tags{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 22px 0;
+    list-style: none;
+    margin: 0;
+  }
+  .tag{
+    appearance: none;
+    -webkit-appearance: none;
+    background: transparent;
+    border: 1px solid var(--ink);
+    border-radius: 0;
+    color: var(--ink);
+    font-family: var(--mono);
+    cursor: pointer;
+    padding: 11px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.4;
+    transition: background 0.35s ease, color 0.35s ease, transform 0.2s ease;
+  }
+  .tag-jp{
+    font-family: var(--sans);
+    font-size: 14.5px;
+    font-weight: 500;
+  }
+  .tag-en{
+    font-size: 9.5px;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+    margin-top: 3px;
+    transition: color 0.35s ease;
+  }
+  .tag:hover{ transform: translateY(-2px); }
+  .tag:active{ transform: translateY(0); }
+  .tag:focus-visible{
+    outline: 2px solid var(--ink);
+    outline-offset: 3px;
+  }
+  .tag[aria-pressed="true"]{
+    background: var(--ink);
+  }
+  .tag[aria-pressed="true"] .tag-jp,
+  .tag[aria-pressed="true"] .tag-en{
+    color: #fff;
+  }
+
+  /* ---------- content blocks ---------- */
+  .stack{
+    padding-top: var(--gap);
+    padding-bottom: var(--gap);
+    display: flex;
+    flex-direction: column;
+  }
+  .block{
+    background: var(--bg);
+    overflow: hidden;
+    margin-bottom: var(--gap);
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    transition:
+      max-height 0.6s cubic-bezier(0.4,0,0.2,1),
+      margin-bottom 0.6s cubic-bezier(0.4,0,0.2,1),
+      opacity 0.4s ease,
+      transform 0.45s cubic-bezier(0.4,0,0.2,1);
+  }
+  .block.is-hidden{
+    opacity: 0;
+    transform: translateY(-10px) scale(0.985);
+    margin-bottom: 0;
+  }
+  .block-label{
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: 0.16em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin: 0 0 10px;
+  }
+  .block-title{
+    font-family: var(--serif);
+    font-weight: 600;
+    color: var(--ink);
+    font-size: clamp(19px, 2.6vw, 24px);
+    margin: 0 0 16px;
+    letter-spacing: 0.02em;
+  }
+  .block-text{
+    font-size: 15.5px;
+    line-height: 2;
+    color: var(--ink-soft);
+    margin: 0;
+    max-width: 58ch;
+  }
+
+  .block-action{
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid var(--ink);
+    color: var(--ink);
+    background: transparent;
+    padding: 13px 24px;
+    margin-top: 26px;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.35s ease, color 0.35s ease, transform 0.2s ease;
+  }
+  .block-action:hover{
+    background: var(--ink);
+    color: #fff;
+    transform: translateY(-2px);
+  }
+  .block-action:active{ transform: translateY(0); }
+  .block-action:focus-visible{
+    outline: 2px solid var(--ink);
+    outline-offset: 3px;
+  }
+  .action-icon{
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+  }
+  .action-icon path,
+  .action-icon rect{
+    stroke: currentColor;
+    fill: none;
+  }
+
+  /* ---------- footer ---------- */
+  .footer{
+    padding-bottom: clamp(64px, 12vh, 120px);
+  }
+  .footer-signature{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 28px;
+    opacity: 0.5;
+  }
+  .footer-signature svg{ width: 22px; height: 52px; color: var(--ink); }
+  .footer-note{
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: var(--ink-faint);
+    text-align: center;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  @media (max-width: 640px){
+    .tags{ justify-content: center; }
+    .corner{ width: 12px; height: 12px; }
+  }
+
+</style>
+</head>
+<body>
+
+  <!-- shark attack: triggered once when the reader scrolls to the end of the page -->
+  <svg class="shark-attack" id="sharkAttack" viewBox="-2 18 75 37" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">
+    <path d="M40,44c7,1,9,1,9,1c3,0,1,6,1,6c4-2,5-7,5-7c14-2,14-6,14-6s-9.2393-2.8429-12.3191-3.7905 c-0.4525-0.1392-0.8926-0.3293-1.3017-0.5675C49.1164,29.9962,50.8462,29.877,46,26c-5-4-10-4-10-4c4,4,3,9,3,9c-4,7-21,6-21,6 c-4-5-14-5-14-5s7,5,8,9s-1,8-1,8c4-3,7.25-8.6667,7.25-8.6667L27,42" stroke-width="1.4"/>
+    <path d="M37,43c0,0-2.9279,1.6684-3.4781,3.8358c0,0-2.594-2.5042-4.548-2.0775l4.4581-3.0208" stroke-width="1.4"/>
+    <path d="M45,37c0,0,2,2,0,5" stroke-width="0.8"/>
+    <path d="M47,37c0,0,2,2,0,5" stroke-width="0.8"/>
+    <path d="M49,37c0,0,2,2,0,5" stroke-width="0.8"/>
+  </svg>
+
+  <div class="corner-marks">
+    <span class="corner tl"></span>
+    <span class="corner tr"></span>
+    <span class="corner bl"></span>
+    <span class="corner br"></span>
+  </div>
+
+  <div class="page">
+    <div class="container">
+      <header class="hero">
+        <p class="eyebrow">Profile — 自己紹介</p>
+        <h1 class="name">井上凱斗<span class="name-en">KAITO INOUE</span></h1>
+
+        <ul class="socials">
+          <li>
+            <a class="social-link" href="https://www.instagram.com/kaitoinoue0921/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" stroke-width="1.4"/>
+                <circle cx="12" cy="12" r="4.5" stroke-width="1.4"/>
+                <circle cx="17" cy="7" r="0.9" fill="currentColor" stroke="none"/>
+              </svg>
+              Instagram
+            </a>
+          </li>
+          <li>
+            <a class="social-link" href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+              <svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" stroke-width="1.4"/>
+                <path d="M14 9 H12.5 C11.7 9 11 9.7 11 10.5 V12 H14 L13.6 14.5 H11 V20" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Facebook
+            </a>
+          </li>
+        </ul>
+
+        <p class="tagline">自治医科大学 医学部。臨床実習を通じて医療の現場を学びながら、資産運用やビジネスの構造化にも関心を持つ。</p>
+      </header>
+
+      <div class="divider divider--major">
+        <span class="divider-line"></span>
+        <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
+          <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52"
+                fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+          <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
+          <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
+        </svg>
+        <span class="divider-line"></span>
+      </div>
+    </div>
+
+    <nav class="tags-wrap" aria-label="カテゴリで絞り込む">
+      <div class="container">
+        <ul class="tags" role="list">
+          <li><button class="tag" data-category="medicine" aria-pressed="false">
+            <span class="tag-jp">医学</span><span class="tag-en">MEDICINE</span>
+          </button></li>
+          <li><button class="tag" data-category="philosophy" aria-pressed="false">
+            <span class="tag-jp">哲学</span><span class="tag-en">PHILOSOPHY</span>
+          </button></li>
+          <li><button class="tag" data-category="music" aria-pressed="false">
+            <span class="tag-jp">音楽</span><span class="tag-en">MUSIC</span>
+          </button></li>
+          <li><button class="tag" data-category="note" aria-pressed="false">
+            <span class="tag-jp">日記</span><span class="tag-en">NOTE</span>
+          </button></li>
+          <li><button class="tag" data-category="tutor" aria-pressed="false">
+            <span class="tag-jp">教育</span><span class="tag-en">TUTOR</span>
+          </button></li>
+        </ul>
+      </div>
+    </nav>
+
+    <p id="filterStatus" class="sr-only" aria-live="polite"></p>
+
+    <div class="container">
+      <main class="stack" id="stack">
+
+        <!-- 医学 -->
+        <article class="block" data-category="medicine">
+          <div class="divider">
+            <span class="divider-line"></span>
+            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true"><path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="15" cy="10" r="1.6" fill="currentColor"/><circle cx="9" cy="38" r="1.6" fill="currentColor"/></svg>
+            <span class="divider-line"></span>
+          </div>
+          <p class="block-label">MED · 01</p>
+          <h2 class="block-title">知識を構造化する</h2>
+          <p class="block-text">総合判定試験に向けた演習や臨床実習で得たナレッジを、NotionやObsidianを活用して構造化・管理している。</p>
+        </article>
+
+        <!-- 哲学 -->
+        <article class="block" data-category="philosophy">
+          <div class="divider">
+            <span class="divider-line"></span>
+            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true"><path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="15" cy="10" r="1.6" fill="currentColor"/><circle cx="9" cy="38" r="1.6" fill="currentColor"/></svg>
+            <span class="divider-line"></span>
+          </div>
+          <p class="block-label">PHI · 01</p>
+          <h2 class="block-title">表層の奥にある論理</h2>
+          <p class="block-text">実存的な問いや西洋美術のモチーフに惹かれる。表層的なデザインより、根底にある論理や構造を探求する。</p>
+        </article>
+
+        <!-- 音楽 -->
+        <article class="block" data-category="music">
+          <div class="divider">
+            <span class="divider-line"></span>
+            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true"><path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="15" cy="10" r="1.6" fill="currentColor"/><circle cx="9" cy="38" r="1.6" fill="currentColor"/></svg>
+            <span class="divider-line"></span>
+          </div>
+          <p class="block-label">MUS · 01</p>
+          <h2 class="block-title">低音という基盤</h2>
+          <p class="block-text">ベース・コントラバスを演奏。低音から楽曲の基盤を支え、全体の構造をコントロールする役割に魅力を感じる。</p>
+        </article>
+
+        <!-- 日記 (NOTE) -->
+        <article class="block" data-category="note">
+          <div class="divider">
+            <span class="divider-line"></span>
+            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true"><path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="15" cy="10" r="1.6" fill="currentColor"/><circle cx="9" cy="38" r="1.6" fill="currentColor"/></svg>
+            <span class="divider-line"></span>
+          </div>
+          <p class="block-label">NOTE · 01</p>
+          <h2 class="block-title">日々の記録は、noteへ</h2>
+          <p class="block-text">日々の思考の過程や記録はnoteで綴っています。</p>
+          <a class="block-action" href="https://note.com/" target="_blank" rel="noopener noreferrer">
+            <span>noteを読む</span>
+            <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </article>
+
+        <!-- 教育 (TUTOR) -->
+        <article class="block" data-category="tutor">
+          <div class="divider">
+            <span class="divider-line"></span>
+            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true"><path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="15" cy="10" r="1.6" fill="currentColor"/><circle cx="9" cy="38" r="1.6" fill="currentColor"/></svg>
+            <span class="divider-line"></span>
+          </div>
+          <p class="block-label">TUTOR · 01</p>
+          <h2 class="block-title">学びを構造化する</h2>
+          <p class="block-text">個人契約の家庭教師として、知識のネットワーク化と論理的な学習の構造化をサポートしています。</p>
+          <a class="block-action" href="mailto:contact@example.com?subject=%E3%81%94%E4%BE%9D%E9%A0%BC%E3%83%BB%E3%81%8A%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B">
+            <span>ご依頼・お問い合わせ</span>
+            <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true">
+              <rect x="1.5" y="3" width="13" height="10" stroke-width="1.3"/>
+              <path d="M2 4 L8 9 L14 4" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </article>
+
+      </main>
+    </div>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-signature">
+          <svg viewBox="0 0 24 56" aria-hidden="true">
+            <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52"
+                  fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+            <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
+            <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
+          </svg>
+        </div>
+        <p class="footer-note">Prototype — 自己紹介ウェブサイト</p>
+      </div>
+    </footer>
+  </div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------------- filter / sort logic ---------------- */
+  var buttons = Array.prototype.slice.call(document.querySelectorAll('.tag'));
+  var blocks  = Array.prototype.slice.call(document.querySelectorAll('.block'));
+  var statusEl = document.getElementById('filterStatus');
+  var activeCategory = null;
+
+  var labelMap = {
+    medicine: '医学',
+    philosophy: '哲学',
+    music: '音楽',
+    note: '日記',
+    tutor: '教育'
+  };
+
+  function measure(block){
+    // temporarily ensure it's measurable
+    var prevMax = block.style.maxHeight;
+    block.style.maxHeight = 'none';
+    var h = block.scrollHeight;
+    block.style.maxHeight = prevMax;
+    return h;
+  }
+
+  function setAllHeights(){
+    blocks.forEach(function(block){
+      var match = !activeCategory || block.dataset.category === activeCategory;
+      if (match){
+        block.style.maxHeight = measure(block) + 'px';
+      }
+    });
+  }
+
+  function applyFilter(category){
+    var visible = blocks.filter(function(b){
+      return !category || b.dataset.category === category;
+    });
+
+    blocks.forEach(function(block){
+      var match = !category || block.dataset.category === category;
+
+      if (match){
+        block.classList.remove('is-hidden');
+        var targetHeight = measure(block);
+        // if it was previously collapsed, start from 0 for a smooth grow-in
+        if (block.style.maxHeight === '0px' || block.style.maxHeight === ''){
+          block.style.maxHeight = '0px';
+        }
+        // force reflow before animating
+        void block.offsetHeight;
+        block.style.maxHeight = targetHeight + 'px';
+      } else {
+        // lock current height first so the collapse has a starting point
+        block.style.maxHeight = measure(block) + 'px';
+        void block.offsetHeight;
+        block.classList.add('is-hidden');
+        block.style.maxHeight = '0px';
+      }
+    });
+
+    // staggered entrance for the visible set ("sort" feel)
+    var i = 0;
+    blocks.forEach(function(block){
+      var match = !category || block.dataset.category === category;
+      if (match){
+        block.style.transitionDelay = (i * 45) + 'ms';
+        i++;
+      } else {
+        block.style.transitionDelay = '0ms';
+      }
+    });
+
+    if (statusEl){
+      statusEl.textContent = category
+        ? (labelMap[category] + 'の項目を表示中')
+        : 'すべての項目を表示中';
+    }
+
+    // clear any explicit max-height on visible items after the transition
+    // so future content edits / resizes don't get clipped
+    window.setTimeout(function(){
+      blocks.forEach(function(block){
+        var match = !category || block.dataset.category === category;
+        if (match){
+          block.style.maxHeight = measure(block) + 'px';
+        }
+      });
+    }, 650);
+  }
+
+  buttons.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var category = btn.dataset.category;
+      activeCategory = (activeCategory === category) ? null : category;
+
+      buttons.forEach(function(b){
+        b.setAttribute('aria-pressed', b.dataset.category === activeCategory ? 'true' : 'false');
+      });
+
+      applyFilter(activeCategory);
+    });
+  });
+
+  window.addEventListener('load', function(){
+    setAllHeights();
+  });
+
+  var resizeTimer;
+  window.addEventListener('resize', function(){
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(setAllHeights, 150);
+  });
+
+  /* ---------------- shark attack: fires once at the end of the page ---------------- */
+  var sharkAttackEl = document.getElementById('sharkAttack');
+  var pageEl = document.querySelector('.page');
+  var footerEl = document.querySelector('.footer');
+
+  if (sharkAttackEl && footerEl && 'IntersectionObserver' in window){
+    var attacked = false;
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting && !attacked){
+          attacked = true;
+          sharkAttackEl.classList.add('is-active');
+          window.setTimeout(function(){
+            if (pageEl){
+              pageEl.classList.add('is-bitten');
+              window.setTimeout(function(){ pageEl.classList.remove('is-bitten'); }, 420);
+            }
+          }, 480);
+          io.disconnect();
+        }
+      });
+    }, { threshold: 0.4 });
+    io.observe(footerEl);
+  }
+})();
+</script>
+</body>
+</html>
