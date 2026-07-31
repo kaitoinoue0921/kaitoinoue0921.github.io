@@ -369,6 +369,101 @@
     fill: none;
   }
 
+  /* ---------- friend list ---------- */
+  .friend-search-label{
+    display: block;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin: 30px 0 10px;
+  }
+  .friend-search{
+    appearance: none;
+    -webkit-appearance: none;
+    width: 100%;
+    max-width: 360px;
+    background: transparent;
+    border: 1px solid var(--line-faint);
+    border-radius: 0;
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15px;
+    font-weight: 300;
+    padding: 12px 14px;
+    transition: border-color 0.3s ease;
+  }
+  .friend-search::placeholder{ color: var(--ink-faint); }
+  .friend-search:focus{
+    outline: none;
+    border-color: var(--ink);
+  }
+  .friend-search:focus-visible{
+    outline: 2px solid var(--ink);
+    outline-offset: 3px;
+  }
+
+  .friend-list{
+    list-style: none;
+    padding: 0;
+    margin: 26px 0 0;
+    border-top: 1px solid var(--line-faint);
+  }
+  .friend-item{ border-bottom: 1px solid var(--line-faint); }
+  .friend-item[hidden]{ display: none; }
+  .friend-link{
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "name arrow"
+      "meta arrow";
+    gap: 4px 16px;
+    align-items: center;
+    padding: 18px 4px;
+    text-decoration: none;
+    color: inherit;
+    transition: padding 0.25s ease, background 0.25s ease;
+  }
+  .friend-link:hover{
+    padding-left: 12px;
+    background: rgba(18,18,18,0.02);
+  }
+  .friend-link:focus-visible{
+    outline: 2px solid var(--ink);
+    outline-offset: -2px;
+  }
+  .friend-name{
+    grid-area: name;
+    font-family: var(--serif);
+    font-weight: 600;
+    color: var(--ink);
+    font-size: 17px;
+    letter-spacing: 0.06em;
+  }
+  .friend-meta{
+    grid-area: meta;
+    font-size: 13.5px;
+    line-height: 1.8;
+    color: var(--ink-faint);
+  }
+  .friend-arrow{
+    grid-area: arrow;
+    width: 14px;
+    height: 14px;
+    color: var(--ink-faint);
+    transition: transform 0.25s ease, color 0.25s ease;
+  }
+  .friend-link:hover .friend-arrow{
+    color: var(--ink);
+    transform: translate(2px,-2px);
+  }
+  .friend-empty{
+    font-size: 14px;
+    color: var(--ink-faint);
+    margin: 20px 0 0;
+  }
+
   /* ---------- footer ---------- */
   .footer{
     padding-bottom: clamp(64px, 12vh, 120px);
@@ -575,14 +670,24 @@
             <span class="divider-line"></span>
           </div>
           <p class="block-label">FRIEND · 01</p>
-          <h2 class="block-title">ふじはら豆腐店のこと</h2>
-          <p class="block-text">友人を一人だけ紹介しています。資格の数と、家族の濃さで戦っている男です。※ネタページです。</p>
-          <a class="block-action" href="./fujihara.html">
-            <span>ふじはら豆腐店を見る</span>
-            <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true">
-              <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </a>
+          <h2 class="block-title">友人一覧</h2>
+          <p class="block-text">名前で探せるようにしています。※紹介文はネタページです。</p>
+
+          <label class="friend-search-label" for="friendSearch">友人を検索</label>
+          <input class="friend-search" id="friendSearch" type="search" placeholder="名前・店名で検索（例：藤原）" autocomplete="off">
+
+          <ul class="friend-list" id="friendList">
+            <li class="friend-item" data-search="藤原東太 ふじはらとうた FUJIHARA TOUTA 藤原豆腐店 ふじはら豆腐店 とうふ 豆腐">
+              <a class="friend-link" href="./fujihara.html">
+                <span class="friend-name">藤原東太</span>
+                <span class="friend-meta">藤原豆腐店 — 資格の数と、家族の濃さで戦う男</span>
+                <svg class="action-icon friend-arrow" viewBox="0 0 16 16" aria-hidden="true">
+                  <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </li>
+          </ul>
+          <p class="friend-empty" id="friendEmpty" hidden>該当する友人が見つかりません。</p>
         </article>
 
       </main>
@@ -719,6 +824,34 @@
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(setAllHeights, 150);
   });
+
+  /* ---------------- friend list search ---------------- */
+  var friendSearch = document.getElementById('friendSearch');
+  var friendItems  = Array.prototype.slice.call(document.querySelectorAll('.friend-item'));
+  var friendEmpty  = document.getElementById('friendEmpty');
+
+  if (friendSearch && friendItems.length){
+    friendSearch.addEventListener('input', function(){
+      var q = friendSearch.value.trim().toLowerCase();
+      var shown = 0;
+
+      friendItems.forEach(function(item){
+        var hay = (item.dataset.search || '') + ' ' + item.textContent;
+        var match = !q || hay.toLowerCase().indexOf(q) !== -1;
+        item.hidden = !match;
+        if (match) shown++;
+      });
+
+      if (friendEmpty) friendEmpty.hidden = (shown !== 0);
+
+      // keep the block's max-height in sync with the filtered list
+      var block = friendSearch.closest('.block');
+      if (block){
+        block.style.maxHeight = 'none';
+        block.style.maxHeight = block.scrollHeight + 'px';
+      }
+    });
+  }
 
   /* ---------------- shark attack: fires once at the end of the page ---------------- */
   var sharkAttackEl = document.getElementById('sharkAttack');
