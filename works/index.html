@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>作ったもの — 井上凱斗</title>
+<meta name="description" content="井上凱斗が作ったウェブサイト・ツールの一覧。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #ffffff;
+    --ink: #121212;
+    --ink-soft: #3a3a3a;
+    --ink-faint: #8f8f8f;
+    --line-faint: rgba(18,18,18,0.14);
+    --line-ghost: rgba(18,18,18,0.06);
+    --serif: 'Shippori Mincho', serif;
+    --sans: 'Zen Kaku Gothic New', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+    --gap: clamp(48px, 9vh, 96px);
+    --side: clamp(24px, 7vw, 64px);
+    --measure: 700px;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink-soft);
+    font-family: var(--sans);
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  ::selection{ background: var(--ink); color: #fff; }
+
+  /* ---------- corner marks ---------- */
+  .corner-marks{ position: fixed; inset: 0; z-index: 3; pointer-events: none; }
+  .corner{ position: absolute; width: 18px; height: 18px; border: 1px solid var(--ink); opacity: 0.28; }
+  .corner.tl{ top: 18px; left: 18px; border-right: none; border-bottom: none; }
+  .corner.tr{ top: 18px; right: 18px; border-left: none; border-bottom: none; }
+  .corner.bl{ bottom: 18px; left: 18px; border-right: none; border-top: none; }
+  .corner.br{ bottom: 18px; right: 18px; border-left: none; border-top: none; }
+
+  /* ---------- shell ---------- */
+  .page{ position: relative; z-index: 1; }
+  .container{ max-width: var(--measure); margin: 0 auto; padding: 0 var(--side); }
+
+  /* ---------- back link ---------- */
+  .backlink{
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    margin-top: clamp(40px, 8vh, 72px);
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  .backlink:hover{ color: var(--ink); }
+  .backlink svg{ width: 13px; height: 13px; }
+  .backlink path{ stroke: currentColor; fill: none; }
+
+  /* ---------- hero ---------- */
+  .hero{ padding-top: clamp(28px, 5vh, 48px); padding-bottom: var(--gap); }
+  .eyebrow{
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.22em;
+    color: var(--ink-faint); text-transform: uppercase; margin: 0 0 28px;
+  }
+  .name{
+    font-family: var(--serif); font-weight: 600; color: var(--ink);
+    font-size: clamp(34px, 6.4vw, 58px); line-height: 1.25; margin: 0; letter-spacing: 0.04em;
+  }
+  .name-en{
+    display: block; font-family: var(--mono); font-weight: 400; font-size: 12.5px;
+    letter-spacing: 0.3em; color: var(--ink-faint); margin-top: 14px;
+  }
+  .tagline{
+    font-size: 16.5px; line-height: 2; color: var(--ink-soft);
+    max-width: 42ch; margin: 32px 0 0;
+  }
+
+  /* ---------- hero illustration: stacked screens ---------- */
+  .hero-art{ display: block; width: min(320px, 62vw); height: auto; margin: 44px 0 0; }
+  .hero-art path, .hero-art line, .hero-art rect, .hero-art circle{
+    fill: none; stroke: var(--ink); stroke-linecap: round; stroke-linejoin: round;
+  }
+  .hero-art .float{ transform-origin: 100px 90px; animation: float 7s ease-in-out infinite; }
+  .hero-art .float--slow{ animation-duration: 9s; animation-direction: reverse; }
+  @keyframes float{
+    0%,100%{ transform: translateY(0) rotate(0deg); }
+    50%{ transform: translateY(-7px) rotate(-1.2deg); }
+  }
+  .hero-art .blink{ animation: blink 3.4s steps(1) infinite; }
+  @keyframes blink{ 0%,60%{ opacity: 1; } 61%,100%{ opacity: 0.15; } }
+
+  /* ---------- divider ---------- */
+  .divider{ display: flex; align-items: center; gap: 14px; margin: 0 0 26px; }
+  .divider-line{ flex: 1; height: 1px; background: var(--line-faint); }
+  .fhole{ flex-shrink: 0; color: var(--ink); opacity: 0.5; width: 11px; height: 26px; }
+  .divider--major{ margin: 0 0 var(--gap); }
+  .divider--major .fhole{ width: 16px; height: 38px; opacity: 0.75; }
+
+  /* ---------- blocks ---------- */
+  .stack{ padding-top: var(--gap); padding-bottom: var(--gap); }
+  .block{ margin-bottom: var(--gap); }
+  .block-label{
+    font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.16em;
+    color: var(--ink-faint); text-transform: uppercase; margin: 0 0 10px;
+    display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  }
+  .status{
+    display: inline-block; border: 1px solid var(--line-faint);
+    padding: 2px 8px; letter-spacing: 0.1em; font-size: 10px;
+    color: var(--ink-faint); text-transform: none;
+  }
+  .status--live{ border-color: var(--ink); color: var(--ink); }
+  .block-title{
+    font-family: var(--serif); font-weight: 600; color: var(--ink);
+    font-size: clamp(19px, 2.6vw, 24px); margin: 0 0 16px; letter-spacing: 0.02em;
+  }
+  .block-text{ font-size: 15.5px; line-height: 2; color: var(--ink-soft); margin: 0; max-width: 58ch; }
+
+  /* ---------- feature list ---------- */
+  .points{ list-style: none; padding: 0; margin: 20px 0 0; }
+  .points li{
+    position: relative; padding-left: 22px; font-size: 14.5px;
+    line-height: 1.95; color: var(--ink-soft);
+  }
+  .points li::before{
+    content: ''; position: absolute; left: 4px; top: 14px;
+    width: 8px; height: 1px; background: var(--ink); opacity: 0.5;
+  }
+
+  /* ---------- tech tags ---------- */
+  .tech{ list-style: none; padding: 0; margin: 22px 0 0; display: flex; flex-wrap: wrap; gap: 7px; }
+  .tech li{
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.1em;
+    color: var(--ink-faint); border: 1px solid var(--line-faint); padding: 4px 9px;
+  }
+
+  /* ---------- action ---------- */
+  .block-action{
+    display: inline-flex; align-items: center; gap: 10px;
+    border: 1px solid var(--ink); color: var(--ink); background: transparent;
+    padding: 13px 24px; margin-top: 26px;
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.14em;
+    text-transform: uppercase; text-decoration: none;
+    transition: background 0.35s ease, color 0.35s ease, transform 0.2s ease;
+  }
+  .block-action:hover{ background: var(--ink); color: #fff; transform: translateY(-2px); }
+  .block-action:active{ transform: translateY(0); }
+  .block-action:focus-visible{ outline: 2px solid var(--ink); outline-offset: 3px; }
+  .block-action + .block-action{ margin-left: 10px; }
+  .block-action--ghost{ border-color: var(--line-faint); color: var(--ink-faint); }
+  .block-action--ghost:hover{ background: transparent; border-color: var(--ink); color: var(--ink); }
+  .action-icon{ width: 14px; height: 14px; flex-shrink: 0; }
+  .action-icon path, .action-icon rect{ stroke: currentColor; fill: none; }
+
+  @media (max-width: 520px){
+    .block-action{ display: flex; justify-content: center; }
+    .block-action + .block-action{ margin-left: 0; margin-top: 10px; }
+  }
+
+  /* ---------- footer ---------- */
+  .footer{ padding-bottom: clamp(64px, 12vh, 120px); }
+  .footer-signature{ display: flex; justify-content: center; margin-bottom: 28px; opacity: 0.5; }
+  .footer-signature svg{ width: 22px; height: 52px; color: var(--ink); }
+  .footer-note{
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em;
+    color: var(--ink-faint); text-align: center; text-transform: uppercase; margin: 0;
+  }
+  .disclaimer{
+    max-width: 46ch; margin: 22px auto 0; font-size: 12.5px;
+    line-height: 1.9; color: var(--ink-faint); text-align: center;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="corner-marks">
+    <span class="corner tl"></span>
+    <span class="corner tr"></span>
+    <span class="corner bl"></span>
+    <span class="corner br"></span>
+  </div>
+
+  <div class="page">
+    <div class="container">
+      <a class="backlink" href="../">
+        <svg viewBox="0 0 16 16" aria-hidden="true">
+          <path d="M10 3 L5 8 L10 13" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Profile</span>
+      </a>
+
+      <header class="hero">
+        <p class="eyebrow">Works — 作ったもの</p>
+        <h1 class="name">作ったもの<span class="name-en">WORKS &amp; EXPERIMENTS</span></h1>
+
+        <p class="tagline">自分が欲しかったものを、自分で作って置いておく場所。動くところまで作って、実際に使いながら直しています。</p>
+
+        <!-- hero illustration: stacked screens, line art -->
+        <svg class="hero-art" viewBox="0 0 200 165" aria-hidden="true" focusable="false">
+          <g class="float--slow float">
+            <!-- back card -->
+            <path d="M46 22 H162 A4 4 0 0 1 166 26 V96 A4 4 0 0 1 162 100 H46 A4 4 0 0 1 42 96 V26 A4 4 0 0 1 46 22 Z" stroke-width="1.3" opacity="0.35"/>
+          </g>
+          <g class="float">
+            <!-- front card -->
+            <path d="M30 44 H146 A4 4 0 0 1 150 48 V126 A4 4 0 0 1 146 130 H30 A4 4 0 0 1 26 126 V48 A4 4 0 0 1 30 44 Z" stroke-width="1.8"/>
+            <!-- title bar -->
+            <line x1="26" y1="58" x2="150" y2="58" stroke-width="1.2"/>
+            <circle cx="35" cy="51" r="1.6" stroke-width="1"/>
+            <circle cx="42" cy="51" r="1.6" stroke-width="1"/>
+            <circle cx="49" cy="51" r="1.6" stroke-width="1"/>
+            <!-- sidebar -->
+            <line x1="66" y1="58" x2="66" y2="130" stroke-width="1.2" opacity="0.6"/>
+            <line x1="34" y1="70" x2="58" y2="70" stroke-width="1.2" opacity="0.5"/>
+            <line x1="34" y1="80" x2="58" y2="80" stroke-width="1.2" opacity="0.5"/>
+            <line x1="34" y1="90" x2="50" y2="90" stroke-width="1.2" opacity="0.5"/>
+            <!-- map pin on the canvas -->
+            <path d="M104 78 C110 78 114 82.5 114 88 C114 95 104 106 104 106 C104 106 94 95 94 88 C94 82.5 98 78 104 78 Z" stroke-width="1.6"/>
+            <circle class="blink" cx="104" cy="88" r="3.4" stroke-width="1.4"/>
+            <line x1="78" y1="118" x2="138" y2="118" stroke-width="1.1" opacity="0.4"/>
+          </g>
+          <!-- cursor -->
+          <path d="M150 108 L166 120 L157 122 L154 132 Z" stroke-width="1.4"/>
+        </svg>
+      </header>
+
+      <div class="divider divider--major">
+        <span class="divider-line"></span>
+        <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
+          <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+          <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
+          <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
+        </svg>
+        <span class="divider-line"></span>
+      </div>
+    </div>
+
+    <div class="container">
+      <main class="stack">
+
+        <!-- 01 スタディスポットMAP -->
+        <article class="block">
+          <p class="block-label"><span>Works · 01</span><span class="status status--live">プロトタイプ公開中</span></p>
+          <h2 class="block-title">スタディスポットMAP</h2>
+          <p class="block-text">無料で勉強できる場所を地図に並べて、S〜Cのランクと点数で共有するサイト。栃木県から始めています。図書館や公民館は「行ってみないと使えるか分からない」ので、行く前に分かるようにしたかった。</p>
+
+          <ul class="points">
+            <li>静音性・電源・Wi-Fi・座席・人目・空調・アクセス・水の8軸で採点し、100点満点とS/A/B/Cランクに変換</li>
+            <li>時間帯ごとの空き状況をヒートマップで表示。「いま空いてる」場所だけに絞り込める</li>
+            <li>都道府県から市町村まで絞り込み。誰でもスポットと口コミを書き込める</li>
+          </ul>
+
+          <ul class="tech">
+            <li>Leaflet / OpenStreetMap</li>
+            <li>Google Maps API</li>
+            <li>Supabase</li>
+            <li>Vanilla JS</li>
+          </ul>
+
+          <a class="block-action" href="../study-map/">
+            <span>開いてみる</span>
+            <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </article>
+
+        <!-- 02 GADGET LOG -->
+        <article class="block">
+          <div class="divider">
+            <span class="divider-line"></span>
+            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
+              <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
+              <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
+            </svg>
+            <span class="divider-line"></span>
+          </div>
+          <p class="block-label"><span>Works · 02</span><span class="status status--live">公開中</span></p>
+          <h2 class="block-title">GADGET LOG</h2>
+          <p class="block-text">モバイルバッテリーやワイヤレスイヤホンなど、実際に買って使ったガジェットのレビューを置いているブログ。スペック表の比較ではなく、使ってどうだったかを残しています。</p>
+
+          <ul class="tech">
+            <li>Static Site</li>
+            <li>GitHub Pages</li>
+          </ul>
+
+          <a class="block-action" href="https://kaitoinoue0921-sudo.github.io/gadget-log/" target="_blank" rel="noopener noreferrer">
+            <span>GADGET LOGを見る</span>
+            <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </article>
+
+        <!-- 03 このサイト -->
+        <article class="block">
+          <div class="divider">
+            <span class="divider-line"></span>
+            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
+              <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
+              <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
+            </svg>
+            <span class="divider-line"></span>
+          </div>
+          <p class="block-label"><span>Works · 03</span><span class="status status--live">公開中</span></p>
+          <h2 class="block-title">プロフィールサイト</h2>
+          <p class="block-text">いま見ているこのサイト自体。興味の領域をタグで絞り込めるようにした、縦一列の名刺のようなページ。フレームワークは使わず、HTML・CSS・素のJavaScriptだけで組んでいます。</p>
+
+          <ul class="tech">
+            <li>HTML / CSS</li>
+            <li>Vanilla JS</li>
+            <li>GitHub Pages</li>
+          </ul>
+
+          <a class="block-action block-action--ghost" href="../">
+            <span>トップへ戻る</span>
+            <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </article>
+
+      </main>
+    </div>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-signature">
+          <svg viewBox="0 0 24 56" aria-hidden="true">
+            <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+            <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
+            <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
+          </svg>
+        </div>
+        <p class="footer-note">Kaito Inoue — Works</p>
+        <p class="disclaimer">個人制作のプロトタイプです。掲載している情報の正確性は保証しません。</p>
+      </div>
+    </footer>
+  </div>
+
+</body>
+</html>
