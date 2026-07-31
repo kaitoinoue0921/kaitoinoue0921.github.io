@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /fujihara.html
+
+Sitemap: https://kaitoinoue0921-sudo.github.io/sitemap.xml
