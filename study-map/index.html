@@ -10,7 +10,7 @@
   --bg:#0f1214; --panel:#171b1f; --panel2:#1e242a; --line:#2b333b;
   --tx:#e8edf2; --tx2:#9aa7b4; --tx3:#6c7a88;
   --accent:#3fbf8f;
-  --s:#f0b429; --a:#3fbf8f; --b:#4d9de0; --c:#7c8894;
+  --s:#f0b429; --a:#3fbf8f; --b:#4d9de0; --c:#7c8894; --un:#414c56;
   --ok:#3fbf8f; --mid:#e0a33e; --busy:#d9534f;
   --shadow:0 8px 28px rgba(0,0,0,.45);
 }
@@ -74,6 +74,7 @@ button{cursor:pointer}
 .rankfilter button[data-r="A"][data-on="1"]{background:var(--a);border-color:var(--a)}
 .rankfilter button[data-r="B"][data-on="1"]{background:var(--b);border-color:var(--b)}
 .rankfilter button[data-r="C"][data-on="1"]{background:var(--c);border-color:var(--c)}
+.rankfilter button[data-r="?"][data-on="1"]{background:var(--un);border-color:var(--un);color:var(--tx)}
 .row{display:flex;gap:6px}
 .row select{
   flex:1;background:var(--panel2);border:1px solid var(--line);border-radius:8px;
@@ -98,6 +99,7 @@ button{cursor:pointer}
   font-weight:800;font-size:17px;color:#0f1214;font-family:Georgia,serif}
 .badge.S{background:var(--s)} .badge.A{background:var(--a)}
 .badge.B{background:var(--b)} .badge.C{background:var(--c)}
+.badge.un{background:transparent;border:1px dashed var(--line);color:var(--tx3);font-size:10px;font-family:inherit;font-weight:600;letter-spacing:.02em;line-height:1.3}
 .cbody{min-width:0;flex:1}
 .cname{font-size:13.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .cmeta{font-size:11px;color:var(--tx3);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -105,6 +107,12 @@ button{cursor:pointer}
 .bar{flex:1;height:4px;background:#2b333b;border-radius:2px;overflow:hidden}
 .bar i{display:block;height:100%;border-radius:2px}
 .ctags{display:flex;gap:4px;margin-top:6px;flex-wrap:wrap}
+.cnew{font-size:11px;color:var(--accent)}
+.facs{display:flex;gap:6px;flex-wrap:wrap}
+.fac{font-size:11.5px;padding:5px 10px;border-radius:7px;border:1px solid var(--line);color:var(--tx3)}
+.fac.y{border-color:var(--accent);color:var(--accent);background:rgba(63,191,143,.12)}
+.fac.n{border-color:var(--line);color:var(--tx3);text-decoration:line-through}
+.fac.u{border-style:dashed}
 .tg{font-size:10px;padding:2px 6px;border-radius:5px;background:#232a31;color:var(--tx2)}
 .tg.free{background:rgba(63,191,143,.15);color:var(--accent)}
 .tg.time{background:rgba(240,180,41,.14);color:var(--s)}
@@ -201,6 +209,8 @@ button{cursor:pointer}
 .pin b{transform:rotate(45deg);font-size:12px;font-weight:800;color:#0f1214;font-family:Georgia,serif}
 .pin.S{background:var(--s)} .pin.A{background:var(--a)}
 .pin.B{background:var(--b)} .pin.C{background:var(--c)}
+.pin.un{background:var(--un);border-color:rgba(0,0,0,.5)}
+.pin.un b{color:#c3ccd5}
 .pin.act{outline:3px solid rgba(255,255,255,.85);outline-offset:1px}
 .leaflet-tooltip.tip{
   background:rgba(23,27,31,.96);border:1px solid var(--line);color:var(--tx);
@@ -267,13 +277,16 @@ button{cursor:pointer}
         <button data-r="A" data-on="1">A</button>
         <button data-r="B" data-on="1">B</button>
         <button data-r="C" data-on="1">C</button>
+        <button data-r="?" data-on="1">未</button>
       </div>
       <div class="row">
         <select id="cat">
           <option value="">すべての種別</option>
           <option>図書館</option><option>公民館・生涯学習センター</option>
-          <option>市民活動センター</option><option>道の駅</option>
-          <option>大学・学習施設</option><option>商業施設</option>
+          <option>コミュニティセンター</option><option>市民活動センター</option>
+          <option>カフェ</option><option>ファミレス</option><option>温泉・入浴施設</option>
+          <option>道の駅</option><option>大学・学習施設</option>
+          <option>市役所・公共施設</option><option>商業施設</option>
         </select>
         <select id="sort">
           <option value="score">スコア順</option>
@@ -325,6 +338,7 @@ button{cursor:pointer}
       <div><i style="background:var(--a)"></i>A — かなり快適（72〜84）</div>
       <div><i style="background:var(--b)"></i>B — 普通に使える（58〜71）</div>
       <div><i style="background:var(--c)"></i>C — 条件つき（〜57）</div>
+      <div><i style="background:var(--un)"></i>未 — まだ評価なし</div>
     </div>
   </div>
 </div>
@@ -350,7 +364,14 @@ const AXES = [
   {k:'water',  label:'水',       w:.08, chip:'水'},
 ];
 const RANKS=[{r:'S',min:85},{r:'A',min:72},{r:'B',min:58},{r:'C',min:0}];
-const RCOL={S:'var(--s)',A:'var(--a)',B:'var(--b)',C:'var(--c)'};
+/* '?' = まだ誰も評価していないスポット。Cとは区別する */
+const UNRATED='?';
+/* 設備は「事実」。誰かの主観評価とは別に、あるかないかだけを持つ。
+   1=あり 0=なし undefined=不明（口コミの平均で代用する） */
+const FACS=[{k:'wifi',label:'Wi-Fi'},{k:'power',label:'電源'},
+            {k:'aircon',label:'空調'},{k:'water',label:'水'}];
+const facOf=(sp,k)=>sp.facilities?sp.facilities[k]:undefined;
+const RCOL={S:'var(--s)',A:'var(--a)',B:'var(--b)',C:'var(--c)','?':'var(--un)'};
 
 /* ---------- 時間帯 ---------- */
 const SLOTS=[[9,11],[11,13],[13,15],[15,17],[17,19],[19,21]];
@@ -493,6 +514,98 @@ const SEED=[
      r('bell',[2,3,4,3,2,5,4,4],'平日夕方前なら空いていて作業しやすい。ただし完全に静かではない。','wd:3:3'),
      r('むー',[2,2,4,3,1,5,4,4],'ランチタイムは勉強どころではないので避けたほうがいい。','wd:1:1'),
    ]}),
+
+ /* ---------- 下野市 ----------
+    公式サイト等で確認した住所・営業時間・設備だけを入れた初期データ。
+    評価（8軸のスコア）はあえて空にしてあり、行った人が最初の1人になる。
+    設備は「あるかないか」の事実のみ。座標はおおよその位置。 */
+
+ s({name:'下野市立石橋図書館',category:'図書館',city:'下野市',address:'下野市大松山1-7-3',
+   lat:36.4245,lng:139.8497,hoursWd:'9:00–19:00',hoursWe:'9:00–19:00',closed:'月曜（要確認）',
+   fee:'無料',facilities:{aircon:1},
+   note:'石橋駅の西側。19時まで開いている。TEL 0285-52-1136',reviews:[]}),
+
+ s({name:'下野市立国分寺図書館',category:'図書館',city:'下野市',address:'下野市駅東3-1-19',
+   lat:36.3893,lng:139.8586,hoursWd:'9:00–19:00',hoursWe:'9:00–19:00',closed:'月曜（要確認）',
+   fee:'無料',facilities:{aircon:1},
+   note:'小金井駅の東側。19時まで開いている。TEL 0285-44-3399',reviews:[]}),
+
+ s({name:'下野市立南河内図書館',category:'図書館',city:'下野市',address:'下野市田中681-1',
+   lat:36.4243,lng:139.8848,hoursWd:'要確認',hoursWe:'要確認',closed:'月曜（要確認）',
+   fee:'無料',facilities:{aircon:1},
+   note:'南河内公民館と同じ敷地。開館時間は要確認。TEL 0285-48-2395',reviews:[]}),
+
+ s({name:'石橋公民館',category:'公民館・生涯学習センター',city:'下野市',address:'下野市石橋629-1',
+   lat:36.4262,lng:139.8530,hoursWd:'9:00–21:00',hoursWe:'9:00–21:00',closed:'月曜・祝日・年末年始',
+   fee:'無料（部屋の貸切は有料・要予約）',facilities:{aircon:1},
+   note:'21時まで開いている。会議室などは予約制。初回利用は登録が必要（火〜土 9:00–17:15）。TEL 0285-52-1157',reviews:[]}),
+
+ s({name:'国分寺公民館',category:'公民館・生涯学習センター',city:'下野市',address:'下野市小金井1127',
+   lat:36.3906,lng:139.8535,hoursWd:'9:00–21:00',hoursWe:'9:00–21:00',closed:'要確認',
+   fee:'無料（部屋の貸切は有料・要予約）',facilities:{aircon:1},
+   note:'小金井エリア。21時まで。部屋は予約制。TEL 0285-40-5563',reviews:[]}),
+
+ s({name:'南河内公民館',category:'公民館・生涯学習センター',city:'下野市',address:'下野市田中681-1',
+   lat:36.4247,lng:139.8853,hoursWd:'9:00–21:00',hoursWe:'9:00–21:00',closed:'要確認',
+   fee:'無料（部屋の貸切は有料・要予約）',facilities:{aircon:1},
+   note:'南河内図書館と同じ敷地。図書館が閉まったあとも21時まで開いている。TEL 0285-48-2393',reviews:[]}),
+
+ s({name:'コミュニティセンター友愛館',category:'コミュニティセンター',city:'下野市',address:'下野市柴1019-1',
+   lat:36.4145,lng:139.8480,hoursWd:'要確認',hoursWe:'要確認',closed:'水曜・8/13〜16・年末年始',
+   fee:'有料（和室・ホール・調理室の貸室）',facilities:{aircon:1},
+   note:'貸室が中心の施設。自由に使える自習スペースがあるかは要確認。TEL 0285-40-8111',reviews:[]}),
+
+ s({name:'下野市役所',category:'市役所・公共施設',city:'下野市',address:'下野市笹原26',
+   lat:36.4054,lng:139.8592,hoursWd:'8:30–17:15',hoursWe:'閉庁',closed:'土日祝・年末年始',
+   fee:'無料',facilities:{aircon:1,water:1},
+   note:'ロビーなどの共用スペースを想定。自習に使えるかは要確認。TEL 0285-32-8888',reviews:[]}),
+
+ s({name:'道の駅しもつけ',category:'道の駅',city:'下野市',address:'下野市薬師寺3720-1',
+   lat:36.4148,lng:139.8756,hoursWd:'9:00–18:00',hoursWe:'9:00–18:00',
+   closed:'第1・第3水曜（祝日は営業）・1/1〜3',fee:'無料（駐車場も無料・飲食代は別）',
+   facilities:{aircon:1,water:1},
+   note:'軽食コーナーとコミュニティ施設あり。駐車場とトイレは24時間利用可。車で来る人向け。',reviews:[]}),
+
+ s({name:'下野市保健福祉センター ゆうゆう館（天平乃湯）',category:'温泉・入浴施設',city:'下野市',
+   address:'下野市小金井789',lat:36.3925,lng:139.8617,hoursWd:'10:00–20:30',hoursWe:'10:00–20:30',
+   closed:'火曜（祝日の場合は翌日）・年末年始',fee:'一般330円 / 小中学生・65歳以上220円',
+   facilities:{aircon:1,water:1},
+   note:'露天風呂付きの公営入浴施設。大広間・小広間の休憩スペースあり（11:00–20:00）。風呂のあとの息抜き向け。',reviews:[]}),
+
+ s({name:'タリーズコーヒー 自治医大駅前店',category:'カフェ',city:'下野市',address:'下野市／自治医大駅前',
+   lat:36.4058,lng:139.8610,hoursWd:'9:00–22:00',hoursWe:'9:00–22:00',closed:'要確認',
+   fee:'有料（飲食代）',facilities:{wifi:1,aircon:1},
+   note:'自治医大駅から徒歩2分。22時まで。電源席の数は店舗により異なるので要確認。',reviews:[]}),
+
+ s({name:'コメダ珈琲店 自治医大店',category:'カフェ',city:'下野市',address:'下野市／自治医大駅周辺',
+   lat:36.4040,lng:139.8652,hoursWd:'7:00–23:00',hoursWe:'7:00–23:00',closed:'要確認',
+   fee:'有料（飲食代）',facilities:{wifi:1,aircon:1,water:1},
+   note:'朝7時から夜23時まで。席がゆったりしていて長居しやすい業態。',reviews:[]}),
+
+ s({name:'ガスト 自治医大前店',category:'ファミレス',city:'下野市',address:'下野市祇園1-15-1',
+   lat:36.4062,lng:139.8637,hoursWd:'7:00–23:30',hoursWe:'7:00–23:30',closed:'年中無休（要確認）',
+   fee:'有料（飲食代）',facilities:{wifi:1,aircon:1,water:1},
+   note:'自治医大駅から徒歩5分。朝7時から23時半まで。無料Wi-Fi・ドリンクバーあり。混雑時の長居はマナー的に注意。',reviews:[]}),
+
+ s({name:'ココス 自治医大前店',category:'ファミレス',city:'下野市',address:'下野市祇園1-14-1',
+   lat:36.4059,lng:139.8641,hoursWd:'10:00–翌2:00',hoursWe:'7:00–翌2:00',closed:'年中無休（要確認）',
+   fee:'有料（飲食代）',facilities:{wifi:1,aircon:1,water:1},
+   note:'深夜2時まで営業。無料Wi-Fi・ドリンクバーあり。夜型の人向け。混雑時の長居はマナー的に注意。',reviews:[]}),
+
+ s({name:'サイゼリヤ 栃木石橋店',category:'ファミレス',city:'下野市',address:'下野市下古山3382-1',
+   lat:36.4165,lng:139.8420,hoursWd:'11:00–翌2:00',hoursWe:'11:00–翌2:00',closed:'要確認',
+   fee:'有料（飲食代）',facilities:{aircon:1,water:1},
+   note:'国道4号沿いのショッピングモール内。駐車場が広い。Wi-Fiの有無は要確認。',reviews:[]}),
+
+ s({name:'グリムの館 喫茶室 Cafe Pause（グリムの森）',category:'カフェ',city:'下野市',
+   address:'下野市下古山747',lat:36.4177,lng:139.8368,hoursWd:'要確認',hoursWe:'11:00–16:00',
+   closed:'要確認',fee:'有料（飲食代）',facilities:{aircon:1},
+   note:'グリムの森・グリムの館の中にある喫茶室。土日は11:00–16:00。石橋駅から徒歩20分ほど。',reviews:[]}),
+
+ s({name:'自治医科大学 附属図書館',category:'大学・学習施設',city:'下野市',address:'下野市薬師寺3311-1',
+   lat:36.4025,lng:139.8683,hoursWd:'要確認（学外者は事前確認）',hoursWe:'要確認',closed:'要確認',
+   fee:'無料（学外利用は受付で手続き・可否は要確認）',facilities:{aircon:1},
+   note:'学外者の利用可否・時間は大学に事前確認が必要。自治医大駅から徒歩圏。',reviews:[]}),
 ];
 
 /* ---------- スコア ---------- */
@@ -509,6 +622,9 @@ function score100(sp){
   return Math.round(AXES.reduce((t,x)=>t+a[x.k]*x.w,0)/5*100);
 }
 const rankOf=sc=>RANKS.find(x=>sc>=x.min).r;
+/* 口コミが1件も無いスポットは順位をつけず「未評価」にする */
+const rated=sp=>sp.reviews.length>0;
+const rankOfSpot=sp=>rated(sp)?rankOf(score100(sp)):UNRATED;
 
 /* ---------- 空き状況 ---------- */
 function heatData(sp){
@@ -552,7 +668,7 @@ function closeHour(sp){ const h=hoursFor(sp)||''; const p=h.split(/[–~-]/); re
    ストア — 共有DB(Supabase)が設定されていればそちら、
    なければブラウザのlocalStorageにフォールバックする。
    ========================================================= */
-const KEY='tsm.spots.v3', CKEY='tsm.supabase';
+const KEY='tsm.spots.v5', CKEY='tsm.supabase';
 let SPOTS=[];
 
 function loadLocal(){
@@ -653,7 +769,7 @@ function renderDbStat(){
 }
 
 /* ---------- 状態 ---------- */
-const state={pref:'栃木県',city:'',q:'',cat:'',sort:'score',ranks:{S:1,A:1,B:1,C:1},chips:{},sel:null,adding:false};
+const state={pref:'栃木県',city:'',q:'',cat:'',sort:'score',ranks:{S:1,A:1,B:1,C:1,'?':1},chips:{},sel:null,adding:false};
 
 /* ---------- 地図アダプタ ---------- */
 const GKEY='tsm.gmapskey';
@@ -669,10 +785,11 @@ function LeafletAdapter(){
     kind:'leaflet',
     clear(){ markers.forEach(m=>map.removeLayer(m)); markers=[]; },
     add(sp,rank,sc,onClick){
-      const icon=L.divIcon({html:`<div class="pin ${rank}" data-id="${sp.id}"><b>${rank}</b></div>`,
+      const cls=rank===UNRATED?'un':rank, mark=rank===UNRATED?'未':rank;
+      const icon=L.divIcon({html:`<div class="pin ${cls}" data-id="${sp.id}"><b>${mark}</b></div>`,
         className:'',iconSize:[26,26],iconAnchor:[13,26]});
       const m=L.marker([sp.lat,sp.lng],{icon}).addTo(map).on('click',()=>onClick(sp.id));
-      m.bindTooltip(`<b>${esc(sp.name)}</b><br><em>${sc}点 ・ ${esc(hoursFor(sp)||'—')}</em>`,
+      m.bindTooltip(`<b>${esc(sp.name)}</b><br><em>${rank===UNRATED?'未評価':sc+'点'} ・ ${esc(hoursFor(sp)||'—')}</em>`,
         {className:'tip',direction:'top',offset:[0,-28]});
       markers.push(m);
     },
@@ -702,9 +819,9 @@ function GoogleAdapter(){
     clear(){ markers.forEach(m=>m.setMap(null)); markers=[]; },
     add(sp,rank,sc,onClick){
       const m=new google.maps.Marker({position:{lat:sp.lat,lng:sp.lng},map,
-        title:`${sp.name}（${sc}点 / ${hoursFor(sp)||'—'}）`,
-        label:{text:rank,color:'#0f1214',fontWeight:'800',fontSize:'12px'},
-        icon:{path:google.maps.SymbolPath.CIRCLE,scale:13,fillColor:col[rank],
+        title:`${sp.name}（${rank===UNRATED?'未評価':sc+'点'} / ${hoursFor(sp)||'—'}）`,
+        label:{text:rank===UNRATED?'未':rank,color:rank===UNRATED?'#c3ccd5':'#0f1214',fontWeight:'800',fontSize:'12px'},
+        icon:{path:google.maps.SymbolPath.CIRCLE,scale:13,fillColor:col[rank]||'#414c56',
           fillOpacity:1,strokeColor:'rgba(0,0,0,.4)',strokeWeight:2}});
       m._sid=sp.id; m.addListener('click',()=>onClick(sp.id)); markers.push(m);
     },
@@ -746,13 +863,18 @@ function filtered(){
   let out=SPOTS.filter(sp=>{
     if(state.pref && (sp.pref||'栃木県')!==state.pref) return false;
     if(state.city && sp.city!==state.city) return false;
-    const sc=score100(sp);
-    if(!state.ranks[rankOf(sc)]) return false;
+    if(!state.ranks[rankOfSpot(sp)]) return false;
     if(state.cat && sp.category!==state.cat) return false;
     if(q && !(sp.name+sp.city+(sp.address||'')+sp.category).toLowerCase().includes(q)) return false;
     const a=avgAxes(sp);
-    for(const k of ['power','wifi','aircon','water','privacy'])
-      if(state.chips[k] && a[k]<3.5) return false;
+    for(const k of ['power','wifi','aircon','water']){
+      if(!state.chips[k]) continue;
+      const f=facOf(sp,k);
+      if(f===1) continue;                 // 設備ありが確定している
+      if(f===0) return false;             // なしが確定している
+      if(a[k]<3.5) return false;          // 不明なら口コミの平均で判定
+    }
+    if(state.chips.privacy && a.privacy<3.5) return false;
     if(state.chips.quiet && a.quiet<4) return false;
     if(state.chips.free && !/無料/.test(sp.fee||'')) return false;
     if(state.chips.open && isOpenNow(sp)!==true) return false;
@@ -761,7 +883,11 @@ function filtered(){
   });
   const key={score:x=>-score100(x),rank:x=>-score100(x),late:x=>-closeHour(x),
              rev:x=>-x.reviews.length,name:x=>x.name}[state.sort];
-  out.sort((x,y)=>{const a=key(x),b=key(y);return a<b?-1:a>b?1:0;});
+  out.sort((x,y)=>{
+    // 未評価は点数で並べられないので、名前順以外では常に末尾へ
+    if(state.sort!=='name' && rated(x)!==rated(y)) return rated(x)?-1:1;
+    const a=key(x),b=key(y); return a<b?-1:a>b?1:0;
+  });
   return out;
 }
 
@@ -786,21 +912,26 @@ function render(){
 
   const list=document.getElementById('list');
   list.innerHTML= rows.length ? rows.map(sp=>{
-    const sc=score100(sp),rk=rankOf(sc),a=avgAxes(sp),bs=bestSlot(sp),op=isOpenNow(sp);
+    const sc=score100(sp),rk=rankOfSpot(sp),a=avgAxes(sp),bs=bestSlot(sp),op=isOpenNow(sp);
     const tags=[];
     if(op===true) tags.push(`<span class="tg free">開館中 ${esc(hoursFor(sp)||'')}</span>`);
     else if(op===false) tags.push(`<span class="tg">${esc(hoursFor(sp)||'')}</span>`);
     if(bs) tags.push(`<span class="tg time">${bs.day}${bs.slot}時が空き</span>`);
-    AXES.filter(x=>['power','wifi','aircon','water'].includes(x.k)&&a[x.k]>=4)
-        .forEach(x=>tags.push(`<span class="tg">${x.chip}</span>`));
+    FACS.forEach(f=>{
+      const v=facOf(sp,f.k);
+      if(v===1||(v===undefined&&a[f.k]>=4)) tags.push(`<span class="tg">${f.label}</span>`);
+    });
+    const score = rk===UNRATED
+      ? `<span class="cnew">まだ評価がありません — 最初の1人になりませんか？</span>`
+      : `<span style="width:30px">${sc}点</span>
+         <span class="bar"><i style="width:${sc}%;background:${RCOL[rk]}"></i></span>
+         <span>口コミ${sp.reviews.length}</span>`;
     return `<div class="card ${state.sel===sp.id?'sel':''}" data-id="${sp.id}">
-      <div class="badge ${rk}">${rk}</div>
+      <div class="badge ${rk===UNRATED?'un':rk}">${rk===UNRATED?'未<br>評価':rk}</div>
       <div class="cbody">
         <div class="cname">${esc(sp.name)}</div>
         <div class="cmeta">${esc(sp.city)}・${esc(sp.category)}</div>
-        <div class="cscore"><span style="width:30px">${sc}点</span>
-          <span class="bar"><i style="width:${sc}%;background:${RCOL[rk]}"></i></span>
-          <span>口コミ${sp.reviews.length}</span></div>
+        <div class="cscore">${score}</div>
         <div class="ctags">${tags.join('')}</div>
       </div></div>`;
   }).join('') : `<div class="empty">${state.pref||'この地域'}にはまだスポットがありません。<br>
@@ -810,7 +941,7 @@ function render(){
 
   if(MapA){
     MapA.clear();
-    rows.forEach(sp=>MapA.add(sp,rankOf(score100(sp)),score100(sp),selectSpot));
+    rows.forEach(sp=>MapA.add(sp,rankOfSpot(sp),score100(sp),selectSpot));
     if(state.sel) MapA.highlight(state.sel);
   }
 }
@@ -847,7 +978,7 @@ function heatHTML(sp){
 }
 
 function detailHTML(sp){
-  const sc=score100(sp),rk=rankOf(sc),a=avgAxes(sp),op=isOpenNow(sp);
+  const sc=score100(sp),rk=rankOfSpot(sp),a=avgAxes(sp),op=isOpenNow(sp);
   const ax=AXES.map(x=>`<div class="ax"><label>${x.label}</label>
       <span class="bar"><i style="width:${a[x.k]/5*100}%;background:${RCOL[rk]}"></i></span>
       <b>${a[x.k].toFixed(1)}</b></div>`).join('');
@@ -862,7 +993,7 @@ function detailHTML(sp){
 
   return `
   <div class="dtitle">
-    <div class="badge ${rk}" style="width:44px;height:44px;flex:0 0 44px;font-size:20px">${rk}</div>
+    <div class="badge ${rk===UNRATED?'un':rk}" style="width:44px;height:44px;flex:0 0 44px;font-size:${rk===UNRATED?'11px':'20px'}">${rk===UNRATED?'未<br>評価':rk}</div>
     <div><h2>${esc(sp.name)}</h2>
       <div class="sub">${esc(sp.pref||'')} ${esc(sp.city)}・${esc(sp.category)}</div></div>
   </div>
@@ -870,8 +1001,10 @@ function detailHTML(sp){
   <div class="scorebox">
     <div class="sbtop">
       <div style="text-align:center;min-width:66px">
-        <div class="big" style="color:${RCOL[rk]}">${sc}<small>/100</small></div>
-        <div style="font-size:10.5px;color:var(--tx3);margin-top:5px">口コミ ${sp.reviews.length}件</div>
+        ${rk===UNRATED
+          ? `<div style="font-size:12px;color:var(--tx3);line-height:1.6">まだ<br>評価なし</div>`
+          : `<div class="big" style="color:${RCOL[rk]}">${sc}<small>/100</small></div>
+             <div style="font-size:10.5px;color:var(--tx3);margin-top:5px">口コミ ${sp.reviews.length}件</div>`}
       </div>
       <div style="flex:1;font-size:11.5px;color:var(--tx2);line-height:1.8">
         本日 ${esc(hoursFor(sp)||'—')}
@@ -879,7 +1012,22 @@ function detailHTML(sp){
         <br><span style="color:var(--tx3)">休館: ${esc(sp.closed||'—')}</span>
       </div>
     </div>
-    <div class="axgrid">${ax}</div>
+    ${rk===UNRATED
+      ? `<p class="hint" style="margin:0">静音性や電源の点数は、行った人の投稿から計算されます。下の「評価・口コミを書く」から最初の評価をつけられます。</p>`
+      : `<div class="axgrid">${ax}</div>`}
+  </div>
+
+  <div class="sect">
+    <h3>設備（確認できている事実）</h3>
+    <div class="facs">
+      ${FACS.map(f=>{
+        const v=facOf(sp,f.k);
+        const st=v===1?'y':v===0?'n':'u';
+        const mk=v===1?'あり':v===0?'なし':'不明';
+        return `<span class="fac ${st}">${f.label} ${mk}</span>`;
+      }).join('')}
+    </div>
+    <p class="hint">「不明」は誰も確認していない項目です。投稿の8軸評価とは別に、公式情報などで確認できた事実だけを載せています。</p>
   </div>
 
   <div class="sect">
@@ -988,8 +1136,10 @@ function openAddForm(lat,lng){
     </div>
     <div class="field"><label>種別</label>
       <select id="ca"><option>図書館</option><option>公民館・生涯学習センター</option>
-      <option>市民活動センター</option><option>道の駅</option>
-      <option>大学・学習施設</option><option>商業施設</option></select></div>
+      <option>コミュニティセンター</option><option>市民活動センター</option>
+      <option>カフェ</option><option>ファミレス</option><option>温泉・入浴施設</option>
+      <option>道の駅</option><option>大学・学習施設</option>
+      <option>市役所・公共施設</option><option>商業施設</option></select></div>
     <div class="field"><label>住所</label><input id="ad" placeholder="例）宇都宮市○○町1-2-3"></div>
     <div class="row" style="gap:8px">
       <div class="field" style="flex:1"><label>平日の利用時間</label><input id="hw" placeholder="9:00–19:00"></div>
