@@ -984,6 +984,15 @@
                 </svg>
               </a>
             </li>
+            <li class="friend-item" data-search="あやせ アヤセ AYASE 先輩 ジャズ ギター ギタリスト Route4 ルートフォー ジャズ研 自治医大">
+              <a class="friend-link" href="./ayase.html">
+                <span class="friend-name">あやせ</span>
+                <span class="friend-meta">先輩 — Route 4 ジャズ研。ジャズギタリスト</span>
+                <svg class="action-icon friend-arrow" viewBox="0 0 16 16" aria-hidden="true">
+                  <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </li>
           </ul>
           <p class="friend-empty" id="friendEmpty" hidden>該当する人が見つかりません。</p>
         </article>
@@ -1203,7 +1212,8 @@
   /* ---------------- relationship map ----------------
      To add someone, append one row here. Layout is computed automatically. */
   var RELATIONS = [
-    { name: '藤原東太', sub: '藤原豆腐店', group: '友人', href: './fujihara.html' }
+    { name: '藤原東太', sub: '藤原豆腐店',   group: '友人', href: './fujihara.html' },
+    { name: 'あやせ',   sub: 'Route 4 ジャズ研', group: '先輩', href: './ayase.html' }
   ];
 
   function renderRelMap(){
