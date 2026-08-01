@@ -15,6 +15,7 @@
 <meta property="og:description" content="自治医科大学 医学部。医学・音楽・執筆・教育・個人開発。井上凱斗の公式プロフィールサイト。">
 <meta property="og:url" content="https://kaitoinoue0921.github.io/">
 <meta property="og:image" content="https://kaitoinoue0921.github.io/ogp.png">
+<meta property="og:image:alt" content="井上凱斗（いのうえ かいと）— 自治医科大学 医学部">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="ja_JP">
@@ -26,30 +27,63 @@
 <link rel="icon" href="./favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="./apple-touch-icon.png">
 
-<!-- tells search engines this is a specific person, distinct from same-named athletes -->
+<!-- ProfilePage is Google's recommended type for an "about me" page; it tells
+     search engines this page IS the profile of a specific person, which is what
+     separates it from same-named athletes on sports databases. -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "井上凱斗",
-  "alternateName": ["いのうえ かいと", "Kaito Inoue", "INOUE Kaito"],
-  "givenName": "凱斗",
-  "familyName": "井上",
+  "@type": "ProfilePage",
+  "@id": "https://kaitoinoue0921.github.io/#profilepage",
   "url": "https://kaitoinoue0921.github.io/",
-  "image": "https://kaitoinoue0921.github.io/ogp.png",
-  "description": "自治医科大学 医学部。臨床実習を通じて医療の現場を学びながら、資産運用やビジネスの構造化にも関心を持つ。",
-  "affiliation": {
-    "@type": "CollegeOrUniversity",
-    "name": "自治医科大学",
-    "url": "https://www.jichi.ac.jp/"
-  },
-  "knowsAbout": ["医学", "臨床実習", "コントラバス", "資産運用", "教育", "個人開発"],
-  "sameAs": [
-    "https://www.instagram.com/kaitoinoue0921/",
-    "https://x.com/marimo09871",
-    "https://www.facebook.com/profile.php?id=100009130364436",
-    "https://note.com/jikotaiwa"
-  ]
+  "name": "井上凱斗（いのうえ かいと）プロフィール",
+  "inLanguage": "ja",
+  "dateModified": "2026-08-01",
+  "mainEntity": {
+    "@type": "Person",
+    "@id": "https://kaitoinoue0921.github.io/#person",
+    "name": "井上凱斗",
+    "alternateName": ["いのうえ かいと", "イノウエカイト", "Kaito Inoue", "INOUE Kaito"],
+    "givenName": "凱斗",
+    "familyName": "井上",
+    "url": "https://kaitoinoue0921.github.io/",
+    "image": "https://kaitoinoue0921.github.io/ogp.png",
+    "description": "自治医科大学 医学部の学生。臨床実習で医療の現場を学びながら、知識の構造化、コントラバスの演奏、noteでの執筆、家庭教師、個人開発に取り組む。",
+    "nationality": { "@type": "Country", "name": "日本" },
+    "affiliation": {
+      "@type": "CollegeOrUniversity",
+      "name": "自治医科大学",
+      "url": "https://www.jichi.ac.jp/"
+    },
+    "alumniOf": {
+      "@type": "CollegeOrUniversity",
+      "name": "自治医科大学 医学部"
+    },
+    "knowsAbout": [
+      "医学", "臨床実習", "地域医療", "知識管理", "Notion", "Obsidian",
+      "コントラバス", "ベース", "資産運用", "新NISA", "家庭教師", "個人開発"
+    ],
+    "sameAs": [
+      "https://www.instagram.com/kaitoinoue0921/",
+      "https://x.com/marimo09871",
+      "https://www.facebook.com/profile.php?id=100009130364436",
+      "https://note.com/jikotaiwa"
+    ]
+  }
+}
+</script>
+
+<!-- ties every page on the domain back to the same person entity -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://kaitoinoue0921.github.io/#website",
+  "url": "https://kaitoinoue0921.github.io/",
+  "name": "井上凱斗 — Profile",
+  "inLanguage": "ja",
+  "author": { "@id": "https://kaitoinoue0921.github.io/#person" },
+  "publisher": { "@id": "https://kaitoinoue0921.github.io/#person" }
 }
 </script>
 
@@ -241,6 +275,27 @@
     stroke: currentColor;
     fill: none;
   }
+
+  /* ---------- about (prose) ---------- */
+  .about{
+    padding-top: clamp(28px, 5vh, 52px);
+  }
+  .about-heading{
+    font-family: var(--serif);
+    font-weight: 600;
+    color: var(--ink);
+    font-size: clamp(19px, 2.6vw, 23px);
+    letter-spacing: 0.04em;
+    margin: 0 0 26px;
+  }
+  .about-p{
+    font-size: 15.5px;
+    line-height: 2.15;
+    color: var(--ink-soft);
+    max-width: 58ch;
+    margin: 0 0 22px;
+  }
+  .about-p:last-child{ margin-bottom: 0; }
 
   /* ---------- divider / f-hole ---------- */
   .divider{
@@ -718,6 +773,22 @@
 
         <p class="tagline">自治医科大学 医学部。臨床実習を通じて医療の現場を学びながら、資産運用やビジネスの構造化にも関心を持つ。</p>
       </header>
+
+      <!-- prose section: gives search engines real text to read, and gives a
+           first-time visitor an actual answer to "who is this person" -->
+      <section class="about" aria-labelledby="aboutHeading">
+        <h2 class="about-heading" id="aboutHeading">井上凱斗について</h2>
+
+        <p class="about-p">井上凱斗（いのうえ かいと）です。自治医科大学 医学部に在籍し、臨床実習で医療の現場に立ちながら、総合判定試験に向けた演習を進めています。</p>
+
+        <p class="about-p">学びの中心にあるのは「構造化」という考え方です。実習や演習で得た知識は、そのままでは断片のまま流れていってしまいます。そこで NotionやObsidian を使い、個々の知識を互いに結び直して、あとから辿れるネットワークとして残すようにしています。この習慣は医学に限らず、音楽でも、文章を書くときでも、同じように働いています。</p>
+
+        <p class="about-p">音楽ではベースとコントラバスを演奏しています。低音は目立つ楽器ではありませんが、和音の土台を決め、曲全体の輪郭を静かに決定づけます。表に出る部分より、その下で全体を支えている構造のほうに惹かれる、という点で、ここにも同じ関心が通っています。</p>
+
+        <p class="about-p">考えたことは note に書いています。新NISAと円安の関係、政局の裏側にある力学、所属する吹奏楽団の観察記など、扱う題材はばらばらですが、いずれも「表面に見えている出来事の下で、何がどう噛み合ってそうなったのか」を分解しようとする点では一貫しています。</p>
+
+        <p class="about-p">それ以外に、個人契約の家庭教師として学習の設計を手伝ったり、無料で勉強できる場所を集めた「スタディスポットMAP」や、実機を試したガジェットのレビューなど、自分が欲しかったものを作って公開したりしています。</p>
+      </section>
 
       <div class="divider divider--major">
         <span class="divider-line"></span>
