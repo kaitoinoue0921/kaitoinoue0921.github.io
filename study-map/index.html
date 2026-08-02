@@ -57,7 +57,8 @@ button{cursor:pointer}
 #app{display:flex;height:calc(100vh - 58px);height:calc(100dvh - 58px)}
 #side{
   width:400px;flex:0 0 400px;background:var(--panel);
-  border-right:1px solid var(--line);display:flex;flex-direction:column;position:relative;z-index:500
+  border-right:1px solid var(--line);display:flex;flex-direction:column;position:relative;z-index:500;
+  min-height:0   /* これが無いと中身の高さで膨らみ、#list が内部スクロールしなくなる */
 }
 #mapwrap{flex:1;position:relative}
 #map{position:absolute;inset:0;background:#20262c}
@@ -91,7 +92,7 @@ button{cursor:pointer}
 /* ---------- list ---------- */
 #listhead{padding:10px 16px 6px;display:flex;justify-content:space-between;align-items:baseline}
 #listhead span{font-size:11.5px;color:var(--tx3)}
-#list{flex:1;overflow-y:auto;padding:0 10px 14px}
+#list{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:0 10px 14px}
 .card{display:flex;gap:11px;padding:11px;border-radius:11px;cursor:pointer;border:1px solid transparent;transition:.12s}
 .card:hover{background:var(--panel2)}
 .card.sel{background:var(--panel2);border-color:var(--accent)}
@@ -123,7 +124,7 @@ button{cursor:pointer}
 #detail.on{display:flex}
 .dhead{padding:12px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px}
 .back{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:5px 10px;font-size:12px;color:var(--tx2)}
-.dbody{flex:1;overflow-y:auto;padding:16px}
+.dbody{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:16px}
 .dtitle{display:flex;gap:12px;align-items:flex-start}
 .dtitle h2{margin:0;font-size:17px;line-height:1.45;font-weight:700}
 .dtitle .sub{font-size:11.5px;color:var(--tx3);margin-top:5px}
@@ -240,18 +241,37 @@ button{cursor:pointer}
 
 @media (max-width:900px){
   #top{height:auto;flex-wrap:wrap;padding:10px 12px;gap:8px}
-  #top .brand{width:100%}
+  #top .brand{flex:1 1 auto;width:auto}
+  /* 1行目 = ロゴ + 保存先バッジ、2行目 = 地域、3行目 = 検索。
+     order を振らないとバッジが最終行に落ちて1行ぶん無駄になる */
+  #dbstat{order:1;margin-left:auto}
+  .region{order:2}
+  #topsearch{order:3}
   .region{margin-left:0;width:100%}
   .region select{flex:1;min-width:0}
   #topsearch{max-width:none;flex:1 1 100%}
   #topcount{display:none}
-  #app{height:auto;flex:1;flex-direction:column-reverse}
   body{display:flex;flex-direction:column}
-  #side{width:100%;flex:0 0 50vh;border-right:none;border-top:1px solid var(--line)}
-  #mapwrap{flex:1;min-height:38vh}
+  /* min-height:0 が無いと、flex 子要素が中身の高さまで膨らんで
+     ページ全体がはみ出し、body の overflow:hidden で切られてスクロール不能になる */
+  #app{height:auto;flex:1 1 auto;min-height:0;flex-direction:column-reverse}
+  #side{width:100%;flex:1 1 56%;min-height:0;border-right:none;border-top:1px solid var(--line)}
+  #mapwrap{flex:1 1 44%;min-height:160px}
   #addbtn{bottom:14px;right:12px;padding:10px 16px}
   #legend{display:none}
   .axgrid{grid-template-columns:1fr}
+
+  /* 画面が狭いぶん、一覧に使える高さを稼ぐ */
+  #top .tag{display:none}
+  #top h1{font-size:14px}
+  .logo{width:26px;height:26px;flex:0 0 26px;font-size:14px}
+  .controls{padding:9px 12px;gap:7px}
+  /* 絞り込みチップは折り返さず横スクロールさせる（3行に増えるのを防ぐ） */
+  .chips{flex-wrap:nowrap;overflow-x:auto;overscroll-behavior-x:contain;
+    scrollbar-width:none;padding-bottom:2px}
+  .chips::-webkit-scrollbar{display:none}
+  .chip{flex:0 0 auto}
+  #listhead{padding:8px 12px 4px}
 }
 ::-webkit-scrollbar{width:8px} ::-webkit-scrollbar-thumb{background:#2b333b;border-radius:4px}
 .leaflet-container{background:#20262c}
