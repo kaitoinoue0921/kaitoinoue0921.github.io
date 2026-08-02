@@ -562,6 +562,18 @@
     .relmap *{ transition: none !important; }
   }
 
+  /* ---------- subjective-view notice ---------- */
+  .subj-note{
+    border: 1px solid var(--line-faint);
+    padding: 16px 20px;
+    margin: 26px 0 0;
+    font-size: 13.5px;
+    line-height: 1.95;
+    color: var(--ink-soft);
+    max-width: 56ch;
+  }
+  .subj-note strong{ color: var(--ink); font-weight: 500; }
+
   /* ---------- friend list ---------- */
   .friend-search-label{
     display: block;
@@ -963,6 +975,7 @@
           <p class="block-label">RELATIONS · 01</p>
           <h2 class="block-title">人間関係マップ</h2>
           <p class="block-text">自分を中心に、関わりのある人を地図として並べています。名前をクリックすると、その人のページに移動します。</p>
+          <p class="subj-note">人物紹介は<strong>すべてわたしの主観</strong>で書いています。事実と違うところや、消してほしいところがあれば、<strong>直接ご連絡ください</strong>。すぐに直します。</p>
 
           <!-- relationship map (rendered by JS from the data array below) -->
           <div class="relmap-wrap">

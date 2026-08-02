@@ -87,12 +87,14 @@
 
   /* ---------- hero illustration: jazz guitar ---------- */
   .guitar{ display: block; width: min(300px, 60vw); height: auto; margin: 42px 0 0; }
-  .guitar path, .guitar line, .guitar circle, .guitar ellipse{
+  .guitar{ color: var(--ink); }
+  .guitar path, .guitar line, .guitar circle{
     fill: none; stroke: var(--ink); stroke-linecap: round; stroke-linejoin: round;
   }
+  .guitar circle[fill]{ fill: var(--ink); }
   .guitar .strings line{ opacity: 0.5; }
   .guitar .sway{
-    transform-origin: 100px 150px;
+    transform-origin: 100px 180px;
     animation: sway 8s ease-in-out infinite;
   }
   @keyframes sway{
@@ -102,6 +104,19 @@
   @media (prefers-reduced-motion: reduce){
     .guitar .sway{ animation: none; }
   }
+
+
+  /* ---------- subjective-view notice ---------- */
+  .subj-note{
+    border: 1px solid var(--line-faint);
+    padding: 16px 20px;
+    margin: 30px 0 0;
+    font-size: 13.5px;
+    line-height: 1.95;
+    color: var(--ink-soft);
+    max-width: 56ch;
+  }
+  .subj-note strong{ color: var(--ink); font-weight: 500; }
 
   /* ---------- divider ---------- */
   .divider{ display: flex; align-items: center; gap: 14px; margin: 0 0 26px; }
@@ -183,44 +198,52 @@
 
         <p class="tagline">自治医大ジャズ研 Route 4 の先輩。ジャズギタリスト。カート・ローゼンウィンケルをはじめ、さまざまなギタリストの音を通って、いまの音になっている。</p>
 
-        <!-- hollow-body jazz guitar, line art -->
-        <svg class="guitar" viewBox="0 0 200 260" aria-hidden="true" focusable="false">
+        <!-- archtop jazz guitar; f-holes reuse the site's own motif -->
+        <svg class="guitar" viewBox="0 0 200 335" aria-hidden="true" focusable="false">
           <g class="sway">
-            <!-- headstock -->
-            <path d="M86 18 L114 18 L116 44 L84 44 Z" stroke-width="2"/>
-            <circle cx="92" cy="26" r="1.8" stroke-width="1.2"/>
-            <circle cx="108" cy="26" r="1.8" stroke-width="1.2"/>
-            <circle cx="92" cy="36" r="1.8" stroke-width="1.2"/>
-            <circle cx="108" cy="36" r="1.8" stroke-width="1.2"/>
-            <!-- neck -->
-            <path d="M88 44 L112 44 L114 132 L86 132 Z" stroke-width="2"/>
-            <line x1="88" y1="62"  x2="112" y2="62"  stroke-width="1"/>
-            <line x1="88" y1="80"  x2="112" y2="80"  stroke-width="1"/>
-            <line x1="88" y1="98"  x2="113" y2="98"  stroke-width="1"/>
-            <line x1="87" y1="116" x2="113" y2="116" stroke-width="1"/>
-            <!-- hollow body -->
-            <path d="M100 132
-                     C142 132 172 152 172 180
-                     C172 206 150 222 128 222
-                     C114 222 108 232 100 232
-                     C92 232 86 222 72 222
-                     C50 222 28 206 28 180
-                     C28 152 58 132 100 132 Z" stroke-width="2"/>
+            <!-- headstock + tuners -->
+            <path d="M87,10 C87,6 90,4 94,4 L106,4 C110,4 113,6 113,10 L112,48 L88,48 Z" stroke-width="2"/>
+            <circle cx="82" cy="13" r="3" stroke-width="1.2"/>
+            <circle cx="82" cy="26" r="3" stroke-width="1.2"/>
+            <circle cx="82" cy="39" r="3" stroke-width="1.2"/>
+            <circle cx="118" cy="13" r="3" stroke-width="1.2"/>
+            <circle cx="118" cy="26" r="3" stroke-width="1.2"/>
+            <circle cx="118" cy="39" r="3" stroke-width="1.2"/>
+            <!-- neck + frets -->
+            <path d="M90,50 L110,50 L112,143 L88,143 Z" stroke-width="2"/>
+            <line x1="90.4" y1="72"  x2="111.4" y2="72"  stroke-width="1"/>
+            <line x1="90.4" y1="92"  x2="111.4" y2="92"  stroke-width="1"/>
+            <line x1="90.4" y1="112" x2="111.4" y2="112" stroke-width="1"/>
+            <line x1="90.4" y1="132" x2="111.4" y2="132" stroke-width="1"/>
+            <!-- archtop body -->
+            <path d="M100,142 C74,143 56,158 52,184 C49,204 70,214 69,230
+                     C68,250 42,254 42,280 C42,308 68,324 100,324
+                     C132,324 158,308 158,280 C158,254 132,250 131,230
+                     C130,214 151,204 148,184 C144,158 126,143 100,142 Z" stroke-width="2.4"/>
             <!-- f-holes -->
-            <path d="M62 158 C54 166 68 174 60 182 C54 188 60 194 56 200" stroke-width="1.4"/>
-            <path d="M138 158 C146 166 132 174 140 182 C146 188 140 194 144 200" stroke-width="1.4"/>
+            <g transform="translate(76,186) scale(1.12) translate(-11,0)">
+              <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" stroke-width="1.7"/>
+              <circle cx="15" cy="10" r="1.9" fill="currentColor" stroke="none"/>
+              <circle cx="9" cy="38" r="1.9" fill="currentColor" stroke="none"/>
+            </g>
+            <g transform="translate(124,186) scale(-1.12,1.12) translate(-11,0)">
+              <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" stroke-width="1.7"/>
+              <circle cx="15" cy="10" r="1.9" fill="currentColor" stroke="none"/>
+              <circle cx="9" cy="38" r="1.9" fill="currentColor" stroke="none"/>
+            </g>
             <!-- bridge + tailpiece -->
-            <path d="M84 196 L116 196" stroke-width="2.2"/>
-            <path d="M88 208 L112 208 L110 218 L90 218 Z" stroke-width="1.6"/>
+            <path d="M80,262 C80,259 83,258 86,258 L114,258 C117,258 120,259 120,262" stroke-width="2"/>
+            <path d="M89,276 C89,273 93,272 100,272 C107,272 111,273 111,276 L109,302 L91,302 Z" stroke-width="1.6"/>
             <!-- strings -->
             <g class="strings">
-              <line x1="94"  y1="44" x2="92"  y2="196" stroke-width="0.9"/>
-              <line x1="98"  y1="44" x2="97"  y2="196" stroke-width="0.9"/>
-              <line x1="102" y1="44" x2="103" y2="196" stroke-width="0.9"/>
-              <line x1="106" y1="44" x2="108" y2="196" stroke-width="0.9"/>
+              <line x1="94"   y1="48" x2="88"  y2="259" stroke-width="0.9"/>
+              <line x1="97.5" y1="48" x2="95"  y2="259" stroke-width="0.9"/>
+              <line x1="102.5" y1="48" x2="105" y2="259" stroke-width="0.9"/>
+              <line x1="106"  y1="48" x2="112" y2="259" stroke-width="0.9"/>
             </g>
           </g>
         </svg>
+        <p class="subj-note">このページの人物紹介は、<strong>すべて井上凱斗の主観</strong>で書いています。事実と違うところや、消してほしいところがあれば、<strong>直接わたしまでご連絡ください</strong>。すぐに直します。</p>
       </header>
 
       <div class="divider divider--major">
@@ -252,7 +275,7 @@
         <article class="block">
           <p class="block-label">NOW · 02</p>
           <h2 class="block-title">初期研修と、心の平穏</h2>
-          <p class="block-text">最近は<em>初期研修</em>と、<em>Instagramへの動画投稿</em>に勤しんでいる。</p>
+          <p class="block-text">最近は初期研修と、Instagramへの動画投稿に勤しんでいる。</p>
           <p class="block-text">初期研修の辛さをそのまま受け止めるのは難しいらしく、「<em>世界平和に貢献している</em>」「<em>街の平穏を取り戻した</em>」と言い換えることで心を落ち着かせている。スケールを上げることで耐える、という高度な技法。</p>
         </article>
 
@@ -276,6 +299,10 @@
               <span class="spec-val">ビールと焼酎。<em>尿酸値をみんなから心配されている</em>が、本人はどこ吹く風。</span>
             </li>
             <li>
+              <span class="spec-key">彼女</span>
+              <span class="spec-val">彼女は<em>看護師</em>。</span>
+            </li>
+            <li>
               <span class="spec-key">憧れ</span>
               <span class="spec-val"><em>喫煙家に憧れ</em>がある。ただし彼女に止められているので、憧れは憧れのまま据え置かれている。</span>
             </li>
@@ -285,7 +312,7 @@
             </li>
             <li>
               <span class="spec-key">家族</span>
-              <span class="spec-val">歳の離れた妹を<em>溺愛</em>している。妹は看護師。</span>
+              <span class="spec-val">歳の離れた妹を<em>溺愛</em>している。</span>
             </li>
             <li>
               <span class="spec-key">身体的特徴</span>
@@ -301,7 +328,7 @@
             </li>
             <li>
               <span class="spec-key">総評</span>
-              <span class="spec-val">イケメンでかっこいい。ただし<em>「残念なイケメン」</em>と呼ばれている。</span>
+              <span class="spec-val">イケメンでかっこいい。ただし<em>「残念なイケメン」</em>と呼ばれている。理由は顔ではなく、その周辺にある。持て余し気味の手足の長さ、隠しきれない男臭さ、ときどき顔を出す九州男児的な価値観、そして独特の距離の詰め方。一つひとつは致命傷ではないが、積み重なるとイケメンの前に「残念な」が付く。</span>
             </li>
           </ul>
         </article>
