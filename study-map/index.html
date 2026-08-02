@@ -191,10 +191,20 @@ button{cursor:pointer}
 #addbtn{right:16px;bottom:26px;background:var(--accent);color:#08120e;border:none;
   border-radius:999px;padding:12px 20px;font-weight:700;font-size:13.5px;box-shadow:var(--shadow)}
 #addbtn.arm{background:var(--s)}
-#toolbar{right:16px;top:16px;display:flex;flex-direction:column;gap:7px}
-#toolbar button{background:rgba(23,27,31,.94);border:1px solid var(--line);border-radius:9px;
-  padding:8px 11px;font-size:11.5px;color:var(--tx2);box-shadow:var(--shadow);white-space:nowrap}
-#toolbar button:hover{color:var(--accent);border-color:var(--accent)}
+#toolstoggle{
+  right:14px;top:14px;width:36px;height:36px;border-radius:10px;
+  background:rgba(23,27,31,.94);border:1px solid var(--line);color:var(--tx2);
+  font-size:15px;line-height:1;box-shadow:var(--shadow);display:grid;place-items:center;
+  transition:.15s}
+#toolstoggle:hover{color:var(--accent);border-color:var(--accent)}
+#toolstoggle[aria-expanded="true"]{background:var(--accent);color:#08120e;border-color:var(--accent)}
+#toolbar{right:14px;top:58px;display:flex;flex-direction:column;gap:6px;
+  background:rgba(23,27,31,.96);border:1px solid var(--line);border-radius:11px;
+  padding:6px;box-shadow:var(--shadow)}
+#toolbar[hidden]{display:none}
+#toolbar button{background:transparent;border:none;border-radius:7px;text-align:left;
+  padding:8px 11px;font-size:11.5px;color:var(--tx2);white-space:nowrap}
+#toolbar button:hover{background:var(--panel2);color:var(--accent)}
 #legend{left:16px;bottom:16px;background:rgba(23,27,31,.94);border:1px solid var(--line);
   border-radius:10px;padding:10px 12px;font-size:11px;color:var(--tx2);box-shadow:var(--shadow)}
 #legend div{display:flex;align-items:center;gap:7px;margin-top:5px}
@@ -284,8 +294,9 @@ button{cursor:pointer}
           <option value="">すべての種別</option>
           <option>図書館</option><option>公民館・生涯学習センター</option>
           <option>コミュニティセンター</option><option>市民活動センター</option>
-          <option>カフェ</option><option>ファミレス</option><option>温泉・入浴施設</option>
-          <option>道の駅</option><option>大学・学習施設</option>
+          <option>カフェ</option><option>ファミレス</option><option>フードコート</option>
+          <option>温泉・入浴施設</option><option>道の駅</option>
+          <option>サービスエリア・PA</option><option>大学・学習施設</option>
           <option>市役所・公共施設</option><option>商業施設</option>
         </select>
         <select id="sort">
@@ -323,9 +334,11 @@ button{cursor:pointer}
 
   <div id="mapwrap">
     <div id="map"></div>
-    <div class="mapui" id="toolbar">
-      <button id="btnCloud">☁ 共有DBの設定</button>
+    <button class="mapui" id="toolstoggle" aria-expanded="false" aria-controls="toolbar"
+            title="表示と保存の設定">⚙</button>
+    <div class="mapui" id="toolbar" hidden>
       <button id="btnKey">🗺 Google Mapsに切替</button>
+      <button id="btnCloud">☁ 共有DBの設定</button>
       <button id="btnExport">⬇ データ書き出し</button>
       <button id="btnImport">⬆ データ読み込み</button>
       <button id="btnReset">↺ サンプルに戻す</button>
@@ -591,6 +604,77 @@ const SEED=[
         '入館証を着用します。できるのは閲覧室の利用と複写のみで、貸出・PC・データベース利用は不可。'+
         '入口のインターホンで学外者である旨を伝えて入館します。図書館専用の駐車場はありません。'+
         'TEL 0285-58-7057',reviews:[]}),
+
+ /* ---------- フードコート ----------
+    モール本体の営業時間。フードコートの席は買い物客用なので、
+    混雑時の長居はマナー的に避けたほうがいい。 */
+
+ s({name:'ベルモール（フードコート）',category:'フードコート',city:'宇都宮市',address:'宇都宮市陽東6-2-1',
+   lat:36.5619,lng:139.9243,hoursWd:'要確認（店舗により異なる）',hoursWe:'要確認',closed:'年中無休（要確認）',
+   fee:'無料（飲食代は別）',facilities:{aircon:1,water:1},
+   note:'県内最大級のモールのひとつ。フードコートのほかカフェ・レストランも多い。'+
+        '席は買い物客用なので、食事どきの長居は避けること。',reviews:[]}),
+
+ s({name:'FKDショッピングモール宇都宮インターパーク店（フードコート）',category:'フードコート',city:'宇都宮市',
+   address:'宇都宮市インターパーク',lat:36.4880,lng:139.9050,
+   hoursWd:'10:00–21:00',hoursWe:'10:00–21:00',closed:'要確認',
+   fee:'無料（飲食代は別）',facilities:{aircon:1,water:1},
+   note:'食料品・レストラン街・フードコートの営業時間は10:00–21:00。県内最大級の売場面積。',reviews:[]}),
+
+ s({name:'おやまゆうえんハーヴェストウォーク（フードコート）',category:'フードコート',city:'小山市',
+   address:'小山市／喜沢周辺',lat:36.3450,lng:139.8150,
+   hoursWd:'要確認',hoursWe:'要確認',closed:'要確認',
+   fee:'無料（飲食代は別）',facilities:{aircon:1,water:1},
+   note:'屋外型のモール。住所・営業時間は未確認なので公式サイトで確認してください。',reviews:[]}),
+
+ s({name:'佐野プレミアム・アウトレット（フードコート）',category:'フードコート',city:'佐野市',
+   address:'佐野市／越名町周辺',lat:36.3130,lng:139.5600,
+   hoursWd:'要確認',hoursWe:'要確認',closed:'要確認',
+   fee:'無料（飲食代は別）',facilities:{aircon:1,water:1},
+   note:'アウトレット内のフードコート。住所・営業時間は未確認。',reviews:[]}),
+
+ /* ---------- サービスエリア・PA ----------
+    【重要】高速道路上の施設です。原則、高速道路を走行中でないと入れません。
+    一般道から入れる出入口（ぷらっとパーク）があるかは施設ごとに要確認。
+    本来は運転の休憩施設なので、長時間の学習利用は想定されていません。
+    ピンの位置はおおよそです。 */
+
+ s({name:'佐野SA（東北自動車道）',category:'サービスエリア・PA',city:'佐野市',address:'東北自動車道 佐野SA（上下線）',
+   lat:36.3480,lng:139.6180,hoursWd:'要確認（店舗により異なる）',hoursWe:'要確認',closed:'—',
+   fee:'無料（飲食代は別／高速道路の通行料は別）',facilities:{aircon:1,water:1},
+   note:'東北道の主要SA。佐野ラーメンなどで知られる。高速走行中でないと入れない点に注意。',reviews:[]}),
+
+ s({name:'都賀西方PA（東北自動車道）',category:'サービスエリア・PA',city:'栃木市',address:'東北自動車道 都賀西方PA（上下線）',
+   lat:36.4700,lng:139.7000,hoursWd:'要確認',hoursWe:'要確認',closed:'—',
+   fee:'無料（飲食代は別）',facilities:{aircon:1,water:1},note:'高速走行中のみ利用可（要確認）。',reviews:[]}),
+
+ s({name:'大谷PA（東北自動車道）',category:'サービスエリア・PA',city:'宇都宮市',address:'東北自動車道 大谷PA（上下線）',
+   lat:36.5900,lng:139.8300,hoursWd:'要確認',hoursWe:'要確認',closed:'—',
+   fee:'無料（飲食代は別）',facilities:{aircon:1,water:1},note:'高速走行中のみ利用可（要確認）。',reviews:[]}),
+
+ s({name:'上河内SA（東北自動車道）',category:'サービスエリア・PA',city:'宇都宮市',address:'東北自動車道 上河内SA（上下線）',
+   lat:36.6600,lng:139.9200,hoursWd:'24時間（店舗の営業時間は要確認）',hoursWe:'24時間（店舗は要確認）',closed:'—',
+   fee:'無料（飲食代は別）',facilities:{aircon:1,water:1},
+   note:'24時間営業。県内の東北道では規模の大きいSA。高速走行中でないと入れない点に注意。',reviews:[]}),
+
+ s({name:'矢板北PA（東北自動車道）',category:'サービスエリア・PA',city:'矢板市',address:'東北自動車道 矢板北PA（上下線）',
+   lat:36.8500,lng:139.9500,hoursWd:'要確認',hoursWe:'要確認',closed:'—',
+   fee:'無料（飲食代は別）',facilities:{aircon:1,water:1},note:'高速走行中のみ利用可（要確認）。',reviews:[]}),
+
+ s({name:'黒磯PA（東北自動車道）',category:'サービスエリア・PA',city:'那須塩原市',address:'東北自動車道 黒磯PA（上下線）',
+   lat:36.9700,lng:140.0300,hoursWd:'要確認',hoursWe:'要確認',closed:'—',
+   fee:'無料（飲食代は別）',facilities:{aircon:1,water:1},note:'高速走行中のみ利用可（要確認）。',reviews:[]}),
+
+ s({name:'那須高原SA（東北自動車道）',category:'サービスエリア・PA',city:'那須町',address:'東北自動車道 那須高原SA（上下線）',
+   lat:37.0400,lng:140.0700,hoursWd:'要確認',hoursWe:'要確認',closed:'—',
+   fee:'無料（飲食代は別）',facilities:{aircon:1,water:1},
+   note:'那須高原の雰囲気を出した広いSA。高速走行中でないと入れない点に注意。',reviews:[]}),
+
+ /* ---------- そのほかの図書館 ---------- */
+ s({name:'那須烏山市立烏山図書館',category:'図書館',city:'那須烏山市',address:'那須烏山市／住所は要確認',
+   lat:36.6570,lng:140.1560,hoursWd:'9:30–19:00',hoursWe:'9:30–19:00',
+   closed:'月曜・年末年始・特別館内整理日',fee:'無料',facilities:{aircon:1},
+   note:'開館時間は確認済み。住所は未確認なのでピンの位置はおおよそです。',reviews:[]}),
 ];
 
 /* ---------- スコア ---------- */
@@ -653,7 +737,7 @@ function closeHour(sp){ const h=hoursFor(sp)||''; const p=h.split(/[–~-]/); re
    ストア — 共有DB(Supabase)が設定されていればそちら、
    なければブラウザのlocalStorageにフォールバックする。
    ========================================================= */
-const KEY='tsm.spots.v6', CKEY='tsm.supabase';
+const KEY='tsm.spots.v7', CKEY='tsm.supabase';
 let SPOTS=[];
 
 function loadLocal(){
@@ -661,7 +745,17 @@ function loadLocal(){
   return JSON.parse(JSON.stringify(SEED));
 }
 const saveLocal=()=>{ try{ localStorage.setItem(KEY,JSON.stringify(SPOTS)); }catch(e){} };
-const cloudCfg=()=>{ try{ return JSON.parse(localStorage.getItem(CKEY)||'null'); }catch(e){ return null; } };
+/* ===== 共有DB（Supabase）の接続先 =====================================
+   公開サイトでは全員が同じDBを見る必要があるので、ここに直接書く。
+   anon key は公開前提の鍵なのでブラウザに置いて問題ない（RLSで守る）。
+   ここが空のあいだは、各自のブラウザ内にだけ保存される。
+   ローカルで別のDBを試したいときは、右上「☁ 共有DBの設定」で上書きできる。 */
+const CLOUD={url:'',key:''};
+
+const cloudCfg=()=>{
+  try{ const j=JSON.parse(localStorage.getItem(CKEY)||'null'); if(j&&j.url&&j.key) return j; }catch(e){}
+  return (CLOUD.url&&CLOUD.key)?CLOUD:null;
+};
 
 function loadScript(src){
   return new Promise((res,rej)=>{
@@ -1127,8 +1221,9 @@ function openAddForm(lat,lng){
     <div class="field"><label>種別</label>
       <select id="ca"><option>図書館</option><option>公民館・生涯学習センター</option>
       <option>コミュニティセンター</option><option>市民活動センター</option>
-      <option>カフェ</option><option>ファミレス</option><option>温泉・入浴施設</option>
-      <option>道の駅</option><option>大学・学習施設</option>
+      <option>カフェ</option><option>ファミレス</option><option>フードコート</option>
+      <option>温泉・入浴施設</option><option>道の駅</option>
+      <option>サービスエリア・PA</option><option>大学・学習施設</option>
       <option>市役所・公共施設</option><option>商業施設</option></select></div>
     <div class="field"><label>住所</label><input id="ad" placeholder="例）宇都宮市○○町1-2-3"></div>
     <div class="row" style="gap:8px">
@@ -1226,6 +1321,18 @@ document.getElementById('chips').onclick=e=>{
 document.getElementById('back').onclick=backToList;
 document.getElementById('addbtn').onclick=()=>setAdding(!state.adding);
 
+/* ⚙ 設定メニューの開閉。地図の邪魔にならないよう、ふだんは畳んでおく */
+const toolsBtn=document.getElementById('toolstoggle'), toolsBox=document.getElementById('toolbar');
+function setTools(open){
+  toolsBox.hidden=!open;
+  toolsBtn.setAttribute('aria-expanded',open?'true':'false');
+}
+toolsBtn.onclick=e=>{ e.stopPropagation(); setTools(toolsBox.hidden); };
+toolsBox.onclick=()=>setTools(false);          // 項目を選んだら閉じる
+document.addEventListener('click',e=>{
+  if(!toolsBox.hidden && !toolsBox.contains(e.target) && e.target!==toolsBtn) setTools(false);
+});
+
 document.getElementById('btnKey').onclick=()=>{
   if(localStorage.getItem(GKEY)){ localStorage.removeItem(GKEY); location.reload(); return; }
   openModal(`<h2>Google Maps に切り替える</h2>
@@ -1266,7 +1373,7 @@ document.getElementById('btnReset').onclick=()=>{
   backToList(); fillRegion(); render(); toast('サンプルデータに戻しました');
 };
 document.addEventListener('keydown',e=>{
-  if(e.key==='Escape'){ closeModal(); if(state.adding) setAdding(false); }
+  if(e.key==='Escape'){ closeModal(); setTools(false); if(state.adding) setAdding(false); }
 });
 
 /* ---------- 共有DB(Supabase)の設定 ---------- */
