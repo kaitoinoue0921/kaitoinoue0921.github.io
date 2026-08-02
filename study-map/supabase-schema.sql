@@ -47,6 +47,19 @@ create table if not exists public.reviews (
 
 create index if not exists reviews_spot_idx on public.reviews (spot_id);
 
+-- ---------- 応援メッセージ（works ページの投げ銭・意見フォーム） ----------
+create table if not exists public.messages (
+  id         uuid primary key default gen_random_uuid(),
+  name       text,                     -- 未入力なら「名無し」扱い
+  body       text not null check (char_length(body) between 1 and 1000),
+  kind       text not null default 'comment'
+             check (kind in ('comment','support')),  -- support = 投げ銭したうえでの一言
+  approved   boolean not null default false,         -- 公開は承認制
+  created_at timestamptz not null default now()
+);
+
+create index if not exists messages_created_idx on public.messages (created_at desc);
+
 -- =========================================================
 -- 行レベルセキュリティ（RLS）
 -- ---------------------------------------------------------
@@ -69,6 +82,20 @@ drop policy if exists spots_insert   on public.spots;
 drop policy if exists reviews_insert on public.reviews;
 create policy spots_insert   on public.spots   for insert with check (true);
 create policy reviews_insert on public.reviews for insert with check (true);
+
+-- ---------- 応援メッセージ ----------
+-- 投稿は誰でもできるが、表示されるのは承認済みのものだけ。
+-- 承認は Supabase の Table Editor で approved を true にする。
+alter table public.messages enable row level security;
+
+drop policy if exists messages_read   on public.messages;
+drop policy if exists messages_insert on public.messages;
+
+create policy messages_read on public.messages
+  for select using (approved);
+
+create policy messages_insert on public.messages
+  for insert with check (approved = false);   -- 自分で承認済みにして投稿することはできない
 
 -- 更新・削除は誰にも許可しない（ポリシーを作らなければ拒否される）
 

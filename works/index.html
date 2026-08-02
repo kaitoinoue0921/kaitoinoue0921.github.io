@@ -169,6 +169,53 @@
     .block-action + .block-action{ margin-left: 0; margin-top: 10px; }
   }
 
+  /* ---------- support / messages ---------- */
+  .support-note{
+    font-size: 13px; line-height: 1.95; color: var(--ink-faint);
+    max-width: 54ch; margin: 18px 0 0;
+  }
+  .tip-row{ display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 24px; }
+  .tip-disabled{
+    display: inline-flex; align-items: center; gap: 10px;
+    border: 1px dashed var(--line-faint); color: var(--ink-faint);
+    padding: 13px 24px; font-family: var(--mono); font-size: 12px;
+    letter-spacing: 0.14em; text-transform: uppercase;
+  }
+  .msg-form{ margin-top: 30px; max-width: 520px; }
+  .msg-field{ margin-bottom: 14px; }
+  .msg-field label{
+    display: block; font-family: var(--mono); font-size: 10.5px;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--ink-faint); margin-bottom: 7px;
+  }
+  .msg-field input, .msg-field textarea{
+    width: 100%; box-sizing: border-box; background: transparent;
+    border: 1px solid var(--line-faint); border-radius: 0;
+    padding: 11px 13px; font-family: var(--sans); font-size: 14.5px;
+    color: var(--ink); line-height: 1.8;
+  }
+  .msg-field textarea{ resize: vertical; min-height: 96px; }
+  .msg-field input:focus, .msg-field textarea:focus{ outline: none; border-color: var(--ink); }
+  .msg-submit{
+    border: 1px solid var(--ink); background: transparent; color: var(--ink);
+    padding: 12px 26px; font-family: var(--mono); font-size: 12px;
+    letter-spacing: 0.14em; text-transform: uppercase; cursor: pointer;
+    transition: background 0.35s ease, color 0.35s ease;
+  }
+  .msg-submit:hover:not(:disabled){ background: var(--ink); color: #fff; }
+  .msg-submit:disabled{ opacity: 0.4; cursor: not-allowed; }
+  .msg-status{ margin: 14px 0 0; font-size: 13px; line-height: 1.8; color: var(--ink-faint); }
+  .msg-list{ list-style: none; padding: 0; margin: 30px 0 0; }
+  .msg-list li{
+    border-top: 1px solid var(--line-faint); padding: 18px 0;
+  }
+  .msg-meta{
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.14em;
+    color: var(--ink-faint); margin: 0 0 8px; display: flex; gap: 10px; align-items: center;
+  }
+  .msg-badge{ border: 1px solid var(--line-faint); padding: 2px 7px; font-size: 9.5px; }
+  .msg-body{ margin: 0; font-size: 14.5px; line-height: 1.95; color: var(--ink-soft); white-space: pre-wrap; }
+
   /* ---------- footer ---------- */
   .footer{ padding-bottom: clamp(64px, 12vh, 120px); }
   .footer-signature{ display: flex; justify-content: center; margin-bottom: 28px; opacity: 0.5; }
@@ -338,6 +385,43 @@
           </a>
         </article>
 
+        <!-- 04 応援 -->
+        <article class="block" id="support">
+          <div class="divider">
+            <span class="divider-line"></span>
+            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
+              <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
+              <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
+            </svg>
+            <span class="divider-line"></span>
+          </div>
+          <p class="block-label"><span>Support · 応援</span></p>
+          <h2 class="block-title">作ったものを応援する</h2>
+          <p class="block-text">ここに置いているものは、すべて個人で作って個人で運営しています。広告は入れていません。
+          役に立ったと思ってもらえたら、応援していただけると続けやすくなります。</p>
+          <p class="support-note">お金を出さなくても、下のフォームから感想や「こういう機能がほしい」を送ってもらえるだけで十分助かります。
+          むしろそちらのほうが、次に何を作るかを決めるうえで価値があります。</p>
+
+          <div class="tip-row" id="tipRow"></div>
+
+          <form class="msg-form" id="msgForm">
+            <div class="msg-field">
+              <label for="msgName">お名前（任意）</label>
+              <input id="msgName" type="text" maxlength="40" placeholder="名無しでもOK" autocomplete="off">
+            </div>
+            <div class="msg-field">
+              <label for="msgBody">ご意見・ご感想</label>
+              <textarea id="msgBody" maxlength="1000" required
+                placeholder="例）スタディスポットMAPで、駐車場の有無も分かると助かります。"></textarea>
+            </div>
+            <button class="msg-submit" id="msgSubmit" type="submit">送信する</button>
+            <p class="msg-status" id="msgStatus"></p>
+          </form>
+
+          <ul class="msg-list" id="msgList"></ul>
+        </article>
+
       </main>
     </div>
 
@@ -355,6 +439,110 @@
       </div>
     </footer>
   </div>
+
+<script>
+/* =========================================================
+   応援セクション
+   - TIP_URL: 投げ銭リンク（Stripe Payment Link / Ko-fi など）。
+     空のあいだはボタンを出さず「準備中」と表示する。
+   - SUPABASE: 応援メッセージの保存先。空なら送信を受け付けない。
+     anon key は公開前提の鍵なので、ここに書いて問題ない（RLSで守る）。
+   ========================================================= */
+const TIP_URL  = '';
+const SUPABASE = { url: '', key: '' };
+
+const esc = t => String(t ?? '').replace(/[&<>"']/g,
+  c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+/* ---------- 投げ銭ボタン ---------- */
+(function renderTip(){
+  const row = document.getElementById('tipRow');
+  if(TIP_URL){
+    row.innerHTML = `<a class="block-action" href="${esc(TIP_URL)}" target="_blank" rel="noopener noreferrer">
+      <span>投げ銭で応援する</span>
+      <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true">
+        <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg></a>`;
+  }else{
+    row.innerHTML = `<span class="tip-disabled">投げ銭リンクは準備中</span>`;
+  }
+})();
+
+/* ---------- 応援メッセージ ---------- */
+(function(){
+  const form   = document.getElementById('msgForm');
+  const status = document.getElementById('msgStatus');
+  const list   = document.getElementById('msgList');
+  const submit = document.getElementById('msgSubmit');
+  const ready  = Boolean(SUPABASE.url && SUPABASE.key);
+  let sb = null;
+
+  if(!ready){
+    submit.disabled = true;
+    status.textContent = '送信フォームは準備中です。お手数ですが、いまはメールでご連絡ください。';
+    return;
+  }
+
+  function load(src){
+    return new Promise((res, rej) => {
+      const el = document.createElement('script');
+      el.src = src; el.onload = res; el.onerror = () => rej(new Error('load failed'));
+      document.head.appendChild(el);
+    });
+  }
+
+  async function init(){
+    try{
+      await load('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2');
+      sb = window.supabase.createClient(SUPABASE.url, SUPABASE.key);
+      await render();
+    }catch(e){
+      submit.disabled = true;
+      status.textContent = 'メッセージ機能を読み込めませんでした。時間をおいて試してください。';
+    }
+  }
+
+  async function render(){
+    // 承認済みのものだけ表示する（RLS側でも承認済みに限定している）
+    const { data, error } = await sb.from('messages')
+      .select('name, body, kind, created_at')
+      .eq('approved', true)
+      .order('created_at', { ascending: false })
+      .limit(30);
+    if(error || !data || !data.length){ list.innerHTML = ''; return; }
+    list.innerHTML = data.map(m => `<li>
+      <p class="msg-meta">
+        <span>${esc(m.name || '名無し')}</span>
+        <span>${esc((m.created_at || '').slice(0, 10))}</span>
+        ${m.kind === 'support' ? '<span class="msg-badge">支援者</span>' : ''}
+      </p>
+      <p class="msg-body">${esc(m.body)}</p>
+    </li>`).join('');
+  }
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const body = document.getElementById('msgBody').value.trim();
+    if(!body){ status.textContent = '本文を入力してください。'; return; }
+    submit.disabled = true;
+    status.textContent = '送信中…';
+    const { error } = await sb.from('messages').insert({
+      name: document.getElementById('msgName').value.trim() || null,
+      body
+    });
+    if(error){
+      submit.disabled = false;
+      status.textContent = '送信できませんでした: ' + (error.message || '');
+      return;
+    }
+    form.reset();
+    submit.disabled = false;
+    status.textContent = 'ありがとうございます。確認のうえ、掲載させていただく場合があります。';
+  });
+
+  init();
+})();
+</script>
 
 <script data-goatcounter="https://kaitoinoue.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
