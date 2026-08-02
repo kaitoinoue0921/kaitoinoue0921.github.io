@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>井上凱斗（いのうえ かいと）| 自治医科大学 医学部 — プロフィール</title>
-<meta name="description" content="井上凱斗（いのうえ かいと）の公式プロフィール。自治医科大学 医学部。臨床実習で医療の現場を学びながら、資産運用やビジネスの構造化にも関心を持つ。音楽（コントラバス）、家庭教師、noteでの執筆、個人開発など。">
+<title>井上凱斗 (Kaito Inoue) | 自治医科大学 医学部 — プロフィール</title>
+<meta name="description" content="井上凱斗（いのうえ かいと / Kaito Inoue）の公式プロフィール。自治医科大学 医学部。臨床実習で医療の現場を学びながら、知識の構造化、コントラバス、noteでの執筆、家庭教師、個人開発に取り組む。サイトのモチーフはサメ。">
 <link rel="canonical" href="https://kaitoinoue0921.github.io/">
 <meta name="robots" content="index, follow, max-image-preview:large">
 
 <!-- share cards (LINE / X / Facebook) -->
 <meta property="og:type" content="profile">
 <meta property="og:site_name" content="井上凱斗 — Profile">
-<meta property="og:title" content="井上凱斗（いのうえ かいと）| 自治医科大学 医学部">
+<meta property="og:title" content="井上凱斗 (Kaito Inoue) | 自治医科大学 医学部">
 <meta property="og:description" content="自治医科大学 医学部。医学・音楽・執筆・教育・個人開発。井上凱斗の公式プロフィールサイト。">
 <meta property="og:url" content="https://kaitoinoue0921.github.io/">
 <meta property="og:image" content="https://kaitoinoue0921.github.io/ogp.png">
@@ -20,7 +20,7 @@
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="井上凱斗（いのうえ かいと）| 自治医科大学 医学部">
+<meta name="twitter:title" content="井上凱斗 (Kaito Inoue) | 自治医科大学 医学部">
 <meta name="twitter:description" content="自治医科大学 医学部。医学・音楽・執筆・教育・個人開発。">
 <meta name="twitter:image" content="https://kaitoinoue0921.github.io/ogp.png">
 
@@ -203,6 +203,18 @@
     padding-top: clamp(72px, 14vh, 148px);
     padding-bottom: var(--gap);
   }
+  /* ---------- shark mark (personal logo) ---------- */
+  .mark{
+    display: block;
+    width: 72px;
+    height: 72px;
+    margin: 0 0 26px -6px;   /* optical alignment with the text below */
+    mix-blend-mode: multiply; /* drops the PNG's white box on any background */
+  }
+  @media (max-width: 640px){
+    .mark{ width: 60px; height: 60px; margin-bottom: 22px; }
+  }
+
   .eyebrow{
     font-family: var(--mono);
     font-size: 12px;
@@ -749,6 +761,8 @@
   <div class="page">
     <div class="container">
       <header class="hero">
+        <img class="mark" src="./avatar.png" width="72" height="72"
+             alt="井上凱斗のサメアイコン — Shark icon of Kaito Inoue">
         <p class="eyebrow">Profile — 自己紹介</p>
         <h1 class="name">井上凱斗<span class="name-en">KAITO INOUE</span></h1>
 
@@ -798,6 +812,8 @@
         <p class="about-p">音楽ではベースとコントラバスを演奏しています。低音は目立つ楽器ではありませんが、和音の土台を決め、曲全体の輪郭を静かに決定づけます。表に出る部分より、その下で全体を支えている構造のほうに惹かれる、という点で、ここにも同じ関心が通っています。</p>
 
         <p class="about-p">考えたことは note に書いています。新NISAと円安の関係、政局の裏側にある力学、所属する吹奏楽団の観察記など、扱う題材はばらばらですが、いずれも「表面に見えている出来事の下で、何がどう噛み合ってそうなったのか」を分解しようとする点では一貫しています。</p>
+
+        <p class="about-p">サイト全体のモチーフには<strong>サメ</strong>を使っています。止まると呼吸ができなくなる種がいる、という話が妙に頭に残っていて、常に動き続けているものの形として、自分の名刺代わりに置いています。ページを最後までスクロールすると出てきます。</p>
 
         <p class="about-p">それ以外に、個人契約の家庭教師として学習の設計を手伝ったり、無料で勉強できる場所を集めた「スタディスポットMAP」や、実機を試したガジェットのレビューなど、自分が欲しかったものを作って公開したりしています。</p>
       </section>
