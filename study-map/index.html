@@ -272,6 +272,27 @@ button{cursor:pointer}
   .chips::-webkit-scrollbar{display:none}
   .chip{flex:0 0 auto}
   #listhead{padding:8px 12px 4px}
+
+  /* ---- モバイルはページ全体を普通にスクロールさせる ----
+     内側だけスクロールする作りだと、画面下の狭い一覧に指を置いたときしか
+     動かず（地図を触れば地図が動く）、スクロールできないように感じるため。 */
+  html,body{height:auto;overflow:visible}
+  body{display:block}
+  #top{position:sticky;top:0}
+  /* display:block にすると DOM 順（一覧→地図）になってしまうので、
+     column-reverse のまま高さだけ内容なりに伸ばす */
+  #app{display:flex;flex-direction:column-reverse;height:auto;min-height:0}
+  /* flex:none にしないと、高さ auto の flex コンテナ内で
+     flex-basis が解決できず min-height まで潰れる */
+  #mapwrap{flex:none;height:46vh;min-height:240px}
+  #side{width:100%;height:auto;flex:none;border-top:1px solid var(--line);border-right:none}
+  #list{flex:none;height:auto;overflow:visible}
+  .dbody{flex:none;height:auto;overflow:visible}
+  /* 詳細は重ねずに、一覧と入れ替える */
+  #detail{position:static;inset:auto}
+  #side.detail-on .controls,
+  #side.detail-on #listhead,
+  #side.detail-on #list{display:none}
 }
 ::-webkit-scrollbar{width:8px} ::-webkit-scrollbar-thumb{background:#2b333b;border-radius:4px}
 .leaflet-container{background:#20262c}
@@ -1056,6 +1077,7 @@ function selectSpot(id,focus=true){
   if(MapA){ if(focus) MapA.focus(sp); MapA.highlight(id); }
   document.getElementById('dbody').innerHTML=detailHTML(sp);
   document.getElementById('detail').classList.add('on');
+  document.getElementById('side').classList.add('detail-on');
   document.getElementById('dbody').scrollTop=0;
   const b=document.getElementById('addRev'); if(b) b.onclick=()=>openReviewForm(sp);
   render();
@@ -1316,6 +1338,7 @@ function esc(s){ return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&
 /* ---------- イベント ---------- */
 function backToList(){
   document.getElementById('detail').classList.remove('on');
+  document.getElementById('side').classList.remove('detail-on');
   state.sel=null; MapA&&MapA.highlight(null); render();
 }
 document.getElementById('pref').onchange=e=>{
