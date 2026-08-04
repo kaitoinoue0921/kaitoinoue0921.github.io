@@ -1,0 +1,696 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>東大理三 数学マップ</title>
+<style>
+  :root{
+    --bg:#0f1115; --panel:#171a21; --panel2:#1d212a; --line:#2a2f3a;
+    --fg:#e6e9ef; --dim:#98a0b0; --accent:#6ea8fe; --ok:#4ec9a0; --warn:#e0b34a; --hot:#e8705f;
+    --gold:#e5c76b;
+  }
+  @media (prefers-color-scheme: light){
+    :root{ --bg:#f6f7f9; --panel:#fff; --panel2:#f0f2f5; --line:#dde1e8;
+           --fg:#1a1d23; --dim:#666e7d; --accent:#2b6cd4; --ok:#1a9e78; --warn:#a97b12; --hot:#c94a38;
+           --gold:#b8860b; }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);
+    font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;
+    font-size:14px;line-height:1.7}
+  header{position:sticky;top:0;z-index:10;background:var(--panel);border-bottom:1px solid var(--line);padding:9px 16px}
+  .hrow{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  h1{font-size:15px;margin:0;font-weight:700}
+  .hstat{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--dim);align-items:center}
+  .hstat b{color:var(--fg);font-size:14px;font-variant-numeric:tabular-nums}
+  .pw{color:var(--ok)!important}
+  nav{display:flex;gap:3px;margin-top:7px;flex-wrap:wrap}
+  nav button{background:none;border:1px solid transparent;color:var(--dim);padding:5px 11px;
+    border-radius:6px;cursor:pointer;font-size:13px;font-family:inherit}
+  nav button.on{background:var(--panel2);color:var(--fg);border-color:var(--line)}
+  nav button .bdg{background:var(--hot);color:#fff;border-radius:8px;padding:0 5px;font-size:10px;margin-left:4px}
+  main{padding:16px;max-width:1400px;margin:0 auto}
+  .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
+  select,input[type=search]{background:var(--panel);color:var(--fg);border:1px solid var(--line);
+    border-radius:6px;padding:5px 9px;font-size:13px;font-family:inherit}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:10px}
+  .card{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--line);
+    border-radius:8px;padding:11px 13px;cursor:pointer;transition:.15s}
+  .card:hover{border-color:var(--accent)}
+  .card.done{border-left-color:var(--ok)}
+  .card.ready{border-left-color:var(--accent)}
+  .card.locked{opacity:.55}
+  .card.fade{border-left-color:var(--warn)}
+  .ct{font-weight:700;margin-bottom:3px;font-size:14px}
+  .meta{font-size:11px;color:var(--dim);display:flex;gap:9px;flex-wrap:wrap;margin-bottom:6px;align-items:center}
+  .why{font-size:12.5px;color:var(--dim);line-height:1.55}
+  .tag{display:inline-block;padding:1px 6px;border-radius:4px;background:var(--panel2);font-size:11px}
+  .star{color:var(--warn);letter-spacing:-1px}
+  .lockmsg{font-size:11px;color:var(--hot);margin-top:5px}
+  .lessonbadge{display:inline-block;font-size:10px;padding:1px 5px;border-radius:3px;background:var(--accent);color:#fff}
+  .rbar{width:52px;height:5px;background:var(--panel2);border-radius:3px;overflow:hidden;display:inline-block;vertical-align:middle}
+  .rbar>i{display:block;height:100%}
+  /* detail */
+  #ov{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;z-index:50}
+  #ov.on{display:block}
+  #dp{position:fixed;top:0;right:0;bottom:0;width:min(680px,100%);background:var(--panel);
+    border-left:1px solid var(--line);overflow-y:auto;padding:20px 24px 60px;z-index:51;
+    transform:translateX(100%);transition:transform .2s}
+  #dp.on{transform:none}
+  #dp h2{font-size:18px;margin:0 0 4px}
+  #dp h3{font-size:13px;color:var(--accent);margin:20px 0 6px;letter-spacing:.04em;
+    border-bottom:1px solid var(--line);padding-bottom:4px}
+  #dp p,#dp li{font-size:13.5px}
+  #dp ul{padding-left:18px;margin:6px 0}
+  #dp li{margin-bottom:5px}
+  .close{position:absolute;top:14px;right:18px;background:none;border:none;color:var(--dim);
+    font-size:22px;cursor:pointer;line-height:1}
+  .chip{display:inline-block;background:var(--panel2);border:1px solid var(--line);border-radius:5px;
+    padding:2px 8px;margin:2px 3px 2px 0;font-size:12px;cursor:pointer}
+  .chip.done{border-color:var(--ok);color:var(--ok)}
+  .btn{background:var(--accent);color:#fff;border:none;border-radius:6px;padding:9px 16px;
+    cursor:pointer;font-size:13px;font-family:inherit;font-weight:600;margin:12px 6px 0 0}
+  .btn.sec{background:var(--panel2);color:var(--fg);border:1px solid var(--line)}
+  .btn.gold{background:var(--gold);color:#1a1d23}
+  .btn:disabled{opacity:.4;cursor:not-allowed}
+  .wk{background:var(--panel2);border-radius:7px;padding:11px 13px;font-size:13px;margin-top:6px}
+  .wk b{color:var(--accent)}
+  .sol{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;line-height:1.75;
+    white-space:pre-wrap;margin-top:7px}
+  /* map */
+  #map{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px}
+  .n rect{fill:var(--panel2);stroke:var(--line);rx:4}
+  .n.done rect{stroke:var(--ok);fill:color-mix(in srgb,var(--ok) 12%,var(--panel2))}
+  .n.sel rect{stroke:var(--accent);stroke-width:2}
+  .n text{fill:var(--fg);font-size:9.5px}
+  .n{cursor:pointer}
+  .e{stroke:var(--line);fill:none}
+  .e.hi{stroke:var(--accent);stroke-width:1.6}
+  .doc{max-width:860px}
+  .doc h3{font-size:14px;color:var(--accent);margin:22px 0 6px}
+  .doc code{background:var(--panel2);padding:1px 5px;border-radius:4px;font-size:12px}
+  table{border-collapse:collapse;width:100%;font-size:13px;margin-top:8px}
+  th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+  th{background:var(--panel2);font-size:12px}
+  .empty{color:var(--dim);padding:30px;text-align:center}
+  /* targets */
+  .tg{display:flex;align-items:center;gap:14px;padding:11px 14px;border:1px solid var(--line);
+    border-radius:8px;background:var(--panel);margin-bottom:7px;flex-wrap:wrap}
+  .tg .nm{flex:1;min-width:210px}
+  .tg .dv{font-size:11px;color:var(--dim)}
+  .tg .pb{width:130px;height:8px;background:var(--panel2);border-radius:4px;overflow:hidden}
+  .tg .pb>i{display:block;height:100%;transition:width .3s}
+  .tg .pc{width:60px;text-align:right;font-weight:700;font-size:15px;font-variant-numeric:tabular-nums}
+  .tg .gp{font-size:11px;color:var(--dim);width:72px}
+  .warnbox{background:color-mix(in srgb,var(--warn) 12%,var(--panel));border:1px solid var(--warn);
+    border-radius:8px;padding:11px 14px;font-size:12.5px;margin-bottom:14px;line-height:1.6}
+  .big{font-size:30px;font-weight:800;font-variant-numeric:tabular-nums}
+  .kpi{display:flex;gap:26px;flex-wrap:wrap;background:var(--panel);border:1px solid var(--line);
+    border-radius:8px;padding:14px 18px;margin-bottom:14px}
+  .kpi div small{display:block;font-size:11px;color:var(--dim);margin-bottom:2px}
+  /* quiz */
+  .qq{font-size:14.5px;font-weight:600;white-space:pre-wrap;margin-bottom:12px;line-height:1.7}
+  .opt{display:block;width:100%;text-align:left;background:var(--panel2);border:1px solid var(--line);
+    color:var(--fg);border-radius:6px;padding:10px 13px;margin-bottom:6px;cursor:pointer;
+    font-size:13px;font-family:inherit;line-height:1.55}
+  .opt:hover{border-color:var(--accent)}
+  .opt.ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 16%,var(--panel2))}
+  .opt.ng{border-color:var(--hot);background:color-mix(in srgb,var(--hot) 16%,var(--panel2))}
+  .qin{background:var(--panel2);border:1px solid var(--line);color:var(--fg);border-radius:6px;
+    padding:9px 12px;font-size:16px;font-family:inherit;width:190px}
+  .fb{margin-top:12px;padding:11px 13px;border-radius:6px;font-size:13px;line-height:1.65}
+  .fb.ok{background:color-mix(in srgb,var(--ok) 15%,var(--panel2))}
+  .fb.ng{background:color-mix(in srgb,var(--hot) 15%,var(--panel2))}
+  .prog{font-size:11px;color:var(--dim);margin-bottom:10px}
+  /* monsters */
+  .mgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:10px}
+  .mon{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:13px;text-align:center}
+  .mon.zero{opacity:.4}
+  .mface{font-size:42px;line-height:1.2;filter:grayscale(0)}
+  .mon.weak .mface{filter:grayscale(.85) brightness(.8)}
+  .mname{font-weight:700;font-size:13px;margin-top:4px}
+  .munit{font-size:10.5px;color:var(--dim)}
+  .mlv{font-size:11px;color:var(--gold);font-weight:700;margin-top:3px}
+  .mbar{height:5px;background:var(--panel2);border-radius:3px;overflow:hidden;margin-top:7px}
+  .mbar>i{display:block;height:100%;transition:width .3s}
+  /* gacha */
+  .gbox{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:22px;text-align:center;max-width:460px}
+  .result{font-size:44px;margin:10px 0}
+  .r5{color:var(--gold);font-weight:800;text-shadow:0 0 14px color-mix(in srgb,var(--gold) 55%,transparent)}
+  .r4{color:var(--accent);font-weight:700}
+  .r3{color:var(--dim)}
+  .boxlist{margin-top:16px;font-size:12.5px}
+  .boxlist div{padding:5px 0;border-bottom:1px solid var(--line)}
+</style>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png">
+  <link rel="icon" href="./icon-192.png">
+  <meta name="theme-color" content="#0f1115">
+</head>
+<body>
+<header>
+  <div class="hrow">
+    <h1>東大理三 数学マップ</h1>
+    <div class="hstat" id="hs"></div>
+  </div>
+  <nav>
+    <button data-v="next" class="on">次にやる</button>
+    <button data-v="review">復習<span class="bdg" id="rvb" style="display:none">0</span></button>
+    <button data-v="all">全ノード</button>
+    <button data-v="map">依存マップ</button>
+    <button data-v="prob">合格可能性</button>
+    <button data-v="mon">モンスター</button>
+    <button data-v="gacha">ガチャ</button>
+    <button data-v="doc">設計方針</button>
+  </nav>
+</header>
+<main>
+  <div class="filters" id="filters">
+    <select id="fField"><option value="">全分野</option></select>
+    <select id="fUnit"><option value="">全単元</option></select>
+    <select id="fState">
+      <option value="">状態: すべて</option>
+      <option value="ready">着手可能</option>
+      <option value="locked">前提未達</option>
+      <option value="done">習得済み</option>
+    </select>
+    <select id="fTodai">
+      <option value="">東大必要度: すべて</option>
+      <option value="5">★5のみ</option><option value="4">★4以上</option><option value="3">★3以上</option>
+    </select>
+    <input type="search" id="fQ" placeholder="検索…">
+    <button class="btn sec" id="reset" style="margin:0;padding:5px 11px">リセット</button>
+  </div>
+  <div id="view"></div>
+</main>
+
+<div id="ov"></div>
+<aside id="dp"><button class="close" id="cl">×</button><div id="dpc"></div></aside>
+
+<script>
+const DATA = {"nodes":[{"id":"m1-expand","title":"展開・因数分解の型","unit":"数と式","level":1,"prereq":[],"todai":2,"cost":60,"why":"式変形の速度そのもの。ここが遅いと数III積分で毎回時間を失う","trap":"3文字対称式・複2次式の因数分解が反射で出ない","field":"数学I"},{"id":"m1-sym","title":"対称式・交代式","unit":"数と式","level":2,"prereq":["m1-expand"],"todai":3,"cost":60,"why":"解と係数の関係、整数問題、複素数平面すべての土台","trap":"基本対称式に還元する発想が出ない","field":"数学I"},{"id":"m1-real","title":"実数・絶対値・平方根の扱い","unit":"数と式","level":1,"prereq":[],"todai":2,"cost":50,"why":"絶対値の場合分けは全分野に出る。ここの雑さが減点の常連","trap":"√(x^2)=|x| を書かずに符号ミス","field":"数学I"},{"id":"m1-ineq1","title":"1次不等式・連立不等式","unit":"数と式","level":1,"prereq":["m1-real"],"todai":1,"cost":30,"why":"領域・場合分けの前提","trap":"","field":"数学I"},{"id":"m1-set","title":"集合と要素の個数","unit":"集合と命題","level":1,"prereq":[],"todai":2,"cost":40,"why":"包除原理は場合の数の中核","trap":"","field":"数学I"},{"id":"m1-logic","title":"必要条件・十分条件","unit":"集合と命題","level":2,"prereq":["m1-set"],"todai":5,"cost":60,"why":"東大の論証はここが読めているかを直接測ってくる。同値変形の意識が全て","trap":"「⇒」しか示さず同値を主張して失点","field":"数学I"},{"id":"m1-proof","title":"対偶・背理法","unit":"集合と命題","level":2,"prereq":["m1-logic"],"todai":4,"cost":60,"why":"整数・無理数の論証で必須","trap":"背理法の仮定を最後まで使い切らない","field":"数学I"},{"id":"m2f-quad-complete","title":"平方完成","unit":"2次関数","level":1,"prereq":["m1-expand"],"todai":3,"cost":30,"why":"最大最小・軌跡・2次形式の全ての入口","trap":"","field":"数学I"},{"id":"m2f-minmax","title":"2次関数の最大最小（区間・軸の場合分け）","unit":"2次関数","level":2,"prereq":["m2f-quad-complete"],"todai":4,"cost":90,"why":"「場合分けを漏れなく書く」訓練の最初の場。東大の答案はこの延長線上にある","trap":"軸と区間の位置関係を3通りに割る境界の扱い","field":"数学I"},{"id":"m2f-param-minmax","title":"文字定数入りの最大最小（逆に見る）","unit":"2次関数","level":3,"prereq":["m2f-minmax"],"todai":4,"cost":90,"why":"「変数と定数を入れ替えて眺める」東大頻出の視点の原型","trap":"誰を主役の変数と見るかを固定できない","field":"数学I"},{"id":"m2f-disc","title":"判別式と解の存在","unit":"2次関数","level":1,"prereq":["m2f-quad-complete"],"todai":3,"cost":40,"why":"実数条件を式に翻訳する基本手段","trap":"実数解条件を課し忘れる（軌跡・領域で致命傷）","field":"数学I"},{"id":"m2f-place","title":"解の配置問題","unit":"2次関数","level":3,"prereq":["m2f-disc","m2f-minmax"],"todai":4,"cost":90,"why":"判別式・軸・端点の値の3点セット。方程式の解の個数問題の原型","trap":"端点の値の符号だけで済ませて軸条件を落とす","field":"数学I"},{"id":"m2f-ineq2","title":"2次不等式と符号","unit":"2次関数","level":1,"prereq":["m2f-disc"],"todai":2,"cost":40,"why":"領域・定積分の符号処理の前提","trap":"","field":"数学I"},{"id":"m1-trigratio","title":"三角比の定義と拡張（0〜180°）","unit":"図形と計量","level":1,"prereq":[],"todai":2,"cost":50,"why":"三角関数・ベクトル内積・複素数平面のすべての根","trap":"単位円で定義し直せていない","field":"数学I"},{"id":"m1-sinlaw","title":"正弦定理・余弦定理","unit":"図形と計量","level":2,"prereq":["m1-trigratio"],"todai":3,"cost":60,"why":"図形量を式に落とす二大手段。使い分けの判断が本体","trap":"外接円半径Rを見落とす／余弦定理で角の候補を絞れない","field":"数学I"},{"id":"m1-area","title":"三角形の面積・内接円・外接円","unit":"図形と計量","level":2,"prereq":["m1-sinlaw"],"todai":3,"cost":60,"why":"図形の最大最小問題の計算基盤","trap":"","field":"数学I"},{"id":"m1-space-fig","title":"空間図形への三角比の応用","unit":"図形と計量","level":3,"prereq":["m1-area"],"todai":4,"cost":90,"why":"東大の空間図形は結局「適切な平面で切って三角比」。座標に頼れない問題の逃げ道","trap":"切断面を自分で選べない","field":"数学I"},{"id":"m1-data","title":"データの分析（平均・分散・相関）","unit":"データの分析","level":1,"prereq":[],"todai":0,"cost":60,"why":"共通テスト用。二次では実質出ない。ここに時間を使わない判断が重要","trap":"","field":"数学I"},{"id":"ma-count-basic","title":"数え上げの原則（和の法則・積の法則・辞書式）","unit":"場合の数","level":1,"prereq":["m1-set"],"todai":4,"cost":60,"why":"公式より先に「重複なく漏れなく数える枠組み」を持てるかどうか。東大の確率はここで決まる","trap":"いきなりC・Pに飛びついて数え落とす","field":"数学A"},{"id":"ma-perm","title":"順列・組合せ","unit":"場合の数","level":1,"prereq":["ma-count-basic"],"todai":3,"cost":60,"why":"道具。使い所を誤らないことが本体","trap":"区別する/しないの前提が曖昧","field":"数学A"},{"id":"ma-samekind","title":"同じものを含む順列・円順列・じゅず順列","unit":"場合の数","level":2,"prereq":["ma-perm"],"todai":3,"cost":60,"why":"「割る」操作の正当化（同値類で数える）を理解する場","trap":"回転・裏返しで割れない場合に機械的に割る","field":"数学A"},{"id":"ma-partition","title":"組分け・重複組合せ（仕切り）","unit":"場合の数","level":3,"prereq":["ma-samekind"],"todai":4,"cost":90,"why":"整数解の個数、多項式の係数、確率の分母すべてに顔を出す","trap":"組に区別があるかで割り方が変わる点","field":"数学A"},{"id":"ma-incl","title":"包除原理・余事象で数える","unit":"場合の数","level":3,"prereq":["ma-partition"],"todai":4,"cost":60,"why":"「直接数えない」判断。完全順列や東大の色分け問題の主武器","trap":"3つ以上の集合で符号を間違える","field":"数学A"},{"id":"ma-prob-def","title":"確率の定義（同様に確からしい・根元事象の設定）","unit":"確率","level":2,"prereq":["ma-count-basic"],"todai":5,"cost":60,"why":"東大の確率で落ちる人の9割はここ。「区別のないものを区別して数える」原則を体で理解する","trap":"同じ色の玉を区別せずに数えて分母を壊す","field":"数学A"},{"id":"ma-prob-indep","title":"独立試行・反復試行","unit":"確率","level":2,"prereq":["ma-prob-def"],"todai":4,"cost":60,"why":"二項分布型の確率計算の基本形","trap":"","field":"数学A"},{"id":"ma-prob-cond","title":"条件付き確率・ベイズ的な逆算","unit":"確率","level":3,"prereq":["ma-prob-indep"],"todai":4,"cost":90,"why":"状態を分けて考える発想の入口。漸化式の立式に直結する","trap":"分母にどの事象を置くかを取り違える","field":"数学A"},{"id":"ma-prob-rec","title":"確率漸化式","unit":"確率","level":4,"prereq":["ma-prob-cond","mb-rec-type"],"todai":5,"cost":180,"why":"東大理系で最頻出の型。n回目の状態を有限個に分類し、1手先で遷移を書く","trap":"状態の分類が粗い／遷移の漏れ／和が1になる検算をしない","field":"数学A"},{"id":"ma-prob-exp","title":"期待値","unit":"確率","level":3,"prereq":["ma-prob-indep"],"todai":4,"cost":90,"why":"線形性を使えば場合分けを回避できる。差がつく道具","trap":"独立でないのに線形性が使えないと思い込む（実は常に使える）","field":"数学A"},{"id":"ma-int-div","title":"約数・倍数・素因数分解","unit":"整数","level":1,"prereq":["m1-expand"],"todai":3,"cost":60,"why":"整数問題の語彙","trap":"","field":"数学A"},{"id":"ma-int-euclid","title":"ユークリッドの互除法・最大公約数","unit":"整数","level":2,"prereq":["ma-int-div"],"todai":4,"cost":60,"why":"gcdを動かす道具。連続整数の互いに素の議論で必ず使う","trap":"","field":"数学A"},{"id":"ma-int-dio","title":"1次不定方程式","unit":"整数","level":2,"prereq":["ma-int-euclid"],"todai":3,"cost":60,"why":"特殊解＋一般解の型","trap":"","field":"数学A"},{"id":"ma-int-mod","title":"合同式（mod）","unit":"整数","level":3,"prereq":["ma-int-euclid"],"todai":5,"cost":120,"why":"整数論証の共通言語。周期性・剰余での分類は東大整数の主戦場","trap":"mod を何で取るかを問題から読み取れない（末尾→mod 10、平方数→mod 3,4,8）","field":"数学A"},{"id":"ma-int-factor","title":"積の形に持ち込む（因数分解型の不定方程式）","unit":"整数","level":3,"prereq":["ma-int-div","m1-sym"],"todai":4,"cost":90,"why":"整数解を有限個に閉じ込める最有力手段","trap":"","field":"数学A"},{"id":"ma-int-bound","title":"範囲で絞る（不等式評価で有限化）","unit":"整数","level":4,"prereq":["ma-int-factor"],"todai":5,"cost":120,"why":"整数問題の三大手段（合同・因数分解・評価）の最後。東大はここを試す","trap":"大小関係の仮定（対称性の利用）を置かずに無限に場合が増える","field":"数学A"},{"id":"ma-int-base","title":"n進法","unit":"整数","level":2,"prereq":["ma-int-div"],"todai":1,"cost":40,"why":"出題頻度は低い。軽く","trap":"","field":"数学A"},{"id":"ma-geo-ratio","title":"チェバ・メネラウス・角の二等分線","unit":"図形の性質","level":2,"prereq":["m1-area"],"todai":2,"cost":60,"why":"比の処理。ベクトルで代替可能なので優先度は中","trap":"","field":"数学A"},{"id":"ma-geo-circle","title":"円の性質（方べき・接弦角・四点共円）","unit":"図形の性質","level":3,"prereq":["ma-geo-ratio"],"todai":3,"cost":90,"why":"四点共円に気づけるかで初等幾何の難問が一瞬で落ちる","trap":"座標・ベクトルに逃げて計算量が爆発する","field":"数学A"},{"id":"ma-geo-space","title":"空間の位置関係・多面体","unit":"図形の性質","level":2,"prereq":["m1-space-fig"],"todai":2,"cost":60,"why":"空間ベクトル・体積問題の前提となる図の把握力","trap":"","field":"数学A"},{"id":"m2-binom","title":"二項定理・多項定理","unit":"式と証明","level":2,"prereq":["ma-perm"],"todai":3,"cost":60,"why":"係数比較・整数論証・確率の計算で反復して出る","trap":"一般項を書かずに勘で係数を取る","field":"数学II"},{"id":"m2-identity","title":"恒等式・係数比較","unit":"式と証明","level":2,"prereq":["m1-expand"],"todai":3,"cost":40,"why":"部分分数分解、未定係数法の根拠","trap":"","field":"数学II"},{"id":"m2-div-poly","title":"整式の除法・剰余定理・因数定理","unit":"複素数と方程式","level":2,"prereq":["m2-identity"],"todai":4,"cost":60,"why":"「割った余り」型の問題（東大好み）と、整式の恒等式処理の土台","trap":"余りの次数の設定を忘れる","field":"数学II"},{"id":"m2-amgm","title":"相加相乗平均","unit":"式と証明","level":2,"prereq":["m1-real"],"todai":4,"cost":60,"why":"最小値の即答手段","trap":"等号成立条件を書かない／正でない量に使う","field":"数学II"},{"id":"m2-ineq-proof","title":"不等式の証明（差をとる・平方完成・コーシー）","unit":"式と証明","level":3,"prereq":["m2-amgm","m2f-quad-complete"],"todai":4,"cost":90,"why":"微分に頼らず示す技術。数IIIの評価問題の前段","trap":"","field":"数学II"},{"id":"m2-complex-num","title":"複素数の計算・解と係数の関係","unit":"複素数と方程式","level":2,"prereq":["m1-sym","m2f-disc"],"todai":3,"cost":60,"why":"対称式との合流点","trap":"","field":"数学II"},{"id":"m2-highdeg","title":"高次方程式・虚数解の扱い","unit":"複素数と方程式","level":3,"prereq":["m2-div-poly","m2-complex-num"],"todai":3,"cost":60,"why":"実数係数なら共役も解、という論法","trap":"","field":"数学II"},{"id":"m2-line","title":"直線の方程式・点と直線の距離","unit":"図形と方程式","level":1,"prereq":["m2f-quad-complete"],"todai":3,"cost":50,"why":"座標幾何の最小単位。距離公式は面積計算の常用手段","trap":"","field":"数学II"},{"id":"m2-circle","title":"円の方程式・円と直線の位置関係","unit":"図形と方程式","level":2,"prereq":["m2-line"],"todai":3,"cost":60,"why":"判別式と中心距離の2通りで処理を選べること","trap":"","field":"数学II"},{"id":"m2-locus","title":"軌跡（動点の条件を式にする）","unit":"図形と方程式","level":3,"prereq":["m2-circle","m2f-disc"],"todai":4,"cost":120,"why":"「パラメータを消去し、同時に実数条件を残す」という東大頻出の操作の原型","trap":"消去して終わりにし、除外点・存在条件を落とす","field":"数学II"},{"id":"m2-region","title":"不等式の表す領域・線形計画","unit":"図形と方程式","level":3,"prereq":["m2-circle","m2f-ineq2"],"todai":4,"cost":90,"why":"「領域上での最大最小」は東大の頻出テーマ","trap":"境界を含む/含まないの処理","field":"数学II"},{"id":"m2-pass-region","title":"通過領域（存在条件に読み替える）","unit":"図形と方程式","level":4,"prereq":["m2-locus","m2-region","m2f-param-minmax"],"todai":5,"cost":180,"why":"東大の最重要テーマの一つ。「実数tが存在する⇔判別式/値域条件」への翻訳","trap":"tの動く範囲の制約を忘れる。逆像法と順像法を使い分けられない","field":"数学II"},{"id":"m2-trig-add","title":"加法定理","unit":"三角関数","level":2,"prereq":["m1-trigratio"],"todai":4,"cost":60,"why":"三角関数の全公式の親。証明も出題される（1999年東大）","trap":"導出できず暗記のみ","field":"数学II"},{"id":"m2-trig-double","title":"倍角・半角・3倍角","unit":"三角関数","level":2,"prereq":["m2-trig-add"],"todai":4,"cost":60,"why":"次数下げの主要手段。積分で毎回使う","trap":"","field":"数学II"},{"id":"m2-trig-synth","title":"三角関数の合成","unit":"三角関数","level":2,"prereq":["m2-trig-add"],"todai":4,"cost":40,"why":"最大最小の即答手段","trap":"","field":"数学II"},{"id":"m2-trig-sumprod","title":"和積・積和公式","unit":"三角関数","level":3,"prereq":["m2-trig-add"],"todai":3,"cost":40,"why":"積分・和の計算で必要。導出できれば暗記不要","trap":"","field":"数学II"},{"id":"m2-trig-eq","title":"三角方程式・不等式（置換と範囲）","unit":"三角関数","level":3,"prereq":["m2-trig-double","m2f-place"],"todai":4,"cost":90,"why":"置換したときの新変数の変域を正しく取る訓練。解の個数問題に直結","trap":"t=sinθ と置いて -1≦t≦1 とθの対応個数を無視する","field":"数学II"},{"id":"m2-exp","title":"指数の拡張・指数関数","unit":"指数対数","level":1,"prereq":[],"todai":2,"cost":40,"why":"数IIIの微積の対象","trap":"","field":"数学II"},{"id":"m2-log","title":"対数の定義と法則","unit":"指数対数","level":2,"prereq":["m2-exp"],"todai":3,"cost":60,"why":"底の変換と真数条件。数IIIの対数微分・積分の前提","trap":"真数条件・底の条件を書かない","field":"数学II"},{"id":"m2-log-app","title":"常用対数（桁数・最高位）","unit":"指数対数","level":3,"prereq":["m2-log"],"todai":3,"cost":60,"why":"評価と整数の融合問題で使う","trap":"","field":"数学II"},{"id":"m2-diff-def","title":"微分係数の定義・導関数","unit":"微分積分","level":2,"prereq":["m1-expand"],"todai":4,"cost":60,"why":"定義に戻れるかが数IIIの極限・微分可能性の分かれ目","trap":"公式のみで定義式を書けない","field":"数学II"},{"id":"m2-tangent","title":"接線・法線","unit":"微分積分","level":2,"prereq":["m2-diff-def","m2-line"],"todai":4,"cost":60,"why":"「接点をtと置く」型。共通接線・曲線外の点からの接線本数へ","trap":"接点の座標を置かず、通る点の座標で微分する","field":"数学II"},{"id":"m2-extremum","title":"増減表・極値（3次関数）","unit":"微分積分","level":2,"prereq":["m2-diff-def"],"todai":4,"cost":60,"why":"グラフを描いて考える習慣の起点","trap":"","field":"数学II"},{"id":"m2-root-count","title":"3次方程式の実数解の個数（定数分離）","unit":"微分積分","level":3,"prereq":["m2-extremum","m2f-param-minmax"],"todai":5,"cost":120,"why":"a=f(x) と分離して水平線との交点で数える。数IIIまで一貫して使う最重要技法","trap":"分離できない形で無理に分離する／端点・漸近の挙動を調べない","field":"数学II"},{"id":"m2-int-poly","title":"多項式の定積分・面積","unit":"微分積分","level":2,"prereq":["m2-extremum"],"todai":3,"cost":60,"why":"面積を積分で表す原則（上−下）","trap":"符号付き面積と面積の混同","field":"数学II"},{"id":"m2-int-16","title":"1/6公式・1/12公式と面積の等分","unit":"微分積分","level":3,"prereq":["m2-int-poly"],"todai":3,"cost":60,"why":"計算時間の短縮。検算にも使える","trap":"適用条件を外れて使う","field":"数学II"},{"id":"m2-int-abs","title":"絶対値付き積分・区間の分割","unit":"微分積分","level":3,"prereq":["m2-int-poly","m1-real"],"todai":4,"cost":90,"why":"場合分けの網羅性が答案の質に直結する典型テーマ","trap":"符号の変わる点が区間内にあるかの場合分けを落とす","field":"数学II"},{"id":"m2-int-param","title":"定積分で表された関数・パラメータ入り積分の最小化","unit":"微分積分","level":4,"prereq":["m2-int-abs","m2f-param-minmax"],"todai":4,"cost":120,"why":"積分してから微分する二段構え。東大がよく使う構造","trap":"積分変数と定数の区別が崩れる","field":"数学II"},{"id":"mb-seq-basic","title":"等差・等比数列","unit":"数列","level":1,"prereq":[],"todai":2,"cost":40,"why":"語彙","trap":"","field":"数学B"},{"id":"mb-sigma","title":"Σ計算・部分分数分解による差の形（望遠鏡和）","unit":"数列","level":2,"prereq":["mb-seq-basic","m2-identity"],"todai":4,"cost":90,"why":"和を閉じた形にする二大手段（公式／差の形に割る）。数IIIの無限級数へ直結","trap":"Σの上端下端の対応、n=1の確認漏れ","field":"数学B"},{"id":"mb-diff-seq","title":"階差数列・Sとaの関係","unit":"数列","level":2,"prereq":["mb-sigma"],"todai":3,"cost":60,"why":"a_n = S_n - S_{n-1} は n≧2 でしか使えない、という条件処理の型","trap":"n=1 を別に確認しない","field":"数学B"},{"id":"mb-rec-type","title":"漸化式の型別処理（等比型・特性方程式・分数型・連立）","unit":"数列","level":3,"prereq":["mb-diff-seq"],"todai":5,"cost":180,"why":"確率漸化式・数III極限のすべての前提。型を反射で分類できる状態が目標","trap":"型に当てはめられない形で手が止まる（両辺を何かで割る・置換する発想）","field":"数学B"},{"id":"mb-rec-hard","title":"誘導のない漸化式（実験して予想し帰納法で示す）","unit":"数列","level":4,"prereq":["mb-rec-type","mb-induction"],"todai":4,"cost":120,"why":"東大は型で解けない漸化式を出す。n=1,2,3 を書き出す手の動きが答え","trap":"実験をせずに一般項を探そうとする","field":"数学B"},{"id":"mb-induction","title":"数学的帰納法（通常・強化・二段仮定）","unit":"数列","level":3,"prereq":["m1-proof","mb-seq-basic"],"todai":5,"cost":120,"why":"整数・不等式・確率すべての論証の締め。仮定を強める発想が差になる","trap":"示したい命題が弱すぎて帰納が回らない（強い命題を立てる）","field":"数学B"},{"id":"mb-lattice","title":"格子点の数え上げ","unit":"数列","level":4,"prereq":["mb-sigma","m2-region"],"todai":4,"cost":120,"why":"「直線で切ってΣ」。領域と数列の融合、東大の定番","trap":"端の点、偶奇の場合分け","field":"数学B"},{"id":"mb-stat","title":"統計的な推測","unit":"統計","level":2,"prereq":["ma-prob-exp"],"todai":0,"cost":60,"why":"東大二次では実質出題されない。共通テストで選択する場合のみ","trap":"","field":"数学B"},{"id":"mc-vec-basic","title":"ベクトルの演算・1次独立","unit":"ベクトル","level":2,"prereq":["m1-trigratio"],"todai":3,"cost":60,"why":"「1次独立だから係数比較できる」が全ての論拠","trap":"1次独立を断らずに係数比較する","field":"数学C"},{"id":"mc-vec-dot","title":"内積（成分・なす角・垂直条件）","unit":"ベクトル","level":2,"prereq":["mc-vec-basic"],"todai":4,"cost":60,"why":"長さ・角度・垂直をすべて内積1つで書ける。図形問題の共通言語","trap":"|a|^2 = a·a の往復ができない","field":"数学C"},{"id":"mc-vec-pos","title":"位置ベクトル・分点・重心","unit":"ベクトル","level":2,"prereq":["mc-vec-basic"],"todai":3,"cost":60,"why":"始点を揃える操作","trap":"","field":"数学C"},{"id":"mc-vec-line","title":"共線条件・共面条件（係数の和=1）","unit":"ベクトル","level":3,"prereq":["mc-vec-pos"],"todai":4,"cost":90,"why":"交点の位置ベクトルを2通りに表して連立、という定型","trap":"","field":"数学C"},{"id":"mc-vec-space","title":"空間ベクトル・座標設定","unit":"ベクトル","level":3,"prereq":["mc-vec-dot","mc-vec-line","ma-geo-space"],"todai":5,"cost":120,"why":"東大の空間図形はベクトルか座標で殴るのが基本。原点と基底の取り方で計算量が10倍変わる","trap":"対称性を無視した座標設定で計算が破綻する","field":"数学C"},{"id":"mc-vec-foot","title":"垂線の足・点と平面の距離・射影","unit":"ベクトル","level":4,"prereq":["mc-vec-space"],"todai":5,"cost":120,"why":"体積計算（高さ）と最短距離問題の心臓部","trap":"垂直条件を内積で2本立てるところを1本で済ませる","field":"数学C"},{"id":"mc-vec-region","title":"ベクトルの終点の存在範囲","unit":"ベクトル","level":4,"prereq":["mc-vec-line","m2-region"],"todai":4,"cost":120,"why":"係数の条件を領域に翻訳する。通過領域のベクトル版","trap":"係数の和が1でない場合の正規化","field":"数学C"},{"id":"mc-conic","title":"2次曲線（楕円・双曲線・放物線）の定義と性質","unit":"平面上の曲線","level":3,"prereq":["m2-circle"],"todai":3,"cost":90,"why":"焦点・準線の定義から立式できること。単独出題は少ないが融合で出る","trap":"式の暗記のみで定義（距離の条件）に戻れない","field":"数学C"},{"id":"mc-param","title":"媒介変数表示（円・楕円・サイクロイド）","unit":"平面上の曲線","level":3,"prereq":["mc-conic","m2-trig-add"],"todai":4,"cost":90,"why":"数IIIの面積・長さ・体積計算はほぼ媒介変数で来る","trap":"パラメータの動く範囲と曲線の向き（増減）を確認しない","field":"数学C"},{"id":"mc-polar","title":"極座標・極方程式","unit":"平面上の曲線","level":3,"prereq":["mc-param"],"todai":2,"cost":60,"why":"東大での使用頻度は低め。ただし面積計算で楽になる場面がある","trap":"","field":"数学C"},{"id":"mc-cplx-polar","title":"複素数の極形式・ド・モアブルの定理","unit":"複素数平面","level":3,"prereq":["m2-complex-num","m2-trig-add"],"todai":4,"cost":90,"why":"累乗と回転を同一視する。n乗根の問題の基盤","trap":"偏角の一般角（+2kπ）を落として解を数え損なう","field":"数学C"},{"id":"mc-cplx-rot","title":"回転と拡大（掛け算の幾何的意味）","unit":"複素数平面","level":3,"prereq":["mc-cplx-polar"],"todai":5,"cost":90,"why":"「点Aを中心にθ回転」を1行で書ける。東大の図形問題を最短で処理する道具","trap":"回転の中心を原点に平行移動してから戻す手順を飛ばす","field":"数学C"},{"id":"mc-cplx-locus","title":"複素数平面上の軌跡・図形条件（垂直二等分線・アポロニウス）","unit":"複素数平面","level":4,"prereq":["mc-cplx-rot","m2-locus"],"todai":5,"cost":120,"why":"|z-a|=|z-b| 型、arg条件、共役を使った実数条件。東大の複素数はここに集中","trap":"z の共役を z̄ と置いて連立する処理に慣れていない","field":"数学C"},{"id":"mc-cplx-root","title":"1のn乗根と正多角形・和の計算","unit":"複素数平面","level":4,"prereq":["mc-cplx-polar","mb-sigma"],"todai":4,"cost":90,"why":"対称性と等比数列の和の融合。整数問題とも合流する","trap":"","field":"数学C"},{"id":"m3-lim-seq","title":"数列の極限・収束発散の判定","unit":"極限","level":2,"prereq":["mb-rec-type"],"todai":4,"cost":60,"why":"漸化式→一般項→極限、の最終工程","trap":"r^n の極限で r の範囲の場合分けを落とす","field":"数学III"},{"id":"m3-lim-squeeze","title":"はさみうちの原理","unit":"極限","level":3,"prereq":["m3-lim-seq","m2-ineq-proof"],"todai":5,"cost":120,"why":"求まらない極限を評価で殺す。東大が最も好む発想の一つ","trap":"上下から挟む式を自分で作れない（不等式評価の在庫不足）","field":"数学III"},{"id":"m3-lim-series","title":"無限級数・無限等比級数","unit":"極限","level":3,"prereq":["m3-lim-seq","mb-sigma"],"todai":3,"cost":90,"why":"部分和の極限として定義に戻れること","trap":"部分和を経ずに項別に処理する","field":"数学III"},{"id":"m3-lim-func","title":"関数の極限・不定形の処理","unit":"極限","level":2,"prereq":["m2-diff-def"],"todai":4,"cost":90,"why":"0/0 を作って約分・有理化・既知の極限に帰着する型","trap":"","field":"数学III"},{"id":"m3-lim-sin","title":"sinx/x → 1 とその証明","unit":"極限","level":3,"prereq":["m3-lim-func","m3-lim-squeeze"],"todai":5,"cost":90,"why":"三角関数の微分の根拠。証明そのものが東大で出題された（1999年）","trap":"円弧の長さと面積の大小評価を再現できない","field":"数学III"},{"id":"m3-lim-e","title":"e の定義と (1+1/n)^n 型の極限","unit":"極限","level":3,"prereq":["m3-lim-func","m2-log"],"todai":4,"cost":90,"why":"対数微分・指数関数の微分の根拠","trap":"","field":"数学III"},{"id":"m3-lim-cont","title":"連続性・中間値の定理","unit":"極限","level":3,"prereq":["m3-lim-func"],"todai":4,"cost":60,"why":"「解が存在する」ことの唯一の示し方。存在証明で必ず要る","trap":"存在を示すのに増減表だけで済ませて連続性に触れない","field":"数学III"},{"id":"m3-diff-formula","title":"積・商の微分、合成関数の微分","unit":"微分法","level":2,"prereq":["m2-diff-def","m3-lim-func"],"todai":5,"cost":90,"why":"数IIIの全計算の土台。ここの速度と正確さが試験時間を決める","trap":"合成の内側の微分を掛け忘れる（積分の置換でも同じミスが再発）","field":"数学III"},{"id":"m3-diff-trig","title":"三角関数・指数関数・対数関数の微分","unit":"微分法","level":2,"prereq":["m3-diff-formula","m3-lim-sin","m3-lim-e"],"todai":5,"cost":90,"why":"全ての関数を微分できる状態にする","trap":"","field":"数学III"},{"id":"m3-diff-inv","title":"逆関数・陰関数の微分","unit":"微分法","level":3,"prereq":["m3-diff-trig"],"todai":3,"cost":60,"why":"逆関数のグラフの対称性は面積計算の裏技にもなる","trap":"","field":"数学III"},{"id":"m3-diff-param","title":"媒介変数表示された関数の微分","unit":"微分法","level":3,"prereq":["m3-diff-formula","mc-param"],"todai":4,"cost":60,"why":"サイクロイド等の増減・接線・面積へ","trap":"dy/dx = (dy/dt)/(dx/dt) の分母0の点（尖点）を調べない","field":"数学III"},{"id":"m3-diff-log","title":"対数微分法","unit":"微分法","level":3,"prereq":["m3-diff-trig"],"todai":3,"cost":40,"why":"x^x 型、積の多い式の微分","trap":"絶対値を付けずに log を取る","field":"数学III"},{"id":"m3-graph","title":"増減・凹凸・変曲点・漸近線（グラフを描き切る）","unit":"微分法","level":3,"prereq":["m3-diff-trig"],"todai":5,"cost":150,"why":"東大数学の答案は「正しいグラフ」が書けた時点で半分終わる。第2次導関数まで含めて完成させる訓練","trap":"漸近線・端点の極限を調べない／定義域の端の挙動を無視","field":"数学III"},{"id":"m3-diff-minmax","title":"最大最小（実用・図形量への応用）","unit":"微分法","level":3,"prereq":["m3-graph"],"todai":4,"cost":90,"why":"図形の量を1変数で表してから微分、という流れ全体が問われる","trap":"変数の動く範囲を出さずに微分だけする","field":"数学III"},{"id":"m3-root-count3","title":"方程式の実数解の個数（数III版・定数分離とグラフ）","unit":"微分法","level":4,"prereq":["m3-graph","m2-root-count","m3-lim-cont"],"todai":5,"cost":120,"why":"東大最頻出の型の完成形。分離して y=k との交点で数える","trap":"分離した関数の端点での極限（±∞や有限値）を調べず本数を数え違える","field":"数学III"},{"id":"m3-ineq-diff","title":"微分を用いた不等式の証明","unit":"微分法","level":4,"prereq":["m3-graph","m2-ineq-proof"],"todai":5,"cost":120,"why":"差をとって微分し最小値を評価。はさみうちの材料を自分で作れるようになる","trap":"1回微分で符号が決まらないときに2回微分へ進めない","field":"数学III"},{"id":"m3-mvt","title":"平均値の定理","unit":"微分法","level":4,"prereq":["m3-ineq-diff"],"todai":4,"cost":90,"why":"極限と不等式の橋渡し。使うべき場面の判別が難しい分、差がつく","trap":"適用区間の設定が雑（cの存在範囲を明示しない）","field":"数学III"},{"id":"m3-velocity","title":"速度・加速度・近似式","unit":"微分法","level":2,"prereq":["m3-diff-param"],"todai":2,"cost":60,"why":"物理と共通。出題頻度は低め","trap":"","field":"数学III"},{"id":"m3-int-basic","title":"不定積分の基本形（微分の逆）","unit":"積分法","level":2,"prereq":["m3-diff-trig"],"todai":5,"cost":90,"why":"「見た瞬間に原始関数が浮かぶ」在庫の量が積分力そのもの","trap":"","field":"数学III"},{"id":"m3-int-sub","title":"置換積分（型の判別）","unit":"積分法","level":3,"prereq":["m3-int-basic","m3-diff-formula"],"todai":5,"cost":150,"why":"f(g(x))g'(x) の形を見抜く目。数III積分の半分はこれ","trap":"定積分で積分区間を変換し忘れる／dx と dt の対応が雑","field":"数学III"},{"id":"m3-int-parts","title":"部分積分（何を微分側に置くか）","unit":"積分法","level":3,"prereq":["m3-int-basic"],"todai":5,"cost":120,"why":"log・多項式×指数/三角の定番。2回使って元に戻す型も必須","trap":"logやarctan系を積分側に置いてしまう","field":"数学III"},{"id":"m3-int-rational","title":"有理関数の積分（部分分数分解）","unit":"積分法","level":3,"prereq":["m3-int-sub","m2-identity"],"todai":4,"cost":90,"why":"分母の次数を下げる定型処理","trap":"分子の次数が高いとき先に割り算をしない","field":"数学III"},{"id":"m3-int-trig","title":"三角関数の積分（次数下げ・積和・t=tan(x/2)）","unit":"積分法","level":4,"prereq":["m3-int-sub","m2-trig-double","m2-trig-sumprod"],"todai":4,"cost":120,"why":"偶数乗は半角、奇数乗は1つ分離して置換、という判断の型","trap":"","field":"数学III"},{"id":"m3-int-irrational","title":"無理関数の積分（√(a²-x²) 型の三角置換）","unit":"積分法","level":4,"prereq":["m3-int-sub","mc-param"],"todai":4,"cost":90,"why":"円・楕円の面積が絡む積分の処理。図形的意味で検算できる","trap":"置換後の変数の範囲を取らずに符号を誤る","field":"数学III"},{"id":"m3-int-def-prop","title":"定積分の性質（偶奇・周期・区間の対称性）","unit":"積分法","level":3,"prereq":["m3-int-basic"],"todai":4,"cost":60,"why":"計算量を激減させる。x→a-x の置換で解ける東大の問題が定期的に出る","trap":"","field":"数学III"},{"id":"m3-int-recur","title":"定積分と漸化式（I_n を n で結ぶ）","unit":"積分法","level":4,"prereq":["m3-int-parts","mb-rec-type"],"todai":5,"cost":150,"why":"東大の頻出構造。部分積分でI_nとI_{n-2}を結び、極限や不等式へ繋ぐ","trap":"漸化式は作れても最後の極限評価（はさみうち）に繋げられない","field":"数学III"},{"id":"m3-int-diff-func","title":"積分で定義された関数の微分（微積分学の基本定理）","unit":"積分法","level":4,"prereq":["m3-int-basic","m3-diff-formula"],"todai":4,"cost":90,"why":"上端が関数のときの合成の扱い。定義に戻れることが要求される","trap":"上端がg(x)のときにg'(x)を掛け忘れる","field":"数学III"},{"id":"m3-int-riemann","title":"区分求積法","unit":"積分法","level":4,"prereq":["m3-int-basic","mb-sigma","m3-lim-seq"],"todai":5,"cost":120,"why":"Σの極限を積分に翻訳する。東大は「和の極限」を積分で解かせるのが好き","trap":"1/n を括り出す形に整理できない／k/n の範囲と積分区間の対応ミス","field":"数学III"},{"id":"m3-int-ineq","title":"積分と不等式（面積比較・評価）","unit":"積分法","level":5,"prereq":["m3-int-riemann","m3-ineq-diff","m3-lim-squeeze"],"todai":5,"cost":180,"why":"log n と調和級数の比較など。数IIIの最高難度帯で、理三の合否はここに出る","trap":"被積分関数の単調性を示さずに面積の大小を主張する","field":"数学III"},{"id":"m3-area","title":"面積（上下・左右・媒介変数・逆関数）","unit":"積分の応用","level":3,"prereq":["m3-int-sub","m3-graph"],"todai":5,"cost":120,"why":"領域を正しく図示し、どちらの軸で積分するか選ぶ判断","trap":"交点を出さずに積分区間を決める／曲線の上下が入れ替わる点を見落とす","field":"数学III"},{"id":"m3-vol-rot","title":"回転体の体積（x軸・y軸まわり）","unit":"積分の応用","level":4,"prereq":["m3-area"],"todai":5,"cost":150,"why":"東大の体積は毎年のように出る本丸。断面が円のとき","trap":"回転させる前に領域が軸をまたぐ場合の処理（重なりの扱い）","field":"数学III"},{"id":"m3-vol-cross","title":"非回転体の体積（断面積を積分する）","unit":"積分の応用","level":5,"prereq":["m3-vol-rot","mc-vec-space"],"todai":5,"cost":180,"why":"「x=t で切った断面を求める」。東大の空間問題の標準解法にして最難関。ここを完成させると理三の得点が安定する","trap":"断面の形状をtの範囲で場合分けせず一つの式で通そうとする","field":"数学III"},{"id":"m3-vol-slant","title":"斜回転体・回転軸が座標軸でない体積","unit":"積分の応用","level":5,"prereq":["m3-vol-cross","mc-cplx-rot"],"todai":4,"cost":180,"why":"座標変換（回転）してから通常の回転体に帰着する。最難問クラス","trap":"","field":"数学III"},{"id":"m3-length","title":"曲線の長さ・道のり","unit":"積分の応用","level":4,"prereq":["m3-int-sub","m3-diff-param"],"todai":3,"cost":90,"why":"公式自体は単純だが、√の中を平方完成できる形に整理する計算力が要る","trap":"","field":"数学III"},{"id":"td-experiment","title":"実験する手癖（n=1,2,3 を書き出す）","unit":"メタ技能","level":3,"prereq":["mb-rec-hard"],"todai":5,"cost":60,"why":"東大の問題は方針が見えない状態から始まる。手を動かして規則を見つける以外に入口がない問題が毎年ある","trap":"考え込んで10分間紙が白いまま","field":"東大レイヤー"},{"id":"td-symmetry","title":"対称性を利用して場合を減らす","unit":"メタ技能","level":4,"prereq":["ma-int-bound","mc-vec-space"],"todai":5,"cost":90,"why":"『a≦b≦c としてよい』『座標をこう取ってよい』の一言で計算量が1/6になる","trap":"「一般性を失わない」と書ける条件を確認せずに使う","field":"東大レイヤー"},{"id":"td-reduce","title":"未知を既知に帰着させる（言い換えの技術）","unit":"メタ技能","level":5,"prereq":["td-experiment","td-symmetry"],"todai":5,"cost":120,"why":"東大は初見の設定を出すが、中身は必ず既習の型。設定を剥がして何の問題かを見抜く作業が本体","trap":"問題文の言葉のまま処理しようとする","field":"東大レイヤー"},{"id":"td-argument","title":"場合分けを漏らさない・同値性を保つ記述","unit":"メタ技能","level":4,"prereq":["m1-logic","m2f-minmax","m2-int-abs"],"todai":5,"cost":120,"why":"東大の採点は論理の飛躍に厳しい。合っている答えでも過程で落ちる","trap":"必要条件だけ出して十分性の確認を書かない","field":"東大レイヤー"},{"id":"td-writing","title":"減点されない答案の書き方","unit":"メタ技能","level":4,"prereq":["td-argument"],"todai":5,"cost":90,"why":"同じ実力で15〜25点変わる領域。図・宣言（〜とおく）・結論の明示の3点","trap":"計算だけが並び、何を求めているかが読み手に伝わらない","field":"東大レイヤー"},{"id":"td-calc","title":"計算の設計と検算（次数・単位・特殊値）","unit":"メタ技能","level":4,"prereq":["m3-int-sub","m3-area"],"todai":5,"cost":90,"why":"理三の失点の最大要因は難問ではなく計算ミス。検算の型を持っているかどうか","trap":"検算を『もう一度同じ計算をする』でやる（別の方法で確かめる）","field":"東大レイヤー"},{"id":"td-time","title":"150分の運用（大問の選択と撤退の判断）","unit":"メタ技能","level":5,"prereq":["td-calc","td-writing"],"todai":5,"cost":120,"why":"6問150分。全問完答は不要。解ける4問を確実に取り切る配分の設計","trap":"1問に40分溶かして他が白紙になる","field":"東大レイヤー"},{"id":"td-t-prob","title":"【東大型】確率の状態設計","unit":"出題テーマ","level":5,"prereq":["ma-prob-rec","td-experiment"],"todai":5,"cost":180,"why":"設定が複雑で、何を状態と見るかを自分で決めさせる。分類さえ決まれば計算は易しい","trap":"状態の個数を増やしすぎて漸化式が解けなくなる","field":"東大レイヤー"},{"id":"td-t-integer","title":"【東大型】整数の論証","unit":"出題テーマ","level":5,"prereq":["ma-int-mod","ma-int-bound","mb-induction"],"todai":5,"cost":180,"why":"合同式・因数分解・評価の3手段から選ぶ。証明として完結させる力を測ってくる","trap":"具体例で確認して終わりにし、一般の証明を書かない","field":"東大レイヤー"},{"id":"td-t-region","title":"【東大型】通過領域・存在条件","unit":"出題テーマ","level":5,"prereq":["m2-pass-region","m3-root-count3"],"todai":5,"cost":180,"why":"『あるtが存在してこの式を満たす点の集合』への読み替え。逆像法（yを固定してxの存在条件）が主武器","trap":"パラメータの範囲制約を落とし、余分な領域まで塗る","field":"東大レイヤー"},{"id":"td-t-volume","title":"【東大型】立体の体積","unit":"出題テーマ","level":5,"prereq":["m3-vol-cross","mc-vec-foot","td-symmetry"],"todai":5,"cost":240,"why":"毎年のように出る最大配点帯。切断面をどの向きで取るかの一択で難易度が変わる","trap":"立体を3次元で把握しようとして詰まる（断面の2次元問題に落とす）","field":"東大レイヤー"},{"id":"td-t-cplx","title":"【東大型】複素数平面と図形","unit":"出題テーマ","level":5,"prereq":["mc-cplx-locus","td-reduce"],"todai":4,"cost":150,"why":"回転・軌跡・n乗根。ベクトルや座標より圧倒的に短く書ける場面を見抜く","trap":"実部虚部に分解して計算が膨張する","field":"東大レイヤー"},{"id":"td-t-eval","title":"【東大型】評価と極限の融合","unit":"出題テーマ","level":5,"prereq":["m3-int-ineq","m3-int-recur","m3-mvt"],"todai":5,"cost":240,"why":"『(1)で不等式を示し (2)で極限を出す』という誘導の意味を読む。理三で差がつく最上位テーマ","trap":"(1)を飛ばして(2)を解こうとする（誘導は使うために置かれている）","field":"東大レイヤー"},{"id":"td-t-space","title":"【東大型】空間図形の最大最小","unit":"出題テーマ","level":5,"prereq":["mc-vec-foot","m3-diff-minmax","td-symmetry"],"todai":4,"cost":180,"why":"ベクトルで立式→1変数に落として微分、という長い一本道を最後まで走り切る体力","trap":"変数の取り方が悪く式が汚くなったまま突き進む","field":"東大レイヤー"},{"id":"td-t-func","title":"【東大型】関数の決定・不等式の成立条件","unit":"出題テーマ","level":5,"prereq":["m3-ineq-diff","m2-int-param","td-argument"],"todai":4,"cost":150,"why":"『すべてのxで成り立つ』『あるxで成り立つ』の違いを最小値・最大値に翻訳する","trap":"∀と∃の翻訳を取り違える","field":"東大レイヤー"},{"id":"td-goal","title":"理三の合格ライン（数学 6問中4完+α / 目安80〜100点）","unit":"到達点","level":5,"prereq":["td-time","td-t-prob","td-t-integer","td-t-region","td-t-volume","td-t-eval"],"todai":5,"cost":0,"why":"全問完答は不要。標準3問を落とさず、難問1問に手を伸ばせる状態が目標","trap":"満点を狙って全範囲を均一に固めようとし、時間切れになる","field":"東大レイヤー"}],"lessons":[{"nodeId":"ma-prob-rec","title":"確率漸化式","core":"確率漸化式は『確率の問題』ではなく『状態遷移の問題』。n回目に起こりうる状況を有限個の状態に分類し、1手先でどこへ移るかだけを書く。難しいのは計算ではなく分類で、状態の取り方が決まった瞬間に問題は終わっている。逆に言えば、手が止まるのは常に『何を状態と見るか』を決めていないとき。","trigger":["『n回の操作』『n秒後』など、回数が文字で与えられている → まず漸化式を疑う","毎回の操作が同じルールで、直前の状況だけで次が決まる（それ以前の履歴によらない）→ 漸化式が立つ確定サイン","『ちょうどn回目に初めて〜』→ 状態に『まだ達していない』を含める","状態が2つなら p_n と 1-p_n で足りる。3つ以上なら連立漸化式を覚悟する"],"procedure":["1. n回後の状態を、互いに排反で網羅的な有限個に分類する（ここが本体）","2. 各状態にいる確率を p_n, q_n, ... と置き、必ず p_n + q_n + ... = 1 を確認する","3. n回後の各状態から、n+1回目の1手で行き先と確率を全部書き出す（遷移図を描く）","4. p_{n+1} = （各状態からp状態へ流れ込む確率の和）として立式","5. 初期条件を n=0 と n=1 の両方で確認する（どちらで始めるかで式がずれる）","6. 漸化式を型で解く（多くは等比型 or 特性方程式）","7. 検算：n=1,2 を式に入れ、手で数えた値と一致するか見る"],"worked":{"problem":"部屋 A, B, C がある。点Pは1回の操作で、今いる部屋以外の2部屋のどちらかへ等確率で移動する。最初 A にいるとき、n回後に A にいる確率 p_n を求めよ。","solution":["n回後にAにいる確率を p_n とすると、Aにいない確率は 1 - p_n。","対称性から、Aにいないとき B にいる確率と C にいる確率は等しい（ここに気づくと状態が2つで済む）。","n回後にAにいる場合、次の1手で必ずAを出るので、Aに留まる寄与は 0。","n回後にAにいない場合（確率 1 - p_n）、その部屋から見てAは『今いる部屋以外の2部屋』の一方なので、Aへ移る確率は 1/2。","よって p_{n+1} = (1/2)(1 - p_n)、p_0 = 1。","特性方程式 α = (1/2)(1 - α) より α = 1/3。","p_{n+1} - 1/3 = -(1/2)(p_n - 1/3) となり、p_n - 1/3 = (2/3)(-1/2)^n。","∴ p_n = 1/3 + (2/3)(-1/2)^n","検算：p_0 = 1/3 + 2/3 = 1 ○。p_1 = 1/3 - 1/3 = 0 ○（1回で必ずAを出る）。p_2 = 1/3 + 1/6 = 1/2 ○（B or C から戻る確率 1/2）。"]},"variants":["状態が3つ以上で対称性が使えないときは連立漸化式。p_n + q_n + r_n = 1 で1本消して2元にするのが定石","遷移が行列で書けるときは行列の n 乗（ただし東大では対角化を要求する形では出にくい）","n が小さい場合を全部書き出して一般項を予想し、数学的帰納法で示す — 漸化式が解けない形のときの逃げ道。東大はこちらを要求することがある","『初めて到達する確率』は、到達済みを吸収状態にして分けると素直になる"],"pitfalls":["状態の分類が粗く、同じ状態に見えて遷移確率が違うものを混ぜてしまう（最頻出の敗因）","逆に状態を増やしすぎて漸化式が解けなくなる。対称性で潰せないか必ず一度考える","確率の和が1になる検算をしない","p_0 で立てた式に p_1 の初期条件を入れて添字が1ずれる","『n回後』と『n回目の操作で』を混同する"],"todaiUse":"東大理系で最も出題頻度が高い型の一つ。設定が複雑（サイコロ、カードの並べ替え、格子上の点の移動など）で、状態を自分で設計させる形で出る。誘導で(1)に小さいnの具体値を求めさせ、(2)で漸化式、(3)で極限、という3段構成が典型。","check":["サイコロを n 回投げ、出た目の和が3の倍数になる確率を求めよ（状態を『和を3で割った余り』に取る）","上の問題で n→∞ の極限を求め、直感と合うか確かめよ"],"stretch":"状態数が n に依存して増える設定（例：n個の箱を使う）では漸化式が立たない。その場合は数え上げか、別のパラメータで漸化式を立て直す。"},{"nodeId":"ma-int-mod","title":"合同式（mod）","core":"整数問題で『割った余り』を持ち出す理由は、無限個の整数を有限個のグループに潰せるからにほかならない。mod m で考えるとは、整数全体を m 個の箱に分けて、箱の名前だけで計算することを指す。積と和が箱のまま計算できる（合同式が積・和で保たれる）ことが唯一にして最大の武器で、逆に割り算だけは自由にできない、という一点さえ押さえれば道具として完成する。","trigger":["『〜で割った余り』『〜の倍数であることを示せ』→ 即 mod","末尾の数字 → mod 10（下2桁なら mod 100）","平方数が絡む → mod 3, mod 4, mod 8 を試す（平方数は mod 3 で 0,1 / mod 4 で 0,1 / mod 8 で 0,1,4 しか取らない）","3乗が絡む → mod 9（立方数は mod 9 で 0, 1, 8 のみ）","n^k の余りの周期を聞かれている → 小さいkで実際に計算し周期を見つける","解が存在しないことを示せ → mod で矛盾を出す（存在しないことの証明はほぼこれか無限降下）"],"procedure":["1. 何で割るか（mod をいくつに取るか）を決める。これが8割","2. 決め方：問題に出てくる数の素因数、平方数なら 3・4・8、周期性なら実験して決める","3. 各文字を mod m での余りで場合分けする（m個の場合、対称性で減ることもある）","4. 合同式のまま計算し、両辺の取りうる値を比較して矛盾を出す／条件を絞る","5. 割り算をした箇所がないか点検する（gcd(a,m)=1 のときしか a で割れない）"],"worked":{"problem":"x, y, z を自然数とするとき、x² + y² = 3z² を満たすものは存在しないことを示せ。","solution":["平方数を3で割った余りを調べる。整数 n は n ≡ 0, 1, 2 (mod 3) のいずれかで、","n ≡ 0 なら n² ≡ 0、n ≡ ±1 なら n² ≡ 1 (mod 3)。よって平方数は mod 3 で 0 か 1 のみ。","x² + y² ≡ 0 (mod 3) が必要（右辺が3の倍数だから）。","0 と 1 の2つの和で 0 (mod 3) になるのは 0 + 0 のときだけ。","よって x ≡ 0 かつ y ≡ 0 (mod 3)、すなわち x = 3a, y = 3b と書ける。","代入して 9a² + 9b² = 3z² より 3(a² + b²) = z²。よって z² は3の倍数、3は素数だから z も3の倍数で z = 3c。","3(a² + b²) = 9c² より a² + b² = 3c²。","これは元と同じ形で、a < x, b < y, c < z。同じ操作を繰り返せば自然数が無限に減り続けることになり矛盾（無限降下法）。","∴ 自然数解は存在しない。"]},"variants":["mod を使わず因数分解で積の形に持ち込む（(x+y)(x-y)=n 型）。有限個に閉じ込めたいときはこちら","不等式で範囲を絞る（大小関係を仮定して有限化）。3つの手段のうちどれが効くかは、問題の形で決まる","『存在しない』の証明は mod での矛盾か無限降下。『存在する』の証明は構成するだけでよい","フェルマーの小定理は高校範囲外だが、周期性の実験で同じ結論に辿り着ける"],"pitfalls":["合同式で両辺を割ってしまう（法と互いに素でなければ不可）","mod をいくつに取るかを試行錯誤せず、最初の1つで諦める","『x²が3の倍数 ⇒ xが3の倍数』に3が素数であることの言及がない（東大はここを見る）","具体例で確認して満足し、一般の証明を書かない","無限降下で『最小の解を取る』と宣言せずに議論を進める"],"todaiUse":"東大の整数は合同式・因数分解・評価の3手段のどれを選ぶかを問う形で出る。単独の大問になる年が多く、誘導が薄いのが特徴。(1)で小さい場合を実験させ、(2)で一般の証明という構成が多い。","check":["2ⁿ を 7 で割った余りを n について調べ、周期を求めよ","n が 3 の倍数でないとき n² - 1 が 3 の倍数であることを示せ","x² + y² = z² で x, y の少なくとも一方は 3 の倍数であることを示せ"],"stretch":"mod の複数取り（mod 4 と mod 9 を同時に見て絞る）。中国剰余定理の考え方は範囲外だが、2つの条件を並べて絞るだけなら高校範囲で書ける。"},{"nodeId":"m2-pass-region","title":"通過領域（存在条件への読み替え）","core":"『パラメータ t を動かしたときに直線や曲線が通る点の全体』を求める問題は、幾何の問題に見えて実際は論理の問題である。点 (X, Y) が通過領域に入るとは、その (X, Y) に対して条件式を満たす実数 t が少なくとも1つ存在すること、それだけを意味する。したがって図形的に考える必要はなく、条件式を t の方程式と見て『実数解を持つ条件』に翻訳すればよい。ここで視点を t 側に移せるかどうかが、この単元の全てになる。","trigger":["『t が実数全体を動くとき、直線 ℓ の通過する範囲を求めよ』→ 定番の逆像法","式の中でパラメータが2次以下 → t の2次方程式と見て判別式（最速）","パラメータに範囲がついている（0 ≦ t ≦ 1 など）→ 判別式だけでは足りず、解の配置問題になる","パラメータが2つ以上 → 1つずつ順に処理する（順像法の出番）","『少なくとも1つ存在する』『すべての t で成り立つ』→ ∃ と ∀ の違いを最初に確定させる"],"procedure":["1. 通過領域上の点を (X, Y) と置く（動点と定点の記号を必ず分ける）","2. 条件式を、X, Y を定数・t を変数とみなして整理する（この視点の切り替えが核心）","3. 『この t の方程式が、t の許される範囲内に実数解を持つ』条件を求める","4. t が実数全体なら判別式 D ≧ 0。t に範囲があれば解の配置（軸・端点の値）で処理","5. 得られた X, Y の条件を図示する。境界を含むかを必ず判定する","6. 検算：領域内の点を1つ取り、実際にその t を求めて元の式を満たすか確かめる"],"worked":{"problem":"t が実数全体を動くとき、直線 y = 2tx - t² が通過する領域を図示せよ。","solution":["点 (X, Y) がこの直線群のいずれかの上にある条件は、Y = 2tX - t² を満たす実数 t が存在すること。","これを t について整理すると t² - 2Xt + Y = 0。","X, Y を定数、t を未知数とする2次方程式と見る。","実数 t が存在する条件は判別式 D/4 = X² - Y ≧ 0、すなわち Y ≦ X²。","∴ 求める領域は放物線 y = x² およびその下側（境界を含む）。","検算：(0, -1) は Y ≦ X² を満たす。実際 t² - 0 - 1 = 0 より t = ±1 が存在し、直線 y = 2x - 1 は点 (0, -1) を通る ○。","補足：この直線群は放物線 y = x² の接線全体（t が接点の x 座標）。通過領域が接線の下側になるのは幾何的にも整合する。"]},"variants":["逆像法（上の解法）：(X,Y) を固定して t の存在条件に落とす。パラメータが低次のとき最速","順像法：t を固定して x の各値に対する y の動く範囲を求め、t を動かして合併する。パラメータの範囲が複雑なとき有効","包絡線として捉える（範囲外だが、答えの検算に使える）：接線族なら包絡線が境界になる","領域上での最大最小と組み合わせる問題では、逆像法で得た不等式をそのまま制約条件に使える"],"pitfalls":["t の動く範囲の制約を忘れて、余分な領域まで塗る（最頻出の失点）","判別式だけで済ませてよいのは t が実数全体のときだけ。範囲つきなら解の配置が必要","境界を含むかどうかの判定を書かない","動点 (X, Y) と元の変数 (x, y) を同じ文字で書いて論理が壊れる","『すべての t で成り立つ』(∀) 問題を、存在条件 (∃) と取り違える。この2つは答えが全く違う"],"todaiUse":"東大の最重要テーマの一つ。単独でも出るが、数III の関数と組み合わせて『曲線群の通過領域』として出ることも多い。領域を求めた後に面積を計算させる、という2段構えが定番。","check":["0 ≦ t ≦ 1 のとき、直線 y = 2tx - t² の通過領域を図示せよ（範囲つきに変えると解の配置が必要になることを体感する）","t が実数全体を動くとき、円 (x - t)² + y² = 1 の通過領域を求めよ"],"stretch":"パラメータが2つ (s, t) ある場合。1つを固定してもう1つで処理し、最後に固定した方を動かす。順序を変えると難易度が変わるので両方試す。"},{"nodeId":"m3-int-riemann","title":"区分求積法","core":"区分求積法は『和の極限を積分に翻訳する辞書』である。n個の項の和を、幅 1/n の長方形 n 個の面積の和と見れば、n→∞ で曲線の下の面積、すなわち定積分になる。使えるようになる鍵は公式の暗記ではなく、与えられた和を (1/n)·Σ f(k/n) の形に整形する手の動きにある。1/n を括り出せるかどうか、それだけを見ればよい。","trigger":["Σ と lim が同時に出てくる → まず区分求積を疑う","和の中に k/n の形が見える、または作れる → 確定","分母が n の1次で、Σ の項数も n → 1/n を括り出せる形","Σ の中身が n だけの式で k がない → 区分求積ではない（単なる和の公式）","はさみうちで処理しようとして評価がうまく作れない → 区分求積で厳密値が出ないか見る"],"procedure":["1. 和の形を Σ[k=1..n] の形に統一する","2. 全体から 1/n を括り出す","3. 残りが k/n だけの式 f(k/n) になっているか確認する（なっていなければ変形する）","4. lim (1/n)Σ[k=1..n] f(k/n) = ∫[0→1] f(x) dx と書き換える","5. k の動く範囲と積分区間の対応を確認する（k=1..n なら [0,1]、k=1..2n なら [0,2] など）","6. 定積分を計算する"],"worked":{"problem":"lim[n→∞] Σ[k=1..n] n/(n² + k²) を求めよ。","solution":["分母分子を n² で割る：n/(n² + k²) = (1/n) · 1/(1 + (k/n)²)。","よって与式 = lim[n→∞] (1/n) Σ[k=1..n] 1/(1 + (k/n)²)。","f(x) = 1/(1 + x²) とすると、これは f の [0,1] 上の区分求積の形。","= ∫[0→1] dx/(1 + x²)","x = tanθ と置換すると dx = dθ/cos²θ、1 + x² = 1/cos²θ、x: 0→1 のとき θ: 0→π/4。","= ∫[0→π/4] dθ = π/4","∴ π/4","検算：各項は正で、n=1 のとき 1/2、項数が増えても和は π/4 ≒ 0.785 に近づく。数値的にも整合する。"]},"variants":["はさみうち：区分求積で厳密値が出ない場合、単調性を使って積分で上下から挟む（∫ ≦ Σ ≦ ∫ の形）","積分区間を [0,1] 以外に取る：k が 1 から 2n まで動くなら [0,2]","log を取ってから区分求積：積の形の極限（例：(n!/nⁿ)^(1/n)）は log で和に変えると使える。東大の頻出変形","逆向きの利用：積分の値を近似する不等式を作るために、和と積分の大小を比較する"],"pitfalls":["1/n を括り出す整形ができず手が止まる（この単元の失敗はほぼ全てこれ）","k の範囲と積分区間の対応を間違える（k=0 から始まるか k=1 からかで区間の端がずれるが、極限では一致することの確認）","Σ の中に n が k と独立に残っているのに区分求積を適用してしまう","積の形の極限に log を取らずに直接適用しようとする"],"todaiUse":"『和の極限』を求めさせる形で頻出。単独では易しいため、不等式評価（はさみうち）と組み合わせて難度を上げてくるのが東大の通例。(1)で不等式を示させ、(2)でその不等式を使って極限を出す誘導が典型。","check":["lim[n→∞] (1/n) Σ[k=1..n] √(k/n) を求めよ","lim[n→∞] (n!/nⁿ)^(1/n) を求めよ（log を取る）"],"stretch":"和と積分の大小比較による評価（Σ 1/k と log n の比較）。調和級数の発散速度を押さえると、上位の極限問題が処理できるようになる。"},{"nodeId":"m3-vol-cross","title":"非回転体の体積（断面積を積分する）","core":"立体の体積を求める作業は、立体そのものを3次元で把握する作業ではない。軸を1本決め、その軸に垂直な平面 x = t で切ったときの断面積 S(t) を求め、∫S(t)dt を計算する——ただそれだけの手続きである。だから難しさは積分ではなく、『t を固定したときに断面がどんな図形になるか』を求める2次元の問題を解けるかどうかに集約される。立体が頭の中で見えないまま止まってしまう人は、3次元で見ようとしているのであって、断面という2次元の問題に落とす手続きを踏んでいない。","trigger":["回転体ではない立体の体積 → 断面積を積分する以外の道はない","『2つの立体の共通部分』→ 断面同士の共通部分を取る（2次元の問題になる）","軸の選び方が自由なとき → 断面が最も単純になる向きを選ぶ（対称性のある向き）","断面が t の範囲によって形を変えそう → 場合分けを最初に見積もる","空間の点の条件が不等式で与えられている → x = t を代入して y, z の条件にする"],"procedure":["1. 座標軸を設定する。対称性が最も活きる取り方を選ぶ（ここで難易度が半分になる）","2. 積分する軸を決め、その軸に垂直な平面 x = t で切る","3. t を定数として扱い、断面が y-z 平面上のどんな図形かを求める（これは2次元の問題）","4. 断面積 S(t) を t の式で表す","5. t の動く範囲で断面の形が変わるなら場合分けし、各区間で S(t) を求める","6. V = ∫ S(t) dt を計算する","7. 検算：t の端で S(t) が 0 または既知の値になるか、体積のオーダーが直感と合うか"],"worked":{"problem":"底面が半径1の円である円柱を、底面の直径を含み底面と 45° をなす平面で切る。このとき小さい方の立体の体積を求めよ。","solution":["底面の円の中心を原点、切断に使う直径を x 軸に取る。底面は x² + y² ≦ 1、高さ方向を z とする。","立体は、底面の半円 (y ≧ 0 の側) の上にあり、平面 z = y·tan45° = y の下にある部分。","x = t (-1 ≦ t ≦ 1) で切る。断面は y-z 平面上で、0 ≦ y ≦ √(1 - t²)、0 ≦ z ≦ y の領域。","これは直角をはさむ2辺が √(1 - t²) の直角三角形。","S(t) = (1/2)·√(1 - t²)·√(1 - t²) = (1 - t²)/2","V = ∫[-1→1] (1 - t²)/2 dt = (1/2)[t - t³/3]₋₁¹ = (1/2)·(2 - 2/3) = (1/2)·(4/3) = 2/3","∴ 2/3","検算：t = ±1 で S = 0 ○（円の端では断面が潰れる）。t = 0 で S = 1/2（斜辺が45°の直角三角形）○。"]},"variants":["軸の取り方を変える：同じ立体でも切る向きで計算量が数倍変わる。迷ったら2通り試して軽い方を採る","共通部分の体積：立体A ∩ 立体B の断面は (Aの断面) ∩ (Bの断面)。2次元の共通部分を求める問題に落ちる","回転体でも断面積で処理できる：回転体の公式 πr² は、断面が円である場合の特殊例にすぎない","斜回転体：回転軸が座標軸でないときは、座標を回転させてから通常の回転体に帰着する（複素数平面の回転が使える）","カヴァリエリの原理：断面積が等しい立体は体積も等しい。答えの検算や、難しい立体を易しい立体に置き換えるのに使える"],"pitfalls":["3次元の形を頭で把握しようとして手が止まる（断面という2次元問題に落とす手続きを踏む）","断面の形が t の範囲で変わるのに、1つの式で押し通す（東大はここを狙って出す）","断面積を求める際に、断面が回転体の一部だと思い込んで円だと決めつける","座標設定が対称性を無視しており、式が汚くなったまま突き進む","積分区間を立体の存在範囲ではなく、なんとなくの範囲で取る"],"todaiUse":"東大理系で毎年のように出題される最大配点帯のテーマ。特に『2つの立体（円柱・球・正四面体など）の共通部分』の形が頻出。切る向きの選択と、断面の場合分けの2点が採点上の分岐になる。","check":["半径1の2つの円柱 x² + y² ≦ 1 と x² + z² ≦ 1 の共通部分の体積を求めよ（断面は正方形になる）","上の問題で、断面が正方形になる理由を、x = t を代入して説明せよ"],"stretch":"回転体と非回転体の融合。領域を回転させた立体を、さらに別の平面で切る問題。断面を求める段階で回転を考える必要があり、最難問クラスになる。"},{"nodeId":"m3-int-recur","title":"定積分と漸化式","core":"I_n = ∫ (n を含む式) の形の定積分は、直接計算しようとしても n が一般のままでは原始関数が書けない。そこで部分積分を1回だけ行い、I_n を I_{n-1} や I_{n-2} で表す関係式（漸化式）を作る。個別の値を求めるのではなく、値どうしの関係を作ってから初期値で下ろす、という発想の転換がこの単元の全てである。さらに東大はここで止めず、作った漸化式から不等式評価や極限へ繋げてくる。","trigger":["積分の中に自然数 n が指数として入っている（sinⁿx, xⁿeˣ, (log x)ⁿ など）→ 漸化式を作る","『I_n を I_{n-2} で表せ』という誘導がある → 部分積分ほぼ確定","(1) で漸化式を作らせ (2) で極限 → 最後ははさみうち","n乗の積分で n が偶数か奇数かで答えが変わりそう → 2つ飛びの漸化式（I_n と I_{n-2}）"],"procedure":["1. I_n を定義通りに書き、部分積分の形に分ける（何を微分側・積分側に置くかを決める）","2. 一度部分積分し、出てきた積分を I_{n-1} または I_{n-2} の形に整理する","3. 整理の途中で sin²x = 1 - cos²x などを使い、同じ I_n が右辺に現れたら移項してまとめる","4. 初期値 I_0, I_1 を直接計算する","5. 漸化式を繰り返し適用して一般項を出す（n の偶奇で分かれることが多い）","6. 極限が問われていれば、0 ≦ I_n ≦ (評価しやすい式) を作ってはさみうち"],"worked":{"problem":"I_n = ∫[0→π/2] sinⁿx dx (n は 0 以上の整数) について、I_n を I_{n-2} で表し、lim[n→∞] I_n を求めよ。","solution":["n ≧ 2 とする。sinⁿx = sinⁿ⁻¹x · sinx と分け、sinx を積分側に取る。","I_n = [-sinⁿ⁻¹x · cosx]₀^(π/2) + ∫[0→π/2] (n-1)sinⁿ⁻²x · cos²x dx","第1項は x = π/2 で cos = 0、x = 0 で sinⁿ⁻¹ = 0 (n ≧ 2) より 0。","cos²x = 1 - sin²x を代入すると","I_n = (n-1)∫[0→π/2] sinⁿ⁻²x dx - (n-1)∫[0→π/2] sinⁿx dx = (n-1)I_{n-2} - (n-1)I_n","移項して n·I_n = (n-1)I_{n-2}、すなわち I_n = ((n-1)/n) I_{n-2}","初期値は I_0 = π/2、I_1 = 1。","極限について：0 ≦ x ≦ π/2 で 0 ≦ sinx ≦ 1 だから sinⁿ⁺¹x ≦ sinⁿx、よって I_n は単調減少で I_n > 0。","漸化式より I_n = ((n-1)/n)I_{n-2} で、係数 (n-1)/n < 1 が掛かり続ける。","n·I_n·I_{n-1} = (n-1)I_{n-2}·I_{n-1} より数列 n·I_n·I_{n-1} は一定で、I_1·I_0·1 = π/2。","よって I_n·I_{n-1} = π/(2n) → 0。I_n は単調減少で正だから I_n² ≦ I_n·I_{n-1} = π/(2n) → 0。","∴ lim[n→∞] I_n = 0"]},"variants":["部分積分を2回使って元の I_n に戻し、移項して解く型（eˣsinx の積分など）","積分の中身を評価してから積分する（漸化式を作らずに、はさみうちだけで極限を出す）","置換で別の漸化式に化ける場合がある。x → π/2 - x の置換で cosⁿx の積分と等しいことが分かる","(log x)ⁿ 型は log を微分側に置くのが定石。xⁿeˣ 型は xⁿ を微分側に置く"],"pitfalls":["部分積分で微分側・積分側の選択を誤り、次数が下がらない","漸化式は作れたが、初期値 I_0 と I_1 の両方を出さない（偶奇で必要）","極限で『(n-1)/n < 1 だから 0 に収束する』と書いてしまう（1に近づく係数を無限回掛けても 0 とは限らないので、評価が必要）","はさみうちの下側 0 ≦ I_n を書かない","移項が必要な形で、右辺に出た I_n を見落として計算を続ける"],"todaiUse":"東大が構造的に好むテーマ。(1) 漸化式を作らせ、(2) 不等式を示させ、(3) その不等式で極限を出す、という3段の誘導で出る。誘導を使わずに解こうとすると詰まるように設計されているので、前問の結果を必ず使う。","check":["J_n = ∫[0→1] xⁿeˣ dx について J_n を J_{n-1} で表し、lim[n→∞] J_n を求めよ","K_n = ∫[1→e] (log x)ⁿ dx について漸化式を作れ"],"stretch":"漸化式から一般項を出さずに、不等式評価だけで極限の速さ（何のオーダーで 0 に近づくか）を求める問題。理三の最上位帯。"}],"lessonsVerified":false,"quizzes":[{"nodeId":"ma-prob-rec","items":[{"type":"choice","q":"『点Pが毎回ルールに従って移動する。n回後にAにいる確率を求めよ』という問題で、最初にすべきことは？","options":["一般項を予想して数学的帰納法で示す","n回後に起こりうる状況を、排反かつ網羅的な有限個の状態に分類する","期待値を計算して確率に直す","n=1,2,3 の値を求めて等比数列とみなす"],"answer":1,"explain":"状態の分類が決まれば遷移は書けるので、問題は分類の時点で終わっている。ここを飛ばすと必ず途中で詰まる。"},{"type":"error","q":"部屋A,B,Cがあり、点Pは毎回『今いる部屋以外の2部屋』のどちらかへ等確率で移動する。n回後にAにいる確率を p_n として、次の立式の誤りはどれか。\n\n　p_(n+1) = (1/2)p_n + (1/2)(1 - p_n)","options":["初期条件が抜けている","Aにいる状態からAへ留まる確率を 1/2 としているが、次の1手で必ずAを出るのでこの寄与は 0 である","Aにいない確率を 1-p_n としているのが誤り","係数 1/2 が両方とも 1/3 であるべき"],"answer":1,"explain":"正しくは p_(n+1) = (1/2)(1 - p_n)。ルール上Aに留まることは不可能なので、第1項は消える。「その状態から動けない先」を書いてしまうのが最頻出のミス。"},{"type":"number","q":"上と同じ設定で、最初にAにいるとき、2回後にAにいる確率 p_2 を求めよ。（分数で入力。例: 1/3）","answer":"1/2","accept":["1/2","0.5"],"explain":"p_(n+1) = (1/2)(1-p_n)、p_0 = 1 より p_1 = 0、p_2 = 1/2。1回でAを出て、そこからAに戻る確率が 1/2。"}]},{"nodeId":"ma-int-mod","items":[{"type":"choice","q":"x² + y² = 3z² を満たす自然数 x, y, z が存在しないことを示したい。何を法として考えるのが有効か。","options":["mod 2","mod 3","mod 5","mod 7"],"answer":1,"explain":"右辺が3の倍数であること、かつ平方数は mod 3 で 0 か 1 しか取らないことが噛み合う。平方数が絡んだら mod 3, 4, 8 を試すのが定石。"},{"type":"error","q":"次の推論の誤りはどれか。\n\n　6x ≡ 6y (mod 9) である。よって両辺を 6 で割って x ≡ y (mod 9) が成り立つ。","options":["合同式では両辺を足すことしかできない","法と割る数が互いに素でないと割れない。gcd(6,9)=3 なので不可","mod 9 ではなく mod 3 で考えるべきだった","6x と 6y が等しいとは限らない"],"answer":1,"explain":"合同式で自由にできるのは和・差・積のみ。割り算は gcd(a, m) = 1 のときだけ。正しくは両辺と法を3で割って 2x ≡ 2y (mod 3)、さらに gcd(2,3)=1 なので x ≡ y (mod 3)。"},{"type":"number","q":"2¹⁰⁰ を 7 で割った余りを求めよ。","answer":"2","accept":["2"],"explain":"2³ = 8 ≡ 1 (mod 7)。100 = 3·33 + 1 より 2¹⁰⁰ = (2³)³³ · 2 ≡ 1³³ · 2 ≡ 2。周期性を見つけるのが手順。"}]},{"nodeId":"m2-pass-region","items":[{"type":"choice","q":"『t が実数全体を動くとき、直線 y = 2tx - t² が通過する領域を求めよ』。最初の一手はどれか。","options":["いくつかの t で直線を描いて包絡線を予想する","点を (X, Y) と置き、Y = 2tX - t² を t の2次方程式と見て、実数解 t が存在する条件を求める","x で微分して増減を調べる","t を消去して x と y の関係式を作る"],"answer":1,"explain":"『通過する』＝『その点を通るような t が存在する』。幾何の問題を、t についての方程式の解の存在条件という論理の問題に翻訳するのがこのテーマの全て。"},{"type":"number","q":"上の通過領域は「y ≦ x^a」の形になる。a の値を答えよ。","answer":"2","accept":["2"],"explain":"t² - 2Xt + Y = 0 が実数解を持つ条件は D/4 = X² - Y ≧ 0、すなわち Y ≦ X²。この直線群は放物線 y = x² の接線全体。"},{"type":"choice","q":"同じ問題で t の範囲が 0 ≦ t ≦ 1 に制限された場合、判別式 D ≧ 0 だけで答えが出るか。","options":["出る。判別式は t の範囲に依存しない","出ない。0 ≦ t ≦ 1 の範囲に解を持つ条件（解の配置）が必要になる","出る。ただし境界を含まなくなる","判別式ではなく微分で処理する必要がある"],"answer":1,"explain":"判別式が保証するのは『実数解が存在する』ことだけで、その解が許された範囲にあるかは別問題。軸の位置と端点の値で処理する解の配置に変わる。ここを落とすと余分な領域まで塗ることになる。"}]},{"nodeId":"m3-int-riemann","items":[{"type":"choice","q":"lim[n→∞] Σ[k=1..n] n/(n² + k²) を求めたい。最初の一手はどれか。","options":["Σ の公式を使って和を閉じた形にする","分母分子を n² で割り、(1/n)·f(k/n) の形に整形する","はさみうちの不等式を作る","部分分数分解する"],"answer":1,"explain":"区分求積で手が止まる原因はほぼ全て『1/n を括り出す整形ができない』こと。これができれば残りは定積分の計算にすぎない。"},{"type":"number","q":"上の極限値を求めよ。（π を含む形で。例: π/6）","answer":"π/4","accept":["π/4","pi/4","π/4"],"explain":"(1/n)Σ 1/(1+(k/n)²) → ∫[0→1] dx/(1+x²) = π/4。x = tanθ の置換で計算する。"},{"type":"choice","q":"lim[n→∞] (n!/nⁿ)^(1/n) を区分求積で処理するには、まず何をするか。","options":["両辺の逆数を取る","log を取って和の形に変える","スターリングの公式を使う","はさみうちに切り替える"],"answer":1,"explain":"積の極限は log を取ると和になり、区分求積が使える形になる。東大が好む変形で、これを知らないと手が出ない。"}]},{"nodeId":"m3-vol-cross","items":[{"type":"choice","q":"回転体でない立体の体積を求めるとき、最初にすべきことはどれか。","options":["立体の形を3次元で正確に把握する","軸を1本決め、その軸に垂直な平面 x = t で切った断面積 S(t) を t の式で表す","立体を複数の四面体に分割する","重心を求める"],"answer":1,"explain":"体積計算は3次元の把握ではなく、断面という2次元の問題に落とす手続き。頭で立体を想像しようとして止まるのが典型的な失敗。"},{"type":"choice","q":"2つの円柱 x² + y² ≦ 1 と x² + z² ≦ 1 の共通部分を、平面 x = t で切った断面はどんな図形か。","options":["円","正方形","正三角形","楕円"],"answer":1,"explain":"x = t を代入すると y² ≦ 1 - t² かつ z² ≦ 1 - t²。つまり |y| ≦ √(1-t²) かつ |z| ≦ √(1-t²) で、一辺 2√(1-t²) の正方形。共通部分の断面は断面同士の共通部分になる。"},{"type":"number","q":"底面が半径1の円である円柱を、底面の直径を含み底面と45°をなす平面で切る。小さい方の立体の体積を求めよ。（分数で。例: 3/4）","answer":"2/3","accept":["2/3"],"explain":"直径を x 軸に取ると、断面は直角をはさむ2辺が √(1-t²) の直角三角形。S(t) = (1-t²)/2 を -1 から 1 まで積分して 2/3。"}]},{"nodeId":"m3-int-recur","items":[{"type":"choice","q":"I_n = ∫[0→π/2] sinⁿx dx について漸化式を作りたい。どう分けて部分積分するか。","options":["sinⁿx = (sinx)ⁿ のまま n を指数として微分する","sinⁿx = sinⁿ⁻¹x · sinx と分け、sinx を積分側に取る","sinⁿx = sinⁿ⁻²x · sin²x と分け、sin²x を微分側に取る","置換 t = sinx を行う"],"answer":1,"explain":"1つだけ分離して積分側に置くのが定石。cos²x = 1 - sin²x で戻したときに I_n が右辺に現れるので、移項してまとめる。"},{"type":"number","q":"I_n = ((n-1)/n)·I_(n-2)、I_0 = π/2 のとき、I_4 を求めよ。（例: 5π/16）","answer":"3π/16","accept":["3π/16","3pi/16"],"explain":"I_2 = (1/2)I_0 = π/4、I_4 = (3/4)I_2 = 3π/16。偶数番は I_0 から、奇数番は I_1 = 1 から下ろす。"},{"type":"error","q":"次の推論の誤りはどれか。\n\n　I_n = ((n-1)/n)·I_(n-2) であり、係数 (n-1)/n は 1 より小さい。よって I_n → 0 である。","options":["係数が 1 未満でも、1 に近づく係数を無限回掛けたときに 0 に収束するとは限らないので、評価が必要","漸化式が間違っている","I_n は単調増加なので 0 には収束しない","n の偶奇で場合分けしていない点が誤り"],"answer":0,"explain":"例えば Π(1 - 1/n²) は 0 に収束しない。正しくは n·I_n·I_(n-1) が一定であることから I_n·I_(n-1) = π/(2n) → 0 を示し、単調減少性と合わせてはさみうちする。"}]}],"quizDesign":{"why":"記述答案の自動採点は現実的でない。だが東大数学で差がつくのは計算力ではなく『どの手を選ぶか』なので、方針の選択・誤りの発見・最終値の一致の3種で測れば、習得判定の代理指標として十分に機能する。","types":{"choice":"方針選択。問題を見て最初に何をするかを選ばせる（lesson の trigger を測る）","error":"誤り発見。間違った解答過程を見せ、どこが誤りかを選ばせる（pitfalls を測る）","number":"数値一致。最終値だけを入力させる（計算完遂を測る）"},"passRule":"全問正解で習得。1問でも誤ると、対応する pitfall を提示して再挑戦。部分正解は習得としない（東大の採点も部分点は論理が通っている場合のみ）。","todo":"本番では 1ノードにつき5〜6問用意し、毎回ランダムに3問出す。同じ問題を覚えてしまう対策。現在は各3問固定。"},"synthesis":{"principle":"参考書を選ばせない。各書の『強い部分』だけを機能として抽出し、1ノードの中に統合する。生徒は本を行き来せず、ノードを1つ読めば、網羅系の分類・演習系の着眼・上位系の別解・過去問系の出方が全部そこにある状態にする。","why":"つまみ食いが非効率なのは、同じ内容を別の言葉で3回読む時間と、『次にどれを開くか』の意思決定コストが毎日発生するから。ならば統合先を1つ作ればいい。冊数を減らすのではなく、入口を1つにする。","functionMap":[{"source":"網羅系（青チャート / Focus Gold）","strength":"問題の型の分類と、抜けのない網羅","weakness":"量が多く、なぜその手が有効かの説明が薄い。通読すると1年溶ける","absorbAs":"node.procedure（手順）と DAG の分類そのもの。網羅性はDAGが担保するので、本を通読する必要がなくなる"},{"source":"1対1対応の演習（東京出版）","strength":"解法の切れ味。『この形にはこの一手』の対応が鋭い","weakness":"なぜそれを思いつくのかの手前が省略されがち","absorbAs":"node.trigger（何を見たらその手を出すか）。問題文の特徴 → 手 の対応表として保存する"},{"source":"標準問題精講 / 精講系","strength":"『精講』＝着眼点の言語化。解答の前に考え方が置かれている","weakness":"問題数が絞られており演習量が足りない","absorbAs":"node.core（核心）。このノードで本当に理解すべき1点を言語化した部分"},{"source":"やさしい理系数学 / 大学への数学（月刊）","strength":"別解の多さ。1問を複数の視点から見る","weakness":"初学者には視点が飛びすぎる","absorbAs":"node.variants（別視点）。『座標で殴る/ベクトル/複素数/初等幾何』のどれが速いかの比較として置く"},{"source":"ハイレベル理系数学 / 新数学演習","strength":"最上位の到達点を示す","weakness":"到達前にやると自信を失うだけ","absorbAs":"node.stretch（発展）。到達度が8割を超えたノードでのみ開放する"},{"source":"過去問（赤本25ヵ年 / 鉄緑会）","strength":"実際の出方。誘導の付き方、要求水準","weakness":"年度順に並んでおり、テーマで横断できない","absorbAs":"node.todaiUse（東大での出方）。年度と出題形式を参照として持ち、テーマ別に横断できるようにする"},{"source":"東大数学で1点でも多く取る方法","strength":"答案の書き方と時間配分という、知識以外の得点要因","weakness":"解法の網羅性はない","absorbAs":"東大レイヤーのメタ技能ノード（td-writing / td-time / td-calc）として独立させる"}],"lessonSchema":{"core":"このノードで理解すべき核心。1〜2段落。暗記事項ではなく『なぜそれが効くか』","trigger":"問題文の特徴 → この手を出す、の対応。配列","procedure":"実際の手の動き。番号付きの手順","worked":"典型例と解答。※入試問題の転載はせず、同じ構造の問題を自作する","variants":"別解・別視点。どの方法がどの状況で速いか","pitfalls":"落とし穴。実際に減点/失点が起きる箇所","todaiUse":"東大での出方（年度・形式の参照）","check":"自己診断用の確認問題（答えは自分で出す）","stretch":"到達度8割超で開放する発展"},"copyrightPolicy":"既存参考書の解説文・問題文はコピーしない。機能（着眼点の言語化、型の分類、別解の視点）を抽出して自分の言葉で書き直す。例題は同じ構造の自作問題にする。入試問題は出典を参照するに留め、必要なら設定を変えた類題を作る。","buildProcess":{"note":"138ノード分の中身を書くのがこのプロダクトの本体であり、総工数の8割。以下の手順で回す。","steps":["1. ノードを優先度順に並べる（東大必要度 × 下流ノード数）","2. 上位ノードから、LLMに lessonSchema の形で下書きを生成させる","3. 生成物を本人（医学部生・合格者）が検証し、trigger と pitfalls を実体験で上書きする ← ここが価値の源泉","4. 検証済みフラグを立てる。未検証のノードは生徒に出さない","5. 生徒の誤答ログが溜まったら pitfalls を実データで更新する"],"estimate":"1ノードあたり検証込みで60〜90分。138ノードで約150〜200時間。上位40ノード（東大必要度5）だけなら50時間で、それだけでも実用になる。"}},"targetsFile":{"disclaimer":"偏差値は河合塾ボーダー帯のおおよその値（年度・予備校で変動する）。need は『二次数学で取りたい得点を100点満点に換算した目安』であり、公表値ではなく合格体験記・開示得点から逆算した推定値。毎年更新する前提でこのファイルに外出ししている。ここの数値の精度がアプリの信頼性そのものなので、実データが集まり次第 calibration で置き換える。","model":{"note":"数学の到達度から想定得点を出し、目標ラインとの差をロジスティック関数で確率に変換する。ただしこれは『他教科が志望校の合格者平均並みなら』という条件付き確率であり、合格確率そのものではない。UI に必ずこの条件を表示すること。","scoreFromMastery":"score = 100 * mastery^1.25（到達度がそのまま得点にはならない。難ノードほど得点への寄与が大きいため下に凸）","weight":"各ノードの重み = todai * (cost/60)。todai=0 のノード（データの分析・統計的推測）は寄与しない","probability":"p = 1 / (1 + exp(-(score - need) / 8))","calibrationStatus":"未較正。合格者・不合格者の実データが溜まるまで、確率は参考値として扱い『到達度』を主表示にする"},"targets":[{"id":"todai-r3","name":"東京大学 理科三類","group":"最難関","dev":72.5,"need":78,"note":"6問150分で4完+部分点。数学が易しい年ほど落とせない"},{"id":"kyoto-med","name":"京都大学 医学部医学科","group":"最難関","dev":72.5,"need":75,"note":"6問180分。1問あたりの重さが東大より大きい"},{"id":"keio-med","name":"慶應義塾大学 医学部","group":"私立最難関","dev":72.5,"need":70,"note":"処理速度重視。数IIIの計算量が多い"},{"id":"osaka-med","name":"大阪大学 医学部医学科","group":"難関","dev":70,"need":72,"note":""},{"id":"science-tokyo-med","name":"東京科学大学 医学部医学科（旧 東京医科歯科）","group":"難関","dev":70,"need":70,"note":""},{"id":"kyudai-med","name":"旧帝大 医学部（北大・東北・名大・九大）","group":"難関","dev":67.5,"need":68,"note":""},{"id":"todai-r1","name":"東京大学 理科一類","group":"難関","dev":67.5,"need":65,"note":"理三と同じ問題。要求得点が13点ほど低い"},{"id":"todai-r2","name":"東京大学 理科二類","group":"難関","dev":67.5,"need":62,"note":""},{"id":"kokuritsu-med","name":"地方国公立大学 医学部医学科（標準）","group":"標準","dev":65,"need":60,"note":"共通テストの比重が高い大学が多く、数学の要求は東大理三より20点分低い"},{"id":"shiritsu-med","name":"私立大学 医学部（中位）","group":"標準","dev":62.5,"need":50,"note":"記述より処理速度と正確さ"}]},"game":{"design":{"twoLayer":"減るものと減らないものを分ける。累計EXP・レベル・モンスター図鑑・ガチャ排出物は永久に減らない（努力の証明）。減るのは『現在パワー』だけで、これは忘却曲線に従って毎日下がる。復帰したときに取り戻せる構造にしないと、1週間サボった時点で離脱する。","forgetting":"各ノードは半減期 s 日の指数減衰 R = 2^(-Δ日/s) で記憶度が下がる。復習に成功するたび s が伸びる（1.5日 → 4日 → 10日 → 25日 …）。エビングハウスの忘却曲線を、間隔反復（SM-2/FSRS系）の形で実装したもの。","powerLink":"現在パワー = Σ(ノード重み × 記憶度)。これがそのまま合格可能性タブの到達度になる。つまり『サボると合格確率が下がる』が、演出ではなく実際のモデルとして起きる。","monster":"単元ごとに1体。その単元のノードを習得するとレベルが上がり、記憶度が下がると弱った表情になる。放置した単元が視覚的に一目で分かるのが狙いで、ここが復習の動機になる。","gacha":"課金要素ではない。学習で貯まる石だけで引ける。排出物は見た目（色違い・称号）と、学習に効く護符（指定ノードの減衰を一定期間止める）。射幸性で学習させるのではなく、学習の副産物として引けるものにする。"},"levelCurve":"レベル = floor(√(EXP / 40)) + 1","rewards":{"quizPass":"重み×10 EXP + 石3","review":"重み×3 EXP + 石1","dailyLogin":"石2（連続日数ボーナスあり）"},"monsters":[{"unit":"数と式","name":"シキヘンゲ","stages":["🥚","🦎","🐉"]},{"unit":"集合と命題","name":"ロンリクス","stages":["🔹","🔷","💠"]},{"unit":"2次関数","name":"ホウブツン","stages":["🌱","🌿","🌳"]},{"unit":"図形と計量","name":"サンカクマ","stages":["🔺","🗼","⛰️"]},{"unit":"データの分析","name":"データモ","stages":["📊","📈","🛰️"]},{"unit":"場合の数","name":"カゾエール","stages":["🎲","🃏","🎰"]},{"unit":"確率","name":"カクリツォ","stages":["🪙","🎯","🔮"]},{"unit":"整数","name":"セイスウガミ","stages":["🔢","🗝️","👑"]},{"unit":"図形の性質","name":"エンシュウ","stages":["⭕","🎡","🌀"]},{"unit":"式と証明","name":"フトウシキ","stages":["⚖️","🏋️","🦾"]},{"unit":"複素数と方程式","name":"キョスウ","stages":["💧","🌊","🐳"]},{"unit":"図形と方程式","name":"リョウイキマ","stages":["🟦","🗺️","🌐"]},{"unit":"三角関数","name":"サインコス","stages":["〰️","🌊","🎶"]},{"unit":"指数対数","name":"タイスウド","stages":["🕯️","🔥","☄️"]},{"unit":"微分積分","name":"ビセキノコ","stages":["🍄","🌾","🌻"]},{"unit":"数列","name":"ゼンカシキ","stages":["🔗","⛓️","🧬"]},{"unit":"統計","name":"トウケイン","stages":["📉","📋","🔬"]},{"unit":"ベクトル","name":"ヤジルシン","stages":["➡️","🏹","🚀"]},{"unit":"平面上の曲線","name":"キョクセン","stages":["🥚","🐚","🐌"]},{"unit":"複素数平面","name":"カイテンマ","stages":["🌪️","🎠","🌌"]},{"unit":"極限","name":"キョクゲン","stages":["🫧","☁️","🌈"]},{"unit":"微分法","name":"セッセン","stages":["📐","✏️","🖋️"]},{"unit":"積分法","name":"インテグラ","stages":["🧩","🏺","🏛️"]},{"unit":"積分の応用","name":"タイセキオー","stages":["🧊","🗿","🏔️"]},{"unit":"メタ技能","name":"トウアンシ","stages":["📝","🖊️","🏅"]},{"unit":"出題テーマ","name":"トウダイヌシ","stages":["🔥","⚡","🐲"]},{"unit":"到達点","name":"リサンノモン","stages":["🚪","⛩️","🏛️"]}],"gachaTable":[{"rarity":5,"rate":0.02,"kind":"title","items":["称号「理三の亡霊」","称号「6完」","称号「開示得点開示せず」"]},{"rarity":5,"rate":0.01,"kind":"charm","items":["永久記憶の護符（選んだ1ノードの減衰を30日止める）"]},{"rarity":4,"rate":0.12,"kind":"charm","items":["記憶の護符（選んだ1ノードの減衰を7日止める）"]},{"rarity":4,"rate":0.05,"kind":"skin","items":["モンスターの色違い（金）","モンスターの色違い（虹）"]},{"rarity":3,"rate":0.3,"kind":"exp","items":["経験の書（EXP +200）"]},{"rarity":3,"rate":0.5,"kind":"gem","items":["石のかけら（石 +3）"]}],"gachaCost":10},"builtAt":"2026-08-04"};
+const DAY = 86400000;
+
+/* ================= モデル ================= */
+const N = DATA.nodes;
+const byId = new Map(N.map(n => [n.id, n]));
+const LES = new Map((DATA.lessons  || []).map(l => [l.nodeId, l]));
+const QZ  = new Map((DATA.quizzes  || []).map(q => [q.nodeId, q]));
+const TG  = DATA.targetsFile;
+const GM  = DATA.game;
+const MON = new Map(GM.monsters.map(m => [m.unit, m]));
+
+const children = new Map(N.map(n => [n.id, []]));
+for (const n of N) for (const p of n.prereq || []) children.get(p)?.push(n.id);
+
+const dcache = new Map();
+function desc(id){
+  if (dcache.has(id)) return dcache.get(id);
+  const seen = new Set(); const st = [...children.get(id)];
+  while (st.length){ const c = st.pop(); if (seen.has(c)) continue; seen.add(c); st.push(...children.get(c)); }
+  dcache.set(id, seen.size); return seen.size;
+}
+const pcache = new Map();
+function depth(id){
+  if (pcache.has(id)) return pcache.get(id);
+  const pr = byId.get(id).prereq || [];
+  const d = pr.length ? Math.max(...pr.map(depth)) + 1 : 0;
+  pcache.set(id, d); return d;
+}
+
+/* ---- 永続状態 ---- */
+const KEY = 'todai-math-v2';
+const DEF = { rec:{}, exp:0, gems:20, streak:{last:'', days:0}, charms:{}, box:[] };
+let S = Object.assign({}, DEF, JSON.parse(localStorage.getItem(KEY) || '{}'));
+const save = () => localStorage.setItem(KEY, JSON.stringify(S));
+
+/* ---- 忘却曲線 ----
+   R = 2^(-Δ日 / s)。s は半減期で、復習に成功するたび伸びる。 */
+function ret(id){
+  const r = S.rec[id]; if (!r) return 0;
+  const c = S.charms[id];
+  if (c && c > Date.now()) return 1;              // 護符が効いている間は減衰しない
+  return Math.pow(2, -((Date.now() - r.t) / DAY) / r.s);
+}
+function learn(id, ok){
+  const r = S.rec[id];
+  if (!r)      S.rec[id] = { t: Date.now(), s: 1.5, r: 0 };
+  else if (ok) S.rec[id] = { t: Date.now(), s: +(r.s * (2.2 + 0.3 * r.r)).toFixed(2), r: r.r + 1 };
+  else         S.rec[id] = { t: Date.now(), s: 1.5, r: 0 };
+}
+const isDone  = id => !!S.rec[id];
+const isReady = n  => (n.prereq || []).every(isDone);
+const state   = n  => isDone(n.id) ? (ret(n.id) < .7 ? 'fade' : 'done') : (isReady(n) ? 'ready' : 'locked');
+const needRev = () => N.filter(n => isDone(n.id) && ret(n.id) < .7)
+                       .sort((a,b) => ret(a.id) - ret(b.id));
+
+/* ---- 数値 ---- */
+const wt   = n => n.todai * (n.cost / 60);
+const totW = N.reduce((s,n) => s + wt(n), 0);
+const power    = () => N.reduce((s,n) => s + wt(n) * ret(n.id), 0);   // 減る（現在の実力）
+const mastery  = () => power() / totW;
+const mscore   = () => 100 * Math.pow(mastery(), 1.25);
+const probOf   = need => 1 / (1 + Math.exp(-(mscore() - need) / 8));
+const level    = () => Math.floor(Math.sqrt(S.exp / 40)) + 1;         // 減らない（努力の証明）
+const expToNext= () => Math.pow(level(), 2) * 40 - S.exp;
+const prio = n => (isReady(n) ? 1000 : 0) + n.todai * 40 + desc(n.id) * 1.5 - n.level * 3;
+
+function gain(exp, gems){ S.exp += Math.round(exp); S.gems += gems; save(); }
+
+/* ---- ログインボーナス（連続日数） ---- */
+(function login(){
+  const t = new Date().toISOString().slice(0,10);
+  if (S.streak.last === t) return;
+  const y = new Date(Date.now() - DAY).toISOString().slice(0,10);
+  S.streak = { last: t, days: S.streak.last === y ? S.streak.days + 1 : 1 };
+  S.gems += 2 + Math.min(S.streak.days, 8);
+  save();
+})();
+
+/* ================= 描画 ================= */
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const stars = k => '★'.repeat(k) + '<span style="opacity:.25">' + '★'.repeat(5-k) + '</span>';
+const rcol = r => r >= .7 ? 'var(--ok)' : r >= .4 ? 'var(--warn)' : 'var(--hot)';
+let view = 'next', sel = null;
+
+function header(){
+  const rv = needRev().length;
+  $('#hs').innerHTML = `
+    <span>Lv <b>${level()}</b></span>
+    <span>パワー <b class="pw">${power().toFixed(0)}</b> / ${totW.toFixed(0)}</span>
+    <span>想定得点 <b>${mscore().toFixed(0)}</b>/100</span>
+    <span>💎 <b>${S.gems}</b></span>
+    <span>🔥 <b>${S.streak.days}</b>日連続</span>
+    <span>習得 <b>${Object.keys(S.rec).length}</b>/${N.length}</span>
+    <button id="expo" style="background:none;border:1px solid var(--line);color:var(--dim);
+      border-radius:5px;padding:2px 9px;font-size:11px;cursor:pointer;font-family:inherit">進捗を書き出す</button>`;
+  const b = $('#rvb');
+  b.style.display = rv ? 'inline' : 'none'; b.textContent = rv;
+  $('#expo').onclick = exportProgress;
+}
+
+// Obsidian への書き出し用。保存した JSON を export-obsidian.mjs に渡すと状態が反映される
+function exportProgress(){
+  const blob = new Blob([JSON.stringify(S, null, 1)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'todai-math-progress.json';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function card(n){
+  const st = state(n), d = desc(n.id), l = LES.get(n.id), q = QZ.get(n.id), r = ret(n.id);
+  const blk = (n.prereq||[]).filter(p => !isDone(p)).map(p => byId.get(p).title);
+  return `<div class="card ${st}" data-id="${n.id}">
+    <div class="ct">${esc(n.title)} ${q ? '<span class="lessonbadge">テスト</span>' : l ? '<span class="lessonbadge">解説</span>' : ''}</div>
+    <div class="meta">
+      <span class="tag">${esc(n.field)} / ${esc(n.unit)}</span>
+      <span class="star">${stars(n.todai)}</span><span>Lv${n.level}</span><span>${n.cost}分</span>
+      ${d ? `<span>下流 ${d}</span>` : ''}
+      ${isDone(n.id) ? `<span class="rbar"><i style="width:${(r*100).toFixed(0)}%;background:${rcol(r)}"></i></span>
+        <span style="color:${rcol(r)}">記憶 ${(r*100).toFixed(0)}%</span>` : ''}
+    </div>
+    <div class="why">${esc(n.why)}</div>
+    ${st === 'locked' ? `<div class="lockmsg">前提未達: ${esc(blk.join(' / '))}</div>` : ''}</div>`;
+}
+
+function filtered(){
+  const f = { field:$('#fField').value, unit:$('#fUnit').value, st:$('#fState').value,
+              td:+$('#fTodai').value || 0, q:$('#fQ').value.trim() };
+  return N.filter(n =>
+    (!f.field || n.field === f.field) && (!f.unit || n.unit === f.unit) &&
+    (!f.st || (f.st === 'done' ? isDone(n.id) : state(n) === f.st)) && n.todai >= f.td &&
+    (!f.q || (n.title + n.why + n.unit).includes(f.q)));
+}
+
+function render(){
+  header();
+  const v = $('#view');
+  $('#filters').style.display = ['doc','mon','gacha','prob'].includes(view) ? 'none' : 'flex';
+
+  if (view === 'next'){
+    const list = filtered().filter(n => !isDone(n.id) && isReady(n)).sort((a,b) => prio(b) - prio(a));
+    const rv = needRev().length;
+    v.innerHTML = `
+      ${rv ? `<div class="warnbox">記憶度が落ちたノードが <b>${rv}</b> 個あります。
+        新規より復習が先。パワーは復習で戻ります。</div>` : ''}
+      <p style="color:var(--dim);font-size:13px;margin:0 0 10px">
+        前提を満たしていて、東大での必要度と「塞ぐと下流が止まる度合い」が高い順。
+        <b style="color:var(--fg)">まず上の3つだけ</b>。</p>
+      <div class="grid">${list.slice(0,3).map(card).join('')}</div>
+      ${list.length > 3 ? `<h3 style="font-size:13px;color:var(--dim);margin:22px 0 8px">その次（見なくてよい）</h3>
+        <div class="grid">${list.slice(3,30).map(card).join('')}</div>` : ''}
+      ${!list.length ? '<div class="empty">着手可能なノードがありません</div>' : ''}`;
+  }
+  else if (view === 'review'){
+    const list = needRev();
+    v.innerHTML = list.length ? `<p style="color:var(--dim);font-size:13px;margin:0 0 10px">
+        記憶度の低い順。復習に成功するたび次に落ちるまでの間隔が伸びます（1.5日 → 4日 → 10日 → …）。</p>
+      <div class="grid">${list.map(card).join('')}</div>`
+      : '<div class="empty">復習が必要なノードはありません。</div>';
+  }
+  else if (view === 'all'){
+    const list = filtered().sort((a,b) => a.field.localeCompare(b.field,'ja') || depth(a.id)-depth(b.id) || b.todai-a.todai);
+    v.innerHTML = list.length ? `<div class="grid">${list.map(card).join('')}</div>` : '<div class="empty">該当なし</div>';
+  }
+  else if (view === 'map')   drawMap();
+  else if (view === 'prob')  v.innerHTML = probHTML();
+  else if (view === 'mon')   v.innerHTML = monHTML();
+  else if (view === 'gacha') { v.innerHTML = gachaHTML(); $('#pull').onclick = pull; }
+  else                       v.innerHTML = docHTML();
+
+  v.querySelectorAll('.card').forEach(c => c.onclick = () => open(c.dataset.id));
+}
+
+/* ---------- 依存マップ ---------- */
+function drawMap(){
+  const list = filtered();
+  if (!list.length){ $('#view').innerHTML = '<div class="empty">該当なし</div>'; return; }
+  const ids = new Set(list.map(n => n.id)), cols = new Map();
+  for (const n of list){ const d = depth(n.id); if(!cols.has(d)) cols.set(d, []); cols.get(d).push(n); }
+  const W=168, H=30, GX=66, GY=12;
+  const maxRow = Math.max(...[...cols.values()].map(a => a.length));
+  const width = (Math.max(...cols.keys())+1)*(W+GX)+40, height = maxRow*(H+GY)+40;
+  const pos = new Map();
+  for (const [d,arr] of cols) arr.forEach((n,i) => pos.set(n.id, {x:20+d*(W+GX), y:20+i*(H+GY)}));
+  let e='', g='';
+  for (const n of list) for (const p of n.prereq||[]){
+    if (!ids.has(p)) continue;
+    const a=pos.get(p), b=pos.get(n.id), hi = sel===n.id||sel===p ? ' hi':'';
+    e += `<path class="e${hi}" d="M${a.x+W} ${a.y+H/2} C${a.x+W+GX/2} ${a.y+H/2}, ${b.x-GX/2} ${b.y+H/2}, ${b.x} ${b.y+H/2}"/>`;
+  }
+  for (const n of list){
+    const p = pos.get(n.id), t = n.title.length>20 ? n.title.slice(0,19)+'…' : n.title;
+    g += `<g class="n ${state(n)}${sel===n.id?' sel':''}" data-id="${n.id}" transform="translate(${p.x},${p.y})">
+      <rect width="${W}" height="${H}"/><text x="7" y="13">${esc(t)}</text>
+      <text x="7" y="24" style="font-size:8.5px;opacity:.6">${esc(n.unit)} · ★${n.todai} · 下流${desc(n.id)}</text></g>`;
+  }
+  $('#view').innerHTML = `<p style="color:var(--dim);font-size:13px;margin:0 0 10px">
+    左が前提、右がその上に乗る内容。矢印を左に辿れば「分からない理由」に必ず行き着く。</p>
+    <div id="map"><svg width="${width}" height="${height}">${e}${g}</svg></div>`;
+  $('#view').querySelectorAll('.n').forEach(x => x.onclick = () => open(x.dataset.id));
+}
+
+/* ---------- 合格可能性 ---------- */
+function probHTML(){
+  const sc = mscore(), m = mastery();
+  const col = p => p>=.8 ? 'var(--ok)' : p>=.5 ? 'var(--warn)' : 'var(--hot)';
+  const rows = [...TG.targets].sort((a,b) => b.dev-a.dev || b.need-a.need).map(t => {
+    const p = probOf(t.need), gap = t.need - sc;
+    return `<div class="tg"><span class="gp">${esc(t.group)}</span>
+      <span class="nm"><b>${esc(t.name)}</b><span class="dv">偏差値 ${t.dev.toFixed(1)}　数学の目標 ${t.need}/100
+      ${gap>0 ? `　<span style="color:var(--hot)">あと ${gap.toFixed(0)} 点</span>`
+              : '　<span style="color:var(--ok)">到達</span>'}</span></span>
+      <span class="pb"><i style="width:${(p*100).toFixed(0)}%;background:${col(p)}"></i></span>
+      <span class="pc" style="color:${col(p)}">${(p*100).toFixed(0)}%</span></div>`;
+  }).join('');
+  const next = N.filter(n => !isDone(n.id) && isReady(n) && n.todai>0)
+    .sort((a,b) => wt(b)-wt(a)).slice(0,5);
+  return `<div class="doc">
+    <div class="warnbox"><b>この数字の読み方</b><br>
+      合格確率そのものではなく、<b>「数学以外が志望校の合格者平均並みだった場合の」条件付き確率</b>。
+      数学だけで合否は決まらない。<br>
+      また<b>まだ実データで較正していない</b>。今は絶対値ではなく、
+      <b>ノードを習得／放置したときに数字がどう動くか</b>を見る道具として使う。</div>
+    <div class="kpi">
+      <div><small>重み付き到達度（記憶度を反映）</small><span class="big">${(m*100).toFixed(0)}<span style="font-size:15px">%</span></span></div>
+      <div><small>数学の想定得点</small><span class="big">${sc.toFixed(0)}<span style="font-size:15px">/100</span></span></div>
+      <div><small>現在パワー</small><span class="big pw">${power().toFixed(0)}</span></div>
+    </div>${rows}
+    <h3>この数字を最も動かすノード</h3>
+    <div class="grid" style="margin-top:8px">${next.map(card).join('') || '<div class="empty">なし</div>'}</div>
+    <h3>モデルの中身</h3><table>
+      <tr><th>重み</th><td>${esc(TG.model.weight)}</td></tr>
+      <tr><th>想定得点</th><td>${esc(TG.model.scoreFromMastery)}</td></tr>
+      <tr><th>確率</th><td>${esc(TG.model.probability)}</td></tr>
+      <tr><th>忘却</th><td>${esc(GM.design.forgetting)}</td></tr>
+      <tr><th>較正</th><td style="color:var(--hot)">${esc(TG.model.calibrationStatus)}</td></tr></table>
+    <h3>数値の出どころ</h3><p style="color:var(--dim)">${esc(TG.disclaimer)}</p></div>`;
+}
+
+/* ---------- モンスター ---------- */
+function monHTML(){
+  const units = [...new Set(N.map(n => n.unit))];
+  const cards = units.map(u => {
+    const ns = N.filter(n => n.unit === u);
+    const got = ns.filter(n => isDone(n.id));
+    const lv = got.length, max = ns.length;
+    const r = got.length ? got.reduce((s,n) => s + ret(n.id), 0) / got.length : 0;
+    const m = MON.get(u) || { name: u, stages: ['❓','❓','❓'] };
+    const stage = lv === 0 ? 0 : (lv / max >= .66 ? 2 : lv / max >= .33 ? 1 : 0);
+    return `<div class="mon ${lv?'':'zero'} ${lv && r<.5?'weak':''}">
+      <div class="mface">${m.stages[stage]}</div>
+      <div class="mname">${lv ? esc(m.name) : '？？？'}</div>
+      <div class="munit">${esc(u)}</div>
+      <div class="mlv">Lv ${lv} / ${max}${stage===2?' ★進化済':''}</div>
+      <div class="mbar"><i style="width:${(lv/max*100).toFixed(0)}%;background:var(--gold)"></i></div>
+      ${lv ? `<div class="mbar"><i style="width:${(r*100).toFixed(0)}%;background:${rcol(r)}"></i></div>
+        <div style="font-size:10.5px;color:${rcol(r)};margin-top:3px">
+        ${r<.5 ? '弱っている（復習が必要）' : `元気 ${(r*100).toFixed(0)}%`}</div>` : ''}
+    </div>`;
+  }).join('');
+  const evolved = units.filter(u => { const ns=N.filter(n=>n.unit===u); return ns.filter(n=>isDone(n.id)).length/ns.length>=.66; }).length;
+  return `<div><p style="color:var(--dim);font-size:13px;margin:0 0 12px">
+    単元ごとに1体。ノードを習得するとレベルが上がり、記憶度が落ちると弱ります。
+    <b style="color:var(--fg)">グレーになっている＝その単元を放置している</b>という表示。
+    　進化済み ${evolved}/${units.length}</p>
+    <div class="mgrid">${cards}</div></div>`;
+}
+
+/* ---------- ガチャ ---------- */
+function gachaHTML(){
+  const t = GM.gachaTable.map(r =>
+    `<tr><td class="r${r.rarity}">★${r.rarity}</td><td>${(r.rate*100).toFixed(0)}%</td><td>${esc(r.items[0])}</td></tr>`).join('');
+  const box = S.box.slice(-14).reverse().map(b =>
+    `<div><span class="r${b.rarity}">★${b.rarity}</span> ${esc(b.name)}</div>`).join('') || '<div style="color:var(--dim)">まだ何もありません</div>';
+  return `<div class="gbox">
+      <div style="font-size:13px;color:var(--dim)">石は学習でのみ増えます（テスト合格 +3 / 復習 +1 / ログイン +2〜）</div>
+      <div style="font-size:34px;margin:10px 0">💎 ${S.gems}</div>
+      <button class="btn gold" id="pull" ${S.gems < GM.gachaCost ? 'disabled':''}>ガチャを引く（${GM.gachaCost}）</button>
+      <div id="gres"></div>
+    </div>
+    <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:18px">
+      <div style="flex:1;min-width:280px"><h3 style="font-size:13px;color:var(--accent)">排出</h3>
+        <table><tr><th>レア</th><th>確率</th><th>中身</th></tr>${t}</table>
+        <p style="font-size:12px;color:var(--dim);margin-top:8px">${esc(GM.design.gacha)}</p></div>
+      <div style="flex:1;min-width:240px"><h3 style="font-size:13px;color:var(--accent)">所持</h3>
+        <div class="boxlist">${box}</div></div>
+    </div>`;
+}
+function pull(){
+  if (S.gems < GM.gachaCost) return;
+  S.gems -= GM.gachaCost;
+  let x = Math.random(), hit = GM.gachaTable[GM.gachaTable.length-1];
+  for (const r of GM.gachaTable){ if (x < r.rate){ hit = r; break; } x -= r.rate; }
+  const name = hit.items[Math.floor(Math.random()*hit.items.length)];
+  S.box.push({ rarity: hit.rarity, name, kind: hit.kind, at: Date.now() });
+  if (hit.kind === 'exp') S.exp += 200;
+  if (hit.kind === 'gem') S.gems += 3;
+  save();
+  render();
+  $('#gres').innerHTML = `<div class="result r${hit.rarity}">${'★'.repeat(hit.rarity)}</div>
+    <div class="r${hit.rarity}" style="font-size:15px">${esc(name)}</div>
+    ${hit.kind==='charm' ? '<div style="font-size:12px;color:var(--dim);margin-top:6px">護符はノード詳細から使えます</div>' : ''}`;
+  $('#pull').onclick = pull;
+}
+
+/* ---------- 詳細 ＋ テスト ---------- */
+let quiz = null;
+
+function open(id){
+  sel = id; quiz = null;
+  const n = byId.get(id), l = LES.get(id), q = QZ.get(id), r = ret(id);
+  const up = (n.prereq||[]).map(p => `<span class="chip ${isDone(p)?'done':''}" data-go="${p}">${isDone(p)?'✓ ':''}${esc(byId.get(p).title)}</span>`).join('')
+    || '<span style="color:var(--dim)">なし（ここから始められる）</span>';
+  const dn = children.get(id).map(c => `<span class="chip" data-go="${c}">${esc(byId.get(c).title)}</span>`).join('')
+    || '<span style="color:var(--dim)">なし（到達点）</span>';
+
+  let L = '';
+  if (l){
+    const ul = a => `<ul>${(a||[]).map(x => `<li>${esc(x)}</li>`).join('')}</ul>`;
+    L = `<h3>核心</h3><p>${esc(l.core)}</p>
+      <h3>この手を出すサイン</h3>${ul(l.trigger)}
+      <h3>手順</h3>${ul(l.procedure)}
+      <h3>典型例</h3><div class="wk"><b>問</b> ${esc(l.worked.problem)}
+        <div class="sol">${l.worked.solution.map(esc).join('\n')}</div></div>
+      <h3>別解・別視点</h3>${ul(l.variants)}
+      <h3>落とし穴</h3>${ul(l.pitfalls)}
+      <h3>東大での出方</h3><p>${esc(l.todaiUse)}</p>
+      <h3>確認</h3>${ul(l.check)}
+      ${l.stretch ? `<h3>発展</h3><p>${esc(l.stretch)}</p>` : ''}`;
+  } else {
+    L = `<h3>統合解説</h3><p style="color:var(--dim)">未執筆。<code>data/lessons.json</code> に
+      nodeId="${id}" で追加するとここに出る。</p>`;
+  }
+
+  const charm = S.box.find(b => b.kind === 'charm' && !b.used);
+  $('#dpc').innerHTML = `<h2>${esc(n.title)}</h2>
+    <div class="meta" style="margin-bottom:14px">
+      <span class="tag">${esc(n.field)} / ${esc(n.unit)}</span>
+      <span class="star">${stars(n.todai)}</span><span>Lv${n.level}</span>
+      <span>${n.cost}分</span><span>下流 ${desc(id)}</span>
+      ${isDone(id) ? `<span style="color:${rcol(r)}">記憶 ${(r*100).toFixed(0)}%
+        （半減期 ${S.rec[id].s}日 / 復習 ${S.rec[id].r}回）</span>` : ''}</div>
+    <div id="act">
+      ${q ? `<button class="btn" id="qs">${isDone(id) ? '復習テストを受ける' : '習得テストを受ける'}（${q.items.length}問）</button>` : ''}
+      ${!q ? `<button class="btn ${isDone(id)?'sec':''}" id="tg">${isDone(id) ? '復習した（記憶度を回復）' : '習得済みにする'}</button>` : ''}
+      ${isDone(id) && charm ? `<button class="btn sec" id="ch">護符を使う（減衰を止める）</button>` : ''}
+      ${isDone(id) ? `<button class="btn sec" id="fg">忘れた（やり直す）</button>` : ''}
+    </div>
+    <h3>なぜ要るか</h3><p>${esc(n.why)}</p>
+    ${n.trap ? `<h3>つまずき</h3><p>${esc(n.trap)}</p>` : ''}
+    <h3>前提（これが無いと分からない）</h3><div>${up}</div>
+    <h3>これを塞ぐと止まるもの</h3><div>${dn}</div>
+    ${L}`;
+  $('#ov').classList.add('on'); $('#dp').classList.add('on');
+  bindDetail(id);
+}
+
+function bindDetail(id){
+  const q = QZ.get(id);
+  $('#qs') && ($('#qs').onclick = () => startQuiz(id));
+  $('#tg') && ($('#tg').onclick = () => {
+    const first = !isDone(id);
+    learn(id, true); gain(wt(byId.get(id)) * (first ? 10 : 3), first ? 3 : 1); open(id); render();
+  });
+  $('#fg') && ($('#fg').onclick = () => { learn(id, false); open(id); render(); });
+  $('#ch') && ($('#ch').onclick = () => {
+    const c = S.box.find(b => b.kind === 'charm' && !b.used);
+    if (!c) return;
+    c.used = true;
+    S.charms[id] = Date.now() + (c.name.includes('永久') ? 30 : 7) * DAY;
+    save(); open(id); render();
+  });
+  $('#dpc').querySelectorAll('[data-go]').forEach(c => c.onclick = () => open(c.dataset.go));
+}
+
+function startQuiz(id){
+  quiz = { id, i: 0, wrong: 0 };
+  showQ();
+}
+function showQ(){
+  const q = QZ.get(quiz.id), it = q.items[quiz.i], n = byId.get(quiz.id);
+  $('#dpc').innerHTML = `<h2>${esc(n.title)}</h2>
+    <div class="prog">習得テスト　${quiz.i+1} / ${q.items.length}
+      ${it.type==='choice'?'方針の選択':it.type==='error'?'誤りの発見':'値の一致'}</div>
+    <div class="qq">${esc(it.q)}</div>
+    <div id="qa">${
+      it.type === 'number'
+        ? `<input class="qin" id="qnum" placeholder="答えを入力" autocomplete="off">
+           <button class="btn" id="qok" style="margin-left:8px">決定</button>`
+        : it.options.map((o,i) => `<button class="opt" data-i="${i}">${esc(o)}</button>`).join('')
+    }</div><div id="qfb"></div>`;
+  if (it.type === 'number'){
+    const go = () => answer($('#qnum').value.trim());
+    $('#qok').onclick = go;
+    $('#qnum').onkeydown = e => e.key === 'Enter' && go();
+    $('#qnum').focus();
+  } else {
+    $('#qa').querySelectorAll('.opt').forEach(b => b.onclick = () => answer(+b.dataset.i));
+  }
+}
+function answer(a){
+  const q = QZ.get(quiz.id), it = q.items[quiz.i];
+  const norm = s => String(s).replace(/\s|　/g,'').replace(/pi/gi,'π');
+  const ok = it.type === 'number'
+    ? (it.accept || [it.answer]).some(x => norm(x) === norm(a))
+    : a === it.answer;
+  if (!ok) quiz.wrong++;
+  if (it.type !== 'number'){
+    $('#qa').querySelectorAll('.opt').forEach((b,i) => {
+      if (i === it.answer) b.classList.add('ok');
+      else if (i === a)    b.classList.add('ng');
+      b.onclick = null;
+    });
+  } else {
+    $('#qok').disabled = true; $('#qnum').disabled = true;
+  }
+  $('#qfb').innerHTML = `<div class="fb ${ok?'ok':'ng'}">
+      <b>${ok ? '正解' : '不正解'}</b>${it.type==='number' && !ok ? `　答え: ${esc(it.answer)}` : ''}<br>${esc(it.explain)}</div>
+    <button class="btn" id="qnx">${quiz.i+1 < q.items.length ? '次へ' : '結果を見る'}</button>`;
+  $('#qnx').onclick = () => { quiz.i++; quiz.i < q.items.length ? showQ() : finish(); };
+}
+function finish(){
+  const n = byId.get(quiz.id), q = QZ.get(quiz.id);
+  const wrong = quiz.wrong, pass = wrong === 0, first = !isDone(quiz.id);
+  const e = pass ? wt(n) * (first ? 10 : 3) : 0, g = pass ? (first ? 3 : 1) : 0;
+  if (pass){ learn(quiz.id, true); gain(e, g); }
+  else if (isDone(quiz.id)) { learn(quiz.id, false); save(); }
+  const id = quiz.id; quiz = null;
+  $('#dpc').innerHTML = `<h2>${esc(n.title)}</h2>
+    <div class="fb ${pass?'ok':'ng'}" style="font-size:15px">
+      <b>${pass ? '全問正解 — 習得' : `不合格（${wrong} 問ミス）`}</b><br>
+      ${pass ? `EXP +${Math.round(e)}　💎 +${g}　次の復習は約 ${S.rec[id].s} 日後`
+             : '1問でも誤ると習得になりません。落とし穴を読み直して、もう一度。'}</div>
+    <button class="btn" id="again">もう一度</button>
+    <button class="btn sec" id="back">解説に戻る</button>`;
+  $('#again').onclick = () => startQuiz(id);
+  $('#back').onclick  = () => open(id);
+  render();
+}
+
+const closeDp = () => { quiz = null; $('#ov').classList.remove('on'); $('#dp').classList.remove('on'); };
+
+/* ---------- 設計方針 ---------- */
+function docHTML(){
+  const s = DATA.synthesis, g = GM.design;
+  return `<div class="doc">
+    <h3>教材の統合</h3><p>${esc(s.principle)}</p><p style="color:var(--dim)">${esc(s.why)}</p>
+    <table><tr><th>教材</th><th>強み</th><th>弱み</th><th>統合先</th></tr>
+    ${s.functionMap.map(f => `<tr><td><b>${esc(f.source)}</b></td><td>${esc(f.strength)}</td>
+      <td style="color:var(--dim)">${esc(f.weakness)}</td><td>${esc(f.absorbAs)}</td></tr>`).join('')}</table>
+    <h3>著作権</h3><p>${esc(s.copyrightPolicy)}</p>
+    <h3>ゲーム設計</h3>
+    <table>
+      <tr><th>2層構造</th><td>${esc(g.twoLayer)}</td></tr>
+      <tr><th>忘却</th><td>${esc(g.forgetting)}</td></tr>
+      <tr><th>数値の接続</th><td>${esc(g.powerLink)}</td></tr>
+      <tr><th>モンスター</th><td>${esc(g.monster)}</td></tr>
+      <tr><th>ガチャ</th><td>${esc(g.gacha)}</td></tr>
+    </table>
+    <h3>習得テストの設計</h3><p>${esc(DATA.quizDesign.why)}</p>
+    <table>${Object.entries(DATA.quizDesign.types).map(([k,v]) => `<tr><th>${k}</th><td>${esc(v)}</td></tr>`).join('')}
+      <tr><th>合格基準</th><td>${esc(DATA.quizDesign.passRule)}</td></tr>
+      <tr><th>今後</th><td>${esc(DATA.quizDesign.todo)}</td></tr></table>
+    <h3>中身を埋める手順</h3><p style="color:var(--dim)">${esc(s.buildProcess.note)}</p>
+    <ul>${s.buildProcess.steps.map(x => `<li>${esc(x)}</li>`).join('')}</ul>
+    <p><b>工数：</b>${esc(s.buildProcess.estimate)}</p>
+    <h3>現在の執筆状況</h3>
+    <p>統合解説 <b>${(DATA.lessons||[]).length}</b> / ${N.length}
+       習得テスト <b>${(DATA.quizzes||[]).length}</b> / ${N.length}
+       検証: ${DATA.lessonsVerified ? 'あり' : '<span style="color:var(--hot)">未検証 — 合格者の確認が必要</span>'}</p>
+  </div>`;
+}
+
+/* ---------- 起動 ---------- */
+{
+  const fs = [...new Set(N.map(n => n.field))];
+  $('#fField').innerHTML += fs.map(f => `<option>${f}</option>`).join('');
+  const setUnits = () => {
+    const f = $('#fField').value;
+    const us = [...new Set(N.filter(n => !f || n.field === f).map(n => n.unit))];
+    $('#fUnit').innerHTML = '<option value="">全単元</option>' + us.map(u => `<option>${u}</option>`).join('');
+  };
+  setUnits();
+  $('#fField').onchange = () => { setUnits(); render(); };
+  ['fUnit','fState','fTodai'].forEach(i => $('#'+i).onchange = render);
+  $('#fQ').oninput = render;
+  $('#reset').onclick = () => { if (confirm('進捗・レベル・所持品を全て消しますか？')){ S = JSON.parse(JSON.stringify(DEF)); save(); render(); } };
+  document.querySelectorAll('nav button').forEach(b => b.onclick = () => {
+    document.querySelectorAll('nav button').forEach(x => x.classList.remove('on'));
+    b.classList.add('on'); view = b.dataset.v; render();
+  });
+  $("#ov").onclick = closeDp; $("#cl").onclick = closeDp;
+  document.onkeydown = e => e.key === "Escape" && closeDp();
+  render();
+  setInterval(() => { if (!quiz) header(); }, 60000);   // 記憶度は時間で減るので定期更新
+}
+</script>
+<script>
+  if ('serviceWorker' in navigator) addEventListener('load', () => navigator.serviceWorker.register('./sw.js'));
+</script>
+</body>
+</html>

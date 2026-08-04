@@ -385,7 +385,47 @@
           </a>
         </article>
 
-        <!-- 04 応援 -->
+        <!-- 04 東大理三 数学マップ -->
+        <article class="block">
+          <div class="divider">
+            <span class="divider-line"></span>
+            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
+              <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
+              <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
+            </svg>
+            <span class="divider-line"></span>
+          </div>
+          <p class="block-label"><span>Works · 04</span><span class="status status--live">プロトタイプ公開中</span></p>
+          <h2 class="block-title">東大理三 数学マップ</h2>
+          <p class="block-text">参考書を何冊も渡り歩くのが非効率だと思ったので、数学の全範囲を「これが分からないとこれが分からない」の依存関係で構造化しました。1つのノードを開けば、着眼点・手順・別解・東大での出方が全部そこにあります。何を、どの順で、なぜやるかを、感覚ではなくグラフで決めるためのものです。</p>
+
+          <ul class="points">
+            <li>138ノードを依存グラフ化。分からない場所から前提を左に辿ると、原因のノードに必ず行き着く</li>
+            <li>東大での必要度と「そこが止まると何ノードが解けなくなるか」から優先度を計算し、今日やる3つだけを出す</li>
+            <li>記述の採点は現実的でないので、方針の選択・誤りの発見・値の一致の3形式で習得を判定する</li>
+            <li>忘却曲線に沿ってパワーが下がる。単元ごとのモンスターが弱るので、放置した範囲が一目で分かる</li>
+            <li>全ノードをObsidianのMarkdownとCanvasに書き出せる。グラフビューに構造がそのまま出る</li>
+          </ul>
+
+          <p class="support-note">まだ作りかけです。統合解説を書き終えたのは138ノード中6つで、合格可能性の数値も実データでの較正前。数字の絶対値ではなく、習得や放置で動く方向を見るものとして置いています。</p>
+
+          <ul class="tech">
+            <li>Vanilla JS</li>
+            <li>PWA / Service Worker</li>
+            <li>JSON</li>
+            <li>GitHub Pages</li>
+          </ul>
+
+          <a class="block-action" href="../todai-math-map/">
+            <span>開いてみる</span>
+            <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </article>
+
+        <!-- 05 応援 -->
         <article class="block" id="support">
           <div class="divider">
             <span class="divider-line"></span>

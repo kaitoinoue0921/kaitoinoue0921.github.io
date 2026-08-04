@@ -1,0 +1,21 @@
+{
+  "name": "東大理三 数学マップ",
+  "short_name": "数学マップ",
+  "description": "数学の全範囲を依存グラフとして構造化し、参考書の強い部分を1つに統合した学習マップ",
+  "start_url": "./app.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0f1115",
+  "theme_color": "#0f1115",
+  "lang": "ja",
+  "icons": [
+    { "src": "./icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "./icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "./icon-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "次にやる", "url": "./app.html#next" },
+    { "name": "復習", "url": "./app.html#review" }
+  ]
+}
