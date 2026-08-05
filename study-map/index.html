@@ -272,6 +272,27 @@ button{cursor:pointer}
   .chips::-webkit-scrollbar{display:none}
   .chip{flex:0 0 auto}
   #listhead{padding:8px 12px 4px}
+
+  /* ---- モバイルはページ全体を普通にスクロールさせる ----
+     内側だけスクロールする作りだと、画面下の狭い一覧に指を置いたときしか
+     動かず（地図を触れば地図が動く）、スクロールできないように感じるため。 */
+  html,body{height:auto;overflow:visible}
+  body{display:block}
+  #top{position:sticky;top:0}
+  /* display:block にすると DOM 順（一覧→地図）になってしまうので、
+     column-reverse のまま高さだけ内容なりに伸ばす */
+  #app{display:flex;flex-direction:column-reverse;height:auto;min-height:0}
+  /* flex:none にしないと、高さ auto の flex コンテナ内で
+     flex-basis が解決できず min-height まで潰れる */
+  #mapwrap{flex:none;height:46vh;min-height:240px}
+  #side{width:100%;height:auto;flex:none;border-top:1px solid var(--line);border-right:none}
+  #list{flex:none;height:auto;overflow:visible}
+  .dbody{flex:none;height:auto;overflow:visible}
+  /* 詳細は重ねずに、一覧と入れ替える */
+  #detail{position:static;inset:auto}
+  #side.detail-on .controls,
+  #side.detail-on #listhead,
+  #side.detail-on #list{display:none}
 }
 ::-webkit-scrollbar{width:8px} ::-webkit-scrollbar-thumb{background:#2b333b;border-radius:4px}
 .leaflet-container{background:#20262c}
@@ -695,6 +716,32 @@ const SEED=[
    lat:36.6570,lng:140.1560,hoursWd:'9:30–19:00',hoursWe:'9:30–19:00',
    closed:'月曜・年末年始・特別館内整理日',fee:'無料',facilities:{aircon:1},
    note:'開館時間は確認済み。住所は未確認なのでピンの位置はおおよそです。',reviews:[]}),
+
+ /* ================= 長崎県 南島原市 口之津 =================
+    島原半島の南端、口之津港のある町。市の公式サイトで確認した情報のみ。
+    評価は未評価のまま。座標はおおよその位置。 */
+
+ s({pref:'長崎県',name:'南島原市口之津図書館',category:'図書館',city:'南島原市',
+   address:'南島原市口之津町丙2092-1',lat:32.6115,lng:130.1935,
+   hoursWd:'10:00–18:00（金曜は12:00–20:00）',hoursWe:'10:00–18:00',
+   closed:'月曜・毎月最終木曜（図書整理日）・12/29〜1/3・蔵書整理期間',
+   fee:'無料',facilities:{aircon:1},
+   note:'金曜だけ夜20時まで開いているのが特徴。3階ホール、AVブース、インターネットコーナーあり。'+
+        '駐車場は8台（隣接施設に70台）。蔵書10万冊超。TEL 0957-73-6777',reviews:[]}),
+
+ s({pref:'長崎県',name:'口之津港ターミナルビル',category:'市役所・公共施設',city:'南島原市',
+   address:'南島原市口之津町／口之津港',lat:32.6053,lng:130.1892,
+   hoursWd:'要確認（フェリーの運航時間に準ずる）',hoursWe:'要確認',closed:'要確認',
+   fee:'無料（カフェの飲食代は別）',facilities:{aircon:1},
+   note:'島原半島と天草・鬼池港を結ぶ島鉄フェリーの発着ターミナル。館内にカフェ、観光情報コーナー、'+
+        '市役所口之津支所、口之津歴史民俗資料館（資料館は有料）が入っている。'+
+        '待合スペースがあるが、本来はフェリー利用者向けなので長居の可否は要確認。',reviews:[]}),
+
+ s({pref:'長崎県',name:'南島原市役所 口之津支所',category:'市役所・公共施設',city:'南島原市',
+   address:'南島原市口之津町',lat:32.6056,lng:130.1896,
+   hoursWd:'8:30–17:15',hoursWe:'閉庁',closed:'土日祝・12/29〜1/3',
+   fee:'無料',facilities:{aircon:1},
+   note:'平日のみ。支所なので、自由に使える待合・ロビーがあるかは要確認。TEL 0957-73-6607',reviews:[]}),
 ];
 
 /* ---------- スコア ---------- */
@@ -757,7 +804,7 @@ function closeHour(sp){ const h=hoursFor(sp)||''; const p=h.split(/[–~-]/); re
    ストア — 共有DB(Supabase)が設定されていればそちら、
    なければブラウザのlocalStorageにフォールバックする。
    ========================================================= */
-const KEY='tsm.spots.v7', CKEY='tsm.supabase';
+const KEY='tsm.spots.v8', CKEY='tsm.supabase';
 let SPOTS=[];
 
 function loadLocal(){
@@ -1056,6 +1103,7 @@ function selectSpot(id,focus=true){
   if(MapA){ if(focus) MapA.focus(sp); MapA.highlight(id); }
   document.getElementById('dbody').innerHTML=detailHTML(sp);
   document.getElementById('detail').classList.add('on');
+  document.getElementById('side').classList.add('detail-on');
   document.getElementById('dbody').scrollTop=0;
   const b=document.getElementById('addRev'); if(b) b.onclick=()=>openReviewForm(sp);
   render();
@@ -1316,6 +1364,7 @@ function esc(s){ return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&
 /* ---------- イベント ---------- */
 function backToList(){
   document.getElementById('detail').classList.remove('on');
+  document.getElementById('side').classList.remove('detail-on');
   state.sel=null; MapA&&MapA.highlight(null); render();
 }
 document.getElementById('pref').onchange=e=>{
