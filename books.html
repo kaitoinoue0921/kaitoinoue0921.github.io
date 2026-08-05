@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>読書マップ | 井上凱斗</title>
+<meta name="description" content="井上凱斗の読書マップ。読んだ本から概念を取り出し、本と本のあいだ、本と自分の問いのあいだをつなぎ直して蓄積していく。エーリッヒ・フロム『生きるということ』から。">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/books.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="読書マップ | 井上凱斗">
+<meta property="og:description" content="読んだ本から概念を取り出し、本と本、本と自分の問いをつなぎ直して蓄積していくマップ。">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/books.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/ogp.png">
+<meta property="og:image:alt" content="井上凱斗（いのうえ かいと）— 自治医科大学 医学部">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="./favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #ffffff;
+    --ink: #121212;
+    --ink-soft: #3a3a3a;
+    --ink-faint: #8f8f8f;
+    --line-faint: rgba(18,18,18,0.14);
+    --line-ghost: rgba(18,18,18,0.06);
+    --serif: 'Shippori Mincho', serif;
+    --sans: 'Zen Kaku Gothic New', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+    --gap: clamp(48px, 9vh, 96px);
+    --side: clamp(24px, 7vw, 64px);
+    --measure: 700px;
+  }
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink-soft);
+    font-family: var(--sans);
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  ::selection{ background: var(--ink); color: #fff; }
+
+  /* ---------- corner marks ---------- */
+  .corner-marks{ position: fixed; inset: 0; z-index: 3; pointer-events: none; }
+  .corner{
+    position: absolute; width: 18px; height: 18px;
+    border: 1px solid var(--ink); opacity: 0.28;
+  }
+  .corner.tl{ top: 18px; left: 18px; border-right: none; border-bottom: none; }
+  .corner.tr{ top: 18px; right: 18px; border-left: none; border-bottom: none; }
+  .corner.bl{ bottom: 18px; left: 18px; border-right: none; border-top: none; }
+  .corner.br{ bottom: 18px; right: 18px; border-left: none; border-top: none; }
+
+  /* ---------- layout ---------- */
+  .page{ position: relative; z-index: 1; }
+  .container{ max-width: var(--measure); margin: 0 auto; padding: 0 var(--side); }
+  .hero{ padding-top: clamp(72px, 14vh, 148px); padding-bottom: var(--gap); }
+  .eyebrow{
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.22em;
+    color: var(--ink-faint); text-transform: uppercase; margin: 0 0 28px;
+  }
+  .name{
+    font-family: var(--serif); font-weight: 600; color: var(--ink);
+    font-size: clamp(32px, 6vw, 54px); line-height: 1.3; margin: 0; letter-spacing: 0.04em;
+  }
+  .name-en{
+    display: block; font-family: var(--mono); font-weight: 400; font-size: 12.5px;
+    letter-spacing: 0.3em; color: var(--ink-faint); margin-top: 14px;
+  }
+  .tagline{
+    font-size: 16.5px; line-height: 2; color: var(--ink-soft);
+    max-width: 42ch; margin: 32px 0 0;
+  }
+
+  /* ---------- hero illustration: a small graph ---------- */
+  .constellation{ display: block; width: min(340px, 74vw); height: auto; margin: 44px 0 0; overflow: visible; }
+  .constellation line{ stroke: var(--ink); stroke-width: 1; opacity: 0.28; }
+  .constellation circle{
+    fill: var(--ink); transform-origin: center; transform-box: fill-box;
+    animation: breathe 3.4s ease-in-out infinite;
+  }
+  @keyframes breathe{
+    0%,100%{ transform: scale(0.62); opacity: 0.35; }
+    50%    { transform: scale(1);    opacity: 0.95; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .constellation circle{ animation: none; transform: scale(0.8); opacity: 0.7; }
+  }
+
+  /* ---------- divider ---------- */
+  .divider{ display: flex; align-items: center; gap: 14px; margin: 0 0 26px; }
+  .divider-line{ flex: 1; height: 1px; background: var(--line-faint); }
+  .fhole{ flex-shrink: 0; color: var(--ink); opacity: 0.5; width: 11px; height: 26px; }
+  .divider--major{ margin: 0 0 var(--gap); }
+  .divider--major .fhole{ width: 16px; height: 38px; opacity: 0.75; }
+
+  /* ---------- sections ---------- */
+  .stack{ padding-bottom: var(--gap); }
+  .sec{ padding-top: var(--gap); }
+  .sec-label{
+    font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.2em;
+    color: var(--ink-faint); text-transform: uppercase; margin: 0 0 12px;
+  }
+  .sec-title{
+    font-family: var(--serif); font-weight: 600; color: var(--ink);
+    font-size: clamp(21px, 3.2vw, 27px); margin: 0 0 22px; letter-spacing: 0.03em; line-height: 1.55;
+  }
+  .sec-p{ font-size: 15.5px; line-height: 2.05; color: var(--ink-soft); margin: 0 0 18px; max-width: 54ch; }
+  .sec-p strong{ color: var(--ink); font-weight: 500; }
+
+  /* ---------- the rule of this page ---------- */
+  .rule{
+    border-left: 1px solid var(--ink); padding: 4px 0 4px 22px; margin: 30px 0 0;
+  }
+  .rule p{ font-size: 15px; line-height: 2; margin: 0 0 12px; max-width: 50ch; }
+  .rule p:last-child{ margin-bottom: 0; }
+  .rule .rule-q{ font-family: var(--serif); color: var(--ink); font-size: 16.5px; }
+
+  /* ---------- concept map ---------- */
+  /* breaks out of the 700px measure so the graph gets room on wide screens,
+     while still scrolling horizontally on phones */
+  .map-wrap{
+    position: relative;
+    width: min(94vw, 980px);
+    margin: 26px 0 0 50%;
+    transform: translateX(-50%);
+    overflow-x: auto; -webkit-overflow-scrolling: touch;
+    border-top: 1px solid var(--line-faint); border-bottom: 1px solid var(--line-faint);
+    padding: 10px 0;
+  }
+  .map{ display: block; width: 100%; min-width: 660px; height: auto; }
+  .map .edge{ stroke: var(--ink); stroke-width: 1; opacity: 0.22; transition: opacity 0.3s ease, stroke-width 0.3s ease; }
+  .map .edge.pair{ stroke-dasharray: 4 5; }
+  .map .node{ cursor: pointer; transition: opacity 0.3s ease; }
+  .map .node rect{ fill: #fff; stroke: var(--ink); stroke-width: 1; transition: fill 0.3s ease; }
+  .map .node text{
+    font-family: var(--sans); font-size: 14px; font-weight: 400;
+    fill: var(--ink); text-anchor: middle; dominant-baseline: central;
+    pointer-events: none; user-select: none;
+  }
+  .map .node.self rect{ fill: var(--ink); }
+  .map .node.self text{ fill: #fff; }
+  .map .node:hover rect{ fill: rgba(18,18,18,0.07); }
+  .map .node.self:hover rect{ fill: #333; }
+  .map .node:focus{ outline: none; }
+  .map .node:focus-visible rect{ stroke-width: 2.4; }
+  .map.has-active .node{ opacity: 0.2; }
+  .map.has-active .node.is-on{ opacity: 1; }
+  .map.has-active .edge{ opacity: 0.06; }
+  .map.has-active .edge.is-on{ opacity: 0.75; stroke-width: 1.6; }
+  .map-hint{
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.14em;
+    color: var(--ink-faint); text-transform: uppercase; margin: 12px 0 0;
+  }
+  .map-detail{
+    margin: 16px 0 0; min-height: 118px;
+    border: 1px solid var(--line-faint); padding: 20px 22px;
+  }
+  .map-detail-term{
+    font-family: var(--serif); font-weight: 600; color: var(--ink);
+    font-size: 18px; margin: 0; letter-spacing: 0.02em;
+  }
+  .map-detail-src{
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.14em;
+    color: var(--ink-faint); margin: 7px 0 0; text-transform: uppercase;
+  }
+  .map-detail-note{ font-size: 14.5px; line-height: 2; color: var(--ink-soft); margin: 13px 0 0; max-width: 52ch; }
+
+  /* ---------- book list ---------- */
+  .book-list{ list-style: none; padding: 0; margin: 26px 0 0; border-top: 1px solid var(--line-faint); }
+  .book{ padding: 36px 0; border-bottom: 1px solid var(--line-faint); }
+  .book-num{
+    font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.16em;
+    color: var(--ink-faint); margin: 0 0 10px;
+  }
+  .book-title{
+    font-family: var(--serif); font-weight: 600; color: var(--ink);
+    font-size: clamp(19px, 2.6vw, 24px); margin: 0; letter-spacing: 0.02em; line-height: 1.55;
+  }
+  .book-meta{
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.13em;
+    color: var(--ink-faint); margin: 9px 0 0;
+  }
+  .chips{ list-style: none; padding: 0; margin: 20px 0 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip{
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.1em;
+    border: 1px solid var(--line-faint); color: var(--ink-soft);
+    padding: 6px 11px; background: transparent; cursor: pointer;
+    transition: border-color 0.3s ease, color 0.3s ease;
+  }
+  .chip:hover{ border-color: var(--ink); color: var(--ink); }
+  .chip:focus-visible{ outline: 2px solid var(--ink); outline-offset: 2px; }
+
+  .field{ margin: 26px 0 0; }
+  .field-label{
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.18em;
+    color: var(--ink-faint); text-transform: uppercase; margin: 0 0 9px;
+  }
+  .field-body{ font-size: 15px; line-height: 2.05; color: var(--ink-soft); margin: 0 0 14px; max-width: 54ch; }
+  .field-body:last-child{ margin-bottom: 0; }
+  .field-body strong{ color: var(--ink); font-weight: 500; }
+  .field--pull{ border-left: 1px solid var(--ink); padding-left: 20px; }
+  .field--pull .field-body{
+    font-family: var(--serif); color: var(--ink); font-size: 16px; line-height: 1.95;
+  }
+
+  /* ---------- next / links ---------- */
+  .links{ list-style: none; padding: 0; margin: 30px 0 0; display: flex; flex-wrap: wrap; gap: 12px; }
+  .btn{
+    display: inline-flex; align-items: center; gap: 9px;
+    border: 1px solid var(--ink); color: var(--ink); background: transparent;
+    padding: 11px 18px; text-decoration: none;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+    transition: background 0.35s ease, color 0.35s ease, transform 0.2s ease;
+  }
+  .btn:hover{ background: var(--ink); color: #fff; transform: translateY(-2px); }
+  .btn:active{ transform: translateY(0); }
+  .btn:focus-visible{ outline: 2px solid var(--ink); outline-offset: 3px; }
+  .action-icon{ width: 13px; height: 13px; flex-shrink: 0; }
+  .action-icon path{ stroke: currentColor; fill: none; }
+
+  .queue{ list-style: none; padding: 0; margin: 20px 0 0; }
+  .queue li{
+    font-size: 14.5px; line-height: 1.9; color: var(--ink-soft);
+    padding: 12px 0; border-bottom: 1px dashed var(--line-faint);
+  }
+  .queue li:first-child{ border-top: 1px dashed var(--line-faint); }
+  .queue .q-why{ display: block; font-size: 13px; color: var(--ink-faint); margin-top: 4px; }
+
+  /* ---------- footer ---------- */
+  .footer{ padding-bottom: clamp(64px, 12vh, 120px); padding-top: var(--gap); }
+  .footer-signature{ display: flex; justify-content: center; margin-bottom: 28px; opacity: 0.5; }
+  .footer-signature svg{ width: 22px; height: 52px; color: var(--ink); }
+  .footer-note{
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em;
+    color: var(--ink-faint); text-align: center; text-transform: uppercase; margin: 0;
+  }
+  .backlink{
+    display: block; text-align: center; margin-top: 26px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em;
+    color: var(--ink-faint); text-decoration: none; text-transform: uppercase;
+  }
+  .backlink:hover{ color: var(--ink); }
+
+  @media (max-width: 640px){ .corner{ width: 12px; height: 12px; } }
+</style>
+</head>
+<body>
+
+  <div class="corner-marks">
+    <span class="corner tl"></span><span class="corner tr"></span>
+    <span class="corner bl"></span><span class="corner br"></span>
+  </div>
+
+  <div class="page">
+    <div class="container">
+      <header class="hero">
+        <p class="eyebrow">Reading — 読書マップ</p>
+        <h1 class="name">読んだものを、つなぎ直す<span class="name-en">READING MAP</span></h1>
+        <p class="tagline">本を一冊ずつ棚に並べても、知識は増えない。ここでは本から概念を取り出し、本と本のあいだ、本と自分の問いのあいだに線を引いていきます。増えていくのは冊数ではなく、線のほうです。</p>
+
+        <svg class="constellation" viewBox="0 0 340 120" aria-hidden="true" focusable="false">
+          <line x1="34" y1="88" x2="96" y2="40"/>
+          <line x1="96" y1="40" x2="168" y2="72"/>
+          <line x1="168" y1="72" x2="232" y2="28"/>
+          <line x1="168" y1="72" x2="248" y2="96"/>
+          <line x1="232" y1="28" x2="306" y2="60"/>
+          <line x1="248" y1="96" x2="306" y2="60"/>
+          <line x1="34" y1="88" x2="168" y2="72"/>
+          <circle cx="34"  cy="88" r="4.5" style="animation-delay:-0.2s"/>
+          <circle cx="96"  cy="40" r="4.5" style="animation-delay:-1.4s"/>
+          <circle cx="168" cy="72" r="6"   style="animation-delay:-0.7s"/>
+          <circle cx="232" cy="28" r="4.5" style="animation-delay:-2.1s"/>
+          <circle cx="248" cy="96" r="4.5" style="animation-delay:-1.0s"/>
+          <circle cx="306" cy="60" r="4.5" style="animation-delay:-2.6s"/>
+        </svg>
+      </header>
+
+      <div class="divider divider--major">
+        <span class="divider-line"></span>
+        <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
+          <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+          <circle cx="15" cy="10" r="1.6" fill="currentColor"/><circle cx="9" cy="38" r="1.6" fill="currentColor"/>
+        </svg>
+        <span class="divider-line"></span>
+      </div>
+    </div>
+
+    <div class="container">
+      <main class="stack">
+
+        <!-- ============ このマップの読み方 ============ -->
+        <section class="sec" aria-labelledby="ruleHeading">
+          <p class="sec-label">Rule · 00</p>
+          <h2 class="sec-title" id="ruleHeading">このマップが守ろうとしているルール</h2>
+
+          <p class="sec-p">最初の一冊であるフロム『生きるということ』が、そのままこのページの設計指針になりました。フロムは読書にも二つの様式があると書いています。<strong>持つ様式の読書</strong>は、あらすじと要点を手に入れて終わる。情報は増えるが、読んだ人は読む前と同じままです。<strong>在る様式の読書</strong>は、著者と言い合いながら読むので、読み終えたときに自分のほうが変わっている。</p>
+
+          <p class="sec-p">読書記録は、放っておくと前者になります。読んだ冊数と要約という「所有物」が増えるだけのリストは、まさに蓄積です。だからこのマップでは、記録する項目をこう決めました。</p>
+
+          <div class="rule">
+            <p class="rule-q">一、要約は書かない。</p>
+            <p>著者が言ったことではなく、<strong>自分の中で動いたところ</strong>だけを書く。動かなかった本は、動かなかったと書く。</p>
+            <p class="rule-q">二、必ず、他のどこかに線を引く。</p>
+            <p>別の本、自分の生活、進行中の仕事。どこにもつながらない知見は、まだ自分のものになっていない。</p>
+            <p class="rule-q">三、都合の悪い線こそ引く。</p>
+            <p>自分のやり方を否定してくる概念を見つけたら、それを最優先で残す。気持ちよく肯定してくれる本ばかり並んだら、それは失敗している合図。</p>
+          </div>
+        </section>
+
+        <!-- ============ 概念マップ ============ -->
+        <section class="sec" aria-labelledby="mapHeading">
+          <p class="sec-label">Map · 01</p>
+          <h2 class="sec-title" id="mapHeading">概念のつながり</h2>
+          <p class="sec-p">本から取り出した概念（白）と、自分が抱えている問い（黒）を並べています。触ると、その概念につながっている線だけが残ります。</p>
+
+          <div class="map-wrap">
+            <svg class="map" id="conceptMap" viewBox="0 0 780 700" role="img" aria-labelledby="conceptMapTitle">
+              <title id="conceptMapTitle">本から取り出した概念と自分の問いのつながりを示したマップ</title>
+            </svg>
+          </div>
+          <p class="map-hint">Tap a node — ノードに触れると解説が出ます</p>
+
+          <div class="map-detail" id="mapDetail" aria-live="polite">
+            <p class="map-detail-term" id="mdTerm">概念を選んでください</p>
+            <p class="map-detail-src" id="mdSrc">13 concepts · 3 books</p>
+            <p class="map-detail-note" id="mdNote">白いノードは本から取り出した概念、黒いノードは自分がいま抱えている問いです。線は「その概念が、この問いに触ってくる」という関係を表しています。</p>
+          </div>
+        </section>
+
+        <!-- ============ 本 ============ -->
+        <section class="sec" aria-labelledby="booksHeading">
+          <p class="sec-label">Books · 02</p>
+          <h2 class="sec-title" id="booksHeading">読んだ本</h2>
+
+          <!--
+            ▼ 本を足すときは、この <li class="book"> ブロックをまるごとコピーして中身を差し替える。
+              ・book-num …… 通し番号（新しい本を上に置くなら番号は振り直さず、そのまま増やしてよい）
+              ・chip の data-node …… 下の CONCEPTS に登録した概念の id と一致させると、
+                                      クリックで概念マップの該当ノードに飛ぶ
+              ・「取り出したもの」「自分に引いた線」の二つは必ず埋める（ルール一・二）
+          -->
+          <ul class="book-list">
+
+            <li class="book">
+              <p class="book-num">03</p>
+              <h3 class="book-title">幸福と人生の意味の哲学</h3>
+              <p class="book-meta">山口尚 (2019) · トランスビュー — 副題「なぜ私たちは生きていかねばならないのか」</p>
+
+              <ul class="chips">
+                <li><button class="chip" data-node="past">過去を信じる</button></li>
+              </ul>
+
+              <div class="field field--pull">
+                <p class="field-label">中心にある問い</p>
+                <p class="field-body">苦痛に満ちた世界で、なぜ人は生きていかねばならないのか。</p>
+              </div>
+
+              <div class="field">
+                <p class="field-label">取り出したもの</p>
+                <p class="field-body">パスカル、カント、ウィトゲンシュタイン、トルストイ、カミュを手がかりに、幸福と人生の意味を正面から問う本です。<strong>ここは正直に書きます。</strong>自分がいま取り出せているのは一点だけで、<strong>過去を信じることが幸せの道である</strong>、ということでした。本全体の議論を自分の言葉で言い直せる段階にまだありません。読み直してから書き足します。</p>
+                <p class="field-body">このページのルール上、書けないことを書けたことにしないほうが、あとで自分が困りません。</p>
+              </div>
+
+              <div class="field">
+                <p class="field-label">自分に引いた線</p>
+                <p class="field-body">過去は変えられません。でも<strong>過去の意味は、現在が決めています。</strong>浪人した一年を「生きている価値がない証拠」として数え続けるのか、別の意味を持たせるのかは、過去の側では決まっていない。</p>
+                <p class="field-body">そしてこれは、<strong>02『幸せになる勇気』の目的論と同じ方向を向いています。</strong>アドラーは原因論を否定する。過去が現在を決めているのではなく、いまの自分が過去にどの意味を持たせるかを選んでいる。二冊目と三冊目が、ここで重なりました。</p>
+                <p class="field-body">さらに<strong>01『生きるということ』から見ると、こう言い直せます。</strong>「価値がない」という過去の判定を、<strong>所有物として持ち続けている</strong>状態がある。手放せないのは、それが自分の一部として登録されてしまっているから。だとすれば過去を信じるとは、その判定を持つのをやめて、意味づけを現在の活動の側に移すことです。</p>
+                <p class="field-body">三冊が、別々の入口から同じ場所を指しています。<strong>自分の価値を、手元にあるものの合計で計算するのをやめる。</strong>それだけのことを、三人が三通りの言い方でやっている。</p>
+              </div>
+            </li>
+
+            <li class="book">
+              <p class="book-num">02</p>
+              <h3 class="book-title">幸せになる勇気</h3>
+              <p class="book-meta">岸見一郎 / 古賀史健 (2016) · ダイヤモンド社 — 『嫌われる勇気』続編</p>
+
+              <ul class="chips">
+                <li><button class="chip" data-node="messiah">メサイア・コンプレックス</button></li>
+                <li><button class="chip" data-node="respect">尊敬</button></li>
+                <li><button class="chip" data-node="independ">自立</button></li>
+              </ul>
+
+              <div class="field field--pull">
+                <p class="field-label">中心にある問い</p>
+                <p class="field-body">誰かを助けたいという気持ちは、どこまでが相手のためで、どこからが自分のためか。</p>
+              </div>
+
+              <div class="field">
+                <p class="field-label">取り出したもの</p>
+                <p class="field-body">アドラー心理学において、<strong>教育の目標は自立</strong>であり、教育とは介入ではなく援助である、というのが本書の柱です。そこから逆算すると、援助の良し悪しは「どれだけ手厚くしたか」ではなく「相手が自分を必要としなくなる方向に働いたか」で測られることになります。</p>
+                <p class="field-body">その反対側に置かれるのが<strong>メサイア・コンプレックス</strong>です。他者を救うことによって自分が救われようとする構え。本書はこれを承認欲求の変奏として扱います。厄介なのは、これが善行の顔をして現れることです。相手を対等な存在ではなく「救われるべき側」に置いた瞬間、自分は<strong>相手の弱さを必要としはじめる</strong>。すると、目標である自立と、自分の欲求とが、正面から逆を向く。</p>
+                <p class="field-body">対案として置かれているのが<strong>尊敬</strong>で、本書はその定義をフロムから借りています。相手を、自分の都合で変えるべき対象としてではなく、その人がその人であるままの姿で見ること。ここで二冊が勝手につながりました。フロムの在る様式と、アドラーの貢献感は、ほとんど同じ方向を指しています。</p>
+              </div>
+
+              <div class="field">
+                <p class="field-label">自分に引いた線</p>
+                <p class="field-body">読みながら、自分はこれではないか、と思いました。無料で勉強できる場所を集めた地図、無料の数学マップ、家庭教師。振り返ると、<strong>取らない側に立つ選択</strong>を何度もしています。</p>
+                <p class="field-body">ただ、この本を読んで分かったのは、<strong>行為の側からは判定できない</strong>ということでした。同じ「取らない」が、貢献感からも救世主願望からも出てくる。両者を分けるのは動機の高潔さではなく、たった一つの場面です。<strong>相手が自分を必要としなくなったとき、嬉しいか、寂しいか。</strong>生徒が自分なしで解けるようになった瞬間に何を感じるか。そこにしか答えは出ません。</p>
+                <p class="field-body">そしてここが、フロムの<strong>禁欲</strong>とまったく同じ形をしている。取らないことを自分の看板にした瞬間、それは新しい所有物になる。「持たない」を誇りとして所有するのと、「救う側にいる」を誇りとして所有するのは、同じ構造です。一冊目で見つけた罠が、別の入口から同じ場所に出てきました。</p>
+                <p class="field-body">最後にもう一つ。<strong>診断名を貼って終わらせないこと。</strong>アドラーは原因論ではなく目的論です。「自分はメサイア・コンプレックスだから助けている」と言い切った時点で、それは過去のせいにする話になり、しかも「自覚している自分」という新しい所有物が手に入ってしまう。問いの形はこうであるべきです。<strong>いま自分は、何の目的で、この助け方を選んでいるのか。</strong></p>
+              </div>
+            </li>
+
+            <li class="book">
+              <p class="book-num">01</p>
+              <h3 class="book-title">生きるということ</h3>
+              <p class="book-meta">Erich Fromm — To Have or To Be? (1976) / 佐野哲郎 訳 · 紀伊國屋書店</p>
+
+              <ul class="chips">
+                <li><button class="chip" data-node="have">持つ様式</button></li>
+                <li><button class="chip" data-node="be">在る様式</button></li>
+                <li><button class="chip" data-node="hoard">蓄積的性格</button></li>
+                <li><button class="chip" data-node="immature">成熟していない性格</button></li>
+                <li><button class="chip" data-node="ascetic">禁欲</button></li>
+                <li><button class="chip" data-node="reading">読書の二つの様式</button></li>
+              </ul>
+
+              <div class="field field--pull">
+                <p class="field-label">中心にある問い</p>
+                <p class="field-body">自分は、持っているものの合計なのか。それとも、していることそのものなのか。</p>
+              </div>
+
+              <div class="field">
+                <p class="field-label">取り出したもの</p>
+                <p class="field-body">フロムは、人の生き方には<strong>持つ様式</strong>と<strong>在る様式</strong>の二つがあると言います。持つ様式では、自分が何者かは所有物で決まる。財産、地位、知識、さらには恋人や信念までが「私のもの」として数え上げられ、失うことは自分が減ることを意味します。在る様式では、自分は所有ではなく活動のほうにある。与えること、関わること、変わっていくこと。減るという概念が、そもそも成り立ちません。</p>
+                <p class="field-body">この対比が面白いのは、それが<strong>性格にまで固まる</strong>という指摘があるからです。溜め込み、几帳面さ、秩序への執着、手放すことへの抵抗。フロイトが<strong>肛門愛的性格</strong>と呼んだこの型を、フロムは持つ様式が人格に凝固した姿として読み直します。フロイトはそれを<strong>成熟に達しなかった人の性格</strong>と見ましたが、フロムはさらに一歩進んで、産業社会ではその未成熟のほうが多数派であり、勤勉さや堅実さの名で「正常」とされていると指摘します。つまり、社会全体が未成熟のまま釣り合っている。</p>
+                <p class="field-body">最も効いたのは<strong>禁欲</strong>をめぐるくだりでした。持たないことを選ぶ人は、一見すると持つ様式の外にいるように見えます。しかしフロムは、所有を強く禁じる態度の裏に、抑圧された所有欲が張りついている場合があると言う。「持たない」ことを誇りとして所有してしまえば、関心は依然として所有に釘づけのままで、様式としては何も変わっていない。持つ様式は、否定した程度では抜け出せないということです。</p>
+              </div>
+
+              <div class="field">
+                <p class="field-label">自分に引いた線</p>
+                <p class="field-body">自分が長くやってきたのは、知識の<strong>構造化</strong>です。実習で得たことを Notion や Obsidian に入れ、リンクでつなぎ、あとから辿れる形にして残す。数学の全範囲を依存関係で組み直したのも、勉強できる場所を地図に集めたのも、同じ手つきでした。これは間違いなく自分の強みです。</p>
+                <p class="field-body">だからこそ、この本は都合が悪い。ノートが増えることと、自分が変わることは、まったく別だからです。整理された知識は<strong>持ちやすい</strong>。リンクが増え、構造が美しくなり、それを眺めて安心する。これは蓄積的性格の一番きれいな出方であって、勤勉さの顔をしています。「まだ整理が終わっていないから」と言って動かないとき、自分は在る様式から逃げている。</p>
+                <p class="field-body">結論として構造化をやめる、とはならないと思います。フロムの言う二つの様式は、道具ではなく<strong>関わり方</strong>の話だからです。同じ Obsidian でも、溜めるために開けば持つ様式、目の前の患者や生徒に対して何かが変わるために開けば在る様式になる。だから判定基準はひとつでいい。<strong>そのノートは、誰かとの関係を変えたか。</strong>変えていないなら、それはまだ所有物です。</p>
+              </div>
+            </li>
+
+          </ul>
+        </section>
+
+        <!-- ============ 次に読むもの ============ -->
+        <section class="sec" aria-labelledby="queueHeading">
+          <p class="sec-label">Queue · 03</p>
+          <h2 class="sec-title" id="queueHeading">次に読むもの</h2>
+          <p class="sec-p">読む前に「なぜこれなのか」を書いておくと、読み終えたときに答え合わせができます。ここが埋まっていない本は、まだ読む理由がない本です。</p>
+
+          <!-- ▼ 足すときは <li> をコピー。読み終えたら上の「読んだ本」に移す。 -->
+          <ul class="queue">
+            <li>エーリッヒ・フロム『自由からの逃走』
+              <span class="q-why">『生きるということ』で出てきた「社会全体が未成熟のまま正常とされている」という話の、もう一つの側面を見たい。</span>
+            </li>
+            <li>ヴィクトール・フランクル『夜と霧』
+              <span class="q-why">すべてを奪われてなお残るものがあるとしたら、それは持つ様式では説明がつかない。在る様式の極限として読めるはず。</span>
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============ 導線 ============ -->
+        <section class="sec">
+          <div class="divider">
+            <span class="divider-line"></span>
+            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true"><path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="15" cy="10" r="1.6" fill="currentColor"/><circle cx="9" cy="38" r="1.6" fill="currentColor"/></svg>
+            <span class="divider-line"></span>
+          </div>
+          <p class="sec-p">ここで取り出した概念を、自分の来歴に当てて読み直したものが人生マップです。</p>
+          <ul class="links">
+            <li><a class="btn" href="./life.html">
+              <span>人生マップへ</span>
+              <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a></li>
+            <li><a class="btn" href="https://note.com/jikotaiwa" target="_blank" rel="noopener noreferrer">
+              <span>noteを読む</span>
+              <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a></li>
+          </ul>
+        </section>
+
+      </main>
+    </div>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-signature">
+          <svg viewBox="0 0 24 56" aria-hidden="true">
+            <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+            <circle cx="15" cy="10" r="1.6" fill="currentColor"/><circle cx="9" cy="38" r="1.6" fill="currentColor"/>
+          </svg>
+        </div>
+        <p class="footer-note">Reading — 読書マップ</p>
+        <a class="backlink" href="./">← 井上凱斗 プロフィールに戻る</a>
+      </div>
+    </footer>
+  </div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ------------------------------------------------------------------
+     概念マップのデータ。
+     本を読んで概念が増えたら、CONCEPTS に一行足して、EDGES に線を足す。
+     x,y は viewBox 780x640 の中の座標（ノードの中心）。
+     ノードが窮屈になったら viewBox の高さと座標をまとめて広げる。
+     type: 'concept' = 本から取り出した概念（白） / 'self' = 自分の問い（黒）
+  ------------------------------------------------------------------ */
+  var CONCEPTS = [
+    { id:'reading',  label:'読書の二つの様式', x:150, y:60,  type:'concept', src:'生きるということ',
+      note:'情報を手に入れて終わる読み方と、著者と言い合った結果じぶんが変わる読み方。このページの構成そのものが、この区別から出ている。' },
+    { id:'have',     label:'持つ様式',        x:350, y:160, type:'concept', src:'生きるということ',
+      note:'自分が何者かを、所有物の合計で答える構え。知識も経験も「私のもの」として数えられ、失うことが自分の目減りに感じられる。' },
+    { id:'be',       label:'在る様式',        x:350, y:340, type:'concept', src:'生きるということ',
+      note:'所有ではなく活動のほうに自分がある構え。与えること、関わること、変わること。減るという概念が成り立たない。' },
+    { id:'hoard',    label:'蓄積的性格',      x:600, y:70,  type:'concept', src:'生きるということ',
+      note:'フロイトが肛門愛的性格と呼んだ型。溜め込み、几帳面さ、秩序、手放すことへの抵抗。フロムはこれを、持つ様式が人格にまで固まった姿として読む。' },
+    { id:'immature', label:'成熟していない性格', x:630, y:200, type:'concept', src:'生きるということ',
+      note:'フロイトは蓄積的性格を成熟に達しなかった人のものと見た。フロムは、産業社会ではその未成熟が多数派で、勤勉さの名で正常とされていると指摘する。' },
+    { id:'ascetic',  label:'禁欲',            x:590, y:330, type:'concept', src:'生きるということ',
+      note:'持たないことを選ぶ態度。だが「持たない」を誇りとして所有してしまえば、関心は所有に釘づけのままで、持つ様式からは出ていない。' },
+    { id:'messiah',  label:'メサイア・コンプレックス', x:420, y:500, type:'concept', src:'幸せになる勇気',
+      note:'他者を救うことによって自分が救われようとする構え。承認欲求の変奏として現れる。相手を「救われるべき側」に置いた瞬間、自分は相手の弱さを必要としはじめる。禁欲とまったく同じ形をした罠。' },
+    { id:'respect',  label:'尊敬',            x:645, y:450, type:'concept', src:'幸せになる勇気',
+      note:'相手を、自分の都合で変えるべき対象としてではなく、その人がその人であるままの姿で見ること。本書はこの定義をフロムから借りている。二冊がつながる結び目。' },
+    { id:'independ', label:'自立',            x:605, y:575, type:'concept', src:'幸せになる勇気',
+      note:'アドラー心理学における教育の目標。援助の良し悪しは手厚さではなく、相手が自分を必要としなくなる方向に働いたかで測られる。' },
+    { id:'past',     label:'過去を信じる',    x:330, y:620, type:'concept', src:'幸福と人生の意味の哲学',
+      note:'過去は変えられないが、過去の意味は現在が決めている。「価値がない」という判定は、過去の側で確定してはいない。アドラーの目的論と同じ方向を向き、フロムから見れば「判定を所有し続けるのをやめる」ことになる。' },
+    { id:'calc',     label:'自己評価の計算式', x:140, y:600, type:'self',    src:'自分の問い',
+      note:'浪人した年に採用した、自分の価値を持ち物の合計で計算する方式。進学校、所属、順位。比較対象が無限に供給されるので、どれだけ積んでも足りなさが終わらない。構造化を強化した動機の、半分はこれだった。' },
+    { id:'struct',   label:'構造化',          x:110, y:250, type:'self',    src:'自分の問い',
+      note:'知識をリンクでつなぎ、あとから辿れる形にして残すこと。自分の強みであり、同時に、いちばん美しい形をした蓄積でもある。' },
+    { id:'output',   label:'つくって出す',    x:120, y:470, type:'self',    src:'自分の問い',
+      note:'スタディスポットMAP、数学マップ、家庭教師。取らない側に立つ選択を何度もしている場所であり、だからこそメサイア・コンプレックスの検査対象になる。' }
+  ];
+
+  var EDGES = [
+    { a:'have',     b:'be',       kind:'pair' },
+    { a:'have',     b:'hoard'    },
+    { a:'hoard',    b:'immature' },
+    { a:'have',     b:'ascetic'  },
+    { a:'be',       b:'ascetic',  kind:'pair' },
+    { a:'reading',  b:'have'     },
+    { a:'reading',  b:'be'       },
+    { a:'reading',  b:'struct'   },
+    { a:'struct',   b:'have'     },
+    { a:'struct',   b:'hoard'    },
+    { a:'output',   b:'be'       },
+    { a:'struct',   b:'output'   },
+    { a:'messiah',  b:'have'     },
+    { a:'messiah',  b:'ascetic'  },
+    { a:'messiah',  b:'output'   },
+    { a:'respect',  b:'be'       },
+    { a:'respect',  b:'messiah',  kind:'pair' },
+    { a:'independ', b:'respect'  },
+    { a:'independ', b:'output'   },
+    { a:'calc',     b:'have',     kind:'pair' },
+    { a:'calc',     b:'hoard'    },
+    { a:'calc',     b:'struct'   },
+    { a:'calc',     b:'past'     },
+    { a:'past',     b:'be'       }
+  ];
+
+  var svg = document.getElementById('conceptMap');
+  if (!svg) return;
+  var NS = 'http://www.w3.org/2000/svg';
+  var byId = {};
+  CONCEPTS.forEach(function(c){ byId[c.id] = c; });
+
+  // 出典のうち「自分の問い」以外＝本の冊数。本を足せば自動で増える。
+  var bookCount = (function(){
+    var seen = {};
+    CONCEPTS.forEach(function(c){ if (c.src !== '自分の問い') seen[c.src] = true; });
+    return Object.keys(seen).length;
+  })();
+
+  var mdTerm = document.getElementById('mdTerm');
+  var mdSrc  = document.getElementById('mdSrc');
+  var mdNote = document.getElementById('mdNote');
+
+  var edgeEls = {};   // id -> [line, ...]
+  var nodeEls = {};   // id -> <g>
+  var neighbours = {};
+  CONCEPTS.forEach(function(c){ neighbours[c.id] = {}; edgeEls[c.id] = []; });
+
+  /* ---- edges first, so nodes paint on top ---- */
+  EDGES.forEach(function(e){
+    var A = byId[e.a], B = byId[e.b];
+    if (!A || !B) return;
+    var line = document.createElementNS(NS, 'line');
+    line.setAttribute('x1', A.x); line.setAttribute('y1', A.y);
+    line.setAttribute('x2', B.x); line.setAttribute('y2', B.y);
+    line.setAttribute('class', 'edge' + (e.kind === 'pair' ? ' pair' : ''));
+    svg.appendChild(line);
+    edgeEls[e.a].push(line);
+    edgeEls[e.b].push(line);
+    neighbours[e.a][e.b] = true;
+    neighbours[e.b][e.a] = true;
+  });
+
+  /* ---- nodes ---- */
+  var H = 34;
+  CONCEPTS.forEach(function(c){
+    var w = c.label.length * 14.5 + 26;
+    var g = document.createElementNS(NS, 'g');
+    g.setAttribute('class', 'node ' + (c.type === 'self' ? 'self' : ''));
+    g.setAttribute('tabindex', '0');
+    g.setAttribute('role', 'button');
+    g.setAttribute('aria-label', c.label + 'の解説を表示');
+
+    var rect = document.createElementNS(NS, 'rect');
+    rect.setAttribute('x', c.x - w / 2);
+    rect.setAttribute('y', c.y - H / 2);
+    rect.setAttribute('width', w);
+    rect.setAttribute('height', H);
+    g.appendChild(rect);
+
+    var text = document.createElementNS(NS, 'text');
+    text.setAttribute('x', c.x);
+    text.setAttribute('y', c.y + 1);
+    text.textContent = c.label;
+    g.appendChild(text);
+
+    svg.appendChild(g);
+    nodeEls[c.id] = g;
+
+    function pick(){ select(c.id); }
+    g.addEventListener('click', pick);
+    g.addEventListener('keydown', function(ev){
+      if (ev.key === 'Enter' || ev.key === ' ' || ev.key === 'Spacebar'){
+        ev.preventDefault(); pick();
+      }
+    });
+  });
+
+  var active = null;
+
+  function clearState(){
+    svg.classList.remove('has-active');
+    Object.keys(nodeEls).forEach(function(k){ nodeEls[k].classList.remove('is-on'); });
+    EDGES.forEach(function(){});
+    Array.prototype.forEach.call(svg.querySelectorAll('.edge'), function(l){ l.classList.remove('is-on'); });
+    active = null;
+    mdTerm.textContent = '概念を選んでください';
+    mdSrc.textContent  = CONCEPTS.length + ' concepts · ' + bookCount + (bookCount === 1 ? ' book' : ' books');
+    mdNote.textContent = '白いノードは本から取り出した概念、黒いノードは自分がいま抱えている問いです。線は「その概念が、この問いに触ってくる」という関係を表しています。';
+  }
+
+  function select(id){
+    if (active === id){ clearState(); return; }
+    clearState();
+    active = id;
+    var c = byId[id];
+
+    svg.classList.add('has-active');
+    nodeEls[id].classList.add('is-on');
+    Object.keys(neighbours[id]).forEach(function(n){
+      if (nodeEls[n]) nodeEls[n].classList.add('is-on');
+    });
+    edgeEls[id].forEach(function(l){ l.classList.add('is-on'); });
+
+    mdTerm.textContent = c.label;
+    mdSrc.textContent  = c.src;
+    mdNote.textContent = c.note;
+  }
+
+  /* ---- 本のチップから概念に飛ぶ ---- */
+  Array.prototype.forEach.call(document.querySelectorAll('.chip'), function(btn){
+    btn.addEventListener('click', function(){
+      var id = btn.dataset.node;
+      if (!byId[id]) return;
+      if (active !== id) select(id);
+      document.getElementById('conceptMap').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  });
+
+  /* ---- 背景クリックで解除 ---- */
+  svg.addEventListener('click', function(ev){
+    if (ev.target === svg) clearState();
+  });
+  document.addEventListener('keydown', function(ev){
+    if (ev.key === 'Escape' && active) clearState();
+  });
+
+  clearState();
+})();
+</script>
+
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

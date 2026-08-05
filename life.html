@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>人生マップ・自己理解 | 井上凱斗</title>
+<meta name="description" content="井上凱斗の人生マップ。医学・音楽・執筆・教育・ものづくりに共通する「構造化」という一本の線をたどりながら、フロム『生きるということ』の枠組みで自分を読み直す自己理解のページ。">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/life.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="人生マップ・自己理解 | 井上凱斗">
+<meta property="og:description" content="医学・音楽・執筆・教育に共通する一本の線をたどり、フロムの枠組みで自分を読み直す。">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/life.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/ogp.png">
+<meta property="og:image:alt" content="井上凱斗（いのうえ かいと）— 自治医科大学 医学部">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="./favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #ffffff;
+    --ink: #121212;
+    --ink-soft: #3a3a3a;
+    --ink-faint: #8f8f8f;
+    --line-faint: rgba(18,18,18,0.14);
+    --serif: 'Shippori Mincho', serif;
+    --sans: 'Zen Kaku Gothic New', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+    --gap: clamp(48px, 9vh, 96px);
+    --side: clamp(24px, 7vw, 64px);
+    --measure: 700px;
+  }
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink-soft);
+    font-family: var(--sans);
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  ::selection{ background: var(--ink); color: #fff; }
+
+  /* ---------- corner marks ---------- */
+  .corner-marks{ position: fixed; inset: 0; z-index: 3; pointer-events: none; }
+  .corner{
+    position: absolute; width: 18px; height: 18px;
+    border: 1px solid var(--ink); opacity: 0.28;
+  }
+  .corner.tl{ top: 18px; left: 18px; border-right: none; border-bottom: none; }
+  .corner.tr{ top: 18px; right: 18px; border-left: none; border-bottom: none; }
+  .corner.bl{ bottom: 18px; left: 18px; border-right: none; border-top: none; }
+  .corner.br{ bottom: 18px; right: 18px; border-left: none; border-top: none; }
+
+  /* ---------- layout ---------- */
+  .page{ position: relative; z-index: 1; }
+  .container{ max-width: var(--measure); margin: 0 auto; padding: 0 var(--side); }
+  .hero{ padding-top: clamp(72px, 14vh, 148px); padding-bottom: var(--gap); }
+  .eyebrow{
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.22em;
+    color: var(--ink-faint); text-transform: uppercase; margin: 0 0 28px;
+  }
+  .name{
+    font-family: var(--serif); font-weight: 600; color: var(--ink);
+    font-size: clamp(32px, 6vw, 54px); line-height: 1.3; margin: 0; letter-spacing: 0.04em;
+  }
+  .name-en{
+    display: block; font-family: var(--mono); font-weight: 400; font-size: 12.5px;
+    letter-spacing: 0.3em; color: var(--ink-faint); margin-top: 14px;
+  }
+  .tagline{
+    font-size: 16.5px; line-height: 2; color: var(--ink-soft);
+    max-width: 42ch; margin: 32px 0 0;
+  }
+
+  /* ---------- hero illustration: a single line finding its way ---------- */
+  .thread{ display: block; width: min(340px, 74vw); height: auto; margin: 44px 0 0; overflow: visible; }
+  .thread path{
+    fill: none; stroke: var(--ink); stroke-width: 1.4; stroke-linecap: round;
+    stroke-dasharray: 620; stroke-dashoffset: 620;
+    animation: draw 3.2s cubic-bezier(0.4,0,0.2,1) forwards;
+  }
+  .thread circle{ fill: var(--ink); opacity: 0; animation: dot 0.5s ease forwards; }
+  @keyframes draw{ to{ stroke-dashoffset: 0; } }
+  @keyframes dot{ to{ opacity: 0.85; } }
+  @media (prefers-reduced-motion: reduce){
+    .thread path{ animation: none; stroke-dashoffset: 0; }
+    .thread circle{ animation: none; opacity: 0.85; }
+  }
+
+  /* ---------- divider ---------- */
+  .divider{ display: flex; align-items: center; gap: 14px; margin: 0 0 26px; }
+  .divider-line{ flex: 1; height: 1px; background: var(--line-faint); }
+  .fhole{ flex-shrink: 0; color: var(--ink); opacity: 0.5; width: 11px; height: 26px; }
+  .divider--major{ margin: 0 0 var(--gap); }
+  .divider--major .fhole{ width: 16px; height: 38px; opacity: 0.75; }
+
+  /* ---------- sections ---------- */
+  .stack{ padding-bottom: var(--gap); }
+  .sec{ padding-top: var(--gap); }
+  .sec-label{
+    font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.2em;
+    color: var(--ink-faint); text-transform: uppercase; margin: 0 0 12px;
+  }
+  .sec-title{
+    font-family: var(--serif); font-weight: 600; color: var(--ink);
+    font-size: clamp(21px, 3.2vw, 27px); margin: 0 0 22px; letter-spacing: 0.03em; line-height: 1.55;
+  }
+  .sec-p{ font-size: 15.5px; line-height: 2.05; color: var(--ink-soft); margin: 0 0 18px; max-width: 54ch; }
+  .sec-p strong{ color: var(--ink); font-weight: 500; }
+  .sec-note{
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.12em;
+    color: var(--ink-faint); margin: 0 0 26px;
+  }
+
+  /* ---------- radial map ---------- */
+  /* breaks out of the 700px measure so the radial map gets room on wide screens */
+  .map-wrap{
+    position: relative;
+    width: min(94vw, 920px);
+    margin: 26px 0 0 50%;
+    transform: translateX(-50%);
+    overflow-x: auto; -webkit-overflow-scrolling: touch;
+    border-top: 1px solid var(--line-faint); border-bottom: 1px solid var(--line-faint);
+    padding: 12px 0;
+  }
+  .rmap{ display: block; width: 100%; min-width: 620px; height: auto; }
+  .rmap .spoke{ stroke: var(--ink); stroke-width: 1; opacity: 0.22; }
+  .rmap .ring{ fill: none; stroke: var(--ink); stroke-width: 1; opacity: 0.08; }
+  .rmap rect{ fill: #fff; stroke: var(--ink); stroke-width: 1; }
+  .rmap .core rect{ fill: var(--ink); }
+  .rmap text{
+    font-family: var(--sans); font-size: 14px; fill: var(--ink);
+    text-anchor: middle; dominant-baseline: central;
+  }
+  .rmap .core text{ fill: #fff; font-weight: 500; }
+  .rmap .cap{
+    font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.14em;
+    fill: var(--ink-faint);
+  }
+
+  /* ---------- domain list ---------- */
+  .domains{ list-style: none; padding: 0; margin: 30px 0 0; }
+  .domain{
+    display: grid; grid-template-columns: 92px 1fr; gap: 4px 20px;
+    padding: 22px 0; border-bottom: 1px solid var(--line-faint);
+  }
+  .domain:first-child{ border-top: 1px solid var(--line-faint); }
+  .domain-key{
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.16em;
+    color: var(--ink-faint); text-transform: uppercase; padding-top: 5px;
+  }
+  .domain-body{ font-size: 15px; line-height: 2; color: var(--ink-soft); margin: 0; max-width: 50ch; }
+  .domain-body strong{ color: var(--ink); font-weight: 500; }
+  @media (max-width: 560px){
+    .domain{ grid-template-columns: 1fr; gap: 8px; }
+    .domain-key{ padding-top: 0; }
+  }
+
+  /* ---------- lenses (自己理解) ---------- */
+  .lens-list{ list-style: none; padding: 0; margin: 0; }
+  .lens{ padding: 34px 0; border-bottom: 1px solid var(--line-faint); }
+  .lens:first-child{ border-top: 1px solid var(--line-faint); }
+  .lens-num{
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em;
+    color: var(--ink-faint); margin: 0 0 10px;
+  }
+  .lens-term{
+    font-family: var(--serif); font-weight: 600; color: var(--ink);
+    font-size: clamp(18px, 2.5vw, 22px); margin: 0; letter-spacing: 0.02em; line-height: 1.55;
+  }
+  .lens-row{ margin: 22px 0 0; }
+  .lens-label{
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em;
+    color: var(--ink-faint); text-transform: uppercase; margin: 0 0 8px;
+  }
+  .lens-text{ font-size: 15px; line-height: 2.05; color: var(--ink-soft); margin: 0; max-width: 52ch; }
+  .lens-text strong{ color: var(--ink); font-weight: 500; }
+  .lens-q{
+    font-family: var(--serif); color: var(--ink); font-size: 16.5px; line-height: 1.95;
+    margin: 0; border-left: 1px solid var(--ink); padding-left: 20px; max-width: 46ch;
+  }
+
+  /* ---------- origin：自己評価の「計算式」を台帳として見せる ---------- */
+  .calc{
+    list-style: none; padding: 0; margin: 26px 0 0;
+    border-top: 1px solid var(--line-faint); max-width: 52ch;
+  }
+  .calc-row{
+    display: flex; align-items: baseline; gap: 18px;
+    padding: 15px 2px; border-bottom: 1px solid var(--line-faint);
+  }
+  .calc-item{ font-size: 14.5px; line-height: 1.85; color: var(--ink-soft); flex: 1; margin: 0; }
+  .calc-verdict{
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.14em;
+    color: var(--ink-faint); white-space: nowrap; margin: 0;
+  }
+  .calc-sum{
+    display: flex; align-items: baseline; gap: 18px;
+    padding: 20px 2px 0; border-bottom: none;
+  }
+  .calc-sum .calc-item{
+    font-family: var(--serif); color: var(--ink); font-size: 16px; font-weight: 600;
+  }
+  .calc-sum .calc-verdict{ color: var(--ink); }
+  @media (max-width: 480px){
+    .calc-row, .calc-sum{ flex-direction: column; gap: 6px; }
+  }
+
+  /* ---------- timeline ---------- */
+  .tl{ list-style: none; padding: 0; margin: 26px 0 0; }
+  .tl-item{
+    position: relative; padding: 0 0 40px 34px; border-left: 1px solid var(--line-faint);
+  }
+  .tl-item:last-child{ border-left-color: transparent; padding-bottom: 0; }
+  .tl-item::before{
+    content: ''; position: absolute; left: -4.5px; top: 7px;
+    width: 8px; height: 8px; background: #fff;
+    border: 1px solid var(--ink); border-radius: 50%;
+  }
+  .tl-item.is-now::before{ background: var(--ink); }
+  .tl-when{
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.16em;
+    color: var(--ink-faint); text-transform: uppercase; margin: 0;
+  }
+  .tl-head{
+    font-family: var(--serif); font-weight: 600; color: var(--ink);
+    font-size: 18px; margin: 8px 0 0; letter-spacing: 0.02em; line-height: 1.6;
+  }
+  .tl-body{ font-size: 14.5px; line-height: 2; color: var(--ink-soft); margin: 11px 0 0; max-width: 50ch; }
+  .tl-body strong{ color: var(--ink); font-weight: 500; }
+  .tl-thread{
+    display: inline-block; margin: 12px 0 0;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em;
+    color: var(--ink-faint); border: 1px solid var(--line-faint); padding: 5px 10px;
+  }
+
+  /* ---------- links ---------- */
+  .links{ list-style: none; padding: 0; margin: 30px 0 0; display: flex; flex-wrap: wrap; gap: 12px; }
+  .btn{
+    display: inline-flex; align-items: center; gap: 9px;
+    border: 1px solid var(--ink); color: var(--ink); background: transparent;
+    padding: 11px 18px; text-decoration: none;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+    transition: background 0.35s ease, color 0.35s ease, transform 0.2s ease;
+  }
+  .btn:hover{ background: var(--ink); color: #fff; transform: translateY(-2px); }
+  .btn:active{ transform: translateY(0); }
+  .btn:focus-visible{ outline: 2px solid var(--ink); outline-offset: 3px; }
+  .action-icon{ width: 13px; height: 13px; flex-shrink: 0; }
+  .action-icon path{ stroke: currentColor; fill: none; }
+
+  /* ---------- footer ---------- */
+  .footer{ padding-bottom: clamp(64px, 12vh, 120px); padding-top: var(--gap); }
+  .footer-signature{ display: flex; justify-content: center; margin-bottom: 28px; opacity: 0.5; }
+  .footer-signature svg{ width: 22px; height: 52px; color: var(--ink); }
+  .footer-note{
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em;
+    color: var(--ink-faint); text-align: center; text-transform: uppercase; margin: 0;
+  }
+  .backlink{
+    display: block; text-align: center; margin-top: 26px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em;
+    color: var(--ink-faint); text-decoration: none; text-transform: uppercase;
+  }
+  .backlink:hover{ color: var(--ink); }
+
+  @media (max-width: 640px){ .corner{ width: 12px; height: 12px; } }
+</style>
+</head>
+<body>
+
+  <div class="corner-marks">
+    <span class="corner tl"></span><span class="corner tr"></span>
+    <span class="corner bl"></span><span class="corner br"></span>
+  </div>
+
+  <div class="page">
+    <div class="container">
+      <header class="hero">
+        <p class="eyebrow">Life — 人生マップ・自己理解</p>
+        <h1 class="name">同じことを、違う場所で<span class="name-en">LIFE MAP</span></h1>
+        <p class="tagline">医学、低音、文章、教えること、つくること。並べると散らかって見えますが、やっていることは毎回ほとんど同じでした。ここでは、その一本を引き出して、都合の悪いところまで含めて見ています。</p>
+
+        <svg class="thread" viewBox="0 0 340 110" aria-hidden="true" focusable="false">
+          <path d="M8 88 C 52 88, 58 24, 96 24 S 140 82, 176 82 S 220 18, 258 30 S 310 76, 332 44"/>
+          <circle cx="8"   cy="88" r="3.5" style="animation-delay:0.2s"/>
+          <circle cx="96"  cy="24" r="3.5" style="animation-delay:1.0s"/>
+          <circle cx="176" cy="82" r="3.5" style="animation-delay:1.7s"/>
+          <circle cx="258" cy="30" r="3.5" style="animation-delay:2.4s"/>
+          <circle cx="332" cy="44" r="5"   style="animation-delay:3.1s"/>
+        </svg>
+      </header>
+
+      <div class="divider divider--major">
+        <span class="divider-line"></span>
+        <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
+          <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+          <circle cx="15" cy="10" r="1.6" fill="currentColor"/><circle cx="9" cy="38" r="1.6" fill="currentColor"/>
+        </svg>
+        <span class="divider-line"></span>
+      </div>
+    </div>
+
+    <div class="container">
+      <main class="stack">
+
+        <!-- ============ 通底する一本 ============ -->
+        <section class="sec" aria-labelledby="coreHeading">
+          <p class="sec-label">Core · 01</p>
+          <h2 class="sec-title" id="coreHeading">通底している一本</h2>
+          <p class="sec-p">中心にあるのは<strong>構造化</strong>です。表に見えている出来事を、その下で何がどう噛み合ってそうなっているかに分解し、ばらばらのものを結び直して、あとから辿れる形にする。この手つきが、分野を変えても同じまま出てきます。</p>
+
+          <div class="map-wrap">
+            <svg class="rmap" viewBox="0 0 760 460" role="img" aria-labelledby="rmapTitle">
+              <title id="rmapTitle">「構造化」を中心に、医学・音楽・執筆・教育・ものづくりが放射状につながるマップ</title>
+
+              <circle class="ring" cx="380" cy="230" r="165"/>
+
+              <line class="spoke" x1="380" y1="230" x2="380" y2="65"/>
+              <line class="spoke" x1="380" y1="230" x2="537" y2="179"/>
+              <line class="spoke" x1="380" y1="230" x2="477" y2="363"/>
+              <line class="spoke" x1="380" y1="230" x2="283" y2="363"/>
+              <line class="spoke" x1="380" y1="230" x2="223" y2="179"/>
+
+              <g class="node">
+                <rect x="330" y="48" width="100" height="34"/>
+                <text x="380" y="66">医学</text>
+                <text class="cap" x="380" y="24">STRUCTURE THE BODY</text>
+              </g>
+
+              <g class="node">
+                <rect x="487" y="162" width="100" height="34"/>
+                <text x="537" y="180">音楽</text>
+                <text class="cap" x="537" y="140">HOLD THE BOTTOM</text>
+              </g>
+
+              <g class="node">
+                <rect x="427" y="346" width="100" height="34"/>
+                <text x="477" y="364">執筆</text>
+                <text class="cap" x="477" y="402">TAKE IT APART</text>
+              </g>
+
+              <g class="node">
+                <rect x="233" y="346" width="100" height="34"/>
+                <text x="283" y="364">教育</text>
+                <text class="cap" x="283" y="402">HAND IT OVER</text>
+              </g>
+
+              <g class="node">
+                <rect x="173" y="162" width="100" height="34"/>
+                <text x="223" y="180">つくる</text>
+                <text class="cap" x="223" y="140">MAKE WHAT I WANTED</text>
+              </g>
+
+              <g class="core">
+                <rect x="308" y="211" width="144" height="38"/>
+                <text x="380" y="230">構造化</text>
+              </g>
+            </svg>
+          </div>
+
+          <ul class="domains">
+            <li class="domain">
+              <span class="domain-key">医学</span>
+              <p class="domain-body">実習と演習で得たことは、そのままでは断片のまま流れていく。<strong>Notion と Obsidian</strong> に入れて互いに結び直し、あとから辿れるネットワークとして残している。</p>
+            </li>
+            <li class="domain">
+              <span class="domain-key">音楽</span>
+              <p class="domain-body">ベースとコントラバス。低音は目立たないが、和音の土台を決め、曲全体の輪郭を静かに決定づける。<strong>表に出る側ではなく、下で支えている構造の側</strong>を選んだ、最初の選択だったと思う。</p>
+            </li>
+            <li class="domain">
+              <span class="domain-key">執筆</span>
+              <p class="domain-body">note に書いているのは、新NISAと円安、政局の力学、所属する吹奏楽団の観察記。題材はばらばらだが、<strong>表面の下で何がどう噛み合ったのか</strong>を分解しようとする点で一貫している。</p>
+            </li>
+            <li class="domain">
+              <span class="domain-key">教育</span>
+              <p class="domain-body">個人契約の家庭教師。教えているのは答えではなく、<strong>知識のつなぎ方そのもの</strong>。自分が使っている構造化を、相手の側で動くように渡し直す作業になっている。</p>
+            </li>
+            <li class="domain">
+              <span class="domain-key">つくる</span>
+              <p class="domain-body">無料で勉強できる場所を集めた<strong>スタディスポットMAP</strong>、数学の全範囲を依存関係で組み直した<strong>東大理三 数学マップ</strong>。頭の中の構造を、他人が使える形にして外に出したもの。</p>
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============ 自己理解：五つのレンズ ============ -->
+        <section class="sec" aria-labelledby="lensHeading">
+          <p class="sec-label">Self · 02</p>
+          <h2 class="sec-title" id="lensHeading">五つのレンズで自分を見る</h2>
+          <p class="sec-p">自己理解は、長所を数え上げても進みません。効くのは、<strong>自分のやり方に反対してくる枠組み</strong>を借りてきて、そこに自分を通してみることです。ここではエーリッヒ・フロム『生きるということ』から四つ、岸見一郎・古賀史健『幸せになる勇気』から一つ借りています。</p>
+          <p class="sec-note">答えは現時点のもの。読み返すたびに書き換える前提で置いています。</p>
+
+          <ul class="lens-list">
+
+            <li class="lens">
+              <p class="lens-num">Lens 01</p>
+              <h3 class="lens-term">持つ様式 / 在る様式</h3>
+
+              <div class="lens-row">
+                <p class="lens-label">フロムの言っていること</p>
+                <p class="lens-text">人の生き方には二つの様式がある。<strong>持つ様式</strong>では、自分が何者かは所有物で決まる。財産、地位、知識、信念までが「私のもの」として数えられ、失うことは自分が減ることになる。<strong>在る様式</strong>では、自分は所有ではなく活動のほうにある。与えること、関わること、変わっていくこと。そこでは減るという概念が成り立たない。</p>
+              </div>
+
+              <div class="lens-row">
+                <p class="lens-label">自分に当てる問い</p>
+                <p class="lens-q">自分の強みを説明するとき、持っているもので答えているか、していることで答えているか。</p>
+              </div>
+
+              <div class="lens-row">
+                <p class="lens-label">いまの答え</p>
+                <p class="lens-text">正直に言えば、前者に寄っている。構造化されたノート、整理された知識、公開したもの。どれも数えられるし、増える。増えると安心する。これは持つ様式の感触そのもので、<strong>安心が来た時点で在る様式ではない</strong>ということになる。</p>
+              </div>
+            </li>
+
+            <li class="lens">
+              <p class="lens-num">Lens 02</p>
+              <h3 class="lens-term">蓄積的性格（肛門愛的性格）</h3>
+
+              <div class="lens-row">
+                <p class="lens-label">フロムの言っていること</p>
+                <p class="lens-text">フロイトが<strong>肛門愛的性格</strong>と呼んだ型がある。溜め込み、几帳面さ、秩序への執着、手放すことへの抵抗。フロムはこれを、持つ様式が一時の態度を超えて<strong>人格にまで固まった姿</strong>として読み直す。</p>
+              </div>
+
+              <div class="lens-row">
+                <p class="lens-label">自分に当てる問い</p>
+                <p class="lens-q">整理していると言うとき、それは前に進む準備なのか、進まなくていい理由なのか。</p>
+              </div>
+
+              <div class="lens-row">
+                <p class="lens-label">いまの答え</p>
+                <p class="lens-text">構造化は自分の強みであり、同時に<strong>いちばんきれいな形をした蓄積</strong>でもある。リンクが増え、体系が整い、それを眺めて満足する時間は、勤勉さの顔をしている。「まだ整理が終わっていないから」と言って動かないとき、自分はこの性格のほうに落ちている。判定は難しくない。<strong>その整理は、誰かとの関係を実際に変えたか</strong>。変えていないなら、それはまだ所有物だ。</p>
+              </div>
+            </li>
+
+            <li class="lens">
+              <p class="lens-num">Lens 03</p>
+              <h3 class="lens-term">成熟に達していない性格</h3>
+
+              <div class="lens-row">
+                <p class="lens-label">フロムの言っていること</p>
+                <p class="lens-text">フロイトは蓄積的な性格を、<strong>成熟に達しなかった人の性格</strong>と見た。フロムはそこにもう一段重ねる。産業社会では、その未成熟がむしろ多数派であり、堅実さや勤勉さという名前をもらって<strong>「正常」として通用している</strong>、と。つまり、周囲と足並みが揃っていることは、成熟していることの証明にはならない。</p>
+              </div>
+
+              <div class="lens-row">
+                <p class="lens-label">自分に当てる問い</p>
+                <p class="lens-q">これは自分が選んだ生き方か。それとも、そうしていれば褒められる生き方か。</p>
+              </div>
+
+              <div class="lens-row">
+                <p class="lens-label">いまの答え</p>
+                <p class="lens-text">積み上げること、評価を上げること、ちゃんとしていること。これらは環境の中でほぼ無条件に評価される。評価されるがゆえに、自分がそれを望んでいるのかを検証しないまま続けられる。この問いは、いま出せる答えより、<strong>定期的に問い直す仕組みのほう</strong>が大事だと思っている。</p>
+              </div>
+            </li>
+
+            <li class="lens">
+              <p class="lens-num">Lens 04</p>
+              <h3 class="lens-term">禁欲</h3>
+
+              <div class="lens-row">
+                <p class="lens-label">フロムの言っていること</p>
+                <p class="lens-text">持たないことを選ぶ人は、一見すると持つ様式の外にいる。だがフロムは、所有を強く禁じる態度の裏に、<strong>抑圧された所有欲</strong>が張りついている場合があると指摘する。「持たない」ことを誇りとして所有してしまえば、関心は依然として所有に釘づけで、様式としては何も変わっていない。</p>
+              </div>
+
+              <div class="lens-row">
+                <p class="lens-label">自分に当てる問い</p>
+                <p class="lens-q">何かを我慢しているとき、自分は自由になっているのか、我慢していること自体を誇っているのか。</p>
+              </div>
+
+              <div class="lens-row">
+                <p class="lens-label">いまの答え</p>
+                <p class="lens-text">ここがいちばん効いた。持つ様式は、<strong>否定した程度では抜け出せない</strong>という指摘だから。ストイックさも、削ぎ落とすことも、それを自分の看板にした瞬間に新しい所有物になる。抜け道はひとつしかなくて、持つ／持たないの軸から降りて、活動そのものの側に立つこと。理屈では分かるが、実行はまだできていない。</p>
+              </div>
+            </li>
+
+            <li class="lens">
+              <p class="lens-num">Lens 05</p>
+              <h3 class="lens-term">メサイア・コンプレックス</h3>
+
+              <div class="lens-row">
+                <p class="lens-label">本の言っていること</p>
+                <p class="lens-text">岸見一郎・古賀史健『幸せになる勇気』から。<strong>他者を救うことによって、自分が救われようとする構え</strong>のこと。本書はこれを承認欲求の変奏として扱う。厄介なのは、これが善行の顔で現れることだ。相手を対等な存在ではなく「救われるべき側」に置いた瞬間、自分は<strong>相手の弱さを必要としはじめる</strong>。アドラー心理学において教育の目標は自立なので、これは目標と正面から逆を向く。</p>
+              </div>
+
+              <div class="lens-row">
+                <p class="lens-label">自分に当てる問い</p>
+                <p class="lens-q">相手が自分を必要としなくなったとき、嬉しいか、寂しいか。</p>
+              </div>
+
+              <div class="lens-row">
+                <p class="lens-label">いまの答え</p>
+                <p class="lens-text">読んで最初に思ったのは、自分はこれではないか、ということだった。無料の勉強場所の地図、無料の数学マップ、家庭教師。<strong>取らない側に立つ選択</strong>を、何度もしている。</p>
+                <p class="lens-text">ただ、行為の側からは判定できない。同じ「取らない」が、貢献感からも救世主願望からも出てくるからだ。分かれ目は一点しかない。生徒が自分なしで解けるようになった瞬間に、何を感じるか。<strong>寂しさが勝つなら、援助ではなく関係のほうが目的になっている。</strong></p>
+                <p class="lens-text">そしてこれは、レンズ04の禁欲とまったく同じ形をしている。取らないことを看板にした瞬間、それは新しい所有物になる。「持たない」を誇りとして所有するのと、「救う側にいる」を誇りとして所有するのは、同じ構造だ。<strong>だから診断名を貼って終わらせない。</strong>アドラーは原因論ではなく目的論なので、問いはこう立てるほうがいい。いま自分は、何の目的で、この助け方を選んでいるのか。</p>
+              </div>
+            </li>
+
+          </ul>
+        </section>
+
+        <!-- ============ 自己評価の出自 ============ -->
+        <section class="sec" aria-labelledby="originHeading">
+          <p class="sec-label">Origin · 03</p>
+          <h2 class="sec-title" id="originHeading">その一本は、どこから生えたか</h2>
+          <p class="sec-p">ここまで「構造化が通底している」と書いてきました。ただ、それが<strong>どこから生えたもの</strong>なのかを書かなければ、この地図は半分です。以下は、あまり格好のつかない側です。</p>
+
+          <div class="lens-row">
+            <p class="lens-label">育った場所</p>
+            <p class="lens-text">長崎の口之津という港町で育ちました。勉強する場所に<strong>軸がなかった</strong>と思います。家は扉が薄くて、向こうから祖母と犬が言い合っている声が聞こえてくる。図書館は読書のための場所に寄っていて、夜は早く閉まる。環境をうまく整えられていた記憶がありません。</p>
+            <p class="lens-text" style="margin-top:18px;">見えていた職業は、医者か、弁護士か、公務員か。<strong>その三つでした。</strong>早稲田や慶應に行って企業に入るような道は、選択肢として視界に入っていなかった。</p>
+            <p class="lens-text" style="margin-top:18px;">後になって自分の「視野が狭かった」と書きましたが、これは正確ではありません。<strong>性格の話ではなく、供給されていた情報が三つだった、というだけです。</strong>狭い視野を持っていたのではなく、狭い範囲しか見えない場所にいた。ここは区別しておきます。</p>
+            <p class="lens-text" style="margin-top:18px;">勉強できる場所の地図を作ったのは、そこから来ているのかもしれません。ただ正直に書くと、<strong>動機はもっと単純でもあります。</strong>大学にいても、場所を変えないと勉強のリズムが保てない。移動先が欲しかった。<strong>きれいな因果になっていないほうを、残しておきます。</strong></p>
+          </div>
+
+          <div class="lens-row">
+            <p class="lens-label">医者を選んだ理由</p>
+            <p class="lens-text">口之津で、医者といえば植木内科でした。<strong>身近に見えていた医者は、ほぼその一人です。</strong>三択の「医者」という選択肢の中身も、ひとつのモデルから来ていました。</p>
+            <p class="lens-text" style="margin-top:18px;">医学部を目指した理由は、三つあります。<strong>親戚の期待。兄の進路。そして自分が気胸になった経験。</strong></p>
+            <p class="lens-text" style="margin-top:18px;">正直に分解すると、三つのうち二つは他人の側から来ています。期待に応えること、兄と比べること。期待されること自体は悪いことではありません。ただ<strong>それを自分の価値の計算式に入れると、応え続けないと価値が減る構造</strong>になります。承認が外から供給されるものとして最初から組み込まれていた理由は、たぶんここです。</p>
+            <p class="lens-text" style="margin-top:18px;">残る一つ、気胸だけが、自分の身体で起きたことでした。<strong>この選択を自分のものとして引き受け直せるとしたら、根拠になるのはここだと思っています。</strong></p>
+          </div>
+
+          <div class="lens-row">
+            <p class="lens-label">起点</p>
+            <p class="lens-text">浪人した年、自分は<strong>生きている価値のない人間だ</strong>と判定して、這い上がらなければならないと思いました。いま振り返って見えるのは、視野が狭かったということより、<strong>その判定がどう計算されたか</strong>のほうです。「価値がない」という結論は、単独では出てきません。かならず何かと比べて出ています。</p>
+          </div>
+
+          <div class="lens-row">
+            <p class="lens-label">大学に入っても、その計算は続いた</p>
+            <ul class="calc">
+              <li class="calc-row">
+                <p class="calc-item">他の学生は進学校を出ている</p>
+                <p class="calc-verdict">自分にはない</p>
+              </li>
+              <li class="calc-row">
+                <p class="calc-item">大きな組織に属してきた経験がある</p>
+                <p class="calc-verdict">自分にはない</p>
+              </li>
+              <li class="calc-row">
+                <p class="calc-item">部活に時間を取られ、勉強のリズム</p>
+                <p class="calc-verdict">作れていない</p>
+              </li>
+              <li class="calc-sum">
+                <p class="calc-item">自分には、ない</p>
+                <p class="calc-verdict">= 生きている価値がない</p>
+              </li>
+            </ul>
+          </div>
+
+          <div class="lens-row">
+            <p class="lens-label">この計算式には、名前がついていた</p>
+            <p class="lens-text">レンズ01でフロムから借りた言葉が、そのまま当てはまります。<strong>持つ様式</strong>。自分が何者かを、所有物の合計で答える構え。</p>
+            <p class="lens-text" style="margin-top:18px;">つまりこういうことでした。<strong>自己肯定感が低いのではなく、自分の価値を所有物の合計で計算する方式を使っている。</strong>気分の問題ではなく、計算方式の問題です。</p>
+            <p class="lens-text" style="margin-top:18px;">そしてこの方式には、致命的な性質があります。<strong>比較対象が無限に供給される。</strong>進学校、所属、順位、その次、その次。上に行っても、上には誰かがいる。だから足りなさは終わりません。量が足りないからではなく、<strong>そう計算しているから</strong>です。</p>
+          </div>
+
+          <div class="lens-row">
+            <p class="lens-label">「這い上がる」は、解決策ではなかった</p>
+            <p class="lens-q">持ち物を増やせば価値が回復する、という前提が、変わっていない。</p>
+            <p class="lens-text" style="margin-top:20px;">這い上がらなければならない、という発想は、この計算式の<strong>外に出ていません</strong>。順位が上がっても、順位で測っていることは変わらない。どれだけ積んでも足りなさが消えなかった理由は、たぶんこれです。</p>
+          </div>
+
+          <div class="lens-row">
+            <p class="lens-label">構造化の出自</p>
+            <p class="lens-text">ここは正直に書きます。このページの中心に置いた<strong>構造化には、這い上がるための手段として強化された部分があります。</strong>Obsidian に記録するのは必要でもあったけれど、同時に、足りなさを埋める作業でもありました。日々やるしかない、と思っていたときの「やるしかない」は、たぶん半分は焦りでした。</p>
+            <p class="lens-text" style="margin-top:18px;">だから<strong>レンズ02（蓄積的性格）は、他人事ではありませんでした。</strong>溜め込むこと自体が目的になっている状態を、フロムは成熟に達していないと呼びます。自分がそこにいたと認めるほうが、話は早い。</p>
+          </div>
+
+          <div class="lens-row">
+            <p class="lens-label">出口</p>
+            <p class="lens-text">在る様式へのシフトは、読書の感想ではありません。<strong>この計算式から出る、唯一の出口として選んでいます。</strong>所有ではなく活動のほうに自分を置けば、<strong>比較する対象が消える</strong>からです。誰かの持ち物と自分の持ち物を並べる作業が、そもそも成立しなくなる。</p>
+            <p class="lens-text" style="margin-top:18px;">まだ完了していません。今日も、足りないものの側から数えはじめている場面があります。</p>
+          </div>
+
+          <div class="lens-row">
+            <p class="lens-label">過去を信じる</p>
+            <p class="lens-text">山口尚『幸福と人生の意味の哲学』から受け取ったのは、<strong>過去を信じることが幸せの道である</strong>、という一点でした。</p>
+            <p class="lens-text" style="margin-top:18px;">過去は変えられません。でも<strong>過去の意味は、現在が決めています。</strong>浪人の一年が「価値がない証拠」なのか「這い上がる力を得た時間」なのかは、過去の側では決まっていない。決めているのは、いまの自分です。</p>
+            <p class="lens-text" style="margin-top:18px;">これはアドラーの目的論ともつながります。過去が現在を決めているのではない。<strong>いまの自分が、過去にどの意味を持たせるかを選んでいる。</strong></p>
+            <p class="lens-text" style="margin-top:18px;">実例が二つあります。ひとつは選択肢の数です。口之津で見えていた職業は三つで、それを長いあいだ「狭かった」と数えていました。でも、手に職をつけることの意味が変わりつつある時代から見ると、あの狭さは違う意味を持ちはじめています。<strong>事実は変わっていません。変わったのは、どこから見ているかです。</strong></p>
+            <p class="lens-text" style="margin-top:18px;">もうひとつは進んだ場所です。<strong>自治医科大学は、医師の少ない地域に医師を送るために設計された大学です。</strong>身近に見えていた医者がほぼ一人だった町から出てきて、そういう町に医者を送る大学に入っている。意図してそうなったわけではありません。動機は親戚の期待と兄の進路と気胸で、地域医療への使命ではなかった。<strong>それでも、線は通ってしまっている。</strong></p>
+            <p class="lens-q" style="margin-top:22px;">意味は、過去の側では確定していない。いまが決めている。</p>
+            <p class="lens-text" style="margin-top:20px;">だとすれば、あの一年を「ない」の側に数え続ける必要は、もうありません。</p>
+          </div>
+
+          <div class="lens-row">
+            <p class="lens-label">では、持てば出られるのか</p>
+            <p class="lens-text">ここまで読んだ人が最初に立てる問いは、たぶんこれです。自分もそう考えました。<strong>まだ医学生で、資格も身分も何も持っていない。だから持つ様式に寄っているだけで、持てば出られるのではないか。</strong></p>
+            <p class="lens-text" style="margin-top:18px;">半分は当たっています。フロム自身、持つ様式を個人の弱さの話にしていません。産業社会の構造が生むものとして書いている。立場が不安定な人間が所有に頼るのは、性格の欠陥ではなく状況の産物です。医学生はその極端な例で、<strong>何者でもない期間が異常に長く、その間ずっと評価され続ける</strong>。引き寄せられるほうが自然です。</p>
+            <p class="lens-text" style="margin-top:18px;">ただ、後半が違います。「持てば出られる」は、<strong>持つ様式の中で立てた脱出計画</strong>です。持ち物が増えれば解決する、という前提が変わっていない。<strong>「這い上がる」とまったく同じ形</strong>をしています。</p>
+            <p class="lens-text" style="margin-top:18px;">そして医学は、この計算式にとって最悪の相性をしています。<strong>階段がほぼ無限に用意されているからです。</strong>国試、マッチング、専門医、学位、地位。研修医は指導医と比べ、指導医はその上と比べる。順位の供給が止まらない。だから<strong>「まだ」が終わる日は来ません。「まだ」は状態ではなく、計算方式の出力だからです。</strong></p>
+            <p class="lens-q" style="margin-top:22px;">十分に持ったと判定する機能が、この方式には入っていない。</p>
+            <p class="lens-text" style="margin-top:20px;">反証は、すでに手元にあります。スタディスポットMAPも、数学マップも、家庭教師も、<strong>資格も身分もないまま、渡す側に立った</strong>ものです。持っていないから在る様式に立てない、という説明は、自分の実績と合っていない。条件が揃うのを待たずに、すでに何度かやっている。</p>
+            <p class="lens-text" style="margin-top:18px;">もう一つ。<strong>「何のスキルも身分も得ていない」という文そのものが、この節が扱っている計算の出力です。</strong>医師免許や所属を分母に置けばゼロが返る。しかし臨床実習も、教えて対価を得ていることも、作って公開して人に使われているものも、分母を変えれば消えません。<strong>説明しようとした文が、説明対象の実演になっている。</strong></p>
+          </div>
+
+          <div class="lens-row">
+            <p class="lens-label">ただし、警戒しておくこと</p>
+            <p class="lens-text">この整理そのものに罠があります。「自分の自己評価の低さは持つ様式が原因だった」と綺麗に説明できてしまうと、<strong>その説明を持つことで安心してしまう。</strong>それは新しい所有物です。レンズ04（禁欲）、レンズ05（メサイア・コンプレックス）、そしてすぐ上の「持てば出られる」。<strong>同じ形が、服だけ変えて何度も出てきます。</strong>持たないことを誇る、救う側にいることを誇る、見通しを持って安心する、説明を持って安心する。どれも、持つという動詞のままです。</p>
+            <p class="lens-text" style="margin-top:18px;">だからこの節は「解決した」では終わりません。<strong>計算方式はまだ動いています。</strong>気づける回数が、少し増えたというだけです。</p>
+          </div>
+        </section>
+
+        <!-- ============ 年表 ============ -->
+        <section class="sec" aria-labelledby="tlHeading">
+          <p class="sec-label">Timeline · 04</p>
+          <h2 class="sec-title" id="tlHeading">ここまでの道筋</h2>
+          <p class="sec-p">出来事そのものより、<strong>そこで何が自分の中に残ったか</strong>を書いています。下のラベルは、その節目がどの関心につながっているかの印です。</p>
+
+          <!--
+            ▼ 節目を足すときは、この <li class="tl-item"> をコピーして中身を差し替える。
+              ・tl-when …… 年（例: 2019）でも、フェーズ番号でも。分かる範囲で。
+              ・is-now …… 現在地の項目にだけ付ける（点が黒く塗られる）
+              ・tl-thread …… その節目が「構造化」という一本にどうつながるかの一言
+          -->
+          <ul class="tl">
+
+            <li class="tl-item">
+              <p class="tl-when">Phase 00</p>
+              <h3 class="tl-head">口之津で育った</h3>
+              <p class="tl-body">長崎の港町。勉強する場所に軸がなく、家では扉越しに祖母と犬の言い合いが聞こえ、図書館は読書のための場所で夜は早く閉まった。見えていた職業は、医者か弁護士か公務員か。身近な医者は<strong>植木内科</strong>のほぼ一人だった。<strong>選択肢が少ないことを、当時は自分の視野の狭さだと思っていた。</strong></p>
+              <span class="tl-thread">→ 出発点</span>
+            </li>
+
+            <li class="tl-item">
+              <p class="tl-when">Phase 01</p>
+              <h3 class="tl-head">低音を選んだ</h3>
+              <p class="tl-body">ベースとコントラバス。旋律ではなく、和音の土台を決める側を選んだ。目立つ部分より、<strong>その下で全体を支えている構造</strong>のほうに惹かれるという性質が、たぶんここで最初に形になっている。</p>
+              <span class="tl-thread">→ 構造の側に立つ</span>
+            </li>
+
+            <li class="tl-item">
+              <p class="tl-when">Phase 02</p>
+              <h3 class="tl-head">浪人した</h3>
+              <p class="tl-body">現役では届かなかった。この一年に置いた前提が、その後を長く決めることになる。<strong>自分は生きている価値のない人間で、這い上がらなければならない</strong>。当時はそれを反省だと思っていたが、いま見ると<strong>自分の価値を持ち物の量で計算する方式</strong>を、ここで採用していた。積み上げる力はここで付いた。同時に、足りなさが終わらない仕組みも、ここで組み上がっている。</p>
+              <span class="tl-thread">→ 計算方式を採用する</span>
+            </li>
+
+            <li class="tl-item">
+              <p class="tl-when">Phase 03</p>
+              <h3 class="tl-head">自治医科大学 医学部へ</h3>
+              <p class="tl-body">医学は、覚えることが多い学問だと思われている。実際に入ってみて分かったのは、<strong>覚えられる量には限りがあり、つながっていない知識から先に落ちていく</strong>ということだった。ここで、構造化は趣味ではなく必要になった。</p>
+              <span class="tl-thread">→ 構造化が必要になる</span>
+            </li>
+
+            <li class="tl-item">
+              <p class="tl-when">Phase 04</p>
+              <h3 class="tl-head">断片を、ネットワークにする</h3>
+              <p class="tl-body">Notion と Obsidian。実習や演習で得たことを、そのつど互いに結び直して残す習慣ができた。この習慣は医学に限らず、音楽でも、文章を書くときでも、同じように働くようになった。</p>
+              <span class="tl-thread">→ 手つきが分野を超える</span>
+            </li>
+
+            <li class="tl-item">
+              <p class="tl-when">Phase 05</p>
+              <h3 class="tl-head">教える側に回る</h3>
+              <p class="tl-body">個人契約の家庭教師。自分の中で完結していた構造化を、<strong>他人の頭の中で動く形に翻訳する</strong>必要が出てきた。自分が分かっていることと、渡せることは別だと知った。</p>
+              <span class="tl-thread">→ 自分の外に出す</span>
+            </li>
+
+            <li class="tl-item">
+              <p class="tl-when">Phase 06</p>
+              <h3 class="tl-head">欲しかったものを、つくって公開する</h3>
+              <p class="tl-body">無料で勉強できる場所を集めたスタディスポットMAP。数学の全範囲を依存関係で組み直した東大理三 数学マップ。ガジェットの実機レビュー。note での執筆。<strong>頭の中の構造を、他人が使える形にして外に置く</strong>という段階。</p>
+              <span class="tl-thread">→ 使える形にして渡す</span>
+            </li>
+
+            <li class="tl-item is-now">
+              <p class="tl-when">Now — 2026</p>
+              <h3 class="tl-head">臨床実習と、読み直し</h3>
+              <p class="tl-body">臨床実習で医療の現場に立ちながら、総合判定試験に向けた演習を進めている。並行して、これまで疑わずにやってきた「積み上げること」自体を、<strong>本を借りて検証し直している</strong>ところ。このページは、その作業の途中経過です。</p>
+              <span class="tl-thread">→ 構造化を、構造化する</span>
+            </li>
+
+          </ul>
+        </section>
+
+        <!-- ============ 実家に見本があった ============ -->
+        <section class="sec" aria-labelledby="homeHeading">
+          <p class="sec-label">Home · 05</p>
+          <h2 class="sec-title" id="homeHeading">何もない場所に、見本があった</h2>
+          <p class="sec-p">帰省すると、いつも同じことを考えます。都会に比べれば、本当に何もない。<strong>それでも両親は幸せに暮らしている。なぜだろう。</strong></p>
+
+          <div class="lens-row">
+            <p class="lens-label">問いの形が、間違っていた</p>
+            <p class="lens-text">長いあいだ、これを素朴な問いだと思っていました。田舎にも幸せな人はいる、という話だと。でもフロムを通したあとで見ると、<strong>質問の立て方そのものがおかしい</strong>ことに気づきます。</p>
+            <p class="lens-text" style="margin-top:18px;"><strong>「何もない」は、持つ様式の数え方です。</strong>店の数、施設の数、選べる職業の数。何が「ある」かを数えて、少なければ「ない」と判定する。</p>
+            <p class="lens-text" style="margin-top:18px;">両親は、その数え方を使っていません。だから<strong>「何もない場所で、それでも幸せ」という文が、そもそも成立していない。</strong>足りないと感じていたのは、こちら側の計算式のほうでした。</p>
+          </div>
+
+          <div class="lens-row">
+            <p class="lens-label">畑仕事</p>
+            <p class="lens-text">畑仕事を見ていて思うのは、<strong>あれは今を生きている</strong>、ということです。</p>
+            <p class="lens-text" style="margin-top:18px;">そしてあの作業には、持つ様式が入り込む隙がありません。<strong>作物は食べれば消える。去年の畑は今年の役に立たない。毎年、同じことを最初からやり直す。</strong>積み上がらないし、誰かと比べる順位もつかない。フロムが在る様式を説明するときに書いていることと、ほとんど同じ形をしています。</p>
+          </div>
+
+          <div class="lens-row">
+            <p class="lens-label">順番が、逆だった</p>
+            <p class="lens-text">この地図を作っていて、いちばんこたえたのがここです。</p>
+            <p class="lens-q" style="margin-top:20px;">在る様式の見本は、本の中ではなく、最初から実家にあった。</p>
+            <p class="lens-text" style="margin-top:20px;">それを「何もない」と数えて出てきて、都会で持ち物を積み上げて、積み上げても足りないことに気づいて、本を読んで、<strong>いま、もともといた場所のやり方に戻ろうとしています。</strong>二十年かけて一周しました。</p>
+          </div>
+
+          <div class="lens-row">
+            <p class="lens-label">ただし、戻る話ではない</p>
+            <p class="lens-text">誤解しないように書いておきます。これは「田舎に帰れば幸せ」という話ではありません。そう読むと、<strong>今度は素朴さを新しい所有物にすることになります。</strong>レンズ04（禁欲）とまったく同じ罠です。</p>
+            <p class="lens-text" style="margin-top:18px;">両親のやり方をそのまま真似ることもできません。自分は医学を選んだし、それは選択肢が三つしか見えない場所から、見えるものを選んだ結果です。その事実は消えない。</p>
+            <p class="lens-text" style="margin-top:18px;">受け取るのは<strong>数え方だけ</strong>です。場所ではなく。</p>
+          </div>
+        </section>
+
+        <!-- ============ 現在地 ============ -->
+        <section class="sec" aria-labelledby="nowHeading">
+          <p class="sec-label">Now · 06</p>
+          <h2 class="sec-title" id="nowHeading">いま置いている基準</h2>
+          <p class="sec-p">五つのレンズを通し、自分の計算方式を見たうえで、行動を変えるための基準はひとつに絞れました。構造化はやめない。やめる理由がない。ただ、良し悪しの判定を<strong>「よく整理できたか」から動かす</strong>ことにしました。整理の量で測る限り、それは持ち物の数え上げのままだからです。</p>
+          <p class="sec-p">新しい基準はこれです。<strong>その作業は、誰かとの関係を変えたか。</strong>同じ Obsidian でも、溜めるために開けば持つ様式、目の前の患者や生徒に対して何かが変わるために開けば在る様式になる。道具ではなく、関わり方の話だからです。</p>
+          <p class="sec-p">誰かを手伝うときには、もう一つ足します。<strong>その助けは、相手が自分を必要としなくなる方向に働いたか。</strong>手厚さは基準にならない。手厚さで測ると、相手が自立しないほうが自分の点数は上がってしまうからです。二つの基準は結局、同じことを別の角度から言っています。<strong>自分の手元に何が残ったかではなく、相手の側で何が動いたか</strong>で判定する、ということです。</p>
+
+          <p class="sec-p">このページも同じ基準で扱います。眺めて満足するために置いてあるなら、それは所有物です。読んだ人と何かが起きたときにだけ、意味を持ちます。</p>
+
+          <ul class="links">
+            <li><a class="btn" href="./books.html">
+              <span>読書マップへ</span>
+              <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a></li>
+            <li><a class="btn" href="https://note.com/jikotaiwa" target="_blank" rel="noopener noreferrer">
+              <span>noteを読む</span>
+              <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a></li>
+            <li><a class="btn" href="mailto:kaito.inoue0921@gmail.com?subject=%E8%87%AA%E5%B7%B1%E7%90%86%E8%A7%A3%E3%83%9A%E3%83%BC%E3%82%B8%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6">
+              <span>感想・反論を送る</span>
+              <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true"><rect x="1.5" y="3" width="13" height="10" stroke-width="1.3" fill="none"/><path d="M2 4 L8 9 L14 4" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a></li>
+          </ul>
+        </section>
+
+      </main>
+    </div>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-signature">
+          <svg viewBox="0 0 24 56" aria-hidden="true">
+            <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+            <circle cx="15" cy="10" r="1.6" fill="currentColor"/><circle cx="9" cy="38" r="1.6" fill="currentColor"/>
+          </svg>
+        </div>
+        <p class="footer-note">Life — 人生マップ・自己理解</p>
+        <a class="backlink" href="./">← 井上凱斗 プロフィールに戻る</a>
+      </div>
+    </footer>
+  </div>
+
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

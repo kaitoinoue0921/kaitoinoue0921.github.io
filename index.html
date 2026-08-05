@@ -350,17 +350,6 @@
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     border-bottom: 1px solid var(--line-faint);
-    transition: transform 0.35s cubic-bezier(0.4,0,0.2,1), opacity 0.3s ease;
-    will-change: transform;
-  }
-  /* slide out of the way while reading downward; comes back on scroll up */
-  .tags-wrap.is-tucked{
-    transform: translateY(-100%);
-    opacity: 0;
-    pointer-events: none;
-  }
-  @media (prefers-reduced-motion: reduce){
-    .tags-wrap{ transition: none; }
   }
   .tags{
     display: flex;
@@ -486,6 +475,14 @@
     outline: 2px solid var(--ink);
     outline-offset: 3px;
   }
+  /* two or more buttons in one block: keep them on one row, wrapping on narrow screens */
+  .block-actions{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 26px;
+  }
+  .block-actions .block-action{ margin-top: 0; }
   .action-icon{
     width: 14px;
     height: 14px;
@@ -849,6 +846,9 @@
           <li><button class="tag" data-category="works" aria-pressed="false">
             <span class="tag-jp">作ったもの</span><span class="tag-en">WORKS</span>
           </button></li>
+          <li><button class="tag" data-category="self" aria-pressed="false">
+            <span class="tag-jp">自己理解</span><span class="tag-en">SELF</span>
+          </button></li>
           <li><button class="tag" data-category="gadget" aria-pressed="false">
             <span class="tag-jp">ガジェット</span><span class="tag-en">GADGET</span>
           </button></li>
@@ -944,6 +944,32 @@
               <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </a>
+        </article>
+
+        <!-- 自己理解 (SELF) -->
+        <article class="block" data-category="self">
+          <div class="divider">
+            <span class="divider-line"></span>
+            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true"><path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="15" cy="10" r="1.6" fill="currentColor"/><circle cx="9" cy="38" r="1.6" fill="currentColor"/></svg>
+            <span class="divider-line"></span>
+          </div>
+          <p class="block-label">SELF · 01</p>
+          <h2 class="block-title">自分を、構造で読む</h2>
+          <p class="block-text">読んだ本から概念を取り出して自分に当て直す「読書マップ」と、医学・音楽・執筆・教育・ものづくりに共通する一本を辿った「人生マップ」。フロム『生きるということ』、岸見一郎・古賀史健『幸せになる勇気』、山口尚『幸福と人生の意味の哲学』の三冊を手がかりに、自分のやり方の都合の悪いところまで含めて見ています。</p>
+          <div class="block-actions">
+            <a class="block-action" href="./books.html">
+              <span>読書マップ</span>
+              <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+            <a class="block-action" href="./life.html">
+              <span>人生マップ</span>
+              <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </div>
         </article>
 
         <!-- ガジェット (GADGET) -->
@@ -1062,6 +1088,7 @@
     note: '日記',
     tutor: '教育',
     works: '作ったもの',
+    self: '自己理解',
     gadget: 'ガジェット',
     podcast: 'ポッドキャスト',
     friend: '人間関係'
@@ -1187,57 +1214,6 @@
       .catch(function(){ /* setting still off, or offline — leave it hidden */ });
   })();
 
-  /* ---------------- auto-tucking tag nav ---------------- */
-  var tagsWrap = document.querySelector('.tags-wrap');
-  if (tagsWrap){
-    var lastY = window.scrollY || window.pageYOffset || 0;
-    var navTicking = false;
-    var THRESHOLD = 6;   // ignore tiny jitters
-    var TOP_ZONE  = 80;  // always visible near the very top
-
-    function updateNav(){
-      var y = window.scrollY || window.pageYOffset || 0;
-      var delta = y - lastY;
-
-      if (y <= TOP_ZONE){
-        tagsWrap.classList.remove('is-tucked');
-      } else if (delta > THRESHOLD){
-        tagsWrap.classList.add('is-tucked');      // scrolling down -> get out of the way
-        lastY = y;
-      } else if (delta < -THRESHOLD){
-        tagsWrap.classList.remove('is-tucked');   // scrolling up -> bring it back
-        lastY = y;
-      }
-
-      if (y <= TOP_ZONE) lastY = y;
-      navTicking = false;
-    }
-
-    window.addEventListener('scroll', function(){
-      if (navTicking) return;
-      navTicking = true;
-      // rAF is frozen while the tab is hidden; running inline there keeps the
-      // ticking flag from latching on and killing the handler for good.
-      if (document.hidden){
-        updateNav();
-      } else {
-        window.requestAnimationFrame(updateNav);
-      }
-    }, { passive: true });
-
-    // resync when returning to the tab, in case a frame was dropped
-    document.addEventListener('visibilitychange', function(){
-      if (!document.hidden){
-        navTicking = false;
-        lastY = window.scrollY || window.pageYOffset || 0;
-      }
-    });
-
-    // never leave the nav hidden while someone is using it
-    tagsWrap.addEventListener('focusin', function(){
-      tagsWrap.classList.remove('is-tucked');
-    });
-  }
 
   /* ---------------- relationship map ----------------
      To add someone, append one row here. Layout is computed automatically. */
