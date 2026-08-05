@@ -47,18 +47,23 @@ create table if not exists public.reviews (
 
 create index if not exists reviews_spot_idx on public.reviews (spot_id);
 
--- ---------- 応援メッセージ（works ページの投げ銭・意見フォーム） ----------
+-- ---------- 応援メッセージ（各作品の応援セクションから届く） ----------
 create table if not exists public.messages (
   id         uuid primary key default gen_random_uuid(),
   name       text,                     -- 未入力なら「名無し」扱い
   body       text not null check (char_length(body) between 1 and 1000),
+  work       text check (char_length(work) <= 40),   -- どの作品宛てか（support.js の作品ID）
   kind       text not null default 'comment'
              check (kind in ('comment','support')),  -- support = 投げ銭したうえでの一言
   approved   boolean not null default false,         -- 公開は承認制
   created_at timestamptz not null default now()
 );
 
+-- すでにテーブルを作ったあとで work 列を足す場合はこの1行だけ実行すればよい
+alter table public.messages add column if not exists work text check (char_length(work) <= 40);
+
 create index if not exists messages_created_idx on public.messages (created_at desc);
+create index if not exists messages_work_idx    on public.messages (work, created_at desc);
 
 -- =========================================================
 -- 行レベルセキュリティ（RLS）

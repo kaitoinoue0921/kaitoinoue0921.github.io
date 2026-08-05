@@ -173,12 +173,18 @@
   <div class="btm"><a class="cta" href="./app.html">はじめる →</a></div>
 </section>
 
+<section>
+  <!-- 応援セクション。中身と金額は /support/support.js の設定ブロックで一括管理する -->
+  <div data-ksup="todai-math-map" data-skin="auto"></div>
+</section>
+
 <footer>
   東大理三 数学マップ　2026-08-04 更新<br>
   進捗はブラウザの中だけに保存され、サーバーには送信されません。
 </footer>
 
 </div>
+<script src="/support/support.js" defer></script>
 <script>
   if ('serviceWorker' in navigator) addEventListener('load', () => navigator.serviceWorker.register('./sw.js'));
 </script>

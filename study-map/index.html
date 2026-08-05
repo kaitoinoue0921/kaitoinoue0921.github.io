@@ -398,6 +398,7 @@ button{cursor:pointer}
       <button id="btnExport">⬇ データ書き出し</button>
       <button id="btnImport">⬆ データ読み込み</button>
       <button id="btnReset">↺ サンプルに戻す</button>
+      <button data-ksup-open="study-map" data-skin="dark">♡ 作者を応援する</button>
     </div>
     <div class="mapui" id="banner"></div>
     <button class="mapui" id="addbtn">＋ スポットを追加</button>
@@ -1508,6 +1509,9 @@ document.getElementById('dbstat').onclick=openCloudForm;
   bootMap();
 })();
 </script>
+<!-- 応援ダイアログ。⚙ メニューの「♡ 作者を応援する」から開く。
+     文面と金額は /support/support.js の設定ブロックで管理している。 -->
+<script src="/support/support.js" defer></script>
 <script data-goatcounter="https://kaitoinoue.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
 </body>
