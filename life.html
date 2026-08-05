@@ -185,32 +185,6 @@
     margin: 0; border-left: 1px solid var(--ink); padding-left: 20px; max-width: 46ch;
   }
 
-  /* ---------- origin：自己評価の「計算式」を台帳として見せる ---------- */
-  .calc{
-    list-style: none; padding: 0; margin: 26px 0 0;
-    border-top: 1px solid var(--line-faint); max-width: 52ch;
-  }
-  .calc-row{
-    display: flex; align-items: baseline; gap: 18px;
-    padding: 15px 2px; border-bottom: 1px solid var(--line-faint);
-  }
-  .calc-item{ font-size: 14.5px; line-height: 1.85; color: var(--ink-soft); flex: 1; margin: 0; }
-  .calc-verdict{
-    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.14em;
-    color: var(--ink-faint); white-space: nowrap; margin: 0;
-  }
-  .calc-sum{
-    display: flex; align-items: baseline; gap: 18px;
-    padding: 20px 2px 0; border-bottom: none;
-  }
-  .calc-sum .calc-item{
-    font-family: var(--serif); color: var(--ink); font-size: 16px; font-weight: 600;
-  }
-  .calc-sum .calc-verdict{ color: var(--ink); }
-  @media (max-width: 480px){
-    .calc-row, .calc-sum{ flex-direction: column; gap: 6px; }
-  }
-
   /* ---------- timeline ---------- */
   .tl{ list-style: none; padding: 0; margin: 26px 0 0; }
   .tl-item{
@@ -271,6 +245,22 @@
 
   @media (max-width: 640px){ .corner{ width: 12px; height: 12px; } }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "https://kaitoinoue0921.github.io/life.html#webpage",
+  "url": "https://kaitoinoue0921.github.io/life.html",
+  "name": "人生マップ・自己理解 | 井上凱斗",
+  "description": "井上凱斗の人生マップ。医学・音楽・執筆・教育・ものづくりに共通する「構造化」という一本の線をたどりながら、フロム『生きるということ』の枠組みで自分を読み直す自己理解のページ。",
+  "inLanguage": "ja",
+  "isPartOf": { "@id": "https://kaitoinoue0921.github.io/#website" },
+  "author": { "@id": "https://kaitoinoue0921.github.io/#person" },
+  "publisher": { "@id": "https://kaitoinoue0921.github.io/#person" },
+  "about": { "@id": "https://kaitoinoue0921.github.io/#person" },
+  "dateModified": "2026-08-05T14:10:00+09:00"
+}
+</script>
 </head>
 <body>
 
@@ -314,6 +304,7 @@
           <p class="sec-label">Core · 01</p>
           <h2 class="sec-title" id="coreHeading">通底している一本</h2>
           <p class="sec-p">中心にあるのは<strong>構造化</strong>です。表に見えている出来事を、その下で何がどう噛み合ってそうなっているかに分解し、ばらばらのものを結び直して、あとから辿れる形にする。この手つきが、分野を変えても同じまま出てきます。</p>
+          <p class="sec-p">ひとつ断っておくと、五つすべてを自分で選んだわけではありません。音楽は割り当てで始まっています。<strong>通底しているのは、選び方ではなく手つきのほうです。</strong></p>
 
           <div class="map-wrap">
             <svg class="rmap" viewBox="0 0 760 460" role="img" aria-labelledby="rmapTitle">
@@ -371,7 +362,7 @@
             </li>
             <li class="domain">
               <span class="domain-key">音楽</span>
-              <p class="domain-body">ベースとコントラバス。低音は目立たないが、和音の土台を決め、曲全体の輪郭を静かに決定づける。<strong>表に出る側ではなく、下で支えている構造の側</strong>を選んだ、最初の選択だったと思う。</p>
+              <p class="domain-body">ベースとコントラバス。低音は目立たないが、和音の土台を決め、曲全体の輪郭を静かに決定づける。始めたのは希望ではなく割り当てだったが、<strong>下で支える側に長くいた経験</strong>のほうが、あとから効いている。</p>
             </li>
             <li class="domain">
               <span class="domain-key">執筆</span>
@@ -502,112 +493,9 @@
           </ul>
         </section>
 
-        <!-- ============ 自己評価の出自 ============ -->
-        <section class="sec" aria-labelledby="originHeading">
-          <p class="sec-label">Origin · 03</p>
-          <h2 class="sec-title" id="originHeading">その一本は、どこから生えたか</h2>
-          <p class="sec-p">ここまで「構造化が通底している」と書いてきました。ただ、それが<strong>どこから生えたもの</strong>なのかを書かなければ、この地図は半分です。以下は、あまり格好のつかない側です。</p>
-
-          <div class="lens-row">
-            <p class="lens-label">育った場所</p>
-            <p class="lens-text">長崎の口之津という港町で育ちました。勉強する場所に<strong>軸がなかった</strong>と思います。家は扉が薄くて、向こうから祖母と犬が言い合っている声が聞こえてくる。図書館は読書のための場所に寄っていて、夜は早く閉まる。環境をうまく整えられていた記憶がありません。</p>
-            <p class="lens-text" style="margin-top:18px;">見えていた職業は、医者か、弁護士か、公務員か。<strong>その三つでした。</strong>早稲田や慶應に行って企業に入るような道は、選択肢として視界に入っていなかった。</p>
-            <p class="lens-text" style="margin-top:18px;">後になって自分の「視野が狭かった」と書きましたが、これは正確ではありません。<strong>性格の話ではなく、供給されていた情報が三つだった、というだけです。</strong>狭い視野を持っていたのではなく、狭い範囲しか見えない場所にいた。ここは区別しておきます。</p>
-            <p class="lens-text" style="margin-top:18px;">勉強できる場所の地図を作ったのは、そこから来ているのかもしれません。ただ正直に書くと、<strong>動機はもっと単純でもあります。</strong>大学にいても、場所を変えないと勉強のリズムが保てない。移動先が欲しかった。<strong>きれいな因果になっていないほうを、残しておきます。</strong></p>
-          </div>
-
-          <div class="lens-row">
-            <p class="lens-label">医者を選んだ理由</p>
-            <p class="lens-text">口之津で、医者といえば植木内科でした。<strong>身近に見えていた医者は、ほぼその一人です。</strong>三択の「医者」という選択肢の中身も、ひとつのモデルから来ていました。</p>
-            <p class="lens-text" style="margin-top:18px;">医学部を目指した理由は、三つあります。<strong>親戚の期待。兄の進路。そして自分が気胸になった経験。</strong></p>
-            <p class="lens-text" style="margin-top:18px;">正直に分解すると、三つのうち二つは他人の側から来ています。期待に応えること、兄と比べること。期待されること自体は悪いことではありません。ただ<strong>それを自分の価値の計算式に入れると、応え続けないと価値が減る構造</strong>になります。承認が外から供給されるものとして最初から組み込まれていた理由は、たぶんここです。</p>
-            <p class="lens-text" style="margin-top:18px;">残る一つ、気胸だけが、自分の身体で起きたことでした。<strong>この選択を自分のものとして引き受け直せるとしたら、根拠になるのはここだと思っています。</strong></p>
-          </div>
-
-          <div class="lens-row">
-            <p class="lens-label">起点</p>
-            <p class="lens-text">浪人した年、自分は<strong>生きている価値のない人間だ</strong>と判定して、這い上がらなければならないと思いました。いま振り返って見えるのは、視野が狭かったということより、<strong>その判定がどう計算されたか</strong>のほうです。「価値がない」という結論は、単独では出てきません。かならず何かと比べて出ています。</p>
-          </div>
-
-          <div class="lens-row">
-            <p class="lens-label">大学に入っても、その計算は続いた</p>
-            <ul class="calc">
-              <li class="calc-row">
-                <p class="calc-item">他の学生は進学校を出ている</p>
-                <p class="calc-verdict">自分にはない</p>
-              </li>
-              <li class="calc-row">
-                <p class="calc-item">大きな組織に属してきた経験がある</p>
-                <p class="calc-verdict">自分にはない</p>
-              </li>
-              <li class="calc-row">
-                <p class="calc-item">部活に時間を取られ、勉強のリズム</p>
-                <p class="calc-verdict">作れていない</p>
-              </li>
-              <li class="calc-sum">
-                <p class="calc-item">自分には、ない</p>
-                <p class="calc-verdict">= 生きている価値がない</p>
-              </li>
-            </ul>
-          </div>
-
-          <div class="lens-row">
-            <p class="lens-label">この計算式には、名前がついていた</p>
-            <p class="lens-text">レンズ01でフロムから借りた言葉が、そのまま当てはまります。<strong>持つ様式</strong>。自分が何者かを、所有物の合計で答える構え。</p>
-            <p class="lens-text" style="margin-top:18px;">つまりこういうことでした。<strong>自己肯定感が低いのではなく、自分の価値を所有物の合計で計算する方式を使っている。</strong>気分の問題ではなく、計算方式の問題です。</p>
-            <p class="lens-text" style="margin-top:18px;">そしてこの方式には、致命的な性質があります。<strong>比較対象が無限に供給される。</strong>進学校、所属、順位、その次、その次。上に行っても、上には誰かがいる。だから足りなさは終わりません。量が足りないからではなく、<strong>そう計算しているから</strong>です。</p>
-          </div>
-
-          <div class="lens-row">
-            <p class="lens-label">「這い上がる」は、解決策ではなかった</p>
-            <p class="lens-q">持ち物を増やせば価値が回復する、という前提が、変わっていない。</p>
-            <p class="lens-text" style="margin-top:20px;">這い上がらなければならない、という発想は、この計算式の<strong>外に出ていません</strong>。順位が上がっても、順位で測っていることは変わらない。どれだけ積んでも足りなさが消えなかった理由は、たぶんこれです。</p>
-          </div>
-
-          <div class="lens-row">
-            <p class="lens-label">構造化の出自</p>
-            <p class="lens-text">ここは正直に書きます。このページの中心に置いた<strong>構造化には、這い上がるための手段として強化された部分があります。</strong>Obsidian に記録するのは必要でもあったけれど、同時に、足りなさを埋める作業でもありました。日々やるしかない、と思っていたときの「やるしかない」は、たぶん半分は焦りでした。</p>
-            <p class="lens-text" style="margin-top:18px;">だから<strong>レンズ02（蓄積的性格）は、他人事ではありませんでした。</strong>溜め込むこと自体が目的になっている状態を、フロムは成熟に達していないと呼びます。自分がそこにいたと認めるほうが、話は早い。</p>
-          </div>
-
-          <div class="lens-row">
-            <p class="lens-label">出口</p>
-            <p class="lens-text">在る様式へのシフトは、読書の感想ではありません。<strong>この計算式から出る、唯一の出口として選んでいます。</strong>所有ではなく活動のほうに自分を置けば、<strong>比較する対象が消える</strong>からです。誰かの持ち物と自分の持ち物を並べる作業が、そもそも成立しなくなる。</p>
-            <p class="lens-text" style="margin-top:18px;">まだ完了していません。今日も、足りないものの側から数えはじめている場面があります。</p>
-          </div>
-
-          <div class="lens-row">
-            <p class="lens-label">過去を信じる</p>
-            <p class="lens-text">山口尚『幸福と人生の意味の哲学』から受け取ったのは、<strong>過去を信じることが幸せの道である</strong>、という一点でした。</p>
-            <p class="lens-text" style="margin-top:18px;">過去は変えられません。でも<strong>過去の意味は、現在が決めています。</strong>浪人の一年が「価値がない証拠」なのか「這い上がる力を得た時間」なのかは、過去の側では決まっていない。決めているのは、いまの自分です。</p>
-            <p class="lens-text" style="margin-top:18px;">これはアドラーの目的論ともつながります。過去が現在を決めているのではない。<strong>いまの自分が、過去にどの意味を持たせるかを選んでいる。</strong></p>
-            <p class="lens-text" style="margin-top:18px;">実例が二つあります。ひとつは選択肢の数です。口之津で見えていた職業は三つで、それを長いあいだ「狭かった」と数えていました。でも、手に職をつけることの意味が変わりつつある時代から見ると、あの狭さは違う意味を持ちはじめています。<strong>事実は変わっていません。変わったのは、どこから見ているかです。</strong></p>
-            <p class="lens-text" style="margin-top:18px;">もうひとつは進んだ場所です。<strong>自治医科大学は、医師の少ない地域に医師を送るために設計された大学です。</strong>身近に見えていた医者がほぼ一人だった町から出てきて、そういう町に医者を送る大学に入っている。意図してそうなったわけではありません。動機は親戚の期待と兄の進路と気胸で、地域医療への使命ではなかった。<strong>それでも、線は通ってしまっている。</strong></p>
-            <p class="lens-q" style="margin-top:22px;">意味は、過去の側では確定していない。いまが決めている。</p>
-            <p class="lens-text" style="margin-top:20px;">だとすれば、あの一年を「ない」の側に数え続ける必要は、もうありません。</p>
-          </div>
-
-          <div class="lens-row">
-            <p class="lens-label">では、持てば出られるのか</p>
-            <p class="lens-text">ここまで読んだ人が最初に立てる問いは、たぶんこれです。自分もそう考えました。<strong>まだ医学生で、資格も身分も何も持っていない。だから持つ様式に寄っているだけで、持てば出られるのではないか。</strong></p>
-            <p class="lens-text" style="margin-top:18px;">半分は当たっています。フロム自身、持つ様式を個人の弱さの話にしていません。産業社会の構造が生むものとして書いている。立場が不安定な人間が所有に頼るのは、性格の欠陥ではなく状況の産物です。医学生はその極端な例で、<strong>何者でもない期間が異常に長く、その間ずっと評価され続ける</strong>。引き寄せられるほうが自然です。</p>
-            <p class="lens-text" style="margin-top:18px;">ただ、後半が違います。「持てば出られる」は、<strong>持つ様式の中で立てた脱出計画</strong>です。持ち物が増えれば解決する、という前提が変わっていない。<strong>「這い上がる」とまったく同じ形</strong>をしています。</p>
-            <p class="lens-text" style="margin-top:18px;">そして医学は、この計算式にとって最悪の相性をしています。<strong>階段がほぼ無限に用意されているからです。</strong>国試、マッチング、専門医、学位、地位。研修医は指導医と比べ、指導医はその上と比べる。順位の供給が止まらない。だから<strong>「まだ」が終わる日は来ません。「まだ」は状態ではなく、計算方式の出力だからです。</strong></p>
-            <p class="lens-q" style="margin-top:22px;">十分に持ったと判定する機能が、この方式には入っていない。</p>
-            <p class="lens-text" style="margin-top:20px;">反証は、すでに手元にあります。スタディスポットMAPも、数学マップも、家庭教師も、<strong>資格も身分もないまま、渡す側に立った</strong>ものです。持っていないから在る様式に立てない、という説明は、自分の実績と合っていない。条件が揃うのを待たずに、すでに何度かやっている。</p>
-            <p class="lens-text" style="margin-top:18px;">もう一つ。<strong>「何のスキルも身分も得ていない」という文そのものが、この節が扱っている計算の出力です。</strong>医師免許や所属を分母に置けばゼロが返る。しかし臨床実習も、教えて対価を得ていることも、作って公開して人に使われているものも、分母を変えれば消えません。<strong>説明しようとした文が、説明対象の実演になっている。</strong></p>
-          </div>
-
-          <div class="lens-row">
-            <p class="lens-label">ただし、警戒しておくこと</p>
-            <p class="lens-text">この整理そのものに罠があります。「自分の自己評価の低さは持つ様式が原因だった」と綺麗に説明できてしまうと、<strong>その説明を持つことで安心してしまう。</strong>それは新しい所有物です。レンズ04（禁欲）、レンズ05（メサイア・コンプレックス）、そしてすぐ上の「持てば出られる」。<strong>同じ形が、服だけ変えて何度も出てきます。</strong>持たないことを誇る、救う側にいることを誇る、見通しを持って安心する、説明を持って安心する。どれも、持つという動詞のままです。</p>
-            <p class="lens-text" style="margin-top:18px;">だからこの節は「解決した」では終わりません。<strong>計算方式はまだ動いています。</strong>気づける回数が、少し増えたというだけです。</p>
-          </div>
-        </section>
-
         <!-- ============ 年表 ============ -->
         <section class="sec" aria-labelledby="tlHeading">
-          <p class="sec-label">Timeline · 04</p>
+          <p class="sec-label">Timeline · 03</p>
           <h2 class="sec-title" id="tlHeading">ここまでの道筋</h2>
           <p class="sec-p">出来事そのものより、<strong>そこで何が自分の中に残ったか</strong>を書いています。下のラベルは、その節目がどの関心につながっているかの印です。</p>
 
@@ -620,24 +508,18 @@
           <ul class="tl">
 
             <li class="tl-item">
-              <p class="tl-when">Phase 00</p>
-              <h3 class="tl-head">口之津で育った</h3>
-              <p class="tl-body">長崎の港町。勉強する場所に軸がなく、家では扉越しに祖母と犬の言い合いが聞こえ、図書館は読書のための場所で夜は早く閉まった。見えていた職業は、医者か弁護士か公務員か。身近な医者は<strong>植木内科</strong>のほぼ一人だった。<strong>選択肢が少ないことを、当時は自分の視野の狭さだと思っていた。</strong></p>
-              <span class="tl-thread">→ 出発点</span>
-            </li>
-
-            <li class="tl-item">
               <p class="tl-when">Phase 01</p>
-              <h3 class="tl-head">低音を選んだ</h3>
-              <p class="tl-body">ベースとコントラバス。旋律ではなく、和音の土台を決める側を選んだ。目立つ部分より、<strong>その下で全体を支えている構造</strong>のほうに惹かれるという性質が、たぶんここで最初に形になっている。</p>
-              <span class="tl-thread">→ 構造の側に立つ</span>
+              <h3 class="tl-head">ベースに回された</h3>
+              <p class="tl-body">やりたかったのはドラムだった。ただ希望者が多く、ベースに回された。<strong>選んだのではなく、割り当てられた</strong>というのが正確なところで、ここに自分の性質を読み込むのは後付けになる。</p>
+              <p class="tl-body">ただ、役回りのほうは効いたと思う。低音は目立たないが、和音の土台を決め、リズムと和声の両方に足をかけている。その位置に長くいたことは、大学に入ってからの振る舞いに影響している。<strong>性質が役回りを選んだのではなく、役回りが性質を作った。</strong></p>
+              <span class="tl-thread">→ 役回りが性格をつくる</span>
             </li>
 
             <li class="tl-item">
               <p class="tl-when">Phase 02</p>
               <h3 class="tl-head">浪人した</h3>
-              <p class="tl-body">現役では届かなかった。この一年に置いた前提が、その後を長く決めることになる。<strong>自分は生きている価値のない人間で、這い上がらなければならない</strong>。当時はそれを反省だと思っていたが、いま見ると<strong>自分の価値を持ち物の量で計算する方式</strong>を、ここで採用していた。積み上げる力はここで付いた。同時に、足りなさが終わらない仕組みも、ここで組み上がっている。</p>
-              <span class="tl-thread">→ 計算方式を採用する</span>
+              <p class="tl-body">現役では届かず、一年やり直した。この期間に身についたのは、<strong>積み上げるという手つき</strong>そのものだった。決めた量を毎日こなし、記録して見返し、抜けを潰す。あとで Notion と Obsidian に移っていく習慣の原型は、たぶんここでできている。</p>
+              <span class="tl-thread">→ 積み上げる手つきを得る</span>
             </li>
 
             <li class="tl-item">
@@ -678,45 +560,11 @@
           </ul>
         </section>
 
-        <!-- ============ 実家に見本があった ============ -->
-        <section class="sec" aria-labelledby="homeHeading">
-          <p class="sec-label">Home · 05</p>
-          <h2 class="sec-title" id="homeHeading">何もない場所に、見本があった</h2>
-          <p class="sec-p">帰省すると、いつも同じことを考えます。都会に比べれば、本当に何もない。<strong>それでも両親は幸せに暮らしている。なぜだろう。</strong></p>
-
-          <div class="lens-row">
-            <p class="lens-label">問いの形が、間違っていた</p>
-            <p class="lens-text">長いあいだ、これを素朴な問いだと思っていました。田舎にも幸せな人はいる、という話だと。でもフロムを通したあとで見ると、<strong>質問の立て方そのものがおかしい</strong>ことに気づきます。</p>
-            <p class="lens-text" style="margin-top:18px;"><strong>「何もない」は、持つ様式の数え方です。</strong>店の数、施設の数、選べる職業の数。何が「ある」かを数えて、少なければ「ない」と判定する。</p>
-            <p class="lens-text" style="margin-top:18px;">両親は、その数え方を使っていません。だから<strong>「何もない場所で、それでも幸せ」という文が、そもそも成立していない。</strong>足りないと感じていたのは、こちら側の計算式のほうでした。</p>
-          </div>
-
-          <div class="lens-row">
-            <p class="lens-label">畑仕事</p>
-            <p class="lens-text">畑仕事を見ていて思うのは、<strong>あれは今を生きている</strong>、ということです。</p>
-            <p class="lens-text" style="margin-top:18px;">そしてあの作業には、持つ様式が入り込む隙がありません。<strong>作物は食べれば消える。去年の畑は今年の役に立たない。毎年、同じことを最初からやり直す。</strong>積み上がらないし、誰かと比べる順位もつかない。フロムが在る様式を説明するときに書いていることと、ほとんど同じ形をしています。</p>
-          </div>
-
-          <div class="lens-row">
-            <p class="lens-label">順番が、逆だった</p>
-            <p class="lens-text">この地図を作っていて、いちばんこたえたのがここです。</p>
-            <p class="lens-q" style="margin-top:20px;">在る様式の見本は、本の中ではなく、最初から実家にあった。</p>
-            <p class="lens-text" style="margin-top:20px;">それを「何もない」と数えて出てきて、都会で持ち物を積み上げて、積み上げても足りないことに気づいて、本を読んで、<strong>いま、もともといた場所のやり方に戻ろうとしています。</strong>二十年かけて一周しました。</p>
-          </div>
-
-          <div class="lens-row">
-            <p class="lens-label">ただし、戻る話ではない</p>
-            <p class="lens-text">誤解しないように書いておきます。これは「田舎に帰れば幸せ」という話ではありません。そう読むと、<strong>今度は素朴さを新しい所有物にすることになります。</strong>レンズ04（禁欲）とまったく同じ罠です。</p>
-            <p class="lens-text" style="margin-top:18px;">両親のやり方をそのまま真似ることもできません。自分は医学を選んだし、それは選択肢が三つしか見えない場所から、見えるものを選んだ結果です。その事実は消えない。</p>
-            <p class="lens-text" style="margin-top:18px;">受け取るのは<strong>数え方だけ</strong>です。場所ではなく。</p>
-          </div>
-        </section>
-
         <!-- ============ 現在地 ============ -->
         <section class="sec" aria-labelledby="nowHeading">
-          <p class="sec-label">Now · 06</p>
+          <p class="sec-label">Now · 04</p>
           <h2 class="sec-title" id="nowHeading">いま置いている基準</h2>
-          <p class="sec-p">五つのレンズを通し、自分の計算方式を見たうえで、行動を変えるための基準はひとつに絞れました。構造化はやめない。やめる理由がない。ただ、良し悪しの判定を<strong>「よく整理できたか」から動かす</strong>ことにしました。整理の量で測る限り、それは持ち物の数え上げのままだからです。</p>
+          <p class="sec-p">五つのレンズを通した結果、行動を変えるための基準はひとつに絞れました。構造化はやめない。やめる理由がない。ただ、良し悪しの判定を<strong>「よく整理できたか」から動かす</strong>ことにしました。整理の量で測る限り、それは持ち物の数え上げのままだからです。</p>
           <p class="sec-p">新しい基準はこれです。<strong>その作業は、誰かとの関係を変えたか。</strong>同じ Obsidian でも、溜めるために開けば持つ様式、目の前の患者や生徒に対して何かが変わるために開けば在る様式になる。道具ではなく、関わり方の話だからです。</p>
           <p class="sec-p">誰かを手伝うときには、もう一つ足します。<strong>その助けは、相手が自分を必要としなくなる方向に働いたか。</strong>手厚さは基準にならない。手厚さで測ると、相手が自立しないほうが自分の点数は上がってしまうからです。二つの基準は結局、同じことを別の角度から言っています。<strong>自分の手元に何が残ったかではなく、相手の側で何が動いたか</strong>で判定する、ということです。</p>
 
