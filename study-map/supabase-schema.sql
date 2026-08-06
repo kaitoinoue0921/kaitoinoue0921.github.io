@@ -18,8 +18,15 @@ create table if not exists public.spots (
   closed_days text,          -- 休館日
   fee         text,
   note        text,
+  -- 設備の「事実」。{"wifi":1,"power":0,...} の形で入れる。
+  -- 1=あり 0=なし キーなし=不明 の3状態があるので、列に割らず jsonb 1本で持つ。
+  facilities  jsonb not null default '{}'::jsonb,
   created_at  timestamptz not null default now()
 );
+
+-- すでに facilities 列なしでこのスキーマを実行してしまっている場合は、次を1回流すこと:
+--   alter table public.spots add column if not exists facilities jsonb not null default '{}'::jsonb;
+alter table public.spots add column if not exists facilities jsonb not null default '{}'::jsonb;
 
 create index if not exists spots_pref_city_idx on public.spots (pref, city);
 

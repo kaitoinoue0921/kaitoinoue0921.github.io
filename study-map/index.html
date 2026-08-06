@@ -1158,7 +1158,10 @@ const saveLocal=()=>{ try{ localStorage.setItem(KEY,JSON.stringify(SPOTS)); }cat
    anon key は公開前提の鍵なのでブラウザに置いて問題ない（RLSで守る）。
    ここが空のあいだは、各自のブラウザ内にだけ保存される。
    ローカルで別のDBを試したいときは、右上「☁ 共有DBの設定」で上書きできる。 */
-const CLOUD={url:'',key:''};
+const CLOUD={
+  url:'https://dlodldpdrlvpweqvwidp.supabase.co',
+  key:'sb_publishable_mtrFLgfGGTqvVrennVD3Tw_jVPEKhbD'
+};
 
 const cloudCfg=()=>{
   try{ const j=JSON.parse(localStorage.getItem(CKEY)||'null'); if(j&&j.url&&j.key) return j; }catch(e){}
@@ -1180,13 +1183,18 @@ function rowToReview(r){
     visit:(r.visit_day!=null&&r.visit_slot!=null)?{day:r.visit_day,slot:r.visit_slot,level:r.visit_level}:null,
     date:(r.created_at||'').slice(0,7)};
 }
+/* facilities（設備の事実）は jsonb 1列にそのまま入れる。
+   1=あり 0=なし キーなし=不明、という3状態を持つので、
+   列を4つに割ると「不明」をNULLで表すことになって扱いが増える。 */
 function rowToSpot(r,revs){
   return {id:r.id,name:r.name,pref:r.pref||'栃木県',city:r.city||'—',category:r.category||'図書館',
     address:r.address||'',lat:r.lat,lng:r.lng,hoursWd:r.hours_wd||'',hoursWe:r.hours_we||'',
-    closed:r.closed_days||'',fee:r.fee||'',note:r.note||'',reviews:revs};
+    closed:r.closed_days||'',fee:r.fee||'',note:r.note||'',
+    facilities:(r.facilities&&typeof r.facilities==='object')?r.facilities:{},reviews:revs};
 }
 const spotToRow=sp=>({name:sp.name,pref:sp.pref,city:sp.city,category:sp.category,address:sp.address,
-  lat:sp.lat,lng:sp.lng,hours_wd:sp.hoursWd,hours_we:sp.hoursWe,closed_days:sp.closed,fee:sp.fee,note:sp.note});
+  lat:sp.lat,lng:sp.lng,hours_wd:sp.hoursWd,hours_we:sp.hoursWe,closed_days:sp.closed,fee:sp.fee,note:sp.note,
+  facilities:sp.facilities||{}});
 function reviewToRow(spotId,rv){
   const o={spot_id:spotId,user_name:rv.user,comment:rv.comment,
     visit_day:rv.visit?.day??null,visit_slot:rv.visit?.slot??null,visit_level:rv.visit?.level??null};
@@ -1235,9 +1243,13 @@ const DB={
     if(r.error) throw r.error;
     rv.id=r.data.id; sp.reviews.push(rv); return rv;
   },
-  /* サンプル14件を共有DBに流し込む（初回セットアップ用） */
+  /* 初期データを共有DBに流し込む（初回セットアップ用）。
+     二重投入すると同じスポットが2つ並ぶので、空のときだけ通す。 */
   async seed(){
     if(this.mode!=='cloud') throw new Error('共有DBに接続していません');
+    const c=await this.sb.from('spots').select('id',{count:'exact',head:true});
+    if(c.error) throw c.error;
+    if(c.count>0) throw new Error(`共有DBには既に${c.count}件入っています。二重投入を避けるため中止しました。`);
     const src=JSON.parse(JSON.stringify(SEED));
     for(const sp of src){
       const ins=await this.sb.from('spots').insert(spotToRow(sp)).select().single();
@@ -1844,7 +1856,7 @@ function openCloudForm(){
     <p class="hint">anonキーは公開前提の鍵なのでブラウザに置いて問題ありませんが、
     テーブルのRLS（行レベルセキュリティ）は必ず設定してください。schema.sqlに雛形が入っています。</p>
     <button class="btn" id="ssave">接続する</button>
-    ${DB.mode==='cloud'?`<button class="btn ghost" id="sseed">サンプル14件を共有DBに投入する</button>`:''}
+    ${DB.mode==='cloud'?`<button class="btn ghost" id="sseed">初期データ ${SEED.length}件を共有DBに投入する</button>`:''}
     <button class="btn ghost" id="soff">接続を解除（端末内保存に戻す）</button>
     <button class="btn ghost" id="scancel">キャンセル</button>`);
   const sh=document.getElementById('sheet');
@@ -1858,10 +1870,10 @@ function openCloudForm(){
   };
   const sd=sh.querySelector('#sseed');
   if(sd) sd.onclick=async()=>{
-    if(!confirm('サンプル14件を共有DBに追加します。すでに入っている場合は重複します。よろしいですか？')) return;
+    if(!confirm(`初期データ${SEED.length}件を共有DBに投入します。よろしいですか？`)) return;
     sd.disabled=true; sd.textContent='投入中…';
     try{ const n=await DB.seed(); SPOTS=await DB.list(); closeModal(); fillRegion(); render(); toast(`${n}件を投入しました`); }
-    catch(e){ sd.disabled=false; sd.textContent='サンプル14件を共有DBに投入する'; toast('投入に失敗: '+(e.message||e)); }
+    catch(e){ sd.disabled=false; sd.textContent=`初期データ ${SEED.length}件を共有DBに投入する`; toast('投入に失敗: '+(e.message||e)); }
   };
 }
 document.getElementById('btnCloud').onclick=openCloudForm;
