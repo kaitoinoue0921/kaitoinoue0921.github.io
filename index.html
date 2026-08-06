@@ -701,6 +701,24 @@
     text-transform: uppercase;
     margin: 0;
   }
+  .footer-links{
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-align: center;
+    text-transform: uppercase;
+    margin: 14px 0 0;
+  }
+  .footer-links a{
+    color: var(--ink-faint);
+    text-decoration: none;
+    border-bottom: 1px solid var(--line-faint);
+    padding-bottom: 3px;
+    transition: color 0.3s ease, border-color 0.3s ease;
+  }
+  .footer-links a:hover{ color: var(--ink); border-color: var(--ink); }
+  .footer-links a:focus-visible{ outline: 2px solid var(--ink); outline-offset: 3px; }
+
   /* stays hidden unless the count is actually retrieved */
   .visit-count{
     font-family: var(--mono);
@@ -907,6 +925,10 @@
               <span>GADGET LOGを見る</span>
               <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
+            <a class="block-action" href="./support/">
+              <span>寄付する</span>
+              <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
           </div>
         </article>
 
@@ -1015,6 +1037,7 @@
           </svg>
         </div>
         <p class="footer-note">Prototype — 自己紹介ウェブサイト</p>
+        <p class="footer-links"><a href="./support/">寄付する</a></p>
         <p class="visit-count" id="visitCount" hidden></p>
       </div>
     </footer>

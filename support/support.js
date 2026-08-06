@@ -34,15 +34,30 @@
     hint: '決済画面の「数量」がそのまま金額になります（1 = ¥100、100 = ¥10,000）。'
   };
 
-  /* 応援メッセージの保存先。空のあいだはメール送信にフォールバックする。
-     anon key は公開前提の鍵なので、ここに書いて問題ない（RLS で守る）。 */
-  var SUPABASE = { url: '', key: '' };
+  /* 応援メッセージの保存先。study-map と同じ共有DBを使う。
+     publishable key は公開前提の鍵なので、ここに書いて問題ない（RLS で守る）。
+     空にすればメール送信にフォールバックする。 */
+  var SUPABASE = {
+    url: 'https://dlodldpdrlvpweqvwidp.supabase.co',
+    key: 'sb_publishable_mtrFLgfGGTqvVrennVD3Tw_jVPEKhbD'
+  };
 
   /* Supabase 未設定のときの送り先 */
   var CONTACT_MAIL = 'kaito.inoue0921@gmail.com';
 
-  /* 作品ごとの文面。ここに 1 行足せば、その作品の応援セクションが作れる。 */
+  /* 作品ごとの文面。ここに 1 行足せば、その作品の応援セクションが作れる。
+     cta … ボタンの文言（省略時は「投げ銭で応援する」）
+     ph  … 感想フォームの例文（省略時は下の PLACEHOLDER） */
+  var CTA = '投げ銭で応援する';
+  var PLACEHOLDER = '例）ここが分かりにくかった、こういう機能がほしい、など。';
+
   var WORKS = {
+    'site': {
+      title: '実際に寄付する',
+      cta: '寄付する',
+      lead: '金額はいくらでもかまいませんし、寄付しないまま使い続けてもらってもまったく問題ありません。',
+      use: '受け取ったぶんは、サーバーと API の実費、実機の購入費、そして次を作る時間に充てます。'
+    },
     'works': {
       title: '作ったものを応援する',
       lead: 'ここに置いているものは、すべて個人で作って個人で運営しています。広告は入れていません。'
@@ -51,6 +66,7 @@
     },
     'study-map': {
       title: 'スタディスポットMAPを応援する',
+      ph: '例）駐車場の有無も分かると助かります。',
       lead: '無料で勉強できる場所を集めた地図です。個人で作って、個人で運営しています。広告は入れていません。',
       use: '共有データベースと地図 API の実費で動いています。'
          + '掲載を栃木県の外へ広げるほど、地図の読み込みとデータ量がそのまま増えます。'
@@ -199,7 +215,7 @@
 
     var tipHTML = TIP.url
       ? '<a class="ksup__tip" href="' + esc(tipHref(workId)) + '" target="_blank" rel="noopener noreferrer">'
-        + '<span>投げ銭で応援する</span>'
+        + '<span>' + esc(work.cta || CTA) + '</span>'
         + '<svg viewBox="0 0 16 16" aria-hidden="true">'
         + '<path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>'
         + '</svg></a>'
@@ -219,7 +235,7 @@
       +   '<div class="ksup__field"><label for="' + id + 'n">お名前（任意）</label>'
       +     '<input id="' + id + 'n" type="text" maxlength="40" placeholder="名無しでもOK" autocomplete="off"></div>'
       +   '<div class="ksup__field"><label for="' + id + 'b">ご意見・ご感想</label>'
-      +     '<textarea id="' + id + 'b" maxlength="1000" required placeholder="例）駐車場の有無も分かると助かります。"></textarea></div>'
+      +     '<textarea id="' + id + 'b" maxlength="1000" required placeholder="' + esc(work.ph || PLACEHOLDER) + '"></textarea></div>'
       +   '<button class="ksup__submit" type="submit">送信する</button>'
       +   '<p class="ksup__status" role="status" aria-live="polite"></p>'
       + '</form>'
@@ -247,6 +263,34 @@
       return lib.createClient(SUPABASE.url, SUPABASE.key);
     });
     return sbPromise;
+  }
+
+  /* messages.work 列がまだ無いDBでも動くようにする。
+     列を足す前は work なしで保存し、足したあとは自動的に work 付きに戻る。
+
+     列が無いときのエラーは、経路によって別物が返るので両方見る:
+       select → 42703  "column messages.work does not exist"（PostgreSQL）
+       insert → PGRST204 "Could not find the 'work' column ... in the schema cache"（PostgREST）
+     片方だけ見ているとフォールバックが効かず、送信が失敗して終わる。 */
+  var hasWorkColumn = true;
+
+  function isMissingWorkColumn(err) {
+    if (!err) return false;
+    if (err.code === '42703' || err.code === 'PGRST204') return true;
+    return /\bwork\b/.test(err.message || '')
+      && /(does not exist|could not find)/i.test(err.message || '');
+  }
+
+  function insertMessage(sb, workId, name, body) {
+    var row = { name: name || null, body: body };
+    if (hasWorkColumn) row.work = workId;
+    return sb.from('messages').insert(row).then(function (res) {
+      if (res && res.error && hasWorkColumn && isMissingWorkColumn(res.error)) {
+        hasWorkColumn = false;
+        return insertMessage(sb, workId, name, body);
+      }
+      return res;
+    });
   }
 
   function mailtoFallback(workId, work, name, body) {
@@ -288,11 +332,7 @@
       submit.disabled = true;
       status.textContent = '送信中…';
       getSupabase().then(function (sb) {
-        return sb.from('messages').insert({
-          name: name.value.trim() || null,
-          body: text,
-          work: workId
-        });
+        return insertMessage(sb, workId, name.value.trim(), text);
       }).then(function (res) {
         if (res && res.error) throw res.error;
         form.reset();
@@ -304,15 +344,24 @@
       });
     });
 
-    /* 承認済みメッセージの表示（Supabase 設定時のみ） */
+    /* 承認済みメッセージの表示（Supabase 設定時のみ）。
+       work 列がまだ無いDBでは、作品で絞らず全件から出す。 */
     if (!supabaseReady()) return;
     getSupabase().then(function (sb) {
-      return sb.from('messages')
-        .select('name, body, kind, work, created_at')
-        .eq('approved', true)
-        .eq('work', workId)
-        .order('created_at', { ascending: false })
-        .limit(20);
+      function fetchMsgs(withWork) {
+        var q = sb.from('messages')
+          .select(withWork ? 'name, body, kind, work, created_at' : 'name, body, kind, created_at')
+          .eq('approved', true);
+        if (withWork) q = q.eq('work', workId);
+        return q.order('created_at', { ascending: false }).limit(20).then(function (res) {
+          if (res && res.error && withWork && isMissingWorkColumn(res.error)) {
+            hasWorkColumn = false;
+            return fetchMsgs(false);
+          }
+          return res;
+        });
+      }
+      return fetchMsgs(hasWorkColumn);
     }).then(function (res) {
       var rows = res && res.data;
       if (!rows || !rows.length) return;

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>寄付する — 井上凱斗</title>
+<meta name="description" content="井上凱斗が個人で作って個人で運営しているサイトとツールへの寄付ページ。何にいくら使っているか、寄付しても何も返ってこないことを含めて書いています。">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/support/">
+<meta name="robots" content="index, follow">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="井上凱斗 — Profile">
+<meta property="og:title" content="寄付する — 井上凱斗">
+<meta property="og:description" content="個人で作って個人で運営しているサイトとツールへの寄付ページ。使い道と、返せるものがないことを先に書いています。">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/support/">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/ogp.png">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="../favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #ffffff;
+    --ink: #121212;
+    --ink-soft: #3a3a3a;
+    --ink-faint: #8f8f8f;
+    --line-faint: rgba(18,18,18,0.14);
+    --serif: 'Shippori Mincho', serif;
+    --sans: 'Zen Kaku Gothic New', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+    --gap: clamp(48px, 9vh, 96px);
+    --side: clamp(24px, 7vw, 64px);
+    --measure: 700px;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink-soft);
+    font-family: var(--sans);
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  ::selection{ background: var(--ink); color: #fff; }
+
+  /* ---------- corner marks ---------- */
+  .corner-marks{ position: fixed; inset: 0; z-index: 3; pointer-events: none; }
+  .corner{ position: absolute; width: 18px; height: 18px; border: 1px solid var(--ink); opacity: 0.28; }
+  .corner.tl{ top: 18px; left: 18px; border-right: none; border-bottom: none; }
+  .corner.tr{ top: 18px; right: 18px; border-left: none; border-bottom: none; }
+  .corner.bl{ bottom: 18px; left: 18px; border-right: none; border-top: none; }
+  .corner.br{ bottom: 18px; right: 18px; border-left: none; border-top: none; }
+
+  /* ---------- shell ---------- */
+  .page{ position: relative; z-index: 1; }
+  .container{ max-width: var(--measure); margin: 0 auto; padding: 0 var(--side); }
+
+  /* ---------- back link ---------- */
+  .backlink{
+    display: inline-flex; align-items: center; gap: 9px;
+    margin-top: clamp(40px, 8vh, 72px);
+    font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--ink-faint); text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  .backlink:hover{ color: var(--ink); }
+  .backlink:focus-visible{ outline: 2px solid var(--ink); outline-offset: 3px; }
+  .backlink svg{ width: 13px; height: 13px; }
+  .backlink path{ stroke: currentColor; fill: none; }
+
+  /* ---------- hero ---------- */
+  .hero{ padding-top: clamp(28px, 5vh, 48px); padding-bottom: var(--gap); }
+  .eyebrow{
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.22em;
+    color: var(--ink-faint); text-transform: uppercase; margin: 0 0 28px;
+  }
+  .name{
+    font-family: var(--serif); font-weight: 600; color: var(--ink);
+    font-size: clamp(34px, 6.4vw, 58px); line-height: 1.25; margin: 0; letter-spacing: 0.04em;
+  }
+  .name-en{
+    display: block; font-family: var(--mono); font-weight: 400; font-size: 12.5px;
+    letter-spacing: 0.3em; color: var(--ink-faint); margin-top: 14px;
+  }
+  .tagline{
+    font-size: 16.5px; line-height: 2; color: var(--ink-soft);
+    max-width: 44ch; margin: 32px 0 0;
+  }
+
+  /* ---------- hero illustration: a coin going into a slot ---------- */
+  .hero-art{ display: block; width: min(280px, 56vw); height: auto; margin: 44px 0 0; }
+  .hero-art path, .hero-art line, .hero-art rect, .hero-art circle{
+    fill: none; stroke: var(--ink); stroke-linecap: round; stroke-linejoin: round;
+  }
+  .hero-art .coin{ transform-origin: 100px 40px; animation: drop 4.5s ease-in-out infinite; }
+  @keyframes drop{
+    0%,100%{ transform: translateY(0); }
+    45%{ transform: translateY(13px); }
+  }
+  .hero-art .spark{ animation: spark 4.5s ease-in-out infinite; }
+  @keyframes spark{
+    0%,35%,100%{ opacity: 0.15; }
+    50%{ opacity: 0.75; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .hero-art .coin, .hero-art .spark{ animation: none; }
+  }
+
+  /* ---------- divider ---------- */
+  .divider{ display: flex; align-items: center; gap: 14px; margin: 0 0 26px; }
+  .divider-line{ flex: 1; height: 1px; background: var(--line-faint); }
+  .fhole{ flex-shrink: 0; color: var(--ink); opacity: 0.5; width: 11px; height: 26px; }
+  .divider--major{ margin: 0 0 var(--gap); }
+  .divider--major .fhole{ width: 16px; height: 38px; opacity: 0.75; }
+
+  /* ---------- blocks ---------- */
+  .stack{ padding-top: var(--gap); padding-bottom: var(--gap); }
+  .block{ margin-bottom: var(--gap); }
+  .block:last-child{ margin-bottom: 0; }
+  .block-label{
+    font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.16em;
+    color: var(--ink-faint); text-transform: uppercase; margin: 0 0 10px;
+  }
+  .block-title{
+    font-family: var(--serif); font-weight: 600; color: var(--ink);
+    font-size: clamp(19px, 2.6vw, 24px); margin: 0 0 16px; letter-spacing: 0.02em;
+  }
+  .block-text{
+    font-size: 15.5px; line-height: 2; color: var(--ink-soft);
+    margin: 0 0 20px; max-width: 58ch;
+  }
+  .block-text:last-child{ margin-bottom: 0; }
+
+  /* ---------- 使い道の内訳 ---------- */
+  .uses{ list-style: none; padding: 0; margin: 26px 0 0; border-top: 1px solid var(--line-faint); }
+  .uses li{ border-bottom: 1px solid var(--line-faint); padding: 18px 2px; }
+  .use-name{
+    display: block; font-family: var(--serif); font-weight: 600;
+    color: var(--ink); font-size: 16px; letter-spacing: 0.04em; margin-bottom: 5px;
+  }
+  .use-body{ margin: 0; font-size: 14px; line-height: 1.95; color: var(--ink-soft); }
+
+  /* ---------- 注意書き ---------- */
+  .notes{ list-style: none; padding: 0; margin: 22px 0 0; }
+  .notes li{
+    position: relative; padding-left: 22px; font-size: 14.5px;
+    line-height: 1.95; color: var(--ink-soft); margin-bottom: 10px;
+  }
+  .notes li::before{
+    content: ''; position: absolute; left: 4px; top: 14px;
+    width: 8px; height: 1px; background: var(--ink); opacity: 0.5;
+  }
+  .notes strong{ color: var(--ink); font-weight: 500; }
+
+  /* 金額の読み替え表 */
+  .qty{
+    margin: 24px 0 0; border: 1px solid var(--line-faint);
+    display: grid; grid-template-columns: repeat(3, 1fr);
+  }
+  .qty div{ padding: 16px 12px; text-align: center; border-right: 1px solid var(--line-faint); }
+  .qty div:last-child{ border-right: none; }
+  .qty b{
+    display: block; font-family: var(--mono); font-size: 17px;
+    font-weight: 600; color: var(--ink); letter-spacing: 0.02em;
+  }
+  .qty span{
+    display: block; font-family: var(--mono); font-size: 10px;
+    letter-spacing: 0.14em; color: var(--ink-faint); margin-top: 6px;
+  }
+
+  /* ---------- footer ---------- */
+  .footer{ padding-bottom: clamp(64px, 12vh, 120px); }
+  .footer-signature{ display: flex; justify-content: center; margin-bottom: 28px; opacity: 0.5; }
+  .footer-signature svg{ width: 22px; height: 52px; color: var(--ink); }
+  .footer-note{
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em;
+    color: var(--ink-faint); text-align: center; text-transform: uppercase; margin: 0;
+  }
+  .footer-contact{
+    font-size: 12.5px; line-height: 1.9; color: var(--ink-faint);
+    text-align: center; margin: 12px 0 0;
+  }
+  .footer-contact a{ color: var(--ink-faint); }
+  .footer-contact a:hover{ color: var(--ink); }
+</style>
+</head>
+<body>
+
+  <div class="corner-marks">
+    <span class="corner tl"></span>
+    <span class="corner tr"></span>
+    <span class="corner bl"></span>
+    <span class="corner br"></span>
+  </div>
+
+  <div class="page">
+    <div class="container">
+      <a class="backlink" href="../">
+        <svg viewBox="0 0 16 16" aria-hidden="true">
+          <path d="M10 3 L5 8 L10 13" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Profile</span>
+      </a>
+
+      <header class="hero">
+        <p class="eyebrow">Donate — 寄付</p>
+        <h1 class="name">寄付する<span class="name-en">DONATE</span></h1>
+
+        <p class="tagline">ここに置いているものは、全部ひとりで作って、ひとりで動かしています。続けやすくするための入り口として、このページを置きました。</p>
+
+        <!-- hero illustration: 貯金箱に硬貨を落とす、線画 -->
+        <svg class="hero-art" viewBox="0 0 200 174" aria-hidden="true" focusable="false">
+          <!-- 硬貨 -->
+          <g class="coin">
+            <circle cx="100" cy="40" r="19" stroke-width="1.6"/>
+            <path d="M92 32 L100 40 L108 32" stroke-width="1.4"/>
+            <path d="M100 40 V50" stroke-width="1.4"/>
+            <path d="M93 43 H107" stroke-width="1.2"/>
+            <path d="M93 47 H107" stroke-width="1.2"/>
+          </g>
+          <!-- 落ちる気配 -->
+          <g class="spark">
+            <path d="M72 30 L64 26" stroke-width="1.2"/>
+            <path d="M128 30 L136 26" stroke-width="1.2"/>
+            <path d="M70 46 L61 46" stroke-width="1.2"/>
+            <path d="M130 46 L139 46" stroke-width="1.2"/>
+          </g>
+          <!-- 箱 -->
+          <path d="M42 84 H158 A5 5 0 0 1 163 89 V147 A5 5 0 0 1 158 152 H42 A5 5 0 0 1 37 147 V89 A5 5 0 0 1 42 84 Z" stroke-width="1.8"/>
+          <!-- 投入口。上辺から離して内側に置くことで、線ではなくスリットに見せる -->
+          <path d="M84 97 H116" stroke-width="3.4"/>
+          <!-- 天板と胴の境目 -->
+          <path d="M37 110 H163" stroke-width="1.1" opacity="0.32"/>
+          <!-- 中に貯まっているもの -->
+          <path d="M56 132 H92" stroke-width="1.2" opacity="0.45"/>
+          <path d="M56 142 H78" stroke-width="1.2" opacity="0.3"/>
+          <circle cx="130" cy="132" r="9" stroke-width="1.3" opacity="0.5"/>
+          <circle cx="114" cy="140" r="6" stroke-width="1.2" opacity="0.32"/>
+        </svg>
+      </header>
+
+      <div class="divider divider--major">
+        <span class="divider-line"></span>
+        <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
+          <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+          <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
+          <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
+        </svg>
+        <span class="divider-line"></span>
+      </div>
+    </div>
+
+    <div class="container">
+      <main class="stack">
+
+        <!-- 01 なぜ置いたか -->
+        <article class="block">
+          <p class="block-label">Why · 01</p>
+          <h2 class="block-title">なぜ寄付を受け取ることにしたか</h2>
+          <p class="block-text">広告は入れていませんし、有料の機能もありません。それでもサーバー代と API の利用料は毎月かかっていて、いまは自分の生活費から出しています。</p>
+          <p class="block-text">金額そのものより、出ていく一方だと「掲載する地域を増やすか」「機材をもう一台試すか」を決めるときに手が止まる、というのが正直なところです。判断の手前でブレーキがかからないように、受け取れる場所を作りました。</p>
+          <p class="block-text">寄付しないまま使い続けてもらって、まったく問題ありません。そちらのほうが普通の使い方です。何かを制限するつもりはないし、寄付した人に見せる特別なものもありません。</p>
+        </article>
+
+        <!-- 02 使い道 -->
+        <article class="block">
+          <div class="divider">
+            <span class="divider-line"></span>
+            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true"><path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="15" cy="10" r="1.6" fill="currentColor"/><circle cx="9" cy="38" r="1.6" fill="currentColor"/></svg>
+            <span class="divider-line"></span>
+          </div>
+          <p class="block-label">Use · 02</p>
+          <h2 class="block-title">何に使うか</h2>
+          <p class="block-text">作っているものによって、かかっているものが違います。まとめて受け取って、必要なところから使います。</p>
+
+          <ul class="uses">
+            <li>
+              <span class="use-name">スタディスポットMAP</span>
+              <p class="use-body">共有データベースと地図 API の利用料。掲載を栃木県の外へ広げるほど、地図の読み込み回数とデータ量がそのまま増えます。いま増やしているのは長崎です。</p>
+            </li>
+            <li>
+              <span class="use-name">東大理三 数学マップ</span>
+              <p class="use-body">サーバー代はほとんどかかっていません。足りないのは時間のほうで、統合解説はまだ 138 ノード中 6 つです。残りを書く時間に充てます。</p>
+            </li>
+            <li>
+              <span class="use-name">GADGET LOG</span>
+              <p class="use-body">レビューは、実機を買うか借りるかして、使ってから書いています。次に試す機材の購入費とレンタル代に充てます。試せる数が、そのまま記事の数になります。</p>
+            </li>
+            <li>
+              <span class="use-name">FocusRoom（開発中）</span>
+              <p class="use-body">勉強に集中するための iOS アプリを作っています。まだ配布していません。開発者登録の費用と、部屋の状態を同期するためのデータベースの利用料がかかります。</p>
+            </li>
+            <li>
+              <span class="use-name">このサイト自体</span>
+              <p class="use-body">GitHub Pages で動いているので、費用はかかっていません。ここは寄付がなくても消えません。</p>
+            </li>
+          </ul>
+
+          <p class="block-text" style="margin-top:26px">まだ手をつけていない案も、<a href="../works/#support">作ったもののページ</a>に置いてあります。何を先に作るか迷っているので、そこへの意見はいつでも歓迎です。</p>
+        </article>
+
+        <!-- 03 金額の決め方 -->
+        <article class="block">
+          <div class="divider">
+            <span class="divider-line"></span>
+            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true"><path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="15" cy="10" r="1.6" fill="currentColor"/><circle cx="9" cy="38" r="1.6" fill="currentColor"/></svg>
+            <span class="divider-line"></span>
+          </div>
+          <p class="block-label">Amount · 03</p>
+          <h2 class="block-title">金額の決め方</h2>
+          <p class="block-text">決済画面は「応援100円ぶん」を何個ぶん、という形になっています。<strong>数量がそのまま金額</strong>です。</p>
+
+          <div class="qty">
+            <div><b>1</b><span>¥100</span></div>
+            <div><b>10</b><span>¥1,000</span></div>
+            <div><b>100</b><span>¥10,000</span></div>
+          </div>
+
+          <p class="block-text" style="margin-top:22px">上限は 10,000 円にしてあります。一度きりの支払いで、継続課金にはなりません。</p>
+        </article>
+
+        <!-- 04 先に書いておくこと -->
+        <article class="block">
+          <div class="divider">
+            <span class="divider-line"></span>
+            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true"><path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="15" cy="10" r="1.6" fill="currentColor"/><circle cx="9" cy="38" r="1.6" fill="currentColor"/></svg>
+            <span class="divider-line"></span>
+          </div>
+          <p class="block-label">Notes · 04</p>
+          <h2 class="block-title">先に書いておくこと</h2>
+
+          <ul class="notes">
+            <li><strong>対価としてお渡しするものはありません。</strong>お礼に何かが届いたり、機能が解放されたりはしません。</li>
+            <li><strong>継続課金ではありません。</strong>次の月から自動で引き落とされる、ということは起きません。</li>
+            <li>決済は <strong>Stripe</strong> が処理します。カード番号がこちらに渡ることはありません。</li>
+            <li>領収書は、決済後に Stripe から届くメールがそのまま使えます。</li>
+            <li>金額を間違えた、送るつもりがなかった、という場合は下のフォームかメールで連絡してください。返金の相談に応じます。</li>
+          </ul>
+        </article>
+
+        <!-- 05 実際に寄付する / 感想を送る -->
+        <article class="block" id="donate">
+          <div class="divider">
+            <span class="divider-line"></span>
+            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true"><path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="15" cy="10" r="1.6" fill="currentColor"/><circle cx="9" cy="38" r="1.6" fill="currentColor"/></svg>
+            <span class="divider-line"></span>
+          </div>
+          <!-- ボタンと感想フォームは /support/support.js が描画する。
+               金額リンクと文面はそこで一括管理している。 -->
+          <div data-ksup="site" data-skin="paper"></div>
+        </article>
+
+      </main>
+    </div>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-signature">
+          <svg viewBox="0 0 24 56" aria-hidden="true">
+            <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52"
+                  fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+            <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
+            <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
+          </svg>
+        </div>
+        <p class="footer-note">Kaito Inoue — Donate</p>
+        <p class="footer-contact">
+          運営：井上凱斗　連絡先：<a href="mailto:kaito.inoue0921@gmail.com">kaito.inoue0921@gmail.com</a>
+        </p>
+      </div>
+    </footer>
+  </div>
+
+<script src="/support/support.js" defer></script>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

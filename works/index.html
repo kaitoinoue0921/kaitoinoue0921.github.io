@@ -122,6 +122,16 @@
     color: var(--ink-faint); text-transform: none;
   }
   .status--live{ border-color: var(--ink); color: var(--ink); }
+  .status--wip{ border-style: dashed; border-color: var(--ink); color: var(--ink); }
+
+  /* ---------- 名前つきリスト（構想中の案など） ---------- */
+  .uses{ list-style: none; padding: 0; margin: 26px 0 0; border-top: 1px solid var(--line-faint); }
+  .uses li{ border-bottom: 1px solid var(--line-faint); padding: 18px 2px; }
+  .use-name{
+    display: block; font-family: var(--serif); font-weight: 600;
+    color: var(--ink); font-size: 16px; letter-spacing: 0.04em; margin-bottom: 5px;
+  }
+  .use-body{ margin: 0; font-size: 14px; line-height: 1.95; color: var(--ink-soft); max-width: 58ch; }
   .block-title{
     font-family: var(--serif); font-weight: 600; color: var(--ink);
     font-size: clamp(19px, 2.6vw, 24px); margin: 0 0 16px; letter-spacing: 0.02em;
@@ -415,7 +425,86 @@
           <div><a class="support-inline" href="#support" data-ksup-open="todai-math-map">この作品を応援する</a></div>
         </article>
 
-        <!-- 05 応援 -->
+        <!-- 05 FocusRoom（開発中） -->
+        <article class="block">
+          <div class="divider">
+            <span class="divider-line"></span>
+            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
+              <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
+              <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
+            </svg>
+            <span class="divider-line"></span>
+          </div>
+          <p class="block-label"><span>Works · 05</span><span class="status status--wip">開発中</span></p>
+          <h2 class="block-title">FocusRoom</h2>
+          <p class="block-text">勉強に集中するためのiOSアプリを作っています。スマホを触らせないアプリはOS標準のスクリーンタイムが最強なので、そこでは勝負していません。同じ部屋に入った人どうしが、お互いの状態を見ている、という一点に賭けています。</p>
+
+          <ul class="points">
+            <li>部屋に入ると集中時間とコインが貯まる。ロックを外すと「解除中」として部屋の全員に流れる</li>
+            <li>休憩（5・10・20分）は解除と明確に分けた。休憩中は誰にも流れず、責められない。隠れてサボる方に流れさせないため</li>
+            <li>ただし休憩中は集中時間もコインも増えないので、だらだら延ばす動機はない</li>
+            <li>ロックは必ず自分で外せる。外せない仕組みは、いざというときに危ないので作らない</li>
+          </ul>
+
+          <ul class="tech">
+            <li>Swift / SwiftUI</li>
+            <li>Supabase</li>
+            <li>iOS</li>
+          </ul>
+
+          <p class="support-note">まだ手元で動かしている段階で、配布はしていません。いまは休憩機能と配色を入れたところです。</p>
+          <div><a class="support-inline" href="../support/">開発を寄付で支える</a></div>
+        </article>
+
+        <!-- 06 これから作りたいもの -->
+        <article class="block">
+          <div class="divider">
+            <span class="divider-line"></span>
+            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
+              <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
+              <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
+            </svg>
+            <span class="divider-line"></span>
+          </div>
+          <p class="block-label"><span>Backlog · 06</span><span class="status">構想中</span></p>
+          <h2 class="block-title">これから作りたいもの</h2>
+          <p class="block-text">まだ手をつけていない案です。作ると決めたものではなく、「これが要るのでは」と思って書き留めてあるものを、そのまま置いておきます。どれも、越えないといけない壁のほうを先に書いています。</p>
+
+          <ul class="uses">
+            <li>
+              <span class="use-name">家庭教師を回すためのもの</span>
+              <p class="use-body">生徒・保護者・講師の三者で、日程と指導内容を同じ場所で見る。LINEで足りてしまうので、指導内容の透明化とドタキャンの扱いに絞らないと存在理由がない。</p>
+            </li>
+            <li>
+              <span class="use-name">スマホを触らせないもの</span>
+              <p class="use-body">いまの FocusRoom がここに当たります。OS標準のスクリーンタイムが本命の競合なので、制限そのものではなく、解除の条件で差をつけるしかない。</p>
+            </li>
+            <li>
+              <span class="use-name">家族のためのもの</span>
+              <p class="use-body">毎日ひとつ、家族全員に同じ質問が届く、くらいまで具体化しないと続かない。「絆を深める」は目的であって機能ではないので、そこを設計に落とせるかどうか。</p>
+            </li>
+            <li>
+              <span class="use-name">結婚を考えているふたりのためのもの</span>
+              <p class="use-body">価値観のすり合わせと、式場・引っ越し・保険のタスク管理。結婚した瞬間に不要になる構造なので、月額課金は成立しない。</p>
+            </li>
+            <li>
+              <span class="use-name">Webサイトをアプリにするもの</span>
+              <p class="use-body">URLを入れるだけでアプリにする。ただし「Webを表示するだけ」のアプリは審査で落ちるので、カメラや位置情報やオフラインを自動で足せるかが全部。</p>
+            </li>
+            <li>
+              <span class="use-name">原価が分かるもの</span>
+              <p class="use-body">検索した商品の原価の見当をつける。実際の原価は企業の機密なので出せるのは推計値だけで、その一線をどう明示するかが難しい。</p>
+            </li>
+            <li>
+              <span class="use-name">人と話すきっかけを作るもの</span>
+              <p class="use-body">初対面で何を話すかを渡す。誰がどの場面で使うのかを決めないと、UIが決まらないまま使われないものになる。</p>
+            </li>
+          </ul>
+        </article>
+
+        <!-- 07 応援 -->
         <article class="block" id="support">
           <div class="divider">
             <span class="divider-line"></span>
