@@ -28,15 +28,19 @@ create table if not exists public.reviews (
   id          uuid primary key default gen_random_uuid(),
   spot_id     uuid not null references public.spots(id) on delete cascade,
   user_name   text,
-  -- 8軸の評価（1〜5）
+  -- 7軸の評価（1〜5）。星ごとの意味は index.html の AXES.scale に定義してある。
   ax_quiet    smallint not null check (ax_quiet   between 1 and 5),
   ax_power    smallint not null check (ax_power   between 1 and 5),
   ax_wifi     smallint not null check (ax_wifi    between 1 and 5),
   ax_seat     smallint not null check (ax_seat    between 1 and 5),
   ax_privacy  smallint not null check (ax_privacy between 1 and 5),
   ax_aircon   smallint not null check (ax_aircon  between 1 and 5),
-  ax_access   smallint not null check (ax_access  between 1 and 5),
   ax_water    smallint not null check (ax_water   between 1 and 5),
+  -- 「アクセス」の軸は廃止した。地図を見れば位置は分かるうえ、
+  -- 近い/遠いは見る人の家がどこかで変わるので、場所の性質の評価にならないため。
+  -- すでにこのスキーマを ax_access 付きで実行してしまっている場合は、
+  -- アプリが値を送らなくなり NOT NULL 違反で投稿が全部失敗する。次を1回だけ流すこと:
+  --   alter table public.reviews alter column ax_access drop not null;
   comment     text,
   -- 訪問した曜日区分・時間帯・混み具合（空き状況ヒートマップの元データ）
   visit_day   text     check (visit_day in ('wd','we')),
