@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FocusRoom 記録</title>
+<style>
+  :root {
+    --bg: #f4f6fa; --surface: #fff; --accent: #2e6be6; --text: #10182a;
+    --muted: rgba(16,24,42,.6); --track: rgba(16,24,42,.1);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0b1220; --surface: #141e33; --accent: #5b9bf5; --text: #f2f5fb;
+      --muted: rgba(242,245,251,.6); --track: rgba(255,255,255,.14);
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 0 20px 60px; background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif;
+    line-height: 1.7;
+  }
+  .wrap { max-width: 640px; margin: 0 auto; }
+  header { padding: 48px 0 24px; text-align: center; }
+  h1 { font-size: 22px; margin: 12px 0 4px; }
+  .tagline { color: var(--muted); font-size: 14px; margin: 0; }
+  section {
+    background: var(--surface); border-radius: 18px; padding: 22px;
+    margin-bottom: 16px; box-shadow: 0 3px 10px rgba(0,0,0,.06);
+  }
+  @media (prefers-color-scheme: dark) { section { box-shadow: none; border: 1px solid var(--track); } }
+  label { font-size: 14px; color: var(--muted); display: block; margin-bottom: 6px; }
+  input {
+    width: 100%; padding: 14px; font-size: 20px; letter-spacing: .18em;
+    text-align: center; text-transform: uppercase; font-family: ui-monospace, monospace;
+    border: 1px solid var(--track); border-radius: 12px;
+    background: var(--bg); color: var(--text);
+  }
+  button {
+    width: 100%; margin-top: 10px; padding: 14px; font-size: 16px; font-weight: 700;
+    border: 0; border-radius: 12px; background: var(--accent); color: #fff; cursor: pointer;
+  }
+  button:disabled { opacity: .5; cursor: default; }
+  .stats { display: flex; gap: 12px; }
+  .stat { flex: 1; text-align: center; }
+  .stat .value { font-size: 26px; font-weight: 700; color: var(--accent); }
+  .stat .label { font-size: 12px; color: var(--muted); }
+  .bars { display: flex; align-items: flex-end; gap: 6px; height: 150px; margin-top: 14px; }
+  .bar { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; height: 100%; }
+  .bar .fill { background: var(--accent); border-radius: 4px 4px 0 0; min-height: 2px; }
+  .bar .day { font-size: 10px; color: var(--muted); text-align: center; margin-top: 4px; }
+  .msg { color: var(--muted); font-size: 14px; }
+  .error { color: #d93a56; font-size: 14px; }
+  footer { text-align: center; color: var(--muted); font-size: 12px; padding-top: 20px; }
+  footer a { color: var(--accent); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div style="font-size:44px">📈</div>
+  <h1>FocusRoom の記録</h1>
+  <p class="tagline">iPhone で測った集中時間を、ここで見られます</p>
+</header>
+
+<section>
+  <label for="code">共有コード（アプリの 設定 &gt; ほかの端末で見る）</label>
+  <input id="code" maxlength="8" placeholder="XXXXXXXX" autocomplete="off" autocapitalize="characters">
+  <button id="go">見る</button>
+  <p id="msg" class="msg" style="margin-bottom:0"></p>
+</section>
+
+<section id="result" hidden>
+  <div class="stats">
+    <div class="stat"><div class="value" id="today">-</div><div class="label">今日</div></div>
+    <div class="stat"><div class="value" id="week">-</div><div class="label">直近7日</div></div>
+    <div class="stat"><div class="value" id="streak">-</div><div class="label">連続</div></div>
+  </div>
+  <div class="bars" id="bars"></div>
+</section>
+
+<footer>
+  このページは記録の閲覧のみです。集中の開始やブロックは iPhone アプリで行います。
+  <p style="margin:10px 0 0"><a href="/works/focusroom/">FocusRoom について</a></p>
+</footer>
+
+</div>
+
+<script>
+// Supabase の publishable キーはクライアントに埋め込む前提の公開鍵。
+// 実際に何が見えるかは RLS と stats_by_code() が決めていて、
+// このキーだけでは他人の記録も部屋の情報も読めない。
+const SUPABASE_URL = "https://bnwhasiarygvwtyesuel.supabase.co";
+const SUPABASE_KEY = "sb_publishable_CHbyWrMP8dgO4MWsxP72MQ_sakP0iiy";
+
+const $ = (id) => document.getElementById(id);
+
+function fmt(seconds) {
+  const h = Math.floor(seconds / 3600);
+  const m = Math.round((seconds % 3600) / 60);
+  return h > 0 ? `${h}時間${m > 0 ? m + "分" : ""}` : `${m}分`;
+}
+
+function todayKey() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+}
+
+// 記録がある日を今日から遡って数える。0秒の日は途切れとみなす。
+function streakOf(rows) {
+  const byDay = new Map(rows.map((r) => [r.day, r.focused_seconds]));
+  let count = 0;
+  const cursor = new Date();
+  for (let i = 0; i < 120; i++) {
+    const key = `${cursor.getFullYear()}-${String(cursor.getMonth() + 1).padStart(2, "0")}-${String(cursor.getDate()).padStart(2, "0")}`;
+    const seconds = byDay.get(key) || 0;
+    if (seconds > 0) count++;
+    else if (i > 0) break;
+    cursor.setDate(cursor.getDate() - 1);
+  }
+  return count;
+}
+
+async function load() {
+  const code = $("code").value.trim().toUpperCase();
+  if (code.length < 4) { $("msg").textContent = "コードを入れてください。"; return; }
+
+  $("go").disabled = true;
+  $("msg").className = "msg";
+  $("msg").textContent = "読み込んでいます…";
+
+  try {
+    const response = await fetch(`${SUPABASE_URL}/rest/v1/rpc/stats_by_code`, {
+      method: "POST",
+      headers: {
+        apikey: SUPABASE_KEY,
+        Authorization: `Bearer ${SUPABASE_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ p_code: code }),
+    });
+    if (!response.ok) throw new Error(await response.text());
+
+    const rows = await response.json();
+    if (!rows.length) {
+      $("msg").className = "error";
+      $("msg").textContent = "そのコードの記録は見つかりませんでした。";
+      $("result").hidden = true;
+      return;
+    }
+
+    localStorage.setItem("focusroom.code", code);
+    render(rows);
+    $("msg").textContent = "";
+  } catch (error) {
+    $("msg").className = "error";
+    $("msg").textContent = "読み込めませんでした。時間をおいて試してください。";
+  } finally {
+    $("go").disabled = false;
+  }
+}
+
+function render(rows) {
+  const byDay = new Map(rows.map((r) => [r.day, r.focused_seconds]));
+  const last7 = [];
+  const cursor = new Date();
+  cursor.setDate(cursor.getDate() - 6);
+  for (let i = 0; i < 7; i++) {
+    const key = `${cursor.getFullYear()}-${String(cursor.getMonth() + 1).padStart(2, "0")}-${String(cursor.getDate()).padStart(2, "0")}`;
+    last7.push({ day: key, seconds: byDay.get(key) || 0 });
+    cursor.setDate(cursor.getDate() + 1);
+  }
+
+  $("today").textContent = fmt(byDay.get(todayKey()) || 0);
+  $("week").textContent = fmt(last7.reduce((sum, d) => sum + d.seconds, 0));
+  $("streak").textContent = `${streakOf(rows)}日`;
+
+  const max = Math.max(1, ...last7.map((d) => d.seconds));
+  $("bars").innerHTML = last7
+    .map((d) => `
+      <div class="bar">
+        <div class="fill" style="height:${(d.seconds / max) * 100}%"></div>
+        <div class="day">${d.day.slice(5)}</div>
+      </div>`)
+    .join("");
+
+  $("result").hidden = false;
+}
+
+$("go").addEventListener("click", load);
+$("code").addEventListener("keydown", (e) => { if (e.key === "Enter") load(); });
+
+// 一度入れたコードは覚えておく。Mac では置きっぱなしで使うことが多い。
+const saved = localStorage.getItem("focusroom.code");
+if (saved) { $("code").value = saved; load(); }
+</script>
+</body>
+</html>

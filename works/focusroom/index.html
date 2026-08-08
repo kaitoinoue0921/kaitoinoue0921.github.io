@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FocusRoom サポート</title>
+<style>
+  :root {
+    --bg: #f4f6fa;
+    --surface: #ffffff;
+    --accent: #2e6be6;
+    --rest: #0e9aa7;
+    --text: #10182a;
+    --muted: rgba(16, 24, 42, .6);
+    --line: rgba(16, 24, 42, .1);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 0 20px 80px;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif;
+    line-height: 1.8;
+    -webkit-text-size-adjust: 100%;
+  }
+  .wrap { max-width: 680px; margin: 0 auto; }
+  header { padding: 56px 0 32px; text-align: center; }
+  .logo { font-size: 52px; line-height: 1; }
+  h1 { font-size: 26px; margin: 16px 0 6px; letter-spacing: .02em; }
+  .tagline { color: var(--muted); font-size: 15px; margin: 0; }
+  section {
+    background: var(--surface);
+    border-radius: 18px;
+    padding: 24px 22px;
+    margin-bottom: 16px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, .06);
+  }
+  h2 { font-size: 17px; margin: 0 0 12px; }
+  h3 { font-size: 15px; margin: 20px 0 6px; }
+  p, li { font-size: 15px; }
+  p:last-child { margin-bottom: 0; }
+  ul { padding-left: 1.2em; margin: 8px 0; }
+  a { color: var(--accent); }
+  dl { margin: 0; }
+  dt { font-weight: 600; font-size: 14px; margin-top: 14px; }
+  dt:first-child { margin-top: 0; }
+  dd { margin: 2px 0 0; color: var(--muted); font-size: 14px; }
+  .note {
+    border-left: 3px solid var(--rest);
+    padding-left: 14px;
+    color: var(--muted);
+    font-size: 14px;
+  }
+  .button {
+    display: block;
+    text-align: center;
+    background: var(--accent);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    padding: 15px;
+    border-radius: 14px;
+    margin-top: 8px;
+  }
+  strong { font-weight: 700; }
+  .backlink {
+    display: inline-block;
+    margin-top: 20px;
+    color: var(--muted);
+    font-size: 13px;
+    text-decoration: none;
+  }
+  .backlink:hover { color: var(--accent); }
+  .links { display: grid; gap: 10px; }
+  .link-card {
+    display: block;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 14px 16px;
+    text-decoration: none;
+    color: inherit;
+  }
+  .link-card .link-title { font-weight: 700; font-size: 15px; }
+  .link-card .link-desc { color: var(--muted); font-size: 13.5px; margin-top: 2px; }
+  footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    padding-top: 24px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0a1120; --surface: #141e33; --text: #f2f5fb;
+      --muted: rgba(242, 245, 251, .6); --line: rgba(255, 255, 255, .12);
+      --accent: #5b9bf5;
+    }
+    section { box-shadow: none; border: 1px solid var(--line); }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<a class="backlink" href="/works/">← 作ったもの一覧へ</a>
+
+<header>
+  <div class="logo">🔒</div>
+  <h1>FocusRoom</h1>
+  <p class="tagline">ひとりで我慢しない、オンライン自習室</p>
+</header>
+
+<section>
+  <h2>このアプリについて</h2>
+  <p>
+    スマホをロックして、同じ部屋の人と一緒に集中するためのアプリです。
+    誰が集中していて誰が離席したかがリアルタイムで並び、
+    ブロックを自分で解除すると部屋のみんなに表示されます。
+  </p>
+  <p>
+    我慢を意志の力に任せないための設計です。
+    ひとりで耐えるのではなく、見られている状態をつくることで続けやすくしています。
+  </p>
+</section>
+
+<section>
+  <h2>使い方</h2>
+  <dl>
+    <dt>自習室に入る</dt>
+    <dd>合言葉（6文字）を友達と共有して、同じ部屋に入ります。自分で部屋を建てることもできます。</dd>
+    <dt>集中する</dt>
+    <dd>時間を選んで開始すると、選んだアプリがブロックされます。集中した時間はモンスターへのダメージになります。</dd>
+    <dt>休憩する</dt>
+    <dd>5分・10分・20分の休憩を取れます。休憩は「解除」とは別に扱われ、部屋のフィードには流れません。</dd>
+    <dt>育てる</dt>
+    <dd>討伐で得た経験値は、連れているモンスターに入ります。レベルが上がると姿が変わります。</dd>
+  </dl>
+</section>
+
+<section>
+  <h2>関連ページ</h2>
+  <div class="links">
+    <a class="link-card" href="/works/focusroom/stats/">
+      <span class="link-title">記録を見る（ブラウザ版）</span>
+      <span class="link-desc">アプリの 設定 &gt; ほかの端末で見る に出る共有コードを入れると、集中時間をここで見られます。</span>
+    </a>
+    <a class="link-card" href="/works/focusroom/donate/">
+      <span class="link-title">開発を支える</span>
+      <span class="link-desc">アプリは無料のままにします。任意の支援について書いています。</span>
+    </a>
+  </div>
+</section>
+
+<section>
+  <h2>よくある質問</h2>
+
+  <h3>ブロックが効きません</h3>
+  <p>
+    設定アプリで「スクリーンタイム」の許可が必要です。
+    アプリ内の 設定 &gt; ブロック &gt; スクリーンタイム許可 が「許可済み」になっているか確認してください。
+  </p>
+
+  <h3>完全ブロックにしたのに解除できてしまいます</h3>
+  <p>
+    iOS の仕様上、設定アプリからスクリーンタイムの許可自体を切れば必ず解除できます。
+    完全ブロックは「絶対に解除できない」機能ではなく、
+    アプリ内から解除する手段をなくして、解除しにくくするための機能です。
+  </p>
+
+  <h3>データを他の端末に引き継げますか</h3>
+  <p>
+    現在は端末内にのみ保存しているため、引き継ぎはできません。
+  </p>
+</section>
+
+<section>
+  <h2>プライバシーについて</h2>
+
+  <h3>サーバーに保存するもの</h3>
+  <ul>
+    <li>自動で発行される匿名ID（メールアドレスや氏名とは結びつきません）</li>
+    <li>自習室で表示する名前とアイコン</li>
+    <li>集中した時間・状態・ブロックを解除した回数</li>
+    <li>参加している自習室の合言葉</li>
+  </ul>
+
+  <h3>サーバーに送らないもの</h3>
+  <ul>
+    <li>ブロック対象に選んだアプリの情報（端末内にのみ保存されます）</li>
+    <li>メールアドレス・氏名・電話番号などの個人情報</li>
+    <li>連絡先・写真・位置情報</li>
+  </ul>
+
+  <p class="note">
+    アカウント登録は不要で、匿名IDだけで動作します。
+    自習室の情報は、同じ合言葉で参加している人だけが見られるように制限しています。
+  </p>
+
+  <h3>第三者提供</h3>
+  <p>法令に基づく場合を除き、取得した情報を第三者に提供することはありません。広告は配信していません。</p>
+
+  <h3>削除の依頼</h3>
+  <p>データの削除を希望される場合は、下記の連絡先までご連絡ください。</p>
+</section>
+
+<section>
+  <h2>作成者</h2>
+  <dl>
+    <dt>開発・運営</dt>
+    <dd>井上 凱斗（個人開発）</dd>
+    <dt>連絡先</dt>
+    <dd><a href="mailto:kaito.inoue0921@gmail.com">kaito.inoue0921@gmail.com</a></dd>
+  </dl>
+  <p class="note">
+    個人で開発しているため、返信までお時間をいただくことがあります。
+    不具合のご報告は、使用している端末とiOSのバージョンを添えていただけると助かります。
+  </p>
+</section>
+
+<footer>
+  最終更新: 2026年8月
+</footer>
+
+</div>
+</body>
+</html>
