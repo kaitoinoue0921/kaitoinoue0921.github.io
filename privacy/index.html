@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>プライバシーポリシー | ママの健康ノート</title>
+<style>
+  :root {
+    --bg: #fff7f0;
+    --bg-raised: #ffffff;
+    --text: #2b2220;
+    --text-secondary: #8a6a6e;
+    --accent: #ff6b8c;
+    --accent-soft: #ffe3e8;
+    --border: #ffe0e6;
+    --shadow: 255 107 140;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #201819;
+      --bg-raised: #2a2022;
+      --text: #f5e9e7;
+      --text-secondary: #c9a7ac;
+      --accent: #ff89a4;
+      --accent-soft: #3d262b;
+      --border: #3d2b2f;
+    }
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, "Hiragino Sans", "Yu Gothic", sans-serif;
+    line-height: 1.85;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  main {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 64px 24px 96px;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12.5px;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    background: var(--accent-soft);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-weight: 600;
+  }
+
+  .header {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-bottom: 12px;
+  }
+
+  .app-mark {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .app-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    background: linear-gradient(155deg, #ffd6e0, #ff6b8c);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    box-shadow: 0 6px 18px rgb(var(--shadow) / 0.28);
+    flex-shrink: 0;
+  }
+
+  h1 {
+    font-family: ui-rounded, -apple-system, "Hiragino Maru Gothic ProN", sans-serif;
+    font-weight: 800;
+    font-size: clamp(28px, 5vw, 36px);
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+    margin: 0;
+  }
+
+  .subtitle {
+    color: var(--text-secondary);
+    font-size: 15px;
+    margin: 0;
+  }
+
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 24px;
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    padding: 16px 0 32px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 36px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .meta-row strong { color: var(--text); font-weight: 600; }
+
+  section {
+    margin-bottom: 40px;
+  }
+
+  h2 {
+    font-family: ui-rounded, -apple-system, "Hiragino Maru Gothic ProN", sans-serif;
+    font-size: 19px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 14px;
+  }
+
+  h2 .num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 9px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+
+  p { margin: 0 0 12px; max-width: 62ch; }
+  p:last-child { margin-bottom: 0; }
+
+  .card {
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 20px 22px;
+  }
+
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14.5px;
+  }
+
+  .data-table th {
+    text-align: left;
+    font-size: 12.5px;
+    letter-spacing: 0.04em;
+    color: var(--text-secondary);
+    font-weight: 600;
+    padding: 0 12px 10px 0;
+  }
+
+  .data-table td {
+    padding: 12px 12px 12px 0;
+    border-top: 1px solid var(--border);
+    vertical-align: top;
+  }
+
+  .data-table td:first-child {
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .pill {
+    display: inline-block;
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .pill.local {
+    background: rgba(43, 34, 32, 0.08);
+    color: var(--text-secondary);
+  }
+
+  ul { margin: 0; padding-left: 1.2em; }
+  li { margin-bottom: 8px; }
+  li:last-child { margin-bottom: 0; }
+
+  .contact-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .contact-card a {
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .contact-card a:hover { text-decoration: underline; }
+  .contact-card a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+  footer {
+    padding-top: 28px;
+    border-top: 1px solid var(--border);
+    color: var(--text-secondary);
+    font-size: 13px;
+  }
+
+  @media (max-width: 480px) {
+    main { padding: 44px 18px 72px; }
+    .data-table { display: block; overflow-x: auto; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <div class="header">
+    <span class="eyebrow">PRIVACY POLICY</span>
+    <div class="app-mark">
+      <div class="app-icon">💊</div>
+      <div>
+        <h1>プライバシーポリシー</h1>
+        <p class="subtitle">ママの健康ノート</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="meta-row">
+    <span>制定日 <strong>2026年8月11日</strong></span>
+    <span>提供者 <strong>井上 凱斗（個人開発）</strong></span>
+  </div>
+
+  <section>
+    <h2><span class="num">1</span>はじめに</h2>
+    <p>
+      「ママの健康ノート」（以下「本アプリ」）は、薬・サプリの飲み忘れ防止と、招待した家族・友達との食事写真の共有を目的とした個人開発のiOSアプリです。本ポリシーは、本アプリが取り扱う情報の種類と利用目的について説明します。
+    </p>
+  </section>
+
+  <section>
+    <h2><span class="num">2</span>取得する情報</h2>
+    <div class="card">
+      <table class="data-table">
+        <thead>
+          <tr><th>情報</th><th>保存先</th><th>用途</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>表示名</td>
+            <td><span class="pill">iCloud（招待グループ内）</span></td>
+            <td>投稿の投稿者名として、招待した相手にのみ表示されます。</td>
+          </tr>
+          <tr>
+            <td>食事の写真・ひとこと</td>
+            <td><span class="pill">iCloud（招待グループ内）</span></td>
+            <td>あなたが招待した家族・友達とのみ共有されます。全体には公開されません。</td>
+          </tr>
+          <tr>
+            <td>薬・サプリの名前と服薬記録</td>
+            <td><span class="pill local">端末内のみ</span></td>
+            <td>リマインド通知と記録のために使用します。外部には一切送信されません。</td>
+          </tr>
+          <tr>
+            <td>通知の許可状態</td>
+            <td><span class="pill local">端末内のみ</span></td>
+            <td>リマインド通知を届けるためだけに使用します。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">3</span>第三者への提供</h2>
+    <p>
+      食事の写真・ひとこと・表示名は、Appleの CloudKit（iCloud）を通じて、あなたが明示的に招待した相手にのみ共有されます。本アプリの開発者を含め、招待していない第三者がこれらの情報を閲覧することはできません。
+    </p>
+    <p>
+      本アプリは広告SDK・アクセス解析SDK・トラッキングツールを一切使用していません。取得した情報を広告目的やマーケティング目的で第三者に提供・販売することもありません。
+    </p>
+  </section>
+
+  <section>
+    <h2><span class="num">4</span>お子さまの利用について</h2>
+    <p>
+      本アプリは特定の年齢層を対象としたものではなく、13歳未満のお子さまから意図的に個人情報を収集することはありません。
+    </p>
+  </section>
+
+  <section>
+    <h2><span class="num">5</span>データの削除</h2>
+    <ul>
+      <li>薬・サプリの登録情報や服薬記録は、アプリを削除すると端末から完全に削除されます。</li>
+      <li>共有した食事の投稿を削除したい場合は、下記の連絡先までご連絡ください。</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span class="num">6</span>本ポリシーの変更</h2>
+    <p>
+      本アプリの機能追加に伴い、本ポリシーの内容を予告なく変更する場合があります。重要な変更がある場合は、本ページを更新してお知らせします。
+    </p>
+  </section>
+
+  <section>
+    <h2><span class="num">7</span>お問い合わせ</h2>
+    <div class="card contact-card">
+      <p style="margin:0;">本ポリシーに関するご質問やデータ削除のご依頼は、こちらまでお気軽にご連絡ください。</p>
+      <a href="mailto:kaito.inoue0921@gmail.com">kaito.inoue0921@gmail.com</a>
+    </div>
+  </section>
+
+  <footer>
+    © 2026 井上 凱斗 — ママの健康ノート
+  </footer>
+</main>
+</body>
+</html>
