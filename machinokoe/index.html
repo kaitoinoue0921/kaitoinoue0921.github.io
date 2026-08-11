@@ -12,6 +12,7 @@
 <meta property="og:description" content="住民の「願い」を、行政が動けるデータへ。完全非営利・寄付ベースのシビックテック・プラットフォーム。">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://kaitoinoue0921.github.io/machinokoe/">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -105,15 +106,6 @@ header{
   display:grid;place-items:center;color:#fff;font-size:14px;
 }
 .logo small{display:block;font-size:10.5px;font-weight:500;color:var(--text-3);letter-spacing:.04em;line-height:1.2}
-.hd-right{margin-left:auto;display:flex;align-items:center;gap:8px}
-.badge-np{
-  font-size:11px;font-weight:700;padding:4px 9px;border-radius:var(--r-full);
-  background:var(--accent-soft);color:var(--accent-ink);white-space:nowrap;
-}
-.me{
-  font-size:11.5px;color:var(--text-3);border:1px solid var(--border);
-  padding:4px 9px;border-radius:var(--r-full);white-space:nowrap;
-}
 
 /* ---------- Views ---------- */
 main{padding:16px 0 32px}
@@ -213,14 +205,15 @@ main{padding:16px 0 32px}
   position:relative;background:var(--surface);border:1px solid var(--border);
   border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);
 }
-.mapbox svg{display:block;width:100%;height:auto}
-.pin{cursor:pointer;transition:.15s}
-.pin:hover{opacity:.75}
-.pin circle.halo{opacity:.22}
-.pin text{font-size:9px;font-weight:800;fill:#fff;text-anchor:middle;pointer-events:none}
+#leafletMap{height:420px;width:100%;background:var(--surface-2)}
+.leaflet-container{font-family:inherit}
+.leaflet-popup-content-wrapper{background:var(--surface);color:var(--text);border-radius:var(--r-sm)}
+.leaflet-popup-tip{background:var(--surface)}
+.leaflet-control-attribution{background:rgba(255,255,255,.82) !important;font-size:9px !important}
 .maplegend{display:flex;flex-wrap:wrap;gap:10px;padding:11px 13px;border-top:1px solid var(--border);font-size:11.5px;color:var(--text-2)}
 .maplegend span{display:inline-flex;align-items:center;gap:5px}
 .maplegend i{width:9px;height:9px;border-radius:50%;display:inline-block}
+.mapnote{font-size:11px;color:var(--text-3);padding:0 13px 11px}
 
 /* ---------- Form ---------- */
 .field{margin-bottom:14px}
@@ -378,10 +371,6 @@ nav button:active{transform:scale(.93)}
       <span class="mark">声</span>
       <span>まちのコエ<small>CIVIC VOICE PLATFORM</small></span>
     </div>
-    <div class="hd-right">
-      <span class="badge-np">手数料 0円</span>
-      <span class="me" id="meLabel">住民</span>
-    </div>
   </div>
 </header>
 
@@ -391,7 +380,7 @@ nav button:active{transform:scale(.93)}
   <section class="view on" id="v-list">
     <div class="hero">
       <h1>住民の「願い」を、行政が動けるデータへ。</h1>
-      <p>まちのコエは、完全非営利のシビックテック・プラットフォームです。集まった賛同は自動で提案書になり、行政へ届きます。</p>
+      <p>まちのコエは、完全非営利のシビックテック・プラットフォームです。集まった賛同は自動で提案書になり、行政へ届きます。いまは長崎県南島原市の実在する地点を使って動作を確認しています（掲載している課題は動作確認用のサンプルです）。</p>
       <div class="hero-stats">
         <div><b id="stIssues">0</b><span>登録された課題</span></div>
         <div><b id="stVotes">0</b><span>累計の賛同</span></div>
@@ -415,10 +404,11 @@ nav button:active{transform:scale(.93)}
   <section class="view" id="v-map">
     <div class="panel" style="margin-bottom:12px">
       <h2>🗺️ 地図で見る</h2>
-      <p class="sub">ピンをタップすると課題の詳細が開きます。円の大きさは賛同数を表します。</p>
+      <p class="sub">長崎県南島原市の実在する地点にピンを立てています。タップすると課題の詳細が開きます。円の大きさは賛同数を表します。</p>
       <div class="mapbox">
-        <svg viewBox="0 0 400 300" id="mapSvg" role="img" aria-label="地区の課題マップ"></svg>
+        <div id="leafletMap" role="img" aria-label="南島原市の課題マップ"></div>
         <div class="maplegend" id="mapLegend"></div>
+        <p class="mapnote">地図データ: © OpenStreetMap contributors／座標はおおよその位置です。</p>
       </div>
     </div>
   </section>
@@ -459,7 +449,7 @@ nav button:active{transform:scale(.93)}
   <!-- ========== 透明性 ========== -->
   <section class="view" id="v-money">
     <div class="panel">
-      <h2>💚 今月の運営費と寄付</h2>
+      <h2>🪟 今月の運営費と寄付</h2>
       <p class="sub">このプラットフォームは寄付だけで動いています。使い道はすべて公開します。</p>
       <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:8px">
         <span style="font-size:26px;font-weight:800;font-variant-numeric:tabular-nums" id="donSum">¥0</span>
@@ -469,13 +459,13 @@ nav button:active{transform:scale(.93)}
       <div class="bar"><i id="donBar" style="width:0%"></i></div>
       <div class="thresh"><span id="donCount">—</span><span id="donLeft">—</span></div>
       <div class="notice" style="margin-top:14px">
-        目標額を超えた分は翌月に繰り越し、運営者個人の収入にはなりません。決算は毎月末にこのページで公開されます。
+        サーバーやAPIの実費はほぼ0円です。いただいた寄付は、Claude Code（AI開発ツール）の利用料として、このアプリを直し続けるために使わせてもらっています。目標額を超えた分も運営者個人の収入にはせず、次の機能開発に充てます。決算は毎月末にこのページで公開されます。
       </div>
     </div>
 
     <div class="panel">
       <h2>📊 毎月かかっている費用</h2>
-      <p class="sub">サーバーレス構成のため、固定費は月 5,000 円以下に抑えています。</p>
+      <p class="sub">インフラはほぼ無料枠で足りています。実際にかかっているのは、このアプリを直し続けるための開発費だけです。</p>
       <div class="kpis" id="costKpis"></div>
       <table class="ledger" id="costTable"></table>
     </div>
@@ -492,7 +482,7 @@ nav button:active{transform:scale(.93)}
   <button data-v="list" class="on"><span class="ic">📋</span>課題</button>
   <button data-v="map"><span class="ic">🗺️</span>地図</button>
   <button data-v="post"><span class="ic">➕</span>投稿</button>
-  <button data-v="money"><span class="ic">💚</span>透明性</button>
+  <button data-v="money"><span class="ic">🪟</span>透明性</button>
 </nav>
 
 <div class="scrim" id="scrim"></div>
@@ -508,6 +498,7 @@ nav button:active{transform:scale(.93)}
 <div class="toast" id="toast"></div>
 <div id="printroot"></div>
 
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 /* ============================================================
    まちのコエ — プロトタイプ実装
@@ -515,7 +506,7 @@ nav button:active{transform:scale(.93)}
    ============================================================ */
 
 const VOTE_THRESHOLD = 50;          // 提案書が自動生成される賛同数
-const MONTHLY_GOAL   = 12000;       // 今月の運営目標額（円）
+const MONTHLY_GOAL   = 3000;        // 今月の運営目標額（円）＝ Claude Code利用料の目安
 const STORE_KEY      = 'machinokoe.v1';
 
 const CATS = {
@@ -527,57 +518,58 @@ const CATS = {
   other   :{label:'その他', icon:'💬', color:'var(--c-other)'}
 };
 
-/* 地図上の地点（本番は緯度経度。ここでは 400x300 の相対座標） */
+/* 地図上の地点。長崎県南島原市の実在する場所（座標はおおよその位置） */
 const PLACES = {
-  p1:{name:'中央区役所前',   x:200, y:150},
-  p2:{name:'桜が丘公園',     x: 88, y: 78},
-  p3:{name:'みどり駅 東口',  x:310, y:112},
-  p4:{name:'川沿い遊歩道',   x:150, y:243},
-  p5:{name:'第二小学校 通学路', x:268, y:210},
-  p6:{name:'北団地 バス停', x: 66, y:186},
-  p7:{name:'商店街アーケード', x:238, y: 62}
+  p1:{name:'南島原市役所',           lat:32.6657, lng:130.3052},
+  p2:{name:'原城跡（世界遺産）',      lat:32.6290, lng:130.2541},
+  p3:{name:'口之津港ターミナル',      lat:32.6112, lng:130.1863},
+  p4:{name:'南島原市立有家中学校',    lat:32.6685, lng:130.3095},
+  p5:{name:'南島原市立深江小学校',    lat:32.7260, lng:130.3440},
+  p6:{name:'南島原市立深江中学校',    lat:32.7245, lng:130.3460},
+  p7:{name:'道の駅ひまわり',         lat:32.7220, lng:130.3410}
 };
 
 /* ---------- 初期データ（デモ） ---------- */
 const SEED = {
   issues:[
-    {id:'i1', cat:'road', place:'p5', title:'第二小の通学路に横断歩道がなく、朝が危険',
-     body:'毎朝7:40〜8:10に集中して子どもが渡りますが、横断歩道も信号もありません。抜け道になっていて車のスピードが出ており、先月もヒヤリとする場面がありました。\n\nせめて路面標示とガードポールだけでも設置していただけないでしょうか。', votes:87, created:d(-46), status:'sent'},
-    {id:'i2', cat:'facility', place:'p2', title:'桜が丘公園のベンチが3か月壊れたまま',
-     body:'散歩コースの中間地点にあるベンチの板が割れており、座れません。高齢の方が休憩できる場所がここしかなく、夏場は特に困ります。', votes:63, created:d(-31), status:'ready'},
-    {id:'i3', cat:'env', place:'p4', title:'川沿い遊歩道の街灯が切れていて夜が真っ暗',
-     body:'ランニングや犬の散歩で利用する人が多い区間ですが、街灯3本のうち2本が切れています。足元が見えず、段差でつまずいている人を何度か見かけました。', votes:41, created:d(-19), status:'open'},
-    {id:'i4', cat:'welfare', place:'p1', title:'区役所の子育て窓口に授乳スペースがほしい',
-     body:'手続きに30分以上かかることが多く、その間に赤ちゃんが泣いてしまうと廊下に出るしかありません。カーテンで区切るだけでも十分助かります。', votes:38, created:d(-12), status:'open'},
-    {id:'i5', cat:'road', place:'p6', title:'北団地のバス停に屋根とベンチを',
-     body:'本数が1時間に2本のため待ち時間が長く、雨の日は傘をさして立ち続けることになります。利用者は高齢の方が中心です。', votes:29, created:d(-9), status:'open'},
-    {id:'i6', cat:'safety', place:'p3', title:'みどり駅東口の自転車が歩道を塞いでいる',
-     body:'放置自転車が歩道の半分を占めており、ベビーカーと車椅子がすれ違えません。駐輪場は駅の反対側にしかないのが原因だと思います。', votes:24, created:d(-6), status:'open'},
-    {id:'i7', cat:'facility', place:'p7', title:'商店街アーケードの雨漏りが広がっている',
-     body:'中央付近の2か所で雨漏りしており、雨の日は水たまりができて滑ります。テナントの方も自費での修繕は難しいと話していました。', votes:16, created:d(-3), status:'open'}
+    {id:'i1', cat:'road', place:'p4', title:'有家中学校前の通学路に歩道がなく危険',
+     body:'有家中学校前の道路は歩道が整備されておらず、朝の登校時間帯に車と生徒がすれ違うたびに危険を感じます。\n\nせめて路側帯にカラー舗装だけでも入れていただけないでしょうか。', votes:87, created:d(-46), status:'sent'},
+    {id:'i2', cat:'facility', place:'p3', title:'口之津港ターミナルの待合スペースにベンチが少ない',
+     body:'フェリーの待ち時間に座れる場所が少なく、特に高齢の方や小さい子ども連れは立ったまま待つことになります。屋根付きのベンチを増やしてもらえると助かります。', votes:63, created:d(-31), status:'ready'},
+    {id:'i3', cat:'env', place:'p2', title:'原城跡の遊歩道の街灯が少なく夜間は真っ暗',
+     body:'世界遺産に登録されてから来訪者が増えていますが、夕方以降は街灯が少なく足元が見えません。史跡の雰囲気を壊さない程度の照明を増やしてほしいです。', votes:41, created:d(-19), status:'open'},
+    {id:'i4', cat:'welfare', place:'p1', title:'市役所本庁舎の窓口に授乳スペースがほしい',
+     body:'手続きで30分以上待つこともあり、その間に赤ちゃんが泣いてしまうと外に出るしかありません。カーテンで区切るだけでも十分助かります。', votes:38, created:d(-12), status:'open'},
+    {id:'i5', cat:'road', place:'p7', title:'道の駅ひまわり前のバス停に屋根がない',
+     body:'路線バスの本数が少なく待ち時間が長いのに、バス停に屋根がないため雨や日差しをしのげません。利用者は観光客だけでなく地元の高齢者も多いです。', votes:29, created:d(-9), status:'open'},
+    {id:'i6', cat:'safety', place:'p5', title:'深江小学校近くの交差点に信号がなく危ない',
+     body:'見通しの悪い交差点で、登下校時間に車のスピードが出ていることがあります。せめて一時停止の看板を目立たせてほしいです。', votes:24, created:d(-6), status:'open'},
+    {id:'i7', cat:'facility', place:'p6', title:'深江中学校近くの公園の遊具が古く錆びている',
+     body:'遊具の一部が錆びて危なく見えるため、子どもを遊ばせるのをためらう保護者もいます。点検と補修をお願いしたいです。', votes:16, created:d(-3), status:'open'}
   ],
   comments:[
-    {id:'c1', issue:'i1', kind:'solution', name:'住民 A7', body:'PTAで交通量を計測したことがあります。朝の30分で通過台数は約120台でした。データが必要でしたら共有できます。', created:d(-40)},
-    {id:'c2', issue:'i1', kind:'comment',  name:'住民 K2', body:'同じ道を毎朝使っています。角のミラーも汚れていて見えにくいです。', created:d(-38)},
-    {id:'c3', issue:'i1', kind:'solution', name:'住民 M9', body:'まずは「スクールゾーン」の路面標示から要望するのが現実的だと思います。信号設置は公安委員会の管轄で時間がかかるため。', created:d(-35)},
-    {id:'c4', issue:'i2', kind:'comment',  name:'住民 T4', body:'先週見たら、割れた板の断面が鋭くなっていました。早めの対応をお願いしたいです。', created:d(-24)},
-    {id:'c5', issue:'i2', kind:'solution', name:'住民 R1', body:'公園愛護会で簡易補修ができるか確認します。材料費だけなら地域で負担できるかもしれません。', created:d(-20)},
-    {id:'c6', issue:'i3', kind:'comment',  name:'住民 S5', body:'切れているのは南側から2本目と4本目です。管理番号も控えました。', created:d(-14)},
-    {id:'c7', issue:'i4', kind:'comment',  name:'住民 Y8', body:'保健センターには授乳室があるので、同じ運用を区役所でもできるはずです。', created:d(-8)}
+    {id:'c1', issue:'i1', kind:'solution', name:'住民 A7', body:'PTAで交通量を計測したことがあります。朝の30分で通過台数は約80台でした。データが必要でしたら共有できます。', created:d(-40)},
+    {id:'c2', issue:'i1', kind:'comment',  name:'住民 K2', body:'同じ道を毎朝使っています。カーブミラーも汚れていて見えにくいです。', created:d(-38)},
+    {id:'c3', issue:'i1', kind:'solution', name:'住民 M9', body:'まずは路側帯のカラー舗装から要望するのが現実的だと思います。歩道の新設は用地の問題で時間がかかるため。', created:d(-35)},
+    {id:'c4', issue:'i2', kind:'comment',  name:'住民 T4', body:'夕方の便は特に混みます。ベンチが3つしかないので座れないことが多いです。', created:d(-24)},
+    {id:'c5', issue:'i2', kind:'solution', name:'住民 R1', body:'待合室の中の空きスペースに簡易ベンチを置けないか、フェリー会社に相談してみます。', created:d(-20)},
+    {id:'c6', issue:'i3', kind:'comment',  name:'住民 S5', body:'南側の遊歩道はほぼ真っ暗です。足元灯だけでもあると違うと思います。', created:d(-14)},
+    {id:'c7', issue:'i4', kind:'comment',  name:'住民 Y8', body:'保健センターには授乳室があるので、同じ運用を本庁舎でもできるはずです。', created:d(-8)}
   ],
   donations:[
     {id:'d1', name:'匿名', amount:3000, created:d(-27)},
-    {id:'d2', name:'桜が丘 商店会', amount:5000, created:d(-21)},
+    {id:'d2', name:'有家町 商店会', amount:5000, created:d(-21)},
     {id:'d3', name:'匿名', amount:1000, created:d(-15)},
     {id:'d4', name:'K. さん', amount:500,  created:d(-11)},
     {id:'d5', name:'匿名', amount:2000, created:d(-4)}
   ],
   expenses:[
-    {id:'e1', item:'Supabase（DB・認証）', amount:0,    note:'無料枠内'},
-    {id:'e2', item:'Vercel（ホスティング）', amount:0,   note:'Hobby プラン'},
-    {id:'e3', item:'ドメイン（年額按分）',   amount:150,  note:'¥1,800 / 年'},
-    {id:'e4', item:'地図タイル API',        amount:1200, note:'従量課金'},
-    {id:'e5', item:'PDF 生成 / メール送信',  amount:800,  note:'従量課金'}
+    {id:'e1', item:'Supabase（DB・認証）',        amount:0,    note:'無料枠内'},
+    {id:'e2', item:'GitHub Pages（ホスティング）', amount:0,    note:'無料'},
+    {id:'e3', item:'地図タイル（OpenStreetMap）',  amount:0,    note:'無料・オープンデータ'},
+    {id:'e4', item:'提案書PDFの生成',              amount:0,    note:'ブラウザの印刷機能'},
+    {id:'e5', item:'メール送信',                   amount:0,    note:'未実装（実装時も無料枠を想定）'},
+    {id:'e6', item:'Claude Code（開発・保守）',     amount:3000, note:'月額・AIと一緒にこのアプリを直している分'}
   ],
   myVotes:[]
 };
@@ -598,7 +590,6 @@ function save(){ try{ localStorage.setItem(STORE_KEY, JSON.stringify(S)); }catch
 /* 匿名ID：重複投票の防止用。本番は Google ログインの user.id に置き換える */
 let ME = localStorage.getItem('machinokoe.uid');
 if(!ME){ ME = 'u' + Math.random().toString(36).slice(2,8); localStorage.setItem('machinokoe.uid', ME); }
-document.getElementById('meLabel').textContent = '住民 ' + ME.slice(1,4).toUpperCase();
 
 let filterCat = 'all';
 let sortBy = 'votes';
@@ -896,37 +887,41 @@ function generateProposal(id){
   setTimeout(() => window.print(), 400);
 }
 
-/* ---------- 地図 ---------- */
+/* ---------- 地図（Leaflet + OpenStreetMap） ---------- */
+let leafletMap = null;
+let leafletMarkers = [];
+
+function cssVarColor(varExpr){
+  const name = (varExpr.match(/--[\w-]+/) || [])[0];
+  return name ? getComputedStyle(document.documentElement).getPropertyValue(name).trim() : varExpr;
+}
+
 function renderMap(){
-  const svg = $('#mapSvg');
-  const base = `
-    <rect x="0" y="0" width="400" height="300" fill="var(--surface-2)"/>
-    <path d="M0 258 Q100 240 190 262 T400 246 L400 300 L0 300 Z" fill="var(--c-env)" opacity=".13"/>
-    <path d="M0 252 Q100 234 190 256 T400 240" stroke="var(--c-facility)" stroke-width="7" fill="none" opacity=".28"/>
-    <circle cx="88" cy="78" r="46" fill="var(--c-env)" opacity=".16"/>
-    <rect x="0" y="140" width="400" height="14" fill="var(--border-strong)" opacity=".5"/>
-    <rect x="186" y="0" width="13" height="300" fill="var(--border-strong)" opacity=".5"/>
-    <rect x="0" y="196" width="400" height="7" fill="var(--border-strong)" opacity=".32"/>
-    <rect x="296" y="0" width="7" height="300" fill="var(--border-strong)" opacity=".32"/>
-    <rect x="292" y="96" width="34" height="30" rx="4" fill="var(--c-facility)" opacity=".3"/>
-    <rect x="176" y="128" width="34" height="30" rx="4" fill="var(--c-facility)" opacity=".22"/>
-    <text x="88" y="30" font-size="9" fill="var(--text-3)" text-anchor="middle">桜が丘公園</text>
-    <text x="332" y="58" font-size="9" fill="var(--text-3)" text-anchor="middle">みどり駅</text>
-    <text x="16" y="290" font-size="8.5" fill="var(--text-3)">※ プロトタイプ用の簡易地図（本番は地図タイルAPI）</text>`;
+  if(!leafletMap){
+    leafletMap = L.map('leafletMap', {scrollWheelZoom:false}).setView([32.685, 130.29], 11);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom:18,
+      attribution:'&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors'
+    }).addTo(leafletMap);
+  }
+
+  leafletMarkers.forEach(m => leafletMap.removeLayer(m));
+  leafletMarkers = [];
 
   const max = Math.max(...S.issues.map(i => i.votes), 1);
-  const pins = S.issues.map(is => {
+  S.issues.forEach(is => {
     const p = PLACES[is.place];
-    const r = 11 + (is.votes / max) * 11;
-    return `<g class="pin" data-open="${is.id}">
-      <circle class="halo" cx="${p.x}" cy="${p.y}" r="${r + 9}" fill="${CATS[is.cat].color}"/>
-      <circle cx="${p.x}" cy="${p.y}" r="${r}" fill="${CATS[is.cat].color}" stroke="var(--surface)" stroke-width="2.5"/>
-      <text x="${p.x}" y="${p.y + 3.5}">${is.votes}</text>
-    </g>`;
-  }).join('');
+    const r = 8 + (is.votes / max) * 12;
+    const marker = L.circleMarker([p.lat, p.lng], {
+      radius:r, weight:2, color:'#ffffff',
+      fillColor:cssVarColor(CATS[is.cat].color), fillOpacity:.9
+    }).addTo(leafletMap);
+    marker.bindTooltip(`${esc(is.title)}（賛同 ${is.votes} 件）`, {direction:'top', offset:[0,-r]});
+    marker.on('click', () => openDetail(is.id));
+    leafletMarkers.push(marker);
+  });
 
-  svg.innerHTML = base + pins;
-  svg.querySelectorAll('[data-open]').forEach(g => g.onclick = () => openDetail(g.dataset.open));
+  setTimeout(() => leafletMap.invalidateSize(), 60);
 
   $('#mapLegend').innerHTML = Object.values(CATS)
     .map(c => `<span><i style="background:${c.color}"></i>${c.label}</span>`).join('');
@@ -1025,7 +1020,6 @@ function esc(s){
 renderFilters();
 renderPostForm();
 renderList();
-renderMap();
 renderMoney();
 </script>
 </body>
