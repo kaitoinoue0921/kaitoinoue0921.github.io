@@ -14,7 +14,7 @@
   </url>
   <url>
     <loc>https://kaitoinoue0921.github.io/works/</loc>
-    <lastmod>2026-08-08</lastmod>
+    <lastmod>2026-08-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -46,6 +46,12 @@
     <loc>https://kaitoinoue0921.github.io/todai-math-map/</loc>
     <lastmod>2026-08-03</lastmod>
     <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kaitoinoue0921.github.io/machinokoe/</loc>
+    <lastmod>2026-08-11</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>

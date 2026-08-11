@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>まちのコエ | 地域課題解決プラットフォーム</title>
+<meta name="description" content="住民の「願い」を、行政が動けるデータへ。完全非営利・寄付ベースのシビックテック・プラットフォーム。">
+<meta name="theme-color" content="#f6f7f9" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#101317" media="(prefers-color-scheme: dark)">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/machinokoe/">
+<meta property="og:title" content="まちのコエ | 地域課題解決プラットフォーム">
+<meta property="og:description" content="住民の「願い」を、行政が動けるデータへ。完全非営利・寄付ベースのシビックテック・プラットフォーム。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/machinokoe/">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "https://kaitoinoue0921.github.io/machinokoe/#webpage",
+  "url": "https://kaitoinoue0921.github.io/machinokoe/",
+  "name": "まちのコエ | 地域課題解決プラットフォーム",
+  "description": "住民の「願い」を、行政が動けるデータへ。完全非営利・寄付ベースのシビックテック・プラットフォーム。",
+  "inLanguage": "ja",
+  "isPartOf": { "@id": "https://kaitoinoue0921.github.io/#website" },
+  "author": { "@id": "https://kaitoinoue0921.github.io/#person" },
+  "publisher": { "@id": "https://kaitoinoue0921.github.io/#person" },
+  "dateModified": "2026-08-11T00:00:00+09:00"
+}
+</script>
+<style>
+/* ============================================================
+   まちのコエ — Design Tokens
+   ============================================================ */
+:root{
+  --bg:#f6f7f9;
+  --surface:#ffffff;
+  --surface-2:#f0f2f5;
+  --border:#e2e5ea;
+  --border-strong:#cbd1da;
+  --text:#171a1f;
+  --text-2:#5b6472;
+  --text-3:#8b94a3;
+  --accent:#0f6f6a;
+  --accent-soft:#e3f2f0;
+  --accent-ink:#0a4d49;
+  --warn:#b4690e;
+  --warn-soft:#fdf1de;
+  --danger:#b3261e;
+  --up:#0f6f6a;
+  --shadow:0 1px 2px rgba(16,24,40,.05), 0 8px 24px -12px rgba(16,24,40,.18);
+  --shadow-lg:0 12px 40px -12px rgba(16,24,40,.3);
+  --r-sm:8px; --r:12px; --r-lg:18px; --r-full:999px;
+  --nav-h:60px;
+  --maxw:820px;
+  --c-facility:#3b6fd4;
+  --c-road:#b4690e;
+  --c-env:#2f8f4e;
+  --c-safety:#b3261e;
+  --c-welfare:#7a4bc4;
+  --c-other:#5b6472;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#101317; --surface:#171b21; --surface-2:#1e232b;
+    --border:#2a313b; --border-strong:#3a434f;
+    --text:#e8ecf1; --text-2:#a3adba; --text-3:#78828f;
+    --accent:#4dbdb4; --accent-soft:#12312f; --accent-ink:#8fd9d2;
+    --warn:#e0a355; --warn-soft:#33270f;
+    --danger:#e8776f; --up:#4dbdb4;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+    --shadow-lg:0 12px 40px -12px rgba(0,0,0,.7);
+    --c-facility:#7ba3f0; --c-road:#e0a355; --c-env:#63c485;
+    --c-safety:#e8776f; --c-welfare:#b18ae8; --c-other:#a3adba;
+  }
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg); color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP","Yu Gothic",sans-serif;
+  font-size:15px; line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+  padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom));
+}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;border:none;background:none}
+h1,h2,h3,h4{margin:0;line-height:1.4;font-weight:700;letter-spacing:.01em}
+p{margin:0}
+a{color:var(--accent);text-underline-offset:3px}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 16px}
+
+/* ---------- Header ---------- */
+header{
+  position:sticky;top:0;z-index:40;
+  background:color-mix(in srgb, var(--surface) 88%, transparent);
+  backdrop-filter:saturate(180%) blur(12px);
+  -webkit-backdrop-filter:saturate(180%) blur(12px);
+  border-bottom:1px solid var(--border);
+}
+.hd{display:flex;align-items:center;gap:10px;height:56px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800;font-size:16.5px;letter-spacing:.02em}
+.logo .mark{
+  width:28px;height:28px;border-radius:9px;flex:0 0 auto;
+  background:linear-gradient(140deg,var(--accent),color-mix(in srgb,var(--accent) 55%, #4a8fd4));
+  display:grid;place-items:center;color:#fff;font-size:14px;
+}
+.logo small{display:block;font-size:10.5px;font-weight:500;color:var(--text-3);letter-spacing:.04em;line-height:1.2}
+.hd-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.badge-np{
+  font-size:11px;font-weight:700;padding:4px 9px;border-radius:var(--r-full);
+  background:var(--accent-soft);color:var(--accent-ink);white-space:nowrap;
+}
+.me{
+  font-size:11.5px;color:var(--text-3);border:1px solid var(--border);
+  padding:4px 9px;border-radius:var(--r-full);white-space:nowrap;
+}
+
+/* ---------- Views ---------- */
+main{padding:16px 0 32px}
+.view{display:none;animation:fade .22s ease}
+.view.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+/* ---------- Hero / Mission ---------- */
+.hero{
+  background:linear-gradient(160deg,var(--accent-soft),color-mix(in srgb,var(--surface) 70%, var(--accent-soft)));
+  border:1px solid var(--border);border-radius:var(--r-lg);
+  padding:18px 18px 16px;margin-bottom:16px;
+}
+.hero h1{font-size:19px;margin-bottom:6px;letter-spacing:.02em}
+.hero p{font-size:13px;color:var(--text-2)}
+.hero-stats{display:flex;gap:0;margin-top:14px;border-top:1px solid var(--border);padding-top:12px}
+.hero-stats div{flex:1;text-align:center;border-right:1px solid var(--border)}
+.hero-stats div:last-child{border-right:none}
+.hero-stats b{display:block;font-size:19px;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.hero-stats span{font-size:10.5px;color:var(--text-3)}
+
+/* ---------- Filter bar ---------- */
+.toolbar{
+  display:flex;gap:8px;overflow-x:auto;padding:2px 0 10px;
+  scrollbar-width:none;-ms-overflow-style:none;
+}
+.toolbar::-webkit-scrollbar{display:none}
+.chip{
+  flex:0 0 auto;font-size:12.5px;font-weight:600;padding:6px 13px;
+  border-radius:var(--r-full);border:1px solid var(--border);
+  background:var(--surface);color:var(--text-2);transition:.15s;
+}
+.chip:hover{border-color:var(--border-strong)}
+.chip.on{background:var(--text);color:var(--bg);border-color:var(--text)}
+.sortrow{display:flex;align-items:center;gap:8px;margin-bottom:10px;font-size:12.5px;color:var(--text-3)}
+.sortrow select{
+  margin-left:auto;background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r-sm);padding:5px 8px;font-size:12.5px;
+}
+
+/* ---------- Issue card ---------- */
+.cards{display:flex;flex-direction:column;gap:10px}
+.card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
+  padding:13px 14px;display:flex;gap:12px;box-shadow:var(--shadow);
+  transition:.15s;
+}
+.card:hover{border-color:var(--border-strong);transform:translateY(-1px)}
+.card-body{flex:1;min-width:0}
+.card-meta{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:5px}
+.tag{
+  font-size:10.5px;font-weight:700;padding:2.5px 8px;border-radius:var(--r-full);
+  color:#fff;letter-spacing:.02em;
+}
+.loc{font-size:11.5px;color:var(--text-3);display:inline-flex;align-items:center;gap:3px}
+.card h3{font-size:15px;margin-bottom:4px;letter-spacing:.01em}
+.card .excerpt{
+  font-size:12.5px;color:var(--text-2);
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+.card-foot{display:flex;align-items:center;gap:14px;margin-top:9px;font-size:11.5px;color:var(--text-3)}
+.status{font-weight:700;font-size:10.5px;padding:2.5px 8px;border-radius:var(--r-full);border:1px solid}
+.st-open{color:var(--text-3);border-color:var(--border-strong)}
+.st-ready{color:var(--warn);border-color:var(--warn);background:var(--warn-soft)}
+.st-sent{color:var(--accent);border-color:var(--accent);background:var(--accent-soft)}
+
+/* ---------- Upvote ---------- */
+.vote{
+  flex:0 0 auto;width:58px;border:1px solid var(--border);border-radius:var(--r);
+  background:var(--surface-2);display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:1px;padding:8px 0;transition:.15s;align-self:flex-start;
+}
+.vote:hover{border-color:var(--accent);background:var(--accent-soft)}
+.vote .arw{font-size:13px;line-height:1;color:var(--text-3);transition:.15s}
+.vote .n{font-size:16px;font-weight:800;font-variant-numeric:tabular-nums;line-height:1.2}
+.vote .lb{font-size:9.5px;color:var(--text-3)}
+.vote.voted{background:var(--accent-soft);border-color:var(--accent)}
+.vote.voted .arw,.vote.voted .n{color:var(--up)}
+.vote.voted .lb{color:var(--accent-ink)}
+.vote:active{transform:scale(.94)}
+
+/* ---------- Progress ---------- */
+.bar{height:8px;border-radius:var(--r-full);background:var(--surface-2);overflow:hidden;border:1px solid var(--border)}
+.bar > i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),color-mix(in srgb,var(--accent) 60%,#4a8fd4));transition:width .5s cubic-bezier(.2,.8,.2,1)}
+.bar.thin{height:5px}
+
+/* ---------- Panel ---------- */
+.panel{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
+  padding:16px;margin-bottom:12px;box-shadow:var(--shadow);
+}
+.panel > h2{font-size:14px;margin-bottom:3px;display:flex;align-items:center;gap:7px}
+.panel > .sub{font-size:12px;color:var(--text-3);margin-bottom:13px}
+
+/* ---------- Map ---------- */
+.mapbox{
+  position:relative;background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);
+}
+.mapbox svg{display:block;width:100%;height:auto}
+.pin{cursor:pointer;transition:.15s}
+.pin:hover{opacity:.75}
+.pin circle.halo{opacity:.22}
+.pin text{font-size:9px;font-weight:800;fill:#fff;text-anchor:middle;pointer-events:none}
+.maplegend{display:flex;flex-wrap:wrap;gap:10px;padding:11px 13px;border-top:1px solid var(--border);font-size:11.5px;color:var(--text-2)}
+.maplegend span{display:inline-flex;align-items:center;gap:5px}
+.maplegend i{width:9px;height:9px;border-radius:50%;display:inline-block}
+
+/* ---------- Form ---------- */
+.field{margin-bottom:14px}
+.field label{display:block;font-size:12.5px;font-weight:700;margin-bottom:5px}
+.field .hint{font-size:11.5px;color:var(--text-3);font-weight:400;margin-left:6px}
+.field input[type=text],.field textarea,.field select{
+  width:100%;background:var(--surface-2);border:1px solid var(--border);
+  border-radius:var(--r-sm);padding:10px 12px;font-size:14px;transition:.15s;
+}
+.field textarea{min-height:110px;resize:vertical;line-height:1.65}
+.field input:focus,.field textarea:focus,.field select:focus{
+  outline:none;border-color:var(--accent);background:var(--surface);
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 15%,transparent);
+}
+.catgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.catbtn{
+  border:1px solid var(--border);border-radius:var(--r-sm);padding:9px 4px;
+  background:var(--surface-2);font-size:12px;font-weight:600;color:var(--text-2);
+  display:flex;flex-direction:column;align-items:center;gap:3px;transition:.15s;
+}
+.catbtn .ic{font-size:16px}
+.catbtn.on{background:var(--accent-soft);border-color:var(--accent);color:var(--accent-ink)}
+.btn{
+  width:100%;background:var(--accent);color:#fff;font-weight:700;font-size:14.5px;
+  padding:13px;border-radius:var(--r);transition:.15s;letter-spacing:.02em;
+}
+.btn:hover{filter:brightness(1.08)}
+.btn:active{transform:scale(.99)}
+.btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.btn.ghost{background:var(--surface-2);color:var(--text);border:1px solid var(--border-strong)}
+.btn.sm{width:auto;padding:8px 16px;font-size:13px;border-radius:var(--r-sm)}
+.notice{
+  font-size:12px;color:var(--text-2);background:var(--accent-soft);
+  border-radius:var(--r-sm);padding:10px 12px;margin-top:12px;line-height:1.6;
+}
+
+/* ---------- Sheet (detail) ---------- */
+.scrim{
+  position:fixed;inset:0;background:rgba(10,14,20,.5);z-index:60;
+  opacity:0;pointer-events:none;transition:opacity .22s;
+  -webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);
+}
+.scrim.on{opacity:1;pointer-events:auto}
+.sheet{
+  position:fixed;left:0;right:0;bottom:0;z-index:61;
+  background:var(--surface);border-radius:20px 20px 0 0;
+  max-height:88vh;overflow-y:auto;transform:translateY(101%);
+  transition:transform .28s cubic-bezier(.2,.85,.25,1);
+  box-shadow:var(--shadow-lg);overscroll-behavior:contain;
+}
+.sheet.on{transform:none}
+@media(min-width:700px){
+  .sheet{left:50%;right:auto;bottom:auto;top:50%;width:min(640px,92vw);
+    border-radius:var(--r-lg);transform:translate(-50%,-46%) scale(.97);opacity:0;max-height:86vh}
+  .sheet.on{transform:translate(-50%,-50%);opacity:1}
+}
+.sheet-hd{
+  position:sticky;top:0;background:var(--surface);border-bottom:1px solid var(--border);
+  padding:14px 18px;display:flex;align-items:flex-start;gap:12px;z-index:2;
+}
+.sheet-hd h2{font-size:16.5px;flex:1}
+.x{
+  flex:0 0 auto;width:30px;height:30px;border-radius:50%;background:var(--surface-2);
+  color:var(--text-2);font-size:16px;display:grid;place-items:center;
+}
+.sheet-bd{padding:16px 18px 26px}
+.grabber{width:38px;height:4px;border-radius:2px;background:var(--border-strong);margin:8px auto 0}
+@media(min-width:700px){.grabber{display:none}}
+
+.detail-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.desc{font-size:14px;color:var(--text);white-space:pre-wrap;margin-bottom:16px}
+.support{
+  display:flex;align-items:center;gap:14px;background:var(--surface-2);
+  border:1px solid var(--border);border-radius:var(--r);padding:13px 15px;margin-bottom:16px;
+}
+.support .big{font-size:26px;font-weight:800;font-variant-numeric:tabular-nums;line-height:1}
+.support .cap{font-size:11.5px;color:var(--text-3)}
+.support .spacer{flex:1}
+.thresh{font-size:11.5px;color:var(--text-3);margin-top:7px;display:flex;justify-content:space-between}
+
+.cmt{border-top:1px solid var(--border);padding:13px 0}
+.cmt:first-of-type{border-top:none}
+.cmt-hd{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.av{width:24px;height:24px;border-radius:50%;background:var(--surface-2);border:1px solid var(--border);
+  display:grid;place-items:center;font-size:10.5px;font-weight:800;color:var(--text-2);flex:0 0 auto}
+.cmt-name{font-size:12.5px;font-weight:700}
+.cmt-time{font-size:11px;color:var(--text-3);margin-left:auto}
+.cmt-body{font-size:13.5px;white-space:pre-wrap;padding-left:32px}
+.cmt-kind{font-size:10px;font-weight:700;padding:2px 7px;border-radius:var(--r-full);
+  background:var(--accent-soft);color:var(--accent-ink)}
+
+/* ---------- Ledger ---------- */
+.ledger{width:100%;border-collapse:collapse;font-size:12.5px}
+.ledger th{text-align:left;font-size:11px;color:var(--text-3);font-weight:700;
+  padding:7px 0;border-bottom:1px solid var(--border)}
+.ledger td{padding:9px 0;border-bottom:1px solid var(--border);vertical-align:top}
+.ledger tr:last-child td{border-bottom:none}
+.ledger .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.ledger .in{color:var(--accent);font-weight:700}
+.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-bottom:14px}
+.kpi{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--r-sm);padding:11px 12px}
+.kpi b{display:block;font-size:19px;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.kpi span{font-size:11px;color:var(--text-3)}
+
+/* ---------- Bottom nav ---------- */
+nav{
+  position:fixed;left:0;right:0;bottom:0;z-index:50;height:calc(var(--nav-h) + env(safe-area-inset-bottom));
+  padding-bottom:env(safe-area-inset-bottom);
+  background:color-mix(in srgb,var(--surface) 92%,transparent);
+  backdrop-filter:saturate(180%) blur(14px);-webkit-backdrop-filter:saturate(180%) blur(14px);
+  border-top:1px solid var(--border);display:flex;
+}
+nav button{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+  font-size:10px;font-weight:600;color:var(--text-3);transition:.15s;
+}
+nav button .ic{font-size:19px;line-height:1}
+nav button.on{color:var(--accent)}
+nav button:active{transform:scale(.93)}
+
+.empty{text-align:center;padding:44px 20px;color:var(--text-3);font-size:13px}
+.empty .ic{font-size:34px;display:block;margin-bottom:10px;opacity:.5}
+.toast{
+  position:fixed;left:50%;bottom:calc(var(--nav-h) + 18px + env(safe-area-inset-bottom));
+  transform:translate(-50%,14px);z-index:80;
+  background:var(--text);color:var(--bg);font-size:13px;font-weight:600;
+  padding:11px 18px;border-radius:var(--r-full);box-shadow:var(--shadow-lg);
+  opacity:0;pointer-events:none;transition:.25s;max-width:88vw;text-align:center;
+}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
+/* ---------- Printable proposal ---------- */
+#printroot{display:none}
+@media print{
+  body>*{display:none !important}
+  #printroot{display:block !important;padding:0}
+  @page{margin:18mm 16mm}
+}
+.doc{font-family:"Hiragino Mincho ProN","Yu Mincho",serif;color:#000;background:#fff;line-height:1.85;font-size:11pt}
+.doc h1{font-size:16pt;text-align:center;margin-bottom:4mm;letter-spacing:.1em}
+.doc .docmeta{text-align:right;font-size:9.5pt;margin-bottom:8mm;line-height:1.6}
+.doc h2{font-size:12pt;border-left:4px solid #000;padding-left:8px;margin:7mm 0 3mm}
+.doc table{width:100%;border-collapse:collapse;font-size:10pt;margin:3mm 0}
+.doc table th,.doc table td{border:1px solid #333;padding:5px 8px;text-align:left}
+.doc table th{background:#eee;width:28%}
+.doc ul{padding-left:20px;margin:2mm 0}
+.doc .sig{margin-top:12mm;font-size:9.5pt;border-top:1px solid #999;padding-top:3mm;color:#333}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap hd">
+    <div class="logo">
+      <span class="mark">声</span>
+      <span>まちのコエ<small>CIVIC VOICE PLATFORM</small></span>
+    </div>
+    <div class="hd-right">
+      <span class="badge-np">手数料 0円</span>
+      <span class="me" id="meLabel">住民</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ========== 課題一覧 ========== -->
+  <section class="view on" id="v-list">
+    <div class="hero">
+      <h1>住民の「願い」を、行政が動けるデータへ。</h1>
+      <p>まちのコエは、完全非営利のシビックテック・プラットフォームです。集まった賛同は自動で提案書になり、行政へ届きます。</p>
+      <div class="hero-stats">
+        <div><b id="stIssues">0</b><span>登録された課題</span></div>
+        <div><b id="stVotes">0</b><span>累計の賛同</span></div>
+        <div><b id="stSent">0</b><span>提案書を提出</span></div>
+      </div>
+    </div>
+
+    <div class="toolbar" id="catFilter"></div>
+    <div class="sortrow">
+      <span id="countLabel">—</span>
+      <select id="sortSel">
+        <option value="votes">賛同が多い順</option>
+        <option value="new">新しい順</option>
+        <option value="active">議論が活発な順</option>
+      </select>
+    </div>
+    <div class="cards" id="cards"></div>
+  </section>
+
+  <!-- ========== 地図 ========== -->
+  <section class="view" id="v-map">
+    <div class="panel" style="margin-bottom:12px">
+      <h2>🗺️ 地図で見る</h2>
+      <p class="sub">ピンをタップすると課題の詳細が開きます。円の大きさは賛同数を表します。</p>
+      <div class="mapbox">
+        <svg viewBox="0 0 400 300" id="mapSvg" role="img" aria-label="地区の課題マップ"></svg>
+        <div class="maplegend" id="mapLegend"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 投稿 ========== -->
+  <section class="view" id="v-post">
+    <div class="panel">
+      <h2>✏️ 課題を投稿する</h2>
+      <p class="sub">まちで困っていること、こうなったら嬉しいことを書いてください。誰が書いたかは公開されません。</p>
+
+      <div class="field">
+        <label>カテゴリ</label>
+        <div class="catgrid" id="catPick"></div>
+      </div>
+
+      <div class="field">
+        <label>場所 <span class="hint">地図に表示されます</span></label>
+        <select id="fLoc"></select>
+      </div>
+
+      <div class="field">
+        <label>タイトル <span class="hint">30字以内が読まれやすい</span></label>
+        <input type="text" id="fTitle" maxlength="60" placeholder="例：〇〇公園のベンチが壊れたまま">
+      </div>
+
+      <div class="field">
+        <label>状況の説明 <span class="hint">いつ・どこで・誰が困るか</span></label>
+        <textarea id="fBody" maxlength="800" placeholder="例：3か月前からベンチの板が割れており、高齢の方が休憩できません。散歩コースの途中にあるため、休める場所がここしかなく…"></textarea>
+      </div>
+
+      <button class="btn" id="submitIssue">この課題を投稿する</button>
+      <div class="notice">
+        🔒 個人が特定される情報（氏名・住所・車のナンバーなど）は書かないでください。投稿は匿名で公開され、賛同が <b id="thNote">50</b> 件に達すると行政提出用の提案書が自動生成されます。
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 透明性 ========== -->
+  <section class="view" id="v-money">
+    <div class="panel">
+      <h2>💚 今月の運営費と寄付</h2>
+      <p class="sub">このプラットフォームは寄付だけで動いています。使い道はすべて公開します。</p>
+      <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:8px">
+        <span style="font-size:26px;font-weight:800;font-variant-numeric:tabular-nums" id="donSum">¥0</span>
+        <span style="font-size:12.5px;color:var(--text-3)">/ 目標 <b id="donGoal">¥0</b></span>
+        <span style="margin-left:auto;font-size:13px;font-weight:800;color:var(--accent)" id="donPct">0%</span>
+      </div>
+      <div class="bar"><i id="donBar" style="width:0%"></i></div>
+      <div class="thresh"><span id="donCount">—</span><span id="donLeft">—</span></div>
+      <div class="notice" style="margin-top:14px">
+        目標額を超えた分は翌月に繰り越し、運営者個人の収入にはなりません。決算は毎月末にこのページで公開されます。
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>📊 毎月かかっている費用</h2>
+      <p class="sub">サーバーレス構成のため、固定費は月 5,000 円以下に抑えています。</p>
+      <div class="kpis" id="costKpis"></div>
+      <table class="ledger" id="costTable"></table>
+    </div>
+
+    <div class="panel">
+      <h2>🧾 直近の入出金</h2>
+      <p class="sub">寄付は受け取った時点で、支出は発生した時点で自動記帳されます。</p>
+      <table class="ledger" id="ledgerTable"></table>
+    </div>
+  </section>
+</main>
+
+<nav id="nav">
+  <button data-v="list" class="on"><span class="ic">📋</span>課題</button>
+  <button data-v="map"><span class="ic">🗺️</span>地図</button>
+  <button data-v="post"><span class="ic">➕</span>投稿</button>
+  <button data-v="money"><span class="ic">💚</span>透明性</button>
+</nav>
+
+<div class="scrim" id="scrim"></div>
+<aside class="sheet" id="sheet" role="dialog" aria-modal="true">
+  <div class="grabber"></div>
+  <div class="sheet-hd">
+    <h2 id="dTitle"></h2>
+    <button class="x" id="dClose" aria-label="閉じる">✕</button>
+  </div>
+  <div class="sheet-bd" id="dBody"></div>
+</aside>
+
+<div class="toast" id="toast"></div>
+<div id="printroot"></div>
+
+<script>
+/* ============================================================
+   まちのコエ — プロトタイプ実装
+   永続化は localStorage（本番は Supabase / Postgres：schema.sql 参照）
+   ============================================================ */
+
+const VOTE_THRESHOLD = 50;          // 提案書が自動生成される賛同数
+const MONTHLY_GOAL   = 12000;       // 今月の運営目標額（円）
+const STORE_KEY      = 'machinokoe.v1';
+
+const CATS = {
+  facility:{label:'公共施設', icon:'🏛️', color:'var(--c-facility)'},
+  road    :{label:'道路・交通', icon:'🚦', color:'var(--c-road)'},
+  env     :{label:'環境・衛生', icon:'🌳', color:'var(--c-env)'},
+  safety  :{label:'防災・安全', icon:'🦺', color:'var(--c-safety)'},
+  welfare :{label:'福祉・子育て', icon:'👶', color:'var(--c-welfare)'},
+  other   :{label:'その他', icon:'💬', color:'var(--c-other)'}
+};
+
+/* 地図上の地点（本番は緯度経度。ここでは 400x300 の相対座標） */
+const PLACES = {
+  p1:{name:'中央区役所前',   x:200, y:150},
+  p2:{name:'桜が丘公園',     x: 88, y: 78},
+  p3:{name:'みどり駅 東口',  x:310, y:112},
+  p4:{name:'川沿い遊歩道',   x:150, y:243},
+  p5:{name:'第二小学校 通学路', x:268, y:210},
+  p6:{name:'北団地 バス停', x: 66, y:186},
+  p7:{name:'商店街アーケード', x:238, y: 62}
+};
+
+/* ---------- 初期データ（デモ） ---------- */
+const SEED = {
+  issues:[
+    {id:'i1', cat:'road', place:'p5', title:'第二小の通学路に横断歩道がなく、朝が危険',
+     body:'毎朝7:40〜8:10に集中して子どもが渡りますが、横断歩道も信号もありません。抜け道になっていて車のスピードが出ており、先月もヒヤリとする場面がありました。\n\nせめて路面標示とガードポールだけでも設置していただけないでしょうか。', votes:87, created:d(-46), status:'sent'},
+    {id:'i2', cat:'facility', place:'p2', title:'桜が丘公園のベンチが3か月壊れたまま',
+     body:'散歩コースの中間地点にあるベンチの板が割れており、座れません。高齢の方が休憩できる場所がここしかなく、夏場は特に困ります。', votes:63, created:d(-31), status:'ready'},
+    {id:'i3', cat:'env', place:'p4', title:'川沿い遊歩道の街灯が切れていて夜が真っ暗',
+     body:'ランニングや犬の散歩で利用する人が多い区間ですが、街灯3本のうち2本が切れています。足元が見えず、段差でつまずいている人を何度か見かけました。', votes:41, created:d(-19), status:'open'},
+    {id:'i4', cat:'welfare', place:'p1', title:'区役所の子育て窓口に授乳スペースがほしい',
+     body:'手続きに30分以上かかることが多く、その間に赤ちゃんが泣いてしまうと廊下に出るしかありません。カーテンで区切るだけでも十分助かります。', votes:38, created:d(-12), status:'open'},
+    {id:'i5', cat:'road', place:'p6', title:'北団地のバス停に屋根とベンチを',
+     body:'本数が1時間に2本のため待ち時間が長く、雨の日は傘をさして立ち続けることになります。利用者は高齢の方が中心です。', votes:29, created:d(-9), status:'open'},
+    {id:'i6', cat:'safety', place:'p3', title:'みどり駅東口の自転車が歩道を塞いでいる',
+     body:'放置自転車が歩道の半分を占めており、ベビーカーと車椅子がすれ違えません。駐輪場は駅の反対側にしかないのが原因だと思います。', votes:24, created:d(-6), status:'open'},
+    {id:'i7', cat:'facility', place:'p7', title:'商店街アーケードの雨漏りが広がっている',
+     body:'中央付近の2か所で雨漏りしており、雨の日は水たまりができて滑ります。テナントの方も自費での修繕は難しいと話していました。', votes:16, created:d(-3), status:'open'}
+  ],
+  comments:[
+    {id:'c1', issue:'i1', kind:'solution', name:'住民 A7', body:'PTAで交通量を計測したことがあります。朝の30分で通過台数は約120台でした。データが必要でしたら共有できます。', created:d(-40)},
+    {id:'c2', issue:'i1', kind:'comment',  name:'住民 K2', body:'同じ道を毎朝使っています。角のミラーも汚れていて見えにくいです。', created:d(-38)},
+    {id:'c3', issue:'i1', kind:'solution', name:'住民 M9', body:'まずは「スクールゾーン」の路面標示から要望するのが現実的だと思います。信号設置は公安委員会の管轄で時間がかかるため。', created:d(-35)},
+    {id:'c4', issue:'i2', kind:'comment',  name:'住民 T4', body:'先週見たら、割れた板の断面が鋭くなっていました。早めの対応をお願いしたいです。', created:d(-24)},
+    {id:'c5', issue:'i2', kind:'solution', name:'住民 R1', body:'公園愛護会で簡易補修ができるか確認します。材料費だけなら地域で負担できるかもしれません。', created:d(-20)},
+    {id:'c6', issue:'i3', kind:'comment',  name:'住民 S5', body:'切れているのは南側から2本目と4本目です。管理番号も控えました。', created:d(-14)},
+    {id:'c7', issue:'i4', kind:'comment',  name:'住民 Y8', body:'保健センターには授乳室があるので、同じ運用を区役所でもできるはずです。', created:d(-8)}
+  ],
+  donations:[
+    {id:'d1', name:'匿名', amount:3000, created:d(-27)},
+    {id:'d2', name:'桜が丘 商店会', amount:5000, created:d(-21)},
+    {id:'d3', name:'匿名', amount:1000, created:d(-15)},
+    {id:'d4', name:'K. さん', amount:500,  created:d(-11)},
+    {id:'d5', name:'匿名', amount:2000, created:d(-4)}
+  ],
+  expenses:[
+    {id:'e1', item:'Supabase（DB・認証）', amount:0,    note:'無料枠内'},
+    {id:'e2', item:'Vercel（ホスティング）', amount:0,   note:'Hobby プラン'},
+    {id:'e3', item:'ドメイン（年額按分）',   amount:150,  note:'¥1,800 / 年'},
+    {id:'e4', item:'地図タイル API',        amount:1200, note:'従量課金'},
+    {id:'e5', item:'PDF 生成 / メール送信',  amount:800,  note:'従量課金'}
+  ],
+  myVotes:[]
+};
+
+function d(days){ const t=new Date(); t.setDate(t.getDate()+days); return t.toISOString(); }
+
+/* ---------- 状態管理 ---------- */
+let S = load();
+function load(){
+  try{
+    const raw = localStorage.getItem(STORE_KEY);
+    if(raw){ const p = JSON.parse(raw); if(p && p.issues) return p; }
+  }catch(e){}
+  return JSON.parse(JSON.stringify(SEED));
+}
+function save(){ try{ localStorage.setItem(STORE_KEY, JSON.stringify(S)); }catch(e){} }
+
+/* 匿名ID：重複投票の防止用。本番は Google ログインの user.id に置き換える */
+let ME = localStorage.getItem('machinokoe.uid');
+if(!ME){ ME = 'u' + Math.random().toString(36).slice(2,8); localStorage.setItem('machinokoe.uid', ME); }
+document.getElementById('meLabel').textContent = '住民 ' + ME.slice(1,4).toUpperCase();
+
+let filterCat = 'all';
+let sortBy = 'votes';
+let pickedCat = 'facility';
+
+const $  = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const yen = n => '¥' + n.toLocaleString('ja-JP');
+
+function ago(iso){
+  const diff = (Date.now() - new Date(iso)) / 864e5;
+  if(diff < 1)  return '今日';
+  if(diff < 2)  return '昨日';
+  if(diff < 31) return Math.floor(diff) + '日前';
+  return Math.floor(diff/30) + 'か月前';
+}
+function fmtDate(iso){
+  const t = new Date(iso);
+  return `${t.getFullYear()}年${t.getMonth()+1}月${t.getDate()}日`;
+}
+function statusOf(is){
+  if(is.status === 'sent')            return {cls:'st-sent',  label:'行政へ提出済み'};
+  if(is.votes >= VOTE_THRESHOLD)      return {cls:'st-ready', label:'提案書 生成可能'};
+  return {cls:'st-open', label:'賛同を集めています'};
+}
+const commentsOf = id => S.comments.filter(c => c.issue === id);
+
+function toast(msg){
+  const t = $('#toast'); t.textContent = msg; t.classList.add('on');
+  clearTimeout(t._h); t._h = setTimeout(()=> t.classList.remove('on'), 2200);
+}
+
+/* ---------- ナビゲーション ---------- */
+$$('#nav button').forEach(b => b.onclick = () => {
+  $$('#nav button').forEach(x => x.classList.remove('on'));
+  b.classList.add('on');
+  $$('.view').forEach(v => v.classList.remove('on'));
+  $('#v-' + b.dataset.v).classList.add('on');
+  window.scrollTo({top:0, behavior:'instant'});
+  if(b.dataset.v === 'map')   renderMap();
+  if(b.dataset.v === 'money') renderMoney();
+});
+
+/* ---------- フィルタ ---------- */
+function renderFilters(){
+  const el = $('#catFilter');
+  el.innerHTML = '';
+  const mk = (key, label) => {
+    const b = document.createElement('button');
+    b.className = 'chip' + (filterCat === key ? ' on' : '');
+    b.textContent = label;
+    b.onclick = () => { filterCat = key; renderFilters(); renderList(); };
+    el.appendChild(b);
+  };
+  mk('all', 'すべて');
+  Object.entries(CATS).forEach(([k,c]) => mk(k, c.icon + ' ' + c.label));
+}
+
+$('#sortSel').onchange = e => { sortBy = e.target.value; renderList(); };
+
+/* ---------- 一覧 ---------- */
+function visibleIssues(){
+  let arr = S.issues.filter(i => filterCat === 'all' || i.cat === filterCat);
+  if(sortBy === 'votes')  arr.sort((a,b) => b.votes - a.votes);
+  if(sortBy === 'new')    arr.sort((a,b) => new Date(b.created) - new Date(a.created));
+  if(sortBy === 'active') arr.sort((a,b) => commentsOf(b.id).length - commentsOf(a.id).length || b.votes - a.votes);
+  return arr;
+}
+
+function renderList(){
+  const arr = visibleIssues();
+  $('#countLabel').textContent = `${arr.length} 件の課題`;
+  const box = $('#cards');
+  box.innerHTML = '';
+
+  if(!arr.length){
+    box.innerHTML = '<div class="empty"><span class="ic">🍃</span>このカテゴリにはまだ課題がありません。<br>最初の一件を投稿してみませんか。</div>';
+    return;
+  }
+
+  arr.forEach(is => {
+    const c  = CATS[is.cat];
+    const st = statusOf(is);
+    const voted = S.myVotes.includes(is.id);
+    const nc = commentsOf(is.id).length;
+
+    const card = document.createElement('article');
+    card.className = 'card';
+    card.innerHTML = `
+      <button class="vote ${voted?'voted':''}" data-vote="${is.id}" aria-label="賛同する">
+        <span class="arw">▲</span>
+        <span class="n">${is.votes}</span>
+        <span class="lb">賛同</span>
+      </button>
+      <div class="card-body" data-open="${is.id}">
+        <div class="card-meta">
+          <span class="tag" style="background:${c.color}">${c.icon} ${c.label}</span>
+          <span class="loc">📍 ${PLACES[is.place].name}</span>
+        </div>
+        <h3>${esc(is.title)}</h3>
+        <p class="excerpt">${esc(is.body)}</p>
+        <div class="card-foot">
+          <span class="status ${st.cls}">${st.label}</span>
+          <span>💬 ${nc}</span>
+          <span>${ago(is.created)}</span>
+        </div>
+      </div>`;
+    box.appendChild(card);
+  });
+
+  box.querySelectorAll('[data-vote]').forEach(b => b.onclick = e => { e.stopPropagation(); toggleVote(b.dataset.vote); });
+  box.querySelectorAll('[data-open]').forEach(b => b.onclick = () => openDetail(b.dataset.open));
+
+  renderStats();
+}
+
+function renderStats(){
+  $('#stIssues').textContent = S.issues.length;
+  $('#stVotes').textContent  = S.issues.reduce((s,i) => s + i.votes, 0).toLocaleString('ja-JP');
+  $('#stSent').textContent   = S.issues.filter(i => i.status === 'sent').length;
+}
+
+/* ---------- 賛同（1人1票） ---------- */
+function toggleVote(id){
+  const is = S.issues.find(i => i.id === id);
+  const at = S.myVotes.indexOf(id);
+  if(at >= 0){
+    S.myVotes.splice(at,1); is.votes--;
+    toast('賛同を取り消しました');
+  }else{
+    S.myVotes.push(id); is.votes++;
+    if(is.votes === VOTE_THRESHOLD && is.status !== 'sent'){
+      toast(`🎉 賛同${VOTE_THRESHOLD}件に到達。提案書を生成できます`);
+    }else{
+      toast('賛同しました。ありがとうございます');
+    }
+  }
+  save(); renderList();
+  if($('#sheet').classList.contains('on') && openId === id) openDetail(id, true);
+  if($('#v-map').classList.contains('on')) renderMap();
+}
+
+/* ---------- 詳細シート ---------- */
+let openId = null;
+
+function openDetail(id, keepScroll){
+  openId = id;
+  const is = S.issues.find(i => i.id === id);
+  const c  = CATS[is.cat];
+  const st = statusOf(is);
+  const voted = S.myVotes.includes(id);
+  const cms = commentsOf(id).sort((a,b) => new Date(a.created) - new Date(b.created));
+  const pct = Math.min(100, Math.round(is.votes / VOTE_THRESHOLD * 100));
+  const ready = is.votes >= VOTE_THRESHOLD;
+
+  $('#dTitle').textContent = is.title;
+  $('#dBody').innerHTML = `
+    <div class="detail-meta">
+      <span class="tag" style="background:${c.color}">${c.icon} ${c.label}</span>
+      <span class="loc">📍 ${PLACES[is.place].name}</span>
+      <span class="status ${st.cls}">${st.label}</span>
+    </div>
+    <p class="desc">${esc(is.body)}</p>
+
+    <div class="support">
+      <button class="vote ${voted?'voted':''}" id="dVote">
+        <span class="arw">▲</span><span class="n">${is.votes}</span><span class="lb">賛同</span>
+      </button>
+      <div style="flex:1">
+        <div style="font-size:12.5px;font-weight:700;margin-bottom:6px">
+          ${ready ? '提案書を生成できます' : `あと ${VOTE_THRESHOLD - is.votes} 件で提案書が作れます`}
+        </div>
+        <div class="bar thin"><i style="width:${pct}%"></i></div>
+        <div class="thresh"><span>${is.votes} 件</span><span>目標 ${VOTE_THRESHOLD} 件</span></div>
+      </div>
+    </div>
+
+    <button class="btn ${ready ? '' : 'ghost'}" id="dGen" ${ready ? '' : 'disabled'}>
+      📄 行政提出用の提案書を生成（PDF）
+    </button>
+
+    <h3 style="font-size:13.5px;margin:22px 0 4px">議論と解決策 <span style="color:var(--text-3);font-weight:500">${cms.length}</span></h3>
+    <div id="dCmts">
+      ${cms.length ? cms.map(cm => `
+        <div class="cmt">
+          <div class="cmt-hd">
+            <span class="av">${esc(cm.name.slice(-2))}</span>
+            <span class="cmt-name">${esc(cm.name)}</span>
+            ${cm.kind === 'solution' ? '<span class="cmt-kind">解決策の提案</span>' : ''}
+            <span class="cmt-time">${ago(cm.created)}</span>
+          </div>
+          <div class="cmt-body">${esc(cm.body)}</div>
+        </div>`).join('')
+        : '<p style="font-size:12.5px;color:var(--text-3);padding:10px 0">まだ意見がありません。最初の一言をどうぞ。</p>'}
+    </div>
+
+    <div class="field" style="margin-top:16px">
+      <label>意見・解決策を投稿</label>
+      <textarea id="dCmtBody" style="min-height:80px" placeholder="この課題について知っていること、実現できそうな解決策を書いてください"></textarea>
+      <div style="display:flex;gap:8px;align-items:center;margin-top:8px">
+        <label style="font-size:12px;font-weight:500;display:flex;align-items:center;gap:5px;cursor:pointer">
+          <input type="checkbox" id="dIsSol" style="width:auto"> 解決策として投稿
+        </label>
+        <button class="btn sm" id="dCmtSend" style="margin-left:auto">投稿</button>
+      </div>
+    </div>`;
+
+  $('#dVote').onclick = () => toggleVote(id);
+  $('#dGen').onclick  = () => generateProposal(id);
+  $('#dCmtSend').onclick = () => {
+    const v = $('#dCmtBody').value.trim();
+    if(v.length < 5) return toast('もう少し詳しく書いてください');
+    S.comments.push({
+      id:'c'+Date.now(), issue:id,
+      kind: $('#dIsSol').checked ? 'solution' : 'comment',
+      name:'住民 ' + ME.slice(1,3).toUpperCase(), body:v, created:new Date().toISOString()
+    });
+    save(); openDetail(id); renderList(); toast('投稿しました');
+  };
+
+  $('#scrim').classList.add('on');
+  $('#sheet').classList.add('on');
+  if(!keepScroll) $('#sheet').scrollTop = 0;
+  document.body.style.overflow = 'hidden';
+}
+
+function closeSheet(){
+  $('#scrim').classList.remove('on');
+  $('#sheet').classList.remove('on');
+  document.body.style.overflow = '';
+  openId = null;
+}
+$('#scrim').onclick = closeSheet;
+$('#dClose').onclick = closeSheet;
+document.addEventListener('keydown', e => { if(e.key === 'Escape') closeSheet(); });
+
+/* ---------- 提案書の自動生成 ---------- */
+function generateProposal(id){
+  const is = S.issues.find(i => i.id === id);
+  const c  = CATS[is.cat];
+  const cms = commentsOf(id).sort((a,b) => new Date(a.created) - new Date(b.created));
+  const sols = cms.filter(x => x.kind === 'solution');
+  const opinions = cms.filter(x => x.kind === 'comment');
+  const today = new Date();
+
+  $('#printroot').innerHTML = `
+    <div class="doc">
+      <h1>地 域 課 題 に 関 す る 提 案 書</h1>
+      <div class="docmeta">
+        ${today.getFullYear()}年${today.getMonth()+1}月${today.getDate()}日<br>
+        まちのコエ 運営事務局（非営利）<br>
+        整理番号：MK-${is.id.toUpperCase()}-${today.getFullYear()}
+      </div>
+
+      <p>本書は、地域住民が「まちのコエ」上で共有した課題のうち、
+      ${VOTE_THRESHOLD}件以上の賛同が集まったものについて、
+      議論の内容を要約し提出するものです。ご検討のほどよろしくお願い申し上げます。</p>
+
+      <h2>1. 課題の概要</h2>
+      <table>
+        <tr><th>件名</th><td>${esc(is.title)}</td></tr>
+        <tr><th>分類</th><td>${c.label}</td></tr>
+        <tr><th>対象地点</th><td>${PLACES[is.place].name}</td></tr>
+        <tr><th>投稿日</th><td>${fmtDate(is.created)}</td></tr>
+        <tr><th>賛同数</th><td><b>${is.votes} 件</b>（プラットフォーム登録住民による投票／1人1票）</td></tr>
+        <tr><th>議論件数</th><td>${cms.length} 件（うち解決策の提案 ${sols.length} 件）</td></tr>
+      </table>
+
+      <h2>2. 住民が共有した状況</h2>
+      <p>${esc(is.body).replace(/\n/g,'<br>')}</p>
+
+      <h2>3. 住民から寄せられた解決策</h2>
+      ${sols.length ? `<ul>${sols.map(s => `<li>${esc(s.body)}（${esc(s.name)}）</li>`).join('')}</ul>`
+                    : '<p>具体的な解決策の提案は、本書作成時点では寄せられていません。</p>'}
+
+      <h2>4. その他の意見</h2>
+      ${opinions.length ? `<ul>${opinions.map(s => `<li>${esc(s.body)}（${esc(s.name)}）</li>`).join('')}</ul>`
+                        : '<p>該当なし。</p>'}
+
+      <h2>5. 要望事項</h2>
+      <p>上記の状況を踏まえ、${PLACES[is.place].name}における「${esc(is.title)}」について、
+      現地確認および対応可否のご検討をお願いいたします。
+      対応の可否・時期にかかわらず、ご回答をいただけましたら、
+      本プラットフォーム上で賛同者${is.votes}名へ共有いたします。</p>
+
+      <div class="sig">
+        本提案書は「まちのコエ」により自動生成されました。<br>
+        当プラットフォームは完全非営利で運営されており、特定の政治的・商業的意図を持ちません。
+        運営費は住民からの寄付のみで賄われ、収支は全て公開されています。<br>
+        連絡先：contact@machinokoe.example / 運営費の公開ページ：machinokoe.example/transparency
+      </div>
+    </div>`;
+
+  toast('提案書を生成しました。印刷画面でPDF保存できます');
+  setTimeout(() => window.print(), 400);
+}
+
+/* ---------- 地図 ---------- */
+function renderMap(){
+  const svg = $('#mapSvg');
+  const base = `
+    <rect x="0" y="0" width="400" height="300" fill="var(--surface-2)"/>
+    <path d="M0 258 Q100 240 190 262 T400 246 L400 300 L0 300 Z" fill="var(--c-env)" opacity=".13"/>
+    <path d="M0 252 Q100 234 190 256 T400 240" stroke="var(--c-facility)" stroke-width="7" fill="none" opacity=".28"/>
+    <circle cx="88" cy="78" r="46" fill="var(--c-env)" opacity=".16"/>
+    <rect x="0" y="140" width="400" height="14" fill="var(--border-strong)" opacity=".5"/>
+    <rect x="186" y="0" width="13" height="300" fill="var(--border-strong)" opacity=".5"/>
+    <rect x="0" y="196" width="400" height="7" fill="var(--border-strong)" opacity=".32"/>
+    <rect x="296" y="0" width="7" height="300" fill="var(--border-strong)" opacity=".32"/>
+    <rect x="292" y="96" width="34" height="30" rx="4" fill="var(--c-facility)" opacity=".3"/>
+    <rect x="176" y="128" width="34" height="30" rx="4" fill="var(--c-facility)" opacity=".22"/>
+    <text x="88" y="30" font-size="9" fill="var(--text-3)" text-anchor="middle">桜が丘公園</text>
+    <text x="332" y="58" font-size="9" fill="var(--text-3)" text-anchor="middle">みどり駅</text>
+    <text x="16" y="290" font-size="8.5" fill="var(--text-3)">※ プロトタイプ用の簡易地図（本番は地図タイルAPI）</text>`;
+
+  const max = Math.max(...S.issues.map(i => i.votes), 1);
+  const pins = S.issues.map(is => {
+    const p = PLACES[is.place];
+    const r = 11 + (is.votes / max) * 11;
+    return `<g class="pin" data-open="${is.id}">
+      <circle class="halo" cx="${p.x}" cy="${p.y}" r="${r + 9}" fill="${CATS[is.cat].color}"/>
+      <circle cx="${p.x}" cy="${p.y}" r="${r}" fill="${CATS[is.cat].color}" stroke="var(--surface)" stroke-width="2.5"/>
+      <text x="${p.x}" y="${p.y + 3.5}">${is.votes}</text>
+    </g>`;
+  }).join('');
+
+  svg.innerHTML = base + pins;
+  svg.querySelectorAll('[data-open]').forEach(g => g.onclick = () => openDetail(g.dataset.open));
+
+  $('#mapLegend').innerHTML = Object.values(CATS)
+    .map(c => `<span><i style="background:${c.color}"></i>${c.label}</span>`).join('');
+}
+
+/* ---------- 投稿フォーム ---------- */
+function renderPostForm(){
+  const g = $('#catPick');
+  g.innerHTML = '';
+  Object.entries(CATS).forEach(([k,c]) => {
+    const b = document.createElement('button');
+    b.className = 'catbtn' + (pickedCat === k ? ' on' : '');
+    b.innerHTML = `<span class="ic">${c.icon}</span>${c.label}`;
+    b.onclick = () => { pickedCat = k; renderPostForm(); };
+    g.appendChild(b);
+  });
+  const sel = $('#fLoc');
+  if(!sel.options.length){
+    Object.entries(PLACES).forEach(([k,p]) => sel.add(new Option(p.name, k)));
+  }
+  $('#thNote').textContent = VOTE_THRESHOLD;
+}
+
+$('#submitIssue').onclick = () => {
+  const title = $('#fTitle').value.trim();
+  const body  = $('#fBody').value.trim();
+  if(title.length < 5) return toast('タイトルをもう少し詳しく書いてください');
+  if(body.length < 15) return toast('状況の説明を15字以上でお願いします');
+
+  const id = 'i' + Date.now();
+  S.issues.unshift({
+    id, cat:pickedCat, place:$('#fLoc').value,
+    title, body, votes:1, created:new Date().toISOString(), status:'open'
+  });
+  S.myVotes.push(id);     // 投稿者は自動的に1票
+  save();
+
+  $('#fTitle').value = ''; $('#fBody').value = '';
+  filterCat = 'all'; sortBy = 'new'; $('#sortSel').value = 'new';
+  renderFilters(); renderList();
+  $$('#nav button').forEach(x => x.classList.remove('on'));
+  $$('#nav button')[0].classList.add('on');
+  $$('.view').forEach(v => v.classList.remove('on'));
+  $('#v-list').classList.add('on');
+  window.scrollTo({top:0});
+  toast('投稿しました。賛同が集まるのを待ちましょう');
+  setTimeout(() => openDetail(id), 500);
+};
+
+/* ---------- 透明性ダッシュボード ---------- */
+function renderMoney(){
+  const sum = S.donations.reduce((s,x) => s + x.amount, 0);
+  const pct = Math.min(100, Math.round(sum / MONTHLY_GOAL * 100));
+
+  $('#donSum').textContent   = yen(sum);
+  $('#donGoal').textContent  = yen(MONTHLY_GOAL);
+  $('#donPct').textContent   = pct + '%';
+  $('#donBar').style.width   = pct + '%';
+  $('#donCount').textContent = `${S.donations.length} 件の寄付`;
+  $('#donLeft').textContent  = sum >= MONTHLY_GOAL ? '今月の目標を達成しました' : `残り ${yen(MONTHLY_GOAL - sum)}`;
+
+  const cost = S.expenses.reduce((s,x) => s + x.amount, 0);
+  $('#costKpis').innerHTML = `
+    <div class="kpi"><b>${yen(cost)}</b><span>今月の運営費</span></div>
+    <div class="kpi"><b>${yen(Math.round(cost / Math.max(S.issues.length,1)))}</b><span>課題1件あたり</span></div>`;
+
+  $('#costTable').innerHTML = `
+    <tr><th>項目</th><th>備考</th><th class="num">金額</th></tr>
+    ${S.expenses.map(e => `<tr>
+      <td>${esc(e.item)}</td>
+      <td style="color:var(--text-3)">${esc(e.note)}</td>
+      <td class="num">${e.amount ? yen(e.amount) : '—'}</td></tr>`).join('')}
+    <tr><td colspan="2"><b>合計</b></td><td class="num"><b>${yen(cost)}</b></td></tr>`;
+
+  const rows = [
+    ...S.donations.map(x => ({date:x.created, label:'寄付 — ' + x.name, amount:x.amount, in:true})),
+    {date:d(-30), label:'運営費 — 5項目まとめて', amount:-cost, in:false}
+  ].sort((a,b) => new Date(b.date) - new Date(a.date));
+
+  $('#ledgerTable').innerHTML = `
+    <tr><th>日付</th><th>内容</th><th class="num">金額</th></tr>
+    ${rows.map(r => `<tr>
+      <td style="color:var(--text-3);white-space:nowrap">${fmtDate(r.date).slice(5)}</td>
+      <td>${esc(r.label)}</td>
+      <td class="num ${r.in ? 'in' : ''}">${r.in ? '+' : '−'}${yen(Math.abs(r.amount))}</td></tr>`).join('')}`;
+}
+
+/* ---------- utils ---------- */
+function esc(s){
+  return String(s).replace(/[&<>"']/g, m => (
+    {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]
+  ));
+}
+
+/* ---------- 起動 ---------- */
+renderFilters();
+renderPostForm();
+renderList();
+renderMap();
+renderMoney();
+</script>
+</body>
+</html>
