@@ -202,6 +202,8 @@ button{cursor:pointer}
 .btn.ghost{background:transparent;border:1px solid var(--line);color:var(--tx2);font-weight:600}
 .btn.ghost:hover{border-color:var(--accent);color:var(--accent)}
 .hint{font-size:11px;color:var(--tx3);line-height:1.7;margin:8px 0 0}
+#gplace{margin-top:8px}
+.gphours{list-style:none;margin:6px 0 0;padding:0;font-size:12px;color:var(--tx2);line-height:1.8}
 
 /* ---------- form ---------- */
 .field{margin-bottom:11px}
@@ -460,6 +462,7 @@ button{cursor:pointer}
             title="表示と保存の設定">⚙</button>
     <div class="mapui" id="toolbar" hidden>
       <button id="btnCloud">☁ 共有DBの設定</button>
+      <button id="btnPlaces">📍 Google情報の設定</button>
       <button id="btnExport">⬇ データ書き出し</button>
       <button id="btnImport">⬆ データ読み込み</button>
       <button id="btnReset">↺ サンプルに戻す</button>
@@ -2107,6 +2110,7 @@ function selectSpot(id,focus=true){
   document.getElementById('side').classList.add('detail-on');
   document.getElementById('dbody').scrollTop=0;
   const b=document.getElementById('addRev'); if(b) b.onclick=()=>openReviewForm(sp);
+  const gb=document.getElementById('btnGplace'); if(gb) gb.onclick=()=>fetchGooglePlace(sp);
   render();
 }
 
@@ -2181,6 +2185,8 @@ function detailHTML(sp){
     <a class="btn ghost" style="text-decoration:none;margin-top:12px" target="_blank" rel="noopener"
        href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(sp.name+' '+(sp.address||''))}">
        Googleマップで開く（営業時間・写真を確認）</a>
+    <button class="btn ghost" id="btnGplace" style="margin-top:8px">📍 Googleで営業時間・評価を確認</button>
+    <div id="gplace"></div>
   </div>
 
   <div class="sect">
@@ -2494,6 +2500,85 @@ function openCloudForm(){
 }
 document.getElementById('btnCloud').onclick=openCloudForm;
 document.getElementById('dbstat').onclick=openCloudForm;
+
+/* ---------- Google情報（Places API）の設定 ----------
+   静的サイトなのでサーバー側からは呼べない。ブラウザ内で動く
+   Places JavaScript ライブラリ経由で使うので、キーはHTTPリファラー制限で守る。
+   自動では叩かず、スポット詳細で「Googleで確認」を押したときだけ呼ぶ
+   （費用を利用者の関心の分だけに抑えるため）。 */
+const GPKEY='tsm.placeskey';
+let placesLibPromise=null;
+/* google.maps.places.PlacesService は2025年3月以降の新規キーでは使えないため、
+   新しい google.maps.places.Place（importLibrary経由）を使う。 */
+function loadPlacesLib(key){
+  if(placesLibPromise) return placesLibPromise;
+  placesLibPromise=new Promise((res,rej)=>{
+    if(window.google&&google.maps&&google.maps.places&&google.maps.places.Place){ res(); return; }
+    const s=document.createElement('script');
+    s.src=`https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(key)}&loading=async&libraries=places`;
+    s.onload=()=>res(); s.onerror=()=>rej(new Error('Places APIの読み込みに失敗しました'));
+    document.head.appendChild(s);
+  });
+  return placesLibPromise;
+}
+function openPlacesForm(){
+  const key=localStorage.getItem(GPKEY)||'';
+  openModal(`<h2>Google情報の設定</h2>
+    <p class="lead">Places API のキーを入れると、スポット詳細に「Googleで営業時間・評価を確認」ボタンが出ます。
+    未設定でも他の機能は変わりません。</p>
+    <div class="field"><label>APIキー（Places API・HTTPリファラー制限推奨）</label>
+      <input id="pk" value="${esc(key)}" placeholder="AIza..."></div>
+    <p class="hint">キーはこのブラウザの localStorage にだけ保存されます。呼び出しはボタンを押した時だけ発生し、
+    自動では叩きません。1回の呼び出しは無料枠内に収まる金額です。</p>
+    <button class="btn" id="pksave">保存する</button>
+    <button class="btn ghost" id="pkoff">解除する</button>
+    <button class="btn ghost" id="pkcancel">キャンセル</button>`);
+  const sh=document.getElementById('sheet');
+  sh.querySelector('#pkcancel').onclick=closeModal;
+  sh.querySelector('#pkoff').onclick=()=>{ localStorage.removeItem(GPKEY); closeModal(); toast('Google情報の設定を解除しました'); };
+  sh.querySelector('#pksave').onclick=()=>{
+    const v=sh.querySelector('#pk').value.trim();
+    if(!v){ toast('キーを入力してください'); return; }
+    localStorage.setItem(GPKEY,v); closeModal(); toast('保存しました');
+  };
+}
+document.getElementById('btnPlaces').onclick=openPlacesForm;
+
+/* スポット名＋住所でGoogle検索し、営業時間・評価を取ってくる。
+   新しい Place API（Text Search）を使う。1回のボタン操作で1回だけ呼ぶ。 */
+async function fetchGooglePlace(sp){
+  const key=localStorage.getItem(GPKEY);
+  if(!key){ openPlacesForm(); return; }
+  const box=document.getElementById('gplace');
+  if(!box) return;
+  box.innerHTML='<p class="hint">Googleで確認中…</p>';
+  try{
+    await loadPlacesLib(key);
+    const { Place }=google.maps.places;
+    const { places }=await Place.searchByText({
+      textQuery:`${sp.name} ${sp.address||''}`,
+      fields:['id','displayName','regularOpeningHours','rating','userRatingCount','businessStatus'],
+      maxResultCount:1
+    });
+    if(!places||!places.length){
+      box.innerHTML='<p class="hint">Googleで見つかりませんでした。名前や住所が公式と違う可能性があります。</p>';
+      return;
+    }
+    const place=places[0];
+    if(place.businessStatus==='CLOSED_PERMANENTLY'){
+      box.innerHTML='<p class="hint">Googleでは「閉業」となっています。要確認。</p>'; return;
+    }
+    const hours=place.regularOpeningHours&&place.regularOpeningHours.weekdayDescriptions
+      ? `<ul class="gphours">${place.regularOpeningHours.weekdayDescriptions.map(t=>`<li>${esc(t)}</li>`).join('')}</ul>`
+      : '<p class="hint">営業時間の情報はありませんでした。</p>';
+    const rating=place.rating
+      ? `<p>★ ${place.rating}（${place.userRatingCount||0}件のGoogle評価）</p>` : '';
+    box.innerHTML=`<div class="sect" style="margin-top:0"><h3>Googleでの情報</h3>${rating}${hours}
+      <p class="hint">study-mapの8軸評価とは別の、Google側の情報です。実際と異なる場合があります。</p></div>`;
+  }catch(e){
+    box.innerHTML=`<p class="hint">読み込みに失敗: ${esc(e.message||e)}</p>`;
+  }
+}
 
 /* ---------- 起動 ---------- */
 (async function boot(){
