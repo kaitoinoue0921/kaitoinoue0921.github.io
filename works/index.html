@@ -503,7 +503,7 @@
           <div><a class="support-inline" href="focusroom/donate/">開発を寄付で支える</a></div>
         </article>
 
-        <!-- 06 これから作りたいもの -->
+        <!-- 07 InkVault -->
         <article class="block">
           <div class="divider">
             <span class="divider-line"></span>
@@ -514,7 +514,46 @@
             </svg>
             <span class="divider-line"></span>
           </div>
-          <p class="block-label"><span>Backlog · 07</span><span class="status">構想中</span></p>
+          <p class="block-label"><span>Works · 07</span><span class="status status--wip">開発中</span></p>
+          <h2 class="block-title">InkVault</h2>
+          <p class="block-text">Obsidianで医学知識をまとめていたのですが、画像を並べて比較できない・画像に直接書き込めないという不便さが解決できず、自分の使い方に合わせて作り直しました。文章はObsidianと同じく上から下へ書き、画像はWordのように自由に動かせて、その上からペンで直接書き込めます。</p>
+
+          <ul class="points">
+            <li>[[リンク]] で他のノートとつながる。存在しなければタップで新規作成される</li>
+            <li>画像はドラッグで自由配置。「ペン」モードに切り替えると、文章や画像の上から直接手書きできる（Apple Pencil対応）</li>
+            <li>画像内の文字をOCRで自動認識し、検索対象にする</li>
+            <li>既存のObsidian vault（980ノート・画像447枚）をそのまま取り込み済み</li>
+          </ul>
+
+          <p class="support-note">まだ自分のMac上でローカルサーバーとして動かしているだけで、公開URLはありません。医学知識を毎日ここにまとめながら、使いながら直しています。</p>
+
+          <ul class="tech">
+            <li>Vanilla JS</li>
+            <li>Node.js</li>
+            <li>tesseract.js（OCR）</li>
+            <li>SVG / PointerEvents</li>
+          </ul>
+
+          <a class="block-action" href="inkvault/">
+            <span>InkVault のページを見る</span>
+            <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </article>
+
+        <!-- 08 これから作りたいもの -->
+        <article class="block">
+          <div class="divider">
+            <span class="divider-line"></span>
+            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
+              <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
+              <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
+            </svg>
+            <span class="divider-line"></span>
+          </div>
+          <p class="block-label"><span>Backlog · 08</span><span class="status">構想中</span></p>
           <h2 class="block-title">これから作りたいもの</h2>
           <p class="block-text">まだ手をつけていない案です。作ると決めたものではなく、「これが要るのでは」と思って書き留めてあるものを、そのまま置いておきます。どれも、越えないといけない壁のほうを先に書いています。</p>
 

@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>InkVault</title>
+<meta name="description" content="Obsidianのリンクとノートを引き継ぎながら、画像への直接書き込みと自由配置に対応した個人用の知識ノートアプリ。">
+<style>
+  :root {
+    --bg: #f4f6fa;
+    --surface: #ffffff;
+    --accent: #6a4fd6;
+    --rest: #0e9aa7;
+    --text: #10182a;
+    --muted: rgba(16, 24, 42, .6);
+    --line: rgba(16, 24, 42, .1);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 0 20px 80px;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif;
+    line-height: 1.8;
+    -webkit-text-size-adjust: 100%;
+  }
+  .wrap { max-width: 680px; margin: 0 auto; }
+  header { padding: 56px 0 32px; text-align: center; }
+  .logo { font-size: 52px; line-height: 1; }
+  h1 { font-size: 26px; margin: 16px 0 6px; letter-spacing: .02em; }
+  .tagline { color: var(--muted); font-size: 15px; margin: 0; }
+  section {
+    background: var(--surface);
+    border-radius: 18px;
+    padding: 24px 22px;
+    margin-bottom: 16px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, .06);
+  }
+  h2 { font-size: 17px; margin: 0 0 12px; }
+  h3 { font-size: 15px; margin: 20px 0 6px; }
+  p, li { font-size: 15px; }
+  p:last-child { margin-bottom: 0; }
+  ul { padding-left: 1.2em; margin: 8px 0; }
+  a { color: var(--accent); }
+  dl { margin: 0; }
+  dt { font-weight: 600; font-size: 14px; margin-top: 14px; }
+  dt:first-child { margin-top: 0; }
+  dd { margin: 2px 0 0; color: var(--muted); font-size: 14px; }
+  .note {
+    border-left: 3px solid var(--rest);
+    padding-left: 14px;
+    color: var(--muted);
+    font-size: 14px;
+  }
+  .shot {
+    width: 100%;
+    display: block;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, .12);
+    border: 1px solid var(--line);
+    margin-bottom: 20px;
+  }
+  strong { font-weight: 700; }
+  .backlink {
+    display: inline-block;
+    margin-top: 20px;
+    color: var(--muted);
+    font-size: 13px;
+    text-decoration: none;
+  }
+  .backlink:hover { color: var(--accent); }
+  footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    padding-top: 24px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0a1120; --surface: #141e33; --text: #f2f5fb;
+      --muted: rgba(242, 245, 251, .6); --line: rgba(255, 255, 255, .12);
+      --accent: #a48cff;
+    }
+    section { box-shadow: none; border: 1px solid var(--line); }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<a class="backlink" href="/works/">← 作ったもの一覧へ</a>
+
+<header>
+  <div class="logo">🖋️</div>
+  <h1>InkVault</h1>
+  <p class="tagline">医学知識を、書き込みながらつないでいくノートアプリ</p>
+</header>
+
+<img class="shot" src="screenshot.png" alt="InkVaultの画面。左に980件のノート一覧、右にリンクつきの医学ノートと画像が並ぶ">
+
+<section>
+  <h2>作った理由</h2>
+  <p>Obsidianで医学の知識をまとめていましたが、「画像を横に並べて比較する」「画像に直接書き込む」がうまくできず、ずっと不便でした。プラグインで解決を試みましたが、結局は自分の使い方に合わせて作った方が早いと判断しました。</p>
+</section>
+
+<section>
+  <h2>できること</h2>
+  <ul>
+    <li>Obsidianと同じように、上から下へ普通に文章を書いていく</li>
+    <li>[[リンク]] で他のノートとつながる。存在しなければタップで新規作成</li>
+    <li>画像はWordの図のように、好きな場所へドラッグして自由に配置</li>
+    <li>「ペン」モードに切り替えると、文章や画像の上から直接手書きできる（Apple Pencil対応）</li>
+    <li>画像に写った文字をOCRで自動認識し、検索対象にする</li>
+    <li>既存のObsidian vault（980ノート・画像447枚）をそのまま取り込み済み</li>
+  </ul>
+</section>
+
+<section>
+  <h2>技術</h2>
+  <dl>
+    <dt>フロントエンド</dt>
+    <dd>Vanilla JS。SVGでペンのストロークを描画し、筆圧・傾きに対応</dd>
+    <dt>データ保存</dt>
+    <dd>Node.jsの薄いサーバー越しに、ノート1件＝JSON1ファイルとして保存。特別なデータベースを使わないぶん壊れにくい</dd>
+    <dt>OCR</dt>
+    <dd>tesseract.js（ブラウザ・Node両対応）で日本語＋英語の混在文を認識</dd>
+  </dl>
+</section>
+
+<p class="note">まだ自分のMac上でローカルサーバーとして動かしているだけで、公開URLはありません。医学知識を毎日ここにまとめながら、使いながら直しています。</p>
+
+<footer>
+  <a class="backlink" href="/works/">← 作ったもの一覧へ</a>
+</footer>
+
+</div>
+</body>
+</html>
