@@ -83,6 +83,9 @@ button{cursor:pointer}
 #topsupport{font-size:10.5px;padding:4px 9px;border-radius:999px;white-space:nowrap;
   border:1px solid var(--line);background:var(--panel2);color:var(--tx2);cursor:pointer;font-family:inherit}
 #topsupport:hover{border-color:var(--accent);color:var(--accent)}
+#topabout{font-size:10.5px;padding:4px 9px;border-radius:999px;white-space:nowrap;
+  border:1px solid var(--line);background:var(--panel2);color:var(--tx2);cursor:pointer;font-family:inherit}
+#topabout:hover{border-color:var(--accent);color:var(--accent)}
 
 /* ---------- layout ---------- */
 #app{display:flex;height:calc(100vh - 58px);height:calc(100dvh - 58px)}
@@ -301,6 +304,7 @@ button{cursor:pointer}
      order を振らないとバッジが最終行に落ちて1行ぶん無駄になる */
   #dbstat{order:1;margin-left:auto}
   #topsupport{order:1}
+  #topabout{order:1}
   .region{order:2}
   .searchwrap{order:3}
   .region{margin-left:0;width:100%}
@@ -391,6 +395,7 @@ button{cursor:pointer}
     <div id="searchsuggest" hidden></div>
   </div>
   <div id="topcount"></div>
+  <button id="topabout" title="このサイトを作った理由">💡 このサイトについて</button>
   <button id="topsupport" data-ksup-open="study-map" data-skin="dark"
           title="応援・感想・気になる点を送る">♡ 応援・感想</button>
   <div id="dbstat" title="データの保存先">…</div>
@@ -2352,6 +2357,19 @@ function setAdding(on){
   MapA&&MapA.cursor(on);
   banner(on?'地図をクリックして場所を指定してください':'');
 }
+
+document.getElementById('topabout').onclick=()=>{
+  openModal(`<h2>このサイトを作った理由</h2>
+    <p class="lead">お金も情報もあまり持っていない高校生・大学生のためのサイトです。</p>
+    <p>塾の自習室や有料のコワーキングスペースは、月に何千円・何万円もかかります。動ける範囲も、
+    知っている選択肢も、お金がある人ほど広がります。でも図書館や公民館には、今日から座れる机と椅子が、
+    もう無料で用意されています。問題は、それがあまり知られていないことと、比較する手段がなかったことです。</p>
+    <p>このサイトは、無料で勉強できる場所を地図に並べて、静音性・電源・Wi-Fiなど8軸でS〜Cのランクをつけている
+    だけのものです。行った人の口コミが増えるほど、次に行く人が場所を選びやすくなります。</p>
+    <p class="hint">図書館や公民館は、もっと活用されていい場所だと思っています。個人で作って、個人で運営しています。</p>
+    <button class="btn ghost" id="aboutclose">閉じる</button>`);
+  document.getElementById('sheet').querySelector('#aboutclose').onclick=closeModal;
+};
 
 /* ---------- モーダル / トースト ---------- */
 function openModal(html){
