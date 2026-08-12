@@ -2512,15 +2512,24 @@ let placesLibPromise=null;
    新しい google.maps.places.Place（importLibrary経由）を使う。 */
 function loadPlacesLib(key){
   if(placesLibPromise) return placesLibPromise;
+  const ready=()=>window.google&&google.maps&&google.maps.places&&google.maps.places.Place;
   placesLibPromise=new Promise((res,rej)=>{
-    if(window.google&&google.maps&&google.maps.places&&google.maps.places.Place){ res(); return; }
+    if(ready()){ res(); return; }
     const s=document.createElement('script');
-    s.src=`https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(key)}&loading=async&libraries=places`;
-    // scriptのonloadは発火しても内部ライブラリの初期化が終わっていないことがあるため、
-    // importLibrary()の完了を待ってから解決する（さもないと google.maps.places.Place が
-    // まだ undefined のまま呼び出してしまうタイミング問題が起きる）。
-    s.onload=()=>{ google.maps.importLibrary('places').then(res).catch(rej); };
+    s.src=`https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(key)}&libraries=places`;
     s.onerror=()=>rej(new Error('Places APIの読み込みに失敗しました'));
+    // scriptのonloadが発火しても google.maps.places.Place の初期化が
+    // 追いついていないことがある（google.maps.importLibrary はここでは使えない）ので、
+    // 短い間隔でポーリングして本当に使える状態になるまで待つ。
+    s.onload=()=>{
+      let tries=0;
+      const poll=()=>{
+        if(ready()) return res();
+        if(++tries>100) return rej(new Error('Places APIの初期化がタイムアウトしました'));
+        setTimeout(poll,50);
+      };
+      poll();
+    };
     document.head.appendChild(s);
   });
   return placesLibPromise;
