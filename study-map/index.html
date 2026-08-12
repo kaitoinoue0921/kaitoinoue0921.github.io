@@ -2516,7 +2516,11 @@ function loadPlacesLib(key){
     if(window.google&&google.maps&&google.maps.places&&google.maps.places.Place){ res(); return; }
     const s=document.createElement('script');
     s.src=`https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(key)}&loading=async&libraries=places`;
-    s.onload=()=>res(); s.onerror=()=>rej(new Error('Places APIの読み込みに失敗しました'));
+    // scriptのonloadは発火しても内部ライブラリの初期化が終わっていないことがあるため、
+    // importLibrary()の完了を待ってから解決する（さもないと google.maps.places.Place が
+    // まだ undefined のまま呼び出してしまうタイミング問題が起きる）。
+    s.onload=()=>{ google.maps.importLibrary('places').then(res).catch(rej); };
+    s.onerror=()=>rej(new Error('Places APIの読み込みに失敗しました'));
     document.head.appendChild(s);
   });
   return placesLibPromise;
