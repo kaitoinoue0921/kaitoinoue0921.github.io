@@ -429,7 +429,6 @@ button{cursor:pointer}
     <button class="mapui" id="toolstoggle" aria-expanded="false" aria-controls="toolbar"
             title="表示と保存の設定">⚙</button>
     <div class="mapui" id="toolbar" hidden>
-      <button id="btnKey">🗺 Google Mapsに切替</button>
       <button id="btnCloud">☁ 共有DBの設定</button>
       <button id="btnExport">⬇ データ書き出し</button>
       <button id="btnImport">⬆ データ読み込み</button>
@@ -1522,7 +1521,6 @@ function renderDbStat(){
 const state={pref:'栃木県',city:'',q:'',cat:'',sort:'score',ranks:{S:1,A:1,B:1,C:1,'?':1},chips:{},sel:null,adding:false};
 
 /* ---------- 地図アダプタ ---------- */
-const GKEY='tsm.gmapskey';
 let MapA=null;
 
 function LeafletAdapter(){
@@ -1532,7 +1530,6 @@ function LeafletAdapter(){
     {attribution:'&copy; OpenStreetMap &copy; CARTO',maxZoom:19}).addTo(map);
   let markers=[], byId=new Map();
   return {
-    kind:'leaflet',
     clear(){ markers.forEach(m=>map.removeLayer(m)); markers=[]; byId.clear(); },
     add(sp,rank,sc,onClick){
       const cls=rank===UNRATED?'un':rank, mark=rank===UNRATED?'未':rank;
@@ -1554,61 +1551,10 @@ function LeafletAdapter(){
   };
 }
 
-function GoogleAdapter(){
-  const map=new google.maps.Map(document.getElementById('map'),{
-    center:{lat:36.62,lng:139.83},zoom:9,disableDefaultUI:true,zoomControl:true,
-    zoomControlOptions:{position:google.maps.ControlPosition.LEFT_TOP},
-    styles:[{elementType:'geometry',stylers:[{color:'#20262c'}]},
-      {elementType:'labels.text.fill',stylers:[{color:'#9aa7b4'}]},
-      {elementType:'labels.text.stroke',stylers:[{color:'#0f1214'}]},
-      {featureType:'water',elementType:'geometry',stylers:[{color:'#141a1f'}]},
-      {featureType:'road',elementType:'geometry',stylers:[{color:'#2b333b'}]},
-      {featureType:'poi',elementType:'labels',stylers:[{visibility:'off'}]}]
-  });
-  let markers=[], byId=new Map();
-  const col={S:'#f0b429',A:'#3fbf8f',B:'#4d9de0',C:'#7c8894'};
-  const infoWin=new google.maps.InfoWindow({disableAutoPan:false});
-  return {
-    kind:'google',
-    clear(){ markers.forEach(m=>m.setMap(null)); markers=[]; byId.clear(); infoWin.close(); },
-    add(sp,rank,sc,onClick){
-      const m=new google.maps.Marker({position:{lat:sp.lat,lng:sp.lng},map,
-        title:`${sp.name}（${rank===UNRATED?'未評価':sc+'点'} / ${hoursFor(sp)||'—'}）`,
-        label:{text:rank===UNRATED?'未':rank,color:rank===UNRATED?'#c3ccd5':'#0f1214',fontWeight:'800',fontSize:'12px'},
-        icon:{path:google.maps.SymbolPath.CIRCLE,scale:13,fillColor:col[rank]||'#414c56',
-          fillOpacity:1,strokeColor:'rgba(0,0,0,.4)',strokeWeight:2}});
-      m._sid=sp.id; m._popupHTML=miniPopupHTML(sp,rank,sc);
-      m.addListener('click',()=>{ onClick(sp.id); MapA.openPopup(sp.id); });
-      markers.push(m); byId.set(sp.id,m);
-    },
-    highlight(id){ markers.forEach(m=>{const on=m._sid===id,ic=m.getIcon();
-      m.setIcon({...ic,scale:on?16:13,strokeColor:on?'#ffffff':'rgba(0,0,0,.4)',strokeWeight:on?3:2});}); },
-    focus(sp){ map.panTo({lat:sp.lat,lng:sp.lng}); if(map.getZoom()<13) map.setZoom(13); },
-    fit(rows){ if(!rows.length) return;
-      const b=new google.maps.LatLngBounds();
-      rows.forEach(x=>b.extend({lat:x.lat,lng:x.lng}));
-      map.fitBounds(b,60); },
-    openPopup(id){ const m=byId.get(id); if(!m) return;
-      infoWin.setContent(m._popupHTML); infoWin.open({map,anchor:m}); },
-    onMapClick(fn){ map.addListener('click',e=>fn(e.latLng.lat(),e.latLng.lng())); },
-    cursor(on){ map.setOptions({draggableCursor:on?'crosshair':null}); }
-  };
-}
-
-function bootMap(){
-  const k=localStorage.getItem(GKEY);
-  if(k){
-    const sc=document.createElement('script');
-    sc.src=`https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(k)}&language=ja&region=JP`;
-    sc.onload=()=>initAdapter(GoogleAdapter());
-    sc.onerror=()=>{ toast('Google Mapsの読み込みに失敗。OpenStreetMapで表示します'); initAdapter(LeafletAdapter()); };
-    document.head.appendChild(sc);
-  }else initAdapter(LeafletAdapter());
-}
+function bootMap(){ initAdapter(LeafletAdapter()); }
 function initAdapter(a){
   MapA=a;
   MapA.onMapClick((lat,lng)=>{ if(state.adding) openAddForm(lat,lng); });
-  document.getElementById('btnKey').textContent=a.kind==='google'?'🗺 OpenStreetMapに切替':'🗺 Google Mapsに切替';
   render();
   const rows=filtered();
   MapA.fit(rows);
@@ -2024,22 +1970,6 @@ document.addEventListener('click',e=>{
   if(!toolsBox.hidden && !toolsBox.contains(e.target) && e.target!==toolsBtn) setTools(false);
 });
 
-document.getElementById('btnKey').onclick=()=>{
-  if(localStorage.getItem(GKEY)){ localStorage.removeItem(GKEY); location.reload(); return; }
-  openModal(`<h2>Google Maps に切り替える</h2>
-    <p class="lead">Google Cloud で発行した <b>Maps JavaScript API</b> のキーを入力すると地図がGoogleマップに切り替わります。
-    キーはこのブラウザ内にのみ保存され、送信されません。未入力でも OpenStreetMap で動作します。</p>
-    <div class="field"><label>APIキー</label><input id="gk" placeholder="AIza..."></div>
-    <button class="btn" id="gksave">保存して読み込む</button>
-    <button class="btn ghost" id="gkcancel">キャンセル</button>`);
-  const sh=document.getElementById('sheet');
-  sh.querySelector('#gkcancel').onclick=closeModal;
-  sh.querySelector('#gksave').onclick=()=>{
-    const v=sh.querySelector('#gk').value.trim();
-    if(!v){ toast('キーを入力してください'); return; }
-    localStorage.setItem(GKEY,v); location.reload();
-  };
-};
 document.getElementById('btnExport').onclick=()=>{
   const a=document.createElement('a');
   a.href=URL.createObjectURL(new Blob([JSON.stringify(SPOTS,null,2)],{type:'application/json'}));

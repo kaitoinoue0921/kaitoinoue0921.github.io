@@ -62,22 +62,10 @@
 ランク（S/A/B/C）、種別、市町村、フリーワード、並び順（スコア／遅くまで開いている順／口コミ数／名前）、
 設備チップ（電源・Wi-Fi・空調・水・人目・静か・完全無料・いま開いてる・いま空いてる）。
 
-## 地図について（Leaflet ↔ Google Maps）
+## 地図について
 
-初期状態では **OpenStreetMap（Leaflet）** で表示します。APIキーなしですぐ見られるようにするためです。
-
-右上「🗺 Google Mapsに切替」から **Maps JavaScript API** のキーを入力すると Google マップに切り替わります。
-キーはブラウザの localStorage にだけ保存され、外部には送信しません。
-
-`LeafletAdapter()` と `GoogleAdapter()` が同じインターフェース
-（`clear / add / highlight / focus / fit / onMapClick / cursor`）を実装しているので、
-どちらか一方に寄せるのも簡単です。
-
-Google Maps を使う場合の準備:
-
-1. Google Cloud Console でプロジェクトを作成
-2. **Maps JavaScript API** を有効化（施設情報の自動取得をするなら **Places API** も）
-3. APIキーを発行し、HTTPリファラー制限をかける
+**OpenStreetMap（Leaflet）** で表示します。APIキーなしですぐ見られます。
+（以前あった Google Maps 切り替えは、APIキー取得の手間に見合う需要がなかったため撤去しました）
 
 ## データの保存先 — 端末内 / 共有DB
 
