@@ -4,6 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>スタディスポットMAP — 無料で勉強できる場所をみんなでランク付け</title>
+<meta name="description" content="栃木県内の図書館・公民館・カフェなど、無料で勉強できる場所を地図でランク付け。静音性・電源・Wi-Fiなど8軸で評価し、時間帯ごとの空き状況もわかります。">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/study-map/">
+<meta property="og:title" content="スタディスポットMAP — 無料で勉強できる場所をみんなでランク付け">
+<meta property="og:description" content="栃木県内の図書館・公民館・カフェなど、無料で勉強できる場所を地図でランク付け。静音性・電源・Wi-Fiなど8軸で評価し、時間帯ごとの空き状況もわかります。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/study-map/">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
 :root{
@@ -52,6 +58,9 @@ button{cursor:pointer}
 #dbstat{font-size:10.5px;padding:4px 9px;border-radius:999px;white-space:nowrap;
   border:1px solid var(--line);background:var(--panel2);color:var(--tx3);cursor:pointer}
 #dbstat.cloud{border-color:var(--accent);color:var(--accent);background:rgba(63,191,143,.12)}
+#topsupport{font-size:10.5px;padding:4px 9px;border-radius:999px;white-space:nowrap;
+  border:1px solid var(--line);background:var(--panel2);color:var(--tx2);cursor:pointer;font-family:inherit}
+#topsupport:hover{border-color:var(--accent);color:var(--accent)}
 
 /* ---------- layout ---------- */
 #app{display:flex;height:calc(100vh - 58px);height:calc(100dvh - 58px)}
@@ -232,6 +241,27 @@ button{cursor:pointer}
 .leaflet-tooltip.tip::before{display:none}
 .tip em{font-style:normal;color:var(--tx3);font-size:10.5px}
 
+/* 地図ピンをクリックしたときの簡易吹き出し（Leaflet） */
+.leaflet-popup.mini-pop .leaflet-popup-content-wrapper{
+  background:rgba(23,27,31,.98);border:1px solid var(--line);color:var(--tx);
+  border-radius:10px;box-shadow:var(--shadow)}
+.leaflet-popup.mini-pop .leaflet-popup-content{margin:9px 11px;min-width:150px}
+.leaflet-popup.mini-pop .leaflet-popup-tip{background:rgba(23,27,31,.98);border:1px solid var(--line)}
+.leaflet-popup.mini-pop a.leaflet-popup-close-button{color:var(--tx3);font-size:15px}
+.mp-name{font-weight:800;font-size:13px;line-height:1.3;margin-bottom:2px}
+.mp-meta{color:var(--tx3);font-size:11px;margin-bottom:6px}
+.mp-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:11.5px;margin-top:4px}
+.mp-hours,.mp-addr{color:var(--tx2)}
+.mp-badge{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;
+  border-radius:5px;font-weight:800;font-size:11px;color:#0f1214}
+.mp-score{font-weight:700}
+.mp-unrated{color:var(--tx3)}
+.mp-open{padding:1px 6px;border-radius:5px;font-size:10.5px;font-weight:700}
+.mp-open.o{background:rgba(63,191,143,.18);color:var(--a)}
+.mp-open.x{background:rgba(124,136,148,.18);color:var(--tx3)}
+.mp-chip{background:rgba(255,255,255,.08);border:1px solid var(--line);border-radius:5px;
+  padding:1px 6px;font-size:10.5px;color:var(--tx2)}
+
 /* modal */
 #modal{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:2000;display:none;
   align-items:center;justify-content:center;padding:20px}
@@ -248,6 +278,7 @@ button{cursor:pointer}
   /* 1行目 = ロゴ + 保存先バッジ、2行目 = 地域、3行目 = 検索。
      order を振らないとバッジが最終行に落ちて1行ぶん無駄になる */
   #dbstat{order:1;margin-left:auto}
+  #topsupport{order:1}
   .region{order:2}
   #topsearch{order:3}
   .region{margin-left:0;width:100%}
@@ -309,7 +340,7 @@ button{cursor:pointer}
   "@id": "https://kaitoinoue0921.github.io/study-map/#webpage",
   "url": "https://kaitoinoue0921.github.io/study-map/",
   "name": "スタディスポットMAP — 無料で勉強できる場所をみんなでランク付け",
-  "description": "",
+  "description": "栃木県内の図書館・公民館・カフェなど、無料で勉強できる場所を地図でランク付け。静音性・電源・Wi-Fiなど8軸で評価し、時間帯ごとの空き状況もわかります。",
   "inLanguage": "ja",
   "isPartOf": { "@id": "https://kaitoinoue0921.github.io/#website" },
   "author": { "@id": "https://kaitoinoue0921.github.io/#person" },
@@ -335,6 +366,8 @@ button{cursor:pointer}
   </div>
   <input id="topsearch" placeholder="施設名で検索（例: 図書館、みるる）">
   <div id="topcount"></div>
+  <button id="topsupport" data-ksup-open="study-map" data-skin="dark"
+          title="応援・感想・気になる点を送る">♡ 応援・感想</button>
   <div id="dbstat" title="データの保存先">…</div>
 </div>
 
@@ -486,6 +519,25 @@ const FACS=[{k:'wifi',label:'Wi-Fi'},{k:'power',label:'電源'},
             {k:'aircon',label:'空調'},{k:'water',label:'水'}];
 const facOf=(sp,k)=>sp.facilities?sp.facilities[k]:undefined;
 const RCOL={S:'var(--s)',A:'var(--a)',B:'var(--b)',C:'var(--c)','?':'var(--un)'};
+
+/* ---------- ピンをクリックしたときの簡易吹き出し ---------- */
+function miniPopupHTML(sp,rank,sc){
+  const op=isOpenNow(sp), h=hoursFor(sp);
+  const statusHtml = op===true?`<span class="mp-open o">開館中</span>`
+    : op===false?`<span class="mp-open x">時間外</span>`:'';
+  const scoreHtml = rank===UNRATED
+    ? `<span class="mp-unrated">未評価</span>`
+    : `<span class="mp-badge" style="background:${RCOL[rank]}">${rank}</span><span class="mp-score">${sc}点</span>`;
+  const facs = FACS.filter(f=>facOf(sp,f.k)===1).map(f=>`<span class="mp-chip">${f.label}</span>`).join('');
+  return `<div class="mp">
+    <div class="mp-name">${esc(sp.name)}</div>
+    <div class="mp-meta">${esc(sp.city||'')}・${esc(sp.category||'')}</div>
+    <div class="mp-row">${scoreHtml}${statusHtml?' '+statusHtml:''}</div>
+    ${h?`<div class="mp-row mp-hours">${esc(h)}</div>`:''}
+    ${sp.address?`<div class="mp-row mp-addr">${esc(sp.address)}</div>`:''}
+    ${facs?`<div class="mp-row">${facs}</div>`:''}
+  </div>`;
+}
 
 /* ---------- 時間帯 ---------- */
 const SLOTS=[[9,11],[11,13],[13,15],[15,17],[17,19],[19,21]];
@@ -776,6 +828,97 @@ const SEED=[
    lat:36.6570,lng:140.1560,hoursWd:'9:30–19:00',hoursWe:'9:30–19:00',
    closed:'月曜・年末年始・特別館内整理日',fee:'無料',facilities:{aircon:1},
    note:'開館時間は確認済み。住所は未確認なのでピンの位置はおおよそです。',reviews:[]}),
+
+ /* ---------- 日光市 ---------- */
+ s({name:'日光市立日光図書館',category:'図書館',city:'日光市',address:'日光市御幸町4-1（日光市日光庁舎内）',
+   lat:36.7508,lng:139.6103,hoursWd:'9:00–18:00',hoursWe:'9:00–18:00',
+   closed:'月曜（祝日の場合は開館）・年末年始（12/29〜1/3）・特別整理期間',
+   fee:'無料',facilities:{aircon:1},
+   note:'22席の学習室があり、個人の資料を持ち込んで勉強できる。市内には今市・藤原にも図書館があるが、'+
+        '確認できたのはこの日光図書館のみ。Wi-Fi・電源の有無は公式サイトに記載なし、要確認。TEL 0288-53-5777',reviews:[]}),
+
+ /* ---------- さくら市 ---------- */
+ s({name:'さくら市立図書館 氏家図書館',category:'図書館',city:'さくら市',address:'さくら市櫻野1321',
+   lat:36.6555,lng:139.9793,hoursWd:'9:00–19:00',hoursWe:'9:00–19:00',
+   closed:'第2・第4金曜（祝日は開館）・12/29〜1/3・特別整理期間',
+   fee:'無料',facilities:{aircon:1},
+   note:'休館日が「金曜」なので注意。同じさくら市内の喜連川図書館とは休館日が異なる。TEL 028-682-9889',reviews:[]}),
+
+ s({name:'さくら市立図書館 喜連川図書館',category:'図書館',city:'さくら市',address:'さくら市喜連川4397-1',
+   lat:36.6270,lng:140.0400,hoursWd:'9:00–19:00',hoursWe:'9:00–19:00',
+   closed:'第1・第3・第5月曜（祝日は開館）・12/29〜1/3・特別整理期間',
+   fee:'無料',facilities:{aircon:1},
+   note:'休館日が「月曜（隔週）」という変則パターンなので、行く前にカレンダー確認が要る。TEL 028-686-7111',reviews:[]}),
+
+ /* ---------- 上三川町 ---------- */
+ s({name:'上三川町立図書館',category:'図書館',city:'上三川町',address:'上三川町大字上三川5040',
+   lat:36.3798,lng:139.9309,hoursWd:'9:30–19:00（10〜3月は9:30–18:30）',hoursWe:'9:30–19:00（10〜3月は9:30–18:30）',
+   closed:'月曜（祝日は開館）・年末年始（12/29〜1/3）',
+   fee:'無料',facilities:{aircon:1},
+   note:'夏休み期間は学習室が10:00–18:00で全日開放との案内あり（時期限定）。TEL 0285-56-7825',reviews:[]}),
+
+ /* ---------- 益子町 ---------- */
+ s({name:'ましこの図書室（益子町立図書館）',category:'図書館',city:'益子町',address:'益子町大字益子3667-3',
+   lat:36.4438,lng:140.0956,hoursWd:'9:00–19:00',hoursWe:'9:00–17:00',
+   closed:'月曜（祝日の場合は翌日）・年末年始（12/28〜1/3）',
+   fee:'無料',facilities:{aircon:1},
+   note:'土日祝は17時までと平日より短い。',reviews:[]}),
+
+ /* ---------- 茂木町 ---------- */
+ s({name:'ふみの森もてぎ（茂木町立図書館）',category:'図書館',city:'茂木町',address:'茂木町大字茂木1720-1',
+   lat:36.5267,lng:140.1911,hoursWd:'9:00–19:00（火〜金）',hoursWe:'9:00–18:00',
+   closed:'月曜（祝日の場合は翌日）・年末年始（12/29〜）',
+   fee:'無料',facilities:{aircon:1},
+   note:'図書館・歴史資料室・ギャラリー・カフェが入る複合施設。町のスギ・ヒノキを使った内装。TEL 0285-64-1023',reviews:[]}),
+
+ /* ---------- 市貝町 ---------- */
+ s({name:'市貝町立図書館',category:'図書館',city:'市貝町',address:'市貝町市塙147',
+   lat:36.4706,lng:140.1023,hoursWd:'9:30–19:00（7・8月は9:00〜）',hoursWe:'9:30–19:00（7・8月は9:00〜）',
+   closed:'月曜（祝日の場合は翌日）・毎月末日・年末年始（12/29〜1/3）・特別整理期間（年10日）',
+   fee:'無料',facilities:{aircon:1},
+   note:'歴史民俗資料館が併設。TEL 0285-68-4380',reviews:[]}),
+
+ /* ---------- 芳賀町 ---------- */
+ s({name:'芳賀町総合情報館（知恵の環館）',category:'図書館',city:'芳賀町',address:'芳賀町祖母井1078',
+   lat:36.4767,lng:140.0219,hoursWd:'9:30–19:00',hoursWe:'9:00–18:00',
+   closed:'月曜（祝日の場合は翌火曜）・月末最終平日・蔵書点検期間（9月下旬〜10月上旬頃）・年末年始（12/29〜1/3）',
+   fee:'無料',facilities:{aircon:1},
+   note:'図書館機能のほか町の情報発信拠点。TEL 028-677-2525',reviews:[]}),
+
+ /* ---------- 壬生町 ---------- */
+ s({name:'壬生町立図書館',category:'図書館',city:'壬生町',address:'壬生町本丸1-8-33',
+   lat:36.4228,lng:139.8014,hoursWd:'9:00–19:00（火〜日）',hoursWe:'9:00–19:00',
+   closed:'月曜（祝日は開館）・年末年始（12/28〜1/4）・特別整理期間（夏休み期間中は休館日なし）',
+   fee:'無料',facilities:{aircon:1},
+   note:'夏休み期間は休館日なしで開館。TEL 0282-82-8543',reviews:[]}),
+
+ /* ---------- 野木町 ---------- */
+ s({name:'野木町立図書館',category:'図書館',city:'野木町',address:'野木町大字丸林234-2',
+   lat:36.2478,lng:139.7431,hoursWd:'9:30–18:00',hoursWe:'9:30–18:00',
+   closed:'月曜（祝日・振替休日の場合は開館）・特別整理期間・館内整理日・年末年始',
+   fee:'無料',facilities:{aircon:1},
+   note:'TEL 0280-57-2811',reviews:[]}),
+
+ /* ---------- 塩谷町 ---------- */
+ s({name:'塩谷町図書館',category:'図書館',city:'塩谷町',address:'塩谷町大字船生989-1（塩谷町生涯学習センター内）',
+   lat:36.7963,lng:139.8391,hoursWd:'9:00–18:00',hoursWe:'9:00–18:00',
+   closed:'月曜・第3火曜・年末年始（祝日でも閉館）',
+   fee:'無料',facilities:{aircon:1},
+   note:'祝日でも閉館する点に注意（他館は祝日開館が多い）。TEL 0287-47-0088',reviews:[]}),
+
+ /* ---------- 高根沢町 ---------- */
+ s({name:'高根沢町図書館 中央館',category:'図書館',city:'高根沢町',address:'高根沢町大字宝積寺1220-2',
+   lat:36.5717,lng:140.0028,hoursWd:'9:00–19:00',hoursWe:'9:00–19:00',
+   closed:'月曜（祝日を除く）・年末年始（12/29〜1/3）',
+   fee:'無料',facilities:{aircon:1},
+   note:'仁井田分館・上高根沢分館は18:00までと閉館が早いので中央館と時間が異なる。TEL 028-675-6531',reviews:[]}),
+
+ /* ---------- 那珂川町 ---------- */
+ s({name:'那珂川町馬頭図書館',category:'図書館',city:'那珂川町',address:'那珂川町馬頭550-4',
+   lat:36.7590,lng:140.1666,hoursWd:'9:00–19:00',hoursWe:'9:00–19:00',
+   closed:'月曜（祝日の場合は原則翌日）・年末年始（12/29〜1/3）・特別館内整理日（年15日以内）',
+   fee:'無料',facilities:{aircon:1},
+   note:'町内にはもう一つ小川図書館がある（未確認）。TEL 0287-92-5015',reviews:[]}),
 
  /* ================= 長崎県 南島原市 口之津 =================
     島原半島の南端、口之津港のある町。市の公式サイトで確認した情報のみ。
@@ -1387,22 +1530,25 @@ function LeafletAdapter(){
   L.control.zoom({position:'topleft'}).addTo(map);
   L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
     {attribution:'&copy; OpenStreetMap &copy; CARTO',maxZoom:19}).addTo(map);
-  let markers=[];
+  let markers=[], byId=new Map();
   return {
     kind:'leaflet',
-    clear(){ markers.forEach(m=>map.removeLayer(m)); markers=[]; },
+    clear(){ markers.forEach(m=>map.removeLayer(m)); markers=[]; byId.clear(); },
     add(sp,rank,sc,onClick){
       const cls=rank===UNRATED?'un':rank, mark=rank===UNRATED?'未':rank;
       const icon=L.divIcon({html:`<div class="pin ${cls}" data-id="${sp.id}"><b>${mark}</b></div>`,
         className:'',iconSize:[26,26],iconAnchor:[13,26]});
-      const m=L.marker([sp.lat,sp.lng],{icon}).addTo(map).on('click',()=>onClick(sp.id));
+      const m=L.marker([sp.lat,sp.lng],{icon}).addTo(map);
       m.bindTooltip(`<b>${esc(sp.name)}</b><br><em>${rank===UNRATED?'未評価':sc+'点'} ・ ${esc(hoursFor(sp)||'—')}</em>`,
         {className:'tip',direction:'top',offset:[0,-28]});
-      markers.push(m);
+      m.bindPopup(miniPopupHTML(sp,rank,sc),{className:'mini-pop',closeButton:true,offset:[0,-14],maxWidth:240,autoPan:false});
+      m.on('click',()=>{ onClick(sp.id); MapA.openPopup(sp.id); });
+      markers.push(m); byId.set(sp.id,m);
     },
     highlight(id){ document.querySelectorAll('.pin').forEach(p=>p.classList.toggle('act',p.dataset.id===id)); },
     focus(sp){ map.setView([sp.lat,sp.lng],Math.max(map.getZoom(),13),{animate:true}); },
     fit(rows){ if(!rows.length) return; map.fitBounds(rows.map(x=>[x.lat,x.lng]),{padding:[60,60],maxZoom:13}); },
+    openPopup(id){ const m=byId.get(id); if(m) m.openPopup(); },
     onMapClick(fn){ map.on('click',e=>fn(e.latlng.lat,e.latlng.lng)); },
     cursor(on){ document.getElementById('map').style.cursor=on?'crosshair':''; }
   };
@@ -1419,18 +1565,21 @@ function GoogleAdapter(){
       {featureType:'road',elementType:'geometry',stylers:[{color:'#2b333b'}]},
       {featureType:'poi',elementType:'labels',stylers:[{visibility:'off'}]}]
   });
-  let markers=[];
+  let markers=[], byId=new Map();
   const col={S:'#f0b429',A:'#3fbf8f',B:'#4d9de0',C:'#7c8894'};
+  const infoWin=new google.maps.InfoWindow({disableAutoPan:false});
   return {
     kind:'google',
-    clear(){ markers.forEach(m=>m.setMap(null)); markers=[]; },
+    clear(){ markers.forEach(m=>m.setMap(null)); markers=[]; byId.clear(); infoWin.close(); },
     add(sp,rank,sc,onClick){
       const m=new google.maps.Marker({position:{lat:sp.lat,lng:sp.lng},map,
         title:`${sp.name}（${rank===UNRATED?'未評価':sc+'点'} / ${hoursFor(sp)||'—'}）`,
         label:{text:rank===UNRATED?'未':rank,color:rank===UNRATED?'#c3ccd5':'#0f1214',fontWeight:'800',fontSize:'12px'},
         icon:{path:google.maps.SymbolPath.CIRCLE,scale:13,fillColor:col[rank]||'#414c56',
           fillOpacity:1,strokeColor:'rgba(0,0,0,.4)',strokeWeight:2}});
-      m._sid=sp.id; m.addListener('click',()=>onClick(sp.id)); markers.push(m);
+      m._sid=sp.id; m._popupHTML=miniPopupHTML(sp,rank,sc);
+      m.addListener('click',()=>{ onClick(sp.id); MapA.openPopup(sp.id); });
+      markers.push(m); byId.set(sp.id,m);
     },
     highlight(id){ markers.forEach(m=>{const on=m._sid===id,ic=m.getIcon();
       m.setIcon({...ic,scale:on?16:13,strokeColor:on?'#ffffff':'rgba(0,0,0,.4)',strokeWeight:on?3:2});}); },
@@ -1439,6 +1588,8 @@ function GoogleAdapter(){
       const b=new google.maps.LatLngBounds();
       rows.forEach(x=>b.extend({lat:x.lat,lng:x.lng}));
       map.fitBounds(b,60); },
+    openPopup(id){ const m=byId.get(id); if(!m) return;
+      infoWin.setContent(m._popupHTML); infoWin.open({map,anchor:m}); },
     onMapClick(fn){ map.addListener('click',e=>fn(e.latLng.lat(),e.latLng.lng())); },
     cursor(on){ map.setOptions({draggableCursor:on?'crosshair':null}); }
   };
@@ -1590,40 +1741,6 @@ function heatHTML(sp){
     </div>`;
 }
 
-/* ---------- 外観（Googleストリートビュー） ----------
-   Street View Static API を使う。Googleマップの「写真」はPlaces Photo APIの管轄で、
-   画像URLを直接引っ張ってくるのは規約違反なうえURLもすぐ切れるので使っていない。
-   キーは地図表示に使っているものと同じ（右上の設定から入れる）。
-   場所の指定は座標より住所を優先する。座標はおおよその位置しか入っていないため、
-   住所を渡したほうがGoogle側で正しい建物に寄ってくれる。 */
-function streetViewURL(sp,w,h){
-  const k=localStorage.getItem(GKEY); if(!k) return null;
-  const loc=sp.address?`${sp.address}`:`${sp.lat},${sp.lng}`;
-  return 'https://maps.googleapis.com/maps/api/streetview?size='+w+'x'+h
-    +'&location='+encodeURIComponent(loc)
-    +'&fov=80&pitch=5&return_error_code=true&key='+encodeURIComponent(k);
-}
-function streetViewHTML(sp){
-  const url=streetViewURL(sp,640,300);
-  if(!url){
-    return `<div class="sect">
-      <h3>外観</h3>
-      <p class="hint" style="margin:0">Google Mapsのキーを入れると、ここに外観（ストリートビュー）が出ます。
-      右上の「表示と保存の設定」から設定できます。</p>
-    </div>`;
-  }
-  /* 画像が無い場所（私道・屋内など）ではAPIがエラーを返すので、その時は枠ごと消す */
-  return `<div class="sect" id="svsect">
-    <h3>外観</h3>
-    <img src="${esc(url)}" alt="${esc(sp.name)}の外観（ストリートビュー）"
-         style="width:100%;border-radius:10px;display:block"
-         referrerpolicy="no-referrer-when-downgrade"
-         onerror="document.getElementById('svsect')?.remove()">
-    <p class="hint">Googleストリートビューの自動取得です。住所から引いているので、
-    隣の建物が写っていることがあります。撮影時期も実際とはズレます。</p>
-  </div>`;
-}
-
 function detailHTML(sp){
   const sc=score100(sp),rk=rankOfSpot(sp),a=avgAxes(sp),op=isOpenNow(sp);
   const ax=AXES.map(x=>`<div class="ax"><label>${x.label}</label>
@@ -1664,7 +1781,24 @@ function detailHTML(sp){
       : `<div class="axgrid">${ax}</div>`}
   </div>
 
-  ${streetViewHTML(sp)}
+  <div class="sect">
+    <h3>基本情報</h3>
+    <div class="kv"><span>住所</span><span>${esc(sp.address||'—')}</span></div>
+    <div class="kv"><span>平日</span><span>${esc(sp.hoursWd||'—')}</span></div>
+    <div class="kv"><span>土日祝</span><span>${esc(sp.hoursWe||'—')}</span></div>
+    <div class="kv"><span>休館日</span><span>${esc(sp.closed||'—')}</span></div>
+    <div class="kv"><span>料金</span><span>${esc(sp.fee||'—')}</span></div>
+    <div class="kv" style="border:none"><span>メモ</span><span>${esc(sp.note||'—')}</span></div>
+    <a class="btn ghost" style="text-decoration:none;margin-top:12px" target="_blank" rel="noopener"
+       href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(sp.name+' '+(sp.address||''))}">
+       Googleマップで開く（営業時間・写真を確認）</a>
+  </div>
+
+  <div class="sect">
+    <h3>みんなの口コミ・評価</h3>
+    <button class="btn" id="addRev">＋ 評価・口コミを書く</button>
+    ${revs}
+  </div>
 
   <div class="sect">
     <h3>設備（確認できている事実）</h3>
@@ -1683,25 +1817,6 @@ function detailHTML(sp){
     <h3>時間帯ごとの空き状況</h3>
     ${heatHTML(sp)}
     <p class="hint">口コミ投稿時の「行った時間帯と混み具合」から集計しています。</p>
-  </div>
-
-  <div class="sect">
-    <h3>基本情報</h3>
-    <div class="kv"><span>住所</span><span>${esc(sp.address||'—')}</span></div>
-    <div class="kv"><span>平日</span><span>${esc(sp.hoursWd||'—')}</span></div>
-    <div class="kv"><span>土日祝</span><span>${esc(sp.hoursWe||'—')}</span></div>
-    <div class="kv"><span>休館日</span><span>${esc(sp.closed||'—')}</span></div>
-    <div class="kv"><span>料金</span><span>${esc(sp.fee||'—')}</span></div>
-    <div class="kv" style="border:none"><span>メモ</span><span>${esc(sp.note||'—')}</span></div>
-    <a class="btn ghost" style="text-decoration:none;margin-top:12px" target="_blank" rel="noopener"
-       href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(sp.name+' '+(sp.address||''))}">
-       Googleマップで開く（営業時間・写真を確認）</a>
-  </div>
-
-  <div class="sect">
-    <h3>みんなの口コミ・評価</h3>
-    ${revs}
-    <button class="btn" id="addRev">＋ 評価・口コミを書く</button>
   </div>
 
   <p class="hint">※ サンプルデータを含みます。データはこのブラウザ内にのみ保存されます。</p>`;
