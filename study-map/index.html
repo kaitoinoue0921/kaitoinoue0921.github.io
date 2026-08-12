@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>スタディスポットMAP — 無料で勉強できる場所をみんなでランク付け</title>
-<meta name="description" content="栃木県内の図書館・公民館・カフェなど、無料で勉強できる場所を地図でランク付け。静音性・電源・Wi-Fiなど8軸で評価し、時間帯ごとの空き状況もわかります。">
-<link rel="canonical" href="https://kaitoinoue0921.github.io/study-map/">
-<meta property="og:title" content="スタディスポットMAP — 無料で勉強できる場所をみんなでランク付け">
-<meta property="og:description" content="栃木県内の図書館・公民館・カフェなど、無料で勉強できる場所を地図でランク付け。静音性・電源・Wi-Fiなど8軸で評価し、時間帯ごとの空き状況もわかります。">
+<title id="pgtitle">スタディスポットMAP — 無料で勉強できる場所をみんなでランク付け</title>
+<meta id="pgdesc" name="description" content="栃木県内の図書館・公民館・カフェなど、無料で勉強できる場所を地図でランク付け。静音性・電源・Wi-Fiなど8軸で評価し、時間帯ごとの空き状況もわかります。">
+<link id="pgcanon" rel="canonical" href="https://kaitoinoue0921.github.io/study-map/">
+<meta id="pgogtitle" property="og:title" content="スタディスポットMAP — 無料で勉強できる場所をみんなでランク付け">
+<meta id="pgogdesc" property="og:description" content="栃木県内の図書館・公民館・カフェなど、無料で勉強できる場所を地図でランク付け。静音性・電源・Wi-Fiなど8軸で評価し、時間帯ごとの空き状況もわかります。">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://kaitoinoue0921.github.io/study-map/">
+<meta id="pgogurl" property="og:url" content="https://kaitoinoue0921.github.io/study-map/">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
 :root{
@@ -49,6 +49,14 @@ button{cursor:pointer}
 }
 .region select:focus{border-color:var(--accent)}
 .region select#pref{font-weight:700}
+#citylinks{background:var(--panel);border-bottom:1px solid var(--line);padding:0 16px}
+#citylinks summary{cursor:pointer;padding:8px 0;font-size:11.5px;color:var(--tx3);list-style:none}
+#citylinks summary::-webkit-details-marker{display:none}
+#citylinksnav{display:flex;flex-wrap:wrap;gap:6px 10px;padding:2px 0 12px;font-size:11.5px}
+#citylinksnav a{color:var(--tx2);text-decoration:none}
+#citylinksnav a:hover{color:var(--accent);text-decoration:underline}
+#citylinksnav .plabel{color:var(--tx3);width:100%;margin-top:6px;font-size:10.5px}
+#citylinksnav .plabel:first-child{margin-top:0}
 #topsearch{
   flex:1;max-width:300px;background:var(--panel2);border:1px solid var(--line);
   border-radius:9px;padding:8px 11px;font-size:13px;outline:none
@@ -370,6 +378,11 @@ button{cursor:pointer}
           title="応援・感想・気になる点を送る">♡ 応援・感想</button>
   <div id="dbstat" title="データの保存先">…</div>
 </div>
+
+<details id="citylinks">
+  <summary>🔗 市町村から探す</summary>
+  <nav id="citylinksnav" aria-label="市町村一覧"></nav>
+</details>
 
 <div id="app">
   <aside id="side">
@@ -1610,6 +1623,57 @@ function fillRegion(){
   const cy=document.getElementById('city');
   cy.innerHTML=`<option value="">すべての市町村</option>`+
     cs.map(c=>`<option value="${c}" ${c===state.city?'selected':''}>${c}</option>`).join('');
+  renderCityLinks();
+}
+
+/* ---------- URLと状態の同期 ----------
+   市町村ごとに ?pref=…&city=… という別URLで見えるようにして、
+   Googleが各市町村を別ページとして評価できるようにする。
+   静的ページを作る余裕はないので、クエリ文字列とtitle/meta/canonicalの
+   書き換えだけで済ませる「軽い」実装。 */
+function applyURLParams(){
+  const p=new URLSearchParams(location.search);
+  const pref=p.get('pref'), city=p.get('city');
+  if(pref && PREFS.includes(pref)) state.pref=pref;
+  if(city && SPOTS.some(sp=>sp.city===city && (sp.pref||'栃木県')===state.pref)) state.city=city;
+}
+function syncPageMeta(){
+  const base='スタディスポットMAP';
+  const count=filtered().length;
+  let title,desc;
+  if(state.pref && state.city){
+    title=`${state.city}の無料勉強スポット${count}件（${state.pref}）| ${base}`;
+    desc=`${state.pref}${state.city}で無料で勉強できる場所${count}件。図書館・カフェ・公民館などを静音性や電源の有無で比較できます。`;
+  }else if(state.pref){
+    title=`${state.pref}の無料勉強スポット${count}件 | ${base}`;
+    desc=`${state.pref}内で無料で勉強できる場所${count}件を地図とランキングで比較。静音性・電源・Wi-Fiなどの設備もわかります。`;
+  }else{
+    title=`${base} — 無料で勉強できる場所をみんなでランク付け`;
+    desc='栃木県内の図書館・公民館・カフェなど、無料で勉強できる場所を地図でランク付け。静音性・電源・Wi-Fiなど8軸で評価し、時間帯ごとの空き状況もわかります。';
+  }
+  document.title=title;
+  document.getElementById('pgdesc').setAttribute('content',desc);
+  document.getElementById('pgogtitle').setAttribute('content',title);
+  document.getElementById('pgogdesc').setAttribute('content',desc);
+  const p=new URLSearchParams();
+  if(state.pref) p.set('pref',state.pref);
+  if(state.city) p.set('city',state.city);
+  const qs=p.toString();
+  const url='https://kaitoinoue0921.github.io/study-map/'+(qs?`?${qs}`:'');
+  document.getElementById('pgcanon').setAttribute('href',url);
+  document.getElementById('pgogurl').setAttribute('content',url);
+  history.replaceState(null,'',location.pathname+(qs?`?${qs}`:''));
+}
+function renderCityLinks(){
+  const nav=document.getElementById('citylinksnav');
+  const byPref={};
+  SPOTS.forEach(sp=>{ const pr=sp.pref||'栃木県'; (byPref[pr]=byPref[pr]||new Set()).add(sp.city); });
+  const prefs=Object.keys(byPref).sort((a,b)=>PREFS.indexOf(a)-PREFS.indexOf(b));
+  nav.innerHTML=prefs.map(pr=>{
+    const cities=[...byPref[pr]].sort();
+    return `<span class="plabel">${esc(pr)}</span>`+cities.map(c=>
+      `<a href="?pref=${encodeURIComponent(pr)}&city=${encodeURIComponent(c)}">${esc(c)}</a>`).join('');
+  }).join('');
 }
 
 /* ---------- 描画 ---------- */
@@ -1936,12 +2000,12 @@ function backToList(){
   state.sel=null; MapA&&MapA.highlight(null); render();
 }
 document.getElementById('pref').onchange=e=>{
-  state.pref=e.target.value; state.city=''; fillRegion(); backToList();
+  state.pref=e.target.value; state.city=''; fillRegion(); backToList(); syncPageMeta();
   const rows=filtered(); MapA&&MapA.fit(rows);
   if(rows.length) selectSpot(rows[0].id,false);
 };
 document.getElementById('city').onchange=e=>{
-  state.city=e.target.value; backToList();
+  state.city=e.target.value; backToList(); syncPageMeta();
   const rows=filtered(); MapA&&MapA.fit(rows);
 };
 document.getElementById('topsearch').oninput=e=>{ state.q=e.target.value; render(); };
@@ -2041,8 +2105,10 @@ document.getElementById('dbstat').onclick=openCloudForm;
     toast('共有DBは空です。右上「☁ 共有DBの設定」からサンプルを投入できます');
   }
   renderDbStat();
+  applyURLParams();
   fillRegion();
   bootMap();
+  syncPageMeta();
 })();
 </script>
 <!-- 応援ダイアログ。⚙ メニューの「♡ 作者を応援する」から開く。
