@@ -101,13 +101,24 @@
     });
   }
 
+  /* 各ページの「投げ銭で応援する」は、いきなりStripeの決済画面に飛ばさず、
+     まず /support/ の説明ページに送る。何に使うか・誰が作っているかを読んだ
+     うえで払ってもらうほうが、決済画面だけを見せるより実際に押されやすいため。
+     /support/ ページ自身ではこの中継はせず、そのままStripeへ飛ばす。 */
+  function isDonatePage() {
+    return /\/support\/(?:index\.html)?$/.test(location.pathname);
+  }
+
   /* 決済リンクに作品 ID を載せる。Stripe の決済詳細に client_reference_id として残るので、
      リンクが 1 本でも、どの作品への支援かが後から分かる。
-     使えるのは英数字・ダッシュ・アンダースコアだけなので、作品IDもその範囲で付ける。 */
+     使えるのは英数字・ダッシュ・アンダースコアだけなので、作品IDもその範囲で付ける。
+     /support/ に中継されたあとは、どの作品から来たかを ?from= から引き継ぐ。 */
   function tipHref(workId) {
     if (!TIP.url) return '';
+    if (!isDonatePage()) return '/support/?from=' + encodeURIComponent(workId);
+    var from = new URLSearchParams(location.search).get('from') || workId;
     return TIP.url + (TIP.url.indexOf('?') === -1 ? '?' : '&')
-      + 'client_reference_id=' + encodeURIComponent(workId);
+      + 'client_reference_id=' + encodeURIComponent(from);
   }
 
   /* ---------------------------------------------------------------- CSS */
@@ -217,15 +228,20 @@
 
   function buildHTML(workId, work) {
     var id = 'ksup' + (++seq);
+    var onDonatePage = isDonatePage();
 
     var tipHTML = TIP.url
-      ? '<a class="ksup__tip" href="' + esc(tipHref(workId)) + '" target="_blank" rel="noopener noreferrer">'
+      ? '<a class="ksup__tip" href="' + esc(tipHref(workId)) + '"'
+        + (onDonatePage ? ' target="_blank" rel="noopener noreferrer"' : '')
+        + '>'
         + '<span>' + esc(work.cta || CTA) + '</span>'
         + '<svg viewBox="0 0 16 16" aria-hidden="true">'
         + '<path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>'
         + '</svg></a>'
-        + '<p class="ksup__fee">' + esc(TIP.hint)
-        + '<br>決済は Stripe を通します。カード情報がこちらに渡ることはありません。</p>'
+        + (onDonatePage
+          ? '<p class="ksup__fee">' + esc(TIP.hint)
+            + '<br>決済は Stripe を通します。カード情報がこちらに渡ることはありません。</p>'
+          : '<p class="ksup__fee">金額や使い道を書いた寄付ページに移動します。決済（Stripe）はそちらから行えます。</p>')
       : '<p class="ksup__pending">投げ銭リンクは準備中です</p>';
 
     return ''
