@@ -351,7 +351,7 @@ button{cursor:pointer}
   #side.detail-on #list{display:none}
 }
 ::-webkit-scrollbar{width:8px} ::-webkit-scrollbar-thumb{background:#2b333b;border-radius:4px}
-.leaflet-container{background:#20262c}
+.leaflet-container{background:#e5e3df}
 .leaflet-control-attribution{background:rgba(15,18,20,.75)!important;color:#6c7a88!important;font-size:9px!important}
 .leaflet-control-attribution a{color:#9aa7b4!important}
 </style>
@@ -967,6 +967,57 @@ const SEED=[
    fee:'無料',facilities:{},
    note:'島根大学 出雲キャンパス（医学部）の最寄りの市立図書館。開館時間・休館日は情報源により食い違いがあり'+
         '確定できなかったため、行く前にTEL 0853-21-0487で要確認。',reviews:[]}),
+
+ /* ---------- 島根県内の他市（市役所・図書館など） ---------- */
+
+ s({pref:'島根県',name:'浜田市立中央図書館',category:'図書館',city:'浜田市',
+   address:'浜田市黒川町3748-1',lat:34.8846,lng:132.0817,
+   hoursWd:'9:00–19:00',hoursWe:'9:00–19:00',
+   closed:'第2・第4月曜（祝日の場合は翌平日）・年末年始（12/29〜1/3）・図書館整理日',
+   fee:'無料',facilities:{aircon:1},
+   note:'愛称「ラブックはまだ」。TEL 0855-22-0480',reviews:[]}),
+
+ s({pref:'島根県',name:'益田市立図書館',category:'図書館',city:'益田市',
+   address:'益田市常盤町8-6',lat:34.6742,lng:131.8447,
+   hoursWd:'6〜9月は9:00–20:00（10〜5月の時間帯は情報源で確認できず要確認）',hoursWe:'要確認',
+   closed:'毎月末日・年末年始（12/29〜1/3）・特別整理期間',
+   fee:'無料',facilities:{},
+   note:'TEL 0856-22-4222',reviews:[]}),
+
+ s({pref:'島根県',name:'大田市立中央図書館',category:'図書館',city:'大田市',
+   address:'大田市大田町大田イ113番地2',lat:35.1928,lng:132.5013,
+   hoursWd:'10:00–19:00（平日）',hoursWe:'10:00–18:00（土日）',
+   closed:'火曜（祝日と重なれば翌日も休館）・月末の館内整理日・年末年始（12/28〜1/3）',
+   fee:'無料',facilities:{},note:'',reviews:[]}),
+
+ s({pref:'島根県',name:'安来市立図書館',category:'図書館',city:'安来市',
+   address:'安来市安来町1062-1',lat:35.4386,lng:133.2464,
+   hoursWd:'9:00–19:00（月・火・木・金）',hoursWe:'9:00–17:00（土日）',
+   closed:'水曜・月末日',
+   fee:'無料',facilities:{},
+   note:'座り心地のよい椅子で雑誌などで紹介されたことがある図書館。',reviews:[]}),
+
+ s({pref:'島根県',name:'雲南市立木次図書館',category:'図書館',city:'雲南市',
+   address:'雲南市木次町木次1008',lat:35.2500,lng:132.9333,
+   hoursWd:'10:00–18:00',hoursWe:'10:00–18:00',closed:'月曜',
+   fee:'無料',facilities:{},
+   note:'雲南市内には他に加茂図書館・大東図書館もある（未調査）。TEL 0854-42-1021',reviews:[]}),
+
+ s({pref:'島根県',name:'江津市図書館',category:'図書館',city:'江津市',
+   address:'江津市江津町995',lat:35.0169,lng:132.2154,
+   hoursWd:'10:00〜（閉館時刻は情報源で確認できず要確認）',hoursWe:'要確認',
+   closed:'火曜・月末日（月末が火曜の場合は翌日）',
+   fee:'無料',facilities:{},
+   note:'江津駅から徒歩5分。TEL 0855-52-0551',reviews:[]}),
+
+ s({pref:'島根県',name:'松江市役所本庁 カフェ＆多目的スペース',category:'市役所・公共施設',city:'松江市',
+   address:'松江市末次町86番地（松江市役所本庁2階）',lat:35.4675,lng:133.0500,
+   hoursWd:'8:30–19:00',hoursWe:'要確認（土日祝の開放状況は公式に明記なし）',
+   closed:'要確認',
+   fee:'多目的スペースの利用料は不明（飲食は「SENCHASOU」の店内利用で有料）',facilities:{},
+   note:'2024年開業の新庁舎2階に入る「SENCHASOU Japanese TEA café & dine」に隣接する多目的スペース。'+
+        'テラスも利用可とされているが、飲食なしで作業目的だけの利用が可能かは公式サイトに明記がなく未確認。'+
+        '行く前にTEL 0852-55-5454（松江市財政部新庁舎整備課）で要確認。',reviews:[]}),
 
  /* ================= 東京都（国公立大学まわり・偏差値の高い順） =================
     東京大学（本郷・駒場）→東京科学大学・旧東京工業大学（大岡山）→一橋大学（国立）
@@ -1698,7 +1749,7 @@ let MapA=null;
 function LeafletAdapter(){
   const map=L.map('map',{zoomControl:false}).setView([36.62,139.83],9.4);
   L.control.zoom({position:'topleft'}).addTo(map);
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
     {attribution:'&copy; OpenStreetMap &copy; CARTO',maxZoom:19}).addTo(map);
   let markers=[], byId=new Map();
   return {
