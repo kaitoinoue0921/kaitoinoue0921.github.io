@@ -114,6 +114,16 @@ drop policy if exists reviews_insert on public.reviews;
 create policy spots_insert   on public.spots   for insert with check (true);
 create policy reviews_insert on public.reviews for insert with check (true);
 
+-- 更新・削除（プロトタイプ用：匿名でも可）。
+-- これが無い間はUPDATE/DELETEが「成功したように見えて0件しか更新されない」
+-- （HTTPは2xxを返すのに反映されない）という気づきにくい失敗をする。
+drop policy if exists spots_update   on public.spots;
+drop policy if exists spots_delete   on public.spots;
+drop policy if exists reviews_delete on public.reviews;
+create policy spots_update   on public.spots   for update using (true) with check (true);
+create policy spots_delete   on public.spots   for delete using (true);
+create policy reviews_delete on public.reviews for delete using (true);
+
 -- ---------- 応援メッセージ ----------
 -- 投稿は誰でもできるが、表示されるのは承認済みのものだけ。
 -- 承認は Supabase の Table Editor で approved を true にする。
