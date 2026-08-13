@@ -345,8 +345,11 @@ button{cursor:pointer}
      column-reverse のまま高さだけ内容なりに伸ばす */
   #app{display:flex;flex-direction:column-reverse;height:auto;min-height:0}
   /* flex:none にしないと、高さ auto の flex コンテナ内で
-     flex-basis が解決できず min-height まで潰れる */
-  #mapwrap{flex:none;height:46vh;min-height:240px}
+     flex-basis が解決できず min-height まで潰れる。
+     地図の上でのスワイプはLeafletがパン操作として奪うため、ページを
+     普通にスクロールできても「地図の上に指を置くとスクロールできない」
+     体感は残る。地図を低めにして、外側に指を置きやすくしている。 */
+  #mapwrap{flex:none;height:30vh;height:30dvh;min-height:200px}
   #side{width:100%;height:auto;flex:none;border-top:1px solid var(--line);border-right:none}
   #list{flex:none;height:auto;overflow:visible}
   .dbody{flex:none;height:auto;overflow:visible}
