@@ -202,6 +202,9 @@ button{cursor:pointer}
 .rev .top b{color:var(--tx2);font-weight:600}
 .rev p{margin:0;font-size:12.5px;line-height:1.75;color:var(--tx2)}
 .rev .mini{margin-top:6px;font-size:10px;color:var(--tx3);letter-spacing:.03em;line-height:1.7}
+.rev-del{margin-top:8px;font-size:10.5px;padding:3px 8px;border-radius:999px;
+  border:1px solid rgba(217,83,79,.5);background:transparent;color:var(--busy);cursor:pointer;font-family:inherit}
+.rev-del:hover{background:rgba(217,83,79,.12)}
 .btn{display:block;width:100%;text-align:center;background:var(--accent);color:#08120e;
   border:none;border-radius:10px;padding:11px;font-weight:700;font-size:13px;margin-top:10px}
 .btn.ghost{background:transparent;border:1px solid var(--line);color:var(--tx2);font-weight:600}
@@ -475,6 +478,7 @@ button{cursor:pointer}
       <button id="btnExport">⬇ データ書き出し</button>
       <button id="btnImport">⬆ データ読み込み</button>
       <button id="btnReset">↺ サンプルに戻す</button>
+      <button id="btnAdmin">🔒 管理者モード</button>
       <button data-ksup-open="study-map" data-skin="dark">♡ 作者を応援する</button>
     </div>
     <div class="mapui" id="banner"></div>
@@ -1821,6 +1825,13 @@ function closeHour(sp){ const h=hoursFor(sp)||''; const p=h.split(/[–~-]/); re
    なければブラウザのlocalStorageにフォールバックする。
    ========================================================= */
 const KEY='tsm.spots.v8', CKEY='tsm.supabase';
+/* 管理者モード（運営本人が雑な投稿を消すためだけの機能）。
+   ソースが全部公開されているサイトなので、これは「本物の認証」ではなく
+   来訪者が誤ってボタンを押さないための合言葉程度のもの。
+   本気で守りたいなら Supabase 側の reviews_delete / spots_delete ポリシーを
+   絞る必要がある（今は誰でもDELETEできるプロトタイプ設定）。
+   合言葉は自分の好きな文字列に書き換えてよい。 */
+const ADMIN_PASS='oyama-mamoru', ADMINKEY='tsm.admin';
 let SPOTS=[];
 
 function loadLocal(){
@@ -1929,6 +1940,13 @@ const DB={
     const up=await this.sb.from('spots').update({facilities:merged}).eq('id',sp.id);
     if(up.error) throw up.error;
     sp.facilities=merged;
+  },
+  /* 管理者モードから、雑な・荒らしっぽい口コミ・報告を消すためのもの。 */
+  async deleteReview(sp,rv){
+    if(this.mode==='local'){ sp.reviews=sp.reviews.filter(r=>r.id!==rv.id); saveLocal(); return; }
+    const del=await this.sb.from('reviews').delete().eq('id',rv.id);
+    if(del.error) throw del.error;
+    sp.reviews=sp.reviews.filter(r=>r.id!==rv.id);
   },
   /* 初期データを共有DBに流し込む（初回セットアップ用）。
      二重投入すると同じスポットが2つ並ぶので、空のときだけ通す。 */
@@ -2184,6 +2202,16 @@ function selectSpot(id,focus=true){
   const b=document.getElementById('addRev'); if(b) b.onclick=()=>openReviewForm(sp);
   const fb=document.getElementById('addFlag'); if(fb) fb.onclick=()=>openFlagForm(sp);
   const gb=document.getElementById('btnGplace'); if(gb) gb.onclick=()=>fetchGooglePlace(sp);
+  document.querySelectorAll('.rev-del').forEach(db=>{
+    db.onclick=async()=>{
+      const rv=sp.reviews.find(r=>r.id===db.dataset.rid); if(!rv) return;
+      if(!confirm('この投稿を削除します。よろしいですか？（元に戻せません）')) return;
+      db.disabled=true; db.textContent='削除中…';
+      try{ await DB.deleteReview(sp,rv); }
+      catch(err){ db.disabled=false; db.textContent='✕ 削除'; toast('削除できませんでした: '+(err.message||err)); return; }
+      selectSpot(sp.id,false); toast('削除しました');
+    };
+  });
   render();
 }
 
@@ -2212,6 +2240,8 @@ function detailHTML(sp){
   const ax=AXES.map(x=>`<div class="ax"><label>${x.label}</label>
       <span class="bar"><i style="width:${a[x.k]/5*100}%;background:${RCOL[rk]}"></i></span>
       <b>${a[x.k].toFixed(1)}</b></div>`).join('');
+  const admin=isAdmin();
+  const delBtn=rid=>admin?`<button type="button" class="rev-del" data-rid="${rid}" title="この投稿を削除（管理者モード）">✕ 削除</button>`:'';
   const revs= sp.reviews.length ? sp.reviews.slice().reverse().map(rv=>{
     const v=rv.visit?`　訪問: ${DAYS.find(d=>d.k===rv.visit.day)?.label||''} ${SLOT_LABEL[rv.visit.slot]||''}時 / ${LEVELS[rv.visit.level]?.t||''}`:'';
     if(rv.cantStudy){
@@ -2219,12 +2249,12 @@ function detailHTML(sp){
       <div class="top"><b>${esc(rv.user||'名無し')}</b><span>${esc(rv.date||'')}</span></div>
       <p>⚠ ここでは勉強できなかったとの報告</p>
       <p>${esc(rv.comment||'（理由なし）')}</p>
-      <div class="mini">${esc(v)}</div></div>`;
+      <div class="mini">${esc(v)}</div>${delBtn(rv.id)}</div>`;
     }
     return `<div class="rev">
       <div class="top"><b>${esc(rv.user||'名無し')}</b><span>${esc(rv.date||'')}</span></div>
       <p>${esc(rv.comment||'（コメントなし）')}</p>
-      <div class="mini">${AXES.map(x=>x.label+' '+(rv.axes[x.k]??'-')).join('　')}${esc(v)}</div>
+      <div class="mini">${AXES.map(x=>x.label+' '+(rv.axes[x.k]??'-')).join('　')}${esc(v)}</div>${delBtn(rv.id)}
     </div>`;}).join('')
     : `<div class="info" style="color:var(--tx3)">まだ口コミがありません。最初の一人になりませんか？</div>`;
 
@@ -2648,6 +2678,25 @@ document.getElementById('btnReset').onclick=()=>{
   localStorage.removeItem(KEY); SPOTS=loadLocal(); state.pref='栃木県'; state.city='';
   backToList(); fillRegion(); render(); toast('サンプルデータに戻しました');
 };
+
+/* ---------- 管理者モード（雑な口コミを消す） ---------- */
+const isAdmin=()=>localStorage.getItem(ADMINKEY)==='1';
+function renderAdminBtn(){
+  document.getElementById('btnAdmin').textContent=isAdmin()?'🔓 管理者モードを終了':'🔒 管理者モード';
+}
+document.getElementById('btnAdmin').onclick=()=>{
+  if(isAdmin()){
+    localStorage.removeItem(ADMINKEY); renderAdminBtn(); toast('管理者モードを終了しました');
+    if(state.sel) selectSpot(state.sel,false);
+    return;
+  }
+  const p=prompt('合言葉を入力してください');
+  if(p===null) return;
+  if(p!==ADMIN_PASS){ toast('違います'); return; }
+  localStorage.setItem(ADMINKEY,'1'); renderAdminBtn(); toast('管理者モードにしました（口コミに削除ボタンが出ます）');
+  if(state.sel) selectSpot(state.sel,false);
+};
+renderAdminBtn();
 document.addEventListener('keydown',e=>{
   if(e.key==='Escape'){ closeModal(); setTools(false); if(state.adding) setAdding(false); }
 });
