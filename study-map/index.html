@@ -667,6 +667,32 @@ const SEED=[
    fee:'無料',facilities:{aircon:1},
    note:'2階の第2集会室（40席）が学習室として開放されている。開館日の9:00〜閉館15分前まで。'+
         '図書館行事がある日は使えない。',reviews:[]}),
+ s({name:'小山市立中央図書館 小山分館',category:'図書館',city:'小山市',address:'小山市中央町1-1-1 中央市民会館2階',
+   lat:36.3140384,lng:139.8004265,hoursWd:'9:00–18:00（火〜日）',hoursWe:'9:00–18:00（火〜日）',
+   closed:'月曜・祝日・第4木曜（資料整理日）・特別整理期間・年末年始',
+   fee:'無料',facilities:{aircon:1},
+   note:'小山駅前の中央市民会館2階。中央図書館ほどの規模ではないが、閲覧席は自由に使える。TEL 0285-22-9575',reviews:[]}),
+ s({name:'小山市立中央図書館 間々田分館',category:'図書館',city:'小山市',address:'小山市大字間々田1960-1 間々田市民交流センター（しらさぎ館）内',
+   lat:36.270758,lng:139.761372,hoursWd:'9:00–18:00（火〜日）',hoursWe:'9:00–18:00（火〜日）',
+   closed:'月曜・祝日・第4木曜（資料整理日）・特別整理期間・年末年始',
+   fee:'無料',facilities:{aircon:1},
+   note:'間々田駅エリア。中央図書館まで出なくてもいい南部の受け皿。TEL 0285-41-6230',reviews:[]}),
+ s({name:'小山市立中央図書館 桑分館',category:'図書館',city:'小山市',address:'小山市羽川858-1 桑市民交流センター内',
+   lat:36.3504381,lng:139.8352501,hoursWd:'9:00–18:00（火〜日）',hoursWe:'9:00–18:00（火〜日）',
+   closed:'月曜・祝日・第4木曜（資料整理日）・特別整理期間・年末年始',
+   fee:'無料',facilities:{aircon:1},
+   note:'市の北東側、羽川エリア。TEL 0285-22-4544',reviews:[]}),
+ s({name:'小山市立中央図書館 大谷分館',category:'図書館',city:'小山市',address:'小山市横倉499-6 大谷市民交流センター内',
+   lat:36.2773803,lng:139.8322855,hoursWd:'9:00–18:00（火〜日）',hoursWe:'9:00–18:00（火〜日）',
+   closed:'月曜・祝日・第4木曜（資料整理日）・特別整理期間・年末年始',
+   fee:'無料',facilities:{aircon:1},
+   note:'市の南東側、横倉エリア。TEL 0285-28-9215',reviews:[]}),
+ s({name:'小山市立生涯学習センター（えるるOYAMA）',category:'公民館・生涯学習センター',city:'小山市',address:'小山市中央町3-7-1 ロブレビル6階',
+   lat:36.3126133,lng:139.8053494,hoursWd:'要確認',hoursWe:'要確認',
+   closed:'要確認',
+   fee:'無料',facilities:{aircon:1},
+   note:'【条件あり】学習室「おやま未来開運塾」は高校生・大学受験生向け（大学・短大・専修学校専門課程の在学者は対象外）。'+
+        '先着100席、9:00–12:40／13:00–16:40／17:00–21:20の3クール制。TEL 0285-22-9111（施設予約）・0285-22-9665（学習関連）',reviews:[]}),
 
  /* ---------- 足利市 ---------- */
  s({name:'足利市立図書館',category:'図書館',city:'足利市',address:'足利市有楽町832',
@@ -1893,6 +1919,17 @@ const DB={
     if(r.error) throw r.error;
     rv.id=r.data.id; sp.reviews.push(rv); return rv;
   },
+  /* 電源・Wi-Fiは5段階評価から外して「事実」（facilities）に一本化したので、
+     口コミ・報告・スポット登録のどのタイミングでも、わかった人がここを更新できる
+     ようにしておく。patch は {power:1} のように「確認できた項目だけ」を渡す。
+     後から報告した人の情報で上書きする単純な仕組み（多数決などはしない）。 */
+  async updateFacilities(sp,patch){
+    const merged={...(sp.facilities||{}),...patch};
+    if(this.mode==='local'){ sp.facilities=merged; saveLocal(); return; }
+    const up=await this.sb.from('spots').update({facilities:merged}).eq('id',sp.id);
+    if(up.error) throw up.error;
+    sp.facilities=merged;
+  },
   /* 初期データを共有DBに流し込む（初回セットアップ用）。
      二重投入すると同じスポットが2つ並ぶので、空のときだけ通す。 */
   async seed(){
@@ -2308,6 +2345,25 @@ function visitBlock(sel){
     <div class="grp">その時の混み具合</div>
     ${segHTML('level',[{v:3,t:'空いていた'},{v:2,t:'ふつう'},{v:1,t:'混んでいた'}],sel.level)}`;
 }
+/* 電源・Wi-Fiは主観評価ではなく「事実」なので、口コミ投稿のたびに
+   わかった人が確認結果を報告できるようにしておく（デフォルトは「不明のまま」＝未回答）。
+   sel に f_power / f_wifi を生やして wireSeg の対象に混ぜ込む。 */
+function factsBlock(sel){
+  sel.f_power=''; sel.f_wifi='';
+  const opts=[{v:'1',t:'あり'},{v:'0',t:'なし'},{v:'',t:'不明のまま'}];
+  return `<div class="grp">電源・Wi-Fiは実際どうでしたか？（わかれば教えてください）</div>
+    <div style="font-size:11px;color:var(--tx3);margin-bottom:4px">電源</div>
+    ${segHTML('f_power',opts,'')}
+    <div style="height:5px"></div>
+    <div style="font-size:11px;color:var(--tx3);margin-bottom:4px">Wi-Fi</div>
+    ${segHTML('f_wifi',opts,'')}`;
+}
+function factsPatch(sel){
+  const p={};
+  if(sel.f_power!=='') p.power=+sel.f_power;
+  if(sel.f_wifi!=='') p.wifi=+sel.f_wifi;
+  return p;
+}
 
 /* ---------- 口コミ投稿 ---------- */
 function openReviewForm(sp){
@@ -2317,9 +2373,10 @@ function openReviewForm(sp){
   openModal(`<h2>${esc(sp.name)}</h2>
     <p class="lead">5つの観点で評価してください。全員の平均からスコアとランクが自動計算されます。<br>
     <span style="color:var(--tx3)">星の下に、その星が何を意味するかが出ます。感覚ではなく、
-    その場で数えられる事実（電源のある席数など）で選んでください。</span></p>
+    その場で体感したことで選んでください。</span></p>
     ${AXES.map(x=>starsRow(x.k,x.label,3)).join('')}
     ${visitBlock(sel)}
+    ${factsBlock(sel)}
     <div class="field" style="margin-top:14px"><label>ニックネーム</label><input id="ru" placeholder="名無しでもOK"></div>
     <div class="field"><label>コメント</label>
       <textarea id="rc" placeholder="例）平日の午前中は空いていて席を選べる。電源は窓際の6席のみ。"></textarea></div>
@@ -2334,7 +2391,11 @@ function openReviewForm(sp){
       axes:{...vals},comment:sh.querySelector('#rc').value.trim(),
       visit:{day:sel.day,slot:+sel.slot,level:+sel.level},
       date:new Date().toISOString().slice(0,7)};
-    try{ await DB.addReview(sp,rv); }
+    try{
+      await DB.addReview(sp,rv);
+      const patch=factsPatch(sel);
+      if(Object.keys(patch).length) await DB.updateFacilities(sp,patch);
+    }
     catch(err){ btn.disabled=false; btn.textContent='投稿する'; toast('保存できませんでした: '+(err.message||err)); return; }
     closeModal(); selectSpot(sp.id,false);
     toast(DB.mode==='cloud'?'口コミを投稿しました（全員に公開）':'口コミを投稿しました（この端末内）');
@@ -2408,6 +2469,7 @@ function openAddForm(lat,lng){
     <div class="grp">あなたの評価</div>
     ${AXES.map(x=>starsRow(x.k,x.label,3)).join('')}
     ${visitBlock(sel)}
+    ${factsBlock(sel)}
     <div class="field" style="margin-top:14px"><label>コメント・注意点</label>
       <textarea id="no" placeholder="例）2階の学習室が自由に使える。土日は混雑。給水機は1階。"></textarea></div>
     <button class="btn" id="asave">登録する</button>
@@ -2429,6 +2491,7 @@ function openAddForm(lat,lng){
       hoursWe:sh.querySelector('#he').value.trim(),
       closed:sh.querySelector('#cl').value.trim(),
       fee:sh.querySelector('#fe').value.trim(),note,
+      facilities:factsPatch(sel),
       reviews:[{id:rid(),user:'投稿者',axes:{...vals},comment:note||'（登録時の評価）',
         visit:{day:sel.day,slot:+sel.slot,level:+sel.level},
         date:new Date().toISOString().slice(0,7)}]};
