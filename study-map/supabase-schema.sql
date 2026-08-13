@@ -53,8 +53,23 @@ create table if not exists public.reviews (
   visit_day   text     check (visit_day in ('wd','we')),
   visit_slot  smallint check (visit_slot between 0 and 5),   -- 0:9-11 1:11-13 2:13-15 3:15-17 4:17-19 5:19-21
   visit_level smallint check (visit_level between 1 and 3),  -- 1:混雑 2:ふつう 3:空き
+  -- 「行ったが勉強できなかった／評価できない」という報告用。true のときは
+  -- ax_* を全部NULLにして送る（星評価はしていない）ので、上のNOT NULL制約を
+  -- 外しておく必要がある。スコア計算（avgAxes/score100）はこの行を無視する。
+  cant_study  boolean not null default false,
   created_at  timestamptz not null default now()
 );
+
+-- すでにこのテーブルをNOT NULL付きで作ってしまっている場合は、次を1回だけ流すこと
+-- （cant_study=true の投稿はax_*を送らないため、NOT NULLのままだと保存に失敗する）:
+alter table public.reviews alter column ax_quiet   drop not null;
+alter table public.reviews alter column ax_power   drop not null;
+alter table public.reviews alter column ax_wifi    drop not null;
+alter table public.reviews alter column ax_seat    drop not null;
+alter table public.reviews alter column ax_privacy drop not null;
+alter table public.reviews alter column ax_aircon  drop not null;
+alter table public.reviews alter column ax_water   drop not null;
+alter table public.reviews add column if not exists cant_study boolean not null default false;
 
 create index if not exists reviews_spot_idx on public.reviews (spot_id);
 

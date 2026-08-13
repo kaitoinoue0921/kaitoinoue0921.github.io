@@ -193,6 +193,8 @@ button{cursor:pointer}
 .heatleg i{width:9px;height:9px;border-radius:2px;display:block}
 
 .rev{background:var(--panel2);border-radius:10px;padding:10px 12px;margin-bottom:8px}
+.rev-flag{border:1px solid rgba(217,83,79,.4);background:rgba(217,83,79,.08)}
+.rev-flag p:first-of-type{color:var(--busy);font-weight:600;margin-top:0}
 .rev .top{display:flex;justify-content:space-between;font-size:11px;color:var(--tx3);margin-bottom:5px}
 .rev .top b{color:var(--tx2);font-weight:600}
 .rev p{margin:0;font-size:12.5px;line-height:1.75;color:var(--tx2)}
@@ -1709,21 +1711,26 @@ const SEED=[
 ];
 
 /* ---------- スコア ---------- */
+/* 「ここでは勉強できなかった」報告（axes:null）はスコア計算に入れない。
+   星評価をしていない投稿を平均に混ぜると数字が実態からズレるため。 */
+const ratedReviews=sp=>sp.reviews.filter(rv=>rv.axes);
 function avgAxes(sp){
   const o={}; AXES.forEach(a=>o[a.k]=0);
-  if(!sp.reviews.length) return o;
-  sp.reviews.forEach(rv=>AXES.forEach(a=>o[a.k]+=(rv.axes[a.k]??3)));
-  AXES.forEach(a=>o[a.k]/=sp.reviews.length);
+  const rv2=ratedReviews(sp);
+  if(!rv2.length) return o;
+  rv2.forEach(rv=>AXES.forEach(a=>o[a.k]+=(rv.axes[a.k]??3)));
+  AXES.forEach(a=>o[a.k]/=rv2.length);
   return o;
 }
 function score100(sp){
-  if(!sp.reviews.length) return 0;
+  if(!ratedReviews(sp).length) return 0;
   const a=avgAxes(sp);
   return Math.round(AXES.reduce((t,x)=>t+a[x.k]*x.w,0)/5*100);
 }
 const rankOf=sc=>RANKS.find(x=>sc>=x.min).r;
-/* 口コミが1件も無いスポットは順位をつけず「未評価」にする */
-const rated=sp=>sp.reviews.length>0;
+/* 口コミが1件も無いスポットは順位をつけず「未評価」にする。
+   「勉強できなかった」報告だけの場合も、星評価はゼロ件なので未評価扱い。 */
+const rated=sp=>ratedReviews(sp).length>0;
 const rankOfSpot=sp=>rated(sp)?rankOf(score100(sp)):UNRATED;
 
 /* ---------- 空き状況 ---------- */
@@ -1801,8 +1808,9 @@ function loadScript(src){
 
 /* DBの行 <-> アプリのオブジェクト */
 function rowToReview(r){
-  const axes={}; AXES.forEach(a=>axes[a.k]=r['ax_'+a.k]??3);
-  return {id:r.id,user:r.user_name||'名無し',axes,comment:r.comment||'',
+  const cantStudy=!!r.cant_study;
+  const axes=cantStudy?null:(()=>{ const o={}; AXES.forEach(a=>o[a.k]=r['ax_'+a.k]??3); return o; })();
+  return {id:r.id,user:r.user_name||'名無し',axes,cantStudy,comment:r.comment||'',
     visit:(r.visit_day!=null&&r.visit_slot!=null)?{day:r.visit_day,slot:r.visit_slot,level:r.visit_level}:null,
     date:(r.created_at||'').slice(0,7)};
 }
@@ -1819,9 +1827,9 @@ const spotToRow=sp=>({name:sp.name,pref:sp.pref,city:sp.city,category:sp.categor
   lat:sp.lat,lng:sp.lng,hours_wd:sp.hoursWd,hours_we:sp.hoursWe,closed_days:sp.closed,fee:sp.fee,note:sp.note,
   facilities:sp.facilities||{}});
 function reviewToRow(spotId,rv){
-  const o={spot_id:spotId,user_name:rv.user,comment:rv.comment,
+  const o={spot_id:spotId,user_name:rv.user,comment:rv.comment,cant_study:!!rv.cantStudy,
     visit_day:rv.visit?.day??null,visit_slot:rv.visit?.slot??null,visit_level:rv.visit?.level??null};
-  AXES.forEach(a=>o['ax_'+a.k]=rv.axes[a.k]);
+  AXES.forEach(a=>o['ax_'+a.k]=rv.axes?rv.axes[a.k]:null);
   return o;
 }
 
@@ -2115,6 +2123,7 @@ function selectSpot(id,focus=true){
   document.getElementById('side').classList.add('detail-on');
   document.getElementById('dbody').scrollTop=0;
   const b=document.getElementById('addRev'); if(b) b.onclick=()=>openReviewForm(sp);
+  const fb=document.getElementById('addFlag'); if(fb) fb.onclick=()=>openFlagForm(sp);
   const gb=document.getElementById('btnGplace'); if(gb) gb.onclick=()=>fetchGooglePlace(sp);
   render();
 }
@@ -2146,6 +2155,13 @@ function detailHTML(sp){
       <b>${a[x.k].toFixed(1)}</b></div>`).join('');
   const revs= sp.reviews.length ? sp.reviews.slice().reverse().map(rv=>{
     const v=rv.visit?`　訪問: ${DAYS.find(d=>d.k===rv.visit.day)?.label||''} ${SLOT_LABEL[rv.visit.slot]||''}時 / ${LEVELS[rv.visit.level]?.t||''}`:'';
+    if(rv.cantStudy){
+      return `<div class="rev rev-flag">
+      <div class="top"><b>${esc(rv.user||'名無し')}</b><span>${esc(rv.date||'')}</span></div>
+      <p>⚠ ここでは勉強できなかったとの報告</p>
+      <p>${esc(rv.comment||'（理由なし）')}</p>
+      <div class="mini">${esc(v)}</div></div>`;
+    }
     return `<div class="rev">
       <div class="top"><b>${esc(rv.user||'名無し')}</b><span>${esc(rv.date||'')}</span></div>
       <p>${esc(rv.comment||'（コメントなし）')}</p>
@@ -2196,7 +2212,10 @@ function detailHTML(sp){
 
   <div class="sect">
     <h3>みんなの口コミ・評価</h3>
-    <button class="btn" id="addRev">＋ 評価・口コミを書く</button>
+    <div class="row" style="gap:8px">
+      <button class="btn" id="addRev" style="flex:1">＋ 評価・口コミを書く</button>
+      <button class="btn ghost" id="addFlag" style="flex:1">⚠ ここでは勉強できなかった</button>
+    </div>
     ${revs}
   </div>
 
@@ -2290,6 +2309,39 @@ function openReviewForm(sp){
     catch(err){ btn.disabled=false; btn.textContent='投稿する'; toast('保存できませんでした: '+(err.message||err)); return; }
     closeModal(); selectSpot(sp.id,false);
     toast(DB.mode==='cloud'?'口コミを投稿しました（全員に公開）':'口コミを投稿しました（この端末内）');
+  };
+}
+
+/* ---------- 「ここでは勉強できなかった」報告 ----------
+   星評価をつけるほどの情報がない（閉まっていた・貸室で自習不可だった等）
+   ときのための、星なしの軽い投稿。スコア計算には入れない。 */
+function openFlagForm(sp){
+  const n=nowCell()||{day:'wd',slot:2};
+  const sel={day:n.day,slot:String(n.slot),level:'3'};
+  openModal(`<h2>${esc(sp.name)}</h2>
+    <p class="lead">星評価はつけず、「ここでは勉強できなかった」ことだけを記録します。
+    閉まっていた、自習室ではなかった、満席で入れなかった、など理由があれば書いてください。</p>
+    ${visitBlock(sel)}
+    <div class="field" style="margin-top:14px"><label>ニックネーム</label><input id="fu" placeholder="名無しでもOK"></div>
+    <div class="field"><label>理由・コメント <span style="color:var(--s)">*</span></label>
+      <textarea id="fc" placeholder="例）行ったら休館日だった／貸室のみで自習不可だった"></textarea></div>
+    <button class="btn" id="fsave">報告する</button>
+    <button class="btn ghost" id="fcancel">キャンセル</button>`);
+  const sh=document.getElementById('sheet');
+  wireSeg(sh,sel);
+  sh.querySelector('#fcancel').onclick=closeModal;
+  sh.querySelector('#fsave').onclick=async(e)=>{
+    const comment=sh.querySelector('#fc').value.trim();
+    if(!comment){ toast('理由・コメントを入力してください'); return; }
+    const btn=e.currentTarget; btn.disabled=true; btn.textContent='保存中…';
+    const rv={id:rid(),user:sh.querySelector('#fu').value.trim()||'名無し',
+      axes:null,cantStudy:true,comment,
+      visit:{day:sel.day,slot:+sel.slot,level:+sel.level},
+      date:new Date().toISOString().slice(0,7)};
+    try{ await DB.addReview(sp,rv); }
+    catch(err){ btn.disabled=false; btn.textContent='報告する'; toast('保存できませんでした: '+(err.message||err)); return; }
+    closeModal(); selectSpot(sp.id,false);
+    toast(DB.mode==='cloud'?'報告しました（全員に公開）':'報告しました（この端末内）');
   };
 }
 
