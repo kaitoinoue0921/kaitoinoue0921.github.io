@@ -721,18 +721,37 @@
 
   /* stays hidden unless the count is actually retrieved */
   .visit-count{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    margin: 20px 0 0;
+    opacity: 0;
+    transition: opacity 0.7s ease;
+  }
+  .visit-count[hidden]{ display: none; }
+  .visit-count.is-shown{ opacity: 1; }
+  .visit-icon{
+    width: 15px;
+    height: 10px;
+    color: var(--ink-faint);
+    flex-shrink: 0;
+  }
+  .visit-count-num{
     font-family: var(--mono);
-    font-size: 10.5px;
+    font-size: 11.5px;
+    letter-spacing: 0.04em;
+    color: var(--ink-soft);
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+  }
+  .visit-count-label{
+    font-family: var(--mono);
+    font-size: 10px;
     letter-spacing: 0.2em;
     color: var(--ink-faint);
-    text-align: center;
     text-transform: uppercase;
-    margin: 12px 0 0;
-    opacity: 0;
-    transition: opacity 0.6s ease;
   }
-  .visit-count.is-shown{ opacity: 0.85; }
-  .visit-count[hidden]{ display: none; }
 
   @media (max-width: 640px){
     /* one swipeable row instead of four stacked ones, so the nav stops
@@ -1051,7 +1070,14 @@
         </div>
         <p class="footer-note">Prototype — 自己紹介ウェブサイト</p>
         <p class="footer-links"><a href="./support/">寄付する</a></p>
-        <p class="visit-count" id="visitCount" hidden></p>
+        <div class="visit-count" id="visitCount" hidden>
+          <svg class="visit-icon" viewBox="0 0 22 14" aria-hidden="true">
+            <path d="M1 7 C4 1.5 18 1.5 21 7 C18 12.5 4 12.5 1 7 Z" fill="none" stroke="currentColor" stroke-width="1.3"/>
+            <circle cx="11" cy="7" r="2.4" fill="none" stroke="currentColor" stroke-width="1.3"/>
+          </svg>
+          <span class="visit-count-num" id="visitCountNum">0</span>
+          <span class="visit-count-label">visits</span>
+        </div>
       </div>
     </footer>
   </div>
@@ -1179,17 +1205,32 @@
      stay hidden rather than showing a broken number. */
   (function showVisitCount(){
     var elc = document.getElementById('visitCount');
-    if (!elc || !window.fetch) return;
+    var elNum = document.getElementById('visitCountNum');
+    if (!elc || !elNum || !window.fetch) return;
+
+    function animateCount(target){
+      var duration = 1000, startTime = null;
+      function tick(ts){
+        if (!startTime) startTime = ts;
+        var p = Math.min((ts - startTime) / duration, 1);
+        var eased = 1 - Math.pow(1 - p, 3); // ease-out cubic
+        elNum.textContent = Math.round(target * eased).toLocaleString('en-US');
+        if (p < 1) window.requestAnimationFrame(tick);
+      }
+      window.requestAnimationFrame(tick);
+    }
 
     fetch('https://kaitoinoue.goatcounter.com/counter/TOTAL.json')
       .then(function(r){ return r.ok ? r.json() : Promise.reject(r.status); })
       .then(function(d){
         if (!d || !d.count) return;
-        elc.textContent = d.count + ' visits';
+        var n = parseInt(String(d.count).replace(/,/g,''), 10);
+        if (isNaN(n)) return;
         elc.hidden = false;
-        // next frame so the fade actually runs
+        // next frame so the fade + count-up actually run
         window.requestAnimationFrame(function(){
           elc.classList.add('is-shown');
+          animateCount(n);
         });
       })
       .catch(function(){ /* setting still off, or offline — leave it hidden */ });
