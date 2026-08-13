@@ -403,6 +403,7 @@ button{cursor:pointer}
   </div>
   <div id="topcount"></div>
   <button id="topabout" title="このサイトを作った理由">💡 このサイトについて</button>
+  <button id="topthanks" title="口コミ・報告を書いてくれた人への感謝">🙏 情報提供者への感謝</button>
   <button id="topsupport" data-ksup-open="study-map" data-skin="dark"
           title="応援・感想・気になる点を送る">♡ 応援・感想</button>
   <div id="dbstat" title="データの保存先">…</div>
@@ -2420,6 +2421,43 @@ function setAdding(on){
   MapA&&MapA.cursor(on);
   banner(on?'地図をクリックして場所を指定してください':'');
 }
+
+/* ---------- 情報提供者への感謝 ----------
+   口コミ・報告のニックネームごとに、投稿してくれたスポット名と件数を集計して
+   お礼のメッセージと一緒に表示する。連絡先は集めていないので、個別DMではなく
+   このページ上での公開のお礼という形にしている。 */
+function collectContributors(){
+  const by=new Map();
+  SPOTS.forEach(sp=>{
+    (sp.reviews||[]).forEach(rv=>{
+      const name=(rv.user||'').trim();
+      if(!name || name==='名無し') return;
+      if(!by.has(name)) by.set(name,{name,count:0,spots:new Set(),last:''});
+      const c=by.get(name);
+      c.count++; c.spots.add(sp.name);
+      if(!c.last || (rv.date||'')>c.last) c.last=rv.date||'';
+    });
+  });
+  return [...by.values()].sort((a,b)=>b.count-a.count || (b.last>a.last?1:-1));
+}
+function openThanks(){
+  const list=collectContributors();
+  const anon=SPOTS.reduce((n,sp)=>n+(sp.reviews||[]).filter(rv=>!rv.user||rv.user.trim()===''||rv.user.trim()==='名無し').length,0);
+  const cards=list.length ? list.map(c=>`<div class="rev">
+      <div class="top"><b>${esc(c.name)} さん</b><span>最新 ${esc(c.last||'—')}</span></div>
+      <p>${esc(c.spots.size)}件のスポットに、${esc(c.count)}件の口コミ・報告をありがとうございます。</p>
+      <div class="mini">${[...c.spots].map(esc).join('　/　')}</div>
+    </div>`).join('')
+    : `<div class="info" style="color:var(--tx3)">まだニックネーム付きの口コミがありません。</div>`;
+  openModal(`<h2>🙏 情報提供者への感謝</h2>
+    <p class="lead">口コミや「ここでは勉強できなかった」報告は、次に行く人がその場所を選べるかどうかを左右します。
+    ニックネームを添えて投稿してくれた方々に、この場を借りてお礼を伝えます。本当にありがとうございます。</p>
+    ${cards}
+    ${anon?`<p class="hint">このほか、名無しでの投稿が${esc(anon)}件あります。名無しの方にも同じだけ感謝しています。</p>`:''}
+    <button class="btn ghost" id="thanksclose">閉じる</button>`);
+  document.getElementById('sheet').querySelector('#thanksclose').onclick=closeModal;
+}
+document.getElementById('topthanks').onclick=openThanks;
 
 document.getElementById('topabout').onclick=()=>{
   openModal(`<h2>このサイトを作った理由</h2>
