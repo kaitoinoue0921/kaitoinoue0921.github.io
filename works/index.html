@@ -542,7 +542,7 @@
           </a>
         </article>
 
-        <!-- 08 これから作りたいもの -->
+        <!-- 08 国試対策 ブルーノート -->
         <article class="block">
           <div class="divider">
             <span class="divider-line"></span>
@@ -553,7 +553,46 @@
             </svg>
             <span class="divider-line"></span>
           </div>
-          <p class="block-label"><span>Backlog · 08</span><span class="status">構想中</span></p>
+          <p class="block-label"><span>Works · 08</span><span class="status status--live">プロトタイプ公開中</span></p>
+          <h2 class="block-title">国試対策 ブルーノート</h2>
+          <p class="block-text">医師国家試験に向けた演習アプリ。Ankiの間隔反復を国試向けに厳格化し、復習期日を過ぎるとEXPが指数的に減衰してレベルダウンする仕組みにしました。解いた問題にはその場で自分の語呂合わせや理解を書き込め、公式解説はみんなで編集できるWikiにしています。</p>
+
+          <ul class="points">
+            <li>SM-2アルゴリズムで復習間隔を計算。評価4段階（Again/Hard/Good/Easy）で次の復習日を決める</li>
+            <li>復習期日超過1日ごとにEXPが0.9倍される厳格な減衰式。放置すると容赦なくレベルダウンする</li>
+            <li>出題基準（ブループリント）に紐づけ、必修85%・一般臨床75%を目標に到達度をレーダーチャートで可視化</li>
+            <li>公式解説は全員で編集できるWiki、自分用の語呂合わせや病態生理メモは公開/非公開を選べる「My Note」として分離</li>
+          </ul>
+
+          <p class="support-note">まだモックデータで動く段階のプロトタイプです。Supabaseを繋いで、実際の過去問データと共有DBに置き換えていきます。</p>
+
+          <ul class="tech">
+            <li>React / TypeScript</li>
+            <li>Tailwind CSS</li>
+            <li>Supabase</li>
+            <li>Recharts</li>
+          </ul>
+
+          <a class="block-action" href="../blue-note/">
+            <span>開いてみる</span>
+            <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </article>
+
+        <!-- 09 これから作りたいもの -->
+        <article class="block">
+          <div class="divider">
+            <span class="divider-line"></span>
+            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
+              <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
+              <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
+            </svg>
+            <span class="divider-line"></span>
+          </div>
+          <p class="block-label"><span>Backlog · 09</span><span class="status">構想中</span></p>
           <h2 class="block-title">これから作りたいもの</h2>
           <p class="block-text">まだ手をつけていない案です。作ると決めたものではなく、「これが要るのでは」と思って書き留めてあるものを、そのまま置いておきます。どれも、越えないといけない壁のほうを先に書いています。</p>
 
