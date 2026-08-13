@@ -35,14 +35,24 @@ create table if not exists public.reviews (
   id          uuid primary key default gen_random_uuid(),
   spot_id     uuid not null references public.spots(id) on delete cascade,
   user_name   text,
-  -- 7軸の評価（1〜5）。星ごとの意味は index.html の AXES.scale に定義してある。
-  ax_quiet    smallint not null check (ax_quiet   between 1 and 5),
-  ax_power    smallint not null check (ax_power   between 1 and 5),
-  ax_wifi     smallint not null check (ax_wifi    between 1 and 5),
-  ax_seat     smallint not null check (ax_seat    between 1 and 5),
-  ax_privacy  smallint not null check (ax_privacy between 1 and 5),
-  ax_aircon   smallint not null check (ax_aircon  between 1 and 5),
-  ax_water    smallint not null check (ax_water   between 1 and 5),
+  -- 5軸の評価（1〜5）。星ごとの意味は index.html の AXES.scale に定義してある。
+  -- ax_quiet   = 静音性
+  -- ax_seat    = 座席・姿勢の快適さ
+  -- ax_privacy = 周囲の集中度・ピア効果（列名は歴史的経緯で"privacy"のまま。
+  --              旧「人目」から意味を再定義したもので、列は作り直していない）
+  -- ax_refresh = 息抜きのしやすさ（新設）
+  -- ax_aircon  = 空調・空間（旧「空調」から評価範囲を拡張）
+  -- ax_power / ax_wifi / ax_water は廃止列。電源・Wi-Fiは事実ベースの
+  -- facilities（jsonb）バッジに移行し、水は評価対象から外したため、
+  -- アプリはこの3列にはもう値を送らない（過去データの参照用に残してある）。
+  ax_quiet    smallint check (ax_quiet   between 1 and 5),
+  ax_power    smallint check (ax_power   between 1 and 5),
+  ax_wifi     smallint check (ax_wifi    between 1 and 5),
+  ax_seat     smallint check (ax_seat    between 1 and 5),
+  ax_privacy  smallint check (ax_privacy between 1 and 5),
+  ax_aircon   smallint check (ax_aircon  between 1 and 5),
+  ax_water    smallint check (ax_water   between 1 and 5),
+  ax_refresh  smallint check (ax_refresh between 1 and 5),
   -- 「アクセス」の軸は廃止した。地図を見れば位置は分かるうえ、
   -- 近い/遠いは見る人の家がどこかで変わるので、場所の性質の評価にならないため。
   -- すでにこのスキーマを ax_access 付きで実行してしまっている場合は、
@@ -69,6 +79,10 @@ alter table public.reviews alter column ax_seat    drop not null;
 alter table public.reviews alter column ax_privacy drop not null;
 alter table public.reviews alter column ax_aircon  drop not null;
 alter table public.reviews alter column ax_water   drop not null;
+
+-- 5軸への改修（息抜きのしやすさを新設）で、既存の本番DBに次を1回だけ流すこと:
+alter table public.reviews add column if not exists ax_refresh smallint check (ax_refresh between 1 and 5);
+
 alter table public.reviews add column if not exists cant_study boolean not null default false;
 
 create index if not exists reviews_spot_idx on public.reviews (spot_id);

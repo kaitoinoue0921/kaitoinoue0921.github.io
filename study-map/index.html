@@ -442,9 +442,8 @@ button{cursor:pointer}
         <button class="chip" data-f="open">いま開いてる</button>
         <button class="chip" data-f="power">電源</button>
         <button class="chip" data-f="wifi">Wi-Fi</button>
-        <button class="chip" data-f="aircon">空調</button>
-        <button class="chip" data-f="water">水</button>
-        <button class="chip" data-f="privacy">人目が気にならない</button>
+        <button class="chip" data-f="aircon">空調・空間</button>
+        <button class="chip" data-f="privacy">集中ムードがある</button>
         <button class="chip" data-f="quiet">静か</button>
         <button class="chip" data-f="free">完全無料</button>
       </div>
@@ -497,64 +496,79 @@ button{cursor:pointer}
    ========================================================= */
 
 /* ---------- 評価軸 ----------
-   星は「なんとなくの good/bad」ではなく、その場で数えられる事実に対応させる。
+   星は「なんとなくの good/bad」ではなく、その場で数えられる事実・体感に対応させる。
    基準を書かないと、投稿者ごとに★4の意味が変わって平均が意味を失うため、
    1〜5それぞれに具体的な状態を割り当てて、投稿画面で選択中のものを表示する。
    scale[0] が★1、scale[4] が★5。
+
    ※「アクセス」の軸は廃止した。地図を見れば位置は分かるうえ、
      近い/遠いは見る人の家がどこかで変わるので、場所の性質の評価にならない。
-     その0.10ぶんは残りの7軸に配分し直している（合計は1.00のまま）。 */
+
+   ※「電源」「Wi-Fi」は主観の5段階評価から外し、FACS（設備の事実／上部バッジ）へ
+     移した。「あるかないか」は好みではなく事実なので、レーダーチャートに混ぜると
+     他の軸（静音性など）とスケールの意味が揃わなくなる。検索の絞り込みでは
+     「電源がある席が確実にある」かどうかを問いたいので、事実ベースのタグの方が
+     ユーザーの探し方に合っている。
+
+   ※「水」の軸・設備表示は廃止した。ターゲット層（中高生・大学生）は基本的に
+     飲料を持参して勉強しに行くため、評価軸として残す優先度が低いと判断した。
+
+   ※ 旧「人目」は、周囲の視線を気にせず作業できるかという“遮蔽”の軸だったが、
+     利用シーンを洗い出すと「周りが集中しているほど自分も集中できる」という
+     ピア効果（社会的促進）の方が、场所選びの決め手になっていた。同じキー
+     （privacy）のまま、軸の意味を「周囲の集中度／ピア効果」に定義し直した。
+
+   ※「空調」は、温度管理だけでなく天井の高さ・開放感など空間の心地よさも
+     集中の持続時間を左右するため、「空調・空間」として評価範囲を広げた。
+
+   ※「息抜きのしやすさ」は、長時間の滞在で休憩の質（飲食可否・離席のしやすさ）が
+     継続利用の決め手になっていたため、新しい軸として追加した。
+
+   5軸の重みの合計は1.00。 */
 const AXES = [
-  {k:'quiet',  label:'静音性',   w:.20, chip:'静か', scale:[
-    '話し声が常に響く。集中は難しい',
-    '雑談が聞こえる。イヤホンが要る',
-    '生活音はあるが、気になるほどではない',
-    'ほぼ静か。たまに物音がする程度',
-    '会話禁止。ページをめくる音が聞こえる']},
-  {k:'power',  label:'電源',     w:.17, chip:'電源', scale:[
-    'コンセントが見当たらない',
-    '数席だけ。探して空いていれば使える',
-    '3席に1席くらいにある',
-    '半分以上の席にある',
-    'ほぼ全席にある。席を選ばなくていい']},
-  {k:'wifi',   label:'Wi-Fi',    w:.15, chip:'Wi-Fi', scale:[
-    'Wi-Fiがない',
-    'あるが繋がらない・すぐ切れる',
-    '繋がるが遅い。調べ物が精一杯',
-    '普通に使える。動画も見られる',
-    '速くて安定。オンライン授業もできる']},
-  {k:'seat',   label:'座席・机', w:.14, chip:'座席', scale:[
-    '机がない。ベンチや椅子だけ',
-    '机が狭く、ノート1冊で埋まる',
-    'A4のノートを広げられる',
-    '参考書とノートを並べても余裕がある',
-    '机が広く、椅子も長時間座っていられる']},
-  {k:'privacy',label:'人目',     w:.13, chip:'人目が気にならない', scale:[
-    '通路沿いで人が絶えず通る。画面も丸見え',
-    '視線が気になる席が多い',
-    '普通。特に気にならない',
-    '背後を取られない席を選べる',
-    '仕切りのある個席がある']},
-  {k:'aircon', label:'空調',     w:.12, chip:'空調', scale:[
-    '空調がない',
-    '効きが悪く、暑い or 寒い',
-    '普通。長居しても平気',
-    '快適',
-    'いつ行っても快適']},
-  {k:'water',  label:'水',       w:.09, chip:'水', scale:[
-    '水も自販機もない',
-    '自販機だけ（有料）',
-    '給水機か水道が使える',
-    '給水機があり、自販機も近い',
-    'ドリンクバーなど、いつでも自由に飲める']},
+  {k:'quiet',   label:'静音性',              w:.25, chip:'静か', scale:[
+    '大声の会話や呼び出し放送などが頻繁に響き、集中が何度も途切れる',
+    '声や物音がときどき気になり、意識がそがれる',
+    '生活音はあるが「気になるほどではない」（適度なBGMのカフェ程度）',
+    'ほぼ気にならない。たまに物音がする程度で、集中は途切れない',
+    '音による中断がほぼゼロ（無音の自習室でも、心地よい環境音のカフェでも該当）']},
+  {k:'seat',    label:'座席・姿勢の快適さ',  w:.20, chip:'座席', scale:[
+    '机がない、または長時間座れる椅子ではなく、用途を選ばない',
+    '机はあるが狭い・椅子が硬いなどで、短時間しか快適でない',
+    '標準的な机と椅子が1種類ある。筆記など特定の用途なら問題ない',
+    '用途に応じた座席の選択肢がある程度あり、長時間でも比較的快適',
+    '筆記・PC作業・読書など用途に合わせて座席を選べ、姿勢を変えながら長時間座れる']},
+  {k:'privacy', label:'周囲の集中度・ピア効果', w:.20, chip:'集中ムードがある', scale:[
+    '周囲は談笑・休憩目的の人が中心で、自分もペースを乱されやすい',
+    '勉強していない人の方が多く、集中モードに入りにくい',
+    '勉強している人とそうでない人が混在。特に後押しも邪魔もない',
+    '周囲に集中して作業している人が多く、自然と背筋が伸びる',
+    'ほぼ全員が勉強・作業に没頭しており、その空気に引っ張られて集中モードに入れる']},
+  {k:'refresh', label:'息抜きのしやすさ',    w:.15, chip:'息抜きしやすい', scale:[
+    '飲食禁止・離席しづらい（荷物を置いて席を立てない等）で、休憩が取りにくい',
+    '休憩できる場所が乏しく、一息つくには施設の外に出る必要がある',
+    '飲食可、または近くに自販機がある程度の最低限の息抜きができる',
+    '施設内に休憩スペースやドリンクがあり、席を立ってリフレッシュしやすい',
+    'カフェのようにドリンク片手に一息つける、外の景色が見えるなど気分転換がしやすい']},
+  {k:'aircon',  label:'空調・空間',          w:.20, chip:'空調', scale:[
+    '空調がない、または効きが悪く、暑さ・寒さが集中を妨げる',
+    '空調はあるが温度にムラがある、天井が低く圧迫感があるなど',
+    '標準的な空調と広さ。可もなく不可もない',
+    '快適な温度管理がされており、圧迫感の少ない空間',
+    '温度・換気・採光まで快適で、天井の高さや開放感など空間そのものが心地よい']},
 ];
 const RANKS=[{r:'S',min:85},{r:'A',min:72},{r:'B',min:58},{r:'C',min:0}];
 /* '?' = まだ誰も評価していないスポット。Cとは区別する */
 const UNRATED='?';
 /* 設備は「事実」。誰かの主観評価とは別に、あるかないかだけを持つ。
-   1=あり 0=なし undefined=不明（口コミの平均で代用する） */
-const FACS=[{k:'wifi',label:'Wi-Fi'},{k:'power',label:'電源'},
-            {k:'aircon',label:'空調'},{k:'water',label:'水'}];
+   1=あり 0=なし undefined=不明（口コミの平均で代用する）
+   「水」は対象層が飲料を持参する前提のため設備表示から外した。
+   電源・Wi-Fiは施設詳細の上部にバッジとして出す（TOPFACS）ので、
+   ここ（FACS）は「設備（確認できている事実）」セクション用に空調だけ残す。 */
+const TOPFACS=[{k:'power',label:'電源',icon:'⚡'},{k:'wifi',label:'Wi-Fi',icon:'📶'}];
+const FACS=[{k:'aircon',label:'空調'}];
+/* 一覧カードや地図ポップアップの簡易バッジには、上部バッジ分も含めて全部出す */
+const ALLFACS=[...TOPFACS,...FACS];
 const facOf=(sp,k)=>sp.facilities?sp.facilities[k]:undefined;
 const RCOL={S:'var(--s)',A:'var(--a)',B:'var(--b)',C:'var(--c)','?':'var(--un)'};
 
@@ -566,7 +580,7 @@ function miniPopupHTML(sp,rank,sc){
   const scoreHtml = rank===UNRATED
     ? `<span class="mp-unrated">未評価</span>`
     : `<span class="mp-badge" style="background:${RCOL[rank]}">${rank}</span><span class="mp-score">${sc}点</span>`;
-  const facs = FACS.filter(f=>facOf(sp,f.k)===1).map(f=>`<span class="mp-chip">${f.label}</span>`).join('');
+  const facs = ALLFACS.filter(f=>facOf(sp,f.k)===1).map(f=>`<span class="mp-chip">${f.label}</span>`).join('');
   return `<div class="mp">
     <div class="mp-name">${esc(sp.name)}</div>
     <div class="mp-meta">${esc(sp.city||'')}・${esc(sp.category||'')}</div>
@@ -604,7 +618,7 @@ function s(o){ return Object.assign({id:'seed-'+rid(),pref:'栃木県',seed:true
 const SEED=[
  /* ================= 栃木県内 =================
     住所・開館時間・休館日は各施設の公式サイト等で確認した実データ。
-    評価（7軸）はどこにも入れていない ＝ すべて「未評価」。
+    評価（5軸）はどこにも入れていない ＝ すべて「未評価」。
     行った人の投稿が最初のスコアになる。
     設備は確認できた事実のみ。座標はおおよその位置。 */
 
@@ -701,7 +715,7 @@ const SEED=[
 
  /* ---------- 下野市 ----------
     公式サイト等で確認した住所・営業時間・設備だけを入れた初期データ。
-    評価（7軸のスコア）はあえて空にしてあり、行った人が最初の1人になる。
+    評価（5軸のスコア）はあえて空にしてあり、行った人が最初の1人になる。
     設備は「あるかないか」の事実のみ。座標はおおよその位置。 */
 
  s({name:'下野市立石橋図書館',category:'図書館',city:'下野市',address:'下野市大松山1-7-3',
@@ -1953,12 +1967,15 @@ function filtered(){
     if(state.cat && sp.category!==state.cat) return false;
     if(q && !(sp.name+sp.city+(sp.address||'')+sp.category).toLowerCase().includes(q)) return false;
     const a=avgAxes(sp);
-    for(const k of ['power','wifi','aircon','water']){
-      if(!state.chips[k]) continue;
-      const f=facOf(sp,k);
-      if(f===1) continue;                 // 設備ありが確定している
-      if(f===0) return false;             // なしが確定している
-      if(a[k]<3.5) return false;          // 不明なら口コミの平均で判定
+    // 電源・Wi-Fiは主観評価を持たない「絶対条件」。確認できたものだけを通す。
+    for(const k of ['power','wifi']){
+      if(state.chips[k] && facOf(sp,k)!==1) return false;
+    }
+    // 空調・空間は設備の事実があればそれを優先し、無ければ口コミの平均で判定する。
+    if(state.chips.aircon){
+      const f=facOf(sp,'aircon');
+      if(f===0) return false;
+      if(f!==1 && a.aircon<3.5) return false;
     }
     if(state.chips.privacy && a.privacy<3.5) return false;
     if(state.chips.quiet && a.quiet<4) return false;
@@ -2086,7 +2103,7 @@ function render(){
     if(op===true) tags.push(`<span class="tg free">開館中 ${esc(hoursFor(sp)||'')}</span>`);
     else if(op===false) tags.push(`<span class="tg">${esc(hoursFor(sp)||'')}</span>`);
     if(bs) tags.push(`<span class="tg time">${bs.day}${bs.slot}時が空き</span>`);
-    FACS.forEach(f=>{
+    ALLFACS.forEach(f=>{
       const v=facOf(sp,f.k);
       if(v===1||(v===undefined&&a[f.k]>=4)) tags.push(`<span class="tg">${f.label}</span>`);
     });
@@ -2170,12 +2187,19 @@ function detailHTML(sp){
     </div>`;}).join('')
     : `<div class="info" style="color:var(--tx3)">まだ口コミがありません。最初の一人になりませんか？</div>`;
 
+  const topfacs = TOPFACS.map(f=>{
+    const v=facOf(sp,f.k), st=v===1?'y':v===0?'n':'u', mk=v===1?'あり':v===0?'なし':'不明';
+    return `<span class="fac ${st}">${f.icon} ${f.label} ${mk}</span>`;
+  }).join('');
+
   return `
   <div class="dtitle">
     <div class="badge ${rk===UNRATED?'un':rk}" style="width:44px;height:44px;flex:0 0 44px;font-size:${rk===UNRATED?'11px':'20px'}">${rk===UNRATED?'未<br>評価':rk}</div>
     <div><h2>${esc(sp.name)}</h2>
       <div class="sub">${esc(sp.pref||'')} ${esc(sp.city)}・${esc(sp.category)}</div></div>
   </div>
+
+  <div class="facs" style="margin:-4px 0 12px">${topfacs}</div>
 
   <div class="scorebox">
     <div class="sbtop">
@@ -2192,7 +2216,7 @@ function detailHTML(sp){
       </div>
     </div>
     ${rk===UNRATED
-      ? `<p class="hint" style="margin:0">静音性や電源の点数は、行った人の投稿から計算されます。下の「評価・口コミを書く」から最初の評価をつけられます。</p>`
+      ? `<p class="hint" style="margin:0">静音性や座席の快適さなどの点数は、行った人の投稿から計算されます。下の「評価・口コミを書く」から最初の評価をつけられます。</p>`
       : `<div class="axgrid">${ax}</div>`}
   </div>
 
@@ -2230,7 +2254,7 @@ function detailHTML(sp){
         return `<span class="fac ${st}">${f.label} ${mk}</span>`;
       }).join('')}
     </div>
-    <p class="hint">「不明」は誰も確認していない項目です。投稿の7軸評価とは別に、公式情報などで確認できた事実だけを載せています。</p>
+    <p class="hint">「不明」は誰も確認していない項目です。投稿の5軸評価とは別に、公式情報などで確認できた事実だけを載せています。電源・Wi-Fiの有無は上部のバッジをご覧ください。</p>
   </div>
 
   <div class="sect">
@@ -2287,7 +2311,7 @@ function openReviewForm(sp){
   const n=nowCell()||{day:'wd',slot:2};
   const sel={day:n.day,slot:String(n.slot),level:'3'};
   openModal(`<h2>${esc(sp.name)}</h2>
-    <p class="lead">7つの観点で評価してください。全員の平均からスコアとランクが自動計算されます。<br>
+    <p class="lead">5つの観点で評価してください。全員の平均からスコアとランクが自動計算されます。<br>
     <span style="color:var(--tx3)">星の下に、その星が何を意味するかが出ます。感覚ではなく、
     その場で数えられる事実（電源のある席数など）で選んでください。</span></p>
     ${AXES.map(x=>starsRow(x.k,x.label,3)).join('')}
