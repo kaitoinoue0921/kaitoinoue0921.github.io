@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>プライバシーポリシー | 5分でブロック</title>
+<style>
+  :root {
+    --bg: #f3f4ff;
+    --bg-raised: #ffffff;
+    --text: #201f33;
+    --text-secondary: #6b6a8a;
+    --accent: #5856d6;
+    --accent-soft: #e6e5ff;
+    --border: #e3e2fb;
+    --shadow: 88 86 214;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16151f;
+      --bg-raised: #201f2c;
+      --text: #eeeefc;
+      --text-secondary: #a8a6c9;
+      --accent: #8b89f0;
+      --accent-soft: #2a2842;
+      --border: #302e46;
+    }
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, "Hiragino Sans", "Yu Gothic", sans-serif;
+    line-height: 1.85;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  main {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 64px 24px 96px;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12.5px;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    background: var(--accent-soft);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-weight: 600;
+  }
+
+  .header {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-bottom: 12px;
+  }
+
+  .app-mark {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .app-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    background: linear-gradient(155deg, #7d7bf5, #5856d6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    box-shadow: 0 6px 18px rgb(var(--shadow) / 0.28);
+    flex-shrink: 0;
+  }
+
+  h1 {
+    font-family: ui-rounded, -apple-system, "Hiragino Maru Gothic ProN", sans-serif;
+    font-weight: 800;
+    font-size: clamp(28px, 5vw, 36px);
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+    margin: 0;
+  }
+
+  .subtitle {
+    color: var(--text-secondary);
+    font-size: 15px;
+    margin: 0;
+  }
+
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 24px;
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    padding: 16px 0 32px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 36px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .meta-row strong { color: var(--text); font-weight: 600; }
+
+  section {
+    margin-bottom: 40px;
+  }
+
+  h2 {
+    font-family: ui-rounded, -apple-system, "Hiragino Maru Gothic ProN", sans-serif;
+    font-size: 19px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 14px;
+  }
+
+  h2 .num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 9px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+
+  p { margin: 0 0 12px; max-width: 62ch; }
+  p:last-child { margin-bottom: 0; }
+
+  .card {
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 20px 22px;
+  }
+
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14.5px;
+  }
+
+  .data-table th {
+    text-align: left;
+    font-size: 12.5px;
+    letter-spacing: 0.04em;
+    color: var(--text-secondary);
+    font-weight: 600;
+    padding: 0 12px 10px 0;
+  }
+
+  .data-table td {
+    padding: 12px 12px 12px 0;
+    border-top: 1px solid var(--border);
+    vertical-align: top;
+  }
+
+  .data-table td:first-child {
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .pill {
+    display: inline-block;
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  ul { margin: 0; padding-left: 1.2em; }
+  li { margin-bottom: 8px; }
+  li:last-child { margin-bottom: 0; }
+
+  .contact-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .contact-card a {
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .contact-card a:hover { text-decoration: underline; }
+  .contact-card a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+  footer {
+    padding-top: 28px;
+    border-top: 1px solid var(--border);
+    color: var(--text-secondary);
+    font-size: 13px;
+  }
+
+  @media (max-width: 480px) {
+    main { padding: 44px 18px 72px; }
+    .data-table { display: block; overflow-x: auto; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <div class="header">
+    <span class="eyebrow">PRIVACY POLICY</span>
+    <div class="app-mark">
+      <div class="app-icon">🛡️</div>
+      <div>
+        <h1>プライバシーポリシー</h1>
+        <p class="subtitle">5分でブロック</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="meta-row">
+    <span>制定日 <strong>2026年8月14日</strong></span>
+    <span>提供者 <strong>井上 凱斗（個人開発）</strong></span>
+  </div>
+
+  <section>
+    <h2><span class="num">1</span>はじめに</h2>
+    <p>
+      「5分でブロック」（以下「本アプリ」）は、選んだアプリを開こうとした瞬間に確認画面を挟む、デジタルウェルビーイング目的の個人開発iOSアプリです。本ポリシーは、本アプリが取り扱う情報の種類と利用目的について説明します。
+    </p>
+  </section>
+
+  <section>
+    <h2><span class="num">2</span>取得する情報</h2>
+    <p>本アプリは、個人を特定できる情報や利用状況データを外部サーバーへ送信しません。取り扱う情報はすべて端末内に留まります。</p>
+    <div class="card">
+      <table class="data-table">
+        <thead>
+          <tr><th>情報</th><th>保存先</th><th>用途</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Screen Time (Family Controls) の認可情報</td>
+            <td><span class="pill">端末内のみ</span></td>
+            <td>ブロック対象として選んだアプリの識別に使用します。Appleの仕組み上、開発者側からはどのアプリが選択されたか具体的な名前を知ることはできません。</td>
+          </tr>
+          <tr>
+            <td>猶予時間の設定（1・3・5・10分）</td>
+            <td><span class="pill">端末内のみ</span></td>
+            <td>「N分だけ見る」を選んだ際の時間設定として使用します。</td>
+          </tr>
+          <tr>
+            <td>一時的なタイマー情報</td>
+            <td><span class="pill">端末内のみ</span></td>
+            <td>猶予時間の経過後、再度ブロックするための内部状態として使用します。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">3</span>応援（投げ銭）機能について</h2>
+    <p>
+      本アプリには、任意で開発者を金銭的に応援できる機能があります。決済処理はAppleのStoreKit（App内課金）を通じて行われ、クレジットカード情報などの決済情報は開発者には一切渡りません。
+    </p>
+  </section>
+
+  <section>
+    <h2><span class="num">4</span>第三者への提供</h2>
+    <p>
+      本アプリは広告SDK・アクセス解析SDK・トラッキングツールを一切使用していません。取得した情報を第三者に提供・販売することもありません。
+    </p>
+  </section>
+
+  <section>
+    <h2><span class="num">5</span>データの削除</h2>
+    <ul>
+      <li>本アプリをアンインストールすると、端末内に保存されていたすべての設定・情報が削除されます。</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span class="num">6</span>本ポリシーの変更</h2>
+    <p>
+      本アプリの機能追加に伴い、本ポリシーの内容を予告なく変更する場合があります。重要な変更がある場合は、本ページを更新してお知らせします。
+    </p>
+  </section>
+
+  <section>
+    <h2><span class="num">7</span>お問い合わせ</h2>
+    <div class="card contact-card">
+      <p style="margin:0;">本ポリシーに関するご質問は、こちらまでお気軽にご連絡ください。</p>
+      <a href="mailto:kaito.inoue0921@gmail.com">kaito.inoue0921@gmail.com</a>
+    </div>
+  </section>
+
+  <footer>
+    © 2026 井上 凱斗 — 5分でブロック
+  </footer>
+</main>
+</body>
+</html>
