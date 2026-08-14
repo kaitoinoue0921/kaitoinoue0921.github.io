@@ -16,7 +16,7 @@
   --bg:#0f1214; --panel:#171b1f; --panel2:#1e242a; --line:#2b333b;
   --tx:#e8edf2; --tx2:#9aa7b4; --tx3:#6c7a88;
   --accent:#3fbf8f;
-  --s:#f0b429; --a:#3fbf8f; --b:#4d9de0; --c:#7c8894; --un:#414c56;
+  --s:#f0b429; --a:#3fbf8f; --b:#4d9de0; --c:#7c8894; --un:#414c56; --blocked:#000;
   --ok:#3fbf8f; --mid:#e0a33e; --busy:#d9534f;
   --shadow:0 8px 28px rgba(0,0,0,.45);
 }
@@ -73,6 +73,7 @@ button{cursor:pointer}
 .sgbadge.S{background:var(--s)} .sgbadge.A{background:var(--a)}
 .sgbadge.B{background:var(--b)} .sgbadge.C{background:var(--c)}
 .sgbadge.un{background:var(--un);color:#c3ccd5}
+.sgbadge.Z{background:var(--blocked);border:1px solid var(--busy);color:#fff}
 .sgtext{min-width:0;flex:1}
 .sgtext b{display:block;font-size:12.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .sgtext small{color:var(--tx3);font-size:10.5px}
@@ -113,6 +114,7 @@ button{cursor:pointer}
 .rankfilter button[data-r="B"][data-on="1"]{background:var(--b);border-color:var(--b)}
 .rankfilter button[data-r="C"][data-on="1"]{background:var(--c);border-color:var(--c)}
 .rankfilter button[data-r="?"][data-on="1"]{background:var(--un);border-color:var(--un);color:var(--tx)}
+.rankfilter button[data-r="Z"][data-on="1"]{background:var(--blocked);border-color:var(--busy);color:#fff}
 .row{display:flex;gap:6px}
 .row select{
   flex:1;background:var(--panel2);border:1px solid var(--line);border-radius:8px;
@@ -138,6 +140,7 @@ button{cursor:pointer}
 .badge.S{background:var(--s)} .badge.A{background:var(--a)}
 .badge.B{background:var(--b)} .badge.C{background:var(--c)}
 .badge.un{background:transparent;border:1px dashed var(--line);color:var(--tx3);font-size:10px;font-family:inherit;font-weight:600;letter-spacing:.02em;line-height:1.3}
+.badge.Z{background:var(--blocked);border:1px solid var(--busy);color:#fff}
 .cbody{min-width:0;flex:1}
 .cname{font-size:13.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .cmeta{font-size:11px;color:var(--tx3);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -146,6 +149,7 @@ button{cursor:pointer}
 .bar i{display:block;height:100%;border-radius:2px}
 .ctags{display:flex;gap:4px;margin-top:6px;flex-wrap:wrap}
 .cnew{font-size:11px;color:var(--accent)}
+.cnew.cblock{color:var(--busy)}
 .facs{display:flex;gap:6px;flex-wrap:wrap}
 .fac{font-size:11.5px;padding:5px 10px;border-radius:7px;border:1px solid var(--line);color:var(--tx3)}
 .fac.y{border-color:var(--accent);color:var(--accent);background:rgba(63,191,143,.12)}
@@ -269,6 +273,8 @@ button{cursor:pointer}
 .pin.B{background:var(--b)} .pin.C{background:var(--c)}
 .pin.un{background:var(--un);border-color:rgba(0,0,0,.5)}
 .pin.un b{color:#c3ccd5}
+.pin.Z{background:var(--blocked);border-color:var(--busy)}
+.pin.Z b{color:#fff}
 .pin.act{outline:3px solid rgba(255,255,255,.85);outline-offset:1px}
 .leaflet-tooltip.tip{
   background:rgba(23,27,31,.96);border:1px solid var(--line);color:var(--tx);
@@ -425,6 +431,7 @@ button{cursor:pointer}
         <button data-r="B" data-on="1">B</button>
         <button data-r="C" data-on="1">C</button>
         <button data-r="?" data-on="1">未</button>
+        <button data-r="Z" data-on="1">Z</button>
       </div>
       <div class="row">
         <select id="cat">
@@ -490,6 +497,7 @@ button{cursor:pointer}
       <div><i style="background:var(--b)"></i>B — 普通に使える（58〜71）</div>
       <div><i style="background:var(--c)"></i>C — 条件つき（〜57）</div>
       <div><i style="background:var(--un)"></i>未 — まだ評価なし</div>
+      <div><i style="background:var(--blocked)"></i>Z — ここでは勉強できなかった、との報告あり</div>
     </div>
   </div>
 </div>
@@ -568,6 +576,12 @@ const AXES = [
 const RANKS=[{r:'S',min:85},{r:'A',min:72},{r:'B',min:58},{r:'C',min:0}];
 /* '?' = まだ誰も評価していないスポット。Cとは区別する */
 const UNRATED='?';
+/* 'Z' = 星評価はまだ無いが「ここでは勉強できなかった」報告だけはあるスポット。
+   これも '?'（誰も行っていない）と同じ扱いにすると、実際に行って
+   ダメだったという情報が「未評価」に埋もれてしまうため、別扱いにする。
+   すでに星評価がついているスポットは、1件くらい失敗報告があっても
+   スコアはそのまま（Zにはしない）。 */
+const BLOCKED='Z';
 /* 設備は「事実」。誰かの主観評価とは別に、あるかないかだけを持つ。
    1=あり 0=なし undefined=不明（口コミの平均で代用する）
    「水」は対象層が飲料を持参する前提のため設備表示から外した。
@@ -578,15 +592,15 @@ const FACS=[{k:'aircon',label:'空調'}];
 /* 一覧カードや地図ポップアップの簡易バッジには、上部バッジ分も含めて全部出す */
 const ALLFACS=[...TOPFACS,...FACS];
 const facOf=(sp,k)=>sp.facilities?sp.facilities[k]:undefined;
-const RCOL={S:'var(--s)',A:'var(--a)',B:'var(--b)',C:'var(--c)','?':'var(--un)'};
+const RCOL={S:'var(--s)',A:'var(--a)',B:'var(--b)',C:'var(--c)','?':'var(--un)',Z:'var(--blocked)'};
 
 /* ---------- ピンをクリックしたときの簡易吹き出し ---------- */
 function miniPopupHTML(sp,rank,sc){
   const op=isOpenNow(sp), h=hoursFor(sp);
   const statusHtml = op===true?`<span class="mp-open o">開館中</span>`
     : op===false?`<span class="mp-open x">時間外</span>`:'';
-  const scoreHtml = rank===UNRATED
-    ? `<span class="mp-unrated">未評価</span>`
+  const scoreHtml = rank===UNRATED ? `<span class="mp-unrated">未評価</span>`
+    : rank===BLOCKED ? `<span class="mp-badge" style="background:${RCOL[rank]}">${rank}</span><span class="mp-unrated">勉強できなかった、との報告あり</span>`
     : `<span class="mp-badge" style="background:${RCOL[rank]}">${rank}</span><span class="mp-score">${sc}点</span>`;
   const facs = ALLFACS.filter(f=>facOf(sp,f.k)===1).map(f=>`<span class="mp-chip">${f.label}</span>`).join('');
   return `<div class="mp">
@@ -622,6 +636,16 @@ const PREFS=['北海道','青森県','岩手県','宮城県','秋田県','山形
 /* ---------- サンプルデータ ---------- */
 const rid=()=>Math.random().toString(36).slice(2,9);
 function s(o){ return Object.assign({id:'seed-'+rid(),pref:'栃木県',seed:true},o); }
+/* ガスト・ココスのようなファミレスチェーンは、店舗ごとに実測しなくても
+   写真や一般的な特徴（会話が多い・ドリンクバーがある等）から大体の評価がつく。
+   実際に行った人が投稿すればこの目安は口コミの1件として平均に混ざり、
+   本物のデータが増えるほど上書きされていく。 */
+function famrevEstimate(){
+  return {id:rid(),user:'目安（一般的な特徴から）',
+    axes:{quiet:2,seat:4,privacy:1,refresh:5,aircon:4},
+    comment:'実測ではなく、チェーン店として一般的な特徴（会話やBGMで静かではない／ドリンクバーで息抜きしやすい／勉強目的の客は少ない）からの目安評価です。行った方はぜひ実際の評価を投稿してください。',
+    visit:null,date:new Date().toISOString().slice(0,7)};
+}
 
 const SEED=[
  /* ================= 栃木県内 =================
@@ -867,18 +891,21 @@ const SEED=[
 
  s({name:'ガスト 自治医大前店',category:'ファミレス',city:'下野市',address:'下野市祇園1-15-1',
    lat:36.3934795,lng:139.8579662,hoursWd:'7:00–23:30',hoursWe:'7:00–23:30',closed:'年中無休（要確認）',
-   fee:'有料（飲食代）',facilities:{wifi:1,aircon:1,water:1},
-   note:'自治医大駅から徒歩5分。朝7時から23時半まで。無料Wi-Fi・ドリンクバーあり。混雑時の長居はマナー的に注意。',reviews:[]}),
+   fee:'有料（飲食代）',facilities:{wifi:1,aircon:1},
+   note:'自治医大駅から徒歩5分。朝7時から23時半まで。無料Wi-Fi・ドリンクバーあり。混雑時の長居はマナー的に注意。',
+   reviews:[famrevEstimate()]}),
 
  s({name:'ココス 自治医大前店',category:'ファミレス',city:'下野市',address:'下野市祇園1-14-1',
    lat:36.3949849,lng:139.8588079,hoursWd:'10:00–翌2:00',hoursWe:'7:00–翌2:00',closed:'年中無休（要確認）',
-   fee:'有料（飲食代）',facilities:{wifi:1,aircon:1,water:1},
-   note:'深夜2時まで営業。無料Wi-Fi・ドリンクバーあり。夜型の人向け。混雑時の長居はマナー的に注意。',reviews:[]}),
+   fee:'有料（飲食代）',facilities:{wifi:1,aircon:1},
+   note:'深夜2時まで営業。無料Wi-Fi・ドリンクバーあり。夜型の人向け。混雑時の長居はマナー的に注意。',
+   reviews:[famrevEstimate()]}),
 
  s({name:'サイゼリヤ 栃木石橋店',category:'ファミレス',city:'下野市',address:'下野市下古山3382-1',
    lat:36.468516,lng:139.869909,hoursWd:'11:00–翌2:00',hoursWe:'11:00–翌2:00',closed:'要確認',
-   fee:'有料（飲食代）',facilities:{aircon:1,water:1},
-   note:'国道4号沿いのショッピングモール内。駐車場が広い。Wi-Fiの有無は要確認。',reviews:[]}),
+   fee:'有料（飲食代）',facilities:{aircon:1},
+   note:'国道4号沿いのショッピングモール内。駐車場が広い。Wi-Fiの有無は要確認。',
+   reviews:[famrevEstimate()]}),
 
  s({name:'グリムの館 喫茶室 Cafe Pause（グリムの森）',category:'カフェ',city:'下野市',
    address:'下野市下古山747',lat:36.4486685,lng:139.8588744,hoursWd:'10:00–17:00（Google情報・未確認）',hoursWe:'11:00–16:00',
@@ -1847,10 +1874,11 @@ function score100(sp){
   return Math.round(AXES.reduce((t,x)=>t+a[x.k]*x.w,0)/5*100);
 }
 const rankOf=sc=>RANKS.find(x=>sc>=x.min).r;
-/* 口コミが1件も無いスポットは順位をつけず「未評価」にする。
-   「勉強できなかった」報告だけの場合も、星評価はゼロ件なので未評価扱い。 */
+/* 口コミが1件も無いスポットは順位をつけず「未評価」にする。 */
 const rated=sp=>ratedReviews(sp).length>0;
-const rankOfSpot=sp=>rated(sp)?rankOf(score100(sp)):UNRATED;
+/* 星評価がまだ無く、「ここでは勉強できなかった」報告だけが付いている状態。 */
+const hasBlockFlag=sp=>sp.reviews.some(rv=>rv.cantStudy);
+const rankOfSpot=sp=>rated(sp)?rankOf(score100(sp)):(hasBlockFlag(sp)?BLOCKED:UNRATED);
 
 /* ---------- 空き状況 ---------- */
 function heatData(sp){
@@ -2043,7 +2071,7 @@ function renderDbStat(){
 }
 
 /* ---------- 状態 ---------- */
-const state={pref:'栃木県',city:'',q:'',cat:'',sort:'score',ranks:{S:1,A:1,B:1,C:1,'?':1},chips:{},sel:null,adding:false};
+const state={pref:'栃木県',city:'',q:'',cat:'',sort:'score',ranks:{S:1,A:1,B:1,C:1,'?':1,'Z':1},chips:{},sel:null,adding:false};
 
 /* ---------- 地図アダプタ ---------- */
 let MapA=null;
@@ -2061,7 +2089,8 @@ function LeafletAdapter(){
       const icon=L.divIcon({html:`<div class="pin ${cls}" data-id="${sp.id}"><b>${mark}</b></div>`,
         className:'',iconSize:[26,26],iconAnchor:[13,26]});
       const m=L.marker([sp.lat,sp.lng],{icon}).addTo(map);
-      m.bindTooltip(`<b>${esc(sp.name)}</b><br><em>${rank===UNRATED?'未評価':sc+'点'} ・ ${esc(hoursFor(sp)||'—')}</em>`,
+      const rankLabel=rank===UNRATED?'未評価':rank===BLOCKED?'勉強できなかった、との報告あり':sc+'点';
+      m.bindTooltip(`<b>${esc(sp.name)}</b><br><em>${rankLabel} ・ ${esc(hoursFor(sp)||'—')}</em>`,
         {className:'tip',direction:'top',offset:[0,-28]});
       m.bindPopup(miniPopupHTML(sp,rank,sc),{className:'mini-pop',closeButton:true,offset:[0,-14],maxWidth:240,autoPan:false});
       m.on('click',()=>{ onClick(sp.id); MapA.openPopup(sp.id); });
@@ -2238,6 +2267,8 @@ function render(){
     });
     const score = rk===UNRATED
       ? `<span class="cnew">まだ評価がありません — 最初の1人になりませんか？</span>`
+      : rk===BLOCKED
+      ? `<span class="cnew cblock">⚠ ここでは勉強できなかった、との報告があります</span>`
       : `<span style="width:30px">${sc}点</span>
          <span class="bar"><i style="width:${sc}%;background:${RCOL[rk]}"></i></span>
          <span>口コミ${sp.reviews.length}</span>`;
@@ -2347,6 +2378,9 @@ function detailHTML(sp){
       <div style="text-align:center;min-width:66px">
         ${rk===UNRATED
           ? `<div style="font-size:12px;color:var(--tx3);line-height:1.6">まだ<br>評価なし</div>`
+          : rk===BLOCKED
+          ? `<div style="font-size:20px;line-height:1">⚠</div>
+             <div style="font-size:10.5px;color:var(--tx3);margin-top:5px">口コミ ${sp.reviews.length}件</div>`
           : `<div class="big" style="color:${RCOL[rk]}">${sc}<small>/100</small></div>
              <div style="font-size:10.5px;color:var(--tx3);margin-top:5px">口コミ ${sp.reviews.length}件</div>`}
       </div>
@@ -2358,6 +2392,8 @@ function detailHTML(sp){
     </div>
     ${rk===UNRATED
       ? `<p class="hint" style="margin:0">静音性や座席の快適さなどの点数は、行った人の投稿から計算されます。下の「評価・口コミを書く」から最初の評価をつけられます。</p>`
+      : rk===BLOCKED
+      ? `<p class="hint" style="margin:0;color:var(--busy)">ここでは勉強できなかった、との報告があります。下の口コミを確認してください。星評価がまだ無いので、行ってみた人は評価を投稿してもらえると助かります。</p>`
       : `<div class="axgrid">${ax}</div>`}
   </div>
 
