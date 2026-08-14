@@ -227,7 +227,7 @@
   "isPartOf": { "@id": "https://kaitoinoue0921.github.io/#website" },
   "author": { "@id": "https://kaitoinoue0921.github.io/#person" },
   "publisher": { "@id": "https://kaitoinoue0921.github.io/#person" },
-  "dateModified": "2026-08-11T00:00:00+09:00"
+  "dateModified": "2026-08-14T00:00:00+09:00"
 }
 </script>
 </head>
@@ -464,7 +464,7 @@
           <div><a class="support-inline" href="#support" data-ksup-open="machinokoe">この作品を応援する</a></div>
         </article>
 
-        <!-- 06 FocusRoom（開発中） -->
+        <!-- 06 Focus Game（旧FocusRoom、開発中） -->
         <article class="block">
           <div class="divider">
             <span class="divider-line"></span>
@@ -476,14 +476,15 @@
             <span class="divider-line"></span>
           </div>
           <p class="block-label"><span>Works · 06</span><span class="status status--wip">開発中</span></p>
-          <h2 class="block-title">FocusRoom</h2>
-          <p class="block-text">勉強に集中するためのiOSアプリを作っています。スマホを触らせないアプリはOS標準のスクリーンタイムが最強なので、そこでは勝負していません。同じ部屋に入った人どうしが、お互いの状態を見ている、という一点に賭けています。</p>
+          <h2 class="block-title">Focus Game</h2>
+          <p class="block-text">勉強に集中するための中高生向けiOSアプリ。もとは1つのアプリでモードを切り替える「FocusRoom」でしたが、分岐が事故のもとになるので姉妹アプリ「Focus」（大学生・社会人向け）として完全に分離しました。スマホを触らせないアプリはOS標準のスクリーンタイムが最強なので、そこでは勝負していません。同じ部屋に入った人どうしが、お互いの状態を見ている、という一点に賭けています。</p>
 
           <ul class="points">
             <li>部屋に入ると集中時間とコインが貯まる。ロックを外すと「解除中」として部屋の全員に流れる</li>
-            <li>休憩（5・10・20分）は解除と明確に分けた。休憩中は誰にも流れず、責められない。隠れてサボる方に流れさせないため</li>
-            <li>ただし休憩中は集中時間もコインも増えないので、だらだら延ばす動機はない</li>
-            <li>ロックは必ず自分で外せる。外せない仕組みは、いざというときに危ないので作らない</li>
+            <li>休憩（5・10・20分）は解除と明確に分けた。休憩中は誰にも流れず、責められない。ただし集中時間もコインも増えない</li>
+            <li>モンスターを討伐・育成・進化させる経済つき。ガチャは単発2000コインのみで、重複はコインでなくEXPになる</li>
+            <li>友達がいなくても知らない人と4人グループで自習室に入れる、ランダムマッチングを追加</li>
+            <li>ロックは必ず自分で外せる（5分だけ解除＋自動再ロック）。外せない仕組みは、いざというときに危ないので作らない</li>
           </ul>
 
           <ul class="tech">
@@ -492,10 +493,10 @@
             <li>iOS</li>
           </ul>
 
-          <p class="support-note">まだ手元で動かしている段階で、配布はしていません。いまは休憩機能と配色を入れたところです。</p>
+          <p class="support-note">iPhone実機で動作確認済み。自習室は別ユーザーとの往復まで実証できています。まだTestFlight・App Storeでの配布はしていません。</p>
 
           <a class="block-action" href="focusroom/">
-            <span>FocusRoom のページを見る</span>
+            <span>Focus Game のページを見る</span>
             <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true">
               <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
@@ -503,7 +504,7 @@
           <div><a class="support-inline" href="focusroom/donate/">開発を寄付で支える</a></div>
         </article>
 
-        <!-- 07 InkVault -->
+        <!-- 07 Focus（知識版、開発中） -->
         <article class="block">
           <div class="divider">
             <span class="divider-line"></span>
@@ -515,6 +516,105 @@
             <span class="divider-line"></span>
           </div>
           <p class="block-label"><span>Works · 07</span><span class="status status--wip">開発中</span></p>
+          <h2 class="block-title">Focus</h2>
+          <p class="block-text">Focus Gameの姉妹アプリ。大学生・社会人向けで、コインやガチャなどのゲーム要素は持ちません。集中の前に一言トピックを書くだけで、終わったあとは何も書かせず自動で記録が積み上がります。自習室での相互監視という一点は、Focus Gameと共有しています。</p>
+
+          <ul class="points">
+            <li>「道のり」ビュー：「自分」を中心にトピックが放射状に繋がるグラフ表示。育った点ほど中心に近く・大きくなる</li>
+            <li>自己申告した使用時間と実際のスクリーンタイムのズレを、オンボーディングで正直に見せる（有料アカウントの実機のみ）</li>
+            <li>ブロック対象は「選んだアプリをブロック」／「選んだアプリ以外をブロック」の2方式から選べる</li>
+          </ul>
+
+          <ul class="tech">
+            <li>Swift / SwiftUI</li>
+            <li>Supabase</li>
+            <li>iOS</li>
+          </ul>
+
+          <p class="support-note">Focus Gameと共有コードベースで、iPhone実機での動作確認まで済んでいます。まだ配布はしていません。</p>
+
+          <a class="block-action" href="focusroom/">
+            <span>Focus のページを見る</span>
+            <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <div><a class="support-inline" href="focusroom/donate/">開発を寄付で支える</a></div>
+        </article>
+
+        <!-- 08 マナビト（家庭教師プラットフォーム、開発中） -->
+        <article class="block">
+          <div class="divider">
+            <span class="divider-line"></span>
+            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
+              <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
+              <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
+            </svg>
+            <span class="divider-line"></span>
+          </div>
+          <p class="block-label"><span>Works · 08</span><span class="status status--wip">開発中</span></p>
+          <h2 class="block-title">マナビト（仮称）</h2>
+          <p class="block-text">家庭教師のマッチングプラットフォーム。既存の大手が中抜き65〜75%で講師の時給を1,300〜1,800円に抑えていることへの問題意識から作っています。授業料からの運営手数料は0%。講師が時給を自分で決められることが、このサービスの存在理由です。</p>
+
+          <ul class="points">
+            <li>手数料0%。収益は家庭側が負担するプラットフォーム利用料10%と、投げ銭手数料20%だけでまかなう設計</li>
+            <li>初期ニッチは「地方の医学部志望者×自治医科大学の学生講師」。47都道府県から選抜される自治医大でしか作れない、同じ県出身の先輩マッチングが強み</li>
+            <li>講師オンボーディングは構造化インタビューから専門性タグを自動提案。家庭側の学習プロファイル、講師検索とマッチング理由の生成まで動く</li>
+          </ul>
+
+          <ul class="tech">
+            <li>Next.js</li>
+            <li>Supabase</li>
+            <li>TypeScript</li>
+          </ul>
+
+          <p class="support-note">MVPの実装は完了していますが、Supabaseプロジェクトとの本番接続はまだで、公開はしていません。あっせん・特商法・資金決済法まわりの法務レビューも未実施です。</p>
+        </article>
+
+        <!-- 09 ママの健康ノート（服薬管理アプリ、開発中） -->
+        <article class="block">
+          <div class="divider">
+            <span class="divider-line"></span>
+            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
+              <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
+              <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
+            </svg>
+            <span class="divider-line"></span>
+          </div>
+          <p class="block-label"><span>Works · 09</span><span class="status status--wip">開発中</span></p>
+          <h2 class="block-title">ママの健康ノート</h2>
+          <p class="block-text">母のために作ったiOSアプリ。複数の薬とサプリを、食前・食後・外出前のタイミングごとに管理し、飲み合わせ事故と飲み忘れを防ぎます。継続の可視化ではなく、飲み合わせのタイミングを逃さないことだけを目的にしています。</p>
+
+          <ul class="points">
+            <li>薬・サプリは複数登録可能。それぞれ食前／食後／外出前のタイミングと対象の食事を設定できる</li>
+            <li>通知は薬×食事の組み合わせごとに1本。「はい」を押した時だけ記録され、記録を強制する導線は作らない</li>
+            <li>共有は招待制の小さいグループのみ。CloudKit共有で家族と食事の記録を任意で共有できる</li>
+          </ul>
+
+          <ul class="tech">
+            <li>Swift / SwiftUI</li>
+            <li>SwiftData</li>
+            <li>CloudKit</li>
+            <li>WidgetKit</li>
+          </ul>
+
+          <p class="support-note">App Store提出に向けて準備中。アイコン・プライバシーポリシー・提出用メタデータは用意済みで、残るはApple Developerアカウントでの登録・審査提出のみです。</p>
+        </article>
+
+        <!-- 10 InkVault -->
+        <article class="block">
+          <div class="divider">
+            <span class="divider-line"></span>
+            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
+              <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
+              <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
+            </svg>
+            <span class="divider-line"></span>
+          </div>
+          <p class="block-label"><span>Works · 10</span><span class="status status--wip">開発中</span></p>
           <h2 class="block-title">InkVault</h2>
           <p class="block-text">Obsidianで医学知識をまとめていたのですが、画像を並べて比較できない・画像に直接書き込めないという不便さが解決できず、自分の使い方に合わせて作り直しました。文章はObsidianと同じく上から下へ書き、画像はWordのように自由に動かせて、その上からペンで直接書き込めます。</p>
 
@@ -542,7 +642,7 @@
           </a>
         </article>
 
-        <!-- 08 国試対策 ブルーノート -->
+        <!-- 11 国試対策 ブルーノート -->
         <article class="block">
           <div class="divider">
             <span class="divider-line"></span>
@@ -553,7 +653,7 @@
             </svg>
             <span class="divider-line"></span>
           </div>
-          <p class="block-label"><span>Works · 08</span><span class="status status--live">プロトタイプ公開中</span></p>
+          <p class="block-label"><span>Works · 11</span><span class="status status--live">プロトタイプ公開中</span></p>
           <h2 class="block-title">国試対策 ブルーノート</h2>
           <p class="block-text">医師国家試験に向けた演習アプリ。Ankiの間隔反復を国試向けに厳格化し、復習期日を過ぎるとEXPが指数的に減衰してレベルダウンする仕組みにしました。解いた問題にはその場で自分の語呂合わせや理解を書き込め、公式解説はみんなで編集できるWikiにしています。</p>
 
@@ -581,7 +681,7 @@
           </a>
         </article>
 
-        <!-- 09 これから作りたいもの -->
+        <!-- 12 Creator Shield AI -->
         <article class="block">
           <div class="divider">
             <span class="divider-line"></span>
@@ -592,18 +692,84 @@
             </svg>
             <span class="divider-line"></span>
           </div>
-          <p class="block-label"><span>Backlog · 09</span><span class="status">構想中</span></p>
+          <p class="block-label"><span>Works · 12</span><span class="status status--live">公開中</span></p>
+          <h2 class="block-title">Creator Shield AI</h2>
+          <p class="block-text">YouTube配信者のメンタルを、コメント欄の誹謗中傷や定型的な「イジり」から守るツール。URLを入れるだけでコメントを解析し、攻撃的な表現を穏やかな要約に言い換えて見せます。</p>
+
+          <ul class="points">
+            <li>コメントを応援・建設的指摘・心配・ミーム定型文・誹謗中傷の5カテゴリに自動分類</li>
+            <li>攻撃的な表現をマスキング・トーン変換する「メンタルシールド」機能。悪意の量と強度をダッシュボードで可視化</li>
+            <li>チャンネル健全度スコア、次回企画案・NGワードの自動生成、誹謗中傷の証拠保全、返信ドラフト生成</li>
+            <li>好意的なコメントだけをカード表示する「癒やしモード」つき</li>
+          </ul>
+
+          <ul class="tech">
+            <li>Next.js / TypeScript</li>
+            <li>Tailwind CSS</li>
+            <li>YouTube Data API v3</li>
+            <li>Google Gemini API</li>
+          </ul>
+
+          <p class="support-note">Vercelに公開済みで、実データでの解析が動作します。</p>
+
+          <a class="block-action" href="https://creator-shield-ai-three.vercel.app/" target="_blank" rel="noopener noreferrer">
+            <span>Creator Shield AI を見る</span>
+            <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </article>
+
+        <!-- 13 MindfulShield -->
+        <article class="block">
+          <div class="divider">
+            <span class="divider-line"></span>
+            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
+              <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
+              <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
+            </svg>
+            <span class="divider-line"></span>
+          </div>
+          <p class="block-label"><span>Works · 13</span><span class="status status--wip">開発中・審査待ち</span></p>
+          <h2 class="block-title">MindfulShield</h2>
+          <p class="block-text">指定したアプリ（YouTubeなど）を開こうとした瞬間に立ち止まらせる、デジタルウェルビーイングアプリ。「本当に今、見る必要がありますか？」というシールド画面を挟み、見るなら時間を区切って許可します。</p>
+
+          <ul class="points">
+            <li>対象アプリを開くとOSレベルのシールド画面が挟まる。「N分だけ見る」（1・3・5・10分から選択）か「やめておく」を選ばせる</li>
+            <li>N分使い終わると自動で再ブロックされる。手動で解除する抜け道は作っていない</li>
+            <li>Screen Time API（FamilyControls / ManagedSettings / DeviceActivity）ベースで、本体アプリ＋Shield設定／操作／監視の3 Extensionで構成</li>
+          </ul>
+
+          <ul class="tech">
+            <li>Swift / SwiftUI</li>
+            <li>FamilyControls / ManagedSettings</li>
+            <li>DeviceActivity</li>
+            <li>StoreKit 2</li>
+          </ul>
+
+          <p class="support-note">実機で選択→シールド表示→猶予→再ブロックまで動作確認済み。Family Controls（Distribution）のApple申請は提出済みで承認待ちのため、App Storeにはまだ公開していません。</p>
+        </article>
+
+        <!-- 14 これから作りたいもの -->
+        <article class="block">
+          <div class="divider">
+            <span class="divider-line"></span>
+            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
+              <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
+              <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
+            </svg>
+            <span class="divider-line"></span>
+          </div>
+          <p class="block-label"><span>Backlog · 14</span><span class="status">構想中</span></p>
           <h2 class="block-title">これから作りたいもの</h2>
           <p class="block-text">まだ手をつけていない案です。作ると決めたものではなく、「これが要るのでは」と思って書き留めてあるものを、そのまま置いておきます。どれも、越えないといけない壁のほうを先に書いています。</p>
 
           <ul class="uses">
             <li>
-              <span class="use-name">家庭教師を回すためのもの</span>
-              <p class="use-body">生徒・保護者・講師の三者で、日程と指導内容を同じ場所で見る。LINEで足りてしまうので、指導内容の透明化とドタキャンの扱いに絞らないと存在理由がない。</p>
-            </li>
-            <li>
               <span class="use-name">スマホを触らせないもの</span>
-              <p class="use-body">いまの FocusRoom がここに当たります。OS標準のスクリーンタイムが本命の競合なので、制限そのものではなく、解除の条件で差をつけるしかない。</p>
+              <p class="use-body">いまの Focus / Focus Game がここに当たります。OS標準のスクリーンタイムが本命の競合なので、制限そのものではなく、解除の条件で差をつけるしかない。</p>
             </li>
             <li>
               <span class="use-name">家族のためのもの</span>
@@ -628,7 +794,7 @@
           </ul>
         </article>
 
-        <!-- 07 応援 -->
+        <!-- 15 応援 -->
         <article class="block" id="support">
           <div class="divider">
             <span class="divider-line"></span>
