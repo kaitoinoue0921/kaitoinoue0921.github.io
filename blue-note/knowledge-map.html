@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blue Note - 医師国家試験 全科目＋公衆衛生＋問題解説連動マップ</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@400;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-main: #090d16;
+      --bg-panel: rgba(15, 23, 42, 0.92);
+      --bg-card: #1e293b;
+      --border-color: rgba(255, 255, 255, 0.08);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent-blue: #38bdf8;
+      --accent-cyan: #06b6d4;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body, html { width: 100%; height: 100%; overflow: hidden; font-family: 'Inter', 'Noto Sans JP', sans-serif; background-color: var(--bg-main); color: var(--text-primary); }
+    #app-container { display: flex; width: 100vw; height: 100vh; position: relative; }
+    #graph-container { flex: 1; height: 100%; position: relative; background: radial-gradient(circle at center, #131d31 0%, #090d16 100%); cursor: grab; }
+    #graph-container:active { cursor: grabbing; }
+    .top-bar { position: absolute; top: 16px; left: 16px; z-index: 20; display: flex; align-items: center; gap: 12px; background: var(--bg-panel); backdrop-filter: blur(12px); padding: 10px 16px; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4); }
+    .brand-title { font-size: 14px; font-weight: 700; color: var(--accent-blue); display: flex; align-items: center; gap: 8px; }
+    .brand-title span { background: rgba(56, 189, 248, 0.15); color: var(--accent-blue); font-size: 10px; padding: 2px 6px; border-radius: 4px; }
+    .search-input { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; padding: 6px 12px; font-size: 13px; color: var(--text-primary); outline: none; width: 180px; }
+    .search-input:focus { border-color: var(--accent-blue); width: 220px; }
+    .lod-controller { display: flex; align-items: center; gap: 8px; padding-left: 8px; border-left: 1px solid var(--border-color); font-size: 12px; color: var(--text-secondary); }
+    .lod-slider { -webkit-appearance: none; width: 80px; height: 6px; border-radius: 3px; background: var(--bg-card); outline: none; }
+    .lod-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%; background: var(--accent-blue); cursor: pointer; }
+    .btn-action { background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-secondary); padding: 6px 12px; border-radius: 8px; font-size: 12px; cursor: pointer; }
+    .btn-action:hover, .btn-action.active { background: rgba(56, 189, 248, 0.15); color: var(--text-primary); border-color: var(--accent-blue); }
+    .btn-qa { background: linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(168, 85, 247, 0.2)); color: #38bdf8; font-weight: 600; }
+    .filter-bar { position: absolute; bottom: 20px; left: 20px; z-index: 20; display: flex; flex-wrap: wrap; gap: 6px; max-width: 800px; }
+    .filter-tag { background: var(--bg-panel); backdrop-filter: blur(8px); border: 1px solid var(--border-color); color: var(--text-secondary); font-size: 11px; padding: 4px 10px; border-radius: 6px; cursor: pointer; }
+    .filter-tag:hover, .filter-tag.active { background: var(--accent-blue); color: #0f172a; font-weight: 600; }
+    #sidebar { width: 460px; height: 100%; background: var(--bg-panel); backdrop-filter: blur(20px); border-left: 1px solid var(--border-color); display: flex; flex-direction: column; z-index: 30; }
+    .sidebar-tabs { display: flex; border-bottom: 1px solid var(--border-color); background: rgba(0, 0, 0, 0.2); }
+    .sidebar-tab { flex: 1; padding: 12px; text-align: center; font-size: 12px; font-weight: 600; color: var(--text-muted); cursor: pointer; border-bottom: 2px solid transparent; }
+    .sidebar-tab.active { color: var(--accent-blue); border-bottom-color: var(--accent-blue); background: rgba(56, 189, 248, 0.05); }
+    .tab-content { display: none; flex: 1; overflow-y: auto; padding: 20px; flex-direction: column; gap: 16px; }
+    .tab-content.active { display: flex; }
+    .node-title { font-size: 17px; font-weight: 700; color: var(--text-primary); margin-bottom: 6px; }
+    .badge-category { font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px; display: inline-block; margin-bottom: 8px; }
+    .section-title { font-size: 11px; text-transform: uppercase; font-weight: 700; color: var(--text-muted); margin-bottom: 6px; }
+    .summary-box { background: rgba(255, 255, 255, 0.03); border-left: 3px solid var(--accent-blue); padding: 10px 12px; border-radius: 4px; font-size: 13px; color: #cbd5e1; line-height: 1.6; }
+    .details-box { font-size: 12.5px; color: #cbd5e1; line-height: 1.7; white-space: pre-wrap; background: var(--bg-card); padding: 14px; border-radius: 8px; border: 1px solid var(--border-color); }
+    .related-nodes-list { display: flex; flex-wrap: wrap; gap: 6px; }
+    .related-node-pill { background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.25); color: var(--accent-blue); font-size: 11px; padding: 4px 8px; border-radius: 6px; cursor: pointer; }
+    .related-node-pill:hover { background: var(--accent-blue); color: #0f172a; }
+    .qa-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+    .qa-vignette { font-size: 12px; color: #e2e8f0; line-height: 1.6; background: rgba(0, 0, 0, 0.25); padding: 10px; border-radius: 6px; border-left: 3px solid var(--accent-cyan); }
+    .wikilink { color: #38bdf8; background: rgba(56, 189, 248, 0.15); padding: 1px 5px; border-radius: 4px; font-weight: 600; cursor: pointer; text-decoration: underline dotted; }
+    .wikilink:hover { background: #38bdf8; color: #090d16; }
+    .custom-qa-textarea { width: 100%; height: 80px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-primary); padding: 8px; font-size: 12px; outline: none; }
+    .node circle { stroke-width: 2px; transition: r 0.2s; }
+    .node text { font-size: 11px; fill: #e2e8f0; pointer-events: none; text-shadow: 0 1px 4px rgba(0,0,0,0.9); }
+    .node.level-0 text { font-size: 14px; font-weight: 700; }
+    .node.level-1 text { font-size: 12px; font-weight: 600; }
+    .link { stroke-opacity: 0.35; stroke: #475569; }
+    .node.highlighted circle { stroke: #fff !important; stroke-width: 3.5px !important; }
+    .node.dimmed { opacity: 0.15; }
+    #btn-back-app { position: absolute; top: 16px; right: 16px; z-index: 20; }
+  </style>
+</head>
+<body>
+  <div id="app-container">
+    <div id="graph-container">
+      <a href="./" id="btn-back-app" class="btn-action" style="text-decoration:none;">← ブルーノートに戻る</a>
+      <div class="top-bar">
+        <div class="brand-title">BLUE NOTE <span>MED-MAP</span></div>
+        <input type="text" id="search-input" class="search-input" placeholder="疾患・条文・所見検索...">
+        <div class="lod-controller">
+          <span>視野 (LOD): <strong id="lod-text">Level 4</strong></span>
+          <input type="range" id="lod-slider" class="lod-slider" min="1" max="4" value="4">
+        </div>
+        <button class="btn-action btn-qa" id="btn-qa-toggle">📖 問題解説モード</button>
+        <button class="btn-action" id="btn-reset">全体俯瞰</button>
+      </div>
+
+      <div class="filter-bar" id="filter-bar">
+        <button class="filter-tag active" data-cat="ALL">ALL (全科目)</button>
+        <button class="filter-tag" data-cat="PublicHealth">公衆衛生・法規</button>
+        <button class="filter-tag" data-cat="Nephrology">腎臓内科</button>
+        <button class="filter-tag" data-cat="Cardiology">循環器内科</button>
+        <button class="filter-tag" data-cat="Pulmonology">呼吸器内科</button>
+        <button class="filter-tag" data-cat="Endocrinology">内分泌・代謝</button>
+        <button class="filter-tag" data-cat="Emergency">救急・中毒</button>
+      </div>
+      <svg id="graph-svg" width="100%" height="100%"></svg>
+    </div>
+
+    <div id="sidebar">
+      <div class="sidebar-tabs">
+        <div class="sidebar-tab active" id="tab-btn-inspect">🔍 ナレッジ詳細</div>
+        <div class="sidebar-tab" id="tab-btn-qa">📖 問題解説・症例連動</div>
+      </div>
+
+      <div class="tab-content active" id="tab-inspect">
+        <div>
+          <span class="badge-category" id="node-cat" style="background: rgba(56, 189, 248, 0.2); color: #38bdf8;">Category</span>
+          <h2 class="node-title" id="node-label">ノード名</h2>
+        </div>
+        <div>
+          <div class="section-title">📌 臨床サマリー & 国試要点</div>
+          <div class="summary-box" id="node-summary">概要</div>
+        </div>
+        <div>
+          <div class="section-title">🔬 診断基準・病理・法規・治療</div>
+          <div class="details-box" id="node-details">詳細</div>
+        </div>
+        <div>
+          <div class="section-title">🔗 関連ノード & 周辺知識</div>
+          <div class="related-nodes-list" id="node-related"></div>
+        </div>
+      </div>
+
+      <div class="tab-content" id="tab-qa">
+        <div class="qa-card">
+          <select id="qa-select" style="background:#090d16; color:#f8fafc; border:1px solid #334155; padding:6px; border-radius:6px; font-size:12px;"></select>
+          <div class="qa-vignette" id="qa-vignette"></div>
+          <div class="section-title">💡 解説（クリックでマップへジャンプ）</div>
+          <div id="qa-explanation" style="font-size:12px; line-height:1.7; color:#cbd5e1; white-space:pre-wrap;"></div>
+        </div>
+        <div style="margin-top:10px;">
+          <div class="section-title">✍️ 自分の解説文を解析</div>
+          <textarea id="qa-custom-input" class="custom-qa-textarea" placeholder="解説文をペーストして解析..."></textarea>
+          <button class="btn-action" id="btn-parse-qa" style="width:100%; margin-top:6px; justify-content:center;">🚀 解析してマップ連動</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 知識マップ データセット（抜粋・コア版）
+    const graphData = {
+      nodes: [
+        { id: "root", label: "医師国家試験 全科目マップ", category: "Root", level: 0, summary: "医学全科目および公衆衛生の体系マップ", details: "臨床推論・鑑別診断の全体俯瞰。" },
+        { id: "public_health", label: "公衆衛生・社会医学", category: "PublicHealth", level: 1, summary: "保健統計・医療法規・社会保障・労働衛生", details: "国試必修Fブロックの最重要分野。" },
+        { id: "ph_ethics_laws", label: "医師法・医療法・倫理", category: "PublicHealth", level: 2, summary: "医師法6大義務、異状死24時間以内届出", details: "応召義務(19条)、無診察治療禁止(20条)、異状死届出(21条: 所轄警察署へ24h以内)、カルテ5年保存(24条)。" },
+        { id: "ph_vital_stats", label: "人口動態統計 & 死因順位", category: "PublicHealth", level: 2, summary: "死因: 1位悪性新生物, 2位心疾患, 3位老衰", details: "合計特殊出生率1.20前後、高齢化率29%超、健康寿命(男72/女75)。" },
+        { id: "nephrology", label: "腎臓内科", category: "Nephrology", level: 1, summary: "水電解質・糸球体・尿細管・CKD・透析", details: "FENa、ネフローゼ、IgA腎症、RPGN、電解質異常、透析適応AIUEO。" },
+        { id: "disease_igan", label: "IgA腎症 (IgA Nephropathy)", category: "Nephrology", level: 3, summary: "感冒後1〜2日で肉眼的血尿、メサンギウムIgA沈着", details: "本邦最多の糸球体腎炎。血清補体正常。治療: 口蓋扁桃摘出術＋ステロイドパルス（扁摘パルス）、SGLT2阻害薬。" },
+        { id: "disease_psagn", label: "溶連菌後急性糸球体腎炎 (PSAGN)", category: "Nephrology", level: 3, summary: "咽頭炎後1-3週、一過性低補体血症(C3低下)、電顕Hump", details: "ASO/ASK上昇、血清C3著減（6-8週で回復）。電顕上皮下Hump。予後良好対症療法。" },
+        { id: "nep_sediment", label: "尿沈渣・円柱鑑別", category: "Nephrology", level: 4, summary: "赤血球円柱(腎炎), 白血球円柱(腎盂腎炎), マルタ十字(ネフローゼ)", details: "赤血球円柱＝糸球体腎炎、白血球円柱＝腎盂腎炎/AIN、泥状褐色円柱＝ATN、マルタ十字＝ネフローゼ。" },
+        { id: "nep_rhabdo", label: "横紋筋融解症 (Rhabdomyolysis)", category: "Nephrology", level: 3, summary: "尿潜血(＋)かつ沈渣RBC(−)、CK著増、ミオグロビン尿", details: "長時間の圧迫等。高K血症、急性尿細管壊死(ATN)。生食大量輸液＋重炭酸Na尿アルカリ化。" },
+        { id: "fluid_potassium", label: "高カリウム血症 & 緊急治療", category: "Nephrology", level: 3, summary: "テント状T波、カルチコール静注→GI療法→透析", details: "①心筋保護: グルコン酸カルシウム(カルチコール)静注 → ②細胞内シフト: GI療法 → ③体外排泄: 利尿薬/透析。" },
+        { id: "cardiology", label: "循環器内科", category: "Cardiology", level: 1, summary: "虚血性心疾患・心不全・不整脈・弁膜症", details: "STEMI、Forrester分類、GDMT Fantastic 4、不整脈鑑別。" },
+        { id: "card_stemi", label: "STEMI (ST上昇型心筋梗塞)", category: "Cardiology", level: 3, summary: "ST上昇・異常Q波、ドア・トゥ・バルーン<90分緊急PCI", details: "冠動脈完全閉塞。緊急PCI、DAPT、ヘパリン、スタチン、β遮断薬、ACEi。" },
+        { id: "card_hf_gdmt", label: "心不全の標準薬物療法 (Fantastic 4)", category: "Cardiology", level: 4, summary: "ARNI/ACEi, β遮断薬, MRA, SGLT2阻害薬", details: "HFrEFの予後改善4本柱。" },
+        { id: "endocrinology", label: "内分泌・代謝内科", category: "Endocrinology", level: 1, summary: "下垂体・甲状腺・副腎・糖尿病・電解質", details: "Basedow、原発性アルドステロン症、DKA vs HHS。" },
+        { id: "endo_dka", label: "糖尿病ケトアシドーシス (DKA)", category: "Endocrinology", level: 3, summary: "1型初発、高ケトン、AG開大アシドーシス、Kussmaul呼吸", details: "血糖300-600、AG開大。治療: 生食急速輸液＋速効型インスリン点滴（K補正管理）。" },
+        { id: "emergency_critical", label: "救急・集中治療科", category: "Emergency", level: 1, summary: "ショック4分類・ACLS・急性中毒", details: "心原性/循環血液量減少/分布異常/閉塞性、特異的拮抗薬。" },
+        { id: "emg_antidote", label: "急性中毒 & 特異的拮抗薬", category: "Emergency", level: 4, summary: "有機リン(PAM/アトロピン), アセトアミノフェン(NAC), BZD(フルマゼニル)", details: "有機リン＝PAM+アトロピン、アセトアミノフェン＝N-アセチルシステイン、麻薬＝ナロキソン。" }
+      ],
+      links: [
+        { source: "root", target: "public_health" },
+        { source: "root", target: "nephrology" },
+        { source: "root", target: "cardiology" },
+        { source: "root", target: "endocrinology" },
+        { source: "root", target: "emergency_critical" },
+        { source: "public_health", target: "ph_ethics_laws" },
+        { source: "public_health", target: "ph_vital_stats" },
+        { source: "nephrology", target: "disease_igan" },
+        { source: "nephrology", target: "disease_psagn" },
+        { source: "nephrology", target: "nep_sediment" },
+        { source: "nephrology", target: "nep_rhabdo" },
+        { source: "nephrology", target: "fluid_potassium" },
+        { source: "cardiology", target: "card_stemi" },
+        { source: "cardiology", target: "card_hf_gdmt" },
+        { source: "endocrinology", target: "endo_dka" },
+        { source: "emergency_critical", target: "emg_antidote" }
+      ]
+    };
+
+    const sampleQ = [
+      {
+        title: "【腎臓・117回風】24歳男性 肉眼的血尿と感冒先行",
+        vignette: "24歳男性。2日前の咽頭痛・発熱後に紅茶色の尿が出現。尿蛋白(2+), 潜血(3+), 尿沈渣で [[尿沈渣・円柱鑑別]] (赤血球円柱) を認める。血清C3/C4正常。",
+        explanation: "感冒後1〜2日の短期間での無痛性肉眼的血尿より [[IgA腎症 (IgA Nephropathy)]] の典型。鑑別の [[溶連菌後急性糸球体腎炎 (PSAGN)]] は潜伏期が1〜3週でC3低下を伴う。治療は口蓋扁桃摘出術＋ステロイドパルス。"
+      },
+      {
+        title: "【公衆衛生・必修】当直中の急変と不自然な死体検案",
+        vignette: "72歳男性が病室で心肺停止。頭部に明らかな外傷性の創傷と打撲痕を認めた。",
+        explanation: "異状死と判断されるため、[[医師法・医療法・倫理]] (医師法第21条) に基づき【24時間以内に所轄警察署】に届け出る義務がある。"
+      },
+      {
+        title: "【救急・腎臓】倒れて動けなかった高齢者の急性腎不全",
+        vignette: "78歳男性。床に20時間倒れていた。尿潜血(3+)だが沈渣赤血球(0-1/視野)。CK 38,000 U/L, K 6.1 mEq/L。",
+        explanation: "潜血陽性・沈渣RBC陰性の解離とCK著増より [[横紋筋融解症 (Rhabdomyolysis)]]。心電図変化を警戒し [[高カリウム血症 & 緊急治療]] のプロトコルに従いグルコン酸Ca投与、生食大量輸液を行う。"
+      }
+    ];
+
+    const catColors = { Root: "#ffffff", PublicHealth: "#10b981", Nephrology: "#38bdf8", Cardiology: "#f43f5e", Endocrinology: "#f59e0b", Emergency: "#ef4444" };
+    let currentLOD = 4, selectedCat = "ALL", highlightedIds = new Set();
+
+    const svg = d3.select("#graph-svg");
+    const width = document.getElementById("graph-container").clientWidth;
+    const height = document.getElementById("graph-container").clientHeight;
+    const gMain = svg.append("g");
+    const gLinks = gMain.append("g");
+    const gNodes = gMain.append("g");
+
+    const zoom = d3.zoom().scaleExtent([0.2, 4]).on("zoom", e => gMain.attr("transform", e.transform));
+    svg.call(zoom);
+
+    const simulation = d3.forceSimulation()
+      .force("link", d3.forceLink().id(d => d.id).distance(80))
+      .force("charge", d3.forceManyBody().strength(-200))
+      .force("center", d3.forceCenter(width / 2, height / 2))
+      .force("collision", d3.forceCollide().radius(24));
+
+    function getFiltered() {
+      const nodes = graphData.nodes.filter(n => {
+        if (highlightedIds.size > 0 && highlightedIds.has(n.id)) return true;
+        if (n.level > currentLOD) return false;
+        if (selectedCat !== "ALL" && n.category !== selectedCat && n.level >= 1) return false;
+        return true;
+      });
+      const ids = new Set(nodes.map(n => n.id));
+      const links = graphData.links.filter(l => ids.has(l.source.id || l.source) && ids.has(l.target.id || l.target));
+      return { nodes, links };
+    }
+
+    function update() {
+      const { nodes, links } = getFiltered();
+      const link = gLinks.selectAll(".link").data(links, d => `${d.source.id || d.source}-${d.target.id || d.target}`);
+      link.exit().remove();
+      const linkEnter = link.enter().append("line").attr("class", "link");
+      const allLinks = linkEnter.merge(link);
+
+      const node = gNodes.selectAll(".node").data(nodes, d => d.id);
+      node.exit().remove();
+      const nodeEnter = node.enter().append("g").attr("class", d => `node level-${d.level}`)
+        .call(d3.drag().on("start", dragstart).on("drag", dragged).on("end", dragend))
+        .on("click", (e, d) => { selectNode(d); highlightNeighbours(d); });
+
+      nodeEnter.append("circle").attr("r", d => [20, 15, 11, 8, 6][d.level] || 8).attr("fill", d => catColors[d.category] || "#38bdf8");
+      nodeEnter.append("text").attr("dx", 12).attr("dy", ".35em").text(d => d.label);
+      const allNodes = nodeEnter.merge(node);
+
+      if (highlightedIds.size > 0) {
+        allNodes.classed("highlighted", d => highlightedIds.has(d.id));
+        allNodes.classed("dimmed", d => !highlightedIds.has(d.id));
+      } else {
+        allNodes.classed("highlighted", false);
+        allNodes.classed("dimmed", false);
+      }
+
+      simulation.nodes(nodes);
+      simulation.force("link").links(links);
+      simulation.alpha(0.3).restart();
+      simulation.on("tick", () => {
+        allLinks.attr("x1", d => d.source.x).attr("y1", d => d.source.y).attr("x2", d => d.target.x).attr("y2", d => d.target.y);
+        allNodes.attr("transform", d => `translate(${d.x},${d.y})`);
+      });
+    }
+
+    function selectNode(n) {
+      document.getElementById("node-cat").textContent = n.category;
+      document.getElementById("node-label").textContent = n.label;
+      document.getElementById("node-summary").textContent = n.summary;
+      document.getElementById("node-details").textContent = n.details;
+      const rel = document.getElementById("node-related");
+      rel.innerHTML = "";
+      graphData.links.forEach(l => {
+        const s = l.source.id || l.source, t = l.target.id || l.target;
+        if (s === n.id || t === n.id) {
+          const targetId = s === n.id ? t : s;
+          const targetNode = graphData.nodes.find(node => node.id === targetId);
+          if (targetNode) {
+            const pill = document.createElement("div");
+            pill.className = "related-node-pill";
+            pill.textContent = targetNode.label;
+            pill.onclick = () => { selectNode(targetNode); focusNode(targetNode); highlightNeighbours(targetNode); };
+            rel.appendChild(pill);
+          }
+        }
+      });
+    }
+
+    function highlightNeighbours(n) {
+      highlightedIds.clear();
+      highlightedIds.add(n.id);
+      graphData.links.forEach(l => {
+        const s = l.source.id || l.source, t = l.target.id || l.target;
+        if (s === n.id) highlightedIds.add(t);
+        if (t === n.id) highlightedIds.add(s);
+      });
+      update();
+    }
+
+    function focusNode(n) {
+      if (!n.x) return;
+      svg.transition().duration(500).call(zoom.transform, d3.zoomIdentity.translate(width/2, height/2).scale(1.2).translate(-n.x, -n.y));
+    }
+
+    function jumpTo(keyword) {
+      const match = graphData.nodes.find(n => n.id === keyword || n.label.includes(keyword) || keyword.includes(n.label));
+      if (match) {
+        setTab("inspect");
+        selectNode(match);
+        focusNode(match);
+        highlightNeighbours(match);
+      }
+    }
+
+    function parseWikiLinks(text) {
+      return text.replace(/\[\[(.*?)\]\]/g, (m, p) => `<span class="wikilink" onclick="jumpTo('${p}')">${p}</span>`);
+    }
+
+    function loadQA(q) {
+      document.getElementById("qa-vignette").innerHTML = parseWikiLinks(q.vignette);
+      document.getElementById("qa-explanation").innerHTML = parseWikiLinks(q.explanation);
+    }
+
+    function setTab(tab) {
+      document.querySelectorAll(".sidebar-tab").forEach(t => t.classList.remove("active"));
+      document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
+      if (tab === "inspect") {
+        document.getElementById("tab-btn-inspect").classList.add("active");
+        document.getElementById("tab-inspect").classList.add("active");
+      } else {
+        document.getElementById("tab-btn-qa").classList.add("active");
+        document.getElementById("tab-qa").classList.add("active");
+      }
+    }
+
+    document.getElementById("tab-btn-inspect").onclick = () => setTab("inspect");
+    document.getElementById("tab-btn-qa").onclick = () => setTab("qa");
+    document.getElementById("btn-qa-toggle").onclick = () => setTab("qa");
+
+    const sel = document.getElementById("qa-select");
+    sampleQ.forEach((q, i) => {
+      const opt = document.createElement("option"); opt.value = i; opt.textContent = q.title; sel.appendChild(opt);
+    });
+    sel.onchange = e => loadQA(sampleQ[e.target.value]);
+
+    document.getElementById("btn-parse-qa").onclick = () => {
+      const txt = document.getElementById("qa-custom-input").value;
+      if (!txt) return;
+      let annotated = txt;
+      graphData.nodes.forEach(n => {
+        if (n.level > 0 && txt.includes(n.label)) annotated = annotated.replaceAll(n.label, `[[${n.label}]]`);
+      });
+      loadQA({ title: "カスタム解説", vignette: "ペーストされた解説文の解析結果", explanation: annotated });
+    };
+
+    document.getElementById("lod-slider").oninput = e => { currentLOD = +e.target.value; document.getElementById("lod-text").textContent = `Level ${currentLOD}`; update(); };
+    document.querySelectorAll(".filter-tag").forEach(t => t.onclick = e => {
+      document.querySelectorAll(".filter-tag").forEach(b => b.classList.remove("active"));
+      t.classList.add("active"); selectedCat = t.dataset.cat; highlightedIds.clear(); update();
+    });
+    document.getElementById("btn-reset").onclick = () => { highlightedIds.clear(); update(); svg.transition().duration(500).call(zoom.transform, d3.zoomIdentity); };
+
+    function dragstart(e) { if (!e.active) simulation.alphaTarget(0.3).restart(); e.subject.fx = e.subject.x; e.subject.fy = e.subject.y; }
+    function dragged(e) { e.subject.fx = e.x; e.subject.fy = e.y; }
+    function dragend(e) { if (!e.active) simulation.alphaTarget(0); e.subject.fx = null; e.subject.fy = null; }
+
+    update();
+    loadQA(sampleQ[0]);
+    selectNode(graphData.nodes[0]);
+
+    window.addEventListener("load", () => {
+      const w = document.getElementById("graph-container").clientWidth;
+      const h = document.getElementById("graph-container").clientHeight;
+      simulation.force("center", d3.forceCenter(w / 2, h / 2));
+      simulation.alpha(0.5).restart();
+    });
+    window.addEventListener("resize", () => {
+      const w = document.getElementById("graph-container").clientWidth;
+      const h = document.getElementById("graph-container").clientHeight;
+      simulation.force("center", d3.forceCenter(w / 2, h / 2));
+      simulation.alpha(0.3).restart();
+    });
+  </script>
+</body>
+</html>
