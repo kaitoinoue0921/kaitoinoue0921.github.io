@@ -522,10 +522,17 @@ function importProgress(file){
 }
 
 function exportProgress(){
-  const blob = new Blob([JSON.stringify(S, null, 1)], { type: 'application/json' });
+  if (!S.name){
+    const n = prompt('名前を入れてください（先生に見てもらうときの目印になります。空欄でも構いません）', '');
+    if (n) { S.name = n.slice(0, 20); save(); }
+  }
+  const payload = { ...S, exportedAt: new Date().toISOString(),
+                    summary: { 習得: Object.keys(S.rec).length, 全項目: N.length,
+                               パワー: +power().toFixed(0), 想定得点: +mscore().toFixed(0), レベル: level() } };
+  const blob = new Blob([JSON.stringify(payload, null, 1)], { type: 'application/json' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = 'todai-math-progress.json';
+  a.download = `数学マップ_${(S.name || '進捗').replace(/[\\/:*?"<>|]/g, '')}_${new Date().toISOString().slice(0,10)}.json`;
   a.click();
   URL.revokeObjectURL(a.href);
 }
@@ -1275,9 +1282,44 @@ function bindPast(){
 }
 
 /* ---------- 設計方針 ---------- */
+function feedbackLink(kind){
+  const body = [
+    kind === 'bug' ? '【不具合の報告】' : '【感想・要望】',
+    '',
+    'どこで、何が起きましたか：',
+    '',
+    '',
+    '---- 以下は状況の記録です（消さずに送っていただけると助かります）----',
+    `画面: ${location.href}`,
+    `習得: ${Object.keys(S.rec).length} / ${N.length} 項目　Lv ${level()}　パワー ${power().toFixed(0)}`,
+    `診断: ${S.placed ? '受験済み' : '未受験'}　保存: ${canStore ? '有効' : '無効'}`,
+    `ビルド: ${DATA.builtAt}`,
+    `端末: ${navigator.userAgent}`
+  ].join('\n');
+  return `mailto:kaito.inoue0921@gmail.com?subject=${encodeURIComponent(
+    (kind === 'bug' ? '[数学マップ] 不具合の報告' : '[数学マップ] 感想・要望'))}&body=${encodeURIComponent(body)}`;
+}
+
 function docHTML(){
   const s = DATA.synthesis, g = GM.design;
   return `<div class="doc">
+    <h3>先生・保護者の方へ</h3>
+    <p style="font-size:13.5px">生徒が「進捗を書き出す」で保存したファイルを読み込むと、
+      複数人の到達度を並べて比べられる画面があります。
+      <b>データはその端末から出ません</b>（どこにも送信されず、閉じれば消えます）。</p>
+    <a class="btn sec" href="./teacher.html" target="_blank" rel="noopener"
+       style="text-decoration:none;display:inline-block">先生用ビューを開く</a>
+    <p style="font-size:12px;color:var(--dim);margin-top:8px">
+      分野別の到達、東大で頻出なのに手つかずのテーマ、次に指導するとよい項目が生徒ごとに出ます。</p>
+
+    <h3>感想・不具合を送る</h3>
+    <p style="font-size:13.5px">使ってみて気づいたことがあれば教えてください。
+      <b>「ここが分かりにくい」「この項目の説明が違う」</b>といった指摘が、次に何を直すかを決める材料になります。</p>
+    <a class="btn" href="${feedbackLink('feedback')}" style="text-decoration:none;display:inline-block">感想・要望を送る</a>
+    <a class="btn sec" href="${feedbackLink('bug')}" style="text-decoration:none;display:inline-block">不具合を報告する</a>
+    <p style="font-size:12px;color:var(--dim);margin-top:10px">
+      メールアプリが開きます。今の画面の状態（習得数・端末の種類など）が本文に自動で入りますが、
+      個人を特定する情報や学習の中身は含まれません。送信するかどうかは自分で決められます。</p>
     <h3>教材の統合</h3><p>${esc(s.principle)}</p><p style="color:var(--dim)">${esc(s.why)}</p>
     <table><tr><th>教材</th><th>強み</th><th>弱み</th><th>統合先</th></tr>
     ${s.functionMap.map(f => `<tr><td><b>${esc(f.source)}</b></td><td>${esc(f.strength)}</td>
