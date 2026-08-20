@@ -118,7 +118,11 @@
   .opt.ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 16%,var(--panel2))}
   .opt.ng{border-color:var(--hot);background:color-mix(in srgb,var(--hot) 16%,var(--panel2))}
   .qin{background:var(--panel2);border:1px solid var(--line);color:var(--fg);border-radius:6px;
-    padding:9px 12px;font-size:16px;font-family:inherit;width:190px}
+    padding:12px 14px;font-size:17px;font-family:inherit;flex:1;min-width:0;max-width:280px}
+  .qin:focus{outline:none;border-color:var(--accent)}
+  .ansrow{display:flex;gap:8px;align-items:stretch;flex-wrap:wrap}
+  .ansrow .btn{margin:0;padding:12px 22px}
+  .anshint{font-size:11.5px;color:var(--dim);margin-top:7px;line-height:1.6}
   .fb{margin-top:12px;padding:11px 13px;border-radius:6px;font-size:13px;line-height:1.65}
   .fb.ok{background:color-mix(in srgb,var(--ok) 15%,var(--panel2))}
   .fb.ng{background:color-mix(in srgb,var(--hot) 15%,var(--panel2))}
@@ -545,8 +549,12 @@ function showPl(){
     <div class="qq">${esc(it.q)}</div>
     <div id="qa">${
       it.type === 'number'
-        ? `<input class="qin" id="qnum" placeholder="答えを入力" autocomplete="off">
-           <button class="btn" id="qok" style="margin-left:8px">決定</button>`
+        ? `<div class="ansrow">
+             <input class="qin" id="qnum" placeholder="答えを入力（半角）" autocomplete="off"
+                    autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="done">
+             <button class="btn" id="qok">決定</button>
+           </div>
+           <div class="anshint">日本語入力はオフにしてください。全角で打っても判定はしますが、半角のほうが確実です。</div>`
         : it.options.map((o, i) => `<button class="opt" data-i="${i}">${esc(o)}</button>`).join('')
     }</div>
     <div id="qfb"></div>
@@ -554,8 +562,8 @@ function showPl(){
   if (it.type === 'number'){
     const go = () => plAnswer($('#qnum').value.trim());
     $('#qok').onclick = go;
-    $('#qnum').onkeydown = e => e.key === 'Enter' && go();
-    $('#qnum').focus();
+    $('#qnum').onkeydown = e => { if (e.key === 'Enter' && !isComposing(e)) go(); };
+    setTimeout(() => $('#qnum') && $('#qnum').focus(), 60);
   } else {
     $('#qa').querySelectorAll('.opt').forEach(b => b.onclick = () => plAnswer(+b.dataset.i));
   }
@@ -564,7 +572,7 @@ function showPl(){
 
 function plAnswer(a){
   const it = PL.items[pl.i];
-  const norm = s => String(s).replace(/\s|　/g, '').replace(/²/g, '^2').replace(/pi/gi, 'π').toLowerCase();
+  const norm = normalizeAnswer;
   const ok = a === null ? false
     : it.type === 'number' ? (it.accept || [it.answer]).some(x => norm(x) === norm(a))
     : a === it.answer;
@@ -894,6 +902,24 @@ function pull(){
   $('#pull').onclick = pull;
 }
 
+/* 入力のゆらぎを吸収する。
+   日本語入力がオンのまま打つと全角（ｘ＾２）になるので、半角に直してから比較する。 */
+function normalizeAnswer(v){
+  return String(v)
+    .replace(/[Ａ-Ｚａ-ｚ０-９＋－＊／＾（）．，＝]/g,          // 全角英数記号 → 半角
+             c => String.fromCharCode(c.charCodeAt(0) - 0xFEE0))
+    .replace(/[−–—ー]/g, '-')                                   // 各種マイナス・長音 → ハイフン
+    .replace(/[÷]/g, '/').replace(/[×]/g, '*')
+    .replace(/√/g, 'root').replace(/[ππ]/g, 'pi')               // √ と π は綴りに寄せる
+    .replace(/²/g, '^2').replace(/³/g, '^3')
+    .replace(/\s|　/g, '')                                      // 空白（全角も）を除去
+    .replace(/^\((.*)\)$/, '$1')                               // 全体を囲む括弧を外す
+    .toLowerCase();
+}
+
+// 日本語入力の変換中かどうか（変換確定の Enter を送信と誤認しないため）
+const isComposing = e => e.isComposing || e.keyCode === 229;
+
 /* ---------- 詳細 ＋ テスト ---------- */
 let quiz = null;
 
@@ -976,22 +1002,26 @@ function showQ(){
     <div class="qq">${esc(it.q)}</div>
     <div id="qa">${
       it.type === 'number'
-        ? `<input class="qin" id="qnum" placeholder="答えを入力" autocomplete="off">
-           <button class="btn" id="qok" style="margin-left:8px">決定</button>`
+        ? `<div class="ansrow">
+             <input class="qin" id="qnum" placeholder="答えを入力（半角）" autocomplete="off"
+                    autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="done">
+             <button class="btn" id="qok">決定</button>
+           </div>
+           <div class="anshint">日本語入力はオフにしてください。全角で打っても判定はしますが、半角のほうが確実です。</div>`
         : it.options.map((o,i) => `<button class="opt" data-i="${i}">${esc(o)}</button>`).join('')
     }</div><div id="qfb"></div>`;
   if (it.type === 'number'){
     const go = () => answer($('#qnum').value.trim());
     $('#qok').onclick = go;
-    $('#qnum').onkeydown = e => e.key === 'Enter' && go();
-    $('#qnum').focus();
+    $('#qnum').onkeydown = e => { if (e.key === 'Enter' && !isComposing(e)) go(); };
+    setTimeout(() => $('#qnum') && $('#qnum').focus(), 60);
   } else {
     $('#qa').querySelectorAll('.opt').forEach(b => b.onclick = () => answer(+b.dataset.i));
   }
 }
 function answer(a){
   const q = QZ.get(quiz.id), it = q.items[quiz.i];
-  const norm = s => String(s).replace(/\s|　/g,'').replace(/pi/gi,'π');
+  const norm = normalizeAnswer;
   const ok = it.type === 'number'
     ? (it.accept || [it.answer]).some(x => norm(x) === norm(a))
     : a === it.answer;

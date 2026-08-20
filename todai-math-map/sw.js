@@ -1,6 +1,6 @@
 /* オフライン対応。アプリ本体は単一HTMLなので、初回アクセス後は通信なしで動く。
    ビルドのたびに CACHE の版が上がり、古いキャッシュは activate で捨てる。 */
-const CACHE = 'todai-math-20260820-8gff';
+const CACHE = 'todai-math-20260820-w7xk';
 const ASSETS = [
   './', './index.html', './app.html', './manifest.webmanifest',
   './icon-192.png', './icon-512.png', './icon-maskable.png', './apple-touch-icon.png'
