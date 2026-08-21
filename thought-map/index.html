@@ -1,0 +1,1980 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>思想の系譜 — 大人のための哲学ナレッジマップ</title>
+<meta name="description" content="高校倫理の体系を大人の教養として読み直す、東西29人の思想家のナレッジマップ。系譜図・東洋/西洋思想・「幸福」「愛」などのテーマ別に、思想の継承や変遷を視覚的に辿れる。登録不要・完全無料。">
+<meta name="theme-color" content="#0a0c12">
+<link rel="icon" href="../favicon.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<meta property="og:title" content="思想の系譜">
+<meta property="og:description" content="高校倫理の体系を大人の教養として読み直す、東西29人の思想家のナレッジマップ。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/thought-map/">
+<meta property="og:site_name" content="思想の系譜">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="思想の系譜">
+<meta name="twitter:description" content="高校倫理の体系を大人の教養として読み直す、東西29人の思想家のナレッジマップ。">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/thought-map/">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Noto+Serif+JP:wght@400;500;600&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<style>
+  :root{
+    --bg:#0a0c12;
+    --panel:#12151f;
+    --panel-2:#171b28;
+    --border:#272c3d;
+    --border-soft:#1d2130;
+    --ink:#e8e5da;
+    --ink-soft:#b5b8c6;
+    --ink-mute:#767c92;
+    --indigo:#8489f0;
+    --indigo-dim:#4a4f83;
+    --indigo-glow:rgba(132,137,240,0.22);
+    --amber:#d7a154;
+    --amber-soft:#e9c78c;
+    --amber-glow:rgba(215,161,84,0.20);
+    --edge:#333a52;
+    --serif-display:'Shippori Mincho', 'Hiragino Mincho ProN', serif;
+    --serif-body:'Noto Serif JP', 'Hiragino Mincho ProN', serif;
+    --sans:'Zen Kaku Gothic New', 'Hiragino Sans', sans-serif;
+  }
+
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; }
+  html, body{ height:100%; }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--serif-body);
+    -webkit-font-smoothing:antialiased;
+    overflow:hidden;
+  }
+  ::selection{ background:var(--amber-glow); color:var(--ink); }
+
+  a{ color:var(--amber-soft); }
+
+  /* ---------- layout shell ---------- */
+  .shell{
+    display:flex;
+    flex-direction:column;
+    height:100vh;
+  }
+
+  .topbar{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:16px;
+    padding:22px 32px 18px;
+    border-bottom:1px solid var(--border-soft);
+    flex-wrap:wrap;
+  }
+  .topbar .brand{
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+    flex-wrap:wrap;
+  }
+  .topbar h1{
+    font-family:var(--serif-display);
+    font-weight:800;
+    font-size:22px;
+    letter-spacing:.04em;
+    margin:0;
+    color:var(--ink);
+    white-space:nowrap;
+  }
+  .topbar .kicker{
+    font-family:var(--sans);
+    font-size:11px;
+    letter-spacing:.18em;
+    color:var(--indigo);
+    text-transform:uppercase;
+  }
+  .topbar .tagline{
+    font-family:var(--sans);
+    font-size:12.5px;
+    color:var(--ink-mute);
+    letter-spacing:.02em;
+  }
+
+  .main{
+    display:flex;
+    flex:1;
+    min-height:0;
+  }
+  @media (max-width: 920px){
+    html, body{ height:auto; }
+    body{ overflow:auto; }
+    .shell{ height:auto; }
+    .main{ flex-direction:column; overflow:visible; }
+  }
+
+  /* ---------- left: graph pane ---------- */
+  .graph-pane{
+    flex:1 1 60%;
+    min-width:0;
+    display:flex;
+    flex-direction:column;
+    border-right:1px solid var(--border-soft);
+    background:
+      radial-gradient(ellipse 60% 50% at 30% 20%, var(--indigo-glow), transparent 60%),
+      radial-gradient(ellipse 50% 40% at 80% 75%, var(--amber-glow), transparent 60%),
+      var(--bg);
+  }
+  @media (max-width: 920px){
+    .graph-pane{ border-right:none; border-bottom:1px solid var(--border-soft); }
+  }
+
+  .mode-switch{
+    display:flex;
+    gap:4px;
+    padding:16px 24px 0;
+  }
+  .mode-btn{
+    font-family:var(--sans);
+    font-size:12.5px;
+    font-weight:500;
+    letter-spacing:.03em;
+    color:var(--ink-mute);
+    background:transparent;
+    border:none;
+    border-bottom:2px solid transparent;
+    padding:0 4px 12px;
+    margin-right:20px;
+    cursor:pointer;
+    transition:color .15s ease, border-color .15s ease;
+  }
+  .mode-btn:hover{ color:var(--ink-soft); }
+  .mode-btn.active{
+    color:var(--ink);
+    border-bottom-color:var(--amber);
+  }
+
+  .graph-view, .theme-view{ display:flex; flex-direction:column; flex:1; min-height:0; }
+  .graph-view.hidden, .theme-view.hidden{ display:none; }
+
+  .theme-view{
+    overflow-y:auto;
+    padding:22px 24px 32px;
+  }
+  .theme-intro{
+    font-family:var(--sans);
+    font-size:12.5px;
+    line-height:1.9;
+    color:var(--ink-mute);
+    padding-bottom:20px;
+    margin-bottom:22px;
+    border-bottom:1px solid var(--border-soft);
+  }
+  .theme-grid{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+  .theme-card{
+    text-align:left;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:20px 22px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .15s ease;
+  }
+  .theme-card:hover{ border-color:var(--indigo); transform:translateY(-1px); }
+  .theme-card.active{ border-color:var(--amber); background:var(--panel-2); }
+  .theme-card-title{
+    font-family:var(--serif-display);
+    font-weight:700;
+    font-size:19px;
+    color:var(--ink);
+    margin-bottom:8px;
+  }
+  .theme-card-teaser{
+    font-size:13px;
+    line-height:1.8;
+    color:var(--ink-soft);
+    margin-bottom:12px;
+  }
+  .theme-card-who{
+    font-family:var(--sans);
+    font-size:11px;
+    letter-spacing:.04em;
+    color:var(--ink-mute);
+  }
+  .theme-card-who span{ color:var(--amber-soft); }
+
+  .filters{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    padding:16px 24px;
+    border-bottom:1px solid var(--border-soft);
+  }
+  .chip{
+    font-family:var(--sans);
+    font-size:12px;
+    letter-spacing:.03em;
+    color:var(--ink-soft);
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:100px;
+    padding:6px 14px;
+    cursor:pointer;
+    transition:border-color .15s ease, color .15s ease, background .15s ease;
+    white-space:nowrap;
+  }
+  .chip:hover{ color:var(--ink); border-color:var(--indigo-dim); }
+  .chip.active{
+    color:var(--bg);
+    background:var(--amber-soft);
+    border-color:var(--amber-soft);
+    font-weight:700;
+  }
+
+  .region-filters{ padding-bottom:12px; }
+  .chip.region-chip{ font-weight:600; }
+  .chip.region-chip.active{
+    color:var(--ink);
+    background:var(--indigo-dim);
+    border-color:var(--indigo);
+  }
+
+  .graph-wrap{
+    flex:1;
+    position:relative;
+    min-height:460px;
+  }
+  .graph-wrap svg{
+    width:100%;
+    height:100%;
+    display:block;
+  }
+
+  .lane-label{
+    font-family:var(--sans);
+    font-size:12px;
+    letter-spacing:.1em;
+    fill:var(--ink-mute);
+    text-anchor:middle;
+  }
+  .lane-label.dim{ opacity:.25; }
+
+  .node{ cursor:pointer; }
+  .node circle.core{
+    fill:var(--panel-2);
+    stroke:var(--indigo-dim);
+    stroke-width:1.6;
+    transition:stroke .18s ease, fill .18s ease, filter .18s ease;
+  }
+  .node.featured circle.core{ stroke:var(--amber); stroke-width:2; }
+  .node text.name{
+    font-family:var(--sans);
+    font-weight:700;
+    fill:var(--ink);
+    text-anchor:middle;
+    pointer-events:none;
+  }
+  .node text.era{
+    font-family:var(--sans);
+    fill:var(--ink-mute);
+    text-anchor:middle;
+    pointer-events:none;
+    font-size:9px;
+    letter-spacing:.03em;
+  }
+  .node.dim{ opacity:.22; }
+  .node:hover circle.core{ stroke:var(--indigo); filter:drop-shadow(0 0 6px var(--indigo-glow)); }
+  .node.selected circle.core{
+    fill:var(--panel-2);
+    stroke:var(--amber);
+    stroke-width:2.6;
+    filter:drop-shadow(0 0 10px var(--amber-glow));
+  }
+  .node.neighbor circle.core{ stroke:var(--indigo); stroke-width:2; }
+
+  .edge{
+    fill:none;
+    stroke:var(--edge);
+    stroke-width:1.3;
+    transition:stroke .18s ease, stroke-width .18s ease, opacity .18s ease;
+  }
+  .edge.dim{ opacity:.12; }
+  .edge.active{ stroke:var(--amber); stroke-width:2; }
+  .edge-label{
+    font-family:var(--sans);
+    font-size:9.5px;
+    fill:var(--ink-mute);
+    text-anchor:middle;
+    pointer-events:none;
+    transition:fill .18s ease, opacity .18s ease;
+  }
+  .edge-label.active{ fill:var(--amber-soft); }
+  .edge-label.dim{ opacity:.12; }
+
+  .legend{
+    display:flex;
+    gap:18px;
+    flex-wrap:wrap;
+    padding:12px 24px 18px;
+    font-family:var(--sans);
+    font-size:11px;
+    color:var(--ink-mute);
+    border-top:1px solid var(--border-soft);
+  }
+  .legend span{ display:inline-flex; align-items:center; gap:6px; }
+  .legend i{ width:16px; height:1.5px; background:var(--edge); display:inline-block; }
+
+  /* ---------- right: reading pane ---------- */
+  .reading-pane{
+    flex:0 0 500px;
+    max-width:500px;
+    overflow-y:auto;
+    padding:0 0 80px;
+  }
+  @media (max-width: 920px){
+    .reading-pane{ flex:1 1 auto; max-width:100%; max-height:none; }
+  }
+
+  .article{
+    padding:36px 40px;
+  }
+  @media (max-width: 560px){
+    .article{ padding:28px 22px; }
+  }
+
+  .intro{
+    padding:60px 40px;
+    color:var(--ink-soft);
+  }
+  .intro h2{
+    font-family:var(--serif-display);
+    font-size:26px;
+    color:var(--ink);
+    line-height:1.6;
+    margin:0 0 18px;
+  }
+  .intro p{ line-height:2; font-size:14.5px; }
+
+  .art-eyebrow{
+    font-family:var(--sans);
+    font-size:11px;
+    letter-spacing:.16em;
+    color:var(--indigo);
+    text-transform:uppercase;
+  }
+  .art-name{
+    font-family:var(--serif-display);
+    font-weight:800;
+    font-size:32px;
+    color:var(--ink);
+    margin:8px 0 4px;
+    line-height:1.3;
+    text-wrap:balance;
+  }
+  .art-era{
+    font-family:var(--sans);
+    font-size:12.5px;
+    color:var(--ink-mute);
+    margin-bottom:18px;
+  }
+  .art-oneliner{
+    font-family:var(--serif-body);
+    font-size:15.5px;
+    line-height:1.95;
+    color:var(--ink-soft);
+    padding-bottom:22px;
+    border-bottom:1px solid var(--border-soft);
+    margin-bottom:26px;
+  }
+
+  .section{ margin-bottom:32px; }
+  .section-title{
+    font-family:var(--sans);
+    font-size:11px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--amber);
+    margin-bottom:12px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .section-title::after{
+    content:"";
+    flex:1;
+    height:1px;
+    background:var(--border);
+  }
+
+  .question-box{
+    font-family:var(--serif-body);
+    font-size:16px;
+    line-height:2;
+    color:var(--ink);
+    background:var(--panel);
+    border-left:2px solid var(--indigo);
+    padding:18px 22px;
+    border-radius:2px;
+  }
+
+  .idea{ margin-bottom:18px; }
+  .idea:last-child{ margin-bottom:0; }
+  .idea-term{
+    font-family:var(--serif-display);
+    font-weight:700;
+    font-size:15.5px;
+    color:var(--ink);
+    margin-bottom:6px;
+  }
+  .idea-desc{
+    font-size:14px;
+    line-height:1.95;
+    color:var(--ink-soft);
+  }
+
+  .insight-list{
+    margin:0; padding:0;
+    list-style:none;
+  }
+  .insight-list li{
+    position:relative;
+    padding:0 0 14px 22px;
+    font-size:14px;
+    line-height:1.9;
+    color:var(--ink-soft);
+  }
+  .insight-list li::before{
+    content:"◆";
+    position:absolute;
+    left:0; top:1px;
+    font-size:9px;
+    color:var(--amber);
+  }
+
+  .timeline-wrap{
+    margin-bottom:6px;
+  }
+  .timeline-wrap svg{
+    width:100%;
+    height:auto;
+    display:block;
+    overflow:visible;
+  }
+  .timeline-node{ cursor:pointer; }
+  .timeline-node circle{
+    fill:var(--panel-2);
+    stroke:var(--indigo-dim);
+    stroke-width:1.6;
+    transition:stroke .15s ease, filter .15s ease;
+  }
+  .timeline-node:hover circle{ stroke:var(--amber); filter:drop-shadow(0 0 6px var(--amber-glow)); }
+  .timeline-node text.tname{
+    font-family:var(--sans);
+    font-weight:700;
+    font-size:11.5px;
+    fill:var(--ink);
+    text-anchor:middle;
+    pointer-events:none;
+  }
+  .timeline-node text.tera{
+    font-family:var(--sans);
+    font-size:9px;
+    fill:var(--ink-mute);
+    text-anchor:middle;
+    pointer-events:none;
+  }
+  .timeline-edge{
+    stroke:var(--edge);
+    stroke-width:1.3;
+    fill:none;
+  }
+  .timeline-cap{
+    font-family:var(--sans);
+    font-size:10.5px;
+    fill:var(--ink-mute);
+    text-anchor:middle;
+  }
+  .timeline-arrow{ fill:var(--edge); }
+
+  .perspective{
+    padding:20px 0;
+    border-top:1px solid var(--border-soft);
+  }
+  .perspective:first-child{ border-top:none; padding-top:4px; }
+  .perspective-who{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:transparent;
+    border:none;
+    padding:0;
+    margin-bottom:10px;
+    cursor:pointer;
+    font-family:var(--sans);
+    font-size:12px;
+    color:var(--indigo);
+    letter-spacing:.03em;
+  }
+  .perspective-who:hover{ color:var(--amber-soft); }
+  .perspective-who::after{ content:"→"; font-size:11px; }
+  .perspective-stance{
+    font-family:var(--serif-display);
+    font-weight:700;
+    font-size:16.5px;
+    color:var(--ink);
+    line-height:1.6;
+    margin-bottom:10px;
+    text-wrap:balance;
+  }
+  .perspective-text{
+    font-size:14px;
+    line-height:1.95;
+    color:var(--ink-soft);
+  }
+
+  .theme-closing{
+    margin-top:8px;
+    font-family:var(--serif-body);
+    font-size:15px;
+    line-height:2;
+    color:var(--ink);
+    background:var(--panel);
+    border-left:2px solid var(--amber);
+    padding:18px 22px;
+    border-radius:2px;
+  }
+
+  .connections{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+  .conn-row{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:var(--sans);
+    font-size:13px;
+  }
+  .conn-dir{
+    font-size:10px;
+    color:var(--ink-mute);
+    letter-spacing:.08em;
+    width:70px;
+    flex:none;
+  }
+  .conn-btn{
+    background:var(--panel);
+    border:1px solid var(--border);
+    color:var(--ink);
+    padding:7px 12px;
+    border-radius:6px;
+    cursor:pointer;
+    font-family:var(--sans);
+    font-size:12.5px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .conn-btn:hover{ border-color:var(--indigo); background:var(--panel-2); }
+  .conn-tag{
+    font-size:10px;
+    color:var(--amber-soft);
+    background:rgba(215,161,84,0.12);
+    border-radius:4px;
+    padding:2px 6px;
+  }
+  .conn-empty{ font-size:12.5px; color:var(--ink-mute); font-style:italic; }
+
+  .books{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+  .book{
+    padding:14px 16px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:8px;
+  }
+  .book-title{
+    font-family:var(--serif-display);
+    font-weight:700;
+    font-size:14.5px;
+    color:var(--ink);
+    margin-bottom:3px;
+  }
+  .book-author{
+    font-family:var(--sans);
+    font-size:12px;
+    color:var(--ink-mute);
+    margin-bottom:6px;
+  }
+  .book-note{
+    font-size:13px;
+    color:var(--ink-soft);
+    line-height:1.75;
+  }
+
+  .note-area textarea{
+    width:100%;
+    min-height:120px;
+    resize:vertical;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:8px;
+    color:var(--ink);
+    font-family:var(--serif-body);
+    font-size:13.5px;
+    line-height:1.9;
+    padding:14px 16px;
+    outline:none;
+  }
+  .note-area textarea:focus{ border-color:var(--indigo); }
+  .note-area textarea::placeholder{ color:var(--ink-mute); }
+  .note-status{
+    font-family:var(--sans);
+    font-size:10.5px;
+    color:var(--ink-mute);
+    margin-top:6px;
+    height:14px;
+  }
+
+  /* scrollbar */
+  .reading-pane::-webkit-scrollbar{ width:8px; }
+  .reading-pane::-webkit-scrollbar-thumb{ background:var(--border); border-radius:8px; }
+  .reading-pane::-webkit-scrollbar-track{ background:transparent; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ transition:none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="topbar">
+    <div class="brand">
+      <h1>思想の系譜</h1>
+      <span class="kicker">A Field Guide to Modern Thought</span>
+    </div>
+    <div class="tagline">高校「倫理」の体系を、大人の教養として読み直すナレッジマップ</div>
+  </div>
+
+  <div class="main">
+    <div class="graph-pane">
+      <div class="mode-switch" id="modeSwitch">
+        <button class="mode-btn active" data-mode="graph">思想家の系譜</button>
+        <button class="mode-btn" data-mode="theme">テーマで読む</button>
+      </div>
+
+      <div class="graph-view" id="graphView">
+        <div class="filters region-filters" id="regionFilters"></div>
+        <div class="filters" id="filters"></div>
+        <div class="graph-wrap">
+          <svg id="graph" viewBox="0 0 1300 760" preserveAspectRatio="xMidYMid meet">
+            <defs>
+              <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M0,0 L10,5 L0,10 z" fill="var(--edge)"></path>
+              </marker>
+              <marker id="arrow-active" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M0,0 L10,5 L0,10 z" fill="var(--amber)"></path>
+              </marker>
+            </defs>
+            <g id="lane-labels"></g>
+            <g id="edges"></g>
+            <g id="nodes"></g>
+          </svg>
+        </div>
+        <div class="legend">
+          <span><i></i> 継承・影響・批判・決別などの関係線</span>
+          <span style="color:var(--amber-soft)">◎ ノードをクリックすると詳細が右に表示されます</span>
+        </div>
+      </div>
+
+      <div class="theme-view hidden" id="themeView"></div>
+    </div>
+
+    <div class="reading-pane" id="reading"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+
+  var CATS = {
+    east:  { label:"東洋思想",         sub:"儒家・仏教・道家" },
+    source:{ label:"西洋思想の源流",     sub:"古代ギリシャ" },
+    mind:  { label:"理性と認識の限界",     sub:"近代哲学" },
+    self:  { label:"自己と無意識",       sub:"心理・実存" },
+    econ:  { label:"社会契約と資本主義",   sub:"政治経済思想" },
+    justice:{ label:"現代の正義と社会倫理", sub:"正義論" }
+  };
+
+  var REGIONS = {
+    west: { label:"西洋思想", cats:["source","mind","self","econ","justice"] },
+    east: { label:"東洋思想", cats:["east"] }
+  };
+
+  var LANES = { east:90, source:310, mind:530, self:750, econ:970, justice:1190 };
+
+  var DATA = {
+    descartes: {
+      name:"ルネ・デカルト", era:"1596–1650 フランス", cat:"mind", featured:false, region:"west",
+      pos:{x:530, y:70},
+      oneLiner:"あらゆる確実性を疑い尽くした末に「疑っている私」だけは疑えないと見出した、近代哲学の出発点。",
+      question:"何ひとつ疑いえない、絶対に確実な知識の土台など、この世に存在するのだろうか。",
+      ideas:[
+        {term:"方法的懐疑", desc:"感覚も、数学的真理さえも、少しでも疑いうるものはすべて「疑わしいもの」として一旦退け、絶対に疑えない土台だけを探す方法。"},
+        {term:"コギト・エルゴ・スム", desc:"「我思う、ゆえに我あり」。あらゆるものを疑っても、いま「疑っている私」が存在することだけは疑いようがない、という哲学の第一原理。"},
+        {term:"物心二元論", desc:"世界を、延長を持つ「物体」と、思考する「精神」という独立した二つの実体に分けて捉える考え方。近代科学の枠組みの土台となった。"}
+      ],
+      insight:[
+        "情報が氾濫する時代、「何となく正しそうだから」で受け入れず、いったん前提を疑い、自分の頭で確かめ直す姿勢の原点。",
+        "心と身体を切り分けて考える近代医学の発想は、良くも悪くもデカルトの二元論に由来する。ストレスによる不調を「気のせい」で片付けず、心身のつながりを見直す反省材料にもなる。"
+      ],
+      books:[
+        {title:"『方法序説』", author:"デカルト（岩波文庫ほか）", note:"薄く読みやすい。近代哲学の出発点を体感できる一冊。"}
+      ]
+    },
+
+    hume: {
+      name:"デイヴィッド・ヒューム", era:"1711–1776 スコットランド", cat:"mind", featured:false, region:"west",
+      pos:{x:530, y:190},
+      oneLiner:"私たちが当然視する「因果関係」でさえ、実は経験が生んだ習慣にすぎないと看破した、徹底した経験論者。",
+      question:"「AがBの原因である」という確信は、理性が発見した必然の真理なのか、それとも単なる思い込みの習慣に過ぎないのか。",
+      ideas:[
+        {term:"経験論", desc:"人間の知識はすべて感覚的経験に由来し、生まれつき理性に備わった観念（生得観念）などというものはない、とする立場。"},
+        {term:"因果関係への懐疑", desc:"AのあとにBが繰り返し起きるのを観察しても、そこに必然的なつながりを直接見ることはできない。因果関係とは、繰り返しの経験が生む「心の習慣」にすぎない。"}
+      ],
+      insight:[
+        "「これまでずっとこうだったから、これからもそうだ」という前提（帰納）は、実は論理的に証明できない習慣的信念にすぎない、という謙虚さ。過去の成功パターンを未来へ無反省に延長するリスクへの警鐘。",
+        "データの相関関係を見て安易に「因果」を語ることの危うさを、200年以上前にすでに指摘していた統計的思考の先駆け。"
+      ],
+      books:[
+        {title:"『人間知性研究』", author:"ヒューム（岩波文庫）", note:"因果論の核心をコンパクトに読める。"}
+      ]
+    },
+
+    kant: {
+      name:"イマニュエル・カント", era:"1724–1804 ドイツ", cat:"mind", featured:true, region:"west",
+      pos:{x:530, y:310},
+      oneLiner:"理性の限界を見極めた上で、人間が自ら自分を律すること（自律）の尊さを説いた哲学者。",
+      question:"人間は経験を超えた真理を、理性でどこまで知りうるのか。そして、損得や欲望に流されずに正しく生きるとは、どういうことか。",
+      ideas:[
+        {term:"コペルニクス的転回", desc:"「認識が対象に従う」のではなく「対象が認識に従う」と発想を逆転。人間は時間・空間・因果性という自らの認識の枠組みを通してしか世界を捉えられない。"},
+        {term:"物自体と現象", desc:"私たちが知りうるのは「現象」としての世界だけであり、その背後の「物自体」には理性で到達できない。この限界の自覚こそが、独断を退ける誠実さの土台になる。"},
+        {term:"定言命法", desc:"「あなたの意志の格率が、常に同時に普遍的な立法の原理として妥当しうるように行為せよ」。結果の損得ではなく、誰もが従っても構わない普遍的なルールに従って行為すること。"},
+        {term:"人格の尊厳", desc:"「汝の人格と他のあらゆる人の人格における人間性を、常に同時に目的として扱い、決して単なる手段としてのみ扱わないように行為せよ」。"}
+      ],
+      insight:[
+        "「みんなやっている」「バレなければいい」という他律的な判断から離れ、自分が是とできる普遍的なルールに従って決断できているかを問い直す視点。",
+        "部下や顧客を、目標達成のための『駒』（手段）として扱っていないか——マネジメントや人間関係の根底にある倫理的な補助線。",
+        "答えの出ない不確実な時代だからこそ、「わからないことをわからないと認める理性の誠実さ」が意思決定の質を支える。"
+      ],
+      books:[
+        {title:"『100分de名著 カント 純粋理性批判』", author:"西研（NHK出版）", note:"入門として最も読みやすい一冊。"},
+        {title:"『永遠平和のために』", author:"カント（光文社古典新訳文庫）", note:"平易な文体で書かれた晩年の政治哲学。"}
+      ]
+    },
+
+    nietzsche: {
+      name:"フリードリヒ・ニーチェ", era:"1844–1900 ドイツ", cat:"self", featured:false, region:"west",
+      pos:{x:750, y:170},
+      oneLiner:"「神は死んだ」と宣言し、既成の価値観が崩れ去った後を生きる人間のあり方を問うた哲学者。",
+      question:"絶対的な価値の拠り所が失われたニヒリズムの時代に、それでも人はどう生きる意味を見出せるのか。",
+      ideas:[
+        {term:"神の死", desc:"近代化と科学の進展によって、西洋社会を支えてきたキリスト教的な価値の絶対的権威が失われたという時代診断。"},
+        {term:"ニヒリズムとルサンチマン", desc:"価値の空白の中で、弱者は強者への嫉妬（ルサンチマン）から「弱さこそ善」という価値の転倒を行う、とニーチェは道徳の起源を暴いた。"},
+        {term:"超人と永劫回帰", desc:"与えられた価値観に頼らず、自ら新たな価値を創造して生きる人間のあり方。「この人生が全く同じまま無限に繰り返される」としても然りと言えるかを、生の肯定の試金石とした。"}
+      ],
+      insight:[
+        "「正解」が急速に失われていく時代に、外部の権威（会社・肩書き・世間の評価）に価値判断を丸投げせず、自分なりの価値基準を創造する強さについての示唆。",
+        "他人の成功への羨望や嫉妬が、無意識のうちに自分の価値観を歪めていないか点検する視点。",
+        "「この選択を何度繰り返しても後悔しないか」という永劫回帰的な問いは、キャリアや人間関係の決断において、損得を超えた判断軸になる。"
+      ],
+      books:[
+        {title:"『ツァラトゥストラはこう言った』", author:"ニーチェ（光文社古典新訳文庫）", note:"詩的な文体だが、まず一冊選ぶならこれ。"},
+        {title:"『善悪の彼岸』", author:"ニーチェ（岩波文庫）", note:"道徳批判の核心により踏み込みたい人向け。"}
+      ]
+    },
+
+    freud: {
+      name:"ジークムント・フロイト", era:"1856–1939 オーストリア", cat:"self", featured:false, region:"west",
+      pos:{x:750, y:270},
+      oneLiner:"人間の心の大部分は意識の及ばない「無意識」に支配されているという事実を発見した、精神分析の創始者。",
+      question:"人はなぜ、自分でも説明のつかない不安や失言、症状に苦しむのか。理性で制御できていると思っている「自分」は、本当に自分の主人なのか。",
+      ideas:[
+        {term:"無意識", desc:"意識には上らないが、感情や行動を強く規定している心の領域。夢や言い間違い、症状はその「でこぼこした表出」である。"},
+        {term:"エス・自我・超自我", desc:"本能的な欲動の源泉である「エス」、現実と折り合いをつける「自我」、良心やべき論として内面化された「超自我」。三者のせめぎ合いが人格を形作る。"},
+        {term:"防衛機制", desc:"抑圧・合理化・知性化・投影など、受け入れがたい欲求や感情から自我を守るための無意識の心的操作。誰もが日常的に用いている。"}
+      ],
+      insight:[
+        "会議で妙にカッとなった、理由もなく特定の人が苦手——その背後にある「抑圧された感情」に気づくメタ認知の練習。",
+        "「これは仕方ないことだから」という説明（合理化）や、難しい理屈で感情を覆い隠す（知性化）は防衛機制の典型。自分の説明を一歩引いて疑う視点。",
+        "過剰に厳しい「超自我」——完璧主義や過剰な自己批判——から距離を取り、自分を追い詰める『べき論』を緩める手がかりになる。"
+      ],
+      books:[
+        {title:"『精神分析入門』", author:"フロイト（新潮文庫ほか）", note:"フロイト自身の講義録。読みやすい語り口。"},
+        {title:"『夢判断』", author:"フロイト（新潮文庫ほか）", note:"無意識という発想そのものを体感できる代表作。"}
+      ]
+    },
+
+    fromm: {
+      name:"エーリッヒ・フロム", era:"1900–1980 ドイツ→アメリカ", cat:"self", featured:true, region:"west",
+      pos:{x:750, y:570},
+      oneLiner:"自由を手にした近代人が、なぜ孤独に耐えかねて権威や同調に逃げ込むのかを解き明かした社会心理学者。",
+      question:"自由で豊かになったはずの現代人は、なぜこれほど孤独で、強い意見やリーダーへの同調に流されやすいのか。",
+      ideas:[
+        {term:"自由からの逃走", desc:"伝統的な絆から「解放された」近代人は、同時に孤独と不安という重荷を背負う。この耐えがたい孤独から逃れるため、自ら権威に服従したり、群れに同調したりする。"},
+        {term:"権威主義的性格", desc:"強い者に従い弱い者を支配することで安心を得ようとする心性。ファシズムはこの心理的土壌の上に成立した、とフロムは論じた。"},
+        {term:"存在様式（To Have / To Be）", desc:"モノや地位、知識さえも「所有」しようとする生き方（Having）と、経験そのものを味わい能動的に関わる生き方（Being）。"},
+        {term:"愛の技術", desc:"愛は「落ちる」ものではなく、配慮・責任・尊重・知（理解）を伴う、習得すべき「技術」であるという逆説的な定義。"}
+      ],
+      insight:[
+        "SNSで多数派の意見に流されそうになる時、その根にあるのは「自由の孤独」への逃避かもしれない、と一歩引いて自分を見る視点。",
+        "「強いリーダーについていけば楽だ」という感覚は、フロムの言う権威主義的性格そのもの。自律と依存の境界線を意識する。",
+        "資格や肩書き、フォロワー数の「所有」に安心を求めるのではなく、今この仕事・この関係にどう能動的に関わっているか（Being）に目を向け直す。",
+        "パートナーシップや友情を「情熱がなくなったから終わり」と捉えるのではなく、配慮と責任を注ぎ続ける『技術』として捉え直す。"
+      ],
+      books:[
+        {title:"『自由からの逃走』", author:"エーリッヒ・フロム（東京創元社）", note:"最重要著作。ファシズムの心理的分析。"},
+        {title:"『愛するということ』", author:"エーリッヒ・フロム（紀伊國屋書店）", note:"最初の一冊に最もおすすめ。読みやすく実践的。"}
+      ]
+    },
+
+    sartre: {
+      name:"ジャン＝ポール・サルトル", era:"1905–1980 フランス", cat:"self", featured:false, region:"west",
+      pos:{x:750, y:670},
+      oneLiner:"人間には先立つ本質などなく、自らの選択によって自分自身を作り上げていくと説いた実存主義の旗手。",
+      question:"「自分らしさ」や「生きる意味」は最初から与えられているものなのか、それとも自分自身の手で選び取り、作り上げていくものなのか。",
+      ideas:[
+        {term:"実存は本質に先立つ", desc:"ペーパーナイフには「紙を切る」という本質が製造前から決まっているが、人間には生まれる前に決まった本質などない。まず存在し、その後の選択によって自らの本質を作っていく。"},
+        {term:"自由の刑", desc:"人間には拠り所となる神も本質もない。だからこそ人間は、あらゆる選択の全責任を一身に引き受けねばならない、逃れられない自由の中にいる。"},
+        {term:"アンガジュマン", desc:"自らの自由な選択は、同時に「人類はこうあるべきだ」という普遍的な価値の選択でもある。個人の選択は不可避的に社会的・政治的な意味を帯びる、という参加の思想。"}
+      ],
+      insight:[
+        "「こういう性格だから」「こういう家庭で育ったから」という自己規定に安住せず、今この瞬間の選択によって自分を更新し続けられるという視点。",
+        "「誰かに決めてもらいたい」という願望の裏にある責任からの逃避に気づき、自分の選択の結果を引き受ける覚悟。",
+        "個人のキャリア選びや消費行動でさえ、「こういう社会であってほしい」という価値判断の表明である、という自覚。"
+      ],
+      books:[
+        {title:"『実存主義とは何か』", author:"サルトル（人文書院）", note:"講演録がもとになっており、比較的平易。"},
+        {title:"『嘔吐』", author:"サルトル（人文書院）", note:"実存の不条理さを小説として体感できる代表作。"}
+      ]
+    },
+
+    marx: {
+      name:"カール・マルクス", era:"1818–1883 ドイツ", cat:"econ", featured:false, region:"west",
+      pos:{x:970, y:550},
+      oneLiner:"人間の意識や思想を規定するのは経済のあり方だと看破し、資本主義の内在的な矛盾を分析した思想家。",
+      question:"なぜ労働は本来、人間を豊かにするはずなのに、資本主義のもとでは人間を疲弊させ、すり減らすものになってしまうのか。",
+      ideas:[
+        {term:"唯物史観", desc:"社会の意識や政治・思想（上部構造）を規定するのは、生産関係という経済的な土台（下部構造）である、とする歴史の見方。"},
+        {term:"疎外された労働", desc:"労働者は自らの労働の産物からも、労働そのものからも、他者からも、そして自分本来の人間性からも切り離され、疎外されていく。"},
+        {term:"資本主義批判", desc:"資本家は労働者の労働から「剰余価値」を搾取することで利潤を得る。この構造そのものが資本主義に内在する矛盾であるとした。"}
+      ],
+      insight:[
+        "「やりがい搾取」「成果が見えない仕事への虚しさ」——自分の働き方が何から疎外されているのかを言語化する視点を与えてくれる。",
+        "「好きなことを仕事に」という理想の裏で、労働そのものが自己実現の手段ではなく単なる生活の手段になってしまう構造への批判的まなざし。",
+        "テクノロジーや制度の変化を「自然な流れ」として受け入れるのではなく、それが誰の利害に基づいて作られているのかを問い直す姿勢。"
+      ],
+      books:[
+        {title:"『人新世の「資本論」』", author:"斎藤幸平（集英社新書）", note:"現代の文脈でマルクスを読み直す好著。"},
+        {title:"『共産党宣言』", author:"マルクス／エンゲルス（岩波文庫）", note:"短く、勢いのある文体で読み切れる。"}
+      ]
+    },
+
+    rawls: {
+      name:"ジョン・ロールズ", era:"1921–2002 アメリカ", cat:"justice", featured:false, region:"west",
+      pos:{x:1190, y:230},
+      oneLiner:"自分がどんな境遇に生まれるか分からない「無知のヴェール」の下でなら、人はどんな社会のルールに同意するかを問い直した正義論の巨人。",
+      question:"生まれ持った才能や境遇による格差がある中で、誰もが「公正だ」と納得できる社会のルールをどう設計すればよいのか。",
+      ideas:[
+        {term:"無知のヴェール", desc:"自分が金持ちか貧乏か、健常者か障がい者か、多数派か少数派かをまったく知らない「原初状態」を想定する思考実験。この条件下で人々が選ぶ原理こそ公正だとロールズは考えた。"},
+        {term:"公正としての正義（二原理）", desc:"①各人が平等な基本的自由への権利を持つという「自由の原理」。②社会的・経済的な不平等は、最も不遇な人々の利益を最大化する場合に限り許容されるという「格差原理」。"}
+      ],
+      insight:[
+        "自分の成功を「すべて自分の努力の結果」と考える前に、生まれ持った才能や環境という「運」の要素をどこまで公正に評価できているか、という謙虚な視点。",
+        "制度やルールを作る際、「もし自分がその制度で一番不利な立場になったとしても同意できるか」という無知のヴェールのシミュレーションは、公正な設計思考として実務にも応用できる。",
+        "格差の是正は「不遇な人を助ける」施しではなく、その社会に生きる全員が合理的に合意しうる『公正なルール』であるという捉え方の転換。"
+      ],
+      books:[
+        {title:"『正義論』", author:"ロールズ（紀伊國屋書店）", note:"大著だが、現代政治哲学の必読書。"},
+        {title:"『これからの「正義」の話をしよう』", author:"マイケル・サンデル（早川書房）", note:"ロールズを含む正義論を対話形式でわかりやすく解説。"}
+      ]
+    },
+
+    socrates: {
+      name:"ソクラテス", era:"前469頃–前399 古代ギリシャ", cat:"source", featured:false, region:"west",
+      pos:{x:310, y:90},
+      oneLiner:"「無知の知」を掲げ、対話によって相手の思い込みを崩し、共に真理を探求することを生涯の使命とした哲学の原点。",
+      question:"自分が『知っている』と思い込んでいることは、本当に知っていると言えるのか。",
+      ideas:[
+        {term:"無知の知", desc:"デルフォイの神託で「ソクラテスより知恵ある者はいない」と告げられた彼は、自らが『知らないことを知らない』と思い込んでいる者たちより、『知らないことを知っている』分だけ賢いのだと気づいた。"},
+        {term:"問答法（産婆術）", desc:"相手に次々と問いを重ね、その答えの矛盾を自覚させることで、相手自身の中にある真の知恵を引き出す対話の技法。"},
+        {term:"魂への配慮", desc:"財産や名声よりも、自分の魂（生き方・徳）をより善くすることに配慮せよと説き、その姿勢を貫いて刑死した。"}
+      ],
+      insight:[
+        "会議やSNSで『知ったかぶり』をせず、『自分は本当にこれを理解しているか』と一度立ち止まる誠実さの原点。",
+        "相手を論破するためではなく、共に考えるための『問い』を投げかける対話の姿勢は、1on1やメンタリングにも通じる。"
+      ],
+      books:[
+        {title:"『ソクラテスの弁明』", author:"プラトン（岩波文庫ほか）", note:"ソクラテスの生き様と思想が凝縮された最初の一冊。"}
+      ]
+    },
+
+    plato: {
+      name:"プラトン", era:"前427頃–前347 古代ギリシャ", cat:"source", featured:false, region:"west",
+      pos:{x:310, y:230},
+      oneLiner:"移ろいゆく現実の背後に、永遠不変の『イデア』という真の実在があると説いた、西洋哲学の礎を築いた哲学者。",
+      question:"私たちが日々見ている美しいもの・正しいものは、なぜ時と場合によって移ろうのに、『美』や『正義』そのものを語ることができるのか。",
+      ideas:[
+        {term:"イデア論", desc:"個々の事物は不完全で移ろいやすいが、その背後には完全で永遠不変な『イデア（本質・型）』が存在し、理性によってのみ捉えられる。"},
+        {term:"洞窟の比喩", desc:"生まれてから洞窟の壁に映る影だけを見てきた囚人が外の太陽の光（真の実在）を知るように、教育とは無知の暗闇から真理の光へ魂を向け直すことである。"},
+        {term:"哲人政治", desc:"善のイデアを認識できる哲学者こそが国家を統治すべきだとする理想の政治構想。"}
+      ],
+      insight:[
+        "目先の流行や見かけの正しさに惑わされず、その奥にある『本質は何か』を問い直す思考の型。",
+        "『事実』と『意見』を混同せず、より確からしいものを理性で見極めようとする姿勢は、情報過多の時代における判断の基礎体力になる。"
+      ],
+      books:[
+        {title:"『饗宴』", author:"プラトン（光文社古典新訳文庫）", note:"「プラトニックラブ」の語源。対話篇として読みやすい。"},
+        {title:"『国家』", author:"プラトン（岩波文庫）", note:"イデア論と哲人政治を体系的に展開した代表作。"}
+      ]
+    },
+
+    aristotle: {
+      name:"アリストテレス", era:"前384–前322 古代ギリシャ", cat:"source", featured:false, region:"west",
+      pos:{x:310, y:370},
+      oneLiner:"師プラトンのイデア論を退け、現実の事物そのものを観察・分類することで、あらゆる学問の基礎を築いた『万学の祖』。",
+      question:"人間にとっての『善く生きる』とは何か。それは理想の彼方にあるものではなく、日々の行為の積み重ねの中にあるのではないか。",
+      ideas:[
+        {term:"形相と質料", desc:"個物は、イデアのように別世界にあるのではなく、事物そのものに内在する『形相（本質）』と『質料（素材）』の結合として捉えられる、という現実主義的な存在論。"},
+        {term:"中庸（メソテース）", desc:"勇気は無謀と臆病の中間にあるように、徳とは両極端を避け、状況に応じた適切な中間を選び取る実践的な知恵（フロネーシス）によって身につく。"},
+        {term:"目的論と幸福（エウダイモニア）", desc:"あらゆる事物には固有の目的（テロス）があり、人間の最終目的は、理性を十分に発揮して善く生きる『幸福』である。"}
+      ],
+      insight:[
+        "極端な意見が増幅されやすい時代に、感情でも思考停止でもなく、状況に応じた『ちょうど良さ』を実践知として鍛える視点。",
+        "『幸福』を一時の快楽ではなく、能力を発揮し続ける持続的な活動状態として捉え直すキャリア観・生き方の指針。"
+      ],
+      books:[
+        {title:"『ニコマコス倫理学』", author:"アリストテレス（光文社古典新訳文庫）", note:"「幸福とは何か」を実践的に説く倫理学の古典。"}
+      ]
+    },
+
+    confucius: {
+      name:"孔子", era:"前552頃–前479 中国", cat:"east", featured:false, region:"east",
+      pos:{x:90, y:140},
+      oneLiner:"『仁』と『礼』を軸に、身近な人間関係の中でこそ道徳は育まれると説いた、東洋思想の源流に立つ思想家。",
+      question:"社会の秩序が乱れる中で、人はどうすれば他者と調和しながら、道徳的に成熟した人間になれるのか。",
+      ideas:[
+        {term:"仁", desc:"他者を思いやる心。「己の欲せざる所は人に施すこと勿かれ」——自分がされたくないことは人にもしない、という道徳の根本原理。"},
+        {term:"礼", desc:"仁という内面の徳を、具体的な立ち居振る舞いや儀礼として社会の中に表現したもの。形式が心を育てるという発想。"},
+        {term:"修身斉家治国平天下", desc:"まず自分自身の身を修めることから始まり、家庭、国家、天下の秩序へと同心円状に広がっていくという、人格陶冶と社会秩序の関係。"}
+      ],
+      insight:[
+        "『己の欲せざる所は人に施すこと勿かれ』は、カントの定言命法にも通じる、洋の東西を超えた倫理の黄金律。",
+        "リーダーシップは地位や権力ではなく、まず自分自身の徳を修めることから始まるという発想は、現代のマネジメント論にも通じる。",
+        "形式（礼儀・所作）を軽んじず、それを繰り返すことで内面の姿勢そのものが育つという、習慣づくりへの示唆。"
+      ],
+      books:[
+        {title:"『論語』", author:"金谷治訳注（岩波文庫）", note:"短い語録形式で、どこからでも読める東洋古典の代表。"}
+      ]
+    },
+
+    buddha: {
+      name:"ブッダ（ゴータマ・シッダールタ）", era:"前463頃–前383頃 インド", cat:"east", featured:false, region:"east",
+      pos:{x:90, y:320},
+      oneLiner:"あらゆる苦しみの根源には『執着』があると見抜き、その手放し方を説いた、仏教の開祖。",
+      question:"生老病死という避けられない苦しみに、人はどう向き合えば、心の平安を得られるのか。",
+      ideas:[
+        {term:"四諦（したい）", desc:"人生は苦であるという真理（苦諦）、苦の原因は執着にあるという真理（集諦）、執着を滅すれば苦も滅するという真理（滅諦）、そこに至る実践の道があるという真理（道諦）——苦の構造と解決策を明快に示した四つの真理。"},
+        {term:"諸行無常・諸法無我", desc:"すべてのものは絶えず移り変わり（諸行無常）、固定された不変の『我（自己）』などどこにも存在しない（諸法無我）。この事実に反して『変わらない私』にしがみつくことが、苦しみを生む。"},
+        {term:"中道", desc:"快楽に溺れる生き方も、過度な苦行も、どちらも極端であり真の解脱には至らない。両極端を避けた『中道』を歩むことこそが、苦しみを滅する実践的な道である。"}
+      ],
+      insight:[
+        "『変わってほしくないもの』が変わってしまうことへの苦しみは、対象そのものではなく、それに対する自分の『執着』が生んでいると気づく視点。",
+        "SNSでの評価や比較への一喜一憂も、『固定された自分』へのしがみつきから生まれる苦しみとして捉え直せる。",
+        "『すべてはうまくいく』という極端な楽観にも、『何をやっても無駄だ』という極端な悲観にも偏らない『中道』のバランス感覚。"
+      ],
+      books:[
+        {title:"『ブッダの言葉』（スッタニパータ）", author:"中村元訳（岩波文庫）", note:"ブッダ自身の肉声に最も近いとされる最古層の経典。"}
+      ]
+    },
+
+    laozi: {
+      name:"老子", era:"生没年不詳（前6世紀頃） 中国", cat:"east", featured:false, region:"east",
+      pos:{x:90, y:500},
+      oneLiner:"人為的な作為を手放し、『道（タオ）』という自然の理法に身を委ねる生き方——『無為自然』を説いた、道家思想の祖。",
+      question:"儒教が説くような『こうあるべき』という人為的な規範や努力は、かえって人を不自然にし、争いを生んでいるのではないか。",
+      ideas:[
+        {term:"道（タオ）", desc:"名づけることも言葉で説明し尽くすこともできない、万物の根源にある自然の理法。人為的な概念や規範を超えたところに、本当の秩序がある。"},
+        {term:"無為自然", desc:"あれこれと人為的に手を加え、力ずくで物事をコントロールしようとするのではなく、あるがままの自然の流れに身を委ねることで、かえって物事はうまくいく。"},
+        {term:"柔弱謙下", desc:"水は最も柔らかいものでありながら、岩をも穿つ。硬く強いものはやがて折れるが、柔らかくしなやかで、へりくだるものこそ、最後まで生き残る。"}
+      ],
+      insight:[
+        "『もっと頑張らなければ』『もっとコントロールしなければ』という力みが、かえって物事をこじらせていないか、立ち止まって力を抜く視点。",
+        "正面からぶつかる強さだけでなく、しなやかに受け流し、争わないことで結果的に長く続く強さがあるという逆説的なリーダーシップ観。",
+        "儒教の『仁』や『礼』という人為的な規範への信頼とは対照的に、規範そのものを疑い、あるがままを信頼するという、もう一つの東洋的知恵。"
+      ],
+      books:[
+        {title:"『老子』", author:"蜂屋邦夫訳注（岩波文庫）", note:"短い章句の集まりで、どこからでも読み始められる。"}
+      ]
+    },
+
+    hegel: {
+      name:"ゲオルク・ヘーゲル", era:"1770–1831 ドイツ", cat:"mind", featured:false, region:"west",
+      pos:{x:530, y:430},
+      oneLiner:"対立や矛盾こそが、より高い次元の統合へと発展していく原動力であるという『弁証法』によって、歴史と精神の壮大な体系を描いた哲学者。",
+      question:"一見バラバラで矛盾に満ちて見える歴史や思想の変化は、実はある一つの大きな理性の自己展開の過程なのではないか。",
+      ideas:[
+        {term:"弁証法（正・反・合）", desc:"ある主張（正）は、それと対立する主張（反）とぶつかり合うことで、両者を超えたより高次の統合（合）へと発展していく。矛盾は破壊ではなく発展の原動力である。"},
+        {term:"絶対精神", desc:"歴史とは、世界精神（理性）が自己を実現していく過程であり、芸術・宗教・哲学を通じて自らを完全に自覚するに至る、という壮大な歴史観。"},
+        {term:"承認をめぐる闘争", desc:"人間の自己意識は、他者からの『承認』を求める闘争（主人と奴隷の弁証法）を通じて初めて確立される、という他者論。"}
+      ],
+      insight:[
+        "対立する意見に直面した時、どちらかを『論破』するのではなく、両者を超えた第三の統合（アウフヘーベン）を探るという議論の作法。",
+        "SNSでの承認欲求も、他者からの承認を通じて自己を確立しようとする人間の根源的な構造の一形態として捉え直せる。",
+        "組織内の対立や矛盾を『排除すべきもの』ではなく『次の発展のきっかけ』として受け止める視点。"
+      ],
+      books:[
+        {title:"『精神現象学』", author:"ヘーゲル（作品社・ちくま学芸文庫）", note:"難解だが、弁証法の運動そのものを体感できる大著。入門書から入るのが無難。"}
+      ]
+    },
+
+    husserl: {
+      name:"エトムント・フッサール", era:"1859–1938 ドイツ", cat:"mind", featured:false, region:"west",
+      pos:{x:530, y:550},
+      oneLiner:"『事象そのものへ』——先入観や理論的な前提を一旦カッコに入れ、意識に現れる事象をありのままに記述しようとした、現象学の創始者。",
+      question:"私たちは『物そのもの』を直接知ることができるのか、それとも常に何らかの理論や先入観というフィルターを通してしか世界を見ていないのか。",
+      ideas:[
+        {term:"事象そのものへ", desc:"科学的な理論や日常の思い込みをいったん脇に置き、意識に直接現れてくる『事象そのもの』を丹念に記述することから哲学を出発させるべきだ、というスローガン。"},
+        {term:"エポケー（判断中止）", desc:"『外界は本当に存在するのか』というような形而上学的な前提を一旦『カッコに入れ』、判断を保留すること。この操作を通じて、意識に現れる経験そのものを純粋に観察できるようになる。"},
+        {term:"志向性", desc:"意識とは常に『何かについての』意識である、という意識の根本構造。意識は対象なしに単独では存在せず、常に何かへと向かっている（志向している）。"}
+      ],
+      insight:[
+        "自分の判断が、実は無意識の前提や思い込み（理論のメガネ）を通したものになっていないか、一度立ち止まって『カッコに入れて』見直す姿勢。",
+        "会議や対人関係で『事実として何が起きたか』と『自分がどう解釈したか』を切り分けて記述する習慣は、フッサールの現象学的な態度の実践的な応用になる。"
+      ],
+      books:[
+        {title:"『現象学の理念』", author:"フッサール（ちくま学芸文庫）", note:"比較的短く、現象学の出発点となる講義録。"}
+      ]
+    },
+
+    merleauponty: {
+      name:"モーリス・メルロ=ポンティ", era:"1908–1961 フランス", cat:"mind", featured:false, region:"west",
+      pos:{x:530, y:670},
+      oneLiner:"人間は『考える主体』である前に、まず世界の中に投げ込まれた『身体』であると捉え直し、身体を通した知覚のあり方を探求した現象学者。",
+      question:"デカルト以来、精神と身体は切り離されたものとして考えられてきたが、私たちが世界を『知る』という営みは、そもそも身体を抜きにして成り立つのだろうか。",
+      ideas:[
+        {term:"身体性（生きられた身体）", desc:"身体とは、精神が操作する単なる『モノ』ではなく、世界を知覚し、意味づける主体そのものである。私たちは身体を『持つ』のではなく、身体として世界を『生きている』。"},
+        {term:"知覚の優位性", desc:"世界についての客観的で科学的な知識は、実は身体を通した生き生きとした『知覚』という、より根源的な経験の上に成り立っている。"},
+        {term:"間身体性", desc:"他者を理解するのは、まず頭で相手の内面を推測するからではなく、身体と身体が知覚のレベルで直接に響き合う『間身体性』によってである。"}
+      ],
+      insight:[
+        "『頭で考える』ことばかりを重視し、疲労や違和感といった身体からのサインを軽視していないか、という現代人への問い直し。",
+        "スポーツや職人技のように『言葉にできないが、身体が覚えている』知恵の価値を、理論的な知識と同じくらい正当に評価する視点。",
+        "オンラインのやり取りだけでは伝わらない、対面でしか感じ取れない『空気感』の正体を考えるヒント。"
+      ],
+      books:[
+        {title:"『知覚の現象学』", author:"メルロ=ポンティ（みすず書房）", note:"大著だが、身体論の核心を知るための代表作。入門書から入るのがおすすめ。"}
+      ]
+    },
+
+    kierkegaard: {
+      name:"セーレン・キルケゴール", era:"1813–1855 デンマーク", cat:"self", featured:false, region:"west",
+      pos:{x:750, y:70},
+      oneLiner:"『あれか、これか』——普遍的な体系ではなく、たった一人の『この私』がどう生きるかを問い続けた、実存主義の先駆者。",
+      question:"ヘーゲルのような壮大な哲学体系を頭で理解したところで、それが『この私がどう生きるべきか』という切実な問いに、何を答えてくれるというのか。",
+      ideas:[
+        {term:"主体的真理", desc:"客観的に正しい知識をいくら積み上げても、それが『私にとって』生き死にをかけて真である主体的な真理でなければ意味がない、とする実存的な真理観。"},
+        {term:"実存の三段階", desc:"快楽を追う『美的実存』、義務や倫理に従う『倫理的実存』、そして絶望の果てに神と向き合う『宗教的実存』へと、人は主体的な決断によって段階を飛躍していく。"},
+        {term:"死に至る病（絶望）", desc:"絶望とは、自分自身であろうとしないこと、あるいは自分自身であろうとしすぎることの間で引き裂かれる、人間に特有の精神の病である。"}
+      ],
+      insight:[
+        "『みんなが正しいと言うから』ではなく、自分自身が心の底から引き受けられる選択かどうかを問う——キャリアや人生の岐路における主体的な決断の重み。",
+        "漠然とした不安や虚しさを『何かおかしい』で済ませず、それを自分自身のあり方を見つめ直すきっかけとして正面から受け止める姿勢。"
+      ],
+      books:[
+        {title:"『死に至る病』", author:"キルケゴール（岩波文庫・光文社古典新訳文庫）", note:"「絶望」を鋭く分析した実存主義の必読書。"}
+      ]
+    },
+
+    jung: {
+      name:"カール・グスタフ・ユング", era:"1875–1961 スイス", cat:"self", featured:false, region:"west",
+      pos:{x:750, y:370},
+      oneLiner:"個人の無意識のさらに奥に、人類共通の『集合的無意識』が広がっていると考え、フロイトと決別して独自の分析心理学を築いた思想家。",
+      question:"神話や夢に繰り返し現れる似たイメージは、なぜ文化も時代も違う人々の間で共通して現れるのか。",
+      ideas:[
+        {term:"集合的無意識と元型", desc:"個人的な経験に由来する無意識のさらに深層に、人類に共通する『集合的無意識』があり、そこには『元型（アーキタイプ）』と呼ばれる普遍的なイメージのパターンが存在する。"},
+        {term:"個性化の過程", desc:"人生の後半における課題は、無意識の中に抑圧してきた自分の側面（影＝シャドウ）を統合し、本来の自分自身になっていく『個性化』のプロセスである。"},
+        {term:"ペルソナとシャドウ", desc:"社会に適応するためにかぶる『仮面』としてのペルソナと、その裏で抑圧され否認された自分自身の側面であるシャドウ。両者の自覚が心の健全さの鍵となる。"}
+      ],
+      insight:[
+        "自分が強く嫌悪する他人の性質は、実は自分自身の『シャドウ（影）』の投影かもしれない、という自己理解のヒント。",
+        "仕事用の『キャラ』（ペルソナ）に過剰適応して自分を見失っていないか、人生の折り返し地点で立ち止まって問い直す視点。"
+      ],
+      books:[
+        {title:"『ユング自伝』", author:"ユング（みすず書房）", note:"思想の背景にある内的体験を知ることができる。"},
+        {title:"『ユング心理学入門』", author:"河合隼雄（培風館）", note:"日本語での定番入門書。"}
+      ]
+    },
+
+    heidegger: {
+      name:"マルティン・ハイデガー", era:"1889–1976 ドイツ", cat:"self", featured:false, region:"west",
+      pos:{x:750, y:470},
+      oneLiner:"『存在する』とはそもそもどういうことかを問い直し、人間を『死へと向かう存在』として捉えることで本来的な生き方を探求した哲学者。",
+      question:"私たちは日々、様々な『存在するもの』に囲まれて生きているが、そもそも『存在する』ということ自体の意味を、きちんと問うたことがあるだろうか。",
+      ideas:[
+        {term:"現存在（ダーザイン）", desc:"人間は、自分が存在するとはどういうことかを気にかけながら存在する、特別なあり方をした存在者である。この人間のあり方をハイデガーは『現存在』と呼んだ。"},
+        {term:"被投性と頽落", desc:"人は誰も、自分では選べない時代・場所・境遇に否応なく『投げ込まれて（被投）』生きている。そして多くの場合、『世間（ひと）』の中に埋没し、本来の自分を見失って生きる『頽落』の状態にある。"},
+        {term:"死への存在", desc:"死は、いつか来る他人事ではなく、誰にも代わってもらえない自分自身だけの、確実な可能性である。死を直視し引き受けることで初めて、『世間』への埋没から抜け出し、本来的な自分の生を選び取ることができる。"}
+      ],
+      insight:[
+        "『みんながそうしているから』という『世間』の声に流されて、自分の人生の選択を誰かに委ねてしまっていないか、という問い直し。",
+        "『いつか死ぬ』という事実を先延ばしにせず、今この限られた時間をどう生きるかという問いとして正面から引き受ける姿勢。",
+        "忙しさに紛れて『何のためにこれをしているのか』を問わなくなっている状態こそ、ハイデガーの言う『頽落』の現代的な姿かもしれない。"
+      ],
+      books:[
+        {title:"『存在と時間』", author:"ハイデガー（岩波文庫・光文社古典新訳文庫）", note:"20世紀哲学最大の難物の一つ。入門書と併走して読むのがおすすめ。"}
+      ]
+    },
+
+    hobbes: {
+      name:"トマス・ホッブズ", era:"1588–1679 イングランド", cat:"econ", featured:false, region:"west",
+      pos:{x:970, y:70},
+      oneLiner:"自然状態を『万人の万人に対する闘争』と捉え、平和のために強大な主権への服従を人々が契約するという社会契約論を築いた思想家。",
+      question:"国家や法という『縛り』がなければ、人間社会は本当に平和になれるのか。",
+      ideas:[
+        {term:"自然状態と万人の万人に対する闘争", desc:"共通の権力が存在しない自然状態では、限られた資源を巡って誰もが誰をも敵とする闘争状態に陥る、という人間観。"},
+        {term:"社会契約とリヴァイアサン", desc:"人々は自らの自然権（自己保存の権利）を放棄し、絶対的な権力を持つ主権者（リヴァイアサン）に譲り渡すことで、初めて平和と秩序を得られる。"}
+      ],
+      insight:[
+        "ルールや規制を『自由の制限』としてだけ見るのではなく、無秩序な闘争を防ぐための必要な土台として捉え直す視点。",
+        "組織やチームにおいても、明確な権限と責任の所在（誰が最終決定するか）を定めることが、かえって個々人の安心と自由を支えるという逆説。"
+      ],
+      books:[
+        {title:"『リヴァイアサン』", author:"ホッブズ（岩波文庫・光文社古典新訳文庫）", note:"近代政治哲学の出発点となった大著。"}
+      ]
+    },
+
+    locke: {
+      name:"ジョン・ロック", era:"1632–1704 イングランド", cat:"econ", featured:false, region:"west",
+      pos:{x:970, y:190},
+      oneLiner:"人は生まれながらに生命・自由・財産への権利を持つとし、政府はその権利を守るためにこそ存在すると説いた、近代民主主義の礎を築いた思想家。",
+      question:"政府の権力は、いったい誰のために、何を根拠に存在するのか。",
+      ideas:[
+        {term:"自然権（生命・自由・財産）", desc:"人間は生まれながらにして、誰にも侵されない生命・自由・財産への権利を持つ。政府はこの権利を守るために人々の同意によって設立される。"},
+        {term:"抵抗権（革命権）", desc:"政府がその信託に反し、人々の権利を侵害するならば、人民はその政府に抵抗し、これを変更する権利を持つ。"},
+        {term:"タブラ・ラサ", desc:"人間の心は生まれながらに何も書かれていない白紙（タブラ・ラサ）であり、すべての知識は経験を通じて後天的に形成される、とする経験論的な人間観。"}
+      ],
+      insight:[
+        "権力は『上から与えられるもの』ではなく『下から信託されたもの』であるという発想は、現代のガバナンスやリーダーの説明責任の考え方の土台になっている。",
+        "生まれつきの能力より、後天的な経験や環境が人を形作るという人間観は、教育や人材育成への前向きな眼差しにつながる。"
+      ],
+      books:[
+        {title:"『統治二論』", author:"ロック（岩波文庫）", note:"アメリカ独立宣言にも影響を与えた近代民主主義の古典。"}
+      ]
+    },
+
+    rousseau: {
+      name:"ジャン＝ジャック・ルソー", era:"1712–1778 ジュネーヴ", cat:"econ", featured:false, region:"west",
+      pos:{x:970, y:310},
+      oneLiner:"文明社会が生んだ不平等を鋭く告発し、人々の自由な意志の結合である『一般意志』に基づく共同体を構想した思想家。",
+      question:"人間は本来自由で平等だったはずなのに、なぜ文明社会はこれほどの不平等と鎖に満ちているのか。",
+      ideas:[
+        {term:"文明社会批判", desc:"私有財産の発生こそが、人と人との間に支配・従属という不平等をもたらした根源であると論じた。"},
+        {term:"一般意志", desc:"個々人の利己的な意志の単なる総和（全体意志）ではなく、共同体全体の共通の利益を志向する意志。社会契約はこの一般意志への服従に基づくべきだとした。"},
+        {term:"自己愛と憐憫の情", desc:"自己保存への自己愛（アムール・ド・ソワ）と、他者の苦しみへの共感である憐憫の情こそが、道徳の自然な出発点であるとした。"}
+      ],
+      insight:[
+        "『みんなが得をする』という多数決の結果と、共同体が本当に目指すべき『一般意志』は必ずしも一致しないという緊張関係——合議の質を問い直す視点。",
+        "SNSでの過剰な比較や見栄が生む不平等感は、ルソーが指摘した『他者の目を通してしか自分を評価できない』文明社会特有の構造の現代版かもしれない。"
+      ],
+      books:[
+        {title:"『社会契約論』", author:"ルソー（岩波文庫・光文社古典新訳文庫）", note:"近代民主主義思想の核心「一般意志」を展開した代表作。"}
+      ]
+    },
+
+    smith: {
+      name:"アダム・スミス", era:"1723–1790 スコットランド", cat:"econ", featured:false, region:"west",
+      pos:{x:970, y:430},
+      oneLiner:"各人が自らの利益を追求する行為が、『見えざる手』に導かれて社会全体の富をもたらすと説いた、近代経済学の父。",
+      question:"各人がバラバラに自分の利益だけを追い求めていながら、なぜ市場全体としては秩序だった繁栄が生まれるのか。",
+      ideas:[
+        {term:"見えざる手", desc:"パン屋が善意からではなく自己利益のためにパンを焼くように、各人の利己的な経済活動が、市場という調整メカニズムを通じて、意図せず社会全体の利益を増大させる。"},
+        {term:"分業論", desc:"労働をいくつもの単純な工程に分割することで、生産性は飛躍的に向上する。ピン工場の分業の例で、その効果を具体的に示した。"},
+        {term:"共感（シンパシー）", desc:"『道徳感情論』では、人は公平な第三者の視点から自分自身の行為を見つめる『共感』の能力によって道徳的な判断を下すと論じた。市場論と表裏一体の人間観。"}
+      ],
+      insight:[
+        "『利己心を追求すること』と『社会に貢献すること』は必ずしも矛盾しないという発想は、現代のビジネスや資本主義の正当化の原点にある。",
+        "スミスは市場を礼賛する一方で『道徳感情論』で共感の重要性も説いた——利益追求だけが暴走すれば、スミス自身の思想の半分しか受け継いでいないことになる。"
+      ],
+      books:[
+        {title:"『国富論』", author:"アダム・スミス（日本経済新聞出版ほか）", note:"「見えざる手」の議論で知られる近代経済学の出発点。"}
+      ]
+    },
+
+    keynes: {
+      name:"ジョン・メイナード・ケインズ", era:"1883–1946 イギリス", cat:"econ", featured:false, region:"west",
+      pos:{x:970, y:670},
+      oneLiner:"『市場に任せれば自然と調和する』という古典派経済学の前提を覆し、不況時には政府が積極的に需要を作り出すべきだと説いた経済学者。",
+      question:"大恐慌のように市場が機能不全に陥り、人々が働きたくても働けない状況があるのに、なぜ『市場に任せておけば自然と均衡する』と言えるのか。",
+      ideas:[
+        {term:"有効需要の原理", desc:"経済全体の生産量は、供給能力ではなく、実際にモノやサービスを買おうとする需要（有効需要）の大きさによって決まる、とする考え方。"},
+        {term:"財政出動・公共投資", desc:"不況で民間の需要が冷え込んだ時には、政府が公共事業などで需要を人為的に作り出し、雇用を回復させるべきだとした。"},
+        {term:"『長期的には、我々はみな死んでいる』", desc:"市場はいずれ自動的に均衡すると悠長に構えるのではなく、今この瞬間の不況・失業に政府が能動的に介入すべきだという実践的な姿勢を象徴する言葉。"}
+      ],
+      insight:[
+        "不況や危機の際に『政府はもっと積極的に動くべきか、市場に任せるべきか』という今も続く政策論争の一方の原点を知ることができる。",
+        "『いずれ良くなる』という楽観に安住せず、今このタイミングで手を打つべきという判断軸は、個人の危機対応や意思決定にも応用できる。"
+      ],
+      books:[
+        {title:"『雇用・利子および貨幣の一般理論』", author:"ケインズ（岩波文庫ほか）", note:"20世紀の経済政策を一変させた大著。入門書から入るのがおすすめ。"}
+      ]
+    },
+
+    foucault: {
+      name:"ミシェル・フーコー", era:"1926–1984 フランス", cat:"justice", featured:false, region:"west",
+      pos:{x:1190, y:90},
+      oneLiner:"『権力』とは誰かが独占するものではなく、社会の隅々に張り巡らされた関係の網の目そのものであると暴いた、現代思想の巨人。",
+      question:"『正常』と『異常』、『理性的』と『狂気』を分ける境界線は、いつ、誰によって、どのようにして引かれたのか。",
+      ideas:[
+        {term:"権力の遍在性", desc:"権力は国家や王のような特定の主体が『持つ』ものではなく、学校・病院・監獄・企業といったあらゆる制度や日常の関係性の中に張り巡らされ、人々の身体や行動そのものを形作っていく。"},
+        {term:"パノプティコン（一望監視装置）", desc:"見られているかもしれないという意識だけで、人は自ら進んで規律に従うようになる。現代社会は、この『内面化された監視』によって秩序を保っているとした。"},
+        {term:"生権力", desc:"近代の権力は、人を処罰するだけでなく、健康・人口・生殖といった『生』そのものを管理し、より良く生かすことを通じて統治する方向へと変化してきた。"}
+      ],
+      insight:[
+        "評価制度や『見える化』が、本人の主体的な意志のように見えて、実は組織の規律を内面化させる装置として機能していないか、という批判的な視点。",
+        "SNSでの『常時見られている』感覚が、無意識のうちに自分の言動を自己検閲させていないか——監視社会の内面化を自覚する手がかり。",
+        "『普通』『当たり前』とされる基準が、実は歴史的・社会的に作られたものにすぎないと知ることで、既存の枠組みを相対化する視点を得られる。"
+      ],
+      books:[
+        {title:"『監獄の誕生』", author:"フーコー（新潮社）", note:"パノプティコン論を含む、権力論の代表作。"}
+      ]
+    },
+
+    arendt: {
+      name:"ハンナ・アーレント", era:"1906–1975 ドイツ→アメリカ", cat:"justice", featured:false, region:"west",
+      pos:{x:1190, y:510},
+      oneLiner:"全体主義がなぜ『凡庸な』人間の手によって遂行されてしまうのかを問い、『考えることの放棄』こそが悪の温床だと喝破した政治哲学者。",
+      question:"特別に凶悪でも異常でもない『どこにでもいる』普通の役人が、なぜホロコーストという未曾有の悪の実行者になり得たのか。",
+      ideas:[
+        {term:"悪の陳腐さ（凡庸な悪）", desc:"アイヒマン裁判を傍聴したアーレントは、彼が怪物ではなく、ただ上からの命令に従い、自分の頭で考えることを放棄した『陳腐（凡庸）』な役人にすぎなかったと指摘した。"},
+        {term:"全体主義の起源", desc:"全体主義は、孤立し根無し草になった大衆が、世界を単純明快に説明してくれるイデオロギーに縋ることで生まれる、という近代社会の病理として分析した。"},
+        {term:"活動（アクション）", desc:"労働・仕事・活動という人間の三つの営みのうち、言葉を通じて他者と共に公共の場に現れ、複数性の中で新しいことを始める『活動』こそが、人間らしさの最も固有な発露である。"}
+      ],
+      insight:[
+        "『上の指示だったから』『組織のルールだから』という思考停止こそが、悪に加担する最大の要因になり得るという、組織人への強い警鐘。",
+        "孤立と不安が強いイデオロギーへの同調を生む——フロムの『自由からの逃走』とも響き合う、分断の時代への処方箋。",
+        "会議やチームで『あえて異なる意見を言葉にして場に出す』行為そのものが、アーレントの言う『活動』の実践であるという捉え方。"
+      ],
+      books:[
+        {title:"『イェルサレムのアイヒマン』", author:"ハンナ・アーレント（みすず書房）", note:"「悪の陳腐さ」という概念を生んだ傑作ルポルタージュ。"}
+      ]
+    },
+
+    sandel: {
+      name:"マイケル・サンデル", era:"1953– アメリカ", cat:"justice", featured:false, region:"west",
+      pos:{x:1190, y:370},
+      oneLiner:"『自分の頭で選び取った自己』を前提とするロールズ流の正義論を批判し、人は共同体の物語や伝統に埋め込まれた存在だと説くコミュニタリアン。",
+      question:"個人の自由な選択を最大限尊重する『無知のヴェール』の正義は、私たちが実際に背負っている家族・地域・国家という『物語』を無視してしまってはいないか。",
+      ideas:[
+        {term:"負荷なき自己への批判", desc:"ロールズの『無知のヴェール』が想定する自己は、あらゆる属性や関係性から切り離された『負荷なき自己』であり、そのような自己は現実には存在しない、と批判した。"},
+        {term:"共同体主義（コミュニタリアニズム）", desc:"人は家族、地域社会、国家といった共同体の中で育まれる物語や伝統、責務を背負った存在であり、正義や善は共同体の文脈を離れて中立には定義できない。"},
+        {term:"美徳と共通善の政治", desc:"正義を語ることは、単なる権利や手続きの公正さの問題にとどまらず、何が『善い生』であるかという美徳や共通善についての公共的な対話を避けて通れない。"}
+      ],
+      insight:[
+        "『個人の自由な選択だから尊重すべき』という理屈だけでは片付けられない、地域・家族・国への責任や愛着をどう考えるかという、現代の分断を考える補助線。",
+        "『正しい制度さえあれば善悪の議論は不要』ではなく、何が善い生き方かをあえて公共の場で議論することの価値を再評価する視点。"
+      ],
+      books:[
+        {title:"『これからの「正義」の話をしよう』", author:"マイケル・サンデル（早川書房）", note:"白熱教室でも知られる、現代正義論の入り口として最適。"}
+      ]
+    }
+  };
+
+  var EDGES = [
+    {from:"confucius", to:"laozi", type:"対比"},
+
+    {from:"descartes", to:"hume", type:"批判"},
+    {from:"hume", to:"kant", type:"継承"},
+    {from:"descartes", to:"kant", type:"継承"},
+    {from:"kant", to:"nietzsche", type:"批判"},
+    {from:"kant", to:"rawls", type:"継承"},
+    {from:"nietzsche", to:"freud", type:"影響"},
+    {from:"freud", to:"fromm", type:"継承"},
+    {from:"nietzsche", to:"sartre", type:"継承"},
+    {from:"marx", to:"fromm", type:"統合"},
+    {from:"marx", to:"sartre", type:"影響"},
+
+    {from:"socrates", to:"plato", type:"継承"},
+    {from:"plato", to:"aristotle", type:"継承"},
+    {from:"plato", to:"descartes", type:"継承"},
+
+    {from:"kant", to:"hegel", type:"継承"},
+    {from:"hegel", to:"kierkegaard", type:"批判"},
+    {from:"kierkegaard", to:"sartre", type:"継承"},
+    {from:"freud", to:"jung", type:"決別"},
+
+    {from:"hobbes", to:"locke", type:"批判"},
+    {from:"locke", to:"rousseau", type:"継承"},
+    {from:"rousseau", to:"marx", type:"影響"},
+    {from:"smith", to:"marx", type:"批判"},
+    {from:"smith", to:"keynes", type:"批判"},
+
+    {from:"rawls", to:"sandel", type:"批判"},
+    {from:"nietzsche", to:"foucault", type:"影響"},
+    {from:"marx", to:"arendt", type:"批判"},
+
+    {from:"husserl", to:"heidegger", type:"批判"},
+    {from:"husserl", to:"merleauponty", type:"継承"},
+    {from:"nietzsche", to:"heidegger", type:"影響"},
+    {from:"heidegger", to:"sartre", type:"影響"}
+  ];
+
+  var THEMES = {
+    happiness: {
+      title:"幸福とは何か",
+      teaser:"「幸せになりたい」——人類がもっとも古くから抱いてきた願い。けれどその中身は、思想家によって驚くほど違います。",
+      who:["aristotle","nietzsche","fromm","confucius"],
+      chrono:["confucius","aristotle","nietzsche","fromm"],
+      transitions:["徳の実践から、幸福の理論へ","日々の活動から、人生の肯定へ","力強い肯定から、静かな在り方へ"],
+      lead:"快楽でも、成功でもない「幸福」の輪郭を、4人の哲学者の視点から辿ります。",
+      perspectives:[
+        {id:"aristotle", stance:"幸福とは、一瞬の快楽ではなく、能力を発揮し続ける『活動』である", text:"アリストテレスは、幸福（エウダイモニア）を『たまたま訪れる良い気分』ではなく、理性を十分に働かせて生きる持続的な活動状態だと定義した。快楽は幸福に伴うものであって、幸福そのものではない。だからこそ、良い仕事、良い人間関係、良い習慣——日々の『活動の質』こそが幸福の実体になる。"},
+        {id:"nietzsche", stance:"幸福とは、この人生をまるごと『然り』と言えること", text:"ニーチェは、苦しみや不条理を含めたこの人生のすべてを、たとえ何度繰り返されても引き受けられるかという『永劫回帰』の問いを立てた。彼にとって幸福とは苦しみのない状態ではなく、苦しみさえも自分の人生の一部として肯定する強さ（運命愛）の中にある。"},
+        {id:"fromm", stance:"幸福とは、何かを『持つ』ことではなく、能動的に『在る』こと", text:"フロムは、地位・財産・知識を蓄積する生き方（Having）ではなく、今この瞬間の経験や関係性に能動的に関わる生き方（Being）にこそ、豊かさと幸福の本質があると説いた。所有はいくら増やしても満たされないが、能動的な関わりそのものは、今ここで完結する充実をもたらす。"},
+        {id:"confucius", stance:"幸福とは、身近な人間関係の中で徳を積み重ねること", text:"孔子にとって幸福な生とは、遠い理想郷にあるのではなく、家族や友人、社会との日々の関わりの中で仁と礼を実践し、自分の人格を磨き続けることそのものだった。学び、実践し続けること自体に喜びを見出す姿勢がそこにある。"}
+      ],
+      closing:"快楽（一時の気分）と幸福（生き方の質）を分けて考えること。これが、4人に共通する最初の一歩かもしれません。幸福は『たどり着く場所』ではなく、『歩き方』そのものなのです。"
+    },
+
+    love: {
+      title:"愛とは何か",
+      teaser:"「好き」という感情と「愛する」という行為は同じではありません。哲学者は愛を、時に技術として、時に他者との根源的な関わり方として考え抜いてきました。",
+      who:["fromm","plato","aristotle","sartre"],
+      chrono:["plato","aristotle","fromm","sartre"],
+      transitions:["個への恋着から、友への敬意へ","徳への敬意から、育てる技術へ","習得する技術から、選ばれ続ける不安へ"],
+      lead:"感情としての愛と、技術・関係としての愛——4つの視点から愛の輪郭を辿ります。",
+      perspectives:[
+        {id:"fromm", stance:"愛は『落ちる』ものではなく、習得すべき『技術』である", text:"フロムは代表作『愛するということ』で、多くの人が愛を『正しい相手さえ見つかれば自然に起きるもの』と誤解していると指摘した。実際には愛は、配慮・責任・尊重・理解という要素からなる、鍛錬によって身につく能動的な技術である。だから愛は、対象が変わっても本人の在り方次第で豊かにも貧しくもなる。"},
+        {id:"plato", stance:"愛（エロース）とは、美そのものへ向かう魂の上昇である", text:"プラトンは『饗宴』の中で、特定の誰かへの恋着から始まった愛が、やがて美しい肉体への愛から美しい魂への愛、そして究極には『美そのもの』というイデアへの愛へと高まっていく過程を描いた。ここから『プラトニックラブ』の語が生まれたが、その原型は肉体を超えた真理への渇望だった。"},
+        {id:"aristotle", stance:"最高の愛は、互いの徳を尊敬し合う『友愛』である", text:"アリストテレスは、快楽や利害に基づく友情は長続きしないが、互いの人格的な善さを認め合う『徳に基づく友愛（フィリア）』こそが最も強く、幸福な生に不可欠だと説いた。恋愛だけでなく、対等な人間同士の敬意ある関係すべてに通じる愛の形。"},
+        {id:"sartre", stance:"愛とは、自由な他者から自由に選ばれたいという、逃れがたい葛藤である", text:"サルトルは、愛する相手を単なるモノとして所有することはできず、かといって相手の自由な意志の中で『特別な存在』として選ばれ続けることも保証できないという、愛に内在する根源的な不安定さと葛藤を描き出した。愛は完成する関係ではなく、絶えず選び直され続ける関係である。"}
+      ],
+      closing:"感情としての愛は与えられるもの、技術としての愛は育てるもの。そして関係としての愛は、絶えず選び直されるもの——哲学が描く愛は、どれも『一度手に入れれば終わり』ではない営みです。"
+    },
+
+    freedom: {
+      title:"自由とは何か",
+      teaser:"現代人がもっとも大切にする価値でありながら、その中身を言葉にできる人は多くありません。『縛られていないこと』か、『自分で選べること』か。",
+      who:["hobbes","kant","rousseau","sartre"],
+      chrono:["hobbes","rousseau","kant","sartre"],
+      transitions:["恐怖からの秩序から、鎖の告発へ","文明への告発から、内なる自律へ","自ら定めた法則から、逃れられない刑罰へ"],
+      lead:"秩序の中の自由から、逃れられない自由の刑まで——4人の思想家が描く自由の姿。",
+      perspectives:[
+        {id:"hobbes", stance:"無秩序の中の自由は、実は最も不自由である", text:"ホッブズは、誰も縛られない自然状態を『万人の万人に対する闘争』と捉え、そこでは誰もが常に命を狙われる恐怖の中にいると論じた。真の自由は、共通のルールと権力のもとで、初めて安心して行使できるようになる。"},
+        {id:"kant", stance:"自由とは、欲望に従うことではなく、自ら定めた法則に従うことである", text:"カントにとって、目の前の欲望や気分に流されるのは自由ではなく、むしろ欲望の奴隷である。真の自由（自律）とは、自分自身が普遍的に正しいと認める法則に、自らの意志で従うこと。他律ではなく自律にこそ、人間の尊厳がある。"},
+        {id:"rousseau", stance:"人間は自由なものとして生まれたが、いたるところで鎖につながれている", text:"ルソーは、文明社会が生み出した私有財産と不平等が、人間本来の自由を奪ってきたと告発した。彼が構想した『一般意志』への服従は、他人の意志に従うことではなく、自分自身も含む共同体全体の意志に従うことで、真の自由を回復する試みだった。"},
+        {id:"sartre", stance:"人間は自由の刑に処せられている", text:"サルトルにとって自由は、獲得を目指す理想ではなく、逃れることのできない人間の条件そのものだった。神も決まった本質もない以上、人間はあらゆる選択の全責任を一身に引き受けねばならない。自由は祝福であると同時に、重い刑罰でもある。"}
+      ],
+      closing:"『縛られないこと』としての自由と、『自ら選び取ること』としての自由。前者を追い求めるほど孤独になり、後者を引き受けるほど責任が重くなる——この緊張関係こそが、自由という言葉の奥行きです。"
+    },
+
+    self: {
+      title:"自分らしさとは何か",
+      teaser:"『自分らしく生きる』とよく言われますが、そもそも『自分』とは最初から決まっているものなのか、自分の手で作り上げていくものなのか。",
+      who:["descartes","sartre","jung","confucius"],
+      chrono:["confucius","descartes","jung","sartre"],
+      transitions:["関係の中の私から、疑う私へ","疑う私から、影を統合する私へ","無意識の統合から、選び続ける私へ"],
+      lead:"疑う私から、選び取る私、そして関係の中で育つ私まで——自分らしさをめぐる4つの視点。",
+      perspectives:[
+        {id:"descartes", stance:"あらゆるものを疑っても、疑っている『私』だけは疑えない", text:"デカルトは、確実な自己の出発点を『我思う、ゆえに我あり』に見出した。感覚も、身体さえも疑いうるが、いま疑い、考えている意識の存在だけは決して疑えない。ここに、近代的な『自我』という発想の原点がある。"},
+        {id:"sartre", stance:"人間には先立つ本質などなく、自分の選択が自分を作る", text:"サルトルは『実存は本質に先立つ』と宣言した。人間には生まれる前に定められた『こういう人間になるべきだ』というマニュアルは存在しない。今この瞬間の選択の積み重ねだけが、後から『自分らしさ』と呼ばれるものを形作っていく。"},
+        {id:"jung", stance:"『自分らしさ』とは、無意識の中の影を統合していく過程で見えてくる", text:"ユングは、社会に適応するためにかぶる『仮面（ペルソナ）』と、その裏で抑圧してきた自分自身の側面（シャドウ）を統合していく『個性化』の過程こそが、本当の自分になっていく道だと考えた。自分らしさは最初から見えているものではなく、内面の対話を通じて発見されるものである。"},
+        {id:"confucius", stance:"自分を修めることが、あらゆる関係の出発点である", text:"孔子にとって『自分』は孤立した存在ではなく、家族や社会との関係の中で育まれるものだった。まず自分自身の身を修めること（修身）が、家庭、社会、そして天下の秩序へとつながっていく。自分らしさとは、関係の中でこそ試され、育っていくものだった。"}
+      ],
+      closing:"『最初から自分の中にある』のか『選択によって作られる』のか『関係の中で育つ』のか——自分らしさをめぐる問いに一つの正解はありません。ただ、どの哲学者も『自分探し』を、探せば見つかる宝物としてではなく、絶えざる営みとして描いている点は共通しています。"
+    },
+
+    death: {
+      title:"死とどう向き合うか",
+      teaser:"誰にも平等に訪れる『死』というテーマは、目を背けたくなる一方で、私たちがどう生きるかを最も鋭く照らし出す問いでもあります。",
+      who:["socrates","kierkegaard","nietzsche","heidegger","fromm"],
+      chrono:["socrates","kierkegaard","nietzsche","heidegger","fromm"],
+      transitions:["死を恐れぬ姿勢から、絶望という病へ","絶望からの覚醒から、生の肯定へ","力強い肯定から、死を先取りする覚悟へ","死の覚悟から、生き方への問いへ"],
+      lead:"死を恐れることの傲慢さから、生きられなかった人生への不安まで——死をめぐる5つの視点。",
+      perspectives:[
+        {id:"socrates", stance:"死を恐れることは、知らないことを知っていると思い込む傲慢である", text:"ソクラテスは、死刑を宣告されてもなお、死それ自体が善いものか悪いものかは誰も知らないのだから、それを一方的に恐れるのは『無知の知』に反すると説いた。大切なのは死を恐れることではなく、生きている限り魂への配慮を怠らないことだった。"},
+        {id:"kierkegaard", stance:"絶望こそが、人間に特有の『死に至る病』である", text:"キルケゴールにとって本当に恐ろしいのは、肉体の死そのものよりも、自分自身であろうとしないまま生きる『絶望』という精神の病だった。死を意識することは、この絶望から目を覚まし、主体的に自分の生を引き受け直すきっかけになりうる。"},
+        {id:"nietzsche", stance:"この人生が何度でも繰り返されるとしても、然りと言えるか", text:"ニーチェの『永劫回帰』は、死を来世への通過点として慰めにするのではなく、有限で一度きりのこの生を、苦しみも含めてまるごと肯定できるかを問う思考実験だった。死を意識することは、今この生をどう生きるかへの強い問いかけになる。"},
+        {id:"heidegger", stance:"死を『自分自身だけの可能性』として先取りすることが、本来的な生を開く", text:"ハイデガーは、死を漠然と恐れる対象としてではなく、誰にも代わってもらえない自分自身だけの確実な可能性として直視すべきだと説いた。この『死への先駆』によって、人は『世間』への埋没から抜け出し、本来的な自分の生を選び取ることができる。"},
+        {id:"fromm", stance:"死への不安の多くは、実は生きられなかった人生への不安である", text:"フロムは、死そのものへの恐怖以上に、『所有』ばかりを追い求め、能動的に『在る』ことをしてこなかった人生こそが、深い虚しさと死への恐怖を生むと論じた。今この瞬間を能動的に生きることが、死への向き合い方そのものを変える。"}
+      ],
+      closing:"死を思うことは、暗い話題ではなく、むしろ『今をどう生きるか』を問い直す最も率直な方法なのかもしれません。哲学は昔から、死を遠ざけるのではなく、死と共に考えることで、生をより鮮明にしてきました。"
+    }
+  };
+
+  var THEME_ORDER = ["happiness","love","freedom","self","death"];
+
+  var NOTE_PREFIX = "教養ノート_思想系譜_";
+  var selected = null;
+  var activeFilter = "all";
+  var activeRegion = "all";
+  var mode = "graph";
+  var selectedTheme = null;
+
+  var svgNodes = document.getElementById("nodes");
+  var svgEdges = document.getElementById("edges");
+  var svgLaneLabels = document.getElementById("lane-labels");
+  var filtersEl = document.getElementById("filters");
+  var regionFiltersEl = document.getElementById("regionFilters");
+  var readingEl = document.getElementById("reading");
+  var modeSwitchEl = document.getElementById("modeSwitch");
+  var graphViewEl = document.getElementById("graphView");
+  var themeViewEl = document.getElementById("themeView");
+
+  function neighborsOf(id){
+    var set = {};
+    EDGES.forEach(function(e){
+      if(e.from === id) set[e.to] = true;
+      if(e.to === id) set[e.from] = true;
+    });
+    return set;
+  }
+
+  function buildFilters(){
+    var all = document.createElement("div");
+    var cats = [{key:"all", label:"すべて"}].concat(
+      Object.keys(CATS)
+        .filter(function(k){ return activeRegion === "all" || REGIONS[activeRegion].cats.indexOf(k) !== -1; })
+        .map(function(k){ return {key:k, label:CATS[k].label}; })
+    );
+    cats.forEach(function(c){
+      var chip = document.createElement("div");
+      chip.className = "chip" + (c.key === activeFilter ? " active" : "");
+      chip.textContent = c.label;
+      chip.dataset.key = c.key;
+      chip.addEventListener("click", function(){
+        activeFilter = c.key;
+        renderFilters();
+        renderGraph();
+      });
+      filtersEl.appendChild(chip);
+    });
+  }
+  function renderFilters(){
+    filtersEl.innerHTML = "";
+    buildFilters();
+  }
+
+  function buildRegionFilters(){
+    var regions = [{key:"all", label:"すべて"}].concat(
+      Object.keys(REGIONS).map(function(k){ return {key:k, label:REGIONS[k].label}; })
+    );
+    regions.forEach(function(r){
+      var chip = document.createElement("div");
+      chip.className = "chip region-chip" + (r.key === activeRegion ? " active" : "");
+      chip.textContent = r.label;
+      chip.dataset.key = r.key;
+      chip.addEventListener("click", function(){
+        activeRegion = r.key;
+        if(activeFilter !== "all" && activeRegion !== "all" && REGIONS[activeRegion].cats.indexOf(activeFilter) === -1){
+          activeFilter = "all";
+        }
+        renderRegionFilters();
+        renderFilters();
+        renderGraph();
+      });
+      regionFiltersEl.appendChild(chip);
+    });
+  }
+  function renderRegionFilters(){
+    regionFiltersEl.innerHTML = "";
+    buildRegionFilters();
+  }
+
+  function edgePath(a, b){
+    var mx = (a.x + b.x) / 2;
+    var my = (a.y + b.y) / 2;
+    var dx = b.x - a.x, dy = b.y - a.y;
+    var len = Math.sqrt(dx*dx + dy*dy) || 1;
+    var nx, ny, bend;
+    if(Math.abs(dx) < 60){
+      /* near-vertical (same lane): always bow to the right so the curve
+         doesn't run straight through other nodes stacked in that lane */
+      nx = 1; ny = 0;
+      bend = Math.min(90, len * 0.22);
+    } else {
+      nx = -dy / len; ny = dx / len;
+      bend = Math.min(55, len * 0.14);
+    }
+    var cx = mx + nx * bend;
+    var cy = my + ny * bend;
+    return {d:"M " + a.x + " " + a.y + " Q " + cx + " " + cy + " " + b.x + " " + b.y, mx:cx, my:cy};
+  }
+
+  function trimToRadius(from, to, r){
+    var dx = to.x - from.x, dy = to.y - from.y;
+    var len = Math.sqrt(dx*dx + dy*dy) || 1;
+    return { x: to.x - (dx/len) * r, y: to.y - (dy/len) * r };
+  }
+
+  var NS = "http://www.w3.org/2000/svg";
+  function el(tag, attrs){
+    var e = document.createElementNS(NS, tag);
+    for(var k in attrs) e.setAttribute(k, attrs[k]);
+    return e;
+  }
+
+  function catVisible(cat){
+    var regionOk = activeRegion === "all" || REGIONS[activeRegion].cats.indexOf(cat) !== -1;
+    var filterOk = activeFilter === "all" || activeFilter === cat;
+    return regionOk && filterOk;
+  }
+
+  function renderLaneLabels(){
+    svgLaneLabels.innerHTML = "";
+    Object.keys(LANES).forEach(function(cat){
+      var visible = catVisible(cat);
+      var t = el("text", {
+        class: "lane-label" + (visible ? "" : " dim"),
+        x: LANES[cat], y: 40
+      });
+      t.textContent = CATS[cat].label;
+      svgLaneLabels.appendChild(t);
+    });
+  }
+
+  function renderGraph(){
+    svgNodes.innerHTML = "";
+    svgEdges.innerHTML = "";
+    renderLaneLabels();
+
+    var neighbors = selected ? neighborsOf(selected) : {};
+
+    EDGES.forEach(function(e){
+      var a = DATA[e.from].pos, b = DATA[e.to].pos;
+      var trimmedB = trimToRadius(a, b, DATA[e.to].featured ? 34 : 29);
+      var trimmedA = trimToRadius(b, a, DATA[e.from].featured ? 34 : 29);
+      var pathInfo = edgePath(trimmedA, trimmedB);
+
+      var isActive = selected && (e.from === selected || e.to === selected);
+      var visible = catVisible(DATA[e.from].cat) || catVisible(DATA[e.to].cat);
+      var dim = selected ? !isActive : false;
+
+      var path = el("path", {
+        class: "edge" + (isActive ? " active" : "") + ((dim || !visible) ? " dim" : ""),
+        d: pathInfo.d,
+        "marker-end": isActive ? "url(#arrow-active)" : "url(#arrow)"
+      });
+      svgEdges.appendChild(path);
+
+      var label = el("text", {
+        class: "edge-label" + (isActive ? " active" : "") + ((dim || !visible) ? " dim" : ""),
+        x: pathInfo.mx, y: pathInfo.my
+      });
+      label.textContent = e.type;
+      svgEdges.appendChild(label);
+    });
+
+    Object.keys(DATA).forEach(function(id){
+      var d = DATA[id];
+      var visible = catVisible(d.cat);
+      var isSelected = selected === id;
+      var isNeighbor = selected && neighbors[id];
+      var dim = selected ? !(isSelected || isNeighbor) : false;
+
+      var g = el("g", {
+        class: "node" +
+          (d.featured ? " featured" : "") +
+          (isSelected ? " selected" : "") +
+          (isNeighbor ? " neighbor" : "") +
+          ((dim || !visible) ? " dim" : ""),
+        transform: "translate(" + d.pos.x + "," + d.pos.y + ")"
+      });
+      var r = d.featured ? 34 : 29;
+      g.appendChild(el("circle", {class:"core", r:r}));
+      var nameNode = el("text", {class:"name", y:5, "font-size": d.featured ? 13.5 : 12.5});
+      nameNode.textContent = d.name.length > 7 ? d.name.slice(0,6) + "…" : d.name;
+      g.appendChild(nameNode);
+      var eraNode = el("text", {class:"era", y: r + 15});
+      eraNode.textContent = d.era.split(" ")[0];
+      g.appendChild(eraNode);
+
+      g.addEventListener("click", function(){
+        selected = id;
+        renderGraph();
+        renderArticle(id);
+      });
+      svgNodes.appendChild(g);
+    });
+  }
+
+  function connLine(dirLabel, id, type){
+    var row = document.createElement("div");
+    row.className = "conn-row";
+    var dir = document.createElement("span");
+    dir.className = "conn-dir";
+    dir.textContent = dirLabel;
+    row.appendChild(dir);
+    var btn = document.createElement("div");
+    btn.className = "conn-btn";
+    btn.innerHTML = DATA[id].name + " <span class=\"conn-tag\">" + type + "</span>";
+    btn.addEventListener("click", function(){
+      selected = id;
+      renderGraph();
+      renderArticle(id);
+      readingEl.scrollTop = 0;
+    });
+    row.appendChild(btn);
+    return row;
+  }
+
+  function renderArticle(id){
+    var d = DATA[id];
+    readingEl.innerHTML = "";
+
+    var art = document.createElement("div");
+    art.className = "article";
+
+    var eyebrow = document.createElement("div");
+    eyebrow.className = "art-eyebrow";
+    eyebrow.textContent = CATS[d.cat].label + " · " + CATS[d.cat].sub;
+    art.appendChild(eyebrow);
+
+    var name = document.createElement("div");
+    name.className = "art-name";
+    name.textContent = d.name;
+    art.appendChild(name);
+
+    var era = document.createElement("div");
+    era.className = "art-era";
+    era.textContent = d.era;
+    art.appendChild(era);
+
+    var one = document.createElement("div");
+    one.className = "art-oneliner";
+    one.textContent = d.oneLiner;
+    art.appendChild(one);
+
+    // question
+    var qSec = document.createElement("div");
+    qSec.className = "section";
+    qSec.innerHTML = '<div class="section-title">根本の問い</div>';
+    var qBox = document.createElement("div");
+    qBox.className = "question-box";
+    qBox.textContent = d.question;
+    qSec.appendChild(qBox);
+    art.appendChild(qSec);
+
+    // ideas
+    var iSec = document.createElement("div");
+    iSec.className = "section";
+    iSec.innerHTML = '<div class="section-title">コア思想</div>';
+    d.ideas.forEach(function(idea){
+      var box = document.createElement("div");
+      box.className = "idea";
+      box.innerHTML = '<div class="idea-term">' + idea.term + '</div><div class="idea-desc">' + idea.desc + '</div>';
+      iSec.appendChild(box);
+    });
+    art.appendChild(iSec);
+
+    // modern insight
+    var mSec = document.createElement("div");
+    mSec.className = "section";
+    mSec.innerHTML = '<div class="section-title">大人の教養コラム</div>';
+    var ul = document.createElement("ul");
+    ul.className = "insight-list";
+    d.insight.forEach(function(t){
+      var li = document.createElement("li");
+      li.textContent = t;
+      ul.appendChild(li);
+    });
+    mSec.appendChild(ul);
+    art.appendChild(mSec);
+
+    // connections
+    var cSec = document.createElement("div");
+    cSec.className = "section";
+    cSec.innerHTML = '<div class="section-title">思想の系譜</div>';
+    var connWrap = document.createElement("div");
+    connWrap.className = "connections";
+    var inputs = EDGES.filter(function(e){ return e.to === id; });
+    var outputs = EDGES.filter(function(e){ return e.from === id; });
+    if(inputs.length === 0 && outputs.length === 0){
+      var empty = document.createElement("div");
+      empty.className = "conn-empty";
+      empty.textContent = "この地図の中では、まだ直接の接続は記録されていません。";
+      connWrap.appendChild(empty);
+    }
+    inputs.forEach(function(e){ connWrap.appendChild(connLine("← 影響を受けた", e.from, e.type)); });
+    outputs.forEach(function(e){ connWrap.appendChild(connLine("→ 影響を与えた", e.to, e.type)); });
+    cSec.appendChild(connWrap);
+    art.appendChild(cSec);
+
+    // books
+    var bSec = document.createElement("div");
+    bSec.className = "section";
+    bSec.innerHTML = '<div class="section-title">最初の一歩</div>';
+    var booksWrap = document.createElement("div");
+    booksWrap.className = "books";
+    d.books.forEach(function(b){
+      var box = document.createElement("div");
+      box.className = "book";
+      box.innerHTML = '<div class="book-title">' + b.title + '</div><div class="book-author">' + b.author + '</div><div class="book-note">' + b.note + '</div>';
+      booksWrap.appendChild(box);
+    });
+    bSec.appendChild(booksWrap);
+    art.appendChild(bSec);
+
+    // notes
+    var nSec = document.createElement("div");
+    nSec.className = "section";
+    nSec.innerHTML = '<div class="section-title">思索ノート</div>';
+    var noteWrap = document.createElement("div");
+    noteWrap.className = "note-area";
+    var ta = document.createElement("textarea");
+    ta.placeholder = d.name + "について、今の自分に引きつけて考えたことを書き留めてください。";
+    var key = NOTE_PREFIX + id;
+    try{ ta.value = localStorage.getItem(key) || ""; }catch(e){}
+    var status = document.createElement("div");
+    status.className = "note-status";
+    var timer = null;
+    ta.addEventListener("input", function(){
+      status.textContent = "";
+      clearTimeout(timer);
+      timer = setTimeout(function(){
+        try{
+          localStorage.setItem(key, ta.value);
+          status.textContent = "保存しました";
+        }catch(e){}
+      }, 500);
+    });
+    noteWrap.appendChild(ta);
+    noteWrap.appendChild(status);
+    nSec.appendChild(noteWrap);
+    art.appendChild(nSec);
+
+    readingEl.appendChild(art);
+  }
+
+  function renderIntro(){
+    readingEl.innerHTML = "";
+    var intro = document.createElement("div");
+    intro.className = "intro";
+    intro.innerHTML =
+      '<h2>思想は、暗記するものではなく、' +
+      '<br>自分の判断に借りる道具である。</h2>' +
+      '<p>左の図は、29人の思想家たちが互いに何を受け継ぎ、何を批判し、何を統合してきたかを示す系譜図です。' +
+      'テーマで絞り込み、気になる名前をクリックすると、その人物が何に悩み、何を考え、それが今の仕事や人間関係にどう活きるのかを読むことができます。' +
+      '<br><br>正解を覚える場所ではありません。自分の頭で考えるための補助線を、ここから持ち帰ってください。</p>';
+    readingEl.appendChild(intro);
+  }
+
+  /* ---------- theme mode ---------- */
+
+  function renderThemeList(){
+    themeViewEl.innerHTML = "";
+
+    var intro = document.createElement("div");
+    intro.className = "theme-intro";
+    intro.textContent = "幸福、愛、自由——人が生きるうえで避けて通れない大きな問いを、複数の思想家の視点を重ねながら読むコーナーです。気になるテーマを選んでください。";
+    themeViewEl.appendChild(intro);
+
+    var grid = document.createElement("div");
+    grid.className = "theme-grid";
+    THEME_ORDER.forEach(function(tid){
+      var t = THEMES[tid];
+      var card = document.createElement("div");
+      card.className = "theme-card" + (selectedTheme === tid ? " active" : "");
+      var whoNames = t.who.map(function(id){ return DATA[id].name; }).join(" / ");
+      card.innerHTML =
+        '<div class="theme-card-title">' + t.title + '</div>' +
+        '<div class="theme-card-teaser">' + t.teaser + '</div>' +
+        '<div class="theme-card-who"><span>視点: </span>' + whoNames + '</div>';
+      card.addEventListener("click", function(){
+        selectedTheme = tid;
+        renderThemeList();
+        renderThemeArticle(tid);
+        readingEl.scrollTop = 0;
+      });
+      grid.appendChild(card);
+    });
+    themeViewEl.appendChild(grid);
+  }
+
+  function renderThemeIntro(){
+    readingEl.innerHTML = "";
+    var intro = document.createElement("div");
+    intro.className = "intro";
+    intro.innerHTML =
+      '<h2>幸福も、愛も、自由も、' +
+      '<br>一人の哲学者だけでは語り尽くせない。</h2>' +
+      '<p>ここでは思想家一人ひとりからではなく、「幸福とは」「愛とは」といった大きな問いから出発します。' +
+      '複数の思想家の答えを並べて読むことで、一つの正解ではなく、問いそのものの奥行きが見えてきます。' +
+      '<br><br>左のテーマを選んでください。文中の思想家名をクリックすると、その人物の系譜ページに直接ジャンプできます。</p>';
+    readingEl.appendChild(intro);
+  }
+
+  function renderThemeTimeline(t){
+    var wrap = document.createElement("div");
+    wrap.className = "timeline-wrap";
+
+    var n = t.chrono.length;
+    var width = Math.max(520, n * 170);
+    var height = 118;
+    var margin = 66;
+    var spacing = n > 1 ? (width - margin * 2) / (n - 1) : 0;
+    var cy = 56;
+    var r = 26;
+
+    var svg = document.createElementNS(NS, "svg");
+    svg.setAttribute("viewBox", "0 0 " + width + " " + height);
+    svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+
+    var positions = t.chrono.map(function(id, i){ return {id:id, x: margin + spacing * i}; });
+
+    positions.forEach(function(pos, i){
+      if(i === 0) return;
+      var prev = positions[i - 1];
+      var x1 = prev.x + r, x2 = pos.x - r;
+      var line = el("line", {class:"timeline-edge", x1:x1, y1:cy, x2:x2, y2:cy, "marker-end":"url(#arrow)"});
+      svg.appendChild(line);
+      var cap = el("text", {class:"timeline-cap", x:(x1 + x2) / 2, y: cy - 16});
+      cap.textContent = t.transitions[i - 1];
+      svg.appendChild(cap);
+    });
+
+    positions.forEach(function(pos){
+      var d = DATA[pos.id];
+      var g = el("g", {class:"timeline-node", transform:"translate(" + pos.x + "," + cy + ")"});
+      g.appendChild(el("circle", {r:r}));
+      var nameNode = el("text", {class:"tname", y:5});
+      nameNode.textContent = d.name.length > 7 ? d.name.slice(0,6) + "…" : d.name;
+      g.appendChild(nameNode);
+      var eraNode = el("text", {class:"tera", y: r + 14});
+      eraNode.textContent = d.era.split(" ")[0];
+      g.appendChild(eraNode);
+      g.addEventListener("click", function(){ selectThinkerFromTheme(pos.id); });
+      svg.appendChild(g);
+    });
+
+    wrap.appendChild(svg);
+    return wrap;
+  }
+
+  function renderThemeArticle(themeId){
+    var t = THEMES[themeId];
+    readingEl.innerHTML = "";
+
+    var art = document.createElement("div");
+    art.className = "article";
+
+    var eyebrow = document.createElement("div");
+    eyebrow.className = "art-eyebrow";
+    eyebrow.textContent = "テーマで読む";
+    art.appendChild(eyebrow);
+
+    var name = document.createElement("div");
+    name.className = "art-name";
+    name.textContent = t.title;
+    art.appendChild(name);
+
+    var one = document.createElement("div");
+    one.className = "art-oneliner";
+    one.textContent = t.lead;
+    art.appendChild(one);
+
+    var tlSec = document.createElement("div");
+    tlSec.className = "section";
+    tlSec.innerHTML = '<div class="section-title">どう受け継がれていったか</div>';
+    tlSec.appendChild(renderThemeTimeline(t));
+    art.appendChild(tlSec);
+
+    var pSec = document.createElement("div");
+    pSec.className = "section";
+    pSec.innerHTML = '<div class="section-title">思想家たちの視点</div>';
+    t.perspectives.forEach(function(p){
+      var d = DATA[p.id];
+      var box = document.createElement("div");
+      box.className = "perspective";
+      var who = document.createElement("button");
+      who.className = "perspective-who";
+      who.textContent = d.name + "（" + d.era.split(" ")[0] + "）";
+      who.addEventListener("click", function(){
+        selectThinkerFromTheme(p.id);
+      });
+      box.appendChild(who);
+      var stance = document.createElement("div");
+      stance.className = "perspective-stance";
+      stance.textContent = p.stance;
+      box.appendChild(stance);
+      var text = document.createElement("div");
+      text.className = "perspective-text";
+      text.textContent = p.text;
+      box.appendChild(text);
+      pSec.appendChild(box);
+    });
+    art.appendChild(pSec);
+
+    var cSec = document.createElement("div");
+    cSec.className = "section";
+    cSec.innerHTML = '<div class="section-title">持ち帰りたい一つの視点</div>';
+    var closing = document.createElement("div");
+    closing.className = "theme-closing";
+    closing.textContent = t.closing;
+    cSec.appendChild(closing);
+    art.appendChild(cSec);
+
+    readingEl.appendChild(art);
+  }
+
+  function selectThinkerFromTheme(id){
+    setMode("graph");
+    selected = id;
+    renderGraph();
+    renderArticle(id);
+    readingEl.scrollTop = 0;
+  }
+
+  /* ---------- mode switching ---------- */
+
+  function setMode(m){
+    mode = m;
+    Array.prototype.forEach.call(modeSwitchEl.querySelectorAll(".mode-btn"), function(btn){
+      btn.classList.toggle("active", btn.dataset.mode === m);
+    });
+    if(m === "theme"){
+      graphViewEl.classList.add("hidden");
+      themeViewEl.classList.remove("hidden");
+      renderThemeList();
+      if(selectedTheme){ renderThemeArticle(selectedTheme); } else { renderThemeIntro(); }
+    } else {
+      themeViewEl.classList.add("hidden");
+      graphViewEl.classList.remove("hidden");
+      renderGraph();
+      if(selected){ renderArticle(selected); } else { renderIntro(); }
+    }
+  }
+
+  Array.prototype.forEach.call(modeSwitchEl.querySelectorAll(".mode-btn"), function(btn){
+    btn.addEventListener("click", function(){ setMode(btn.dataset.mode); });
+  });
+
+  renderRegionFilters();
+  renderFilters();
+  renderGraph();
+  renderIntro();
+  setMode("graph");
+
+})();
+</script>
+
+</body>
+</html>
