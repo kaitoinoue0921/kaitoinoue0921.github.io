@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>長崎県 寺院分布マップ — 井上凱斗の作ったもの</title>
+<meta name="description" content="長崎県の実際の海岸線に、市ごとの寺院数と宗派傾向をピンで重ねた地図。島原半島は寺院ごとに宗派を一覧化。">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🗺️</text></svg>">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+
+<style>
+  :root {
+    --bg: #f3efe2;
+    --surface: #fffcf4;
+    --surface-2: #ece5d2;
+    --ink: #2a2620;
+    --muted: #6f6555;
+    --rule: #d9cfb6;
+    --accent: #2f4c56;
+    --accent-soft: #dde6e4;
+    --gold: #a97a2f;
+    --gold-soft: #efe0bf;
+    --shadow: 0 1px 2px rgba(42,38,32,0.06), 0 8px 24px rgba(42,38,32,0.06);
+
+    --s-shinshu: #a97a2f;
+    --s-soto: #4f6d5a;
+    --s-nichiren: #8a4a3a;
+    --s-jodo: #46618c;
+    --s-shingon: #7a5a8a;
+    --s-other: #948a72;
+    color-scheme: light;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #191a16;
+      --surface: #22231e;
+      --surface-2: #2a2b24;
+      --ink: #e9e3d2;
+      --muted: #a89d86;
+      --rule: #3c3c31;
+      --accent: #9fc3c8;
+      --accent-soft: #263533;
+      --gold: #d8ab5f;
+      --gold-soft: #3a3221;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 12px 28px rgba(0,0,0,0.35);
+
+      --s-shinshu: #d8ab5f;
+      --s-soto: #7fa88f;
+      --s-nichiren: #c17d67;
+      --s-jodo: #7f9bcf;
+      --s-shingon: #b48fca;
+      --s-other: #b3a88d;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #191a16; --surface: #22231e; --surface-2: #2a2b24; --ink: #e9e3d2; --muted: #a89d86;
+    --rule: #3c3c31; --accent: #9fc3c8; --accent-soft: #263533; --gold: #d8ab5f; --gold-soft: #3a3221;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 12px 28px rgba(0,0,0,0.35);
+    --s-shinshu: #d8ab5f; --s-soto: #7fa88f; --s-nichiren: #c17d67; --s-jodo: #7f9bcf; --s-shingon: #b48fca; --s-other: #b3a88d;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Zen Kaku Gothic New', 'Hiragino Sans', sans-serif;
+    line-height: 1.9;
+    font-size: 16.5px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 920px; margin: 0 auto; padding: 0 24px 96px; }
+  .wrap-narrow { max-width: 760px; margin: 0 auto; }
+
+  h1, h2, h3 { font-family: 'Shippori Mincho', serif; text-wrap: balance; letter-spacing: 0.02em; }
+
+  .hero {
+    padding: 80px 0 48px;
+    text-align: center;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 48px;
+  }
+  .hero .kanban {
+    display: inline-flex; align-items: center; gap: 10px;
+    color: var(--gold); font-size: 13px; letter-spacing: 0.28em; margin-bottom: 24px;
+  }
+  .hero .kanban::before, .hero .kanban::after { content:""; width:28px; height:1px; background: var(--gold); }
+  .hero h1 { font-size: clamp(28px, 5.5vw, 40px); font-weight: 700; margin: 0 0 18px; line-height: 1.5; }
+  .hero p.lead { color: var(--muted); font-size: 15.5px; max-width: 560px; margin: 0 auto; }
+  .back-link {
+    display: inline-block; margin-top: 22px; font-size: 13.5px; color: var(--accent);
+    text-decoration: none; border-bottom: 1px solid var(--rule);
+  }
+
+  section.block { margin-bottom: 60px; }
+  .eyebrow { font-size: 12.5px; color: var(--gold); letter-spacing: 0.22em; margin-bottom: 10px; display: block; }
+  h2.title {
+    font-size: clamp(21px, 3.6vw, 26px); font-weight: 700; margin: 0 0 20px;
+    display: flex; align-items: baseline; gap: 12px;
+  }
+  h2.title .num { font-family: 'Shippori Mincho', serif; color: var(--gold); font-size: 15px; }
+  p { margin: 0 0 16px; } p:last-child { margin-bottom: 0; }
+  strong { color: var(--accent); font-weight: 700; }
+
+  .caption { font-size: 12.5px; color: var(--muted); margin-top: 10px; }
+
+  /* ---------- legend ---------- */
+  .legend {
+    display: flex; flex-wrap: wrap; gap: 10px 18px;
+    padding: 18px 22px; background: var(--surface); border: 1px solid var(--rule); border-radius: 4px;
+    margin-bottom: 28px;
+  }
+  .legend-item { display: flex; align-items: center; gap: 8px; font-size: 13.5px; color: var(--ink); }
+  .legend-dot { width: 12px; height: 12px; border-radius: 50%; flex: none; }
+
+  /* ---------- map ---------- */
+  .map-card {
+    background: var(--surface); border: 1px solid var(--rule); border-radius: 6px;
+    padding: 20px; box-shadow: var(--shadow);
+    overflow-x: auto;
+  }
+  .map-card svg { display: block; width: 100%; height: auto; min-width: 620px; }
+  .bubble-n {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 8px; fill: var(--surface); font-weight: 700;
+    text-anchor: middle; dominant-baseline: middle;
+  }
+  .pin-label {
+    font-size: 10px; fill: var(--ink); font-weight: 700;
+    paint-order: stroke; stroke: var(--surface); stroke-width: 3px; stroke-linejoin: round;
+  }
+
+  /* ---------- data table ---------- */
+  .table-scroll { overflow-x: auto; border: 1px solid var(--rule); border-radius: 4px; }
+  table.data {
+    width: 100%; border-collapse: collapse; font-size: 14px; min-width: 560px;
+    background: var(--surface);
+  }
+  table.data th, table.data td { padding: 11px 16px; text-align: left; border-bottom: 1px solid var(--rule); }
+  table.data th {
+    font-family: 'Shippori Mincho', serif; font-weight: 700; background: var(--surface-2);
+    font-size: 13px; letter-spacing: 0.03em;
+  }
+  table.data td.n, table.data th.n { text-align: right; font-variant-numeric: tabular-nums; }
+  table.data tr:last-child td { border-bottom: none; }
+  table.data tr.highlight td:first-child { color: var(--gold); font-weight: 700; }
+  .sect-chip {
+    display: inline-block; font-size: 12px; padding: 2px 10px; border-radius: 100px;
+    color: var(--surface); white-space: nowrap;
+  }
+
+  /* ---------- temple detail groups (peninsula) ---------- */
+  .city-heading {
+    font-family: 'Shippori Mincho', serif; font-size: 17px; margin: 30px 0 14px;
+    display: flex; align-items: baseline; gap: 10px;
+  }
+  .city-heading .count { font-size: 12.5px; color: var(--muted); font-weight: 400; }
+  .temple-groups { display: flex; flex-direction: column; gap: 18px; margin: 0 0 28px; }
+  .temple-group { background: var(--surface); border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; }
+  .temple-group .town {
+    font-family: 'Shippori Mincho', serif; font-size: 14.5px; padding: 10px 18px;
+    background: var(--surface-2); border-bottom: 1px solid var(--rule);
+  }
+  .temple-row { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; padding: 10px 18px; font-size: 14px; }
+  .temple-row + .temple-row { border-top: 1px solid var(--rule); }
+  .temple-row .yago { color: var(--muted); font-size: 12px; margin-right: 4px; }
+  .sect-tag {
+    flex: none; font-size: 11.5px; color: var(--accent); background: var(--accent-soft);
+    padding: 3px 10px; border-radius: 100px; white-space: nowrap;
+  }
+  .sect-tag.highlight { color: var(--gold); background: var(--gold-soft); font-weight: 700; }
+
+  hr.rule { border: none; border-top: 1px solid var(--rule); margin: 52px 0; }
+
+  footer {
+    margin-top: 64px; padding-top: 26px; border-top: 1px solid var(--rule);
+    font-size: 12.5px; color: var(--muted);
+  }
+  footer h4 { font-family: 'Shippori Mincho', serif; font-size: 13px; letter-spacing: 0.1em; color: var(--ink); margin: 0 0 10px; }
+  footer ol { margin: 0 0 18px; padding-left: 18px; }
+  footer li { margin-bottom: 5px; }
+  footer a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--rule); }
+  footer a:hover { border-color: var(--accent); }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="hero">
+    <span class="kanban">長崎県 ・ 寺院分布</span>
+    <h1>長崎県、寺の宗派を<br>地図でひらく</h1>
+    <p class="lead">実際の海岸線の地図に、県内13市の寺院数と宗派の傾向をピンで重ねました。島原半島（南島原市・島原市・雲仙市）だけは1カ寺ずつ詳しく並べています。</p>
+    <a class="back-link" href="./index.html">← 「南島原のお盆のお経」に戻る</a>
+    <a class="back-link" href="../" style="margin-left:16px;">作ったもの一覧に戻る →</a>
+  </header>
+
+  <section class="block">
+    <span class="eyebrow">読み方</span>
+    <h2 class="title"><span class="num">一</span>凡例</h2>
+    <p>円の大きさは掲載寺院数、色はその市でもっとも多い宗派を表しています。背景の海岸線は長崎県の実際の行政区画地図（下記出典）で、ピンの位置は各市役所の緯度経度から算出しています。</p>
+    <div class="legend">
+      <div class="legend-item"><span class="legend-dot" style="background:var(--s-shinshu)"></span>浄土真宗系（本願寺派・大谷派）</div>
+      <div class="legend-item"><span class="legend-dot" style="background:var(--s-shingon)"></span>真言宗・天台宗系</div>
+      <div class="legend-item"><span class="legend-dot" style="background:var(--s-soto)"></span>曹洞宗・臨済宗系（禅宗）</div>
+      <div class="legend-item"><span class="legend-dot" style="background:var(--s-nichiren)"></span>日蓮宗・法華系</div>
+      <div class="legend-item"><span class="legend-dot" style="background:var(--s-jodo)"></span>浄土宗</div>
+      <div class="legend-item"><span class="legend-dot" style="background:var(--s-other)"></span>内訳不明・その他</div>
+    </div>
+  </section>
+
+  <section class="block">
+    <span class="eyebrow">全体像</span>
+    <h2 class="title"><span class="num">二</span>県内13市の寺院分布</h2>
+
+    <div class="map-card">
+      <svg viewBox="-10 -10 585 519" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="長崎県の実際の海岸線に、市ごとの寺院数と宗派傾向のピンを重ねた地図">
+        <!-- Nagasaki Prefecture landmass (actual coastline, two alternating tones from source map) -->
+        <g class="coast" stroke="var(--rule)" stroke-width="0.6" shape-rendering="optimizeSpeed">
+          <path fill="var(--surface-2)" d="M356.0 480.0L357.0 476.0L354.0 476.0L353.0 482.0ZM106.0 477.0L105.0 474.0L101.0 476.0L103.0 478.0ZM343.0 476.0L351.0 471.0L355.0 475.0L354.0 471.0L363.0 467.0L371.0 458.0L371.0 451.0L384.0 447.0L393.0 432.0L392.0 427.0L394.0 429.0L404.0 417.0L402.0 411.0L424.0 411.0L440.0 399.0L467.0 399.0L470.0 402.0L469.0 410.0L475.0 412.0L476.0 416.0L474.0 424.0L462.0 436.0L457.0 438.0L452.0 435.0L455.0 438.0L453.0 448.0L465.0 458.0L465.0 467.0L473.0 464.0L470.0 461.0L479.0 463.0L491.0 454.0L490.0 447.0L502.0 447.0L518.0 437.0L519.0 433.0L515.0 428.0L523.0 418.0L521.0 409.0L525.0 404.0L522.0 401.0L525.0 402.0L513.0 378.0L504.0 371.0L485.0 372.0L472.0 381.0L470.0 379.0L470.0 383.0L457.0 380.0L453.0 383.0L447.0 376.0L442.0 376.0L447.0 368.0L454.0 367.0L452.0 364.0L460.0 365.0L464.0 358.0L469.0 359.0L469.0 355.0L474.0 352.0L474.0 344.0L441.0 338.0L429.0 328.0L407.0 336.0L402.0 333.0L396.0 341.0L397.0 356.0L404.0 361.0L402.0 366.0L409.0 368.0L406.0 370.0L417.0 385.0L413.0 383.0L412.0 386.0L408.0 381.0L405.0 382.0L403.0 376.0L397.0 378.0L397.0 375.0L390.0 375.0L387.0 371.0L384.0 374.0L395.0 390.0L393.0 393.0L381.0 395.0L379.0 399.0L379.0 395.0L377.0 398.0L371.0 393.0L365.0 393.0L366.0 389.0L356.0 373.0L359.0 368.0L361.0 371.0L363.0 365.0L361.0 366.0L361.0 361.0L357.0 361.0L357.0 364.0L355.0 361.0L358.0 359.0L355.0 358.0L356.0 347.0L359.0 345.0L358.0 353.0L360.0 351.0L359.0 355.0L362.0 358.0L364.0 356.0L362.0 343.0L367.0 340.0L365.0 335.0L363.0 336.0L360.0 327.0L356.0 328.0L349.0 323.0L346.0 329.0L350.0 330.0L342.0 334.0L340.0 330.0L343.0 329.0L340.0 328.0L344.0 316.0L349.0 315.0L345.0 310.0L340.0 315.0L340.0 305.0L336.0 307.0L337.0 303.0L326.0 297.0L320.0 304.0L325.0 303.0L320.0 307.0L325.0 309.0L320.0 310.0L319.0 317.0L316.0 317.0L320.0 330.0L317.0 331.0L318.0 335.0L315.0 332.0L311.0 338.0L314.0 358.0L315.0 353.0L318.0 353.0L331.0 387.0L336.0 386.0L342.0 396.0L344.0 390.0L353.0 391.0L351.0 399.0L360.0 406.0L357.0 409.0L364.0 412.0L361.0 416.0L364.0 419.0L367.0 415.0L369.0 420.0L364.0 425.0L367.0 426.0L371.0 421.0L373.0 425.0L380.0 415.0L370.0 435.0L366.0 433.0L368.0 431.0L365.0 430.0L368.0 429.0L361.0 435.0L358.0 433.0L357.0 436.0L361.0 439.0L366.0 437.0L365.0 447.0L353.0 465.0L347.0 468.0L347.0 472.0L346.0 468.0L342.0 472.0ZM69.0 471.0L73.0 467.0L72.0 462.0L65.0 459.0L67.0 450.0L76.0 446.0L81.0 453.0L102.0 451.0L99.0 441.0L89.0 435.0L89.0 413.0L86.0 416.0L84.0 414.0L84.0 418.0L83.0 415.0L87.0 412.0L85.0 410.0L79.0 415.0L77.0 413.0L83.0 411.0L77.0 405.0L79.0 398.0L73.0 401.0L74.0 405.0L69.0 404.0L66.0 410.0L74.0 409.0L75.0 412.0L68.0 414.0L69.0 419.0L63.0 408.0L58.0 416.0L54.0 415.0L58.0 412.0L55.0 412.0L48.0 418.0L45.0 417.0L46.0 408.0L42.0 404.0L35.0 404.0L30.0 410.0L34.0 417.0L32.0 424.0L37.0 430.0L32.0 431.0L33.0 438.0L41.0 440.0L37.0 442.0L39.0 447.0L33.0 445.0L38.0 449.0L31.0 446.0L34.0 450.0L29.0 453.0L30.0 458.0L37.0 455.0L32.0 463.0L24.0 454.0L22.0 457.0L25.0 453.0L23.0 449.0L18.0 460.0L34.0 468.0L34.0 463.0L57.0 462.0L62.0 472.0L67.0 474.0ZM112.0 467.0L111.0 465.0L109.0 468.0ZM87.0 466.0L87.0 463.0L83.0 465.0ZM27.0 451.0L29.0 447.0L26.0 446.0L29.0 445.0L26.0 443.0L30.0 443.0L28.0 438.0L23.0 446.0L25.0 452.0ZM345.0 445.0L347.0 449.0L346.0 443.0ZM352.0 431.0L354.0 435.0L354.0 431.0ZM104.0 432.0L103.0 427.0L103.0 433.0ZM19.0 426.0L21.0 417.0L16.0 426.0ZM95.0 423.0L94.0 420.0L93.0 424.0ZM98.0 415.0L95.0 417.0L97.0 418.0ZM128.0 415.0L130.0 412.0L135.0 413.0L135.0 407.0L129.0 401.0L129.0 412.0L122.0 414.0L129.0 417.0ZM406.0 410.0L412.0 416.0L414.0 414.0L410.0 414.0L411.0 411.0ZM119.0 407.0L123.0 410.0L121.0 405.0ZM97.0 409.0L107.0 398.0L106.0 392.0L94.0 382.0L98.0 398.0L93.0 396.0L96.0 395.0L93.0 385.0L89.0 387.0L87.0 384.0L85.0 387.0L87.0 405.0L88.0 403.0L94.0 409.0ZM116.0 398.0L119.0 392.0L116.0 389.0L121.0 387.0L120.0 381.0L123.0 380.0L119.0 371.0L116.0 369.0L118.0 373.0L115.0 381.0L111.0 374.0L114.0 385.0L109.0 374.0L104.0 374.0L103.0 371.0L97.0 376.0L101.0 380.0L102.0 376.0L110.0 383.0L113.0 388.0L108.0 390.0L113.0 391.0L114.0 388.0L116.0 395.0ZM388.0 354.0L393.0 362.0L395.0 359.0ZM308.0 351.0L304.0 347.0L301.0 349.0L304.0 358.0L310.0 355.0L310.0 351.0ZM203.0 331.0L207.0 323.0L204.0 326.0L203.0 322.0L196.0 330.0L201.0 330.0L199.0 334.0L202.0 332.0ZM233.0 330.0L233.0 323.0L230.0 331.0ZM286.0 329.0L290.0 330.0L287.0 327.0ZM296.0 327.0L300.0 323.0L292.0 320.0L293.0 324.0L296.0 322.0L291.0 327.0L292.0 330.0ZM306.0 322.0L313.0 309.0L305.0 309.0L306.0 312.0L299.0 319.0L304.0 320.0ZM353.0 308.0L347.0 303.0L351.0 296.0L350.0 304.0L358.0 301.0L358.0 284.0L350.0 282.0L347.0 285.0L352.0 287.0L348.0 287.0L347.0 292.0L344.0 288.0L343.0 291.0L346.0 296.0L339.0 296.0L342.0 304.0L345.0 304.0L343.0 309.0L348.0 309.0L350.0 313.0L354.0 309.0ZM353.0 306.0L355.0 308.0L355.0 304.0ZM361.0 307.0L370.0 304.0L373.0 299.0L373.0 282.0L380.0 274.0L364.0 267.0L361.0 259.0L363.0 248.0L348.0 232.0L357.0 215.0L357.0 205.0L353.0 204.0L350.0 211.0L343.0 206.0L333.0 213.0L329.0 212.0L330.0 208.0L325.0 211.0L324.0 200.0L327.0 200.0L322.0 195.0L322.0 201.0L316.0 207.0L312.0 205.0L310.0 208.0L308.0 203.0L301.0 205.0L302.0 201.0L294.0 203.0L296.0 218.0L292.0 218.0L292.0 221.0L300.0 227.0L309.0 225.0L299.0 231.0L301.0 237.0L297.0 240.0L297.0 235.0L294.0 239.0L296.0 241.0L290.0 249.0L294.0 248.0L294.0 253.0L289.0 257.0L293.0 255.0L301.0 260.0L307.0 254.0L303.0 260.0L307.0 261.0L309.0 257.0L310.0 267.0L314.0 263.0L314.0 252.0L309.0 246.0L312.0 238.0L317.0 236.0L327.0 241.0L328.0 253.0L317.0 260.0L315.0 263.0L319.0 268.0L313.0 274.0L320.0 272.0L322.0 276.0L326.0 275.0L326.0 281.0L331.0 282.0L325.0 285.0L326.0 288.0L319.0 286.0L322.0 296.0L324.0 290.0L334.0 291.0L331.0 288.0L334.0 287.0L333.0 278.0L330.0 276.0L337.0 274.0L340.0 277.0L337.0 278.0L340.0 288.0L340.0 284.0L343.0 286.0L347.0 280.0L359.0 285.0L356.0 295.0L361.0 304.0L359.0 308.0ZM285.0 286.0L289.0 284.0L288.0 279.0L276.0 283.0L284.0 286.0ZM326.0 283.0L323.0 283.0L326.0 285.0ZM322.0 275.0L324.0 277.0L323.0 274.0ZM299.0 275.0L301.0 265.0L298.0 265.0L298.0 276.0ZM241.0 272.0L256.0 266.0L264.0 258.0L276.0 239.0L268.0 233.0L278.0 233.0L275.0 229.0L283.0 226.0L279.0 219.0L287.0 218.0L287.0 212.0L294.0 209.0L289.0 206.0L292.0 202.0L290.0 192.0L284.0 195.0L281.0 193.0L282.0 198.0L279.0 198.0L289.0 199.0L286.0 204.0L282.0 202.0L281.0 210.0L281.0 203.0L277.0 202.0L275.0 210.0L258.0 211.0L255.0 224.0L260.0 232.0L253.0 232.0L247.0 241.0L256.0 251.0L252.0 249.0L253.0 254.0L249.0 249.0L242.0 252.0L241.0 259.0L244.0 264.0L248.0 263.0L246.0 269.0L237.0 267.0L233.0 261.0L232.0 269.0L238.0 273.0ZM302.0 265.0L303.0 263.0L302.0 265.0ZM151.0 244.0L152.0 241.0L151.0 246.0L154.0 244.0ZM169.0 246.0L169.0 242.0L178.0 238.0L173.0 236.0L171.0 228.0L153.0 239.0L161.0 246.0ZM291.0 241.0L293.0 242.0L292.0 239.0ZM363.0 212.0L364.0 207.0L369.0 208.0L375.0 200.0L370.0 199.0L370.0 202.0L367.0 198.0L369.0 194.0L358.0 191.0L363.0 194.0L363.0 206.0L360.0 208.0ZM255.0 202.0L256.0 181.0L252.0 184.0L246.0 208.0L251.0 212.0L257.0 207.0ZM342.0 192.0L345.0 191.0L344.0 188.0L347.0 190.0L348.0 184.0L356.0 187.0L357.0 184.0L350.0 181.0L351.0 174.0L346.0 171.0L348.0 176.0L336.0 190.0L340.0 193.0ZM325.0 191.0L328.0 192.0L326.0 187.0L327.0 190.0ZM286.0 181.0L282.0 177.0L276.0 187.0ZM335.0 175.0L338.0 177.0L336.0 173.0ZM296.0 166.0L298.0 163.0L293.0 161.0L290.0 164.0L290.0 158.0L284.0 160.0L274.0 171.0L281.0 171.0L278.0 168.0L283.0 166.0L284.0 170.0L292.0 170.0ZM335.0 92.0L340.0 80.0L356.0 80.0L355.0 76.0L358.0 75.0L347.0 68.0L349.0 65.0L359.0 64.0L344.0 58.0L349.0 56.0L350.0 44.0L330.0 39.0L332.0 42.0L328.0 41.0L323.0 51.0L327.0 58.0L324.0 61.0L320.0 55.0L316.0 57.0L321.0 60.0L318.0 60.0L319.0 68.0L325.0 68.0L323.0 69.0L327.0 73.0L315.0 69.0L318.0 73.0L316.0 76.0L319.0 81.0L323.0 74.0L328.0 79.0L324.0 84.0L328.0 87.0L330.0 85.0L328.0 87.0L333.0 90.0ZM315.0 86.0L316.0 88.0L318.0 85.0L316.0 84.0ZM311.0 83.0L315.0 80.0L313.0 78.0L311.0 82.0ZM326.0 37.0L328.0 39.0L328.0 36.0ZM39.0 226.0L42.0 225.0L43.0 218.0L45.0 222.0L49.0 219.0L51.0 216.0L48.0 214.0L56.0 213.0L54.0 207.0L57.0 208.0L56.0 202.0L60.0 203.0L60.0 194.0L56.0 194.0L61.0 191.0L61.0 182.0L63.0 184.0L68.0 180.0L66.0 169.0L69.0 164.0L76.0 163.0L75.0 156.0L71.0 159.0L71.0 156.0L65.0 156.0L66.0 164.0L64.0 159.0L61.0 162.0L64.0 153.0L60.0 155.0L60.0 149.0L55.0 150.0L52.0 146.0L58.0 154.0L59.0 163.0L56.0 154.0L49.0 158.0L49.0 152.0L40.0 159.0L41.0 149.0L39.0 145.0L35.0 145.0L24.0 222.0L29.0 217.0L32.0 221.0L37.0 219.0L37.0 228.0ZM84.0 161.0L86.0 155.0L82.0 155.0L83.0 159.0L81.0 155.0L77.0 156.0L77.0 160.0L74.0 160.0L77.0 165.0ZM79.0 155.0L81.0 151.0L78.0 149.0L83.0 150.0L79.0 142.0L86.0 143.0L86.0 146.0L87.0 142.0L91.0 143.0L89.0 141.0L93.0 134.0L89.0 139.0L88.0 135.0L86.0 142.0L80.0 140.0L87.0 135.0L82.0 132.0L82.0 125.0L87.0 127.0L89.0 117.0L86.0 123.0L76.0 127.0L83.0 117.0L79.0 112.0L81.0 109.0L85.0 113.0L85.0 108.0L80.0 104.0L103.0 81.0L111.0 56.0L109.0 51.0L104.0 53.0L102.0 49.0L99.0 50.0L99.0 46.0L104.0 50.0L102.0 43.0L106.0 50.0L110.0 49.0L114.0 39.0L107.0 36.0L116.0 32.0L113.0 31.0L115.0 26.0L111.0 30.0L109.0 28.0L112.0 22.0L107.0 20.0L105.0 23.0L102.0 19.0L100.0 23.0L93.0 23.0L99.0 29.0L92.0 28.0L85.0 37.0L88.0 41.0L82.0 38.0L79.0 41.0L76.0 37.0L71.0 41.0L70.0 37.0L67.0 38.0L63.0 58.0L57.0 66.0L60.0 69.0L63.0 65.0L65.0 71.0L69.0 71.0L69.0 77.0L73.0 77.0L70.0 79.0L67.0 75.0L54.0 99.0L56.0 105.0L63.0 100.0L65.0 105.0L61.0 104.0L60.0 111.0L57.0 107.0L54.0 110.0L56.0 112.0L53.0 112.0L57.0 116.0L54.0 116.0L52.0 127.0L55.0 127.0L55.0 131.0L49.0 133.0L48.0 137.0L46.0 132.0L41.0 134.0L48.0 139.0L53.0 136.0L56.0 141.0L56.0 137.0L58.0 142.0L58.0 136.0L61.0 137.0L55.0 133.0L59.0 131.0L57.0 127.0L59.0 130.0L60.0 127.0L65.0 127.0L61.0 132.0L63.0 137.0L65.0 135.0L61.0 140.0L64.0 140.0L63.0 143.0L67.0 136.0L68.0 139.0L67.0 132.0L69.0 134.0L72.0 128.0L71.0 134.0L74.0 129.0L77.0 130.0L72.0 136.0L78.0 142.0L73.0 143.0L76.0 149.0L71.0 149.0L74.0 156.0L77.0 152.0L76.0 157.0ZM71.0 154.0L69.0 143.0L67.0 147.0L61.0 143.0L59.0 147.0L66.0 147.0L65.0 150.0L70.0 151.0L67.0 153.0L70.0 152.0ZM88.0 152.0L91.0 150.0L86.0 148.0Z"/>
+          <path fill="var(--surface-2)" d="M151.0 388.0L151.0 377.0L159.0 379.0L161.0 376.0L159.0 370.0L156.0 370.0L159.0 367.0L156.0 366.0L160.0 359.0L157.0 355.0L163.0 355.0L162.0 343.0L166.0 351.0L173.0 351.0L175.0 345.0L184.0 340.0L182.0 331.0L185.0 329.0L171.0 329.0L164.0 337.0L157.0 335.0L160.0 330.0L159.0 317.0L165.0 309.0L167.0 297.0L162.0 288.0L165.0 275.0L160.0 286.0L161.0 295.0L164.0 296.0L162.0 303.0L157.0 304.0L154.0 311.0L157.0 322.0L153.0 323.0L152.0 314.0L145.0 321.0L145.0 334.0L151.0 336.0L148.0 337.0L148.0 344.0L146.0 339.0L142.0 339.0L141.0 343.0L137.0 338.0L132.0 341.0L134.0 348.0L130.0 349.0L137.0 347.0L139.0 353.0L143.0 348.0L141.0 358.0L143.0 355.0L152.0 362.0L151.0 365.0L143.0 361.0L149.0 368.0L149.0 371.0L145.0 369.0L147.0 372.0L144.0 370.0L147.0 385.0L145.0 390.0L151.0 392.0ZM364.0 377.0L359.0 374.0L357.0 376.0L366.0 389.0L365.0 393.0L371.0 393.0L377.0 398.0L379.0 395.0L379.0 399.0L381.0 395.0L395.0 390.0L388.0 383.0L383.0 370.0L379.0 383.0L375.0 377.0L373.0 387.0L367.0 381.0ZM141.0 379.0L141.0 374.0L138.0 373.0L142.0 365.0L136.0 355.0L133.0 357.0L128.0 353.0L130.0 355.0L127.0 358.0L129.0 364.0L133.0 363.0L134.0 370.0L131.0 366.0L129.0 370.0L122.0 362.0L126.0 371.0L123.0 372.0L128.0 374.0L126.0 377.0L137.0 375.0L139.0 377.0L136.0 378.0L139.0 379.0L136.0 379.0L140.0 382.0ZM141.0 374.0L142.0 377.0L143.0 375.0ZM122.0 362.0L124.0 360.0L120.0 361.0L118.0 355.0L114.0 355.0L115.0 360.0L120.0 360.0ZM124.0 353.0L121.0 353.0L120.0 358.0L123.0 357.0ZM128.0 346.0L131.0 346.0L130.0 341.0L126.0 344.0L128.0 349.0ZM428.0 328.0L424.0 323.0L418.0 323.0L415.0 315.0L394.0 299.0L395.0 294.0L402.0 293.0L404.0 287.0L400.0 274.0L384.0 277.0L380.0 274.0L373.0 282.0L373.0 299.0L370.0 304.0L361.0 307.0L370.0 309.0L365.0 311.0L365.0 317.0L369.0 317.0L370.0 312.0L372.0 314.0L376.0 308.0L381.0 308.0L401.0 325.0L400.0 330.0L405.0 335.0L419.0 331.0L421.0 333.0ZM139.0 327.0L142.0 325.0L137.0 325.0L134.0 329.0ZM187.0 323.0L182.0 325.0L184.0 328.0L189.0 327.0L188.0 324.0ZM171.0 276.0L170.0 267.0L173.0 267.0L168.0 258.0L168.0 275.0ZM139.0 274.0L139.0 271.0L138.0 274.0ZM149.0 270.0L149.0 267.0L148.0 270.0ZM154.0 266.0L160.0 265.0L156.0 264.0L156.0 260.0L161.0 260.0L161.0 257.0L152.0 260.0L146.0 256.0L145.0 261.0L141.0 262.0L147.0 268.0L151.0 264.0ZM128.0 267.0L131.0 266.0L129.0 264.0L127.0 267.0ZM139.0 263.0L140.0 258.0L137.0 258.0L137.0 262.0ZM317.0 260.0L328.0 253.0L327.0 241.0L317.0 236.0L309.0 243.0L315.0 260.0ZM154.0 254.0L151.0 254.0L153.0 257.0ZM170.0 255.0L173.0 254.0L171.0 253.0Z"/>
+        </g>
+
+        <!-- calibrated city pins (real coastline coordinates, x/y in the same 543x499 space) -->
+        <g font-family="'Zen Kaku Gothic New', sans-serif">
+
+          <!-- Tsushima -->
+          <g>
+            <circle cx="73" cy="121" r="11.5" fill="var(--s-other)" stroke="var(--surface)" stroke-width="1.5"/>
+            <text x="73" y="121" class="bubble-n">89</text>
+            <text x="73" y="100" text-anchor="middle" class="pin-label">対馬市</text>
+          </g>
+
+          <!-- Iki -->
+          <g>
+            <circle cx="332" cy="66" r="8.3" fill="var(--s-other)" stroke="var(--surface)" stroke-width="1.5"/>
+            <text x="332" y="66" class="bubble-n" style="font-size:7px;">35</text>
+            <text x="332" y="47" text-anchor="middle" class="pin-label">壱岐市</text>
+          </g>
+
+          <!-- Hirado -->
+          <g>
+            <circle cx="295" cy="210" r="9" fill="var(--s-shingon)" stroke="var(--surface)" stroke-width="1.5"/>
+            <text x="295" y="210" class="bubble-n" style="font-size:7px;">47</text>
+            <text x="258" y="200" text-anchor="end" class="pin-label">平戸市</text>
+          </g>
+
+          <!-- Matsuura -->
+          <g>
+            <circle cx="339" cy="219" r="7" fill="var(--s-soto)" stroke="var(--surface)" stroke-width="1.5"/>
+            <text x="339" y="219" class="bubble-n" style="font-size:6.5px;">20</text>
+            <text x="366" y="203" text-anchor="start" class="pin-label">松浦市</text>
+          </g>
+
+          <!-- Sasebo -->
+          <g>
+            <circle cx="341" cy="273" r="13" fill="var(--s-shingon)" stroke="var(--surface)" stroke-width="1.5"/>
+            <text x="341" y="273" class="bubble-n">115</text>
+            <text x="374" y="278" text-anchor="start" class="pin-label">佐世保市</text>
+          </g>
+
+          <!-- Saikai -->
+          <g>
+            <circle cx="321" cy="355" r="6.4" fill="var(--s-shinshu)" stroke="var(--surface)" stroke-width="1.5"/>
+            <text x="321" y="355" class="bubble-n" style="font-size:6px;">14</text>
+            <text x="283" y="359" text-anchor="end" class="pin-label">西海市</text>
+          </g>
+
+          <!-- Omura -->
+          <g>
+            <circle cx="409" cy="366" r="6.3" fill="var(--s-nichiren)" stroke="var(--surface)" stroke-width="1.5"/>
+            <text x="409" y="366" class="bubble-n" style="font-size:6px;">13</text>
+            <text x="440" y="361" text-anchor="start" class="pin-label">大村市</text>
+          </g>
+
+          <!-- Isahaya -->
+          <g>
+            <circle cx="436" cy="386" r="9" fill="var(--s-shinshu)" stroke="var(--surface)" stroke-width="1.5"/>
+            <text x="436" y="386" class="bubble-n" style="font-size:7px;">48</text>
+            <text x="442" y="370" text-anchor="start" class="pin-label">諫早市</text>
+          </g>
+
+          <!-- Nagasaki -->
+          <g>
+            <circle cx="387" cy="417" r="13" fill="var(--s-shinshu)" stroke="var(--surface)" stroke-width="1.5"/>
+            <text x="387" y="417" class="bubble-n">116</text>
+            <text x="355" y="440" text-anchor="end" class="pin-label">長崎市</text>
+          </g>
+
+          <!-- Goto -->
+          <g>
+            <circle cx="56" cy="435" r="8.6" fill="var(--s-other)" stroke="var(--surface)" stroke-width="1.5"/>
+            <text x="56" y="435" class="bubble-n" style="font-size:7px;">39</text>
+            <text x="56" y="460" text-anchor="middle" class="pin-label">五島市</text>
+          </g>
+
+          <!-- Shimabara peninsula cluster (金の縁取り) -->
+          <g>
+            <circle cx="525" cy="404" r="7.1" fill="var(--s-shinshu)" stroke="var(--gold)" stroke-width="2"/>
+            <text x="525" y="404" class="bubble-n" style="font-size:6.5px;">21</text>
+            <text x="527" y="386" text-anchor="start" class="pin-label">島原市</text>
+          </g>
+          <g>
+            <circle cx="474" cy="388" r="7.2" fill="var(--s-shinshu)" stroke="var(--gold)" stroke-width="2"/>
+            <text x="474" y="388" class="bubble-n" style="font-size:6.5px;">22</text>
+            <text x="474" y="407" text-anchor="middle" class="pin-label">雲仙市</text>
+          </g>
+          <g>
+            <circle cx="505" cy="447" r="7.5" fill="var(--s-shinshu)" stroke="var(--gold)" stroke-width="2"/>
+            <text x="505" y="447" class="bubble-n" style="font-size:6.5px;">25</text>
+            <text x="505" y="468" text-anchor="middle" class="pin-label">南島原市</text>
+          </g>
+        </g>
+
+        <!-- scale reference, from the original source map (151px = 50km) -->
+        <g font-size="9" fill="var(--muted)">
+          <rect x="384" y="10" width="151" height="3" fill="var(--muted)"/>
+          <text x="384" y="24" font-family="'Zen Kaku Gothic New', sans-serif">50km</text>
+        </g>
+      </svg>
+    </div>
+    <p class="caption">長崎県の実際の海岸線に、市ごとの寺院数（円の大きさ）と最多宗派（色）のピンを重ねています。円の位置は各市役所の緯度経度から算出した近似値です。島原半島の3市（金の縁取り）は、宗派分布が均一で歴史的背景も共通するため、次のセクションで寺院ごとに詳しく掲載しています。</p>
+  </section>
+
+  <section class="block">
+    <span class="eyebrow">数字で見る</span>
+    <h2 class="title"><span class="num">三</span>市ごとの内訳データ</h2>
+    <div class="table-scroll">
+      <table class="data">
+        <thead>
+          <tr><th>市</th><th class="n">寺院数</th><th>もっとも多い宗派</th></tr>
+        </thead>
+        <tbody>
+          <tr class="highlight"><td>長崎市</td><td class="n">116</td><td><span class="sect-chip" style="background:var(--s-shinshu)">浄土真宗（24）</span></td></tr>
+          <tr><td>佐世保市</td><td class="n">115</td><td><span class="sect-chip" style="background:var(--s-shingon)">真言宗（30）</span></td></tr>
+          <tr><td>対馬市</td><td class="n">89</td><td><span class="sect-chip" style="background:var(--s-other)">内訳データなし</span></td></tr>
+          <tr class="highlight"><td>諫早市</td><td class="n">48</td><td><span class="sect-chip" style="background:var(--s-shinshu)">浄土真宗（24）</span></td></tr>
+          <tr><td>平戸市</td><td class="n">47</td><td><span class="sect-chip" style="background:var(--s-shingon)">真言宗（12）</span></td></tr>
+          <tr><td>五島市</td><td class="n">39</td><td><span class="sect-chip" style="background:var(--s-other)">内訳データなし</span></td></tr>
+          <tr><td>壱岐市</td><td class="n">35</td><td><span class="sect-chip" style="background:var(--s-other)">内訳データなし</span></td></tr>
+          <tr class="highlight"><td>雲仙市</td><td class="n">22</td><td><span class="sect-chip" style="background:var(--s-shinshu)">浄土真宗系（11）</span></td></tr>
+          <tr class="highlight"><td>島原市</td><td class="n">21</td><td><span class="sect-chip" style="background:var(--s-shinshu)">浄土真宗（8）</span></td></tr>
+          <tr><td>松浦市</td><td class="n">20</td><td><span class="sect-chip" style="background:var(--s-soto)">曹洞宗（7）</span></td></tr>
+          <tr class="highlight"><td>南島原市</td><td class="n">25</td><td><span class="sect-chip" style="background:var(--s-shinshu)">浄土真宗（8）</span></td></tr>
+          <tr><td>西海市</td><td class="n">14</td><td><span class="sect-chip" style="background:var(--s-shinshu)">真宗大谷派系（8）</span></td></tr>
+          <tr><td>大村市</td><td class="n">13</td><td><span class="sect-chip" style="background:var(--s-nichiren)">日蓮宗（6）</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="caption">寺院ポータルサイトに掲載されている件数の概算であり、実際の全寺院数・檀家数の比率とは異なります。対馬市・五島市・壱岐市は総数のみ判明し、宗派別の内訳は確認できませんでした。</p>
+  </section>
+
+  <hr class="rule">
+
+  <section class="block">
+    <span class="eyebrow">詳細データ</span>
+    <h2 class="title"><span class="num">四</span>島原半島 寺院ごとの宗派一覧</h2>
+    <p>南島原市・島原市・雲仙市はいずれも浄土真宗が最多で、歴史的背景も共通しています（島原・天草一揆後の再興政策）。菩提寺の名前がわかれば、下の一覧から宗派を確認できます。<span class="sect-tag highlight" style="margin-left:2px;">浄土真宗</span> の寺院を目印にしています。</p>
+
+    <div class="city-heading">南島原市 <span class="count">全25カ寺</span></div>
+    <div class="temple-groups">
+      <div class="temple-group">
+        <div class="town">深江町</div>
+        <div class="temple-row"><span><span class="yago">東光山</span>妙行寺</span><span class="sect-tag highlight">浄土真宗 本願寺派</span></div>
+        <div class="temple-row"><span><span class="yago">普賢山</span>龍照寺</span><span class="sect-tag">真言宗 善通寺派</span></div>
+      </div>
+      <div class="temple-group">
+        <div class="town">布津町</div>
+        <div class="temple-row"><span><span class="yago">大慈山</span>圓通寺</span><span class="sect-tag">曹洞宗</span></div>
+        <div class="temple-row"><span><span class="yago">一乗山</span>妙法寺</span><span class="sect-tag">日蓮宗</span></div>
+      </div>
+      <div class="temple-group">
+        <div class="town">有家町</div>
+        <div class="temple-row"><span><span class="yago">凌雲山</span>称名寺</span><span class="sect-tag highlight">浄土真宗 本願寺派</span></div>
+        <div class="temple-row"><span>専念寺</span><span class="sect-tag highlight">真宗大谷派</span></div>
+        <div class="temple-row"><span>永昌寺</span><span class="sect-tag">日蓮宗</span></div>
+      </div>
+      <div class="temple-group">
+        <div class="town">西有家町</div>
+        <div class="temple-row"><span><span class="yago">威徳山</span>智性院</span><span class="sect-tag">曹洞宗</span></div>
+        <div class="temple-row"><span><span class="yago">長寿山</span>龍泉寺</span><span class="sect-tag">曹洞宗</span></div>
+        <div class="temple-row"><span>清正寺</span><span class="sect-tag">日蓮宗</span></div>
+        <div class="temple-row"><span>成就院</span><span class="sect-tag">単立</span></div>
+      </div>
+      <div class="temple-group">
+        <div class="town">北有馬町</div>
+        <div class="temple-row"><span><span class="yago">一念山</span>真蔵寺</span><span class="sect-tag highlight">浄土真宗 本願寺派</span></div>
+        <div class="temple-row"><span>願心寺</span><span class="sect-tag">浄土宗</span></div>
+        <div class="temple-row"><span><span class="yago">遍照山</span>光明寺</span><span class="sect-tag">浄土宗</span></div>
+      </div>
+      <div class="temple-group">
+        <div class="town">南有馬町</div>
+        <div class="temple-row"><span><span class="yago">浄念山</span>常光寺</span><span class="sect-tag highlight">浄土真宗 本願寺派</span></div>
+        <div class="temple-row"><span>良國寺</span><span class="sect-tag">日蓮宗</span></div>
+        <div class="temple-row"><span><span class="yago">有馬山</span>廣宣寺</span><span class="sect-tag">日蓮宗</span></div>
+        <div class="temple-row"><span>清滝寺</span><span class="sect-tag">真言宗 霊雲寺派</span></div>
+      </div>
+      <div class="temple-group">
+        <div class="town">口之津町</div>
+        <div class="temple-row"><span><span class="yago">教海山</span>静雲寺</span><span class="sect-tag highlight">浄土真宗 本願寺派</span></div>
+        <div class="temple-row"><span><span class="yago">通津山</span>真乗寺</span><span class="sect-tag highlight">浄土真宗 本願寺派</span></div>
+        <div class="temple-row"><span><span class="yago">太月山</span>玉峰寺</span><span class="sect-tag">曹洞宗</span></div>
+        <div class="temple-row"><span><span class="yago">放光山</span>正妙寺</span><span class="sect-tag">日蓮宗</span></div>
+      </div>
+      <div class="temple-group">
+        <div class="town">加津佐町</div>
+        <div class="temple-row"><span><span class="yago">永照山</span>蓮正寺</span><span class="sect-tag highlight">浄土真宗 本願寺派</span></div>
+        <div class="temple-row"><span><span class="yago">普陀山</span>巌吼寺</span><span class="sect-tag">曹洞宗（明峰派）</span></div>
+        <div class="temple-row"><span><span class="yago">金峰山</span>玉泉寺</span><span class="sect-tag">曹洞宗</span></div>
+      </div>
+    </div>
+
+    <div class="city-heading">島原市 <span class="count">全21カ寺</span></div>
+    <div class="temple-groups">
+      <div class="temple-group">
+        <div class="town">寺町・中心部</div>
+        <div class="temple-row"><span>善法寺</span><span class="sect-tag highlight">浄土真宗 本願寺派</span></div>
+        <div class="temple-row"><span>浄源寺</span><span class="sect-tag highlight">浄土真宗 本願寺派</span></div>
+        <div class="temple-row"><span>安養寺</span><span class="sect-tag highlight">浄土真宗 本願寺派</span></div>
+        <div class="temple-row"><span>護国寺</span><span class="sect-tag">日蓮宗</span></div>
+        <div class="temple-row"><span>光伝寺</span><span class="sect-tag">日蓮宗</span></div>
+        <div class="temple-row"><span>叶寺</span><span class="sect-tag">単立</span></div>
+        <div class="temple-row"><span>崇台寺</span><span class="sect-tag">浄土宗</span></div>
+        <div class="temple-row"><span>快光院</span><span class="sect-tag">浄土宗</span></div>
+        <div class="temple-row"><span>桜井寺</span><span class="sect-tag">浄土宗</span></div>
+        <div class="temple-row"><span>理性院</span><span class="sect-tag">真言宗 智山派</span></div>
+        <div class="temple-row"><span>妙高寺</span><span class="sect-tag">日蓮宗 不受不施派</span></div>
+        <div class="temple-row"><span>法義寺</span><span class="sect-tag">日蓮正宗</span></div>
+        <div class="temple-row"><span>晴雲寺</span><span class="sect-tag">曹洞宗</span></div>
+        <div class="temple-row"><span>江東寺</span><span class="sect-tag">曹洞宗</span></div>
+        <div class="temple-row"><span>本光寺</span><span class="sect-tag">曹洞宗</span></div>
+        <div class="temple-row"><span>徳法寺</span><span class="sect-tag highlight">浄土真宗 本願寺派</span></div>
+        <div class="temple-row"><span>西方寺</span><span class="sect-tag highlight">浄土真宗 本願寺派</span></div>
+        <div class="temple-row"><span>真光寺</span><span class="sect-tag">真宗仏光寺派</span></div>
+      </div>
+      <div class="temple-group">
+        <div class="town">有明町</div>
+        <div class="temple-row"><span>勝光寺</span><span class="sect-tag highlight">浄土真宗 本願寺派</span></div>
+        <div class="temple-row"><span>浄教寺</span><span class="sect-tag highlight">浄土真宗 本願寺派</span></div>
+        <div class="temple-row"><span>松音寺</span><span class="sect-tag highlight">浄土真宗 本願寺派</span></div>
+        <div class="temple-row"><span>東向寺</span><span class="sect-tag">曹洞宗</span></div>
+        <div class="temple-row"><span>生松寺</span><span class="sect-tag">真言宗 御室派</span></div>
+      </div>
+    </div>
+
+    <div class="city-heading">雲仙市 <span class="count">全22カ寺</span></div>
+    <div class="temple-groups">
+      <div class="temple-group">
+        <div class="town">国見町</div>
+        <div class="temple-row"><span>長栄寺</span><span class="sect-tag">真言宗 御室派</span></div>
+        <div class="temple-row"><span>光明寺</span><span class="sect-tag">浄土宗</span></div>
+        <div class="temple-row"><span>正覚寺</span><span class="sect-tag highlight">浄土真宗 本願寺派</span></div>
+        <div class="temple-row"><span>教円寺</span><span class="sect-tag highlight">浄土真宗 本願寺派</span></div>
+        <div class="temple-row"><span>光専寺</span><span class="sect-tag highlight">浄土真宗 本願寺派</span></div>
+        <div class="temple-row"><span>常春寺</span><span class="sect-tag">曹洞宗</span></div>
+        <div class="temple-row"><span>長国寺</span><span class="sect-tag">日蓮宗</span></div>
+      </div>
+      <div class="temple-group">
+        <div class="town">小浜町</div>
+        <div class="temple-row"><span>満明寺</span><span class="sect-tag">真言宗 御室派</span></div>
+        <div class="temple-row"><span>顕光寺</span><span class="sect-tag">浄土宗</span></div>
+        <div class="temple-row"><span>光泉寺</span><span class="sect-tag highlight">浄土真宗 本願寺派</span></div>
+        <div class="temple-row"><span>伝明寺</span><span class="sect-tag highlight">真宗大谷派</span></div>
+        <div class="temple-row"><span>法宣寺</span><span class="sect-tag">日蓮宗</span></div>
+        <div class="temple-row"><span>一妙寺</span><span class="sect-tag">日蓮宗</span></div>
+      </div>
+      <div class="temple-group">
+        <div class="town">瑞穂町</div>
+        <div class="temple-row"><span>円福寺</span><span class="sect-tag highlight">浄土真宗 本願寺派</span></div>
+        <div class="temple-row"><span>正覚寺</span><span class="sect-tag highlight">浄土真宗 本願寺派</span></div>
+        <div class="temple-row"><span>光明寺</span><span class="sect-tag highlight">浄土真宗 本願寺派</span></div>
+      </div>
+      <div class="temple-group">
+        <div class="town">吾妻町</div>
+        <div class="temple-row"><span>法性寺</span><span class="sect-tag highlight">浄土真宗 本願寺派</span></div>
+        <div class="temple-row"><span>大福寺</span><span class="sect-tag highlight">浄土真宗 本願寺派</span></div>
+        <div class="temple-row"><span>徳性寺</span><span class="sect-tag">日蓮宗</span></div>
+      </div>
+      <div class="temple-group">
+        <div class="town">愛野町・南串山町</div>
+        <div class="temple-row"><span>光西寺</span><span class="sect-tag highlight">真宗大谷派</span></div>
+        <div class="temple-row"><span>一乗院</span><span class="sect-tag">真言宗 御室派</span></div>
+        <div class="temple-row"><span>日誠寺</span><span class="sect-tag">日蓮宗</span></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <h4>参考にした情報</h4>
+    <ol>
+      <li><a href="https://www.e-ohaka.com/temple_list/id42214.html" target="_blank" rel="noopener">南島原市の寺院一覧／いいお墓</a></li>
+      <li><a href="https://www.e-ohaka.com/temple_list/id42203.html" target="_blank" rel="noopener">島原市の寺院一覧／いいお墓</a></li>
+      <li><a href="https://www.e-ohaka.com/temple_list/id42213.html" target="_blank" rel="noopener">雲仙市の寺院一覧／いいお墓</a></li>
+      <li><a href="https://www.e-ohaka.com/temple_list/id42201.html" target="_blank" rel="noopener">長崎市の寺院一覧／いいお墓</a></li>
+      <li><a href="https://www.e-ohaka.com/temple_list/id42202.html" target="_blank" rel="noopener">佐世保市の寺院一覧／いいお墓</a></li>
+      <li><a href="https://www.e-ohaka.com/temple_list/id42204.html" target="_blank" rel="noopener">諫早市の寺院一覧／いいお墓</a></li>
+      <li><a href="https://www.e-ohaka.com/temple_list/id42207.html" target="_blank" rel="noopener">平戸市の寺院一覧／いいお墓</a></li>
+      <li><a href="https://www.e-ohaka.com/temple_list/id42208.html" target="_blank" rel="noopener">松浦市の寺院一覧／いいお墓</a></li>
+      <li><a href="https://e-obutsudan.net/minamishimabara.html" target="_blank" rel="noopener">島原半島 南島原市のお寺ご紹介／本多仏壇店</a></li>
+      <li><a href="https://ja.wikipedia.org/wiki/長崎市" target="_blank" rel="noopener">各市役所の緯度経度／Wikipedia（長崎市・佐世保市・平戸市・対馬市・五島市・南島原市・壱岐市・諫早市・大村市・松浦市・西海市・島原市・雲仙市の各項目）</a></li>
+    </ol>
+    <h4>地図データ</h4>
+    <p>海岸線は「<a href="https://commons.wikimedia.org/wiki/File:Map_of_Nagasaki_Prefecture_Ja.svg" target="_blank" rel="noopener">Map of Nagasaki Prefecture Ja.svg</a>」（作成者: Lincun, <a href="https://creativecommons.org/licenses/by-sa/3.0/deed.ja" target="_blank" rel="noopener">CC BY-SA 3.0</a>）を元に、寺院データと組み合わせて着色・加工しています。</p>
+    <p>対馬市・壱岐市・五島市の総数は寺院データベースの掲載件数をもとにした参考値で、宗派別の内訳は確認できませんでした。全体として、掲載件数は実際の寺院総数と一致しない場合があります。ピンの位置は市役所所在地から算出した近似値です。</p>
+  </footer>
+
+</div>
+
+</body>
+</html>
