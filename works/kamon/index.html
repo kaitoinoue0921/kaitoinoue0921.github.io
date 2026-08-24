@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>丸に違い鷹の羽 — 井上凱斗の作ったもの</title>
+<meta name="description" content="吉田家の家紋「丸に違い鷹の羽」の由来・伝播ルート・参考サイトをまとめたリサーチノート。">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>%F0%9F%A6%85</text></svg>">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;800&family=Noto+Serif+JP:wght@400;500;600&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+
+<style>
+:root{
+  --bg:            #f3ede0;
+  --bg-panel:      #ece3d1;
+  --bg-panel-2:    #e3d8c1;
+  --line:          #c9bc9f;
+  --ink:           #211d16;
+  --ink-soft:      #5c5544;
+  --ink-faint:     #8a8168;
+  --accent:        #2f4258;
+  --accent-soft:   #5c7186;
+  --accent-wash:   #dfe4e5;
+  --gold:          #96662e;
+  --shadow:        rgba(33,29,22,0.12);
+}
+
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:          #16140f;
+    --bg-panel:    #1e1b14;
+    --bg-panel-2:  #262119;
+    --line:        #3c3527;
+    --ink:         #ece4d3;
+    --ink-soft:    #b9ae95;
+    --ink-faint:   #837a63;
+    --accent:      #9fb4c7;
+    --accent-soft: #7891a5;
+    --accent-wash: #232b31;
+    --gold:        #c99a5c;
+    --shadow:      rgba(0,0,0,0.4);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:          #16140f;
+  --bg-panel:    #1e1b14;
+  --bg-panel-2:  #262119;
+  --line:        #3c3527;
+  --ink:         #ece4d3;
+  --ink-soft:    #b9ae95;
+  --ink-faint:   #837a63;
+  --accent:      #9fb4c7;
+  --accent-soft: #7891a5;
+  --accent-wash: #232b31;
+  --gold:        #c99a5c;
+  --shadow:      rgba(0,0,0,0.4);
+}
+
+*{ box-sizing:border-box; }
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:"Noto Serif JP","Shippori Mincho",serif;
+  line-height:1.85;
+  -webkit-font-smoothing:antialiased;
+}
+
+.wrap{ max-width:760px; margin:0 auto; padding:0 28px 120px; }
+
+/* ---------- hero ---------- */
+.hero{
+  position:relative;
+  padding:88px 28px 56px;
+  text-align:center;
+  overflow:hidden;
+}
+.hero::before{
+  content:"";
+  position:absolute; inset:0;
+  background:
+    radial-gradient(circle at 50% 18%, var(--bg-panel) 0%, transparent 62%);
+  pointer-events:none;
+}
+.crest{
+  width:168px; height:168px;
+  margin:0 auto 30px;
+  color:var(--ink);
+  filter:drop-shadow(0 10px 22px var(--shadow));
+}
+.eyebrow{
+  font-family:"Zen Kaku Gothic New",sans-serif;
+  font-size:12.5px;
+  letter-spacing:.32em;
+  color:var(--accent-soft);
+  text-transform:uppercase;
+  margin:0 0 18px;
+}
+h1{
+  font-family:"Shippori Mincho",serif;
+  font-weight:800;
+  font-size:clamp(34px,7vw,52px);
+  letter-spacing:.04em;
+  margin:0 0 10px;
+  word-break:keep-all;
+  overflow-wrap:normal;
+}
+.reading{
+  font-family:"Zen Kaku Gothic New",sans-serif;
+  font-size:14px;
+  color:var(--ink-faint);
+  letter-spacing:.12em;
+  margin:0 0 22px;
+}
+.lede{
+  max-width:52ch;
+  margin:0 auto;
+  color:var(--ink-soft);
+  font-size:16.5px;
+}
+.tagset{
+  display:flex;
+  gap:10px;
+  justify-content:center;
+  flex-wrap:wrap;
+  margin-top:26px;
+}
+.tag{
+  font-family:"Zen Kaku Gothic New",sans-serif;
+  font-size:12.5px;
+  letter-spacing:.05em;
+  color:var(--accent);
+  background:var(--accent-wash);
+  border:1px solid var(--line);
+  padding:6px 14px;
+  border-radius:999px;
+}
+
+/* ---------- section shell ---------- */
+section{ margin-top:64px; }
+.section-head{
+  display:flex;
+  align-items:baseline;
+  gap:14px;
+  margin-bottom:22px;
+}
+.section-num{
+  font-family:"Zen Kaku Gothic New",sans-serif;
+  font-size:12px;
+  color:var(--ink-faint);
+  letter-spacing:.08em;
+  white-space:nowrap;
+}
+h2{
+  font-family:"Shippori Mincho",serif;
+  font-weight:600;
+  font-size:23px;
+  letter-spacing:.03em;
+  margin:0;
+  flex:1;
+}
+.rule{
+  border:none;
+  border-top:1px solid var(--line);
+  margin:0 0 22px;
+}
+
+p{ color:var(--ink-soft); margin:0 0 14px; max-width:60ch; }
+strong{ color:var(--ink); font-weight:600; }
+
+/* ---------- fact panel ---------- */
+.panel{
+  background:var(--bg-panel);
+  border:1px solid var(--line);
+  border-radius:4px;
+  padding:26px 28px;
+}
+dl.facts{
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:12px 22px;
+  margin:0;
+}
+dl.facts dt{
+  font-family:"Zen Kaku Gothic New",sans-serif;
+  font-size:12.5px;
+  letter-spacing:.06em;
+  color:var(--ink-faint);
+  white-space:nowrap;
+  padding-top:2px;
+}
+dl.facts dd{
+  margin:0;
+  color:var(--ink);
+  font-size:15.5px;
+}
+
+/* ---------- crest gallery mini ---------- */
+.figrow{
+  display:flex;
+  gap:22px;
+  align-items:center;
+  margin-top:22px;
+  padding-top:22px;
+  border-top:1px dashed var(--line);
+}
+.figrow svg{ width:56px; height:56px; flex:none; color:var(--ink-faint); }
+.figrow p{ margin:0; font-size:14.5px; }
+
+/* ---------- surname list ---------- */
+.crestlist{
+  list-style:none;
+  margin:0; padding:0;
+  display:grid;
+  gap:0;
+}
+.crestlist li{
+  display:grid;
+  grid-template-columns:120px 1fr;
+  gap:18px;
+  padding:16px 0;
+  border-bottom:1px solid var(--line);
+  align-items:baseline;
+}
+.crestlist li:first-child{ border-top:1px solid var(--line); }
+.crestlist .name{
+  font-family:"Shippori Mincho",serif;
+  font-weight:600;
+  font-size:16.5px;
+  color:var(--ink);
+}
+.crestlist .desc{ font-size:14.5px; color:var(--ink-soft); }
+
+.statrow{
+  display:flex;
+  gap:34px;
+  flex-wrap:wrap;
+  margin-top:6px;
+}
+.stat b{
+  display:block;
+  font-family:"Shippori Mincho",serif;
+  font-size:26px;
+  font-weight:600;
+  color:var(--accent);
+  font-variant-numeric:tabular-nums;
+}
+.stat span{
+  font-family:"Zen Kaku Gothic New",sans-serif;
+  font-size:12px;
+  color:var(--ink-faint);
+  letter-spacing:.04em;
+}
+
+/* ---------- map figure ---------- */
+.mapfig{
+  margin:26px 0 0;
+  padding:0;
+}
+.mapfig svg{
+  width:100%;
+  height:auto;
+  display:block;
+  border:1px solid var(--line);
+  border-radius:4px;
+}
+.mapfig figcaption{
+  margin-top:12px;
+  font-size:13.5px;
+  color:var(--ink-faint);
+  max-width:60ch;
+}
+.legend{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+  margin-top:22px;
+}
+.legend-item{
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+  background:var(--bg-panel);
+  border:1px solid var(--line);
+  border-radius:4px;
+  padding:14px 16px;
+}
+.legend-dot{
+  flex:none;
+  width:26px; height:26px;
+  border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-family:"Zen Kaku Gothic New",sans-serif;
+  font-weight:700; font-size:13px;
+  color:var(--bg);
+}
+.legend-item b{
+  display:block;
+  font-family:"Shippori Mincho",serif;
+  font-size:15px;
+  font-weight:600;
+  color:var(--ink);
+  margin-bottom:4px;
+}
+.legend-item small{
+  display:block;
+  font-family:"Zen Kaku Gothic New",sans-serif;
+  font-size:12px;
+  color:var(--ink-faint);
+  line-height:1.5;
+}
+@media (max-width:560px){
+  .legend{ grid-template-columns:1fr; }
+}
+
+/* ---------- resource table ---------- */
+.tablewrap{ overflow-x:auto; border:1px solid var(--line); border-radius:4px; }
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:520px;
+  font-size:14.5px;
+}
+thead th{
+  text-align:left;
+  font-family:"Zen Kaku Gothic New",sans-serif;
+  font-weight:700;
+  font-size:12px;
+  letter-spacing:.06em;
+  color:var(--ink-faint);
+  background:var(--bg-panel-2);
+  padding:12px 18px;
+  border-bottom:1px solid var(--line);
+}
+tbody td{
+  padding:14px 18px;
+  border-bottom:1px solid var(--line);
+  color:var(--ink-soft);
+  vertical-align:top;
+}
+tbody tr:last-child td{ border-bottom:none; }
+tbody tr:hover{ background:var(--bg-panel); }
+td.site{ color:var(--ink); font-weight:600; white-space:nowrap; }
+td a{ color:var(--accent); text-decoration:none; border-bottom:1px solid var(--accent-soft); }
+td a:hover{ color:var(--gold); border-color:var(--gold); }
+
+.note{
+  margin-top:14px;
+  font-size:13.5px;
+  color:var(--ink-faint);
+}
+
+footer{
+  margin-top:80px;
+  padding-top:26px;
+  border-top:1px solid var(--line);
+  font-family:"Zen Kaku Gothic New",sans-serif;
+  font-size:12.5px;
+  color:var(--ink-faint);
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+@media (max-width:520px){
+  .crestlist li{ grid-template-columns:1fr; gap:4px; }
+  dl.facts{ grid-template-columns:1fr; }
+  dl.facts dt{ padding-top:10px; }
+}
+</style>
+</head>
+<body>
+<div class="hero">
+  <svg class="crest" viewBox="0 0 688 688" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="丸に違い鷹の羽の紋">
+    <g transform="matrix(1.0901961,0,0,1.0901961,-16.774193,-16.774196)" style="fill:currentColor">
+      <g transform="matrix(1.0507557,0,0,1.0507557,-15.490947,-5.1014479)" style="fill:currentColor">
+        <g style="fill:currentColor">
+          <path d="m 198.96875,179.03125 -10.0625,10.0625 L 461.09375,461.25 471.125,451.21875 198.96875,179.03125 z" style="fill:currentColor;fill-opacity:1;stroke:none"/>
+          <path d="m 249.40997,159.46879 c 11.4476,-1e-5 22.89094,2.46459 33.5,7.375 l -0.75,0 0.0312,90.5 -81.37499,-81.375 c 14.32445,-11.00811 31.45294,-16.5 48.59375,-16.50001 z" style="fill:currentColor;fill-opacity:1;stroke:none"/>
+          <path d="m 284.69122,167.71879 c 3.33554,1.64583 6.58836,3.51602 9.71875,5.65625 l -1.34375,0 0.1875,95 -8.53125,-8.5 -0.0312,-92.15625 z" style="fill:currentColor;fill-opacity:1;stroke:none"/>
+          <path d="m 295.59747,174.18754 c 3.45668,2.45546 6.78333,5.21134 9.90626,8.28125 l -1.25001,0 0,96.9375 -8.53125,-8.53125 z" style="fill:currentColor;fill-opacity:1;stroke:none"/>
+          <path d="m 306.75372,183.71878 80.65626,80.65626 -1.25001,0 0.0312,96.9375 -79.40625,-79.375 z" style="fill:currentColor;fill-opacity:1;stroke:none"/>
+          <path d="m 185.84747,190.96879 81.09375,81.09375 -90.125,-0.25 -0.0312,1.40625 c -12.34056,-26.51373 -9.31249,-58.31001 9.0625,-82.25 z" style="fill:currentColor;fill-opacity:1;stroke:none"/>
+          <path d="m 388.65997,265.65629 9.78125,9.78125 -1.21875,0 1e-5,96.90625 -8.53126,-8.53125 -0.0312,-98.15626 z" style="fill:currentColor;fill-opacity:1;stroke:none"/>
+          <path d="m 177.34747,274.31254 92.09375,0.25 8.53125,8.53125 -94.71875,-0.15625 0,1.59375 c -2.2507,-3.29198 -4.20231,-6.70143 -5.90625,-10.21875 z" style="fill:currentColor;fill-opacity:1;stroke:none"/>
+          <path d="m 399.69122,276.68754 9.78125,9.78125 -1.24999,0 0.0312,96.90625 -8.53125,-8.53125 z" style="fill:currentColor;fill-opacity:1;stroke:none"/>
+          <path d="m 183.84747,285.40629 96.59375,0.15625 8.5625,8.5625 -96.375,-0.0312 0,1.8125 c -3.27491,-3.29953 -6.19721,-6.82518 -8.78125,-10.5 z" style="fill:currentColor;fill-opacity:1;stroke:none"/>
+          <path d="m 410.72247,287.71879 37.11226,37.08426 c 7.28964,7.26164 20.70026,34.53378 20.70024,55.13449 -10e-6,17.04278 -5.83745,34.01771 -16.09375,47.625 l -41.65625,-41.65625 z" style="fill:currentColor;fill-opacity:1;stroke:none"/>
+          <path d="m 193.31622,296.59379 98.1875,0.0312 79.40625,79.40626 -96.375,-0.0312 0,1.78125 z" style="fill:currentColor;fill-opacity:1;stroke:none"/>
+          <path d="m 459.90997,339.06254 c 12.10569,14.15551 19.09376,32.7117 19.09375,51.34375 -10e-6,17.04278 -5.83745,34.01771 -16.09375,47.625 l -8.65625,-8.65626 c 10.71794,-14.0899 16.78124,-31.7102 16.78125,-49.43749 0,-14.30472 -3.97038,-28.51415 -11.125,-40.875 z" style="fill:currentColor;fill-opacity:1;stroke:none"/>
+          <path d="m 466.50372,343.50004 c 28.7976,28.7976 31.12703,73.71058 7,105.125 l -8.8125,-8.8125 c 10.71794,-14.08266 16.78124,-31.67896 16.78125,-49.40625 1e-5,-16.69438 -5.39067,-33.26575 -14.96875,-46.90625 z" style="fill:currentColor;fill-opacity:1;stroke:none"/>
+          <path d="m 373.40997,378.53129 8.5625,8.5625 -96.375,-0.0625 -0.0312,1.8125 -10.28125,-10.31251 98.125,0 z" style="fill:currentColor;fill-opacity:1;stroke:none"/>
+          <path d="m 286.28497,389.53129 98.15625,0.0312 8.5625,8.5625 -96.375,-0.0625 0,1.81249 -10.34375,-10.34374 z" style="fill:currentColor;fill-opacity:1;stroke:none"/>
+          <path d="m 297.34747,400.59379 98.15625,0.0312 41.9375,41.93756 c -13.61316,10.27273 -30.59884,16.12498 -47.65625,16.125 -20.60071,1e-5 -47.80464,-13.48903 -55.08732,-20.75764 z" style="fill:currentColor;fill-opacity:1;stroke:none"/>
+          <path d="m 439.25372,444.37504 8.65625,8.65625 c -13.61316,10.27273 -30.59884,16.12498 -47.65625,16.125 -18.63204,10e-6 -37.18824,-6.98806 -51.34375,-19.09376 12.36086,7.15463 26.57028,11.125 40.875,11.12501 17.74192,-1e-5 35.37305,-6.07802 49.46875,-16.8125 z" style="fill:currentColor;fill-opacity:1;stroke:none"/>
+          <path d="m 449.69122,454.81254 8.8125,8.8125 c -31.34515,24.0624 -76.13684,21.80179 -104.9375,-6.8125 13.59844,9.48122 30.08321,14.8125 46.6875,14.8125 17.74192,-2e-5 35.34903,-6.07802 49.4375,-16.8125 z" style="fill:currentColor;fill-opacity:1;stroke:none"/>
+          <path d="m 262.14471,370.84784 0,1.5 0.75,-0.75 -0.75,-0.75 z" style="fill:currentColor;fill-opacity:1;stroke:none"/>
+          <path d="m 277.89471,386.59784 -0.5,0.5 1,0 -0.5,-0.5 z" style="fill:currentColor;fill-opacity:1;stroke:none"/>
+        </g>
+        <g style="fill:currentColor">
+          <path d="m 199.45721,339.06659 c -12.10569,14.15551 -19.09376,32.7117 -19.09375,51.34375 1e-5,17.04278 5.83745,34.01771 16.09375,47.625 l 8.65625,-8.65625 c -10.71794,-14.0899 -16.78124,-31.71021 -16.78125,-49.4375 0,-14.30472 3.97038,-28.51415 11.125,-40.875 z" style="fill:currentColor;fill-opacity:1;stroke:none"/>
+          <path d="m 409.95721,159.47284 c -11.4476,-1e-5 -22.89094,2.46459 -33.5,7.375 l 0.75,0 -0.0312,81.875 4.3125,4.3125 77.0625,-77.0625 c -14.3245,-11.00811 -31.45299,-16.49999 -48.5938,-16.5 z" style="fill:currentColor;fill-opacity:1;stroke:none"/>
+          <path d="m 374.67596,167.72284 c -3.33554,1.64583 -6.58836,3.51602 -9.71875,5.65625 l 1.34375,0 -0.125,64.34375 8.46875,8.46875 0.0312,-78.46875 z" style="fill:currentColor;fill-opacity:1;stroke:none"/>
+          <path d="m 363.76971,174.19159 c -3.45668,2.45546 -6.78332,5.21134 -9.90625,8.28125 l 1.25,0 0,44.1875 8.5625,8.5625 0.0937,-61.03125 z" style="fill:currentColor;fill-opacity:1;stroke:none"/>
+          <path d="m 352.61346,183.72284 -20.21875,20.21875 20.21875,20.1875 0,-40.40625 z" style="fill:currentColor;fill-opacity:1;stroke:none"/>
+          <path d="m 473.51971,190.97284 -77.0625,77.0625 4.03125,4 82.0625,-0.21875 0.0312,1.40625 c 12.34056,-26.51373 9.31249,-58.31001 -9.0625,-82.25 z" style="fill:currentColor;fill-opacity:1;stroke:none"/>
+          <path d="m 482.01971,274.31659 -79.03125,0.21875 8.5,8.5 64.625,-0.0937 0,1.59375 c 2.2507,-3.29198 4.20231,-6.70143 5.90625,-10.21875 z" style="fill:currentColor;fill-opacity:1;stroke:none"/>
+          <path d="m 475.51971,285.41034 -61.5625,0.0937 0.40625,0.40625 8.1875,8.1875 44.1875,0 0,1.8125 c 3.27491,-3.29953 6.19721,-6.82518 8.78125,-10.5 z" style="fill:currentColor;fill-opacity:1;stroke:none"/>
+          <path d="m 425.05096,296.59784 20.5,20.5 20.5,-20.5 -41,0 z" style="fill:currentColor;fill-opacity:1;stroke:none"/>
+          <path d="m 213.80096,322.53534 -2.28125,2.28125 c -7.28964,7.26164 -20.68752,34.52429 -20.6875,55.125 1e-5,17.04278 5.83745,34.01771 16.09375,47.625 l 41.65625,-41.65625 0.0312,-28.59375 -34.8125,-34.78125 z" style="fill:currentColor;fill-opacity:1;stroke:none"/>
+          <path d="m 192.86346,343.50409 c -28.7976,28.7976 -31.12703,73.71058 -7,105.125 l 8.8125,-8.8125 c -10.71794,-14.08266 -16.78124,-31.67896 -16.78125,-49.40625 -1e-5,-16.69438 5.39067,-33.26575 14.96875,-46.90625 z" style="fill:currentColor;fill-opacity:1;stroke:none"/>
+          <path d="m 251.11346,359.81659 0,23.5625 8.53125,-8.53125 0,-6.5 -8.53125,-8.53125 z" style="fill:currentColor;fill-opacity:1;stroke:none"/>
+          <path d="m 265.375,374.0625 -77.59375,77.5625 10.0625,10.0625 77.59375,-77.59375 -3.53125,-3.5 -6.53125,-6.53125 z m 195.01971,-195.02716 -76.46875,76.4375 6.53125,6.53125 3.53125,3.53125 76.4375,-76.4375 -10.03125,-10.0625 z" style="fill:currentColor;fill-opacity:1;stroke:none"/>
+          <path d="m 274.92596,389.56659 -8.5625,8.5625 23.0625,0 -8.5625,-8.5625 -5.9375,0 z" style="fill:currentColor;fill-opacity:1;stroke:none"/>
+          <path d="m 263.86346,400.62909 -41.9375,41.9375 c 13.61316,10.27273 30.59884,16.12498 47.65625,16.125 20.60071,10e-6 47.77982,-13.48139 55.0625,-20.75 l 2.3125,-2.3125 -31.15625,-31.15625 -3.84375,-3.84375 -28.09375,0 z" style="fill:currentColor;fill-opacity:1;stroke:none"/>
+          <path d="m 220.11346,444.37909 -8.65625,8.65625 c 13.61316,10.27273 30.59884,16.12498 47.65625,16.125 18.63204,10e-6 37.18824,-6.98805 51.34375,-19.09375 -12.36086,7.15463 -26.57028,11.12499 -40.875,11.125 -17.74192,-1e-5 -35.37305,-6.07802 -49.46875,-16.8125 z" style="fill:currentColor;fill-opacity:1;stroke:none"/>
+          <path d="m 209.67596,454.81659 -8.8125,8.8125 c 31.34515,24.0624 76.13684,21.80179 104.9375,-6.8125 -13.59844,9.48122 -30.08321,14.8125 -46.6875,14.8125 -17.74192,-2e-5 -35.34903,-6.07802 -49.4375,-16.8125 z" style="fill:currentColor;fill-opacity:1;stroke:none"/>
+        </g>
+      </g>
+      <path d="m 330.92596,75.879089 c -33.42152,0 -66.71695,6.614803 -97.59375,19.40625 -30.8768,12.791451 -59.08861,31.646221 -82.71875,55.281251 -23.63014,23.63503 -42.49619,51.87054 -55.281246,82.75 -12.78506,30.87946 -19.413185,64.17222 -19.40625,97.59375 -0.0069,33.42153 6.62119,66.71429 19.40625,97.59375 12.785056,30.87946 31.651106,59.11497 55.281246,82.75 23.63014,23.63503 51.84195,42.4898 82.71875,55.28125 30.8768,12.79145 64.17223,19.4375 97.59375,19.4375 33.42152,0 66.71695,-6.64605 97.59375,-19.4375 30.8768,-12.79145 59.11986,-31.64622 82.75,-55.28125 23.63014,-23.63503 42.49619,-51.87054 55.28125,-82.75 12.78506,-30.87946 19.38194,-64.17222 19.375,-97.59375 0.007,-33.42153 -6.58994,-66.71429 -19.375,-97.59375 -12.78506,-30.87946 -31.65111,-59.11497 -55.28125,-82.75 -23.63014,-23.63503 -51.8732,-42.4898 -82.75,-55.281251 -30.8768,-12.791447 -64.17223,-19.40625 -97.59375,-19.40625 z m 0,45.468751 c 27.38963,0 54.88333,5.4859 80.1875,15.96875 25.30417,10.48285 48.60337,26.06812 67.96875,45.4375 19.36538,19.36938 34.95988,42.66241 45.4375,67.96875 10.47762,25.30634 15.91193,52.79788 15.90625,80.1875 0.006,27.38962 -5.42863,54.88116 -15.90625,80.1875 -10.47762,25.30634 -26.07212,48.63062 -45.4375,68 -19.36538,19.36938 -42.66458,34.9234 -67.96875,45.40625 l -0.125,0.0625 c -25.26873,10.44818 -52.71921,15.90625 -80.0625,15.90625 -27.38963,0 -54.85208,-5.4859 -80.15625,-15.96875 -25.30417,-10.48285 -48.63462,-26.03687 -68,-45.40625 -19.36538,-19.36938 -34.92863,-42.69366 -45.40625,-68 -10.47761,-25.30634 -15.94318,-52.79788 -15.9375,-80.1875 -0.006,-27.38962 5.45989,-54.88116 15.9375,-80.1875 10.47762,-25.30634 26.04087,-48.59937 45.40625,-67.96875 19.36538,-19.36938 42.69583,-34.95465 68,-45.4375 25.30417,-10.48285 52.76662,-15.96875 80.15625,-15.96875 z" style="fill:currentColor;fill-opacity:1;stroke:none"/>
+    </g>
+  </svg>
+  <p class="eyebrow">Kamon Research Note</p>
+  <h1>丸に違い<wbr>鷹の羽</h1>
+  <p class="reading">まる に ちがい たかのは — Maru ni Chigai Takanoha</p>
+  <p class="lede">吉田姓のお宅で確認された家紋。鷹の羽根二枚を斜めに交差させ、丸で囲った意匠。ここまでの調査で分かったことと、さらに掘り下げるための参考サイトをまとめました。</p>
+  <div class="tagset">
+    <span class="tag">五大紋のひとつ</span>
+    <span class="tag">羽根紋・動物紋</span>
+    <span class="tag">吉田姓</span>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <section>
+    <div class="section-head">
+      <span class="section-num">01</span>
+      <h2>この家紋について</h2>
+    </div>
+    <hr class="rule">
+    <div class="panel">
+      <dl class="facts">
+        <dt>紋名</dt><dd>丸に違い鷹の羽（まるにちがいたかのは）</dd>
+        <dt>分類</dt><dd>羽根紋（鷹の羽紋のバリエーション）</dd>
+        <dt>構成</dt><dd>鷹の羽根2枚を「×」字状に交差させ、外周を丸で囲う</dd>
+        <dt>対になる紋</dt><dd>並び鷹の羽（羽根を平行に並べる意匠）</dd>
+        <dt>象徴</dt><dd>武勇・勇猛。鷹狩りを好んだ武家社会での縁起紋</dd>
+        <dt>主な使用家</dt><dd>菊池氏、浅野氏をはじめ全国の多くの武家・旧家</dd>
+      </dl>
+      <div class="figrow">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="50" r="46" stroke="currentColor" stroke-width="5" fill="none"/>
+          <path d="M50 50 L20 20 M50 50 L80 20 M50 50 L20 80 M50 50 L80 80" stroke="currentColor" stroke-width="4"/>
+        </svg>
+        <p>鷹の羽紋は日本の「五大紋」に数えられるほど広く使われた紋で、家系や地域を問わず全国的に見られます。そのため紋だけから特定の一族に直結させることは難しく、由来を確定するには家系側の記録と突き合わせる必要があります。</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <span class="section-num">02</span>
+      <h2>吉田姓について</h2>
+    </div>
+    <hr class="rule">
+    <p>「吉田」は地名に由来する姓で、全国各地に系統が分かれています。単一の家紋には定まらず、家系ごとに異なるのが実情です。</p>
+    <div class="statrow">
+      <div class="stat"><b>11位</b><span>全国苗字順位</span></div>
+      <div class="stat"><b>約80.1万人</b><span>推定人口</span></div>
+      <div class="stat"><b>長崎県</b><span>比率が高い地域のひとつ</span></div>
+    </div>
+    <ul class="crestlist">
+      <li><span class="name">抱き柏</span><span class="desc">柏の葉2枚を向き合わせた紋。公家・吉田家（卜部氏流、神職を統括した家）の代表紋</span></li>
+      <li><span class="name">丸に日の丸扇</span><span class="desc">桓武平氏系の吉田氏に多いとされる意匠</span></li>
+      <li><span class="name">五瓜に卍</span><span class="desc">吉田松陰の家系（長州藩士）で使用</span></li>
+      <li><span class="name">桜紋</span><span class="desc">吉田茂（元首相）の家で使用、墓所にも刻まれる</span></li>
+    </ul>
+    <p class="note">南島原市の吉田家に特有の紋の記録は、公開資料からは確認できませんでした。本家の言い伝え・お墓や仏壇の紋・菩提寺の記録が最も確実な手がかりです。</p>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <span class="section-num">03</span>
+      <h2>祖先の地方 — 家紋が伝わった道すじ</h2>
+    </div>
+    <hr class="rule">
+    <p>紋そのものの発祥から南島原市までの伝播経路をたどると、地理的につながりの深いルートが見えてきます。</p>
+
+    <figure class="mapfig">
+      <svg viewBox="0 0 700 300" role="img" aria-label="鷹の羽紋が肥後国（熊本県）の阿蘇神社から菊池氏を経て、南北朝時代に肥前国島原半島（現・南島原市）へ伝わった経路を示す図。肥後国と肥前国、2つの国にまたがる3地点を番号順にたどる">
+        <defs>
+          <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M0 0 L10 5 L0 10 Z" fill="var(--ink-soft)"/>
+          </marker>
+        </defs>
+
+        <!-- province bands -->
+        <rect x="0" y="0" width="460" height="300" fill="var(--bg-panel)"/>
+        <rect x="460" y="0" width="240" height="300" fill="var(--accent-wash)"/>
+        <line x1="460" y1="0" x2="460" y2="300" stroke="var(--ink-faint)" stroke-width="1.5" stroke-dasharray="2 6"/>
+
+        <text x="24" y="34" font-family="Shippori Mincho, serif" font-size="17" font-weight="700" fill="var(--ink-soft)">肥後国</text>
+        <text x="24" y="54" font-family="Zen Kaku Gothic New, sans-serif" font-size="12" fill="var(--ink-faint)">熊本県</text>
+
+        <text x="484" y="34" font-family="Shippori Mincho, serif" font-size="17" font-weight="700" fill="var(--ink-soft)">肥前国</text>
+        <text x="484" y="54" font-family="Zen Kaku Gothic New, sans-serif" font-size="12" fill="var(--ink-faint)">長崎県・島原半島</text>
+
+        <text x="460" y="286" text-anchor="middle" font-family="Zen Kaku Gothic New, sans-serif" font-size="11" fill="var(--ink-faint)">国境</text>
+
+        <!-- route line -->
+        <line x1="120" y1="170" x2="330" y2="170" stroke="var(--ink-soft)" stroke-width="2.5" marker-end="url(#arrow)"/>
+        <line x1="380" y1="170" x2="550" y2="170" stroke="var(--ink-soft)" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+        <!-- step captions on the line -->
+        <text x="225" y="150" text-anchor="middle" font-family="Zen Kaku Gothic New, sans-serif" font-size="12" font-weight="700" fill="var(--ink-soft)">神紋を継承</text>
+        <text x="225" y="196" text-anchor="middle" font-family="Zen Kaku Gothic New, sans-serif" font-size="11" fill="var(--ink-faint)">鎌倉時代</text>
+
+        <text x="465" y="150" text-anchor="middle" font-family="Zen Kaku Gothic New, sans-serif" font-size="12" font-weight="700" fill="var(--ink-soft)">有馬氏へ伝播</text>
+        <text x="465" y="196" text-anchor="middle" font-family="Zen Kaku Gothic New, sans-serif" font-size="11" fill="var(--ink-faint)">南北朝〜戦国期</text>
+
+        <!-- node 1: Aso -->
+        <circle cx="120" cy="170" r="22" fill="var(--accent)"/>
+        <text x="120" y="177" text-anchor="middle" font-family="Zen Kaku Gothic New, sans-serif" font-size="18" font-weight="700" fill="var(--bg)">1</text>
+        <text x="120" y="222" text-anchor="middle" font-family="Shippori Mincho, serif" font-size="16" font-weight="700" fill="var(--ink)">阿蘇神社</text>
+        <text x="120" y="242" text-anchor="middle" font-family="Zen Kaku Gothic New, sans-serif" font-size="11" fill="var(--ink-faint)">鷹の羽紋の発祥</text>
+
+        <!-- node 2: Kikuchi -->
+        <circle cx="355" cy="170" r="22" fill="var(--accent)"/>
+        <text x="355" y="177" text-anchor="middle" font-family="Zen Kaku Gothic New, sans-serif" font-size="18" font-weight="700" fill="var(--bg)">2</text>
+        <text x="355" y="222" text-anchor="middle" font-family="Shippori Mincho, serif" font-size="16" font-weight="700" fill="var(--ink)">菊池氏</text>
+        <text x="355" y="242" text-anchor="middle" font-family="Zen Kaku Gothic New, sans-serif" font-size="11" fill="var(--ink-faint)">神紋を拝領した氏族</text>
+
+        <!-- node 3: Shimabara -->
+        <circle cx="600" cy="170" r="24" fill="var(--gold)"/>
+        <text x="600" y="177" text-anchor="middle" font-family="Zen Kaku Gothic New, sans-serif" font-size="19" font-weight="700" fill="var(--bg)">3</text>
+        <text x="600" y="224" text-anchor="middle" font-family="Shippori Mincho, serif" font-size="17" font-weight="700" fill="var(--ink)">南島原市</text>
+        <text x="600" y="244" text-anchor="middle" font-family="Zen Kaku Gothic New, sans-serif" font-size="11" fill="var(--ink-faint)">有馬氏の勢力圏</text>
+      </svg>
+      <figcaption>① 阿蘇神社の神紋が　② 氏子の菊池氏（肥後国＝熊本県）に受け継がれ　③ 南北朝〜戦国期、菊池氏に従属した有馬氏を通じて肥前国島原半島（現・南島原市）へ伝わった、と考えられる道すじ。破線は肥後国と肥前国の境界を示す。</figcaption>
+    </figure>
+
+    <div class="legend">
+      <div class="legend-item"><span class="legend-dot" style="background:var(--accent)">1</span><div><b>阿蘇神社</b><small>鷹の羽紋の発祥。もとは神紋</small></div></div>
+      <div class="legend-item"><span class="legend-dot" style="background:var(--accent)">2</span><div><b>菊池氏</b><small>神紋を拝領し旗印として使用、鎌倉時代</small></div></div>
+      <div class="legend-item"><span class="legend-dot" style="background:var(--gold)">3</span><div><b>有馬氏／南島原市</b><small>菊池氏に従属した縁で紋が伝播、南北朝〜戦国期</small></div></div>
+    </div>
+
+    <div class="panel" style="margin-top:24px;">
+      <dl class="facts">
+        <dt>発祥</dt><dd>阿蘇神社（肥後国阿蘇郡・現熊本県阿蘇地方）の神紋</dd>
+        <dt>継承</dt><dd>氏子であった菊池氏（肥後国菊池郡）が拝領し、旗印として使用</dd>
+        <dt>伝播</dt><dd>南北朝時代、島原半島の有馬氏が菊池氏・少弐氏に従属。主従関係を通じ紋が伝わる</dd>
+        <dt>拡散</dt><dd>菊池氏庶流（赤星・城・甲斐・西郷氏など）を通じ九州全域・関東・東北にも波及</dd>
+        <dt>吉田姓の分布</dt><dd>北陸・近畿・北部九州に濃く、県別比率では長崎県も上位</dd>
+      </dl>
+    </div>
+    <p class="note">これは家紋の伝播経路と苗字の分布傾向から見た「地理的に筋の通る仮説」であり、南島原市の吉田家が実際にこの系譜を持つと確定するものではありません。鷹の羽紋は全国120以上の家系で使われた紋のため、本家の過去帳や口之津歴史民俗資料館などの郷土資料での裏付けをおすすめします。</p>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <span class="section-num">04</span>
+      <h2>調べられるサイト</h2>
+    </div>
+    <hr class="rule">
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr><th>サイト</th><th>特徴</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="site"><a href="https://irohakamon.com/" target="_blank" rel="noopener">家紋のいろは</a></td>
+            <td>紋の種類ごとに由来・使用家系を詳しく解説。検索性が高い。<br><a href="https://irohakamon.com/kamon/takanoha/" target="_blank" rel="noopener">→ 鷹の羽紋の一覧ページ</a></td>
+          </tr>
+          <tr>
+            <td class="site"><a href="https://www.harimaya.com/kamon/" target="_blank" rel="noopener">家紋World</a></td>
+            <td>姓氏と家紋の対応・歴史的な使用家をまとめた老舗サイト</td>
+          </tr>
+          <tr>
+            <td class="site"><a href="https://kamondb.com/" target="_blank" rel="noopener">家紋データベース</a></td>
+            <td>植物紋・動物紋・文様紋などカテゴリ別に画像で一覧できる</td>
+          </tr>
+          <tr>
+            <td class="site"><a href="https://myoji-kamon.net/" target="_blank" rel="noopener">家紋・名字ネット</a></td>
+            <td>苗字から使われやすい家紋を検索できる</td>
+          </tr>
+          <tr>
+            <td class="site"><a href="https://myoji-yurai.net/" target="_blank" rel="noopener">名字由来net</a></td>
+            <td>苗字の由来と合わせて代表的な家紋も紹介</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer>
+    <span>吉田家 家紋リサーチノート</span>
+    <span>紋章図: Mukai / Wikimedia Commons（<a href="https://creativecommons.org/licenses/by-sa/3.0/deed.ja" target="_blank" rel="noopener" style="color:inherit;">CC BY-SA 3.0</a>）・本家の記録での確認を推奨</span>
+  </footer>
+
+</div>
+</body>
+</html>
