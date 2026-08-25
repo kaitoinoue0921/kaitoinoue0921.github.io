@@ -19,6 +19,7 @@
     --indigo: #274156;
     --indigo-soft: #3c5a73;
     --vermillion: #c1440e;
+    --amber: #a3782c;
     --moss: #5f7350;
     --line: #c9bd9d;
     --shadow: rgba(43,42,40,0.18);
@@ -34,6 +35,7 @@
       --indigo: #7fa3bd;
       --indigo-soft: #5c85a3;
       --vermillion: #e08a52;
+      --amber: #d8a657;
       --moss: #8ea87b;
       --line: #454b52;
       --shadow: rgba(0,0,0,0.45);
@@ -49,6 +51,7 @@
     --indigo: #7fa3bd;
     --indigo-soft: #5c85a3;
     --vermillion: #e08a52;
+    --amber: #d8a657;
     --moss: #8ea87b;
     --line: #454b52;
     --shadow: rgba(0,0,0,0.45);
@@ -139,6 +142,34 @@
     outline-offset:1px;
   }
 
+  #egoSelect{
+    width:100%;
+    background:var(--card-bg);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:8px 10px;
+    font-family:inherit;
+    font-size:0.88rem;
+    color:var(--ink);
+  }
+  #lineInput{
+    width:100%;
+    background:var(--card-bg);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:10px 14px;
+    font-family:inherit;
+    font-size:0.92rem;
+    color:var(--ink);
+  }
+  #lineInput.editing{ border-color:var(--vermillion); }
+  .edit-banner{
+    font-size:0.74rem;
+    color:var(--vermillion);
+    margin-top:6px;
+  }
+  .edit-banner a{ color:var(--vermillion); }
+
   .hint{
     font-size:0.76rem;
     color:var(--ink-soft);
@@ -201,19 +232,30 @@
     display:flex;
     flex-direction:column;
     gap:6px;
-    max-height:220px;
+    max-height:260px;
     overflow-y:auto;
   }
   .rel-item{
     display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:8px;
+    flex-direction:column;
+    gap:3px;
     background:var(--card-bg);
     border:1px solid var(--line);
     border-radius:5px;
-    padding:6px 10px;
+    padding:7px 10px;
     font-size:0.8rem;
+    cursor:pointer;
+  }
+  .rel-item:hover{ border-color:var(--indigo-soft); }
+  .rel-item.editing-row{ border-color:var(--vermillion); }
+  .rel-item .raw-text{ color:var(--ink); }
+  .rel-item .parsed-desc{ font-size:0.72rem; color:var(--indigo-soft); }
+  .rel-item .parsed-desc.unrecognized{ color:var(--vermillion); }
+  .rel-item .row-actions{
+    display:flex;
+    justify-content:flex-end;
+    gap:6px;
+    margin-top:2px;
   }
   .rel-item .txt b{ color:var(--indigo); }
   .rel-item .txt em{ color:var(--vermillion); font-style:normal; }
@@ -359,7 +401,7 @@
 
   .edge-lineage{ stroke:var(--indigo); stroke-width:1.8; fill:none; }
   .edge-spouse{ stroke:var(--vermillion); stroke-width:2; fill:none; }
-  .edge-sibling{ stroke:var(--indigo-soft); stroke-width:1.4; stroke-dasharray:5 4; fill:none; }
+  .edge-sibling{ stroke:var(--amber); stroke-width:2; stroke-dasharray:8 3; fill:none; }
   .edge-extended{ stroke:var(--ink-soft); stroke-width:1; stroke-dasharray:2 4; fill:none; opacity:0.85; }
   .edge-cousin2{ stroke:var(--moss); stroke-width:1.2; stroke-dasharray:2 4; fill:none; opacity:0.9; }
   .edge-label{
@@ -367,6 +409,7 @@
     fill:var(--ink-soft);
   }
   .spouse-mark{ fill:var(--vermillion); }
+  .sibling-mark{ fill:var(--amber); }
 
   /* ---------- hover highlight ---------- */
   .node-card, .edge-group{ transition:opacity 0.15s ease; }
@@ -376,9 +419,11 @@
   svg#tree.hovering .edge-group{ opacity:0.12; }
   svg#tree.hovering .edge-group.hl-active{ opacity:1; }
   .node-card.hl-active rect{ stroke:var(--vermillion); stroke-width:2.2; }
+  .node-card.is-ego rect{ stroke:var(--amber); stroke-width:2.4; }
+  .node-card .ego-badge{ fill:var(--amber); font-weight:700; }
   .edge-group.hl-active .edge-lineage{ stroke-width:2.8; }
   .edge-group.hl-active .edge-spouse{ stroke-width:3; }
-  .edge-group.hl-active .edge-sibling{ stroke-width:2.2; }
+  .edge-group.hl-active .edge-sibling{ stroke-width:3; }
   .edge-group.hl-active .edge-extended{ stroke-width:1.6; }
   .edge-group.hl-active .edge-cousin2{ stroke-width:1.8; }
   .edge-hover-label{
@@ -417,11 +462,143 @@
   ::-webkit-scrollbar{ width:10px; height:10px; }
   ::-webkit-scrollbar-thumb{ background:var(--line); border-radius:6px; }
   ::-webkit-scrollbar-track{ background:transparent; }
+
+  /* ---------- person tooltip ---------- */
+  .person-tooltip{
+    position:absolute;
+    z-index:10;
+    pointer-events:none;
+    background:var(--card-bg);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:12px 14px;
+    box-shadow:0 6px 20px var(--shadow);
+    font-size:0.78rem;
+    color:var(--ink-soft);
+    min-width:160px;
+    max-width:240px;
+    opacity:0;
+    transform:translateY(4px);
+    transition:opacity 0.12s ease, transform 0.12s ease;
+  }
+  .person-tooltip.visible{ opacity:1; transform:translateY(0); }
+  .person-tooltip .tt-name{
+    font-family:"Shippori Mincho",serif;
+    font-weight:700;
+    font-size:1rem;
+    color:var(--ink);
+    margin-bottom:6px;
+  }
+  .person-tooltip .tt-line{
+    display:flex;
+    align-items:baseline;
+    gap:6px;
+    margin-bottom:3px;
+  }
+  .person-tooltip .tt-icon{ flex:none; opacity:0.75; }
+  .person-tooltip .tt-rel-title{
+    font-size:0.7rem;
+    font-weight:700;
+    letter-spacing:0.04em;
+    color:var(--ink-soft);
+    margin:8px 0 4px;
+    border-top:1px solid var(--line);
+    padding-top:6px;
+  }
+  .person-tooltip .tt-rel{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+  }
+  .person-tooltip .tt-rel b{ color:var(--indigo); font-weight:700; }
+
+  /* ---------- password gate ---------- */
+  #gate{
+    position:fixed;
+    inset:0;
+    z-index:100;
+    background:var(--paper);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+  }
+  #gate.hidden{ display:none; }
+  .gate-card{
+    background:var(--card-bg);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:36px 32px;
+    max-width:320px;
+    width:100%;
+    text-align:center;
+    box-shadow:0 8px 28px var(--shadow);
+  }
+  .gate-card .kanji{
+    font-family:"Shippori Mincho",serif;
+    font-weight:700;
+    font-size:1.6rem;
+    color:var(--indigo);
+    margin-bottom:6px;
+  }
+  .gate-card p{
+    font-size:0.82rem;
+    color:var(--ink-soft);
+    margin:0 0 20px;
+    line-height:1.6;
+  }
+  .gate-card input[type=password]{
+    width:100%;
+    font-family:inherit;
+    font-size:0.95rem;
+    padding:10px 12px;
+    border:1px solid var(--line);
+    border-radius:6px;
+    background:var(--paper);
+    color:var(--ink);
+    text-align:center;
+    margin-bottom:12px;
+  }
+  .gate-card input[type=password]:focus{
+    outline:2px solid var(--indigo-soft);
+    outline-offset:1px;
+  }
+  .gate-card button{
+    width:100%;
+    font-family:inherit;
+    font-size:0.88rem;
+    font-weight:700;
+    border-radius:6px;
+    border:none;
+    background:var(--indigo);
+    color:var(--paper);
+    padding:10px;
+    cursor:pointer;
+  }
+  .gate-card button:hover{ filter:brightness(1.1); }
+  .gate-error{
+    color:var(--vermillion);
+    font-size:0.78rem;
+    margin-top:10px;
+    min-height:1.2em;
+  }
 </style>
 </head>
 <body>
 
-<div class="app">
+<div id="gate">
+  <div class="gate-card">
+    <div class="kanji">家系図</div>
+    <p>この家系図を見るにはパスワードが必要です。</p>
+    <form id="gateForm" autocomplete="off">
+      <input type="password" id="gatePassword" placeholder="パスワード" autofocus>
+      <button type="submit">見る</button>
+      <div class="gate-error" id="gateError"></div>
+    </form>
+  </div>
+</div>
+
+<div class="app" id="appRoot" style="display:none;">
   <aside class="sidebar">
     <a class="backlink" href="../">← 作ったもの一覧に戻る</a>
     <div class="brand">
@@ -430,23 +607,29 @@
     </div>
 
     <div>
-      <label class="field-label" for="inputText">文章を入力</label>
-      <textarea id="inputText" placeholder="例）
-太郎は花子の夫です。
-太郎は次郎の父です。
-花子は次郎の母です。
-次郎は東京都渋谷区に住んでいます。
-太郎は北海道出身です。"></textarea>
+      <label class="field-label" for="egoSelect">本人（自分）</label>
+      <select id="egoSelect">
+        <option value="">未設定</option>
+      </select>
+      <div class="hint" style="margin-top:6px;">本人を選ぶと、文章の中で「私」「自分」と書いた部分をその人として扱います（例：「私の父は太郎です」）。</div>
+    </div>
+
+    <div>
+      <label class="field-label" for="lineInput">文章を入力してEnter</label>
+      <input type="text" id="lineInput" placeholder="例：太郎は花子の夫です" autocomplete="off">
+      <div class="edit-banner" id="editBanner" style="display:none;">
+        編集中 — Enterで保存 / <a href="#" id="cancelEdit">キャンセル</a>
+      </div>
     </div>
 
     <div class="btn-row">
-      <button class="btn-primary" id="parseBtn">家系図を作る</button>
       <button class="btn-ghost" id="sampleBtn">サンプルを見る</button>
       <button class="btn-ghost" id="clearBtn">全部消す</button>
     </div>
 
     <div class="hint">
-      使える表現の例 — <b>関係</b>：「AはBの父/母/息子/娘/夫/妻/兄/姉/弟/妹/祖父/祖母/孫/叔父/叔母/甥/姪/いとこ/またいとこ です」／「Aの息子はBです」のように逆向きでもOK／「AとBは夫婦/兄弟/姉妹です」<br>
+      使える表現の例 — <b>関係</b>：「AはBの父/母/息子/娘/夫/妻/兄/姉/弟/妹/祖父/祖母/孫/叔父/叔母/甥/姪/いとこ/またいとこ/いとこ半 です」／「Aの息子はBです」のように逆向きでもOK／「AとBは夫婦/兄弟/姉妹です」<br>
+      <b>いとこ半</b>：「AはBのいとこ半です」＝Aが一世代上（例：親のいとこ）<br>
       <b>居住地</b>：「Aは○○に住んでいます」「Aは○○在住」「Aは○○出身です」<br>
       <b>職業</b>：「Aの職業は○○です」「Aは○○として働いています」「Aは○○です」（例：太郎は医者です）
     </div>
@@ -454,12 +637,12 @@
     <div class="divider"></div>
 
     <div>
-      <div class="list-title"><span>読み取った関係</span><span class="count" id="relCount">0</span></div>
+      <div class="list-title"><span>入力履歴（クリックで編集）</span><span class="count" id="relCount">0</span></div>
       <div class="rel-list" id="relList"></div>
     </div>
 
     <div>
-      <div class="list-title"><span>人物（居住地・職業を編集）</span><span class="count" id="peopleCount">0</span></div>
+      <div class="list-title"><span>人物（居住地・職業・メモを編集）</span><span class="count" id="peopleCount">0</span></div>
       <div class="people-list" id="peopleList"></div>
     </div>
   </aside>
@@ -486,9 +669,42 @@
       <div class="kanji-big">まだ何もありません</div>
       <p>左のテキスト欄に家族の関係を文章で書いて「家系図を作る」を押してください。</p>
     </div>
+    <div class="person-tooltip" id="personTooltip"></div>
   </main>
 </div>
 
+<script>
+(function(){
+  const PASSWORD = "yoshidakiyoko";
+  const UNLOCK_KEY = "kakeizu_unlocked_v1";
+  const gate = document.getElementById("gate");
+  const appRoot = document.getElementById("appRoot");
+  const gateForm = document.getElementById("gateForm");
+  const gatePassword = document.getElementById("gatePassword");
+  const gateError = document.getElementById("gateError");
+
+  function unlock(){
+    gate.classList.add("hidden");
+    appRoot.style.display = "";
+    try{ localStorage.setItem(UNLOCK_KEY, "1"); }catch(e){}
+  }
+
+  if(localStorage.getItem(UNLOCK_KEY) === "1"){
+    unlock();
+  } else {
+    gateForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      if(gatePassword.value === PASSWORD){
+        unlock();
+      } else {
+        gateError.textContent = "パスワードが違います。";
+        gatePassword.value = "";
+        gatePassword.focus();
+      }
+    });
+  }
+})();
+</script>
 <script>
 (function(){
   const RELATION_MAP = {
@@ -499,26 +715,39 @@
     "兄":"older_brother","姉":"older_sister",
     "弟":"younger_brother","妹":"younger_sister",
     "叔父":"uncle","伯父":"uncle","叔母":"aunt","伯母":"aunt",
-    "甥":"nephew","姪":"niece","いとこ":"cousin","またいとこ":"second_cousin","はとこ":"second_cousin","ふたいとこ":"second_cousin","孫":"grandchild"
+    "甥":"nephew","姪":"niece","いとこ":"cousin","またいとこ":"second_cousin","はとこ":"second_cousin","ふたいとこ":"second_cousin",
+    "いとこ半":"cousin_once_removed","いとこ違い":"cousin_once_removed","孫":"grandchild"
   };
   // gen(subject) - gen(object) = offset   [ subject は object の {relation} です ]
+  // いとこ半：「AはBのいとこ半です」＝Aが一世代上（Bの親のいとこ、など）
   const OFFSET = {
     grandfather:-2, grandmother:-2, father:-1, mother:-1, uncle:-1, aunt:-1,
     son:1, daughter:1, child:1, grandchild:2, nephew:1, niece:1,
-    husband:0, wife:0, older_brother:0, older_sister:0, younger_brother:0, younger_sister:0, cousin:0, second_cousin:0
+    husband:0, wife:0, older_brother:0, older_sister:0, younger_brother:0, younger_sister:0, cousin:0, second_cousin:0,
+    cousin_once_removed:-1
   };
   const CATEGORY = {
     grandfather:"lineage", grandmother:"lineage", father:"lineage", mother:"lineage",
     son:"lineage", daughter:"lineage", child:"lineage", grandchild:"lineage",
     husband:"spouse", wife:"spouse",
     older_brother:"sibling", older_sister:"sibling", younger_brother:"sibling", younger_sister:"sibling", sibling:"sibling",
-    uncle:"extended", aunt:"extended", nephew:"extended", niece:"extended", cousin:"extended",
+    uncle:"extended", aunt:"extended", nephew:"extended", niece:"extended", cousin:"extended", cousin_once_removed:"extended",
     second_cousin:"cousin2"
   };
   const RELATION_LABEL_JA = {
     grandfather:"祖父", grandmother:"祖母", father:"父", mother:"母", son:"息子", daughter:"娘", child:"子",
     husband:"夫", wife:"妻", older_brother:"兄", older_sister:"姉", younger_brother:"弟", younger_sister:"妹",
-    uncle:"叔父/伯父", aunt:"叔母/伯母", nephew:"甥", niece:"姪", cousin:"いとこ", second_cousin:"またいとこ", grandchild:"孫", sibling:"兄弟姉妹"
+    uncle:"叔父/伯父", aunt:"叔母/伯母", nephew:"甥", niece:"姪", cousin:"いとこ", second_cousin:"またいとこ",
+    cousin_once_removed:"いとこ半", grandchild:"孫", sibling:"兄弟姉妹"
+  };
+  // 逆方向（相手にとってではなく、その人にとっての関係）のラベル
+  const INVERSE_LABEL_JA = {
+    father:"子", mother:"子", son:"親", daughter:"親", child:"親",
+    husband:"妻", wife:"夫",
+    older_brother:"弟/妹", older_sister:"弟/妹", younger_brother:"兄/姉", younger_sister:"兄/姉", sibling:"兄弟姉妹",
+    grandfather:"孫", grandmother:"孫", grandchild:"祖父母",
+    uncle:"甥/姪", aunt:"甥/姪", nephew:"叔父/叔母", niece:"叔父/叔母",
+    cousin:"いとこ", second_cousin:"またいとこ", cousin_once_removed:"いとこ半"
   };
 
   const RELATION_WORDS_SORTED = Object.keys(RELATION_MAP).sort((a,b)=>b.length-a.length).join("|");
@@ -557,91 +786,117 @@
 光は福岡に住んでいて教師をしています。
 光とみのりはまたいとこです。`;
 
-  let state = { text:"", people:{}, edges:[] };
+  let state = { history:[], people:{}, edges:[], manualOverrides:{}, egoName:"" };
 
   function loadState(){
     try{
-      const raw = localStorage.getItem("kakeizu_state_v1");
+      const raw = localStorage.getItem("kakeizu_state_v2");
       if(raw){
         const parsed = JSON.parse(raw);
-        if(parsed && parsed.people) state = parsed;
+        if(parsed && Array.isArray(parsed.history)) state = parsed;
+        if(!state.manualOverrides) state.manualOverrides = {};
+      } else {
+        // migrate from old textarea-based save, if present
+        const oldRaw = localStorage.getItem("kakeizu_state_v1");
+        if(oldRaw){
+          const old = JSON.parse(oldRaw);
+          if(old && old.text){
+            state.history = old.text.split(/[。\n]/).map(s=>s.trim().replace(/[、,]+$/,"")).filter(Boolean);
+          }
+        }
       }
     }catch(e){}
   }
   function saveState(){
-    try{ localStorage.setItem("kakeizu_state_v1", JSON.stringify(state)); }catch(e){}
+    try{ localStorage.setItem("kakeizu_state_v2", JSON.stringify(state)); }catch(e){}
   }
 
   function ensurePerson(name){
     name = name.trim();
     if(!name) return null;
-    if(!state.people[name]) state.people[name] = { name, location:"", occupation:"" };
+    if(!state.people[name]) state.people[name] = { name, location:"", occupation:"", memo:"" };
     if(state.people[name].occupation === undefined) state.people[name].occupation = "";
+    if(state.people[name].memo === undefined) state.people[name].memo = "";
     return state.people[name];
   }
 
-  function parseText(text){
-    state.text = text;
+  // Parses one sentence, mutating state.people / state.edges, and returns a
+  // short human-readable description of what was recognized (or null).
+  function parseSentence(raw){
+    let s = raw.replace(/\s+/g,"");
+    if(state.egoName){
+      s = s.replace(/私|自分/g, state.egoName);
+    }
+    let m;
+    if((m = s.match(LOC_OCC_RE))){
+      const p = ensurePerson(m[1]);
+      if(p){ p.location = m[2]; p.occupation = m[3]; }
+      return `📍${m[2]} ／ 💼${m[3]}`;
+    }
+    if((m = s.match(LOC_RE))){
+      const p = ensurePerson(m[1]);
+      if(p) p.location = m[2];
+      return `📍${m[2]}`;
+    }
+    if((m = s.match(COUPLE_RE))){
+      ensurePerson(m[1]); ensurePerson(m[2]);
+      state.edges.push({a:m[1], b:m[2], relation:"husband", raw});
+      return `夫婦：${m[1]} ⇄ ${m[2]}`;
+    }
+    if((m = s.match(SIBLING_RE))){
+      ensurePerson(m[1]); ensurePerson(m[2]);
+      state.edges.push({a:m[1], b:m[2], relation:"sibling", raw});
+      return `兄弟姉妹：${m[1]} ⇄ ${m[2]}`;
+    }
+    if((m = s.match(SYMMETRIC_RE))){
+      ensurePerson(m[1]); ensurePerson(m[2]);
+      const rel = SYMMETRIC_WORD_MAP[m[3]];
+      state.edges.push({a:m[1], b:m[2], relation:rel, raw});
+      return `${RELATION_LABEL_JA[rel]}：${m[1]} ⇄ ${m[2]}`;
+    }
+    if((m = s.match(REL_RE))){
+      const subj = m[1], obj = m[2], relJa = m[3];
+      const rel = RELATION_MAP[relJa];
+      ensurePerson(subj); ensurePerson(obj);
+      state.edges.push({a:subj, b:obj, relation:rel, raw});
+      return `${subj} は ${obj} の${RELATION_LABEL_JA[rel]}`;
+    }
+    if((m = s.match(REL_RE_REVERSE))){
+      const obj = m[1], relJa = m[2], subj = m[3];
+      const rel = RELATION_MAP[relJa];
+      ensurePerson(subj); ensurePerson(obj);
+      state.edges.push({a:subj, b:obj, relation:rel, raw});
+      return `${subj} は ${obj} の${RELATION_LABEL_JA[rel]}`;
+    }
+    if((m = s.match(OCC_RE_A))){
+      const p = ensurePerson(m[1]);
+      if(p) p.occupation = m[2];
+      return `💼${m[2]}`;
+    }
+    if((m = s.match(OCC_RE_B))){
+      const p = ensurePerson(m[1]);
+      if(p) p.occupation = m[2];
+      return `💼${m[2]}`;
+    }
+    if((m = s.match(OCC_RE_FALLBACK))){
+      const p = ensurePerson(m[1]);
+      if(p) p.occupation = m[2];
+      return `💼${m[2]}`;
+    }
+    return null;
+  }
+
+  function rebuildFromHistory(){
     state.people = {};
     state.edges = [];
-    const chunks = text.split(/[。\n]/).map(s=>s.trim().replace(/[、,]+$/,"")).filter(Boolean);
-    for(const raw of chunks){
-      const s = raw.replace(/\s+/g,"");
-      let m;
-      if((m = s.match(LOC_OCC_RE))){
-        const p = ensurePerson(m[1]);
-        if(p){ p.location = m[2]; p.occupation = m[3]; }
-        continue;
-      }
-      if((m = s.match(LOC_RE))){
-        const p = ensurePerson(m[1]);
-        if(p) p.location = m[2];
-        continue;
-      }
-      if((m = s.match(COUPLE_RE))){
-        ensurePerson(m[1]); ensurePerson(m[2]);
-        state.edges.push({a:m[1], b:m[2], relation:"husband", raw});
-        continue;
-      }
-      if((m = s.match(SIBLING_RE))){
-        ensurePerson(m[1]); ensurePerson(m[2]);
-        state.edges.push({a:m[1], b:m[2], relation:"sibling", raw});
-        continue;
-      }
-      if((m = s.match(SYMMETRIC_RE))){
-        ensurePerson(m[1]); ensurePerson(m[2]);
-        state.edges.push({a:m[1], b:m[2], relation:SYMMETRIC_WORD_MAP[m[3]], raw});
-        continue;
-      }
-      if((m = s.match(REL_RE))){
-        const subj = m[1], obj = m[2], relJa = m[3];
-        const rel = RELATION_MAP[relJa];
-        ensurePerson(subj); ensurePerson(obj);
-        state.edges.push({a:subj, b:obj, relation:rel, raw});
-        continue;
-      }
-      if((m = s.match(REL_RE_REVERSE))){
-        const obj = m[1], relJa = m[2], subj = m[3];
-        const rel = RELATION_MAP[relJa];
-        ensurePerson(subj); ensurePerson(obj);
-        state.edges.push({a:subj, b:obj, relation:rel, raw});
-        continue;
-      }
-      if((m = s.match(OCC_RE_A))){
-        const p = ensurePerson(m[1]);
-        if(p) p.occupation = m[2];
-        continue;
-      }
-      if((m = s.match(OCC_RE_B))){
-        const p = ensurePerson(m[1]);
-        if(p) p.occupation = m[2];
-        continue;
-      }
-      if((m = s.match(OCC_RE_FALLBACK))){
-        const p = ensurePerson(m[1]);
-        if(p) p.occupation = m[2];
-        continue;
-      }
+    state.results = state.history.map(line => parseSentence(line));
+    // re-apply manual location/occupation overrides on top of the parsed base
+    for(const name in state.manualOverrides){
+      if(!state.people[name]) continue;
+      const ov = state.manualOverrides[name];
+      if(ov.location !== undefined) state.people[name].location = ov.location;
+      if(ov.occupation !== undefined) state.people[name].occupation = ov.occupation;
+      if(ov.memo !== undefined) state.people[name].memo = ov.memo;
     }
     saveState();
   }
@@ -779,8 +1034,10 @@
         inner += `<circle class="spouse-mark" cx="${mx}" cy="${my}" r="3.5"/>`;
         labelX = mx; labelY = my - 8;
       } else if(cat === "sibling"){
+        const mx2 = (A.cx+B.cx)/2, my2 = (A.cy+B.cy)/2;
         inner = `<line class="edge-sibling" x1="${A.cx}" y1="${A.cy}" x2="${B.cx}" y2="${B.cy}"/>`;
-        labelX = (A.cx+B.cx)/2; labelY = (A.cy+B.cy)/2 - 6;
+        inner += `<rect class="sibling-mark" x="${mx2-3}" y="${my2-3}" width="6" height="6" transform="rotate(45 ${mx2} ${my2})"/>`;
+        labelX = (A.cx+B.cx)/2; labelY = (A.cy+B.cy)/2 - 8;
       } else {
         const cls = cat === "cousin2" ? "edge-cousin2" : "edge-extended";
         inner = `<line class="${cls}" x1="${A.cx}" y1="${A.cy}" x2="${B.cx}" y2="${B.cy}"/>`;
@@ -811,8 +1068,11 @@
         extraHtml += `${iconSvg}<text class="${line.cls}" x="${x + NODE_W/2 + 4}" y="${lineY}" text-anchor="middle" font-size="11">${escapeXml(line.text)}</text>`;
       });
 
+      const isEgo = name === state.egoName;
+      const egoBadge = isEgo ? `<text class="ego-badge" x="${x + NODE_W/2}" y="${y - 6}" text-anchor="middle" font-size="10">本人</text>` : "";
       nodesHtml += `
-        <g class="node-card" data-name="${escapeXml(name)}">
+        <g class="node-card${isEgo ? " is-ego" : ""}" data-name="${escapeXml(name)}">
+          ${egoBadge}
           <rect x="${x}" y="${y}" width="${NODE_W}" height="${NODE_H}" rx="8"/>
           <text class="name" x="${x + NODE_W/2}" y="${nameY}" text-anchor="middle" font-size="15">${escapeXml(name)}</text>
           ${extraHtml}
@@ -823,6 +1083,37 @@
     wireHoverHighlight(svg);
   }
 
+  function buildTooltipHtml(name){
+    const person = state.people[name] || {};
+    let html = `<div class="tt-name">${escapeXml(name)}</div>`;
+    if(person.location){
+      html += `<div class="tt-line"><span class="tt-icon">📍</span><span>${escapeXml(person.location)}</span></div>`;
+    }
+    if(person.occupation){
+      html += `<div class="tt-line"><span class="tt-icon">💼</span><span>${escapeXml(person.occupation)}</span></div>`;
+    }
+    if(person.memo){
+      html += `<div class="tt-line"><span class="tt-icon">📝</span><span>${escapeXml(person.memo)}</span></div>`;
+    }
+    const relLines = [];
+    for(const e of state.edges){
+      if(e.a === name){
+        const label = INVERSE_LABEL_JA[e.relation] || RELATION_LABEL_JA[e.relation] || e.relation;
+        relLines.push({label, other:e.b});
+      } else if(e.b === name){
+        const label = RELATION_LABEL_JA[e.relation] || e.relation;
+        relLines.push({label, other:e.a});
+      }
+    }
+    if(relLines.length){
+      html += `<div class="tt-rel-title">関係</div>`;
+      relLines.forEach(r => {
+        html += `<div class="tt-rel"><b>${escapeXml(r.label)}</b><span>${escapeXml(r.other)}</span></div>`;
+      });
+    }
+    return html;
+  }
+
   function wireHoverHighlight(svg){
     const adjacency = {};
     for(const e of state.edges){
@@ -831,6 +1122,8 @@
     }
     const nodeEls = svg.querySelectorAll(".node-card");
     const edgeEls = svg.querySelectorAll(".edge-group");
+    const tooltip = document.getElementById("personTooltip");
+    const stageEl = document.querySelector(".stage");
 
     function activate(name){
       svg.classList.add("hovering");
@@ -843,16 +1136,29 @@
         const a = el.getAttribute("data-a"), b = el.getAttribute("data-b");
         el.classList.toggle("hl-active", a === name || b === name);
       });
+      tooltip.innerHTML = buildTooltipHtml(name);
+      tooltip.classList.add("visible");
     }
     function deactivate(){
       svg.classList.remove("hovering");
       nodeEls.forEach(el => el.classList.remove("hl-active"));
       edgeEls.forEach(el => el.classList.remove("hl-active"));
+      tooltip.classList.remove("visible");
+    }
+    function moveTooltip(ev){
+      const stageRect = stageEl.getBoundingClientRect();
+      let x = ev.clientX - stageRect.left + 16;
+      let y = ev.clientY - stageRect.top + 16;
+      const maxX = stageRect.width - tooltip.offsetWidth - 8;
+      const maxY = stageRect.height - tooltip.offsetHeight - 8;
+      tooltip.style.left = Math.max(8, Math.min(x, maxX)) + "px";
+      tooltip.style.top = Math.max(8, Math.min(y, maxY)) + "px";
     }
 
     nodeEls.forEach(el => {
       const name = el.getAttribute("data-name");
-      el.addEventListener("mouseenter", () => activate(name));
+      el.addEventListener("mouseenter", (ev) => { activate(name); moveTooltip(ev); });
+      el.addEventListener("mousemove", moveTooltip);
       el.addEventListener("mouseleave", deactivate);
     });
   }
@@ -861,29 +1167,49 @@
     return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
   }
 
+  let editingIndex = null;
+
   function renderRelList(){
     const box = document.getElementById("relList");
     const countEl = document.getElementById("relCount");
-    countEl.textContent = state.edges.length;
-    if(state.edges.length === 0){
-      box.innerHTML = `<div class="empty-note">まだ関係が読み取れていません</div>`;
+    countEl.textContent = state.history.length;
+    if(state.history.length === 0){
+      box.innerHTML = `<div class="empty-note">まだ何も入力されていません</div>`;
       return;
     }
-    box.innerHTML = state.edges.map((e,i) => {
-      const label = RELATION_LABEL_JA[e.relation] || e.relation;
-      return `<div class="rel-item">
-        <span class="txt"><b>${escapeXml(e.a)}</b> → <em>${escapeXml(label)}</em> of <b>${escapeXml(e.b)}</b></span>
-        <button class="btn-danger" data-idx="${i}" data-action="del-edge">削除</button>
+    box.innerHTML = state.history.map((line, i) => {
+      const desc = state.results && state.results[i];
+      const descHtml = desc
+        ? `<div class="parsed-desc">→ ${escapeXml(desc)}</div>`
+        : `<div class="parsed-desc unrecognized">→ 認識できませんでした</div>`;
+      const rowCls = i === editingIndex ? "rel-item editing-row" : "rel-item";
+      return `<div class="${rowCls}" data-idx="${i}">
+        <div class="raw-text">${escapeXml(line)}</div>
+        ${descHtml}
+        <div class="row-actions">
+          <button class="btn-ghost" data-idx="${i}" data-action="edit-line" style="padding:2px 8px;font-size:0.72rem;">編集</button>
+          <button class="btn-danger" data-idx="${i}" data-action="del-line">削除</button>
+        </div>
       </div>`;
     }).join("");
-    box.querySelectorAll('[data-action="del-edge"]').forEach(btn => {
-      btn.addEventListener("click", () => {
-        const idx = Number(btn.getAttribute("data-idx"));
-        state.edges.splice(idx,1);
-        saveState();
-        renderRelList();
-        render();
+    box.querySelectorAll('[data-action="edit-line"]').forEach(btn => {
+      btn.addEventListener("click", (ev) => {
+        ev.stopPropagation();
+        startEdit(Number(btn.getAttribute("data-idx")));
       });
+    });
+    box.querySelectorAll('[data-action="del-line"]').forEach(btn => {
+      btn.addEventListener("click", (ev) => {
+        ev.stopPropagation();
+        const idx = Number(btn.getAttribute("data-idx"));
+        state.history.splice(idx,1);
+        if(editingIndex === idx) cancelEditMode();
+        rebuildFromHistory();
+        refreshAll();
+      });
+    });
+    box.querySelectorAll(".rel-item").forEach(row => {
+      row.addEventListener("click", () => startEdit(Number(row.getAttribute("data-idx"))));
     });
   }
 
@@ -908,6 +1234,10 @@
           <span class="icon-label" title="職業">💼</span>
           <input type="text" placeholder="職業（例：エンジニア）" value="${escapeXml(p.occupation||"")}" data-name="${escapeXml(name)}" data-field="occupation">
         </div>
+        <div class="field-row">
+          <span class="icon-label" title="メモ">📝</span>
+          <input type="text" placeholder="メモ（自由記述）" value="${escapeXml(p.memo||"")}" data-name="${escapeXml(name)}" data-field="memo">
+        </div>
       </div>`;
     }).join("");
     box.querySelectorAll("input[data-name]").forEach(inp => {
@@ -915,32 +1245,96 @@
         const name = inp.getAttribute("data-name");
         const field = inp.getAttribute("data-field");
         state.people[name][field] = inp.value;
+        state.manualOverrides[name] = state.manualOverrides[name] || {};
+        state.manualOverrides[name][field] = inp.value;
         saveState();
         render();
       });
     });
   }
 
+  function renderEgoSelect(){
+    const sel = document.getElementById("egoSelect");
+    const names = Object.keys(state.people);
+    const current = state.egoName;
+    sel.innerHTML = `<option value="">未設定</option>` + names.map(n =>
+      `<option value="${escapeXml(n)}"${n === current ? " selected" : ""}>${escapeXml(n)}</option>`
+    ).join("");
+    if(current && !names.includes(current)){
+      sel.value = "";
+    }
+  }
+
   function refreshAll(){
+    renderEgoSelect();
     renderRelList();
     renderPeopleList();
     render();
   }
 
   // ---- events ----
-  const inputText = document.getElementById("inputText");
-  document.getElementById("parseBtn").addEventListener("click", () => {
-    parseText(inputText.value);
+  const lineInput = document.getElementById("lineInput");
+  const editBanner = document.getElementById("editBanner");
+  document.getElementById("egoSelect").addEventListener("change", (ev) => {
+    state.egoName = ev.target.value;
+    saveState();
+    rebuildFromHistory();
     refreshAll();
   });
+
+  function startEdit(idx){
+    editingIndex = idx;
+    lineInput.value = state.history[idx];
+    lineInput.classList.add("editing");
+    editBanner.style.display = "block";
+    lineInput.focus();
+    renderRelList();
+  }
+  function cancelEditMode(){
+    editingIndex = null;
+    lineInput.value = "";
+    lineInput.classList.remove("editing");
+    editBanner.style.display = "none";
+    renderRelList();
+  }
+
+  document.getElementById("cancelEdit").addEventListener("click", (ev) => {
+    ev.preventDefault();
+    cancelEditMode();
+  });
+
+  lineInput.addEventListener("keydown", (ev) => {
+    if(ev.key === "Escape"){
+      cancelEditMode();
+      return;
+    }
+    if(ev.key !== "Enter") return;
+    const value = lineInput.value.trim();
+    if(!value) return;
+    const lines = value.split(/[。\n]/).map(s=>s.trim().replace(/[、,]+$/,"")).filter(Boolean);
+    if(lines.length === 0) return;
+    if(editingIndex !== null){
+      state.history.splice(editingIndex, 1, ...lines);
+    } else {
+      state.history.push(...lines);
+    }
+    editingIndex = null;
+    lineInput.value = "";
+    lineInput.classList.remove("editing");
+    editBanner.style.display = "none";
+    rebuildFromHistory();
+    refreshAll();
+  });
+
   document.getElementById("sampleBtn").addEventListener("click", () => {
-    inputText.value = SAMPLE;
-    parseText(SAMPLE);
+    cancelEditMode();
+    state.history = SAMPLE.split(/[。\n]/).map(s=>s.trim().replace(/[、,]+$/,"")).filter(Boolean);
+    rebuildFromHistory();
     refreshAll();
   });
   document.getElementById("clearBtn").addEventListener("click", () => {
-    inputText.value = "";
-    state = { text:"", people:{}, edges:[] };
+    cancelEditMode();
+    state = { history:[], people:{}, edges:[], manualOverrides:{} };
     saveState();
     refreshAll();
   });
@@ -974,9 +1368,7 @@
 
   // ---- init ----
   loadState();
-  if(state.text){
-    inputText.value = state.text;
-  }
+  rebuildFromHistory();
   refreshAll();
 })();
 </script>
