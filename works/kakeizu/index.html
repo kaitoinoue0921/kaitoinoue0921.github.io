@@ -1250,20 +1250,13 @@
 
     const NODE_W = 156, NODE_H = 80, GAP_X = 46, ROW_H = 164;
 
-    // 1回目：各行の横幅を求めるため、同じ行内の夫婦・兄弟姉妹の隣接だけ整えて仮配置する。
-    let maxRowWidth = 0;
-    gens.forEach((g) => {
-      rows[g] = reorderRowForAdjacency(rows[g]);
-      const list = rows[g];
-      const totalW = list.length * NODE_W + (list.length-1) * GAP_X;
-      maxRowWidth = Math.max(maxRowWidth, totalW);
-    });
-
-    // 2回目：上から順に、できるだけ親の真下に来るよう子の行を並び替えてから確定配置する。
+    // 上から順に、できるだけ親の真下に来るよう並び替えてから、
+    // 親の実際のX座標を目標値として配置する（行の幅による中央寄せはしない）。
+    // 目標値が重なる場合だけ、左から右へ最小間隔を確保するようにずらす。
     const pos = {};
     const centerX = {};
     gens.forEach((g, rowIdx) => {
-      let list = rows[g];
+      let list = reorderRowForAdjacency(rows[g]);
       if(rowIdx > 0){
         const withKey = list.map((name, i) => {
           const parents = (parentsOf[name] || []).filter(p => centerX[p] !== undefined);
@@ -1276,17 +1269,36 @@
         list = withKey.map(w => w.name);
         list = reorderRowForAdjacency(list);
       }
-      const totalW = list.length * NODE_W + (list.length-1) * GAP_X;
-      const rowOffset = (maxRowWidth - totalW) / 2;
+
+      const targets = list.map(name => {
+        const parents = (parentsOf[name] || []).filter(p => centerX[p] !== undefined);
+        return parents.length
+          ? parents.reduce((sum, p) => sum + centerX[p], 0) / parents.length
+          : null;
+      });
+      const centers = new Array(list.length);
+      for(let i = 0; i < list.length; i++){
+        centers[i] = (targets[i] !== null) ? targets[i] : (i > 0 ? centers[i-1] + (NODE_W + GAP_X) : NODE_W/2);
+        if(i > 0){
+          const minC = centers[i-1] + (NODE_W + GAP_X);
+          if(centers[i] < minC) centers[i] = minC;
+        }
+      }
       list.forEach((name, i) => {
-        const x = i * (NODE_W + GAP_X) + rowOffset;
+        const x = centers[i] - NODE_W/2;
         pos[name] = { x, y: rowIdx * ROW_H, row: rowIdx };
-        centerX[name] = x + NODE_W / 2;
+        centerX[name] = centers[i];
       });
     });
 
+    // 左端がマイナスにならないよう全体をずらす。
+    let minX = Infinity;
+    for(const name in pos) minX = Math.min(minX, pos[name].x);
+    if(minX === Infinity) minX = 0;
+    for(const name in pos) pos[name].x -= minX;
+
     const PAD = 60;
-    let maxX = maxRowWidth, maxY = gens.length * ROW_H;
+    let maxX = 0, maxY = gens.length * ROW_H;
     for(const name in pos){
       maxX = Math.max(maxX, pos[name].x + NODE_W);
       maxY = Math.max(maxY, pos[name].y + NODE_H);
