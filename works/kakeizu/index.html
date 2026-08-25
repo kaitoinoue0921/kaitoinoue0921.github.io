@@ -361,11 +361,34 @@
   .edge-spouse{ stroke:var(--vermillion); stroke-width:2; fill:none; }
   .edge-sibling{ stroke:var(--indigo-soft); stroke-width:1.4; stroke-dasharray:5 4; fill:none; }
   .edge-extended{ stroke:var(--ink-soft); stroke-width:1; stroke-dasharray:2 4; fill:none; opacity:0.85; }
+  .edge-cousin2{ stroke:var(--moss); stroke-width:1.2; stroke-dasharray:2 4; fill:none; opacity:0.9; }
   .edge-label{
     font-size:10px;
     fill:var(--ink-soft);
   }
   .spouse-mark{ fill:var(--vermillion); }
+
+  /* ---------- hover highlight ---------- */
+  .node-card, .edge-group{ transition:opacity 0.15s ease; }
+  .node-card{ cursor:pointer; }
+  svg#tree.hovering .node-card{ opacity:0.22; }
+  svg#tree.hovering .node-card.hl-active{ opacity:1; }
+  svg#tree.hovering .edge-group{ opacity:0.12; }
+  svg#tree.hovering .edge-group.hl-active{ opacity:1; }
+  .node-card.hl-active rect{ stroke:var(--vermillion); stroke-width:2.2; }
+  .edge-group.hl-active .edge-lineage{ stroke-width:2.8; }
+  .edge-group.hl-active .edge-spouse{ stroke-width:3; }
+  .edge-group.hl-active .edge-sibling{ stroke-width:2.2; }
+  .edge-group.hl-active .edge-extended{ stroke-width:1.6; }
+  .edge-group.hl-active .edge-cousin2{ stroke-width:1.8; }
+  .edge-hover-label{
+    font-size:10px;
+    fill:var(--ink-soft);
+    opacity:0;
+    transition:opacity 0.15s ease;
+    pointer-events:none;
+  }
+  .edge-group.hl-active .edge-hover-label{ opacity:1; }
 
   .empty-stage{
     position:absolute;
@@ -423,7 +446,7 @@
     </div>
 
     <div class="hint">
-      使える表現の例 — <b>関係</b>：「AはBの父/母/息子/娘/夫/妻/兄/姉/弟/妹/祖父/祖母/孫/叔父/叔母/甥/姪/いとこ です」／「Aの息子はBです」のように逆向きでもOK／「AとBは夫婦/兄弟/姉妹です」<br>
+      使える表現の例 — <b>関係</b>：「AはBの父/母/息子/娘/夫/妻/兄/姉/弟/妹/祖父/祖母/孫/叔父/叔母/甥/姪/いとこ/またいとこ です」／「Aの息子はBです」のように逆向きでもOK／「AとBは夫婦/兄弟/姉妹です」<br>
       <b>居住地</b>：「Aは○○に住んでいます」「Aは○○在住」「Aは○○出身です」<br>
       <b>職業</b>：「Aの職業は○○です」「Aは○○として働いています」「Aは○○です」（例：太郎は医者です）
     </div>
@@ -448,6 +471,7 @@
         <div class="row"><svg width="26" height="10"><line x1="0" y1="5" x2="26" y2="5" class="edge-spouse"/></svg>夫婦</div>
         <div class="row"><svg width="26" height="10"><line x1="0" y1="5" x2="26" y2="5" class="edge-sibling"/></svg>兄弟姉妹</div>
         <div class="row"><svg width="26" height="10"><line x1="0" y1="5" x2="26" y2="5" class="edge-extended"/></svg>叔父叔母・いとこ 等</div>
+        <div class="row"><svg width="26" height="10"><line x1="0" y1="5" x2="26" y2="5" class="edge-cousin2"/></svg>またいとこ</div>
       </div>
       <div class="zoom-controls">
         <button id="zoomOut" title="縮小">−</button>
@@ -475,25 +499,26 @@
     "兄":"older_brother","姉":"older_sister",
     "弟":"younger_brother","妹":"younger_sister",
     "叔父":"uncle","伯父":"uncle","叔母":"aunt","伯母":"aunt",
-    "甥":"nephew","姪":"niece","いとこ":"cousin","孫":"grandchild"
+    "甥":"nephew","姪":"niece","いとこ":"cousin","またいとこ":"second_cousin","はとこ":"second_cousin","ふたいとこ":"second_cousin","孫":"grandchild"
   };
   // gen(subject) - gen(object) = offset   [ subject は object の {relation} です ]
   const OFFSET = {
     grandfather:-2, grandmother:-2, father:-1, mother:-1, uncle:-1, aunt:-1,
     son:1, daughter:1, child:1, grandchild:2, nephew:1, niece:1,
-    husband:0, wife:0, older_brother:0, older_sister:0, younger_brother:0, younger_sister:0, cousin:0
+    husband:0, wife:0, older_brother:0, older_sister:0, younger_brother:0, younger_sister:0, cousin:0, second_cousin:0
   };
   const CATEGORY = {
     grandfather:"lineage", grandmother:"lineage", father:"lineage", mother:"lineage",
     son:"lineage", daughter:"lineage", child:"lineage", grandchild:"lineage",
     husband:"spouse", wife:"spouse",
     older_brother:"sibling", older_sister:"sibling", younger_brother:"sibling", younger_sister:"sibling", sibling:"sibling",
-    uncle:"extended", aunt:"extended", nephew:"extended", niece:"extended", cousin:"extended"
+    uncle:"extended", aunt:"extended", nephew:"extended", niece:"extended", cousin:"extended",
+    second_cousin:"cousin2"
   };
   const RELATION_LABEL_JA = {
     grandfather:"祖父", grandmother:"祖母", father:"父", mother:"母", son:"息子", daughter:"娘", child:"子",
     husband:"夫", wife:"妻", older_brother:"兄", older_sister:"姉", younger_brother:"弟", younger_sister:"妹",
-    uncle:"叔父/伯父", aunt:"叔母/伯母", nephew:"甥", niece:"姪", cousin:"いとこ", grandchild:"孫", sibling:"兄弟姉妹"
+    uncle:"叔父/伯父", aunt:"叔母/伯母", nephew:"甥", niece:"姪", cousin:"いとこ", second_cousin:"またいとこ", grandchild:"孫", sibling:"兄弟姉妹"
   };
 
   const RELATION_WORDS_SORTED = Object.keys(RELATION_MAP).sort((a,b)=>b.length-a.length).join("|");
@@ -501,6 +526,9 @@
   const REL_RE_REVERSE = new RegExp("^(.+?)の(" + RELATION_WORDS_SORTED + ")は(.+?)(?:です|だ)?$");
   const COUPLE_RE = /^(.+?)と(.+?)は(夫婦|結婚している|結婚しています|カップル)(?:です)?$/;
   const SIBLING_RE = /^(.+?)と(.+?)は(兄弟|姉妹|兄妹|姉弟)(?:です)?$/;
+  const SYMMETRIC_WORD_MAP = { "またいとこ":"second_cousin", "ふたいとこ":"second_cousin", "はとこ":"second_cousin", "いとこ":"cousin" };
+  const SYMMETRIC_WORDS_SORTED = Object.keys(SYMMETRIC_WORD_MAP).sort((a,b)=>b.length-a.length).join("|");
+  const SYMMETRIC_RE = new RegExp("^(.+?)と(.+?)は(" + SYMMETRIC_WORDS_SORTED + ")(?:です)?$");
   const LOC_OCC_RE = /^(.+?)は(.+?)(?:に住んでいて|に住んでおり)(.+?)(?:をしています|です)$/;
   const LOC_RE = /^(.+?)は(.+?)(?:に住んでいます|に住んでいる|に在住|在住です|在住している|の出身です|出身です|出身)$/;
   const OCC_RE_A = /^(.+?)の(?:職業|仕事)は(.+?)(?:です)?$/;
@@ -526,7 +554,8 @@
 健太は東京に住んでいてエンジニアをしています。
 一郎は太郎の甥です。
 一郎の息子は光です。
-光は福岡に住んでいて教師をしています。`;
+光は福岡に住んでいて教師をしています。
+光とみのりはまたいとこです。`;
 
   let state = { text:"", people:{}, edges:[] };
 
@@ -577,6 +606,11 @@
       if((m = s.match(SIBLING_RE))){
         ensurePerson(m[1]); ensurePerson(m[2]);
         state.edges.push({a:m[1], b:m[2], relation:"sibling", raw});
+        continue;
+      }
+      if((m = s.match(SYMMETRIC_RE))){
+        ensurePerson(m[1]); ensurePerson(m[2]);
+        state.edges.push({a:m[1], b:m[2], relation:SYMMETRIC_WORD_MAP[m[3]], raw});
         continue;
       }
       if((m = s.match(REL_RE))){
@@ -728,25 +762,33 @@
       if(!pos[e.a] || !pos[e.b]) continue;
       const cat = CATEGORY[e.relation] || "extended";
       const A = center(e.a), B = center(e.b);
+      const label = RELATION_LABEL_JA[e.relation] || "";
+      let inner = "";
+      let labelX, labelY, permanentLabel = "";
       if(cat === "lineage"){
         // determine which is the "upper" generation (smaller y)
         const upper = A.cy <= B.cy ? A : B;
         const lower = A.cy <= B.cy ? B : A;
         const midY = (upper.bottom + lower.top) / 2;
         const path = `M ${upper.cx} ${upper.bottom} C ${upper.cx} ${midY}, ${lower.cx} ${midY}, ${lower.cx} ${lower.top}`;
-        edgesHtml += `<path class="edge-lineage" d="${path}"/>`;
+        inner = `<path class="edge-lineage" d="${path}"/>`;
+        labelX = (upper.cx + lower.cx) / 2; labelY = midY;
       } else if(cat === "spouse"){
-        edgesHtml += `<line class="edge-spouse" x1="${A.cx}" y1="${A.cy}" x2="${B.cx}" y2="${B.cy}"/>`;
+        inner = `<line class="edge-spouse" x1="${A.cx}" y1="${A.cy}" x2="${B.cx}" y2="${B.cy}"/>`;
         const mx = (A.cx+B.cx)/2, my = (A.cy+B.cy)/2;
-        edgesHtml += `<circle class="spouse-mark" cx="${mx}" cy="${my}" r="3.5"/>`;
+        inner += `<circle class="spouse-mark" cx="${mx}" cy="${my}" r="3.5"/>`;
+        labelX = mx; labelY = my - 8;
       } else if(cat === "sibling"){
-        edgesHtml += `<line class="edge-sibling" x1="${A.cx}" y1="${A.cy}" x2="${B.cx}" y2="${B.cy}"/>`;
+        inner = `<line class="edge-sibling" x1="${A.cx}" y1="${A.cy}" x2="${B.cx}" y2="${B.cy}"/>`;
+        labelX = (A.cx+B.cx)/2; labelY = (A.cy+B.cy)/2 - 6;
       } else {
-        edgesHtml += `<line class="edge-extended" x1="${A.cx}" y1="${A.cy}" x2="${B.cx}" y2="${B.cy}"/>`;
-        const mx = (A.cx+B.cx)/2, my = (A.cy+B.cy)/2 - 4;
-        const label = RELATION_LABEL_JA[e.relation] || "";
-        edgesHtml += `<text class="edge-label" x="${mx}" y="${my}" text-anchor="middle">${escapeXml(label)}</text>`;
+        const cls = cat === "cousin2" ? "edge-cousin2" : "edge-extended";
+        inner = `<line class="${cls}" x1="${A.cx}" y1="${A.cy}" x2="${B.cx}" y2="${B.cy}"/>`;
+        labelX = (A.cx+B.cx)/2; labelY = (A.cy+B.cy)/2 - 4;
+        permanentLabel = `<text class="edge-label" x="${labelX}" y="${labelY}" text-anchor="middle">${escapeXml(label)}</text>`;
       }
+      const hoverLabel = permanentLabel ? "" : `<text class="edge-hover-label" x="${labelX}" y="${labelY}" text-anchor="middle">${escapeXml(label)}</text>`;
+      edgesHtml += `<g class="edge-group" data-a="${escapeXml(e.a)}" data-b="${escapeXml(e.b)}">${inner}${permanentLabel}${hoverLabel}</g>`;
     }
 
     for(const name of Object.keys(pos)){
@@ -778,6 +820,41 @@
     }
 
     svg.innerHTML = defs + `<g id="edgeLayer">${edgesHtml}</g><g id="nodeLayer">${nodesHtml}</g>`;
+    wireHoverHighlight(svg);
+  }
+
+  function wireHoverHighlight(svg){
+    const adjacency = {};
+    for(const e of state.edges){
+      (adjacency[e.a] = adjacency[e.a] || new Set()).add(e.b);
+      (adjacency[e.b] = adjacency[e.b] || new Set()).add(e.a);
+    }
+    const nodeEls = svg.querySelectorAll(".node-card");
+    const edgeEls = svg.querySelectorAll(".edge-group");
+
+    function activate(name){
+      svg.classList.add("hovering");
+      const related = adjacency[name] || new Set();
+      nodeEls.forEach(el => {
+        const n = el.getAttribute("data-name");
+        el.classList.toggle("hl-active", n === name || related.has(n));
+      });
+      edgeEls.forEach(el => {
+        const a = el.getAttribute("data-a"), b = el.getAttribute("data-b");
+        el.classList.toggle("hl-active", a === name || b === name);
+      });
+    }
+    function deactivate(){
+      svg.classList.remove("hovering");
+      nodeEls.forEach(el => el.classList.remove("hl-active"));
+      edgeEls.forEach(el => el.classList.remove("hl-active"));
+    }
+
+    nodeEls.forEach(el => {
+      const name = el.getAttribute("data-name");
+      el.addEventListener("mouseenter", () => activate(name));
+      el.addEventListener("mouseleave", deactivate);
+    });
   }
 
   function escapeXml(s){
