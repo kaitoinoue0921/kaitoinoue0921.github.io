@@ -452,11 +452,17 @@
     overflow:auto;
     cursor:grab;
     touch-action:pan-x pan-y;
+    -webkit-overflow-scrolling:touch;
+    overscroll-behavior:contain;
   }
   #canvasWrap.grabbing{ cursor:grabbing; }
 
   svg#tree{
     display:block;
+    transition:transform 0.18s ease;
+  }
+  svg#tree.no-zoom-transition{
+    transition:none;
   }
 
   .node-card rect{
@@ -1187,6 +1193,21 @@
     return list;
   }
 
+  // 各人物の「親」（親子・祖父母系の辺だけを見た、一世代上の人）一覧。
+  // 子の並び順を親の位置に合わせるために使う。
+  function buildParentsOf(){
+    const parentsOf = {};
+    for(const e of state.edges){
+      if(CATEGORY[e.relation] !== "lineage") continue;
+      const off = OFFSET[e.relation] ?? 0;
+      if(off === 0) continue;
+      const elder = off < 0 ? e.a : e.b;
+      const younger = off < 0 ? e.b : e.a;
+      (parentsOf[younger] = parentsOf[younger] || []).push(elder);
+    }
+    return parentsOf;
+  }
+
   function layout(){
     const {gen, order} = computeGenerations();
     const names = Object.keys(state.people);
@@ -1197,32 +1218,44 @@
       const g = gen[n];
       (rows[g] = rows[g] || []).push(n);
     }
-    for(const g in rows){
-      rows[g] = reorderRowForAdjacency(rows[g]);
-    }
     const gens = Object.keys(rows).map(Number).sort((a,b)=>a-b);
+    const parentsOf = buildParentsOf();
 
     const NODE_W = 156, NODE_H = 80, GAP_X = 46, ROW_H = 164;
-    const pos = {};
+
+    // 1回目：各行の横幅を求めるため、同じ行内の夫婦・兄弟姉妹の隣接だけ整えて仮配置する。
     let maxRowWidth = 0;
-    gens.forEach((g, rowIdx) => {
+    gens.forEach((g) => {
+      rows[g] = reorderRowForAdjacency(rows[g]);
       const list = rows[g];
       const totalW = list.length * NODE_W + (list.length-1) * GAP_X;
       maxRowWidth = Math.max(maxRowWidth, totalW);
-      list.forEach((name, i) => {
-        pos[name] = {
-          x: i * (NODE_W + GAP_X),
-          y: rowIdx * ROW_H,
-          row: rowIdx
-        };
-      });
     });
-    // center rows relative to widest row
-    gens.forEach((g) => {
-      const list = rows[g];
+
+    // 2回目：上から順に、できるだけ親の真下に来るよう子の行を並び替えてから確定配置する。
+    const pos = {};
+    const centerX = {};
+    gens.forEach((g, rowIdx) => {
+      let list = rows[g];
+      if(rowIdx > 0){
+        const withKey = list.map((name, i) => {
+          const parents = (parentsOf[name] || []).filter(p => centerX[p] !== undefined);
+          const key = parents.length
+            ? parents.reduce((sum, p) => sum + centerX[p], 0) / parents.length
+            : Infinity;
+          return {name, key, i};
+        });
+        withKey.sort((a, b) => (a.key - b.key) || (a.i - b.i));
+        list = withKey.map(w => w.name);
+        list = reorderRowForAdjacency(list);
+      }
       const totalW = list.length * NODE_W + (list.length-1) * GAP_X;
-      const offset = (maxRowWidth - totalW) / 2;
-      list.forEach(name => pos[name].x += offset);
+      const rowOffset = (maxRowWidth - totalW) / 2;
+      list.forEach((name, i) => {
+        const x = i * (NODE_W + GAP_X) + rowOffset;
+        pos[name] = { x, y: rowIdx * ROW_H, row: rowIdx };
+        centerX[name] = x + NODE_W / 2;
+      });
     });
 
     const PAD = 60;
@@ -1818,6 +1851,8 @@
     wrap.scrollLeft = scrollL - (e.clientX - startX);
     wrap.scrollTop = scrollT - (e.clientY - startY);
   });
+  // 指1本のドラッグはブラウザ本来のスクロール（慣性・バウンド）に任せる。
+  // ピンチ（2本指）のときだけ、拡大縮小のために自前で処理する。
   function touchDistance(touches){
     const dx = touches[0].clientX - touches[1].clientX;
     const dy = touches[0].clientY - touches[1].clientY;
@@ -1827,30 +1862,19 @@
 
   wrap.addEventListener("touchstart", (e) => {
     if(e.touches.length === 2){
-      dragging = false;
       pinchStartDist = touchDistance(e.touches);
       pinchStartZoom = zoom;
-      return;
     }
-    if(!e.touches[0]) return;
-    dragging = true;
-    startX = e.touches[0].clientX; startY = e.touches[0].clientY;
-    scrollL = wrap.scrollLeft; scrollT = wrap.scrollTop;
   }, {passive:true});
   window.addEventListener("touchend", (e) => {
     if(e.touches.length < 2) pinchStartDist = null;
-    dragging = false;
   });
   window.addEventListener("touchmove", (e) => {
     if(e.touches.length === 2 && pinchStartDist){
       const newDist = touchDistance(e.touches);
       zoom = Math.max(0.4, Math.min(2, pinchStartZoom * (newDist / pinchStartDist)));
       applyZoom();
-      return;
     }
-    if(!dragging || !e.touches[0]) return;
-    wrap.scrollLeft = scrollL - (e.touches[0].clientX - startX);
-    wrap.scrollTop = scrollT - (e.touches[0].clientY - startY);
   }, {passive:true});
 
   // zoom
