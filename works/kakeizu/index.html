@@ -957,6 +957,29 @@
     return state.people[name];
   }
 
+  // 同じ関係を表す辺かどうかを判定するための正規化キー。
+  // 「AはBの母」と「BはAの子」のように、言い方が逆でも同じ関係なら
+  // 同じキーになるようにする。
+  function edgeSignature(e){
+    const off = OFFSET[e.relation] ?? 0;
+    const cat = CATEGORY[e.relation] ?? "extended";
+    if(off === 0){
+      return `${cat}|${[e.a, e.b].sort().join(",")}`;
+    }
+    const elder = off < 0 ? e.a : e.b;
+    const younger = off < 0 ? e.b : e.a;
+    return `dir|${elder}|${younger}|${Math.abs(off)}`;
+  }
+
+  // 既に同じ関係の辺がある場合は追加しない（重複防止）。
+  // 追加した場合はtrue、既にあって追加しなかった場合はfalseを返す。
+  function addEdge(a, b, relation, raw){
+    const sig = edgeSignature({a, b, relation});
+    if(state.edges.some(e => edgeSignature(e) === sig)) return false;
+    state.edges.push({a, b, relation, raw});
+    return true;
+  }
+
   // Parses one sentence, mutating state.people / state.edges, and returns a
   // short human-readable description of what was recognized (or null).
   function parseSentence(raw){
@@ -977,33 +1000,33 @@
     }
     if((m = s.match(COUPLE_RE))){
       ensurePerson(m[1]); ensurePerson(m[2]);
-      state.edges.push({a:m[1], b:m[2], relation:"husband", raw});
-      return `夫婦：${m[1]} ⇄ ${m[2]}`;
+      const added = addEdge(m[1], m[2], "husband", raw);
+      return `夫婦：${m[1]} ⇄ ${m[2]}${added ? "" : "（登録済み）"}`;
     }
     if((m = s.match(SIBLING_RE))){
       ensurePerson(m[1]); ensurePerson(m[2]);
-      state.edges.push({a:m[1], b:m[2], relation:"sibling", raw});
-      return `兄弟姉妹：${m[1]} ⇄ ${m[2]}`;
+      const added = addEdge(m[1], m[2], "sibling", raw);
+      return `兄弟姉妹：${m[1]} ⇄ ${m[2]}${added ? "" : "（登録済み）"}`;
     }
     if((m = s.match(SYMMETRIC_RE))){
       ensurePerson(m[1]); ensurePerson(m[2]);
       const rel = SYMMETRIC_WORD_MAP[m[3]];
-      state.edges.push({a:m[1], b:m[2], relation:rel, raw});
-      return `${RELATION_LABEL_JA[rel]}：${m[1]} ⇄ ${m[2]}`;
+      const added = addEdge(m[1], m[2], rel, raw);
+      return `${RELATION_LABEL_JA[rel]}：${m[1]} ⇄ ${m[2]}${added ? "" : "（登録済み）"}`;
     }
     if((m = s.match(REL_RE))){
       const subj = m[1], obj = m[2], relJa = m[3];
       const rel = RELATION_MAP[relJa];
       ensurePerson(subj); ensurePerson(obj);
-      state.edges.push({a:subj, b:obj, relation:rel, raw});
-      return `${subj} は ${obj} の${RELATION_LABEL_JA[rel]}`;
+      const added = addEdge(subj, obj, rel, raw);
+      return `${subj} は ${obj} の${RELATION_LABEL_JA[rel]}${added ? "" : "（登録済み）"}`;
     }
     if((m = s.match(REL_RE_REVERSE))){
       const obj = m[1], relJa = m[2], subj = m[3];
       const rel = RELATION_MAP[relJa];
       ensurePerson(subj); ensurePerson(obj);
-      state.edges.push({a:subj, b:obj, relation:rel, raw});
-      return `${subj} は ${obj} の${RELATION_LABEL_JA[rel]}`;
+      const added = addEdge(subj, obj, rel, raw);
+      return `${subj} は ${obj} の${RELATION_LABEL_JA[rel]}${added ? "" : "（登録済み）"}`;
     }
     if((m = s.match(OCC_RE_A))){
       const p = ensurePerson(m[1]);
