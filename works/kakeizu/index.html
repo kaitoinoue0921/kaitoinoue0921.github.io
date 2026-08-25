@@ -70,9 +70,7 @@
     display:grid;
     grid-template-columns: 380px 1fr;
     height:100vh;
-  }
-  @media (max-width: 900px){
-    .app{ grid-template-columns: 1fr; grid-template-rows: 50vh 50vh; }
+    height:100dvh;
   }
 
   /* ---------- sidebar ---------- */
@@ -84,6 +82,51 @@
     flex-direction:column;
     gap:20px;
     overflow-y:auto;
+  }
+
+  .menu-toggle{
+    display:none;
+    position:fixed;
+    top:14px;
+    left:14px;
+    z-index:60;
+    width:42px;
+    height:42px;
+    border-radius:8px;
+    background:var(--card-bg);
+    border:1px solid var(--line);
+    color:var(--ink);
+    font-size:1.2rem;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 2px 10px var(--shadow);
+  }
+  .sidebar-backdrop{ display:none; }
+
+  @media (max-width: 900px){
+    .app{ grid-template-columns: 1fr; grid-template-rows: 1fr; }
+    .menu-toggle{ display:flex; }
+    .sidebar{
+      position:fixed;
+      inset:0 20% 0 0;
+      z-index:50;
+      transform:translateX(-105%);
+      transition:transform 0.22s ease;
+      box-shadow:4px 0 24px var(--shadow);
+    }
+    .sidebar.open{ transform:translateX(0); }
+    .sidebar-backdrop{
+      display:block;
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.4);
+      z-index:40;
+      opacity:0;
+      pointer-events:none;
+      transition:opacity 0.22s ease;
+    }
+    .sidebar-backdrop.open{ opacity:1; pointer-events:auto; }
+    .stage-toolbar{ padding-left:64px; }
   }
   .backlink{
     display:inline-flex;
@@ -405,8 +448,10 @@
   #canvasWrap{
     width:100%;
     height:100vh;
+    height:100dvh;
     overflow:auto;
     cursor:grab;
+    touch-action:pan-x pan-y;
   }
   #canvasWrap.grabbing{ cursor:grabbing; }
 
@@ -694,7 +739,9 @@
 </div>
 
 <div class="app" id="appRoot" style="display:none;">
-  <aside class="sidebar">
+  <button class="menu-toggle" id="menuToggle" title="メニュー" aria-label="メニュー">☰</button>
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+  <aside class="sidebar" id="sidebar">
     <a class="backlink" href="../">← 作ったもの一覧に戻る</a>
     <div class="brand">
       <div class="kanji">家系図</div>
@@ -1771,14 +1818,36 @@
     wrap.scrollLeft = scrollL - (e.clientX - startX);
     wrap.scrollTop = scrollT - (e.clientY - startY);
   });
+  function touchDistance(touches){
+    const dx = touches[0].clientX - touches[1].clientX;
+    const dy = touches[0].clientY - touches[1].clientY;
+    return Math.hypot(dx, dy);
+  }
+  let pinchStartDist = null, pinchStartZoom = 1;
+
   wrap.addEventListener("touchstart", (e) => {
+    if(e.touches.length === 2){
+      dragging = false;
+      pinchStartDist = touchDistance(e.touches);
+      pinchStartZoom = zoom;
+      return;
+    }
     if(!e.touches[0]) return;
     dragging = true;
     startX = e.touches[0].clientX; startY = e.touches[0].clientY;
     scrollL = wrap.scrollLeft; scrollT = wrap.scrollTop;
   }, {passive:true});
-  window.addEventListener("touchend", () => { dragging = false; });
+  window.addEventListener("touchend", (e) => {
+    if(e.touches.length < 2) pinchStartDist = null;
+    dragging = false;
+  });
   window.addEventListener("touchmove", (e) => {
+    if(e.touches.length === 2 && pinchStartDist){
+      const newDist = touchDistance(e.touches);
+      zoom = Math.max(0.4, Math.min(2, pinchStartZoom * (newDist / pinchStartDist)));
+      applyZoom();
+      return;
+    }
     if(!dragging || !e.touches[0]) return;
     wrap.scrollLeft = scrollL - (e.touches[0].clientX - startX);
     wrap.scrollTop = scrollT - (e.touches[0].clientY - startY);
@@ -1826,15 +1895,46 @@
   const shareNote = document.getElementById("shareNote");
   let shareMode = null;
 
+  // ---- 共有リンク ----
+  function encodeUtf8Base64(str){
+    return btoa(unescape(encodeURIComponent(str)));
+  }
+  function decodeUtf8Base64(b64){
+    return decodeURIComponent(escape(atob(b64)));
+  }
+  function buildShareUrl(){
+    const payload = {
+      history: state.history,
+      manualOverrides: state.manualOverrides,
+      egoName: state.egoName
+    };
+    const encoded = encodeUtf8Base64(JSON.stringify(payload));
+    return location.origin + location.pathname + "#share=" + encoded;
+  }
+
+  function tryAutoCopy(text){
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).catch(() => {});
+    }
+  }
+
   function openShareDialog(mode){
     shareMode = mode;
     shareNote.textContent = "";
     if(mode === "export"){
       shareTitle.textContent = "書き出し";
-      shareDesc.textContent = "下の文章をコピーして、他の家族に送ってください。相手は「読み込み」から貼り付けると同じ内容を追加できます。";
+      shareDesc.textContent = "下の文章を長押しして「コピー」してください（自動でもコピーを試みます）。他の家族に送ると「読み込み」から貼り付けられます。";
       shareTextarea.value = state.history.join("\n");
       shareTextarea.readOnly = true;
       shareActionBtn.textContent = "コピーする";
+      tryAutoCopy(shareTextarea.value);
+    } else if(mode === "sharelink"){
+      shareTitle.textContent = "共有リンク";
+      shareDesc.textContent = "下のリンクを長押しして「コピー」し、家族に送ってください。開くとパスワードなしでこの家系図が見られます（自動でもコピーを試みます）。";
+      shareTextarea.value = buildShareUrl();
+      shareTextarea.readOnly = true;
+      shareActionBtn.textContent = "コピーする";
+      tryAutoCopy(shareTextarea.value);
     } else {
       shareTitle.textContent = "読み込み";
       shareDesc.textContent = "他の人からもらった文章をここに貼り付けてください。今の内容に追加されます（既にある行は追加されません）。";
@@ -1844,23 +1944,24 @@
     }
     shareDialog.style.display = "flex";
     shareTextarea.focus();
-    if(mode === "export") shareTextarea.select();
+    if(mode !== "import") shareTextarea.select();
   }
   function closeShareDialog(){ shareDialog.style.display = "none"; }
 
   document.getElementById("exportBtn").addEventListener("click", () => openShareDialog("export"));
   document.getElementById("importBtn").addEventListener("click", () => openShareDialog("import"));
+  document.getElementById("shareLinkBtn").addEventListener("click", () => openShareDialog("sharelink"));
   document.getElementById("shareCancelBtn").addEventListener("click", closeShareDialog);
   shareDialog.addEventListener("click", (e) => { if(e.target === shareDialog) closeShareDialog(); });
 
   shareActionBtn.addEventListener("click", async () => {
-    if(shareMode === "export"){
+    if(shareMode === "export" || shareMode === "sharelink"){
+      shareTextarea.select();
       try{
         await navigator.clipboard.writeText(shareTextarea.value);
         shareNote.textContent = "コピーしました。";
       }catch(err){
-        shareTextarea.select();
-        shareNote.textContent = "自動コピーできませんでした。選択されているのでCmd+C（Windowsの場合Ctrl+C）でコピーしてください。";
+        shareNote.textContent = "自動コピーできませんでした。テキストは選択されているので、長押しして「コピー」を選んでください。";
       }
     } else {
       const lines = shareTextarea.value.split(/[。\n]/).map(s=>s.trim().replace(/[、,]+$/,"")).filter(Boolean);
@@ -1875,30 +1976,6 @@
       refreshAll();
       shareNote.textContent = `${added.length}件追加しました。`;
       setTimeout(closeShareDialog, 900);
-    }
-  });
-
-  // ---- 共有リンク ----
-  function encodeUtf8Base64(str){
-    return btoa(unescape(encodeURIComponent(str)));
-  }
-  function decodeUtf8Base64(b64){
-    return decodeURIComponent(escape(atob(b64)));
-  }
-
-  document.getElementById("shareLinkBtn").addEventListener("click", async () => {
-    const payload = {
-      history: state.history,
-      manualOverrides: state.manualOverrides,
-      egoName: state.egoName
-    };
-    const encoded = encodeUtf8Base64(JSON.stringify(payload));
-    const url = location.origin + location.pathname + "#share=" + encoded;
-    try{
-      await navigator.clipboard.writeText(url);
-      alert("共有リンクをコピーしました。相手に送ると、パスワードなしでこの家系図を開けます。");
-    }catch(err){
-      prompt("このリンクをコピーして送ってください：", url);
     }
   });
 
@@ -1917,6 +1994,20 @@
     }catch(err){}
     return false;
   }
+
+  // ---- モバイル用サイドバー開閉 ----
+  const sidebarEl = document.getElementById("sidebar");
+  const sidebarBackdrop = document.getElementById("sidebarBackdrop");
+  const menuToggle = document.getElementById("menuToggle");
+  function closeSidebar(){
+    sidebarEl.classList.remove("open");
+    sidebarBackdrop.classList.remove("open");
+  }
+  menuToggle.addEventListener("click", () => {
+    sidebarEl.classList.toggle("open");
+    sidebarBackdrop.classList.toggle("open");
+  });
+  sidebarBackdrop.addEventListener("click", closeSidebar);
 
   // ---- init ----
   loadState();
