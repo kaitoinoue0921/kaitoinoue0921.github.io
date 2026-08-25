@@ -637,7 +637,7 @@
     </div>
 
     <div class="hint">
-      使える表現の例 — <b>関係</b>：「AはBの父/母/息子/娘/夫/妻/兄/姉/弟/妹/祖父/祖母/孫/叔父/叔母/甥/姪/いとこ/またいとこ/いとこ半 です」／「Aの息子はBです」のように逆向きでもOK／「AとBは夫婦/兄弟/姉妹です」<br>
+      使える表現の例 — <b>関係</b>：「AはBの父/母/息子/娘/長男/次男/三男/長女/次女/三女/夫/妻/兄/姉/弟/妹/祖父/祖母/孫/叔父/叔母/甥/姪/いとこ/またいとこ/いとこ半」（「です」はあってもなくてもOK）／「Aの息子はBです」のように逆向きでもOK／「AとBは夫婦/兄弟/姉妹です」<br>
       <b>いとこ半</b>：「AはBのいとこ半です」＝Aが一世代上（例：親のいとこ）<br>
       <b>居住地</b>：「Aは○○に住んでいます」「Aは○○在住」「Aは○○出身です」<br>
       <b>職業</b>：「Aの職業は○○です」「Aは○○として働いています」「Aは○○です」（例：太郎は医者です）
@@ -720,6 +720,8 @@
     "祖父":"grandfather","祖母":"grandmother",
     "父":"father","母":"mother",
     "息子":"son","娘":"daughter","子":"child",
+    "長男":"son_1","次男":"son_2","三男":"son_3","四男":"son_4",
+    "長女":"daughter_1","次女":"daughter_2","三女":"daughter_3","四女":"daughter_4",
     "夫":"husband","妻":"wife",
     "兄":"older_brother","姉":"older_sister",
     "弟":"younger_brother","妹":"younger_sister",
@@ -732,12 +734,15 @@
   const OFFSET = {
     grandfather:-2, grandmother:-2, father:-1, mother:-1, uncle:-1, aunt:-1,
     son:1, daughter:1, child:1, grandchild:2, nephew:1, niece:1,
+    son_1:1, son_2:1, son_3:1, son_4:1, daughter_1:1, daughter_2:1, daughter_3:1, daughter_4:1,
     husband:0, wife:0, older_brother:0, older_sister:0, younger_brother:0, younger_sister:0, cousin:0, second_cousin:0,
     cousin_once_removed:-1
   };
   const CATEGORY = {
     grandfather:"lineage", grandmother:"lineage", father:"lineage", mother:"lineage",
     son:"lineage", daughter:"lineage", child:"lineage", grandchild:"lineage",
+    son_1:"lineage", son_2:"lineage", son_3:"lineage", son_4:"lineage",
+    daughter_1:"lineage", daughter_2:"lineage", daughter_3:"lineage", daughter_4:"lineage",
     husband:"spouse", wife:"spouse",
     older_brother:"sibling", older_sister:"sibling", younger_brother:"sibling", younger_sister:"sibling", sibling:"sibling",
     uncle:"extended", aunt:"extended", nephew:"extended", niece:"extended", cousin:"extended", cousin_once_removed:"extended",
@@ -745,6 +750,8 @@
   };
   const RELATION_LABEL_JA = {
     grandfather:"祖父", grandmother:"祖母", father:"父", mother:"母", son:"息子", daughter:"娘", child:"子",
+    son_1:"長男", son_2:"次男", son_3:"三男", son_4:"四男",
+    daughter_1:"長女", daughter_2:"次女", daughter_3:"三女", daughter_4:"四女",
     husband:"夫", wife:"妻", older_brother:"兄", older_sister:"姉", younger_brother:"弟", younger_sister:"妹",
     uncle:"叔父/伯父", aunt:"叔母/伯母", nephew:"甥", niece:"姪", cousin:"いとこ", second_cousin:"またいとこ",
     cousin_once_removed:"いとこ半", grandchild:"孫", sibling:"兄弟姉妹"
@@ -752,6 +759,8 @@
   // 逆方向（相手にとってではなく、その人にとっての関係）のラベル
   const INVERSE_LABEL_JA = {
     father:"子", mother:"子", son:"親", daughter:"親", child:"親",
+    son_1:"親", son_2:"親", son_3:"親", son_4:"親",
+    daughter_1:"親", daughter_2:"親", daughter_3:"親", daughter_4:"親",
     husband:"妻", wife:"夫",
     older_brother:"弟/妹", older_sister:"弟/妹", younger_brother:"兄/姉", younger_sister:"兄/姉", sibling:"兄弟姉妹",
     grandfather:"孫", grandmother:"孫", grandchild:"祖父母",
