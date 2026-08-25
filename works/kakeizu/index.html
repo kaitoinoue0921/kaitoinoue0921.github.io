@@ -621,13 +621,13 @@
     </div>
 
     <div>
-      <label class="field-label" for="lineInput">文章を入力</label>
+      <label class="field-label" for="lineInput">文章を入力してEnterか追加</label>
       <div class="line-input-row">
         <input type="text" id="lineInput" placeholder="例：太郎は花子の夫です" autocomplete="off">
         <button class="btn-primary" id="addLineBtn" type="button">追加</button>
       </div>
       <div class="edit-banner" id="editBanner" style="display:none;">
-        編集中 — 「追加」で保存 / <a href="#" id="cancelEdit">キャンセル</a>
+        編集中 — Enterか「追加」で保存 / <a href="#" id="cancelEdit">キャンセル</a>
       </div>
     </div>
 
@@ -1333,10 +1333,19 @@
 
   document.getElementById("addLineBtn").addEventListener("click", submitLine);
 
+  let lastCompositionEnd = 0;
+  lineInput.addEventListener("compositionend", () => { lastCompositionEnd = Date.now(); });
+
   lineInput.addEventListener("keydown", (ev) => {
     if(ev.key === "Escape"){
       cancelEditMode();
+      return;
     }
+    if(ev.key !== "Enter") return;
+    if(ev.isComposing || ev.keyCode === 229) return;
+    if(Date.now() - lastCompositionEnd < 100) return; // Enterがちょうど変換確定に使われた直後は無視
+    ev.preventDefault();
+    submitLine();
   });
 
   document.getElementById("sampleBtn").addEventListener("click", () => {
