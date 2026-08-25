@@ -152,8 +152,13 @@
     font-size:0.88rem;
     color:var(--ink);
   }
+  .line-input-row{
+    display:flex;
+    gap:8px;
+  }
   #lineInput{
-    width:100%;
+    flex:1;
+    min-width:0;
     background:var(--card-bg);
     border:1px solid var(--line);
     border-radius:6px;
@@ -163,6 +168,7 @@
     color:var(--ink);
   }
   #lineInput.editing{ border-color:var(--vermillion); }
+  #addLineBtn{ flex:none; }
   .edit-banner{
     font-size:0.74rem;
     color:var(--vermillion);
@@ -615,10 +621,13 @@
     </div>
 
     <div>
-      <label class="field-label" for="lineInput">文章を入力してEnter</label>
-      <input type="text" id="lineInput" placeholder="例：太郎は花子の夫です" autocomplete="off">
+      <label class="field-label" for="lineInput">文章を入力</label>
+      <div class="line-input-row">
+        <input type="text" id="lineInput" placeholder="例：太郎は花子の夫です" autocomplete="off">
+        <button class="btn-primary" id="addLineBtn" type="button">追加</button>
+      </div>
       <div class="edit-banner" id="editBanner" style="display:none;">
-        編集中 — Enterで保存 / <a href="#" id="cancelEdit">キャンセル</a>
+        編集中 — 「追加」で保存 / <a href="#" id="cancelEdit">キャンセル</a>
       </div>
     </div>
 
@@ -1303,13 +1312,7 @@
     cancelEditMode();
   });
 
-  lineInput.addEventListener("keydown", (ev) => {
-    if(ev.key === "Escape"){
-      cancelEditMode();
-      return;
-    }
-    if(ev.key !== "Enter") return;
-    if(ev.isComposing || ev.keyCode === 229) return;
+  function submitLine(){
     const value = lineInput.value.trim();
     if(!value) return;
     const lines = value.split(/[。\n]/).map(s=>s.trim().replace(/[、,]+$/,"")).filter(Boolean);
@@ -1325,6 +1328,15 @@
     editBanner.style.display = "none";
     rebuildFromHistory();
     refreshAll();
+    lineInput.focus();
+  }
+
+  document.getElementById("addLineBtn").addEventListener("click", submitLine);
+
+  lineInput.addEventListener("keydown", (ev) => {
+    if(ev.key === "Escape"){
+      cancelEditMode();
+    }
   });
 
   document.getElementById("sampleBtn").addEventListener("click", () => {
