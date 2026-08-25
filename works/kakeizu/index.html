@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>家系図メーカー — 井上凱斗の作ったもの</title>
+<meta name="description" content="文章を入力すると家族関係を自動で分類し、居住地・職業つきの家系図を描画するツール。">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>%F0%9F%8C%B3</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+
+<style>
+  :root{
+    --paper: #f6f1e4;
+    --paper-2: #ece3ce;
+    --paper-3: #e2d6ba;
+    --ink: #2b2a28;
+    --ink-soft: #5a544a;
+    --indigo: #274156;
+    --indigo-soft: #3c5a73;
+    --vermillion: #c1440e;
+    --moss: #5f7350;
+    --line: #c9bd9d;
+    --shadow: rgba(43,42,40,0.18);
+    --card-bg: #fffdf6;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper: #1b1e22;
+      --paper-2: #23272c;
+      --paper-3: #2d3238;
+      --ink: #ece6d6;
+      --ink-soft: #b7b0a0;
+      --indigo: #7fa3bd;
+      --indigo-soft: #5c85a3;
+      --vermillion: #e08a52;
+      --moss: #8ea87b;
+      --line: #454b52;
+      --shadow: rgba(0,0,0,0.45);
+      --card-bg: #262b31;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper: #1b1e22;
+    --paper-2: #23272c;
+    --paper-3: #2d3238;
+    --ink: #ece6d6;
+    --ink-soft: #b7b0a0;
+    --indigo: #7fa3bd;
+    --indigo-soft: #5c85a3;
+    --vermillion: #e08a52;
+    --moss: #8ea87b;
+    --line: #454b52;
+    --shadow: rgba(0,0,0,0.45);
+    --card-bg: #262b31;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;height:100%;overflow:hidden;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Zen Kaku Gothic New","Hiragino Sans","Noto Sans JP",sans-serif;
+  }
+
+  .app{
+    display:grid;
+    grid-template-columns: 380px 1fr;
+    height:100vh;
+  }
+  @media (max-width: 900px){
+    .app{ grid-template-columns: 1fr; grid-template-rows: 50vh 50vh; }
+  }
+
+  /* ---------- sidebar ---------- */
+  .sidebar{
+    background:var(--paper-2);
+    border-right:1px solid var(--line);
+    padding:28px 24px 40px;
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+    overflow-y:auto;
+  }
+  .backlink{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-size:0.74rem;
+    letter-spacing:0.05em;
+    color:var(--ink-soft);
+    text-decoration:none;
+  }
+  .backlink:hover{ color:var(--indigo); }
+  .brand{
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+    margin-bottom:4px;
+  }
+  .brand .kanji{
+    font-family:"Shippori Mincho",serif;
+    font-weight:700;
+    font-size:1.9rem;
+    letter-spacing:0.04em;
+    color:var(--indigo);
+    text-wrap:balance;
+  }
+  .brand .sub{
+    font-size:0.78rem;
+    color:var(--ink-soft);
+    letter-spacing:0.08em;
+  }
+
+  label.field-label{
+    font-size:0.78rem;
+    font-weight:700;
+    color:var(--ink-soft);
+    letter-spacing:0.06em;
+    display:block;
+    margin-bottom:6px;
+  }
+
+  textarea{
+    width:100%;
+    min-height:180px;
+    resize:vertical;
+    background:var(--card-bg);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:12px 14px;
+    font-family:inherit;
+    font-size:0.92rem;
+    line-height:1.7;
+    color:var(--ink);
+  }
+  textarea:focus, button:focus-visible, input:focus-visible{
+    outline:2px solid var(--indigo-soft);
+    outline-offset:1px;
+  }
+
+  .hint{
+    font-size:0.76rem;
+    color:var(--ink-soft);
+    line-height:1.6;
+    background:var(--paper-3);
+    border-radius:6px;
+    padding:10px 12px;
+  }
+  .hint b{ color:var(--ink); }
+
+  .btn-row{ display:flex; gap:8px; flex-wrap:wrap; }
+  button{
+    font-family:inherit;
+    font-size:0.85rem;
+    font-weight:700;
+    border-radius:6px;
+    border:1px solid transparent;
+    padding:9px 16px;
+    cursor:pointer;
+    letter-spacing:0.02em;
+    transition:transform 0.08s ease, filter 0.15s ease;
+  }
+  button:active{ transform:translateY(1px); }
+  .btn-primary{
+    background:var(--indigo);
+    color:var(--paper);
+  }
+  .btn-primary:hover{ filter:brightness(1.1); }
+  .btn-ghost{
+    background:transparent;
+    border:1px solid var(--line);
+    color:var(--ink);
+  }
+  .btn-ghost:hover{ background:var(--paper-3); }
+  .btn-danger{
+    background:transparent;
+    border:1px solid var(--vermillion);
+    color:var(--vermillion);
+    font-size:0.72rem;
+    padding:4px 8px;
+  }
+
+  .divider{ height:1px; background:var(--line); margin:2px 0; }
+
+  .list-title{
+    font-size:0.78rem;
+    font-weight:700;
+    color:var(--ink-soft);
+    letter-spacing:0.06em;
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+  }
+  .list-title span.count{
+    font-variant-numeric: tabular-nums;
+    color:var(--indigo-soft);
+  }
+
+  .rel-list{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    max-height:220px;
+    overflow-y:auto;
+  }
+  .rel-item{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:8px;
+    background:var(--card-bg);
+    border:1px solid var(--line);
+    border-radius:5px;
+    padding:6px 10px;
+    font-size:0.8rem;
+  }
+  .rel-item .txt b{ color:var(--indigo); }
+  .rel-item .txt em{ color:var(--vermillion); font-style:normal; }
+
+  .people-list{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    max-height:220px;
+    overflow-y:auto;
+  }
+  .person-row{
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+    background:var(--card-bg);
+    border:1px solid var(--line);
+    border-radius:5px;
+    padding:8px;
+  }
+  .person-row .field-row{
+    display:flex;
+    gap:6px;
+    align-items:center;
+  }
+  .person-row input[type=text]{
+    font-family:inherit;
+    font-size:0.78rem;
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:4px 6px;
+    background:var(--paper);
+    color:var(--ink);
+    width:100%;
+  }
+  .person-row .pname{
+    font-weight:700;
+    font-size:0.85rem;
+    color:var(--ink);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .person-row .icon-label{
+    flex:none;
+    font-size:0.85rem;
+    width:16px;
+    text-align:center;
+    opacity:0.7;
+  }
+
+  .empty-note{
+    font-size:0.8rem;
+    color:var(--ink-soft);
+    padding:8px 0;
+  }
+
+  /* ---------- canvas area ---------- */
+  .stage{
+    position:relative;
+    overflow:hidden;
+    background:
+      radial-gradient(circle at 1px 1px, var(--line) 1px, transparent 1.4px) 0 0/28px 28px,
+      var(--paper);
+  }
+  .stage-toolbar{
+    position:absolute;
+    top:16px;
+    left:16px;
+    right:16px;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:12px;
+    pointer-events:none;
+    z-index:5;
+  }
+  .stage-toolbar > *{ pointer-events:auto; }
+  .legend{
+    background:var(--card-bg);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:10px 14px;
+    font-size:0.72rem;
+    color:var(--ink-soft);
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+    box-shadow:0 2px 10px var(--shadow);
+  }
+  .legend .row{ display:flex; align-items:center; gap:8px; }
+  .legend svg{ flex:none; }
+
+  .zoom-controls{
+    display:flex;
+    gap:6px;
+    background:var(--card-bg);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:6px;
+    box-shadow:0 2px 10px var(--shadow);
+  }
+  .zoom-controls button{
+    width:30px; height:30px; padding:0;
+    display:flex; align-items:center; justify-content:center;
+    background:transparent; border:1px solid var(--line); color:var(--ink);
+    font-size:1rem;
+  }
+  .zoom-controls button:hover{ background:var(--paper-3); }
+
+  #canvasWrap{
+    width:100%;
+    height:100vh;
+    overflow:auto;
+    cursor:grab;
+  }
+  #canvasWrap.grabbing{ cursor:grabbing; }
+
+  svg#tree{
+    display:block;
+  }
+
+  .node-card rect{
+    fill:var(--card-bg);
+    stroke:var(--indigo-soft);
+    stroke-width:1.4;
+  }
+  .node-card .name{
+    font-family:"Shippori Mincho",serif;
+    font-weight:700;
+    fill:var(--ink);
+  }
+  .node-card .loc{
+    fill:var(--moss);
+    font-weight:500;
+  }
+  .node-card .occ{
+    fill:var(--indigo-soft);
+    font-weight:500;
+  }
+  .node-card .pin{ fill:var(--moss); }
+  .node-card .briefcase{ fill:none; stroke:var(--indigo-soft); stroke-width:1.3; }
+
+  .edge-lineage{ stroke:var(--indigo); stroke-width:1.8; fill:none; }
+  .edge-spouse{ stroke:var(--vermillion); stroke-width:2; fill:none; }
+  .edge-sibling{ stroke:var(--indigo-soft); stroke-width:1.4; stroke-dasharray:5 4; fill:none; }
+  .edge-extended{ stroke:var(--ink-soft); stroke-width:1; stroke-dasharray:2 4; fill:none; opacity:0.85; }
+  .edge-label{
+    font-size:10px;
+    fill:var(--ink-soft);
+  }
+  .spouse-mark{ fill:var(--vermillion); }
+
+  .empty-stage{
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    gap:10px;
+    text-align:center;
+    padding:40px;
+  }
+  .empty-stage .kanji-big{
+    font-family:"Shippori Mincho",serif;
+    font-size:2.4rem;
+    color:var(--paper-3);
+    font-weight:700;
+  }
+  .empty-stage p{
+    color:var(--ink-soft);
+    font-size:0.9rem;
+    max-width:340px;
+    line-height:1.7;
+  }
+
+  ::-webkit-scrollbar{ width:10px; height:10px; }
+  ::-webkit-scrollbar-thumb{ background:var(--line); border-radius:6px; }
+  ::-webkit-scrollbar-track{ background:transparent; }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <aside class="sidebar">
+    <a class="backlink" href="../">← 作ったもの一覧に戻る</a>
+    <div class="brand">
+      <div class="kanji">家系図</div>
+      <div class="sub">文章から自動で家系図をつくる</div>
+    </div>
+
+    <div>
+      <label class="field-label" for="inputText">文章を入力</label>
+      <textarea id="inputText" placeholder="例）
+太郎は花子の夫です。
+太郎は次郎の父です。
+花子は次郎の母です。
+次郎は東京都渋谷区に住んでいます。
+太郎は北海道出身です。"></textarea>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-primary" id="parseBtn">家系図を作る</button>
+      <button class="btn-ghost" id="sampleBtn">サンプルを見る</button>
+      <button class="btn-ghost" id="clearBtn">全部消す</button>
+    </div>
+
+    <div class="hint">
+      使える表現の例 — <b>関係</b>：「AはBの父/母/息子/娘/夫/妻/兄/姉/弟/妹/祖父/祖母/孫/叔父/叔母/甥/姪/いとこ です」／「Aの息子はBです」のように逆向きでもOK／「AとBは夫婦/兄弟/姉妹です」<br>
+      <b>居住地</b>：「Aは○○に住んでいます」「Aは○○在住」「Aは○○出身です」<br>
+      <b>職業</b>：「Aの職業は○○です」「Aは○○として働いています」「Aは○○です」（例：太郎は医者です）
+    </div>
+
+    <div class="divider"></div>
+
+    <div>
+      <div class="list-title"><span>読み取った関係</span><span class="count" id="relCount">0</span></div>
+      <div class="rel-list" id="relList"></div>
+    </div>
+
+    <div>
+      <div class="list-title"><span>人物（居住地・職業を編集）</span><span class="count" id="peopleCount">0</span></div>
+      <div class="people-list" id="peopleList"></div>
+    </div>
+  </aside>
+
+  <main class="stage">
+    <div class="stage-toolbar">
+      <div class="legend">
+        <div class="row"><svg width="26" height="10"><line x1="0" y1="5" x2="26" y2="5" class="edge-lineage"/></svg>親子・祖父母</div>
+        <div class="row"><svg width="26" height="10"><line x1="0" y1="5" x2="26" y2="5" class="edge-spouse"/></svg>夫婦</div>
+        <div class="row"><svg width="26" height="10"><line x1="0" y1="5" x2="26" y2="5" class="edge-sibling"/></svg>兄弟姉妹</div>
+        <div class="row"><svg width="26" height="10"><line x1="0" y1="5" x2="26" y2="5" class="edge-extended"/></svg>叔父叔母・いとこ 等</div>
+      </div>
+      <div class="zoom-controls">
+        <button id="zoomOut" title="縮小">−</button>
+        <button id="zoomReset" title="リセット">◎</button>
+        <button id="zoomIn" title="拡大">＋</button>
+      </div>
+    </div>
+    <div id="canvasWrap">
+      <svg id="tree" xmlns="http://www.w3.org/2000/svg"></svg>
+    </div>
+    <div class="empty-stage" id="emptyStage">
+      <div class="kanji-big">まだ何もありません</div>
+      <p>左のテキスト欄に家族の関係を文章で書いて「家系図を作る」を押してください。</p>
+    </div>
+  </main>
+</div>
+
+<script>
+(function(){
+  const RELATION_MAP = {
+    "祖父":"grandfather","祖母":"grandmother",
+    "父":"father","母":"mother",
+    "息子":"son","娘":"daughter","子":"child",
+    "夫":"husband","妻":"wife",
+    "兄":"older_brother","姉":"older_sister",
+    "弟":"younger_brother","妹":"younger_sister",
+    "叔父":"uncle","伯父":"uncle","叔母":"aunt","伯母":"aunt",
+    "甥":"nephew","姪":"niece","いとこ":"cousin","孫":"grandchild"
+  };
+  // gen(subject) - gen(object) = offset   [ subject は object の {relation} です ]
+  const OFFSET = {
+    grandfather:-2, grandmother:-2, father:-1, mother:-1, uncle:-1, aunt:-1,
+    son:1, daughter:1, child:1, grandchild:2, nephew:1, niece:1,
+    husband:0, wife:0, older_brother:0, older_sister:0, younger_brother:0, younger_sister:0, cousin:0
+  };
+  const CATEGORY = {
+    grandfather:"lineage", grandmother:"lineage", father:"lineage", mother:"lineage",
+    son:"lineage", daughter:"lineage", child:"lineage", grandchild:"lineage",
+    husband:"spouse", wife:"spouse",
+    older_brother:"sibling", older_sister:"sibling", younger_brother:"sibling", younger_sister:"sibling", sibling:"sibling",
+    uncle:"extended", aunt:"extended", nephew:"extended", niece:"extended", cousin:"extended"
+  };
+  const RELATION_LABEL_JA = {
+    grandfather:"祖父", grandmother:"祖母", father:"父", mother:"母", son:"息子", daughter:"娘", child:"子",
+    husband:"夫", wife:"妻", older_brother:"兄", older_sister:"姉", younger_brother:"弟", younger_sister:"妹",
+    uncle:"叔父/伯父", aunt:"叔母/伯母", nephew:"甥", niece:"姪", cousin:"いとこ", grandchild:"孫", sibling:"兄弟姉妹"
+  };
+
+  const RELATION_WORDS_SORTED = Object.keys(RELATION_MAP).sort((a,b)=>b.length-a.length).join("|");
+  const REL_RE = new RegExp("^(.+?)は(.+?)の(" + RELATION_WORDS_SORTED + ")(?:です|だ)?$");
+  const REL_RE_REVERSE = new RegExp("^(.+?)の(" + RELATION_WORDS_SORTED + ")は(.+?)(?:です|だ)?$");
+  const COUPLE_RE = /^(.+?)と(.+?)は(夫婦|結婚している|結婚しています|カップル)(?:です)?$/;
+  const SIBLING_RE = /^(.+?)と(.+?)は(兄弟|姉妹|兄妹|姉弟)(?:です)?$/;
+  const LOC_OCC_RE = /^(.+?)は(.+?)(?:に住んでいて|に住んでおり)(.+?)(?:をしています|です)$/;
+  const LOC_RE = /^(.+?)は(.+?)(?:に住んでいます|に住んでいる|に在住|在住です|在住している|の出身です|出身です|出身)$/;
+  const OCC_RE_A = /^(.+?)の(?:職業|仕事)は(.+?)(?:です)?$/;
+  const OCC_RE_B = /^(.+?)は(.+?)(?:として働いています|として働いている|の仕事をしています|をしています)$/;
+  const OCC_RE_FALLBACK = /^(.+?)は(.+?)です$/;
+
+  const SAMPLE = `太郎は花子の夫です。
+花子は太郎の妻です。
+太郎は次郎の父です。
+花子は次郎の母です。
+太郎は陽子の父です。
+次郎は健太の父です。
+次郎とみどりは夫婦です。
+健太はみどりの息子です。
+陽子と次郎は兄妹です。
+太郎は北海道出身です。
+花子は東京都渋谷区に住んでいます。
+次郎は大阪府大阪市に住んでいます。
+健太は大阪府大阪市に住んでいます。
+陽子は福岡県福岡市在住です。
+太郎は医者です。
+次郎の職業は会社員です。
+健太は東京に住んでいてエンジニアをしています。
+一郎は太郎の甥です。
+一郎の息子は光です。
+光は福岡に住んでいて教師をしています。`;
+
+  let state = { text:"", people:{}, edges:[] };
+
+  function loadState(){
+    try{
+      const raw = localStorage.getItem("kakeizu_state_v1");
+      if(raw){
+        const parsed = JSON.parse(raw);
+        if(parsed && parsed.people) state = parsed;
+      }
+    }catch(e){}
+  }
+  function saveState(){
+    try{ localStorage.setItem("kakeizu_state_v1", JSON.stringify(state)); }catch(e){}
+  }
+
+  function ensurePerson(name){
+    name = name.trim();
+    if(!name) return null;
+    if(!state.people[name]) state.people[name] = { name, location:"", occupation:"" };
+    if(state.people[name].occupation === undefined) state.people[name].occupation = "";
+    return state.people[name];
+  }
+
+  function parseText(text){
+    state.text = text;
+    state.people = {};
+    state.edges = [];
+    const chunks = text.split(/[。\n]/).map(s=>s.trim().replace(/[、,]+$/,"")).filter(Boolean);
+    for(const raw of chunks){
+      const s = raw.replace(/\s+/g,"");
+      let m;
+      if((m = s.match(LOC_OCC_RE))){
+        const p = ensurePerson(m[1]);
+        if(p){ p.location = m[2]; p.occupation = m[3]; }
+        continue;
+      }
+      if((m = s.match(LOC_RE))){
+        const p = ensurePerson(m[1]);
+        if(p) p.location = m[2];
+        continue;
+      }
+      if((m = s.match(COUPLE_RE))){
+        ensurePerson(m[1]); ensurePerson(m[2]);
+        state.edges.push({a:m[1], b:m[2], relation:"husband", raw});
+        continue;
+      }
+      if((m = s.match(SIBLING_RE))){
+        ensurePerson(m[1]); ensurePerson(m[2]);
+        state.edges.push({a:m[1], b:m[2], relation:"sibling", raw});
+        continue;
+      }
+      if((m = s.match(REL_RE))){
+        const subj = m[1], obj = m[2], relJa = m[3];
+        const rel = RELATION_MAP[relJa];
+        ensurePerson(subj); ensurePerson(obj);
+        state.edges.push({a:subj, b:obj, relation:rel, raw});
+        continue;
+      }
+      if((m = s.match(REL_RE_REVERSE))){
+        const obj = m[1], relJa = m[2], subj = m[3];
+        const rel = RELATION_MAP[relJa];
+        ensurePerson(subj); ensurePerson(obj);
+        state.edges.push({a:subj, b:obj, relation:rel, raw});
+        continue;
+      }
+      if((m = s.match(OCC_RE_A))){
+        const p = ensurePerson(m[1]);
+        if(p) p.occupation = m[2];
+        continue;
+      }
+      if((m = s.match(OCC_RE_B))){
+        const p = ensurePerson(m[1]);
+        if(p) p.occupation = m[2];
+        continue;
+      }
+      if((m = s.match(OCC_RE_FALLBACK))){
+        const p = ensurePerson(m[1]);
+        if(p) p.occupation = m[2];
+        continue;
+      }
+    }
+    saveState();
+  }
+
+  function computeGenerations(){
+    const adj = {};
+    Object.keys(state.people).forEach(n => adj[n] = []);
+    for(const e of state.edges){
+      const off = OFFSET[e.relation] ?? 0;
+      if(!adj[e.a]) adj[e.a] = [];
+      if(!adj[e.b]) adj[e.b] = [];
+      // gen[a] - gen[b] = off  => gen[b] = gen[a] - off ; gen[a] = gen[b] + off
+      adj[e.a].push({other:e.b, delta:-off});
+      adj[e.b].push({other:e.a, delta:off});
+    }
+    const gen = {};
+    const order = []; // first-seen order, used for x placement
+    const names = Object.keys(state.people);
+    for(const start of names){
+      if(gen[start] !== undefined) continue;
+      gen[start] = 0;
+      order.push(start);
+      const queue = [start];
+      while(queue.length){
+        const cur = queue.shift();
+        for(const {other, delta} of (adj[cur]||[])){
+          if(gen[other] === undefined){
+            gen[other] = gen[cur] + delta;
+            order.push(other);
+            queue.push(other);
+          }
+        }
+      }
+    }
+    return {gen, order};
+  }
+
+  function layout(){
+    const {gen, order} = computeGenerations();
+    const names = Object.keys(state.people);
+    if(names.length === 0) return null;
+
+    const rows = {};
+    for(const n of order){
+      const g = gen[n];
+      (rows[g] = rows[g] || []).push(n);
+    }
+    const gens = Object.keys(rows).map(Number).sort((a,b)=>a-b);
+
+    const NODE_W = 156, NODE_H = 80, GAP_X = 46, ROW_H = 164;
+    const pos = {};
+    let maxRowWidth = 0;
+    gens.forEach((g, rowIdx) => {
+      const list = rows[g];
+      const totalW = list.length * NODE_W + (list.length-1) * GAP_X;
+      maxRowWidth = Math.max(maxRowWidth, totalW);
+      list.forEach((name, i) => {
+        pos[name] = {
+          x: i * (NODE_W + GAP_X),
+          y: rowIdx * ROW_H,
+          row: rowIdx
+        };
+      });
+    });
+    // center rows relative to widest row
+    gens.forEach((g) => {
+      const list = rows[g];
+      const totalW = list.length * NODE_W + (list.length-1) * GAP_X;
+      const offset = (maxRowWidth - totalW) / 2;
+      list.forEach(name => pos[name].x += offset);
+    });
+
+    const PAD = 60;
+    const width = maxRowWidth + PAD*2 + NODE_W;
+    const height = gens.length * ROW_H + PAD*2 + NODE_H;
+
+    return {pos, NODE_W, NODE_H, PAD, width, height};
+  }
+
+  function pinIcon(x, y){
+    return `<path class="pin" d="M${x} ${y} c0 5 -5 6 -5 10 c0 3 2 5 5 5 s5 -2 5 -5 c0 -4 -5 -5 -5 -10z" transform="translate(0,-2) scale(0.9)"/>`;
+  }
+  function briefcaseIcon(x, y){
+    return `<g transform="translate(${x},${y}) scale(0.85)">
+      <rect class="briefcase" x="0" y="4" width="14" height="9" rx="1.5"/>
+      <path class="briefcase" d="M4 4 V2.5 a1.5 1.5 0 0 1 1.5 -1.5 h3 a1.5 1.5 0 0 1 1.5 1.5 V4"/>
+    </g>`;
+  }
+
+  function render(){
+    const svg = document.getElementById("tree");
+    const emptyStage = document.getElementById("emptyStage");
+    const L = layout();
+    if(!L){
+      svg.innerHTML = "";
+      svg.setAttribute("width", 0);
+      svg.setAttribute("height", 0);
+      emptyStage.style.display = "flex";
+      return;
+    }
+    emptyStage.style.display = "none";
+    const {pos, NODE_W, NODE_H, PAD, width, height} = L;
+
+    svg.setAttribute("width", width);
+    svg.setAttribute("height", height);
+    svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+
+    let defs = `<defs></defs>`;
+    let edgesHtml = "";
+    let nodesHtml = "";
+
+    function center(name){
+      const p = pos[name];
+      return { cx: p.x + NODE_W/2 + PAD, cy: p.y + NODE_H/2 + PAD, top: p.y + PAD, bottom: p.y + NODE_H + PAD };
+    }
+
+    for(const e of state.edges){
+      if(!pos[e.a] || !pos[e.b]) continue;
+      const cat = CATEGORY[e.relation] || "extended";
+      const A = center(e.a), B = center(e.b);
+      if(cat === "lineage"){
+        // determine which is the "upper" generation (smaller y)
+        const upper = A.cy <= B.cy ? A : B;
+        const lower = A.cy <= B.cy ? B : A;
+        const midY = (upper.bottom + lower.top) / 2;
+        const path = `M ${upper.cx} ${upper.bottom} C ${upper.cx} ${midY}, ${lower.cx} ${midY}, ${lower.cx} ${lower.top}`;
+        edgesHtml += `<path class="edge-lineage" d="${path}"/>`;
+      } else if(cat === "spouse"){
+        edgesHtml += `<line class="edge-spouse" x1="${A.cx}" y1="${A.cy}" x2="${B.cx}" y2="${B.cy}"/>`;
+        const mx = (A.cx+B.cx)/2, my = (A.cy+B.cy)/2;
+        edgesHtml += `<circle class="spouse-mark" cx="${mx}" cy="${my}" r="3.5"/>`;
+      } else if(cat === "sibling"){
+        edgesHtml += `<line class="edge-sibling" x1="${A.cx}" y1="${A.cy}" x2="${B.cx}" y2="${B.cy}"/>`;
+      } else {
+        edgesHtml += `<line class="edge-extended" x1="${A.cx}" y1="${A.cy}" x2="${B.cx}" y2="${B.cy}"/>`;
+        const mx = (A.cx+B.cx)/2, my = (A.cy+B.cy)/2 - 4;
+        const label = RELATION_LABEL_JA[e.relation] || "";
+        edgesHtml += `<text class="edge-label" x="${mx}" y="${my}" text-anchor="middle">${escapeXml(label)}</text>`;
+      }
+    }
+
+    for(const name of Object.keys(pos)){
+      const p = pos[name];
+      const x = p.x + PAD, y = p.y + PAD;
+      const person = state.people[name];
+      const loc = person && person.location ? person.location : "";
+      const occ = person && person.occupation ? person.occupation : "";
+      const extraLines = [];
+      if(loc) extraLines.push({icon:"pin", text:loc, cls:"loc"});
+      if(occ) extraLines.push({icon:"briefcase", text:occ, cls:"occ"});
+
+      const nameY = extraLines.length ? y + 25 : y + NODE_H/2 + 5;
+      let extraHtml = "";
+      extraLines.forEach((line, i) => {
+        const lineY = y + 25 + 20 * (i+1);
+        const iconSvg = line.icon === "pin"
+          ? `<g transform="translate(${x+NODE_W/2-52},${lineY-9})">${pinIcon(0,10)}</g>`
+          : `${briefcaseIcon(x+NODE_W/2-58, lineY-11)}`;
+        extraHtml += `${iconSvg}<text class="${line.cls}" x="${x + NODE_W/2 + 4}" y="${lineY}" text-anchor="middle" font-size="11">${escapeXml(line.text)}</text>`;
+      });
+
+      nodesHtml += `
+        <g class="node-card" data-name="${escapeXml(name)}">
+          <rect x="${x}" y="${y}" width="${NODE_W}" height="${NODE_H}" rx="8"/>
+          <text class="name" x="${x + NODE_W/2}" y="${nameY}" text-anchor="middle" font-size="15">${escapeXml(name)}</text>
+          ${extraHtml}
+        </g>`;
+    }
+
+    svg.innerHTML = defs + `<g id="edgeLayer">${edgesHtml}</g><g id="nodeLayer">${nodesHtml}</g>`;
+  }
+
+  function escapeXml(s){
+    return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  }
+
+  function renderRelList(){
+    const box = document.getElementById("relList");
+    const countEl = document.getElementById("relCount");
+    countEl.textContent = state.edges.length;
+    if(state.edges.length === 0){
+      box.innerHTML = `<div class="empty-note">まだ関係が読み取れていません</div>`;
+      return;
+    }
+    box.innerHTML = state.edges.map((e,i) => {
+      const label = RELATION_LABEL_JA[e.relation] || e.relation;
+      return `<div class="rel-item">
+        <span class="txt"><b>${escapeXml(e.a)}</b> → <em>${escapeXml(label)}</em> of <b>${escapeXml(e.b)}</b></span>
+        <button class="btn-danger" data-idx="${i}" data-action="del-edge">削除</button>
+      </div>`;
+    }).join("");
+    box.querySelectorAll('[data-action="del-edge"]').forEach(btn => {
+      btn.addEventListener("click", () => {
+        const idx = Number(btn.getAttribute("data-idx"));
+        state.edges.splice(idx,1);
+        saveState();
+        renderRelList();
+        render();
+      });
+    });
+  }
+
+  function renderPeopleList(){
+    const box = document.getElementById("peopleList");
+    const countEl = document.getElementById("peopleCount");
+    const names = Object.keys(state.people);
+    countEl.textContent = names.length;
+    if(names.length === 0){
+      box.innerHTML = `<div class="empty-note">まだ人物がいません</div>`;
+      return;
+    }
+    box.innerHTML = names.map(name => {
+      const p = state.people[name];
+      return `<div class="person-row">
+        <span class="pname" title="${escapeXml(name)}">${escapeXml(name)}</span>
+        <div class="field-row">
+          <span class="icon-label" title="居住地">📍</span>
+          <input type="text" placeholder="居住地（例：東京都渋谷区）" value="${escapeXml(p.location||"")}" data-name="${escapeXml(name)}" data-field="location">
+        </div>
+        <div class="field-row">
+          <span class="icon-label" title="職業">💼</span>
+          <input type="text" placeholder="職業（例：エンジニア）" value="${escapeXml(p.occupation||"")}" data-name="${escapeXml(name)}" data-field="occupation">
+        </div>
+      </div>`;
+    }).join("");
+    box.querySelectorAll("input[data-name]").forEach(inp => {
+      inp.addEventListener("input", () => {
+        const name = inp.getAttribute("data-name");
+        const field = inp.getAttribute("data-field");
+        state.people[name][field] = inp.value;
+        saveState();
+        render();
+      });
+    });
+  }
+
+  function refreshAll(){
+    renderRelList();
+    renderPeopleList();
+    render();
+  }
+
+  // ---- events ----
+  const inputText = document.getElementById("inputText");
+  document.getElementById("parseBtn").addEventListener("click", () => {
+    parseText(inputText.value);
+    refreshAll();
+  });
+  document.getElementById("sampleBtn").addEventListener("click", () => {
+    inputText.value = SAMPLE;
+    parseText(SAMPLE);
+    refreshAll();
+  });
+  document.getElementById("clearBtn").addEventListener("click", () => {
+    inputText.value = "";
+    state = { text:"", people:{}, edges:[] };
+    saveState();
+    refreshAll();
+  });
+
+  // pan via drag
+  const wrap = document.getElementById("canvasWrap");
+  let dragging = false, startX=0, startY=0, scrollL=0, scrollT=0;
+  wrap.addEventListener("mousedown", (e) => {
+    dragging = true;
+    wrap.classList.add("grabbing");
+    startX = e.clientX; startY = e.clientY;
+    scrollL = wrap.scrollLeft; scrollT = wrap.scrollTop;
+  });
+  window.addEventListener("mouseup", () => { dragging = false; wrap.classList.remove("grabbing"); });
+  window.addEventListener("mousemove", (e) => {
+    if(!dragging) return;
+    wrap.scrollLeft = scrollL - (e.clientX - startX);
+    wrap.scrollTop = scrollT - (e.clientY - startY);
+  });
+
+  // zoom
+  let zoom = 1;
+  function applyZoom(){
+    const svg = document.getElementById("tree");
+    svg.style.transform = `scale(${zoom})`;
+    svg.style.transformOrigin = "0 0";
+  }
+  document.getElementById("zoomIn").addEventListener("click", () => { zoom = Math.min(2, zoom+0.15); applyZoom(); });
+  document.getElementById("zoomOut").addEventListener("click", () => { zoom = Math.max(0.4, zoom-0.15); applyZoom(); });
+  document.getElementById("zoomReset").addEventListener("click", () => { zoom = 1; applyZoom(); });
+
+  // ---- init ----
+  loadState();
+  if(state.text){
+    inputText.value = state.text;
+  }
+  refreshAll();
+})();
+</script>
+</body>
+</html>
