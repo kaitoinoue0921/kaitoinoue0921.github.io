@@ -1309,6 +1309,7 @@
       return;
     }
     if(ev.key !== "Enter") return;
+    if(ev.isComposing || ev.keyCode === 229) return;
     const value = lineInput.value.trim();
     if(!value) return;
     const lines = value.split(/[。\n]/).map(s=>s.trim().replace(/[、,]+$/,"")).filter(Boolean);
