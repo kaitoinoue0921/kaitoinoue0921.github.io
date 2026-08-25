@@ -548,6 +548,65 @@
   }
   .person-tooltip .tt-rel b{ color:var(--indigo); font-weight:700; }
 
+  /* ---------- share dialog (export/import) ---------- */
+  .dialog-overlay{
+    position:fixed;
+    inset:0;
+    z-index:200;
+    background:rgba(0,0,0,0.5);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+  }
+  .dialog-card{
+    background:var(--card-bg);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:20px;
+    max-width:480px;
+    width:100%;
+    box-shadow:0 10px 40px var(--shadow);
+  }
+  .dialog-title{
+    font-family:"Shippori Mincho",serif;
+    font-weight:700;
+    font-size:1.1rem;
+    color:var(--indigo);
+    margin-bottom:6px;
+  }
+  .dialog-desc{
+    font-size:0.8rem;
+    color:var(--ink-soft);
+    margin:0 0 10px;
+    line-height:1.6;
+  }
+  .dialog-textarea{
+    width:100%;
+    min-height:200px;
+    resize:vertical;
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:10px 12px;
+    font-family:inherit;
+    font-size:0.85rem;
+    color:var(--ink);
+    line-height:1.6;
+  }
+  .dialog-actions{
+    display:flex;
+    justify-content:flex-end;
+    gap:8px;
+    margin-top:12px;
+  }
+  .dialog-note{
+    margin-top:8px;
+    font-size:0.78rem;
+    color:var(--ink-soft);
+    min-height:1.2em;
+  }
+
   /* ---------- password gate ---------- */
   #gate{
     position:fixed;
@@ -665,6 +724,10 @@
       <button class="btn-ghost" id="sampleBtn">サンプルを見る</button>
       <button class="btn-ghost" id="clearBtn">全部消す</button>
     </div>
+    <div class="btn-row">
+      <button class="btn-ghost" id="exportBtn">書き出し</button>
+      <button class="btn-ghost" id="importBtn">読み込み</button>
+    </div>
 
     <div class="hint">
       使える表現の例 — <b>関係</b>：「AはBの父/母/息子/娘/長男/次男/三男/長女/次女/三女/夫/妻/兄/姉/弟/妹/祖父/祖母/孫/叔父/叔母/甥/姪/いとこ/またいとこ/いとこ半」（「です」はあってもなくてもOK）／「Aの息子はBです」のように逆向きでもOK／「AとBは夫婦/兄弟/姉妹です」<br>
@@ -723,6 +786,19 @@
     </div>
     <div class="person-tooltip" id="personTooltip"></div>
   </main>
+</div>
+
+<div id="shareDialog" class="dialog-overlay" style="display:none;">
+  <div class="dialog-card">
+    <div class="dialog-title" id="shareDialogTitle">書き出し</div>
+    <p class="dialog-desc" id="shareDialogDesc"></p>
+    <textarea id="shareTextarea" class="dialog-textarea"></textarea>
+    <div class="dialog-actions">
+      <button class="btn-ghost" id="shareCancelBtn">閉じる</button>
+      <button class="btn-primary" id="shareActionBtn">コピーする</button>
+    </div>
+    <div class="dialog-note" id="shareNote"></div>
+  </div>
 </div>
 
 <script>
@@ -995,6 +1071,36 @@
     return {gen, order};
   }
 
+  // 同じ世代の中で、夫婦・兄弟姉妹など横のつながりがある人同士を隣接させる。
+  // そうしないと、間に無関係な人が挟まったときに線がその人の裏を通って
+  // 誤って繋がっているように見えてしまう。
+  function reorderRowForAdjacency(row){
+    const list = [...row];
+    const pairKey = (a,b) => [a,b].sort().join(" ");
+    const linked = new Set();
+    for(const e of state.edges){
+      const cat = CATEGORY[e.relation];
+      if((cat === "spouse" || cat === "sibling") && list.includes(e.a) && list.includes(e.b)){
+        linked.add(pairKey(e.a, e.b));
+      }
+    }
+    let changed = true, guard = 0;
+    while(changed && guard++ < 100){
+      changed = false;
+      for(let i = 0; i < list.length && !changed; i++){
+        for(let j = i + 2; j < list.length; j++){
+          if(linked.has(pairKey(list[i], list[j]))){
+            const [item] = list.splice(j, 1);
+            list.splice(i + 1, 0, item);
+            changed = true;
+            break;
+          }
+        }
+      }
+    }
+    return list;
+  }
+
   function layout(){
     const {gen, order} = computeGenerations();
     const names = Object.keys(state.people);
@@ -1004,6 +1110,9 @@
     for(const n of order){
       const g = gen[n];
       (rows[g] = rows[g] || []).push(n);
+    }
+    for(const g in rows){
+      rows[g] = reorderRowForAdjacency(rows[g]);
     }
     const gens = Object.keys(rows).map(Number).sort((a,b)=>a-b);
 
@@ -1596,6 +1705,89 @@
   document.getElementById("zoomIn").addEventListener("click", () => { zoom = Math.min(2, zoom+0.15); applyZoom(); });
   document.getElementById("zoomOut").addEventListener("click", () => { zoom = Math.max(0.4, zoom-0.15); applyZoom(); });
   document.getElementById("zoomReset").addEventListener("click", () => { zoom = 1; applyZoom(); });
+
+  // キーボードでの拡大縮小・移動（入力欄にフォーカスしていないときだけ）
+  window.addEventListener("keydown", (e) => {
+    const tag = (document.activeElement && document.activeElement.tagName) || "";
+    if(tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
+    const PAN_STEP = 60;
+    if(e.key === "+" || e.key === "="){ zoom = Math.min(2, zoom+0.15); applyZoom(); e.preventDefault(); }
+    else if(e.key === "-" || e.key === "_"){ zoom = Math.max(0.4, zoom-0.15); applyZoom(); e.preventDefault(); }
+    else if(e.key === "0"){ zoom = 1; applyZoom(); e.preventDefault(); }
+    else if(e.key === "ArrowUp"){ wrap.scrollTop -= PAN_STEP; e.preventDefault(); }
+    else if(e.key === "ArrowDown"){ wrap.scrollTop += PAN_STEP; e.preventDefault(); }
+    else if(e.key === "ArrowLeft"){ wrap.scrollLeft -= PAN_STEP; e.preventDefault(); }
+    else if(e.key === "ArrowRight"){ wrap.scrollLeft += PAN_STEP; e.preventDefault(); }
+  });
+
+  // trackpadのピンチ／Ctrl+ホイールでも拡大縮小できるようにする
+  wrap.addEventListener("wheel", (e) => {
+    if(!e.ctrlKey) return;
+    e.preventDefault();
+    zoom = Math.max(0.4, Math.min(2, zoom - e.deltaY * 0.01));
+    applyZoom();
+  }, {passive:false});
+
+  // ---- share dialog (export / import) ----
+  const shareDialog = document.getElementById("shareDialog");
+  const shareTitle = document.getElementById("shareDialogTitle");
+  const shareDesc = document.getElementById("shareDialogDesc");
+  const shareTextarea = document.getElementById("shareTextarea");
+  const shareActionBtn = document.getElementById("shareActionBtn");
+  const shareNote = document.getElementById("shareNote");
+  let shareMode = null;
+
+  function openShareDialog(mode){
+    shareMode = mode;
+    shareNote.textContent = "";
+    if(mode === "export"){
+      shareTitle.textContent = "書き出し";
+      shareDesc.textContent = "下の文章をコピーして、他の家族に送ってください。相手は「読み込み」から貼り付けると同じ内容を追加できます。";
+      shareTextarea.value = state.history.join("\n");
+      shareTextarea.readOnly = true;
+      shareActionBtn.textContent = "コピーする";
+    } else {
+      shareTitle.textContent = "読み込み";
+      shareDesc.textContent = "他の人からもらった文章をここに貼り付けてください。今の内容に追加されます（既にある行は追加されません）。";
+      shareTextarea.value = "";
+      shareTextarea.readOnly = false;
+      shareActionBtn.textContent = "取り込む";
+    }
+    shareDialog.style.display = "flex";
+    shareTextarea.focus();
+    if(mode === "export") shareTextarea.select();
+  }
+  function closeShareDialog(){ shareDialog.style.display = "none"; }
+
+  document.getElementById("exportBtn").addEventListener("click", () => openShareDialog("export"));
+  document.getElementById("importBtn").addEventListener("click", () => openShareDialog("import"));
+  document.getElementById("shareCancelBtn").addEventListener("click", closeShareDialog);
+  shareDialog.addEventListener("click", (e) => { if(e.target === shareDialog) closeShareDialog(); });
+
+  shareActionBtn.addEventListener("click", async () => {
+    if(shareMode === "export"){
+      try{
+        await navigator.clipboard.writeText(shareTextarea.value);
+        shareNote.textContent = "コピーしました。";
+      }catch(err){
+        shareTextarea.select();
+        shareNote.textContent = "自動コピーできませんでした。選択されているのでCmd+C（Windowsの場合Ctrl+C）でコピーしてください。";
+      }
+    } else {
+      const lines = shareTextarea.value.split(/[。\n]/).map(s=>s.trim().replace(/[、,]+$/,"")).filter(Boolean);
+      const existing = new Set(state.history);
+      const added = lines.filter(l => !existing.has(l));
+      if(added.length === 0){
+        shareNote.textContent = "新しく追加できる行がありませんでした。";
+        return;
+      }
+      state.history.push(...added);
+      rebuildFromHistory();
+      refreshAll();
+      shareNote.textContent = `${added.length}件追加しました。`;
+      setTimeout(closeShareDialog, 900);
+    }
+  });
 
   // ---- init ----
   loadState();
