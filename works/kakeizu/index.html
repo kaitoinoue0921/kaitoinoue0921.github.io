@@ -419,7 +419,8 @@
 
   /* ---------- hover highlight ---------- */
   .node-card, .edge-group{ transition:opacity 0.15s ease; }
-  .node-card{ cursor:pointer; }
+  .node-card{ cursor:grab; }
+  .node-card:active{ cursor:grabbing; }
   svg#tree.hovering .node-card{ opacity:0.22; }
   svg#tree.hovering .node-card.hl-active{ opacity:1; }
   svg#tree.hovering .edge-group{ opacity:0.12; }
@@ -667,8 +668,9 @@
       </div>
       <div class="zoom-controls">
         <button id="zoomOut" title="縮小">−</button>
-        <button id="zoomReset" title="リセット">◎</button>
+        <button id="zoomReset" title="拡大率リセット">◎</button>
         <button id="zoomIn" title="拡大">＋</button>
+        <button id="resetLayoutBtn" title="ドラッグした位置を自動配置に戻す" style="font-size:0.7rem;width:auto;padding:0 8px;">配置リセット</button>
       </div>
     </div>
     <div id="canvasWrap">
@@ -804,7 +806,7 @@
 光は福岡に住んでいて教師をしています。
 光とみのりはまたいとこです。`;
 
-  let state = { history:[], people:{}, edges:[], manualOverrides:{}, egoName:"" };
+  let state = { history:[], people:{}, edges:[], manualOverrides:{}, egoName:"", nodePositions:{} };
 
   function loadState(){
     try{
@@ -813,6 +815,7 @@
         const parsed = JSON.parse(raw);
         if(parsed && Array.isArray(parsed.history)) state = parsed;
         if(!state.manualOverrides) state.manualOverrides = {};
+        if(!state.nodePositions) state.nodePositions = {};
       } else {
         // migrate from old textarea-based save, if present
         const oldRaw = localStorage.getItem("kakeizu_state_v1");
@@ -987,9 +990,22 @@
       list.forEach(name => pos[name].x += offset);
     });
 
+    // apply manually dragged positions on top of the auto layout
+    for(const name in state.nodePositions){
+      if(pos[name]){
+        pos[name].x = state.nodePositions[name].x;
+        pos[name].y = state.nodePositions[name].y;
+      }
+    }
+
     const PAD = 60;
-    const width = maxRowWidth + PAD*2 + NODE_W;
-    const height = gens.length * ROW_H + PAD*2 + NODE_H;
+    let maxX = maxRowWidth, maxY = gens.length * ROW_H;
+    for(const name in pos){
+      maxX = Math.max(maxX, pos[name].x + NODE_W);
+      maxY = Math.max(maxY, pos[name].y + NODE_H);
+    }
+    const width = maxX + PAD*2;
+    const height = maxY + PAD*2;
 
     return {pos, NODE_W, NODE_H, PAD, width, height};
   }
@@ -1099,6 +1115,53 @@
 
     svg.innerHTML = defs + `<g id="edgeLayer">${edgesHtml}</g><g id="nodeLayer">${nodesHtml}</g>`;
     wireHoverHighlight(svg);
+    wireNodeDrag(svg, pos);
+  }
+
+  function wireNodeDrag(svg, pos){
+    svg.querySelectorAll(".node-card").forEach(el => {
+      const name = el.getAttribute("data-name");
+
+      function startDrag(clientX, clientY){
+        const orig = pos[name];
+        const origX = orig.x, origY = orig.y;
+        let moved = false;
+
+        function applyMove(cx, cy){
+          moved = true;
+          const dx = (cx - clientX) / zoom;
+          const dy = (cy - clientY) / zoom;
+          state.nodePositions[name] = { x: Math.max(0, origX + dx), y: Math.max(0, origY + dy) };
+          render();
+        }
+        function onMouseMove(e){ applyMove(e.clientX, e.clientY); }
+        function onTouchMove(e){
+          if(e.touches[0]){ applyMove(e.touches[0].clientX, e.touches[0].clientY); e.preventDefault(); }
+        }
+        function onUp(){
+          window.removeEventListener("mousemove", onMouseMove);
+          window.removeEventListener("mouseup", onUp);
+          window.removeEventListener("touchmove", onTouchMove);
+          window.removeEventListener("touchend", onUp);
+          if(moved) saveState();
+        }
+        window.addEventListener("mousemove", onMouseMove);
+        window.addEventListener("mouseup", onUp);
+        window.addEventListener("touchmove", onTouchMove, {passive:false});
+        window.addEventListener("touchend", onUp);
+      }
+
+      el.addEventListener("mousedown", (e) => {
+        e.stopPropagation();
+        startDrag(e.clientX, e.clientY);
+      });
+      el.addEventListener("touchstart", (e) => {
+        if(e.touches[0]){
+          e.stopPropagation();
+          startDrag(e.touches[0].clientX, e.touches[0].clientY);
+        }
+      }, {passive:true});
+    });
   }
 
   function buildTooltipHtml(name){
@@ -1365,9 +1428,14 @@
   });
   document.getElementById("clearBtn").addEventListener("click", () => {
     cancelEditMode();
-    state = { history:[], people:{}, edges:[], manualOverrides:{} };
+    state = { history:[], people:{}, edges:[], manualOverrides:{}, egoName:"", nodePositions:{} };
     saveState();
     refreshAll();
+  });
+  document.getElementById("resetLayoutBtn").addEventListener("click", () => {
+    state.nodePositions = {};
+    saveState();
+    render();
   });
 
   // pan via drag
@@ -1385,6 +1453,18 @@
     wrap.scrollLeft = scrollL - (e.clientX - startX);
     wrap.scrollTop = scrollT - (e.clientY - startY);
   });
+  wrap.addEventListener("touchstart", (e) => {
+    if(!e.touches[0]) return;
+    dragging = true;
+    startX = e.touches[0].clientX; startY = e.touches[0].clientY;
+    scrollL = wrap.scrollLeft; scrollT = wrap.scrollTop;
+  }, {passive:true});
+  window.addEventListener("touchend", () => { dragging = false; });
+  window.addEventListener("touchmove", (e) => {
+    if(!dragging || !e.touches[0]) return;
+    wrap.scrollLeft = scrollL - (e.touches[0].clientX - startX);
+    wrap.scrollTop = scrollT - (e.touches[0].clientY - startY);
+  }, {passive:true});
 
   // zoom
   let zoom = 1;
