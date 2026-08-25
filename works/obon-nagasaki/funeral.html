@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>香典・目覚ましと葬儀の基本 — 井上凱斗の作ったもの</title>
+<meta name="description" content="香典の相場・書き方・渡し方、浄土真宗での表書き、南島原・島原に伝わる「御目覚まし」の習慣、通夜から火葬までの基本の流れをまとめたページ。">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🕯️</text></svg>">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+
+<style>
+  :root {
+    --bg: #f3efe2;
+    --surface: #fffcf4;
+    --surface-2: #ece5d2;
+    --ink: #2a2620;
+    --muted: #6f6555;
+    --rule: #d9cfb6;
+    --accent: #2f4c56;
+    --accent-soft: #dde6e4;
+    --gold: #a97a2f;
+    --gold-soft: #efe0bf;
+    --shadow: 0 1px 2px rgba(42,38,32,0.06), 0 8px 24px rgba(42,38,32,0.06);
+    color-scheme: light;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #191a16;
+      --surface: #22231e;
+      --surface-2: #2a2b24;
+      --ink: #e9e3d2;
+      --muted: #a89d86;
+      --rule: #3c3c31;
+      --accent: #9fc3c8;
+      --accent-soft: #263533;
+      --gold: #d8ab5f;
+      --gold-soft: #3a3221;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 12px 28px rgba(0,0,0,0.35);
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #191a16; --surface: #22231e; --surface-2: #2a2b24; --ink: #e9e3d2; --muted: #a89d86;
+    --rule: #3c3c31; --accent: #9fc3c8; --accent-soft: #263533; --gold: #d8ab5f; --gold-soft: #3a3221;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 12px 28px rgba(0,0,0,0.35);
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Zen Kaku Gothic New', 'Hiragino Sans', sans-serif;
+    line-height: 1.9;
+    font-size: 16.5px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 24px 96px; }
+
+  h1, h2, h3 { font-family: 'Shippori Mincho', serif; text-wrap: balance; letter-spacing: 0.02em; }
+
+  .nav-links { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 28px; }
+  .nav-links a {
+    font-size: 12.5px; letter-spacing: 0.06em; color: var(--muted);
+    text-decoration: none; border-bottom: 1px solid var(--rule);
+  }
+  .nav-links a:hover { color: var(--accent); border-color: var(--accent); }
+
+  .hero { padding: 32px 0 56px; text-align: center; border-bottom: 1px solid var(--rule); margin-bottom: 56px; }
+  .hero .kanban {
+    display: inline-flex; align-items: center; gap: 10px; color: var(--gold);
+    font-size: 13px; letter-spacing: 0.28em; margin: 28px 0;
+  }
+  .hero .kanban::before, .hero .kanban::after { content:""; width: 28px; height: 1px; background: var(--gold); }
+  .hero h1 { font-size: clamp(28px, 5.5vw, 40px); font-weight: 700; margin: 0 0 20px; line-height: 1.5; }
+  .hero p.lead { color: var(--muted); font-size: 15.5px; max-width: 480px; margin: 0 auto; }
+
+  section.block { margin-bottom: 60px; }
+  .eyebrow { font-size: 12.5px; color: var(--gold); letter-spacing: 0.22em; margin-bottom: 10px; display: block; }
+  h2.title {
+    font-size: clamp(22px, 4vw, 27px); font-weight: 700; margin: 0 0 22px;
+    display: flex; align-items: baseline; gap: 12px;
+  }
+  h2.title .num { font-family: 'Shippori Mincho', serif; color: var(--gold); font-size: 15px; }
+  p { margin: 0 0 18px; } p:last-child { margin-bottom: 0; }
+  strong { color: var(--accent); font-weight: 700; }
+
+  .card { background: var(--surface); border: 1px solid var(--rule); border-radius: 4px; padding: 28px 30px; box-shadow: var(--shadow); }
+  .note {
+    border-left: 3px solid var(--gold); background: var(--gold-soft); padding: 16px 20px;
+    border-radius: 0 4px 4px 0; font-size: 15px; color: var(--ink);
+  }
+  .note strong { color: var(--gold); }
+
+  /* ---------- timeline (funeral flow) ---------- */
+  .flow { display: flex; flex-direction: column; margin: 28px 0; }
+  .flow-step { display: grid; grid-template-columns: 28px 1fr; gap: 18px; position: relative; padding-bottom: 30px; }
+  .flow-step:last-child { padding-bottom: 0; }
+  .flow-dot {
+    width: 28px; height: 28px; border-radius: 50%; background: var(--surface);
+    border: 2px solid var(--gold); display: flex; align-items: center; justify-content: center;
+    font-family: 'Shippori Mincho', serif; font-size: 12px; color: var(--gold); flex: none;
+  }
+  .flow-step:not(:last-child)::before {
+    content: ""; position: absolute; left: 13px; top: 30px; bottom: 0; width: 1px; background: var(--rule);
+  }
+  .flow-body h3 { font-size: 16.5px; margin: 2px 0 6px; }
+  .flow-body p { font-size: 14.5px; color: var(--ink); margin: 0; }
+  .flow-body .meta { font-size: 12.5px; color: var(--muted); margin-top: 4px; }
+
+  /* ---------- koden table ---------- */
+  .table-scroll { overflow-x: auto; border: 1px solid var(--rule); border-radius: 4px; margin: 22px 0; }
+  table.data { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 480px; background: var(--surface); }
+  table.data th, table.data td { padding: 11px 16px; text-align: left; border-bottom: 1px solid var(--rule); }
+  table.data th { font-family: 'Shippori Mincho', serif; font-weight: 700; background: var(--surface-2); font-size: 13px; }
+  table.data td.n, table.data th.n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  table.data tr:last-child td { border-bottom: none; }
+
+  /* ---------- envelope diagram ---------- */
+  .envelope { display: flex; justify-content: center; margin: 26px 0; }
+  .envelope svg { width: 100%; max-width: 300px; height: auto; }
+  .envelope text { font-family: 'Shippori Mincho', serif; fill: var(--ink); }
+
+  /* ---------- dos/donts ---------- */
+  .checklist { list-style: none; padding: 0; margin: 22px 0 0; display: flex; flex-direction: column; gap: 14px; }
+  .checklist li { display: flex; gap: 14px; align-items: flex-start; font-size: 15px; }
+  .checklist .mark {
+    flex: none; width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--gold);
+    color: var(--gold); display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-family: 'Shippori Mincho', serif; margin-top: 2px;
+  }
+
+  .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 26px 0; }
+  @media (max-width: 600px) { .compare { grid-template-columns: 1fr; } }
+  .compare .col { background: var(--surface); border: 1px solid var(--rule); border-radius: 4px; padding: 22px; }
+  .compare .col .tag {
+    display: inline-block; font-size: 12px; letter-spacing: 0.08em; color: var(--accent);
+    background: var(--accent-soft); padding: 3px 10px; border-radius: 100px; margin-bottom: 12px;
+  }
+  .compare .col ul { margin: 0; padding-left: 18px; font-size: 14.5px; color: var(--ink); }
+  .compare .col li { margin-bottom: 6px; }
+
+  hr.rule { border: none; border-top: 1px solid var(--rule); margin: 56px 0; }
+
+  footer { margin-top: 72px; padding-top: 28px; border-top: 1px solid var(--rule); font-size: 13px; color: var(--muted); }
+  footer h4 { font-family: 'Shippori Mincho', serif; font-size: 13px; letter-spacing: 0.1em; color: var(--ink); margin: 0 0 10px; }
+  footer ol { margin: 0 0 20px; padding-left: 18px; }
+  footer li { margin-bottom: 5px; }
+  footer a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--rule); }
+  footer a:hover { border-color: var(--accent); }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <a href="../" style="display:inline-block;margin-top:28px;font-size:12.5px;letter-spacing:0.08em;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--rule);">← 作ったもの一覧に戻る</a>
+
+  <header class="hero">
+    <span class="kanban">香典 ・ 目覚まし ・ 葬儀の基本</span>
+    <h1>香典と「御目覚まし」、<br>葬儀の基本をひとまとめに</h1>
+    <p class="lead">通夜から火葬までの流れ、香典の相場と書き方、そして南島原・島原に伝わる「御目覚まし」という習慣について。</p>
+    <div class="nav-links">
+      <a href="./index.html">← お経の意味（正信偈・阿弥陀経）</a>
+      <a href="./map.html">長崎県 寺院分布マップ →</a>
+    </div>
+  </header>
+
+  <section class="block">
+    <span class="eyebrow">全体の流れ</span>
+    <h2 class="title"><span class="num">一</span>通夜から火葬まで</h2>
+    <p>地域や宗派で細部は変わりますが、一般的な仏式葬儀は次の順で進みます。</p>
+
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-dot">1</div>
+        <div class="flow-body">
+          <h3>通夜</h3>
+          <p>亡くなった翌日の夕方（18〜19時頃）に行われることが多い。棺のそばで故人と最後の夜を過ごす場。焼香・通夜振る舞いがある。</p>
+          <p class="meta">服装の目安：準喪服（男性はブラックスーツ、女性はブラックフォーマル）</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-dot">2</div>
+        <div class="flow-body">
+          <h3>葬儀・告別式</h3>
+          <p>通夜の翌日、午前中に行われることが多い。「葬儀」は僧侶が読経する宗教的な儀式、「告別式」は参列者が故人に別れを告げる社会的な儀式で、続けて行われるのが一般的。</p>
+          <p class="meta">服装の目安：正喪服〜準喪服</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-dot">3</div>
+        <div class="flow-body">
+          <h3>出棺・火葬</h3>
+          <p>告別式のあと棺を霊柩車で火葬場へ。火葬後、遺族・親族で遺骨を箸で拾い骨壺に納める「収骨（お骨上げ）」を行う。</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-dot">4</div>
+        <div class="flow-body">
+          <h3>初七日・精進落とし</h3>
+          <p>本来は死後7日目に行う法要だが、遠方の親族の負担を考え、火葬当日に「繰り上げ初七日」として済ませることが多い。そのあと会食（精進落とし）で締める。</p>
+        </div>
+      </div>
+    </div>
+    <p class="note"><strong>ひとこと</strong> 「絶対にこうすべき」というより、地域・お寺・遺族の意向で細部はかなり変わります。迷ったら遺族や葬儀社に直接聞くのが一番確実です。</p>
+  </section>
+
+  <section class="block">
+    <div class="card">
+      <span class="eyebrow">香典の基本 ①</span>
+      <h2 class="title" style="margin-bottom:14px;"><span class="num">二</span>香典はいくら包むか</h2>
+      <p>金額は故人との関係の近さと、自分の年齢によって変わります。地域や家の慣習で上下することも多いですが、全国的な目安は次の通りです。</p>
+
+      <div class="table-scroll">
+        <table class="data">
+          <thead><tr><th>関係</th><th class="n">目安</th></tr></thead>
+          <tbody>
+            <tr><td>両親</td><td class="n">3万〜10万円</td></tr>
+            <tr><td>祖父母</td><td class="n">1万〜5万円</td></tr>
+            <tr><td>兄弟・姉妹</td><td class="n">3万〜5万円</td></tr>
+            <tr><td>おじ・おば、その他親族</td><td class="n">1万〜3万円</td></tr>
+            <tr><td>友人・知人</td><td class="n">5千〜1万円</td></tr>
+            <tr><td>会社の同僚・上司・部下</td><td class="n">5千〜1万円</td></tr>
+            <tr><td>近所の方</td><td class="n">3千〜5千円</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ul class="checklist">
+        <li><span class="mark">奇</span>金額は<strong>奇数</strong>にする。偶数（特に2）は「割れる＝縁が切れる」を連想させるため避ける。</li>
+        <li><span class="mark">忌</span>「4」（死）「9」（苦）を含む金額は避ける。</li>
+        <li><span class="mark">新</span>新札は「用意していた」印象を与えるため避け、旧札を使う（あまりに汚れた札も避ける）。</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="card">
+      <span class="eyebrow">香典の基本 ②</span>
+      <h2 class="title" style="margin-bottom:14px;"><span class="num">三</span>香典袋の書き方</h2>
+
+      <div class="envelope">
+        <svg viewBox="0 0 220 300" xmlns="http://www.w3.org/2000/svg">
+          <rect x="10" y="10" width="200" height="280" rx="3" fill="var(--surface)" stroke="var(--rule)" stroke-width="1.5"/>
+          <line x1="110" y1="40" x2="110" y2="260" stroke="var(--rule)" stroke-width="1"/>
+          <path d="M55 90 C 60 130, 60 170, 55 210" fill="none" stroke="var(--gold)" stroke-width="2"/>
+          <path d="M165 90 C 160 130, 160 170, 165 210" fill="none" stroke="var(--gold)" stroke-width="2"/>
+          <text x="110" y="80" font-size="15" text-anchor="middle" font-weight="700">御仏前</text>
+          <text x="110" y="240" font-size="12" text-anchor="middle" fill="var(--muted)">（表書き）</text>
+          <text x="110" y="255" font-size="11" text-anchor="middle" fill="var(--muted)" font-family="'Zen Kaku Gothic New', sans-serif">氏名はフルネームで下段中央に</text>
+        </svg>
+      </div>
+
+      <p><strong>表書き（上段）</strong> — 一般的な仏式では、四十九日より前は「御霊前」、四十九日以降は「御仏前」を使います。ただし<strong>浄土真宗はこの区別をしません</strong>。亡くなった人は阿弥陀仏の力によってすぐに浄土へ往生し仏になる、という教えのため、通夜・葬儀の時点から一貫して<strong>「御仏前」</strong>（または「御香典」「御香資」）と書きます。</p>
+      <p><strong>名前（下段）</strong> — 中央下にフルネームで。夫婦連名なら夫の名前を中央に、その左に妻の名前だけを書く。</p>
+      <p><strong>墨</strong> — 「急な悲しみで墨をする時間がなかった」ことを表す<strong>薄墨</strong>を使うのが正式（四十九日までの弔事全般で薄墨）。</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <span class="eyebrow">香典の基本 ③</span>
+    <h2 class="title"><span class="num">四</span>包み方・渡し方</h2>
+    <ul class="checklist">
+      <li><span class="mark">向</span>お札の<strong>肖像画を下向き</strong>にして袋に入れる（顔を伏せることで悲しみを表すとされる）。</li>
+      <li><span class="mark">帛</span>そのまま持参せず、<strong>袱紗（ふくさ）</strong>に包んで持っていく。紫・紺・グレーなど寒色系を使う。</li>
+      <li><span class="mark">時</span>渡すのは<strong>通夜か葬儀・告別式のどちらか一方</strong>。両方に持参するのは「不幸が重なる」とされ避ける。</li>
+      <li><span class="mark">受</span>受付で「この度はご愁傷様です」と一言添え、袱紗から出して<strong>相手側に文字が読める向き</strong>にして両手で渡す。</li>
+    </ul>
+  </section>
+
+  <hr class="rule">
+
+  <section class="block">
+    <div class="card">
+      <span class="eyebrow">南島原・島原の風習</span>
+      <h2 class="title" style="margin-bottom:14px;"><span class="num">五</span>「御目覚まし（めざまし）」とは</h2>
+      <p>南島原・島原周辺では、通夜のときに<strong>近隣の人が遺族へ渡す「御目覚まし」</strong>という独自の習わしがあります。香典（御仏前）とは別に用意するもので、九州地方に広く見られる「通夜見舞い」の一種です。</p>
+
+      <div class="compare">
+        <div class="col">
+          <span class="tag">かつて</span>
+          <ul>
+            <li>近隣の人が<strong>米を五合〜一升</strong>持ち寄る</li>
+            <li>葬儀で物入りになる遺族が、通夜の食事などに困らないようにという助け合いの意味</li>
+          </ul>
+        </div>
+        <div class="col">
+          <span class="tag">いまは</span>
+          <ul>
+            <li><strong>数百円〜千円ほどの現金</strong>を「御目覚まし」と表書きした封筒で渡すことが多い</li>
+            <li>お返しは不要とされる</li>
+          </ul>
+        </div>
+      </div>
+
+      <p>由来は諸説ありますが、「通夜で（居眠りせず）目を覚ましている人へ」「故人が仏法に目覚めるように」といった意味が込められているといわれます。地域によって形が異なり、たとえば諫早市では夜通し起きている人にお菓子を渡す風習として残っているところもあります。</p>
+      <div class="note"><strong>渡すときのポイント</strong> 香典（御仏前）とは別の袋を用意し、通夜の受付で「御目覚まし」として渡す。金額は数百〜千円程度が目安で、香典より高額にする必要はない。</div>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <section class="block">
+    <span class="eyebrow">焼香の作法</span>
+    <h2 class="title"><span class="num">六</span>浄土真宗の焼香は、他の宗派と少し違う</h2>
+    <p>浄土真宗では、香を焚くのは「自分の心身を清める」ためであり、仏に祈りを届けるための作法ではありません。そのため、他宗派でよく見る「香を額に押しいただく」動作をしません。</p>
+
+    <div class="compare">
+      <div class="col">
+        <span class="tag">本願寺派</span>
+        <ul>
+          <li>香をつまみ、<strong>押しいただかずそのまま</strong>香炉にくべる</li>
+          <li>回数は<strong>1回</strong></li>
+        </ul>
+      </div>
+      <div class="col">
+        <span class="tag">真宗大谷派</span>
+        <ul>
+          <li>香をつまみ、<strong>押しいただかずそのまま</strong>香炉にくべる</li>
+          <li>回数は<strong>2回</strong></li>
+        </ul>
+      </div>
+    </div>
+    <p>流れ：香炉の手前で一礼 → 右手で香をつまみ、そのまま香炉にくべる → 合掌して「南無阿弥陀仏」と念仏を称える → 少し下がって一礼。線香を使う場合も、他宗派のように立てず、香炉のサイズに合わせて2〜3本に折り、火のついた方を左にして寝かせます。また、浄土真宗では死を穢れとみなさないため、<strong>清めの塩は使いません。</strong></p>
+  </section>
+
+  <footer>
+    <h4>参考にした情報</h4>
+    <ol>
+      <li><a href="https://sougiya.jp/news/nagasakiken-sougi-shikitari/" target="_blank" rel="noopener">長崎県の葬儀における作法としきたり／葬儀屋.jp</a></li>
+      <li><a href="https://www.osohshiki.jp/column/article/881/" target="_blank" rel="noopener">通夜の目覚ましってなに？書き方やマナーを紹介／小さなお葬式</a></li>
+      <li><a href="https://www.aeonlife.jp/knowledge/manner/kouden_manner1" target="_blank" rel="noopener">香典金額の相場一覧／イオンのお葬式</a></li>
+      <li><a href="https://www.osohshiki.jp/column/article/2223/" target="_blank" rel="noopener">浄土真宗の香典袋の書き方は？／小さなお葬式</a></li>
+      <li><a href="https://www.osohshiki.jp/column/article/2002/" target="_blank" rel="noopener">浄土真宗の葬儀の特徴は？焼香の回数などの作法を詳しく解説／小さなお葬式</a></li>
+      <li><a href="https://www.touensha.com/post/sougi85" target="_blank" rel="noopener">浄土真宗の焼香回数と作法／橙縁社</a></li>
+      <li><a href="https://www.osohshiki.jp/column/article/sou0009/" target="_blank" rel="noopener">お通夜の流れや日程、マナーなど基本的な事項を解説／小さなお葬式</a></li>
+    </ol>
+    <p>香典の金額や御目覚ましの相場は地域・家・お寺によって差があります。正確なところは遺族や葬儀社、菩提寺に確認するのが確実です。</p>
+  </footer>
+
+</div>
+</body>
+</html>
