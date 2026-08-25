@@ -152,6 +152,36 @@
     font-size:0.88rem;
     color:var(--ink);
   }
+  .lookup-row{
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+  .lookup-row select{
+    flex:1;
+    min-width:0;
+    background:var(--card-bg);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:8px 6px;
+    font-family:inherit;
+    font-size:0.82rem;
+    color:var(--ink);
+  }
+  .lookup-arrow{ color:var(--ink-soft); flex:none; }
+  .lookup-result{
+    margin-top:8px;
+    font-size:0.86rem;
+    color:var(--ink);
+    background:var(--card-bg);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:10px 12px;
+    min-height:1.4em;
+    line-height:1.6;
+  }
+  .lookup-result:empty{ display:none; }
+  .lookup-result b{ color:var(--indigo); }
   .line-input-row{
     display:flex;
     gap:8px;
@@ -405,7 +435,7 @@
   .node-card .pin{ fill:var(--moss); }
   .node-card .briefcase{ fill:none; stroke:var(--indigo-soft); stroke-width:1.3; }
 
-  .edge-lineage{ stroke:var(--indigo); stroke-width:1.8; fill:none; }
+  .edge-lineage{ stroke:var(--indigo); stroke-width:1.8; fill:none; stroke-linejoin:miter; stroke-linecap:square; }
   .edge-spouse{ stroke:var(--vermillion); stroke-width:2; fill:none; }
   .edge-sibling{ stroke:var(--amber); stroke-width:2; stroke-dasharray:8 3; fill:none; }
   .edge-extended{ stroke:var(--ink-soft); stroke-width:1; stroke-dasharray:2 4; fill:none; opacity:0.85; }
@@ -419,8 +449,7 @@
 
   /* ---------- hover highlight ---------- */
   .node-card, .edge-group{ transition:opacity 0.15s ease; }
-  .node-card{ cursor:grab; }
-  .node-card:active{ cursor:grabbing; }
+  .node-card{ pointer-events:auto; }
   svg#tree.hovering .node-card{ opacity:0.22; }
   svg#tree.hovering .node-card.hl-active{ opacity:1; }
   svg#tree.hovering .edge-group{ opacity:0.12; }
@@ -647,6 +676,19 @@
     <div class="divider"></div>
 
     <div>
+      <label class="field-label">関係を調べる</label>
+      <div class="lookup-row">
+        <select id="lookupA"><option value="">Aさん</option></select>
+        <span class="lookup-arrow">→</span>
+        <select id="lookupB"><option value="">Bさん</option></select>
+      </div>
+      <button class="btn-ghost" id="lookupBtn" style="width:100%;margin-top:6px;">調べる</button>
+      <div id="lookupResult" class="lookup-result"></div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div>
       <div class="list-title"><span>入力履歴（クリックで編集）</span><span class="count" id="relCount">0</span></div>
       <div class="rel-list" id="relList"></div>
     </div>
@@ -670,7 +712,6 @@
         <button id="zoomOut" title="縮小">−</button>
         <button id="zoomReset" title="拡大率リセット">◎</button>
         <button id="zoomIn" title="拡大">＋</button>
-        <button id="resetLayoutBtn" title="ドラッグした位置を自動配置に戻す" style="font-size:0.7rem;width:auto;padding:0 8px;">配置リセット</button>
       </div>
     </div>
     <div id="canvasWrap">
@@ -771,18 +812,18 @@
   };
 
   const RELATION_WORDS_SORTED = Object.keys(RELATION_MAP).sort((a,b)=>b.length-a.length).join("|");
-  const REL_RE = new RegExp("^(.+?)は(.+?)の(" + RELATION_WORDS_SORTED + ")(?:です|だ)?$");
-  const REL_RE_REVERSE = new RegExp("^(.+?)の(" + RELATION_WORDS_SORTED + ")は(.+?)(?:です|だ)?$");
+  const REL_RE = new RegExp("^(.+?)[はが](.+?)の(" + RELATION_WORDS_SORTED + ")(?:です|だ)?$");
+  const REL_RE_REVERSE = new RegExp("^(.+?)の(" + RELATION_WORDS_SORTED + ")[はが](.+?)(?:です|だ)?$");
   const COUPLE_RE = /^(.+?)と(.+?)は(夫婦|結婚している|結婚しています|カップル)(?:です)?$/;
   const SIBLING_RE = /^(.+?)と(.+?)は(兄弟|姉妹|兄妹|姉弟)(?:です)?$/;
   const SYMMETRIC_WORD_MAP = { "またいとこ":"second_cousin", "ふたいとこ":"second_cousin", "はとこ":"second_cousin", "いとこ":"cousin" };
   const SYMMETRIC_WORDS_SORTED = Object.keys(SYMMETRIC_WORD_MAP).sort((a,b)=>b.length-a.length).join("|");
   const SYMMETRIC_RE = new RegExp("^(.+?)と(.+?)は(" + SYMMETRIC_WORDS_SORTED + ")(?:です)?$");
-  const LOC_OCC_RE = /^(.+?)は(.+?)(?:に住んでいて|に住んでおり)(.+?)(?:をしています|です)$/;
-  const LOC_RE = /^(.+?)は(.+?)(?:に住んでいます|に住んでいる|に在住|在住です|在住している|の出身です|出身です|出身)$/;
-  const OCC_RE_A = /^(.+?)の(?:職業|仕事)は(.+?)(?:です)?$/;
-  const OCC_RE_B = /^(.+?)は(.+?)(?:として働いています|として働いている|の仕事をしています|をしています)$/;
-  const OCC_RE_FALLBACK = /^(.+?)は(.+?)です$/;
+  const LOC_OCC_RE = /^(.+?)[はが](.+?)(?:に住んでいて|に住んでおり)(.+?)(?:をしています|です)$/;
+  const LOC_RE = /^(.+?)[はが](.+?)(?:に住んでいます|に住んでいる|に在住|在住です|在住している|の出身です|出身です|出身)$/;
+  const OCC_RE_A = /^(.+?)の(?:職業|仕事)[はが](.+?)(?:です)?$/;
+  const OCC_RE_B = /^(.+?)[はが](.+?)(?:として働いています|として働いている|の仕事をしています|をしています)$/;
+  const OCC_RE_FALLBACK = /^(.+?)[はが](.+?)です$/;
 
   const SAMPLE = `太郎は花子の夫です。
 花子は太郎の妻です。
@@ -806,7 +847,7 @@
 光は福岡に住んでいて教師をしています。
 光とみのりはまたいとこです。`;
 
-  let state = { history:[], people:{}, edges:[], manualOverrides:{}, egoName:"", nodePositions:{} };
+  let state = { history:[], people:{}, edges:[], manualOverrides:{}, egoName:"" };
 
   function loadState(){
     try{
@@ -815,7 +856,6 @@
         const parsed = JSON.parse(raw);
         if(parsed && Array.isArray(parsed.history)) state = parsed;
         if(!state.manualOverrides) state.manualOverrides = {};
-        if(!state.nodePositions) state.nodePositions = {};
       } else {
         // migrate from old textarea-based save, if present
         const oldRaw = localStorage.getItem("kakeizu_state_v1");
@@ -844,7 +884,7 @@
   // Parses one sentence, mutating state.people / state.edges, and returns a
   // short human-readable description of what was recognized (or null).
   function parseSentence(raw){
-    let s = raw.replace(/\s+/g,"");
+    let s = raw.replace(/\s+/g,"").replace(/[、,]/g,"");
     if(state.egoName){
       s = s.replace(/私|自分/g, state.egoName);
     }
@@ -990,14 +1030,6 @@
       list.forEach(name => pos[name].x += offset);
     });
 
-    // apply manually dragged positions on top of the auto layout
-    for(const name in state.nodePositions){
-      if(pos[name]){
-        pos[name].x = state.nodePositions[name].x;
-        pos[name].y = state.nodePositions[name].y;
-      }
-    }
-
     const PAD = 60;
     let maxX = maxRowWidth, maxY = gens.length * ROW_H;
     for(const name in pos){
@@ -1059,7 +1091,7 @@
         const upper = A.cy <= B.cy ? A : B;
         const lower = A.cy <= B.cy ? B : A;
         const midY = (upper.bottom + lower.top) / 2;
-        const path = `M ${upper.cx} ${upper.bottom} C ${upper.cx} ${midY}, ${lower.cx} ${midY}, ${lower.cx} ${lower.top}`;
+        const path = `M ${upper.cx} ${upper.bottom} L ${upper.cx} ${midY} L ${lower.cx} ${midY} L ${lower.cx} ${lower.top}`;
         inner = `<path class="edge-lineage" d="${path}"/>`;
         labelX = (upper.cx + lower.cx) / 2; labelY = midY;
       } else if(cat === "spouse"){
@@ -1115,53 +1147,6 @@
 
     svg.innerHTML = defs + `<g id="edgeLayer">${edgesHtml}</g><g id="nodeLayer">${nodesHtml}</g>`;
     wireHoverHighlight(svg);
-    wireNodeDrag(svg, pos);
-  }
-
-  function wireNodeDrag(svg, pos){
-    svg.querySelectorAll(".node-card").forEach(el => {
-      const name = el.getAttribute("data-name");
-
-      function startDrag(clientX, clientY){
-        const orig = pos[name];
-        const origX = orig.x, origY = orig.y;
-        let moved = false;
-
-        function applyMove(cx, cy){
-          moved = true;
-          const dx = (cx - clientX) / zoom;
-          const dy = (cy - clientY) / zoom;
-          state.nodePositions[name] = { x: Math.max(0, origX + dx), y: Math.max(0, origY + dy) };
-          render();
-        }
-        function onMouseMove(e){ applyMove(e.clientX, e.clientY); }
-        function onTouchMove(e){
-          if(e.touches[0]){ applyMove(e.touches[0].clientX, e.touches[0].clientY); e.preventDefault(); }
-        }
-        function onUp(){
-          window.removeEventListener("mousemove", onMouseMove);
-          window.removeEventListener("mouseup", onUp);
-          window.removeEventListener("touchmove", onTouchMove);
-          window.removeEventListener("touchend", onUp);
-          if(moved) saveState();
-        }
-        window.addEventListener("mousemove", onMouseMove);
-        window.addEventListener("mouseup", onUp);
-        window.addEventListener("touchmove", onTouchMove, {passive:false});
-        window.addEventListener("touchend", onUp);
-      }
-
-      el.addEventListener("mousedown", (e) => {
-        e.stopPropagation();
-        startDrag(e.clientX, e.clientY);
-      });
-      el.addEventListener("touchstart", (e) => {
-        if(e.touches[0]){
-          e.stopPropagation();
-          startDrag(e.touches[0].clientX, e.touches[0].clientY);
-        }
-      }, {passive:true});
-    });
   }
 
   function buildTooltipHtml(name){
@@ -1346,8 +1331,148 @@
     }
   }
 
+  function renderLookupSelects(){
+    const names = Object.keys(state.people);
+    const optsHtml = (placeholder, current) => `<option value="">${placeholder}</option>` + names.map(n =>
+      `<option value="${escapeXml(n)}"${n === current ? " selected" : ""}>${escapeXml(n)}</option>`
+    ).join("");
+    const selA = document.getElementById("lookupA");
+    const selB = document.getElementById("lookupB");
+    const curA = selA.value, curB = selB.value;
+    selA.innerHTML = optsHtml("Aさん", curA);
+    selB.innerHTML = optsHtml("Bさん", curB);
+  }
+
+  // Aから見てBがどんな関係かを、グラフ上の最短経路から推定する
+  // name自身を距離0として、lineage（親子系）の辺だけを遡って先祖までの距離を集める
+  function ancestorDistances(name){
+    const dist = new Map([[name, 0]]);
+    const queue = [name];
+    while(queue.length){
+      const cur = queue.shift();
+      const curDist = dist.get(cur);
+      for(const e of state.edges){
+        if(CATEGORY[e.relation] !== "lineage") continue;
+        const off = OFFSET[e.relation] ?? 0;
+        if(off === 0) continue;
+        let parent, child, gdist;
+        if(off < 0){ parent = e.a; child = e.b; gdist = -off; }
+        else { parent = e.b; child = e.a; gdist = off; }
+        if(child === cur){
+          const nd = curDist + gdist;
+          if(!dist.has(parent) || dist.get(parent) > nd){
+            dist.set(parent, nd);
+            queue.push(parent);
+          }
+        }
+      }
+    }
+    return dist;
+  }
+
+  function ordinalGenTerm(n, ascending){
+    const ascendTerms = ["", "親", "祖父母", "曾祖父母", "高祖父母"];
+    const descendTerms = ["", "子", "孫", "ひ孫", "玄孫"];
+    const arr = ascending ? ascendTerms : descendTerms;
+    if(n < arr.length) return arr[n];
+    return ascending ? `${n}代上の祖先` : `${n}代下の子孫`;
+  }
+
+  function collateralTerm(minD, removed, aCloser){
+    if(removed === 0){
+      if(minD === 1) return "兄弟姉妹";
+      if(minD === 2) return "いとこ";
+      if(minD === 3) return "またいとこ";
+      return `遠い親戚（${minD-1}従兄弟）`;
+    }
+    if(minD === 1){
+      if(removed === 1) return aCloser ? "甥・姪" : "叔父・叔母";
+      if(removed === 2) return aCloser ? "大甥・大姪" : "大叔父・大叔母";
+      return "遠い親戚（伯叔系）";
+    }
+    if(minD === 2){
+      if(removed === 1) return "いとこ半";
+      return "遠い親戚（いとこ違い）";
+    }
+    return "遠い親戚";
+  }
+
+  // Aにとって、Bはどんな関係かを返す
+  function describeRelationBetween(nameA, nameB){
+    if(!nameA || !nameB || nameA === nameB) return null;
+
+    // 1) 直接つながっている辺があれば、それをそのまま使う（夫婦・兄弟姉妹・明示的ないとこ等）
+    for(const e of state.edges){
+      if(e.a === nameA && e.b === nameB){
+        return INVERSE_LABEL_JA[e.relation] || RELATION_LABEL_JA[e.relation] || e.relation;
+      }
+      if(e.a === nameB && e.b === nameA){
+        return RELATION_LABEL_JA[e.relation] || e.relation;
+      }
+    }
+
+    // 2) 共通の祖先（親子関係のみ）から血縁関係を計算する
+    const ancA = ancestorDistances(nameA);
+    const ancB = ancestorDistances(nameB);
+    let best = null;
+    for(const [name, dA] of ancA){
+      if(ancB.has(name)){
+        const dB = ancB.get(name);
+        const total = dA + dB;
+        if(!best || total < best.total) best = {dA, dB, total};
+      }
+    }
+    if(best){
+      const {dA, dB} = best;
+      if(dA === 0 && dB === 0) return null;
+      if(dA === 0) return ordinalGenTerm(dB, false); // Bはaの子孫
+      if(dB === 0) return ordinalGenTerm(dA, true);  // Bはaの祖先
+      const minD = Math.min(dA, dB), removed = Math.abs(dA - dB);
+      const aCloser = dA < dB;
+      return collateralTerm(minD, removed, aCloser);
+    }
+
+    // 3) 血縁でつながりが見つからない場合、何らかの経路があるかだけ確認する
+    const adjAll = {};
+    for(const e of state.edges){
+      (adjAll[e.a] = adjAll[e.a] || []).push(e.b);
+      (adjAll[e.b] = adjAll[e.b] || []).push(e.a);
+    }
+    const seen = new Set([nameA]);
+    const q = [nameA];
+    while(q.length){
+      const cur = q.shift();
+      if(cur === nameB) return "関連のある遠い親戚（詳細不明）";
+      for(const nx of (adjAll[cur]||[])){
+        if(!seen.has(nx)){ seen.add(nx); q.push(nx); }
+      }
+    }
+    return null;
+  }
+
+  document.getElementById("lookupBtn").addEventListener("click", () => {
+    const a = document.getElementById("lookupA").value;
+    const b = document.getElementById("lookupB").value;
+    const resultEl = document.getElementById("lookupResult");
+    if(!a || !b){
+      resultEl.textContent = "AさんとBさんを両方選んでください。";
+      return;
+    }
+    if(a === b){
+      resultEl.textContent = "同じ人が選ばれています。";
+      return;
+    }
+    const label = describeRelationBetween(a, b);
+    if(!label){
+      resultEl.innerHTML = `<b>${escapeXml(a)}</b>さんと<b>${escapeXml(b)}</b>さんは、まだ繋がりが分かりません。`;
+      return;
+    }
+    resultEl.innerHTML = `<b>${escapeXml(a)}</b>さんにとって、<b>${escapeXml(b)}</b>さんは<b>${escapeXml(label)}</b>です。`;
+  });
+
   function refreshAll(){
     renderEgoSelect();
+    renderLookupSelects();
     renderRelList();
     renderPeopleList();
     render();
@@ -1428,14 +1553,9 @@
   });
   document.getElementById("clearBtn").addEventListener("click", () => {
     cancelEditMode();
-    state = { history:[], people:{}, edges:[], manualOverrides:{}, egoName:"", nodePositions:{} };
+    state = { history:[], people:{}, edges:[], manualOverrides:{}, egoName:"" };
     saveState();
     refreshAll();
-  });
-  document.getElementById("resetLayoutBtn").addEventListener("click", () => {
-    state.nodePositions = {};
-    saveState();
-    render();
   });
 
   // pan via drag
