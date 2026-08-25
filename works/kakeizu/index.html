@@ -1276,13 +1276,30 @@
           ? parents.reduce((sum, p) => sum + centerX[p], 0) / parents.length
           : null;
       });
+      // 同じ親（の組み合わせ）を目標にしている兄弟姉妹はひとまとめにして、
+      // 親の真下を中心に並ぶようにする（先頭の子だけが親の真下に来て、
+      // 残りが右にずれていくのを防ぐ）。
       const centers = new Array(list.length);
-      for(let i = 0; i < list.length; i++){
-        centers[i] = (targets[i] !== null) ? targets[i] : (i > 0 ? centers[i-1] + (NODE_W + GAP_X) : NODE_W/2);
-        if(i > 0){
-          const minC = centers[i-1] + (NODE_W + GAP_X);
-          if(centers[i] < minC) centers[i] = minC;
+      let gi = 0;
+      while(gi < list.length){
+        let gj = gi;
+        if(targets[gi] !== null){
+          while(gj + 1 < list.length && targets[gj+1] === targets[gi]) gj++;
         }
+        const runLen = gj - gi + 1;
+        if(targets[gi] !== null){
+          const start = targets[gi] - (runLen - 1) * (NODE_W + GAP_X) / 2;
+          for(let k = 0; k < runLen; k++) centers[gi+k] = start + k * (NODE_W + GAP_X);
+        } else {
+          for(let k = 0; k < runLen; k++){
+            centers[gi+k] = (gi+k > 0) ? centers[gi+k-1] + (NODE_W + GAP_X) : NODE_W/2;
+          }
+        }
+        gi = gj + 1;
+      }
+      for(let i = 1; i < centers.length; i++){
+        const minC = centers[i-1] + (NODE_W + GAP_X);
+        if(centers[i] < minC) centers[i] = minC;
       }
       list.forEach((name, i) => {
         const x = centers[i] - NODE_W/2;
