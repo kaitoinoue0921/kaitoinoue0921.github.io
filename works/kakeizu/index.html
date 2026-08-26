@@ -1393,9 +1393,9 @@
         groupSeq++;
         gi = gj + 1;
       }
-      // 違う目標（違う夫婦・違う親）を持つグループの間には、間違って
-      // 1本の線に見えないよう少し余分な隙間を空ける。
-      const GROUP_GAP = (NODE_W + GAP_X) * 0.6;
+      // 違う親のグループの間は少し広めに空ける（隣の家族の線と
+      // 地続きに見えないようにするため）。
+      const GROUP_GAP = (NODE_W + GAP_X) * 0.35;
       for(let i = 1; i < centers.length; i++){
         const extra = centers[i].groupSeq !== centers[i-1].groupSeq ? GROUP_GAP : 0;
         const minC = centers[i-1].center + (NODE_W + GAP_X) + extra;
@@ -1554,13 +1554,29 @@
       edgesHtml += `<g class="edge-group" data-a="${escapeXml(e.a)}" data-b="${escapeXml(e.b)}">${inner}${permanentLabel}${hoverLabel}</g>`;
     }
 
+    // 同じ夫婦の子はまとめて、1本の横線（バス）から各自に枝分かれさせる。
+    // 子ごとに独立した線を描くと、隣り合う線が地続きに見えたり
+    // 途切れて見えたりするため。
+    const coupleGroups = {};
     for(const {p1, p2, child} of coupleChildEdges){
       if(!pos[p1] || !pos[p2] || !pos[child]) continue;
-      const A = center(p1), B = center(p2), C = center(child);
+      const key = p1 + "|" + p2;
+      (coupleGroups[key] = coupleGroups[key] || {p1, p2, children: []}).children.push(child);
+    }
+    for(const key in coupleGroups){
+      const {p1, p2, children} = coupleGroups[key];
+      const A = center(p1), B = center(p2);
       const coupleX = (A.cx + B.cx) / 2;
-      const midY = (A.bottom + C.top) / 2;
-      const path = `M ${coupleX} ${A.bottom} L ${coupleX} ${midY} L ${C.cx} ${midY} L ${C.cx} ${C.top}`;
-      edgesHtml += `<g class="edge-group" data-a="${escapeXml(p1)}" data-a2="${escapeXml(p2)}" data-b="${escapeXml(child)}"><path class="edge-lineage" d="${path}"/></g>`;
+      const kids = children.map(c => center(c));
+      const topY = Math.min(...kids.map(k => k.top));
+      const midY = (A.bottom + topY) / 2;
+      const xs = kids.map(k => k.cx).concat([coupleX]);
+      const busMinX = Math.min(...xs), busMaxX = Math.max(...xs);
+      let d = `M ${coupleX} ${A.bottom} L ${coupleX} ${midY}`;
+      if(busMaxX - busMinX > 0.5) d += ` M ${busMinX} ${midY} L ${busMaxX} ${midY}`;
+      for(const k of kids) d += ` M ${k.cx} ${midY} L ${k.cx} ${k.top}`;
+      const attrs = children.map((c,i) => `data-b${i===0?"":i}="${escapeXml(c)}"`).join(" ");
+      edgesHtml += `<g class="edge-group" data-a="${escapeXml(p1)}" data-a2="${escapeXml(p2)}" ${attrs}><path class="edge-lineage" d="${d}"/></g>`;
     }
 
     for(const name of Object.keys(pos)){
@@ -1648,8 +1664,14 @@
         el.classList.toggle("hl-active", n === name || related.has(n));
       });
       edgeEls.forEach(el => {
-        const a = el.getAttribute("data-a"), b = el.getAttribute("data-b"), a2 = el.getAttribute("data-a2");
-        el.classList.toggle("hl-active", a === name || b === name || a2 === name);
+        // data-a / data-a2 は親、data-b, data-b1, data-b2… は子（複数の場合あり）
+        let match = false;
+        for(const attr of el.getAttributeNames()){
+          if(attr.startsWith("data-a") || attr.startsWith("data-b")){
+            if(el.getAttribute(attr) === name){ match = true; break; }
+          }
+        }
+        el.classList.toggle("hl-active", match);
       });
       tooltip.innerHTML = buildTooltipHtml(name);
       tooltip.classList.add("visible");
