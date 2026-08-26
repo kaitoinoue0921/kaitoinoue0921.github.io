@@ -1315,7 +1315,15 @@
     const centerX = {};
     function targetOf(name){
       const parents = (parentsOf[name] || []).filter(p => centerX[p] !== undefined);
-      return parents.length ? parents.reduce((sum, p) => sum + centerX[p], 0) / parents.length : null;
+      if(!parents.length) return null;
+      // 記録されている親が結婚しているなら、その人だけの位置ではなく
+      // 夫婦の真ん中を目印にする。片方の親しか書いていない兄弟姉妹も、
+      // 両親とも書いてある兄弟姉妹と同じ位置に揃うようにするため。
+      const effectiveXs = parents.map(p => {
+        const spouse = spouseOf[p];
+        return (spouse && centerX[spouse] !== undefined) ? (centerX[p] + centerX[spouse]) / 2 : centerX[p];
+      });
+      return effectiveXs.reduce((a,b) => a+b, 0) / effectiveXs.length;
     }
     gens.forEach((g, rowIdx) => {
       let baseList = reorderRowForAdjacency(rows[g]);
