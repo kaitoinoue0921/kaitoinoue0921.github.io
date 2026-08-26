@@ -1487,12 +1487,16 @@
       for(const p1 of parents){
         const p2 = spouseOf[p1];
         if(!p2 || !pos[p2]) continue;
-        // 両親とも書いてある場合を優先する
+        // 誰が「記録されている親」かに関わらず、同じ夫婦なら常に同じ
+        // 並び順のキーになるよう、必ずソートする（そうしないと、
+        // 両親とも書いてある子と片方しか書いていない子とで別グループに
+        // なってしまう）。
+        const sorted = p1 < p2 ? {p1, p2} : {p1: p2, p2: p1};
         if(parents.includes(p2)){
-          picked = p1 < p2 ? {p1, p2} : {p1: p2, p2: p1};
+          picked = sorted;
           break;
         }
-        if(!picked) picked = {p1, p2};
+        if(!picked) picked = sorted;
       }
       if(picked){
         handledLineagePair.add(picked.p1 + "→" + child);
