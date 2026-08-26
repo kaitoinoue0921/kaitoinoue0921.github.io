@@ -1479,13 +1479,25 @@
     const coupleChildEdges = [];
     for(const child in parentsOfChild){
       const parents = parentsOfChild[child];
+      // 記録されている親のうち、配偶者がいる人を探す。
+      // 片方の親しか書いていない子でも、その親が結婚していれば
+      // 夫婦の線の真ん中から伸ばす（両親とも書いてある兄弟と
+      // 線の出方を揃えるため）。
+      let picked = null;
       for(const p1 of parents){
         const p2 = spouseOf[p1];
-        if(p2 && parents.includes(p2) && p1 < p2){
-          handledLineagePair.add(p1 + "→" + child);
-          handledLineagePair.add(p2 + "→" + child);
-          coupleChildEdges.push({p1, p2, child});
+        if(!p2 || !pos[p2]) continue;
+        // 両親とも書いてある場合を優先する
+        if(parents.includes(p2)){
+          picked = p1 < p2 ? {p1, p2} : {p1: p2, p2: p1};
+          break;
         }
+        if(!picked) picked = {p1, p2};
+      }
+      if(picked){
+        handledLineagePair.add(picked.p1 + "→" + child);
+        handledLineagePair.add(picked.p2 + "→" + child);
+        coupleChildEdges.push({p1: picked.p1, p2: picked.p2, child});
       }
     }
 
