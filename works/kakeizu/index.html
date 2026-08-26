@@ -1366,6 +1366,7 @@
       });
       const centers = [];
       let gi = 0;
+      let groupSeq = 0;
       while(gi < clusters.length){
         let gj = gi;
         if(clusterKeys[gi] !== null){
@@ -1377,7 +1378,7 @@
           let cursor = clusterKeys[gi] - (totalMembers - 1) * (NODE_W + GAP_X) / 2;
           for(let t = gi; t <= gj; t++){
             for(const name of clusters[t]){
-              centers.push({name, center: cursor});
+              centers.push({name, center: cursor, groupSeq});
               cursor += (NODE_W + GAP_X);
             }
           }
@@ -1385,14 +1386,19 @@
           for(let t = gi; t <= gj; t++){
             for(const name of clusters[t]){
               const prev = centers.length ? centers[centers.length-1].center : null;
-              centers.push({name, center: prev !== null ? prev + (NODE_W + GAP_X) : NODE_W/2});
+              centers.push({name, center: prev !== null ? prev + (NODE_W + GAP_X) : NODE_W/2, groupSeq});
             }
           }
         }
+        groupSeq++;
         gi = gj + 1;
       }
+      // 違う目標（違う夫婦・違う親）を持つグループの間には、間違って
+      // 1本の線に見えないよう少し余分な隙間を空ける。
+      const GROUP_GAP = (NODE_W + GAP_X) * 0.6;
       for(let i = 1; i < centers.length; i++){
-        const minC = centers[i-1].center + (NODE_W + GAP_X);
+        const extra = centers[i].groupSeq !== centers[i-1].groupSeq ? GROUP_GAP : 0;
+        const minC = centers[i-1].center + (NODE_W + GAP_X) + extra;
         if(centers[i].center < minC) centers[i].center = minC;
       }
       centers.forEach(({name, center}) => {
