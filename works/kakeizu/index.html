@@ -1464,8 +1464,20 @@
         labelX = (A.cx+B.cx)/2; labelY = (A.cy+B.cy)/2 - 8;
       } else {
         const cls = cat === "cousin2" ? "edge-cousin2" : "edge-extended";
-        inner = `<line class="${cls}" x1="${A.cx}" y1="${A.cy}" x2="${B.cx}" y2="${B.cy}"/>`;
-        labelX = (A.cx+B.cx)/2; labelY = (A.cy+B.cy)/2 - 4;
+        if(Math.abs(A.cy - B.cy) > 1){
+          // 世代をまたぐ関係（叔父叔母・甥姪・いとこ半など）は、直線だと
+          // 間の行の無関係な人の上を斜めに突っ切ってしまうので、
+          // 親子と同じ「カクッと曲がる」線にする。
+          const upper = A.cy <= B.cy ? A : B;
+          const lower = A.cy <= B.cy ? B : A;
+          const midY = (upper.bottom + lower.top) / 2;
+          const path = `M ${upper.cx} ${upper.bottom} L ${upper.cx} ${midY} L ${lower.cx} ${midY} L ${lower.cx} ${lower.top}`;
+          inner = `<path class="${cls}" d="${path}" fill="none"/>`;
+          labelX = (upper.cx + lower.cx) / 2; labelY = midY;
+        } else {
+          inner = `<line class="${cls}" x1="${A.cx}" y1="${A.cy}" x2="${B.cx}" y2="${B.cy}"/>`;
+          labelX = (A.cx+B.cx)/2; labelY = (A.cy+B.cy)/2 - 4;
+        }
         permanentLabel = `<text class="edge-label" x="${labelX}" y="${labelY}" text-anchor="middle">${escapeXml(label)}</text>`;
       }
       const hoverLabel = permanentLabel ? "" : `<text class="edge-hover-label" x="${labelX}" y="${labelY}" text-anchor="middle">${escapeXml(label)}</text>`;
