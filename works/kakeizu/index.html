@@ -1222,6 +1222,17 @@
 
   // 各人物の「親」（親子・祖父母系の辺だけを見た、一世代上の人）一覧。
   // 子の並び順を親の位置に合わせるために使う。
+  function buildSpouseOf(){
+    const spouseOf = {};
+    for(const e of state.edges){
+      if(CATEGORY[e.relation] === "spouse"){
+        spouseOf[e.a] = e.b;
+        spouseOf[e.b] = e.a;
+      }
+    }
+    return spouseOf;
+  }
+
   function buildParentsOf(){
     const parentsOf = {};
     for(const e of state.edges){
@@ -1247,64 +1258,94 @@
     }
     const gens = Object.keys(rows).map(Number).sort((a,b)=>a-b);
     const parentsOf = buildParentsOf();
+    const spouseOf = buildSpouseOf();
 
     const NODE_W = 156, NODE_H = 80, GAP_X = 46, ROW_H = 164;
 
     // 上から順に、できるだけ親の真下に来るよう並び替えてから、
     // 親の実際のX座標を目標値として配置する（行の幅による中央寄せはしない）。
     // 目標値が重なる場合だけ、左から右へ最小間隔を確保するようにずらす。
+    // 夫婦は「同じ行にいるなら離さない」ため、並び替えの単位として
+    // ひとまとめのクラスターにしてから並べる。
     const pos = {};
     const centerX = {};
+    function targetOf(name){
+      const parents = (parentsOf[name] || []).filter(p => centerX[p] !== undefined);
+      return parents.length ? parents.reduce((sum, p) => sum + centerX[p], 0) / parents.length : null;
+    }
     gens.forEach((g, rowIdx) => {
-      let list = reorderRowForAdjacency(rows[g]);
-      if(rowIdx > 0){
-        const withKey = list.map((name, i) => {
-          const parents = (parentsOf[name] || []).filter(p => centerX[p] !== undefined);
-          const key = parents.length
-            ? parents.reduce((sum, p) => sum + centerX[p], 0) / parents.length
-            : Infinity;
-          return {name, key, i};
+      let baseList = reorderRowForAdjacency(rows[g]);
+      let clusters;
+      if(rowIdx === 0){
+        clusters = baseList.map(name => [name]);
+      } else {
+        // 夫婦は同じ行にいる限り離さないよう、並び替えの単位を
+        // 「1人」か「夫婦2人」のクラスターにする。
+        const inRow = new Set(baseList);
+        const visited = new Set();
+        clusters = [];
+        for(const name of baseList){
+          if(visited.has(name)) continue;
+          const spouse = spouseOf[name];
+          if(spouse && inRow.has(spouse) && !visited.has(spouse)){
+            clusters.push([name, spouse]);
+            visited.add(name); visited.add(spouse);
+          } else {
+            clusters.push([name]);
+            visited.add(name);
+          }
+        }
+        const withKey = clusters.map((cluster, i) => {
+          const targets = cluster.map(targetOf).filter(t => t !== null);
+          const key = targets.length ? targets.reduce((a,b)=>a+b,0)/targets.length : Infinity;
+          return {cluster, key, i};
         });
         withKey.sort((a, b) => (a.key - b.key) || (a.i - b.i));
-        list = withKey.map(w => w.name);
-        list = reorderRowForAdjacency(list);
+        clusters = withKey.map(w => w.cluster);
       }
 
-      const targets = list.map(name => {
-        const parents = (parentsOf[name] || []).filter(p => centerX[p] !== undefined);
-        return parents.length
-          ? parents.reduce((sum, p) => sum + centerX[p], 0) / parents.length
-          : null;
+      // クラスター単位での目標値（Infinityなら「目標なし」）。
+      // 隣り合うクラスターが同じ目標を共有していれば、まとめて1つの
+      // グループとしてその目標を中心に配置する（兄弟が夫婦を挟んでいても
+      // 崩れないように、人単位ではなくクラスター単位でまとめる）。
+      const clusterKeys = clusters.map(cluster => {
+        const targets = cluster.map(targetOf).filter(t => t !== null);
+        return targets.length ? targets.reduce((a,b)=>a+b,0)/targets.length : null;
       });
-      // 同じ親（の組み合わせ）を目標にしている兄弟姉妹はひとまとめにして、
-      // 親の真下を中心に並ぶようにする（先頭の子だけが親の真下に来て、
-      // 残りが右にずれていくのを防ぐ）。
-      const centers = new Array(list.length);
+      const centers = [];
       let gi = 0;
-      while(gi < list.length){
+      while(gi < clusters.length){
         let gj = gi;
-        if(targets[gi] !== null){
-          while(gj + 1 < list.length && targets[gj+1] === targets[gi]) gj++;
+        if(clusterKeys[gi] !== null){
+          while(gj + 1 < clusters.length && clusterKeys[gj+1] === clusterKeys[gi]) gj++;
         }
-        const runLen = gj - gi + 1;
-        if(targets[gi] !== null){
-          const start = targets[gi] - (runLen - 1) * (NODE_W + GAP_X) / 2;
-          for(let k = 0; k < runLen; k++) centers[gi+k] = start + k * (NODE_W + GAP_X);
+        let totalMembers = 0;
+        for(let t = gi; t <= gj; t++) totalMembers += clusters[t].length;
+        if(clusterKeys[gi] !== null){
+          let cursor = clusterKeys[gi] - (totalMembers - 1) * (NODE_W + GAP_X) / 2;
+          for(let t = gi; t <= gj; t++){
+            for(const name of clusters[t]){
+              centers.push({name, center: cursor});
+              cursor += (NODE_W + GAP_X);
+            }
+          }
         } else {
-          for(let k = 0; k < runLen; k++){
-            centers[gi+k] = (gi+k > 0) ? centers[gi+k-1] + (NODE_W + GAP_X) : NODE_W/2;
+          for(let t = gi; t <= gj; t++){
+            for(const name of clusters[t]){
+              const prev = centers.length ? centers[centers.length-1].center : null;
+              centers.push({name, center: prev !== null ? prev + (NODE_W + GAP_X) : NODE_W/2});
+            }
           }
         }
         gi = gj + 1;
       }
       for(let i = 1; i < centers.length; i++){
-        const minC = centers[i-1] + (NODE_W + GAP_X);
-        if(centers[i] < minC) centers[i] = minC;
+        const minC = centers[i-1].center + (NODE_W + GAP_X);
+        if(centers[i].center < minC) centers[i].center = minC;
       }
-      list.forEach((name, i) => {
-        const x = centers[i] - NODE_W/2;
-        pos[name] = { x, y: rowIdx * ROW_H, row: rowIdx };
-        centerX[name] = centers[i];
+      centers.forEach(({name, center}) => {
+        pos[name] = { x: center - NODE_W/2, y: rowIdx * ROW_H, row: rowIdx };
+        centerX[name] = center;
       });
     });
 
@@ -1365,13 +1406,7 @@
 
     // 夫婦そろって親の場合、子への線は2人それぞれからではなく、
     // 夫婦の線の真ん中から1本だけ伸びるようにする。
-    const spouseOf = {};
-    for(const e of state.edges){
-      if(CATEGORY[e.relation] === "spouse"){
-        spouseOf[e.a] = e.b;
-        spouseOf[e.b] = e.a;
-      }
-    }
+    const spouseOf = buildSpouseOf();
     const parentsOfChild = {};
     for(const e of state.edges){
       if(CATEGORY[e.relation] !== "lineage") continue;
