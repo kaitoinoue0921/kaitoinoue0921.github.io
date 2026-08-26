@@ -1290,6 +1290,24 @@
     return parentsOf;
   }
 
+  // 子から見て「バスの起点にする親（一人だけ、または夫婦の組）」を一意に
+  // 決める。レイアウトの幅計算にも家系図の線を引く render() にも同じ関数を
+  // 使うことで、同じ夫婦の子が別々の判定基準でグループ分けされてしまう
+  // 食い違い（以前あったバグ）を防ぐ。
+  function pickedParentKeyOf(name, parentsOf, spouseOf){
+    const parents = parentsOf[name] || [];
+    if(!parents.length) return null;
+    let bothInList = null, anyWithSpouse = null;
+    for(const p1 of parents){
+      const p2 = spouseOf[p1];
+      if(!p2) continue;
+      const key = p1 < p2 ? `${p1}|${p2}` : `${p2}|${p1}`;
+      if(parents.includes(p2)){ bothInList = key; break; }
+      if(!anyWithSpouse) anyWithSpouse = key;
+    }
+    return bothInList || anyWithSpouse || parents[0];
+  }
+
   function layout(){
     const {gen, order} = computeGenerations();
     const names = Object.keys(state.people);
@@ -1300,33 +1318,23 @@
       const g = gen[n];
       (rows[g] = rows[g] || []).push(n);
     }
-    const gens = Object.keys(rows).map(Number).sort((a,b)=>a-b);
+    const gensArr = Object.keys(rows).map(Number).sort((a,b)=>a-b);
     const parentsOf = buildParentsOf();
     const spouseOf = buildSpouseOf();
 
     const NODE_W = 156, NODE_H = 80, GAP_X = 46, ROW_H = 164;
+    const STEP = NODE_W + GAP_X;
+    const GROUP_GAP = STEP * 0.35;
 
-    // 上から順に、できるだけ親の真下に来るよう並び替えてから、
-    // 親の実際のX座標を目標値として配置する（行の幅による中央寄せはしない）。
-    // 目標値が重なる場合だけ、左から右へ最小間隔を確保するようにずらす。
-    // 夫婦は「同じ行にいるなら離さない」ため、並び替えの単位として
-    // ひとまとめのクラスターにしてから並べる。
-    const pos = {};
-    const centerX = {};
-    function targetOf(name){
-      const parents = (parentsOf[name] || []).filter(p => centerX[p] !== undefined);
-      if(!parents.length) return null;
-      // 記録されている親が結婚しているなら、その人だけの位置ではなく
-      // 夫婦の真ん中を目印にする。片方の親しか書いていない兄弟姉妹も、
-      // 両親とも書いてある兄弟姉妹と同じ位置に揃うようにするため。
-      const effectiveXs = parents.map(p => {
-        const spouse = spouseOf[p];
-        return (spouse && centerX[spouse] !== undefined) ? (centerX[p] + centerX[spouse]) / 2 : centerX[p];
-      });
-      return effectiveXs.reduce((a,b) => a+b, 0) / effectiveXs.length;
-    }
-    gens.forEach((g, rowIdx) => {
-      let baseList = reorderRowForAdjacency(rows[g]);
+    // ---- フェーズ1：各行の左右の並び順と、単身/夫婦の「ユニット」を決める。
+    // 子は「親のユニットが親の行の中で何番目にいるか」に合わせて並べる
+    // （この時点ではまだX座標がないので、並び順だけで揃える）。
+    // 同じ親（targetKey）を持つ、並び替えた後で隣り合ったユニット同士は
+    // 1つの兄弟グループにまとめる。
+    const rowGroups = []; // rowGroups[rowIdx] = [{targetKey, units:[{members, identityKey, slots}]}]
+    const parentGroupIndex = {}; // rowIdx -> { identityKey: groupIndex in rowGroups[rowIdx] }
+    gensArr.forEach((g, rowIdx) => {
+      const baseList = reorderRowForAdjacency(rows[g]);
       let clusters;
       if(rowIdx === 0){
         clusters = baseList.map(name => [name]);
@@ -1347,63 +1355,121 @@
             visited.add(name);
           }
         }
-        const withKey = clusters.map((cluster, i) => {
-          const targets = cluster.map(targetOf).filter(t => t !== null);
-          const key = targets.length ? targets.reduce((a,b)=>a+b,0)/targets.length : Infinity;
-          return {cluster, key, i};
-        });
-        withKey.sort((a, b) => (a.key - b.key) || (a.i - b.i));
-        clusters = withKey.map(w => w.cluster);
       }
-
-      // クラスター単位での目標値（Infinityなら「目標なし」）。
-      // 隣り合うクラスターが同じ目標を共有していれば、まとめて1つの
-      // グループとしてその目標を中心に配置する（兄弟が夫婦を挟んでいても
-      // 崩れないように、人単位ではなくクラスター単位でまとめる）。
-      const clusterKeys = clusters.map(cluster => {
-        const targets = cluster.map(targetOf).filter(t => t !== null);
-        return targets.length ? targets.reduce((a,b)=>a+b,0)/targets.length : null;
+      let units = clusters.map((cluster, i) => {
+        let targetKey = null;
+        for(const m of cluster){
+          const k = pickedParentKeyOf(m, parentsOf, spouseOf);
+          if(k){ targetKey = k; break; }
+        }
+        const identityKey = cluster.length === 2
+          ? (cluster[0] < cluster[1] ? `${cluster[0]}|${cluster[1]}` : `${cluster[1]}|${cluster[0]}`)
+          : cluster[0];
+        return { members: cluster, identityKey, targetKey, i };
       });
-      const centers = [];
-      let gi = 0;
-      let groupSeq = 0;
-      while(gi < clusters.length){
-        let gj = gi;
-        if(clusterKeys[gi] !== null){
-          while(gj + 1 < clusters.length && clusterKeys[gj+1] === clusterKeys[gi]) gj++;
-        }
-        let totalMembers = 0;
-        for(let t = gi; t <= gj; t++) totalMembers += clusters[t].length;
-        if(clusterKeys[gi] !== null){
-          let cursor = clusterKeys[gi] - (totalMembers - 1) * (NODE_W + GAP_X) / 2;
-          for(let t = gi; t <= gj; t++){
-            for(const name of clusters[t]){
-              centers.push({name, center: cursor, groupSeq});
-              cursor += (NODE_W + GAP_X);
-            }
-          }
+      if(rowIdx > 0){
+        const parentIdx = parentGroupIndex[rowIdx - 1] || {};
+        units.sort((a, b) => {
+          const ai = a.targetKey !== null && parentIdx[a.targetKey] !== undefined ? parentIdx[a.targetKey] : Infinity;
+          const bi = b.targetKey !== null && parentIdx[b.targetKey] !== undefined ? parentIdx[b.targetKey] : Infinity;
+          return (ai - bi) || (a.i - b.i);
+        });
+      }
+      const groups = [];
+      for(const unit of units){
+        const last = groups[groups.length - 1];
+        if(last && unit.targetKey !== null && last.targetKey === unit.targetKey){
+          last.units.push(unit);
         } else {
-          for(let t = gi; t <= gj; t++){
-            for(const name of clusters[t]){
-              const prev = centers.length ? centers[centers.length-1].center : null;
-              centers.push({name, center: prev !== null ? prev + (NODE_W + GAP_X) : NODE_W/2, groupSeq});
-            }
-          }
+          groups.push({ targetKey: unit.targetKey, units: [unit] });
         }
-        groupSeq++;
-        gi = gj + 1;
       }
-      // 違う親のグループの間は少し広めに空ける（隣の家族の線と
-      // 地続きに見えないようにするため）。
-      const GROUP_GAP = (NODE_W + GAP_X) * 0.35;
-      for(let i = 1; i < centers.length; i++){
-        const extra = centers[i].groupSeq !== centers[i-1].groupSeq ? GROUP_GAP : 0;
-        const minC = centers[i-1].center + (NODE_W + GAP_X) + extra;
-        if(centers[i].center < minC) centers[i].center = minC;
+      rowGroups[rowIdx] = groups;
+      const idx = {};
+      groups.forEach((group, gIdx) => { group.units.forEach(u => { idx[u.identityKey] = gIdx; }); });
+      parentGroupIndex[rowIdx] = idx;
+    });
+
+    // ---- フェーズ2（下から上へ）：各ユニットが実際に必要な幅を、STEP単位の
+    // 「コマ数」として求める。子孫がいるユニットは、自分自身の人数だけでなく
+    // 子孫が必要とするコマ数も確保する。こうしておけば、上の行の間隔じたいが
+    // 下の行の広がりに合わせて自動的に広がるので、兄弟グループが無関係な
+    // 家族の線を跨いでしまうことがなくなる。
+    for(let r = gensArr.length - 1; r >= 0; r--){
+      const groups = rowGroups[r] || [];
+      const childGroups = rowGroups[r + 1] || [];
+      const childByTarget = {};
+      for(const cg of childGroups){
+        if(cg.targetKey !== null) childByTarget[cg.targetKey] = cg;
       }
-      centers.forEach(({name, center}) => {
-        pos[name] = { x: center - NODE_W/2, y: rowIdx * ROW_H, row: rowIdx };
-        centerX[name] = center;
+      for(const group of groups){
+        let total = 0;
+        for(const unit of group.units){
+          const childGroup = childByTarget[unit.identityKey];
+          unit.slots = childGroup ? Math.max(unit.members.length, childGroup.totalSlots) : unit.members.length;
+          total += unit.slots;
+        }
+        group.totalSlots = total;
+      }
+    }
+
+    // ---- フェーズ3（上から下へ）：コマ数をもとに実際のX座標を決める。
+    // 一番上の行は目標がないので、単純に左から順に必要な幅ぶんだけ並べる。
+    // それより下の行は、各グループを対応する親ユニットの中心に据える
+    // （親ユニット側もフェーズ2で子孫の分だけコマを確保済みなので収まる）。
+    const pos = {};
+    const parentUnitCenterX = {};
+    gensArr.forEach((g, rowIdx) => {
+      const groups = rowGroups[rowIdx];
+      const m = groups.length;
+      const halfWidths = groups.map(gr => (gr.totalSlots - 1) * STEP / 2);
+      const minGap = new Array(m).fill(0);
+      for(let i = 1; i < m; i++) minGap[i] = halfWidths[i-1] + halfWidths[i] + STEP + GROUP_GAP;
+      const offset = new Array(m).fill(0);
+      for(let i = 1; i < m; i++) offset[i] = offset[i-1] + minGap[i];
+      // 各グループの目標中心（親ユニットの中心、なければ null）をもとに、
+      // 「間隔は必ず確保しつつ、できるだけ目標に近づける」一次元の等調回帰
+      // （PAVA）で実際の中心を求める。単純に左から右へ足りない分だけ押し
+      // 出すやり方だと、1箇所でグループ間の余白（GROUP_GAP）を確保した分が
+      // 後続の全グループに積み重なってどんどん右へずれてしまうため
+      // （章・敏子が無関係な家族の线と重なるバグの原因だった）。
+      const rawAdjusted = new Array(m);
+      for(let i = 0; i < m; i++){
+        const group = groups[i];
+        const target = (group.targetKey !== null && parentUnitCenterX[group.targetKey] !== undefined)
+          ? parentUnitCenterX[group.targetKey] : null;
+        rawAdjusted[i] = target !== null ? (target - offset[i]) : (i > 0 ? rawAdjusted[i-1] : -offset[i]);
+      }
+      const blocks = [];
+      for(let i = 0; i < m; i++){
+        let avg = rawAdjusted[i], weight = Math.max(groups[i].totalSlots, 1), start = i;
+        while(blocks.length && blocks[blocks.length-1].avg > avg){
+          const prev = blocks.pop();
+          avg = (avg*weight + prev.avg*prev.weight) / (weight + prev.weight);
+          weight += prev.weight;
+          start = prev.start;
+        }
+        blocks.push({avg, weight, start, end: i});
+      }
+      const centers = new Array(m);
+      for(const b of blocks){
+        for(let i = b.start; i <= b.end; i++) centers[i] = b.avg + offset[i];
+      }
+      groups.forEach((group, gi) => {
+        const center = centers[gi];
+        let cursor = center - (group.totalSlots - 1) * STEP / 2;
+        for(const unit of group.units){
+          const span = (unit.slots - 1) * STEP;
+          const unitCenter = cursor + span / 2;
+          if(unit.members.length === 2){
+            pos[unit.members[0]] = { x: unitCenter - STEP/2 - NODE_W/2, y: rowIdx * ROW_H, row: rowIdx };
+            pos[unit.members[1]] = { x: unitCenter + STEP/2 - NODE_W/2, y: rowIdx * ROW_H, row: rowIdx };
+          } else {
+            pos[unit.members[0]] = { x: unitCenter - NODE_W/2, y: rowIdx * ROW_H, row: rowIdx };
+          }
+          parentUnitCenterX[unit.identityKey] = unitCenter;
+          cursor += unit.slots * STEP;
+        }
       });
     });
 
@@ -1414,7 +1480,7 @@
     for(const name in pos) pos[name].x -= minX;
 
     const PAD = 60;
-    let maxX = 0, maxY = gens.length * ROW_H;
+    let maxX = 0, maxY = gensArr.length * ROW_H;
     for(const name in pos){
       maxX = Math.max(maxX, pos[name].x + NODE_W);
       maxY = Math.max(maxY, pos[name].y + NODE_H);
@@ -1465,44 +1531,21 @@
     // 夫婦そろって親の場合、子への線は2人それぞれからではなく、
     // 夫婦の線の真ん中から1本だけ伸びるようにする。
     const spouseOf = buildSpouseOf();
-    const parentsOfChild = {};
-    for(const e of state.edges){
-      if(CATEGORY[e.relation] !== "lineage") continue;
-      const off = OFFSET[e.relation] ?? 0;
-      if(off === 0) continue;
-      const elder = off < 0 ? e.a : e.b;
-      const younger = off < 0 ? e.b : e.a;
-      const list = (parentsOfChild[younger] = parentsOfChild[younger] || []);
-      if(!list.includes(elder)) list.push(elder);
-    }
+    const parentsOf = buildParentsOf();
+    // 誰を「バスの起点にする親」にするかは layout() と全く同じ
+    // pickedParentKeyOf() で判定する（別々のロジックにすると、同じ夫婦の
+    // 子なのに片方だけ違うグループに分類されてしまうバグの元になる）。
     const handledLineagePair = new Set();
     const coupleChildEdges = [];
-    for(const child in parentsOfChild){
-      const parents = parentsOfChild[child];
-      // 記録されている親のうち、配偶者がいる人を探す。
-      // 片方の親しか書いていない子でも、その親が結婚していれば
-      // 夫婦の線の真ん中から伸ばす（両親とも書いてある兄弟と
-      // 線の出方を揃えるため）。
-      let picked = null;
-      for(const p1 of parents){
-        const p2 = spouseOf[p1];
-        if(!p2 || !pos[p2]) continue;
-        // 誰が「記録されている親」かに関わらず、同じ夫婦なら常に同じ
-        // 並び順のキーになるよう、必ずソートする（そうしないと、
-        // 両親とも書いてある子と片方しか書いていない子とで別グループに
-        // なってしまう）。
-        const sorted = p1 < p2 ? {p1, p2} : {p1: p2, p2: p1};
-        if(parents.includes(p2)){
-          picked = sorted;
-          break;
-        }
-        if(!picked) picked = sorted;
-      }
-      if(picked){
-        handledLineagePair.add(picked.p1 + "→" + child);
-        handledLineagePair.add(picked.p2 + "→" + child);
-        coupleChildEdges.push({p1: picked.p1, p2: picked.p2, child});
-      }
+    for(const child in parentsOf){
+      if(!pos[child]) continue;
+      const key = pickedParentKeyOf(child, parentsOf, spouseOf);
+      if(!key || key.indexOf("|") === -1) continue;
+      const [p1, p2] = key.split("|");
+      if(!pos[p1] || !pos[p2]) continue;
+      handledLineagePair.add(p1 + "→" + child);
+      handledLineagePair.add(p2 + "→" + child);
+      coupleChildEdges.push({p1, p2, child});
     }
 
     for(const e of state.edges){
