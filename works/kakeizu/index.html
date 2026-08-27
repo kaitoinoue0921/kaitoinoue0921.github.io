@@ -912,6 +912,7 @@
         <b>ふたいとこ</b>：曾祖父母（ひいおじいちゃん・ひいおばあちゃん）が同じで、祖父母同士がいとこの関係（＝親同士がふたいとこ）。「はとこ」「またいとこ」とも呼ばれます<br>
         <b>三いとこ</b>：高祖父母（ひいひいおじいちゃん・ひいひいおばあちゃん）が同じで、親同士がふたいとこの関係<br>
         <b>本人からみた関係</b>：本人（自分）を選んでいれば、「姉に花子がいます」のように書くだけでも「花子は（本人）の姉です」として登録されます<br>
+        <b>生年月日</b>：「Aは1990年生まれです」「Aの生年月日は昭和30年頃です」のように、大まかな表現でもそのまま登録されます<br>
         <b>居住地</b>：「Aは○○に住んでいます」「Aは○○在住」「Aは○○出身です」<br>
         <b>職業</b>：「Aの職業は○○です」「Aは○○として働いています」「Aは○○です」（例：太郎は医者です）
       </div>
@@ -1024,7 +1025,11 @@
       </div>
     </div>
     <div class="node-edit-section">
-      <label class="field-label">居住地・職業・メモ</label>
+      <label class="field-label">生年月日・居住地・職業・メモ</label>
+      <div class="line-input-row" style="margin-bottom:6px;">
+        <span class="icon-label" title="生年月日">🎂</span>
+        <input type="text" id="nodeEditBirthdate" placeholder="生年月日（例：1990年頃、大まかでもOK）" autocomplete="off">
+      </div>
       <div class="line-input-row" style="margin-bottom:6px;">
         <span class="icon-label" title="居住地">📍</span>
         <input type="text" id="nodeEditLocation" placeholder="居住地（例：東京都渋谷区）" autocomplete="off">
@@ -1161,6 +1166,10 @@
   const OCC_RE_A = /^(.+?)の(?:職業|仕事)[はが](.+?)(?:です)?$/;
   const OCC_RE_B = /^(.+?)[はが](.+?)(?:として働いています|として働いている|の仕事をしています|をしています)$/;
   const OCC_RE_FALLBACK = /^(.+?)[はが](.+?)です$/;
+  // 生年月日は「1990年頃」のような大まかな表現でも受け付けたいので、
+  // 日付として厳密にパースせず自由なテキストのまま保存する。
+  const BIRTH_RE_A = /^(.+?)の(?:生年月日|誕生日|生まれ)[はが](.+?)(?:です)?$/;
+  const BIRTH_RE_B = /^(.+?)[はが](.+?)(?:生まれです|生まれ|に生まれました|に生まれた)$/;
 
   const SAMPLE = `太郎は花子の夫です。
 花子は太郎の妻です。
@@ -1212,9 +1221,10 @@
   function ensurePerson(name){
     name = name.trim();
     if(!name) return null;
-    if(!state.people[name]) state.people[name] = { name, location:"", occupation:"", memo:"" };
+    if(!state.people[name]) state.people[name] = { name, location:"", occupation:"", memo:"", birthdate:"" };
     if(state.people[name].occupation === undefined) state.people[name].occupation = "";
     if(state.people[name].memo === undefined) state.people[name].memo = "";
+    if(state.people[name].birthdate === undefined) state.people[name].birthdate = "";
     return state.people[name];
   }
 
@@ -1316,6 +1326,16 @@
       if(CATEGORY[rel] === "sibling") inheritSiblingParents(subj, obj, raw);
       return `${subj} は ${obj} の${RELATION_LABEL_JA[rel]}${added ? "" : "（登録済み）"}`;
     }
+    if((m = s.match(BIRTH_RE_A))){
+      const p = ensurePerson(m[1]);
+      if(p) p.birthdate = m[2];
+      return `🎂${m[2]}`;
+    }
+    if((m = s.match(BIRTH_RE_B))){
+      const p = ensurePerson(m[1]);
+      if(p) p.birthdate = m[2];
+      return `🎂${m[2]}`;
+    }
     if((m = s.match(OCC_RE_A))){
       const p = ensurePerson(m[1]);
       if(p) p.occupation = m[2];
@@ -1345,6 +1365,7 @@
       if(ov.location !== undefined) state.people[name].location = ov.location;
       if(ov.occupation !== undefined) state.people[name].occupation = ov.occupation;
       if(ov.memo !== undefined) state.people[name].memo = ov.memo;
+      if(ov.birthdate !== undefined) state.people[name].birthdate = ov.birthdate;
     }
     saveState();
   }
@@ -1829,6 +1850,9 @@
   function buildTooltipHtml(name){
     const person = state.people[name] || {};
     let html = `<div class="tt-name">${escapeXml(name)}</div>`;
+    if(person.birthdate){
+      html += `<div class="tt-line"><span class="tt-icon">🎂</span><span>${escapeXml(person.birthdate)}</span></div>`;
+    }
     if(person.location){
       html += `<div class="tt-line"><span class="tt-icon">📍</span><span>${escapeXml(person.location)}</span></div>`;
     }
@@ -1859,6 +1883,23 @@
         if(coParent && coParent !== name && !shownParents.has(coParent)){
           relLines.push({label: "親", other: coParent});
           shownParents.add(coParent);
+        }
+      }
+    }
+    // 「AとBは兄弟です」と明示していなくても、親が共通なら兄弟姉妹として
+    // 一覧に出す（カーソルを合わせたときのハイライトはすでに構造から
+    // 自動判定しているので、関係一覧もそれに合わせる）。
+    {
+      const parentsOf = buildParentsOf();
+      const myParents = parentsOf[name] || [];
+      if(myParents.length){
+        const shown = new Set(relLines.map(r => r.other));
+        for(const other in parentsOf){
+          if(other === name || shown.has(other)) continue;
+          if(parentsOf[other].some(p => myParents.includes(p))){
+            relLines.push({label: "兄弟姉妹", other});
+            shown.add(other);
+          }
         }
       }
     }
@@ -2070,6 +2111,10 @@
       const p = state.people[name];
       return `<div class="person-row">
         <span class="pname" title="${escapeXml(name)}">${escapeXml(name)}</span>
+        <div class="field-row">
+          <span class="icon-label" title="生年月日">🎂</span>
+          <input type="text" placeholder="生年月日（例：1990年頃、昭和30年代など、大まかでもOK）" value="${escapeXml(p.birthdate||"")}" data-name="${escapeXml(name)}" data-field="birthdate">
+        </div>
         <div class="field-row">
           <span class="icon-label" title="居住地">📍</span>
           <input type="text" placeholder="居住地（例：東京都渋谷区）" value="${escapeXml(p.location||"")}" data-name="${escapeXml(name)}" data-field="location">
@@ -2536,6 +2581,7 @@
   const nodeEditChildName = document.getElementById("nodeEditChildName");
   const nodeEditSpouseName = document.getElementById("nodeEditSpouseName");
   const nodeEditSiblingName = document.getElementById("nodeEditSiblingName");
+  const nodeEditBirthdate = document.getElementById("nodeEditBirthdate");
   const nodeEditLocation = document.getElementById("nodeEditLocation");
   const nodeEditOccupation = document.getElementById("nodeEditOccupation");
   const nodeEditMemo = document.getElementById("nodeEditMemo");
@@ -2580,6 +2626,7 @@
     nodeEditChildName.value = "";
     nodeEditSpouseName.value = "";
     nodeEditSiblingName.value = "";
+    nodeEditBirthdate.value = person.birthdate || "";
     nodeEditLocation.value = person.location || "";
     nodeEditOccupation.value = person.occupation || "";
     nodeEditMemo.value = person.memo || "";
@@ -2653,6 +2700,7 @@
       render();
     });
   }
+  wireNodeEditPersonField(nodeEditBirthdate, "birthdate");
   wireNodeEditPersonField(nodeEditLocation, "location");
   wireNodeEditPersonField(nodeEditOccupation, "occupation");
   wireNodeEditPersonField(nodeEditMemo, "memo");
