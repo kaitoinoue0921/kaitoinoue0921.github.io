@@ -1871,11 +1871,36 @@
     wireHoverHighlight(svg);
   }
 
+  // 生年月日が「19981025」「1998-10-25」「1998年10月25日」「1998年」の
+  // ように、年（＋できれば月日）を読み取れる形なら、今日時点の年齢を
+  // 自動で計算する。「昭和30年頃」のような曖昧な書き方は諦めてnullを返す
+  // （その場合は年齢欄に自分で書いた内容だけが使われる）。
+  function computeAgeFromBirthdate(str){
+    if(!str) return null;
+    const s = str.trim();
+    let y, mo, d, m;
+    if((m = s.match(/^(\d{4})(\d{2})(\d{2})$/))){ y=+m[1]; mo=+m[2]; d=+m[3]; }
+    else if((m = s.match(/^(\d{4})[-\/年](\d{1,2})[-\/月](\d{1,2})日?$/))){ y=+m[1]; mo=+m[2]; d=+m[3]; }
+    else if((m = s.match(/^(\d{4})[-\/年](\d{1,2})月?$/))){ y=+m[1]; mo=+m[2]; d=1; }
+    else if((m = s.match(/^(\d{4})年?$/))){ y=+m[1]; mo=1; d=1; }
+    else return null;
+    if(mo < 1 || mo > 12 || d < 1 || d > 31) return null;
+    const today = new Date();
+    let age = today.getFullYear() - y;
+    const hadBirthdayThisYear = (today.getMonth()+1 > mo) || (today.getMonth()+1 === mo && today.getDate() >= d);
+    if(!hadBirthdayThisYear) age--;
+    if(age < 0 || age > 130) return null;
+    return age;
+  }
+
   function buildTooltipHtml(name){
     const person = state.people[name] || {};
     let html = `<div class="tt-name">${escapeXml(name)}</div>`;
     if(person.birthdate || person.age){
-      const text = [person.birthdate, person.age ? `（${person.age}）` : ""].filter(Boolean).join("");
+      // 年齢を自分で書いていなければ、生年月日から自動で計算する。
+      const computedAge = person.age ? null : computeAgeFromBirthdate(person.birthdate);
+      const ageText = person.age || (computedAge !== null ? `${computedAge}歳` : "");
+      const text = [person.birthdate, ageText ? `（${ageText}）` : ""].filter(Boolean).join("");
       html += `<div class="tt-line"><span class="tt-icon">🎂</span><span>${escapeXml(text)}</span></div>`;
     }
     if(person.location){
@@ -2139,7 +2164,7 @@
         <div class="field-row">
           <span class="icon-label" title="生年月日">🎂</span>
           <input type="text" placeholder="生年月日（例：1990年頃、大まかでもOK）" value="${escapeXml(p.birthdate||"")}" data-name="${escapeXml(name)}" data-field="birthdate">
-          <input type="text" class="age-input" placeholder="年齢" value="${escapeXml(p.age||"")}" data-name="${escapeXml(name)}" data-field="age">
+          <input type="text" class="age-input" placeholder="${(() => { const c = computeAgeFromBirthdate(p.birthdate); return c !== null ? escapeXml(`${c}歳（自動）`) : "年齢"; })()}" value="${escapeXml(p.age||"")}" data-name="${escapeXml(name)}" data-field="age">
         </div>
         <div class="field-row">
           <span class="icon-label" title="居住地">📍</span>
@@ -2655,6 +2680,7 @@
     nodeEditSiblingName.value = "";
     nodeEditBirthdate.value = person.birthdate || "";
     nodeEditAge.value = person.age || "";
+    updateNodeEditAgePlaceholder();
     nodeEditLocation.value = person.location || "";
     nodeEditOccupation.value = person.occupation || "";
     nodeEditMemo.value = person.memo || "";
@@ -2728,6 +2754,13 @@
       render();
     });
   }
+  // 生年月日から年齢が自動計算できるときは、年齢欄が空でも
+  // プレースホルダーとして今の年齢が見えるようにする。
+  function updateNodeEditAgePlaceholder(){
+    const computed = computeAgeFromBirthdate(nodeEditBirthdate.value);
+    nodeEditAge.placeholder = computed !== null ? `${computed}歳（自動計算）` : "年齢";
+  }
+  nodeEditBirthdate.addEventListener("input", updateNodeEditAgePlaceholder);
   wireNodeEditPersonField(nodeEditBirthdate, "birthdate");
   wireNodeEditPersonField(nodeEditAge, "age");
   wireNodeEditPersonField(nodeEditLocation, "location");
