@@ -21,6 +21,7 @@
     --vermillion: #c1440e;
     --amber: #a3782c;
     --moss: #5f7350;
+    --plum: #7d4f8a;
     --line: #c9bd9d;
     --shadow: rgba(43,42,40,0.18);
     --card-bg: #fffdf6;
@@ -37,6 +38,7 @@
       --vermillion: #e08a52;
       --amber: #d8a657;
       --moss: #8ea87b;
+      --plum: #b892c2;
       --line: #454b52;
       --shadow: rgba(0,0,0,0.45);
       --card-bg: #262b31;
@@ -53,6 +55,7 @@
     --vermillion: #e08a52;
     --amber: #d8a657;
     --moss: #8ea87b;
+    --plum: #b892c2;
     --line: #454b52;
     --shadow: rgba(0,0,0,0.45);
     --card-bg: #262b31;
@@ -567,8 +570,13 @@
   svg#tree.hovering .edge-group{ opacity:0.12; }
   svg#tree.hovering .edge-group.hl-active{ opacity:1; }
   .node-card.hl-active rect{ stroke:var(--vermillion); stroke-width:2.2; }
+  /* 親子は常に太い実線で繋がっていて関係が見て分かるので、ハイライト時に
+     色を変えず、素の見た目のまま（薄暗くならないだけ）にする。 */
+  .node-card.hl-active.hl-cat-lineage rect{ stroke:var(--indigo-soft); stroke-width:1.4; }
   .node-card.hl-active.hl-cat-extended rect{ stroke:var(--indigo); }
-  .node-card.hl-active.hl-cat-cousin2 rect{ stroke:var(--moss); }
+  .node-card.hl-active.hl-cat-cousin rect{ stroke:var(--amber); }
+  .node-card.hl-active.hl-cat-cousin_once_removed rect{ stroke:var(--plum); }
+  .node-card.hl-active.hl-cat-second_cousin rect{ stroke:var(--moss); }
   .node-card.is-ego rect{ stroke:var(--amber); stroke-width:2.4; }
   .node-card .ego-badge{ fill:var(--amber); font-weight:700; }
   .edge-group.hl-active .edge-lineage{ stroke-width:2.8; }
@@ -1833,16 +1841,26 @@
     return html;
   }
 
+  // ハイライトの枠線の色を決めるための細かい分類。親子はいつも太い実線で
+  // 繋がっていて見ればわかるので色を変えない（無色＝素の見た目）。
+  // いとこ・いとこ半・またいとこ（ふたいとこ）はそれぞれ違う色にして、
+  // 点線で見分けにくい関係を区別しやすくする。
+  const HL_CAT_CLASSES = ["hl-cat-lineage", "hl-cat-extended", "hl-cat-cousin", "hl-cat-cousin_once_removed", "hl-cat-second_cousin"];
+  function highlightCategoryOf(relation){
+    if(relation === "cousin") return "cousin";
+    if(relation === "cousin_once_removed") return "cousin_once_removed";
+    if(relation === "second_cousin") return "second_cousin";
+    return CATEGORY[relation] || "extended";
+  }
+
   function wireHoverHighlight(svg){
-    // 相手ごとに関係のカテゴリも覚えておく（いとこ・またいとこは枠線の色を
-    // 変えて、親子・兄弟・夫婦などと見分けやすくするため）。
+    // 相手ごとに関係の分類も覚えておく（右上の見分け用の色分けに使う）。
     const adjacency = {};
     for(const e of state.edges){
-      const cat = CATEGORY[e.relation] || "extended";
+      const cat = highlightCategoryOf(e.relation);
       (adjacency[e.a] = adjacency[e.a] || new Map()).set(e.b, cat);
       (adjacency[e.b] = adjacency[e.b] || new Map()).set(e.a, cat);
     }
-    const HL_CAT_CLASSES = ["hl-cat-extended", "hl-cat-cousin2"];
     const nodeEls = svg.querySelectorAll(".node-card");
     const edgeEls = svg.querySelectorAll(".edge-group");
     const tooltip = document.getElementById("personTooltip");
@@ -1858,8 +1876,7 @@
         el.classList.toggle("hl-active", isActive);
         if(isActive && n !== name){
           const cat = related.get(n);
-          if(cat === "extended") el.classList.add("hl-cat-extended");
-          else if(cat === "cousin2") el.classList.add("hl-cat-cousin2");
+          if(HL_CAT_CLASSES.includes("hl-cat-" + cat)) el.classList.add("hl-cat-" + cat);
         }
       });
       edgeEls.forEach(el => {
