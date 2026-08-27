@@ -715,6 +715,7 @@
     margin-top:12px;
   }
   .node-edit-section{ margin-bottom:14px; }
+  .node-edit-section .line-input-row{ align-items:center; }
   .node-edit-section .line-input-row input[type="text"]{
     flex:1;
     min-width:0;
@@ -725,6 +726,13 @@
     font-family:inherit;
     font-size:0.92rem;
     color:var(--ink);
+  }
+  .node-edit-section .icon-label{
+    flex:none;
+    font-size:0.95rem;
+    width:20px;
+    text-align:center;
+    opacity:0.7;
   }
   .dialog-note{
     margin-top:8px;
@@ -962,6 +970,35 @@
         <button class="btn-primary" id="nodeEditAddChildBtn" type="button">追加</button>
       </div>
     </div>
+    <div class="node-edit-section">
+      <label class="field-label" for="nodeEditSpouseName">配偶者を追加</label>
+      <div class="line-input-row">
+        <input type="text" id="nodeEditSpouseName" placeholder="例：花子" autocomplete="off">
+        <button class="btn-primary" id="nodeEditAddSpouseBtn" type="button">追加</button>
+      </div>
+    </div>
+    <div class="node-edit-section">
+      <label class="field-label" for="nodeEditSiblingName">兄弟姉妹を追加</label>
+      <div class="line-input-row">
+        <input type="text" id="nodeEditSiblingName" placeholder="例：次郎" autocomplete="off">
+        <button class="btn-primary" id="nodeEditAddSiblingBtn" type="button">追加</button>
+      </div>
+    </div>
+    <div class="node-edit-section">
+      <label class="field-label">居住地・職業・メモ</label>
+      <div class="line-input-row" style="margin-bottom:6px;">
+        <span class="icon-label" title="居住地">📍</span>
+        <input type="text" id="nodeEditLocation" placeholder="居住地（例：東京都渋谷区）" autocomplete="off">
+      </div>
+      <div class="line-input-row" style="margin-bottom:6px;">
+        <span class="icon-label" title="職業">💼</span>
+        <input type="text" id="nodeEditOccupation" placeholder="職業（例：エンジニア）" autocomplete="off">
+      </div>
+      <div class="line-input-row">
+        <span class="icon-label" title="メモ">📝</span>
+        <input type="text" id="nodeEditMemo" placeholder="メモ（自由記述）" autocomplete="off">
+      </div>
+    </div>
     <div class="dialog-actions">
       <button class="btn-ghost" id="nodeEditCloseBtn">閉じる</button>
     </div>
@@ -1164,6 +1201,21 @@
     return true;
   }
 
+  // 兄弟姉妹の関係を追加したとき、片方に既に親が登録されていれば、
+  // もう片方も同じ親の子として自動でつなげる。そうしないと「姉」と
+  // 言われた人が兄弟線だけで浮いてしまい、親夫婦のバス線から子として
+  // 出てこない（本人の姉なのに親との間に線がない）ことになるため。
+  function inheritSiblingParents(a, b, raw){
+    const parentsOf = buildParentsOf();
+    const aParents = parentsOf[a] || [];
+    const bParents = parentsOf[b] || [];
+    if(aParents.length && !bParents.length){
+      for(const p of aParents) addEdge(b, p, "child", raw);
+    } else if(bParents.length && !aParents.length){
+      for(const p of bParents) addEdge(a, p, "child", raw);
+    }
+  }
+
   // Parses one sentence, mutating state.people / state.edges, and returns a
   // short human-readable description of what was recognized (or null).
   function parseSentence(raw){
@@ -1190,6 +1242,7 @@
     if((m = s.match(SIBLING_RE))){
       ensurePerson(m[1]); ensurePerson(m[2]);
       const added = addEdge(m[1], m[2], "sibling", raw);
+      inheritSiblingParents(m[1], m[2], raw);
       return `兄弟姉妹：${m[1]} ⇄ ${m[2]}${added ? "" : "（登録済み）"}`;
     }
     if((m = s.match(SYMMETRIC_RE))){
@@ -1204,6 +1257,7 @@
       const rel = RELATION_MAP[relJa];
       ensurePerson(subj); ensurePerson(state.egoName);
       const added = addEdge(subj, state.egoName, rel, raw);
+      if(CATEGORY[rel] === "sibling") inheritSiblingParents(subj, state.egoName, raw);
       return `${subj} は ${state.egoName} の${RELATION_LABEL_JA[rel]}${added ? "" : "（登録済み）"}`;
     }
     if((m = s.match(REL_RE))){
@@ -1211,6 +1265,7 @@
       const rel = RELATION_MAP[relJa];
       ensurePerson(subj); ensurePerson(obj);
       const added = addEdge(subj, obj, rel, raw);
+      if(CATEGORY[rel] === "sibling") inheritSiblingParents(subj, obj, raw);
       return `${subj} は ${obj} の${RELATION_LABEL_JA[rel]}${added ? "" : "（登録済み）"}`;
     }
     if((m = s.match(REL_RE_REVERSE))){
@@ -1218,6 +1273,7 @@
       const rel = RELATION_MAP[relJa];
       ensurePerson(subj); ensurePerson(obj);
       const added = addEdge(subj, obj, rel, raw);
+      if(CATEGORY[rel] === "sibling") inheritSiblingParents(subj, obj, raw);
       return `${subj} は ${obj} の${RELATION_LABEL_JA[rel]}${added ? "" : "（登録済み）"}`;
     }
     if((m = s.match(OCC_RE_A))){
@@ -1830,7 +1886,12 @@
       box.innerHTML = `<div class="empty-note">まだ何も入力されていません</div>`;
       return;
     }
-    box.innerHTML = state.history.map((line, i) => {
+    // 新しく追加した行ほど上に来るよう、逆順（最新→最古）で並べる。
+    // data-idxには元のstate.history上の位置（削除・編集の対象特定に使う）
+    // をそのまま入れるので、見た目の並び順を変えても編集・削除は壊れない。
+    const order = state.history.map((_, i) => i).reverse();
+    box.innerHTML = order.map(i => {
+      const line = state.history[i];
       const desc = state.results && state.results[i];
       const descHtml = desc
         ? `<div class="parsed-desc">→ ${escapeXml(desc)}</div>`
@@ -2363,14 +2424,25 @@
   const nodeEditNameEl = document.getElementById("nodeEditName");
   const nodeEditRename = document.getElementById("nodeEditRename");
   const nodeEditChildName = document.getElementById("nodeEditChildName");
+  const nodeEditSpouseName = document.getElementById("nodeEditSpouseName");
+  const nodeEditSiblingName = document.getElementById("nodeEditSiblingName");
+  const nodeEditLocation = document.getElementById("nodeEditLocation");
+  const nodeEditOccupation = document.getElementById("nodeEditOccupation");
+  const nodeEditMemo = document.getElementById("nodeEditMemo");
   const nodeEditNote = document.getElementById("nodeEditNote");
   let nodeEditTarget = null;
 
   function openNodeEditDialog(name){
     nodeEditTarget = name;
+    const person = state.people[name] || {};
     nodeEditNameEl.textContent = name;
     nodeEditRename.value = name;
     nodeEditChildName.value = "";
+    nodeEditSpouseName.value = "";
+    nodeEditSiblingName.value = "";
+    nodeEditLocation.value = person.location || "";
+    nodeEditOccupation.value = person.occupation || "";
+    nodeEditMemo.value = person.memo || "";
     nodeEditNote.textContent = "";
     nodeEditDialog.style.display = "flex";
   }
@@ -2401,6 +2473,45 @@
     refreshAll();
     closeNodeEditDialog();
   });
+
+  document.getElementById("nodeEditAddSpouseBtn").addEventListener("click", () => {
+    const spouseName = nodeEditSpouseName.value.trim();
+    if(!nodeEditTarget || !spouseName) return;
+    const beforeNames = Object.keys(state.people);
+    state.history.push(`${nodeEditTarget}と${spouseName}は夫婦です`);
+    rebuildFromHistory();
+    checkForNameVariants(beforeNames);
+    refreshAll();
+    closeNodeEditDialog();
+  });
+
+  document.getElementById("nodeEditAddSiblingBtn").addEventListener("click", () => {
+    const siblingName = nodeEditSiblingName.value.trim();
+    if(!nodeEditTarget || !siblingName) return;
+    const beforeNames = Object.keys(state.people);
+    state.history.push(`${nodeEditTarget}と${siblingName}は兄弟です`);
+    rebuildFromHistory();
+    checkForNameVariants(beforeNames);
+    refreshAll();
+    closeNodeEditDialog();
+  });
+
+  // 居住地・職業・メモは入力のたびにその場で保存する（サイドバーの
+  // 「人物」パネルと同じ仕組み：manualOverridesに書いて再構築時にも
+  // 上書きされないようにする）。
+  function wireNodeEditPersonField(input, field){
+    input.addEventListener("input", () => {
+      if(!nodeEditTarget || !state.people[nodeEditTarget]) return;
+      state.people[nodeEditTarget][field] = input.value;
+      state.manualOverrides[nodeEditTarget] = state.manualOverrides[nodeEditTarget] || {};
+      state.manualOverrides[nodeEditTarget][field] = input.value;
+      saveState();
+      render();
+    });
+  }
+  wireNodeEditPersonField(nodeEditLocation, "location");
+  wireNodeEditPersonField(nodeEditOccupation, "occupation");
+  wireNodeEditPersonField(nodeEditMemo, "memo");
 
   document.getElementById("exportBtn").addEventListener("click", () => openShareDialog("export"));
   document.getElementById("importBtn").addEventListener("click", () => openShareDialog("import"));
