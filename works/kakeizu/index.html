@@ -715,6 +715,22 @@
     margin-top:12px;
   }
   .node-edit-section{ margin-bottom:14px; }
+  .node-edit-chips{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    margin-bottom:8px;
+  }
+  .node-edit-chips:empty{ display:none; }
+  .node-edit-chip{
+    display:inline-block;
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:4px 12px;
+    font-size:0.8rem;
+    color:var(--ink);
+  }
   .node-edit-section .line-input-row{ align-items:center; }
   .node-edit-section .line-input-row input[type="text"]{
     flex:1;
@@ -964,21 +980,24 @@
       </div>
     </div>
     <div class="node-edit-section">
-      <label class="field-label" for="nodeEditChildName">子供を追加</label>
+      <label class="field-label">子供</label>
+      <div class="node-edit-chips" id="nodeEditChildList"></div>
       <div class="line-input-row">
         <input type="text" id="nodeEditChildName" placeholder="例：花子" autocomplete="off">
         <button class="btn-primary" id="nodeEditAddChildBtn" type="button">追加</button>
       </div>
     </div>
     <div class="node-edit-section">
-      <label class="field-label" for="nodeEditSpouseName">配偶者を追加</label>
+      <label class="field-label">配偶者</label>
+      <div class="node-edit-chips" id="nodeEditSpouseList"></div>
       <div class="line-input-row">
         <input type="text" id="nodeEditSpouseName" placeholder="例：花子" autocomplete="off">
         <button class="btn-primary" id="nodeEditAddSpouseBtn" type="button">追加</button>
       </div>
     </div>
     <div class="node-edit-section">
-      <label class="field-label" for="nodeEditSiblingName">兄弟姉妹を追加</label>
+      <label class="field-label">兄弟姉妹</label>
+      <div class="node-edit-chips" id="nodeEditSiblingList"></div>
       <div class="line-input-row">
         <input type="text" id="nodeEditSiblingName" placeholder="例：次郎" autocomplete="off">
         <button class="btn-primary" id="nodeEditAddSiblingBtn" type="button">追加</button>
@@ -2439,6 +2458,36 @@
   const nodeEditNote = document.getElementById("nodeEditNote");
   let nodeEditTarget = null;
 
+  // 対象の人の子供・配偶者・兄弟姉妹を、既存分は「チップ」として一覧表示し、
+  // その下の欄からいつでも追加できるようにする（1人追加したら次の人も
+  // 続けて入力できるよう、ダイアログは閉じない）。
+  function getRelatedNames(name){
+    const parentsOf = buildParentsOf();
+    const spouseOf = buildSpouseOf();
+    const children = Object.keys(parentsOf).filter(c => parentsOf[c].includes(name));
+    const spouses = [];
+    for(const e of state.edges){
+      if(CATEGORY[e.relation] !== "spouse") continue;
+      if(e.a === name) spouses.push(e.b);
+      else if(e.b === name) spouses.push(e.a);
+    }
+    const siblingsSet = new Set();
+    for(const e of state.edges){
+      if(CATEGORY[e.relation] !== "sibling") continue;
+      if(e.a === name) siblingsSet.add(e.b);
+      else if(e.b === name) siblingsSet.add(e.a);
+    }
+    return { children, spouses, siblings: Array.from(siblingsSet) };
+  }
+  function renderNodeEditChips(){
+    if(!nodeEditTarget) return;
+    const rel = getRelatedNames(nodeEditTarget);
+    const chips = (names) => names.map(n => `<span class="node-edit-chip">${escapeXml(n)}</span>`).join("");
+    document.getElementById("nodeEditChildList").innerHTML = chips(rel.children);
+    document.getElementById("nodeEditSpouseList").innerHTML = chips(rel.spouses);
+    document.getElementById("nodeEditSiblingList").innerHTML = chips(rel.siblings);
+  }
+
   function openNodeEditDialog(name){
     nodeEditTarget = name;
     const person = state.people[name] || {};
@@ -2451,6 +2500,7 @@
     nodeEditOccupation.value = person.occupation || "";
     nodeEditMemo.value = person.memo || "";
     nodeEditNote.textContent = "";
+    renderNodeEditChips();
     nodeEditDialog.style.display = "flex";
   }
   function closeNodeEditDialog(){ nodeEditDialog.style.display = "none"; nodeEditTarget = null; }
@@ -2478,7 +2528,8 @@
     rebuildFromHistory();
     checkForNameVariants(beforeNames);
     refreshAll();
-    closeNodeEditDialog();
+    nodeEditChildName.value = "";
+    renderNodeEditChips();
   });
 
   document.getElementById("nodeEditAddSpouseBtn").addEventListener("click", () => {
@@ -2489,7 +2540,8 @@
     rebuildFromHistory();
     checkForNameVariants(beforeNames);
     refreshAll();
-    closeNodeEditDialog();
+    nodeEditSpouseName.value = "";
+    renderNodeEditChips();
   });
 
   document.getElementById("nodeEditAddSiblingBtn").addEventListener("click", () => {
@@ -2500,7 +2552,8 @@
     rebuildFromHistory();
     checkForNameVariants(beforeNames);
     refreshAll();
-    closeNodeEditDialog();
+    nodeEditSiblingName.value = "";
+    renderNodeEditChips();
   });
 
   // 居住地・職業・メモは入力のたびにその場で保存する（サイドバーの
