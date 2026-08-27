@@ -1832,6 +1832,20 @@
         relLines.push({label, other:e.a});
       }
     }
+    // 記録されている親に配偶者がいれば、その人も「親」として表示する
+    // （片方の親しか文章で書いていなくても、家系図の線ではもう片方の
+    // 親からも子として繋がっているので、一覧の表示もそれに合わせる）。
+    {
+      const spouseOf = buildSpouseOf();
+      const shownParents = new Set(relLines.filter(r => r.label === "親").map(r => r.other));
+      for(const parent of Array.from(shownParents)){
+        const coParent = spouseOf[parent];
+        if(coParent && coParent !== name && !shownParents.has(coParent)){
+          relLines.push({label: "親", other: coParent});
+          shownParents.add(coParent);
+        }
+      }
+    }
     if(relLines.length){
       html += `<div class="tt-rel-title">関係</div>`;
       relLines.forEach(r => {
@@ -1853,6 +1867,32 @@
     return CATEGORY[relation] || "extended";
   }
 
+  // 「AとBはいとこです」のように文章で明示していなくても、家系図の
+  // 構造（共通の祖先までの距離）だけからいとこ・いとこ半・またいとこ・
+  // 叔父叔母甥姪などを判定する（関係を調べるツールで使っているのと
+  // 同じ考え方）。文章で明示されている関係があればそちらを優先する。
+  function structuralCategory(distA, distB){
+    let best = null;
+    for(const [anc, dA] of distA){
+      if(distB.has(anc)){
+        const dB = distB.get(anc);
+        const total = dA + dB;
+        if(!best || total < best.total) best = {dA, dB};
+      }
+    }
+    if(!best) return null;
+    const {dA, dB} = best;
+    if(dA === 0 && dB === 0) return null;
+    if(dA === 0 || dB === 0) return "lineage";
+    const minD = Math.min(dA, dB), removed = Math.abs(dA - dB);
+    if(minD === 1 && removed === 0) return "sibling";
+    if(minD === 1) return "extended";
+    if(minD === 2 && removed === 0) return "cousin";
+    if(minD === 2 && removed === 1) return "cousin_once_removed";
+    if(minD === 3 && removed === 0) return "second_cousin";
+    return "extended";
+  }
+
   function wireHoverHighlight(svg){
     // 相手ごとに関係の分類も覚えておく（右上の見分け用の色分けに使う）。
     const adjacency = {};
@@ -1861,6 +1901,10 @@
       (adjacency[e.a] = adjacency[e.a] || new Map()).set(e.b, cat);
       (adjacency[e.b] = adjacency[e.b] || new Map()).set(e.a, cat);
     }
+    const allNames = Object.keys(state.people);
+    const distByName = {};
+    for(const n of allNames) distByName[n] = ancestorDistances(n);
+
     const nodeEls = svg.querySelectorAll(".node-card");
     const edgeEls = svg.querySelectorAll(".edge-group");
     const tooltip = document.getElementById("personTooltip");
@@ -1869,15 +1913,20 @@
     function activate(name){
       svg.classList.add("hovering");
       const related = adjacency[name] || new Map();
+      const distA = distByName[name] || new Map([[name, 0]]);
       nodeEls.forEach(el => {
         const n = el.getAttribute("data-name");
         el.classList.remove(...HL_CAT_CLASSES);
-        const isActive = n === name || related.has(n);
-        el.classList.toggle("hl-active", isActive);
-        if(isActive && n !== name){
-          const cat = related.get(n);
-          if(HL_CAT_CLASSES.includes("hl-cat-" + cat)) el.classList.add("hl-cat-" + cat);
+        if(n === name){
+          el.classList.add("hl-active");
+          return;
         }
+        // 親子は常に太い実線で見えるので、直系（先祖・子孫）は
+        // ハイライト対象にしない（他の無関係な人と同じく薄暗くなる）。
+        const cat = related.has(n) ? related.get(n) : structuralCategory(distA, distByName[n] || new Map([[n, 0]]));
+        const isActive = !!cat && cat !== "lineage";
+        el.classList.toggle("hl-active", isActive);
+        if(isActive && HL_CAT_CLASSES.includes("hl-cat-" + cat)) el.classList.add("hl-cat-" + cat);
       });
       edgeEls.forEach(el => {
         // data-a / data-a2 は親、data-b, data-b1, data-b2… は子（複数の場合あり）
