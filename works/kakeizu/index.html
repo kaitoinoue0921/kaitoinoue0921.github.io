@@ -561,7 +561,7 @@
 
   /* ---------- hover highlight ---------- */
   .node-card, .edge-group{ transition:opacity 0.15s ease; }
-  .node-card{ pointer-events:auto; }
+  .node-card{ pointer-events:auto; cursor:pointer; }
   svg#tree.hovering .node-card{ opacity:0.22; }
   svg#tree.hovering .node-card.hl-active{ opacity:1; }
   svg#tree.hovering .edge-group{ opacity:0.12; }
@@ -713,6 +713,18 @@
     justify-content:flex-end;
     gap:8px;
     margin-top:12px;
+  }
+  .node-edit-section{ margin-bottom:14px; }
+  .node-edit-section .line-input-row input[type="text"]{
+    flex:1;
+    min-width:0;
+    background:var(--card-bg);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:10px 14px;
+    font-family:inherit;
+    font-size:0.92rem;
+    color:var(--ink);
   }
   .dialog-note{
     margin-top:8px;
@@ -930,6 +942,30 @@
     </div>
     <div class="person-tooltip" id="personTooltip"></div>
   </main>
+</div>
+
+<div id="nodeEditDialog" class="dialog-overlay" style="display:none;">
+  <div class="dialog-card">
+    <div class="dialog-title">「<span id="nodeEditName"></span>」を編集</div>
+    <div class="node-edit-section">
+      <label class="field-label" for="nodeEditRename">名前を修正</label>
+      <div class="line-input-row">
+        <input type="text" id="nodeEditRename" autocomplete="off">
+        <button class="btn-primary" id="nodeEditRenameBtn" type="button">保存</button>
+      </div>
+    </div>
+    <div class="node-edit-section">
+      <label class="field-label" for="nodeEditChildName">子供を追加</label>
+      <div class="line-input-row">
+        <input type="text" id="nodeEditChildName" placeholder="例：花子" autocomplete="off">
+        <button class="btn-primary" id="nodeEditAddChildBtn" type="button">追加</button>
+      </div>
+    </div>
+    <div class="dialog-actions">
+      <button class="btn-ghost" id="nodeEditCloseBtn">閉じる</button>
+    </div>
+    <div class="dialog-note" id="nodeEditNote"></div>
+  </div>
 </div>
 
 <div id="shareDialog" class="dialog-overlay" style="display:none;">
@@ -1764,6 +1800,7 @@
       el.addEventListener("mouseenter", (ev) => { activate(name); moveTooltip(ev); });
       el.addEventListener("mousemove", moveTooltip);
       el.addEventListener("mouseleave", deactivate);
+      el.addEventListener("click", () => { if(!didDrag) openNodeEditDialog(name); });
     });
   }
 
@@ -2169,8 +2206,13 @@
   // pan via drag
   const wrap = document.getElementById("canvasWrap");
   let dragging = false, startX=0, startY=0, scrollL=0, scrollT=0;
+  // ノードをクリックして編集ダイアログを開く機能と、キャンバスのドラッグ
+  // パンとが競合しないよう、実際にある程度動いた場合だけ「ドラッグだった」
+  // ことにして、そのときはクリック扱いにしない。
+  let didDrag = false;
   wrap.addEventListener("mousedown", (e) => {
     dragging = true;
+    didDrag = false;
     wrap.classList.add("grabbing");
     startX = e.clientX; startY = e.clientY;
     scrollL = wrap.scrollLeft; scrollT = wrap.scrollTop;
@@ -2178,6 +2220,7 @@
   window.addEventListener("mouseup", () => { dragging = false; wrap.classList.remove("grabbing"); });
   window.addEventListener("mousemove", (e) => {
     if(!dragging) return;
+    if(Math.abs(e.clientX - startX) > 4 || Math.abs(e.clientY - startY) > 4) didDrag = true;
     wrap.scrollLeft = scrollL - (e.clientX - startX);
     wrap.scrollTop = scrollT - (e.clientY - startY);
   });
@@ -2301,6 +2344,51 @@
     if(mode !== "import") shareTextarea.select();
   }
   function closeShareDialog(){ shareDialog.style.display = "none"; }
+
+  // 図の中の人物カードを直接クリックしたときに、その場で名前の修正・
+  // 子供の追加ができる小さいダイアログ。
+  const nodeEditDialog = document.getElementById("nodeEditDialog");
+  const nodeEditNameEl = document.getElementById("nodeEditName");
+  const nodeEditRename = document.getElementById("nodeEditRename");
+  const nodeEditChildName = document.getElementById("nodeEditChildName");
+  const nodeEditNote = document.getElementById("nodeEditNote");
+  let nodeEditTarget = null;
+
+  function openNodeEditDialog(name){
+    nodeEditTarget = name;
+    nodeEditNameEl.textContent = name;
+    nodeEditRename.value = name;
+    nodeEditChildName.value = "";
+    nodeEditNote.textContent = "";
+    nodeEditDialog.style.display = "flex";
+  }
+  function closeNodeEditDialog(){ nodeEditDialog.style.display = "none"; nodeEditTarget = null; }
+
+  document.getElementById("nodeEditCloseBtn").addEventListener("click", closeNodeEditDialog);
+  nodeEditDialog.addEventListener("click", (e) => { if(e.target === nodeEditDialog) closeNodeEditDialog(); });
+
+  document.getElementById("nodeEditRenameBtn").addEventListener("click", () => {
+    const newName = nodeEditRename.value.trim();
+    if(!nodeEditTarget || !newName){ return; }
+    if(newName === nodeEditTarget){ nodeEditNote.textContent = "名前が変わっていません。"; return; }
+    if(state.people[newName]){
+      nodeEditNote.textContent = `「${newName}」という人はすでにいます。別人として扱う場合は名前を変えてください。`;
+      return;
+    }
+    mergeNames(nodeEditTarget, newName);
+    closeNodeEditDialog();
+  });
+
+  document.getElementById("nodeEditAddChildBtn").addEventListener("click", () => {
+    const childName = nodeEditChildName.value.trim();
+    if(!nodeEditTarget || !childName) return;
+    const beforeNames = Object.keys(state.people);
+    state.history.push(`${childName}は${nodeEditTarget}の子です`);
+    rebuildFromHistory();
+    checkForNameVariants(beforeNames);
+    refreshAll();
+    closeNodeEditDialog();
+  });
 
   document.getElementById("exportBtn").addEventListener("click", () => openShareDialog("export"));
   document.getElementById("importBtn").addEventListener("click", () => openShareDialog("import"));
