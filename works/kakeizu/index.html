@@ -1493,8 +1493,15 @@
         }
       }
       rowGroups[rowIdx] = groups;
+      // 目印にするのは「グループの番号」ではなく「行の中で何番目のユニット
+      // か」という細かい位置。祖父母が同じきょうだいグループにまとまって
+      // いる場合、グループ番号だけだと、その中のどの夫婦の子かが区別
+      // できず、後から見つかった子が並び順の末尾に飛んでしまっていた
+      // （宮内セツエ・薫の子である向井宏美が、千代喜家の後ろに来てしまい
+      // バス線が家族をまたいで伸びるバグの原因）。
       const idx = {};
-      groups.forEach((group, gIdx) => { group.units.forEach(u => { idx[u.identityKey] = gIdx; }); });
+      let flatIdx = 0;
+      groups.forEach(group => { group.units.forEach(u => { idx[u.identityKey] = flatIdx++; }); });
       parentGroupIndex[rowIdx] = idx;
     });
 
