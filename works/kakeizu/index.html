@@ -858,6 +858,7 @@
       <div class="hint">
         使える表現の例 — <b>関係</b>：「AはBの父/母/息子/娘/長男/次男/三男/長女/次女/三女/夫/妻/兄/姉/弟/妹/祖父/祖母/孫/叔父/叔母/甥/姪/いとこ/またいとこ/いとこ半」（「です」はあってもなくてもOK）／「Aの息子はBです」のように逆向きでもOK／「AとBは夫婦/兄弟/姉妹です」<br>
         <b>いとこ半</b>：「AはBのいとこ半です」＝Aが一世代上（例：親のいとこ）<br>
+        <b>本人からみた関係</b>：本人（自分）を選んでいれば、「姉に花子がいます」のように書くだけでも「花子は（本人）の姉です」として登録されます<br>
         <b>居住地</b>：「Aは○○に住んでいます」「Aは○○在住」「Aは○○出身です」<br>
         <b>職業</b>：「Aの職業は○○です」「Aは○○として働いています」「Aは○○です」（例：太郎は医者です）
       </div>
@@ -1075,6 +1076,9 @@
   const SYMMETRIC_WORD_MAP = { "またいとこ":"second_cousin", "ふたいとこ":"second_cousin", "はとこ":"second_cousin", "いとこ":"cousin" };
   const SYMMETRIC_WORDS_SORTED = Object.keys(SYMMETRIC_WORD_MAP).sort((a,b)=>b.length-a.length).join("|");
   const SYMMETRIC_RE = new RegExp("^(.+?)と(.+?)は(" + SYMMETRIC_WORDS_SORTED + ")(?:です)?$");
+  // 「姉に◯◯がいます」＝「◯◯は（本人）の姉です」。本人を指定していないと
+  // 誰との関係か分からないので、本人（自分）が選ばれているときだけ有効。
+  const HAS_RELATIVE_RE = new RegExp("^(" + RELATION_WORDS_SORTED + ")に(.+?)がいます?$");
   const LOC_OCC_RE = /^(.+?)[はが](.+?)(?:に住んでいて|に住んでおり)(.+?)(?:をしています|です)$/;
   const LOC_RE = /^(.+?)[はが](.+?)(?:に住んでいます|に住んでいる|に在住|在住です|在住している|の出身です|出身です|出身)$/;
   const OCC_RE_A = /^(.+?)の(?:職業|仕事)[はが](.+?)(?:です)?$/;
@@ -1193,6 +1197,14 @@
       const rel = SYMMETRIC_WORD_MAP[m[3]];
       const added = addEdge(m[1], m[2], rel, raw);
       return `${RELATION_LABEL_JA[rel]}：${m[1]} ⇄ ${m[2]}${added ? "" : "（登録済み）"}`;
+    }
+    if((m = s.match(HAS_RELATIVE_RE))){
+      if(!state.egoName) return null; // 本人が未設定だと誰との関係か分からない
+      const relJa = m[1], subj = m[2];
+      const rel = RELATION_MAP[relJa];
+      ensurePerson(subj); ensurePerson(state.egoName);
+      const added = addEdge(subj, state.egoName, rel, raw);
+      return `${subj} は ${state.egoName} の${RELATION_LABEL_JA[rel]}${added ? "" : "（登録済み）"}`;
     }
     if((m = s.match(REL_RE))){
       const subj = m[1], obj = m[2], relJa = m[3];
