@@ -1875,13 +1875,29 @@
   // ように、年（＋できれば月日）を読み取れる形なら、今日時点の年齢を
   // 自動で計算する。「昭和30年頃」のような曖昧な書き方は諦めてnullを返す
   // （その場合は年齢欄に自分で書いた内容だけが使われる）。
+  const ERA_START_YEAR = { "明治":1868, "大正":1912, "昭和":1926, "平成":1989, "令和":2019 };
   function computeAgeFromBirthdate(str){
     if(!str) return null;
-    const s = str.trim();
+    // 「頃」「くらい」が付いていても年だけは読み取る（多少ずれても
+    // 大まかな年齢が分かった方が便利なため）。
+    const s = str.trim().replace(/(頃|ごろ|くらい|ぐらい)$/, "");
     let y, mo, d, m;
-    if((m = s.match(/^(\d{4})(\d{2})(\d{2})$/))){ y=+m[1]; mo=+m[2]; d=+m[3]; }
+    if((m = s.match(/^(明治|大正|昭和|平成|令和)(元|\d{1,2})年(?:(\d{1,2})月(?:(\d{1,2})日)?)?$/))){
+      const eraYear = m[2] === "元" ? 1 : +m[2];
+      y = ERA_START_YEAR[m[1]] + eraYear - 1;
+      mo = m[3] ? +m[3] : 1;
+      d = m[4] ? +m[4] : 1;
+    }
+    else if((m = s.match(/^(明治|大正|昭和|平成|令和)(元|\d{1,2})年代$/))){
+      // 「昭和30年代」＝その10年間の始まりの年を目安にする
+      const eraYear = m[2] === "元" ? 1 : +m[2];
+      y = ERA_START_YEAR[m[1]] + eraYear - 1;
+      mo = 1; d = 1;
+    }
+    else if((m = s.match(/^(\d{4})(\d{2})(\d{2})$/))){ y=+m[1]; mo=+m[2]; d=+m[3]; }
     else if((m = s.match(/^(\d{4})[-\/年](\d{1,2})[-\/月](\d{1,2})日?$/))){ y=+m[1]; mo=+m[2]; d=+m[3]; }
     else if((m = s.match(/^(\d{4})[-\/年](\d{1,2})月?$/))){ y=+m[1]; mo=+m[2]; d=1; }
+    else if((m = s.match(/^(\d{4})年代$/))){ y=+m[1]; mo=1; d=1; }
     else if((m = s.match(/^(\d{4})年?$/))){ y=+m[1]; mo=1; d=1; }
     else return null;
     if(mo < 1 || mo > 12 || d < 1 || d > 31) return null;
