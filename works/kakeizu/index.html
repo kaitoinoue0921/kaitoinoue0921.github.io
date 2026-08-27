@@ -1560,7 +1560,7 @@
         if(handledLineagePair.has(elder + "→" + younger)) continue;
       }
       const A = center(e.a), B = center(e.b);
-      const label = RELATION_LABEL_JA[e.relation] || "";
+      let label = RELATION_LABEL_JA[e.relation] || "";
       let inner = "";
       let labelX, labelY, permanentLabel = "";
       if(cat === "lineage"){
@@ -1576,6 +1576,8 @@
         const mx = (A.cx+B.cx)/2, my = (A.cy+B.cy)/2;
         inner += `<circle class="spouse-mark" cx="${mx}" cy="${my}" r="3.5"/>`;
         labelX = mx; labelY = my - 8;
+        // 「夫」「妻」など向き依存の表記ではなく、常に「夫婦」と表示する。
+        label = "夫婦";
       } else if(cat === "sibling"){
         const mx2 = (A.cx+B.cx)/2, my2 = (A.cy+B.cy)/2;
         inner = `<line class="edge-sibling" x1="${A.cx}" y1="${A.cy}" x2="${B.cx}" y2="${B.cy}"/>`;
@@ -1621,7 +1623,10 @@
       const midY = (A.bottom + topY) / 2;
       const xs = kids.map(k => k.cx).concat([coupleX]);
       const busMinX = Math.min(...xs), busMaxX = Math.max(...xs);
-      let d = `M ${coupleX} ${A.bottom} L ${coupleX} ${midY}`;
+      // 夫婦の間の線上にあるオレンジの点（spouse-mark）から途切れずに
+      // つながって見えるよう、箱の下端ではなく夫婦の高さ（A.cy）から
+      // 線を引き始める。
+      let d = `M ${coupleX} ${A.cy} L ${coupleX} ${midY}`;
       if(busMaxX - busMinX > 0.5) d += ` M ${busMinX} ${midY} L ${busMaxX} ${midY}`;
       for(const k of kids) d += ` M ${k.cx} ${midY} L ${k.cx} ${k.top}`;
       const attrs = children.map((c,i) => `data-b${i===0?"":i}="${escapeXml(c)}"`).join(" ");
