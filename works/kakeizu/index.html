@@ -1890,14 +1890,10 @@
     document.getElementById("mergeTo").innerHTML = optsHtml("この名前に統合");
   }
 
-  document.getElementById("mergeBtn").addEventListener("click", () => {
-    const from = document.getElementById("mergeFrom").value;
-    const to = document.getElementById("mergeTo").value;
-    const note = document.getElementById("mergeNote");
-    if(!from || !to || from === to){
-      note.textContent = "違う人を2人選んでください。";
-      return;
-    }
+  // 「from」という表記の人物を「to」に統合する（入力履歴の文字列を
+  // 置き換えて再構築するだけなので、表記ゆれの統合はすべてこれで行う）。
+  function mergeNames(from, to){
+    if(!from || !to || from === to) return;
     state.history = state.history.map(line => line.split(from).join(to));
     if(state.manualOverrides[from]){
       state.manualOverrides[to] = Object.assign({}, state.manualOverrides[from], state.manualOverrides[to]);
@@ -1906,8 +1902,52 @@
     if(state.egoName === from) state.egoName = to;
     rebuildFromHistory();
     refreshAll();
+  }
+
+  document.getElementById("mergeBtn").addEventListener("click", () => {
+    const from = document.getElementById("mergeFrom").value;
+    const to = document.getElementById("mergeTo").value;
+    const note = document.getElementById("mergeNote");
+    if(!from || !to || from === to){
+      note.textContent = "違う人を2人選んでください。";
+      return;
+    }
+    mergeNames(from, to);
     note.textContent = `「${from}」を「${to}」に統合しました。`;
   });
+
+  // 「井上敏美」のように既存の「敏美」に苗字が付いただけ、「凱斗くん」の
+  // ように敬称が付いただけ、といった表記ゆれで別人が作られてしまうのを
+  // 防ぐ。完全一致以外は自動で統合せず、確認してから統合する
+  // （同姓同名の別人を誤って一人にまとめないため）。
+  const HONORIFIC_RE = /(さん|くん|君|ちゃん|様|氏)$/;
+  function stripHonorific(name){ return name.replace(HONORIFIC_RE, ""); }
+  function findPossibleSameName(newName, existingNames){
+    const stripped = stripHonorific(newName);
+    const matches = [];
+    for(const existing of existingNames){
+      if(existing === newName) continue;
+      const es = stripHonorific(existing);
+      const longer = stripped.length >= es.length ? stripped : es;
+      const shorter = stripped.length >= es.length ? es : stripped;
+      if(shorter.length >= 2 && longer.includes(shorter)) matches.push(existing);
+    }
+    return matches;
+  }
+  function checkForNameVariants(beforeNames){
+    const afterNames = Object.keys(state.people);
+    const newNames = afterNames.filter(n => !beforeNames.includes(n));
+    for(const newName of newNames){
+      const matches = findPossibleSameName(newName, beforeNames);
+      if(matches.length === 1){
+        const existing = matches[0];
+        const ok = confirm(`「${newName}」は既存の「${existing}」と同一人物ですか？\n\nOK：同一人物として統合する\nキャンセル：別人のまま追加する`);
+        if(ok){
+          mergeNames(newName, existing);
+        }
+      }
+    }
+  }
 
   // Aから見てBがどんな関係かを、グラフ上の最短経路から推定する
   // name自身を距離0として、lineage（親子系）の辺だけを遡って先祖までの距離を集める
@@ -2081,6 +2121,7 @@
     if(!value) return;
     const lines = value.split(/[。\n]/).map(s=>s.trim().replace(/[、,]+$/,"")).filter(Boolean);
     if(lines.length === 0) return;
+    const beforeNames = Object.keys(state.people);
     if(editingIndex !== null){
       state.history.splice(editingIndex, 1, ...lines);
     } else {
@@ -2091,6 +2132,7 @@
     lineInput.classList.remove("editing");
     editBanner.style.display = "none";
     rebuildFromHistory();
+    checkForNameVariants(beforeNames);
     refreshAll();
     lineInput.focus();
   }
