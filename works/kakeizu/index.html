@@ -1675,6 +1675,16 @@
           groups.push({ targetKey: unit.targetKey, units: [unit] });
         }
       }
+      // 兄弟姉妹グループの一番左のユニットが夫婦なら、血縁者ではなく
+      // 配偶者をグループの外側（左端）に出す。そうしないと配偶者が
+      // 兄弟姉妹どうしの間に挟まり、兄弟をつなぐバス線が配偶者の箱の
+      // 真上を通っているように見えてしまうため（一番右のユニットは
+      // 元々[血縁者, 配偶者]の順で配偶者が外側＝右端に来るのでそのまま）。
+      groups.forEach(group => {
+        if(group.targetKey === null || group.units.length < 2) return;
+        const first = group.units[0];
+        if(first.members.length === 2) first.members = [first.members[1], first.members[0]];
+      });
       rowGroups[rowIdx] = groups;
       // 目印にするのは「グループの番号」ではなく「行の中で何番目のユニット
       // か」という細かい位置。祖父母が同じきょうだいグループにまとまって
