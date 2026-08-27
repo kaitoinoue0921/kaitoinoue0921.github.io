@@ -1862,6 +1862,8 @@
         }
       }
     }
+    // 「親」は先頭にまとめて表示する（それ以外は元の順番のまま）。
+    relLines.sort((a, b) => (a.label === "親" ? 0 : 1) - (b.label === "親" ? 0 : 1));
     if(relLines.length){
       html += `<div class="tt-rel-title">関係</div>`;
       relLines.forEach(r => {
