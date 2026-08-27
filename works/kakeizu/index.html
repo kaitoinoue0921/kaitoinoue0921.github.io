@@ -900,9 +900,9 @@
     <details class="tool-section">
       <summary>書き方のヒント</summary>
       <div class="hint">
-        使える表現の例 — <b>関係</b>：「AはBの父/母/息子/娘/長男/次男/三男/長女/次女/三女/夫/妻/兄/姉/弟/妹/祖父/祖母/孫/叔父/叔母/甥/姪/いとこ/またいとこ/いとこ半」（「です」はあってもなくてもOK）／「Aの息子はBです」のように逆向きでもOK／「AとBは夫婦/兄弟/姉妹です」<br>
+        使える表現の例 — <b>関係</b>：「AはBの父/母/息子/娘/長男/次男/三男/長女/次女/三女/夫/妻/兄/姉/弟/妹/祖父/祖母/孫/叔父/叔母/甥/姪/いとこ/ふたいとこ/いとこ半」（「です」はあってもなくてもOK）／「Aの息子はBです」のように逆向きでもOK／「AとBは夫婦/兄弟/姉妹です」<br>
         <b>いとこ半</b>：「AはBのいとこ半です」＝Aが一世代上（例：親のいとこ）<br>
-        <b>またいとこ</b>：曾祖父母（ひいおじいちゃん・ひいおばあちゃん）が同じで、祖父母同士がいとこの関係（＝親同士がまたいとこ）。「はとこ」「ふたいとこ」とも呼ばれます<br>
+        <b>ふたいとこ</b>：曾祖父母（ひいおじいちゃん・ひいおばあちゃん）が同じで、祖父母同士がいとこの関係（＝親同士がふたいとこ）。「はとこ」「またいとこ」とも呼ばれます<br>
         <b>本人からみた関係</b>：本人（自分）を選んでいれば、「姉に花子がいます」のように書くだけでも「花子は（本人）の姉です」として登録されます<br>
         <b>居住地</b>：「Aは○○に住んでいます」「Aは○○在住」「Aは○○出身です」<br>
         <b>職業</b>：「Aの職業は○○です」「Aは○○として働いています」「Aは○○です」（例：太郎は医者です）
@@ -961,7 +961,7 @@
         <div class="row"><svg width="26" height="10"><line x1="0" y1="5" x2="26" y2="5" class="edge-extended"/></svg>叔父叔母・甥姪</div>
         <div class="row"><svg width="26" height="10"><line x1="0" y1="5" x2="26" y2="5" class="edge-cousin"/></svg>いとこ</div>
         <div class="row"><svg width="26" height="10"><line x1="0" y1="5" x2="26" y2="5" class="edge-cousin-once-removed"/></svg>いとこ半</div>
-        <div class="row"><svg width="26" height="10"><line x1="0" y1="5" x2="26" y2="5" class="edge-cousin2"/></svg>またいとこ</div>
+        <div class="row"><svg width="26" height="10"><line x1="0" y1="5" x2="26" y2="5" class="edge-cousin2"/></svg>ふたいとこ</div>
       </div>
       <div class="zoom-controls">
         <button id="zoomOut" title="縮小">−</button>
@@ -1120,7 +1120,7 @@
     son_1:"長男", son_2:"次男", son_3:"三男", son_4:"四男",
     daughter_1:"長女", daughter_2:"次女", daughter_3:"三女", daughter_4:"四女",
     husband:"夫", wife:"妻", older_brother:"兄", older_sister:"姉", younger_brother:"弟", younger_sister:"妹",
-    uncle:"叔父/伯父", aunt:"叔母/伯母", nephew:"甥", niece:"姪", cousin:"いとこ", second_cousin:"またいとこ",
+    uncle:"叔父/伯父", aunt:"叔母/伯母", nephew:"甥", niece:"姪", cousin:"いとこ", second_cousin:"ふたいとこ",
     cousin_once_removed:"いとこ半", grandchild:"孫", sibling:"兄弟姉妹"
   };
   // 逆方向（相手にとってではなく、その人にとっての関係）のラベル
@@ -1132,7 +1132,7 @@
     older_brother:"弟/妹", older_sister:"弟/妹", younger_brother:"兄/姉", younger_sister:"兄/姉", sibling:"兄弟姉妹",
     grandfather:"孫", grandmother:"孫", grandchild:"祖父母",
     uncle:"甥/姪", aunt:"甥/姪", nephew:"叔父/叔母", niece:"叔父/叔母",
-    cousin:"いとこ", second_cousin:"またいとこ", cousin_once_removed:"いとこ半"
+    cousin:"いとこ", second_cousin:"ふたいとこ", cousin_once_removed:"いとこ半"
   };
 
   const RELATION_WORDS_SORTED = Object.keys(RELATION_MAP).sort((a,b)=>b.length-a.length).join("|");
@@ -1172,7 +1172,7 @@
 一郎は太郎の甥です。
 一郎の息子は光です。
 光は福岡に住んでいて教師をしています。
-光とみのりはまたいとこです。`;
+光とみのりはふたいとこです。`;
 
   let state = { history:[], people:{}, edges:[], manualOverrides:{}, egoName:"" };
 
@@ -1896,7 +1896,7 @@
     if(minD === 1 && removed === 0) return {cat:"sibling", label:"兄弟姉妹"};
     if(minD === 2 && removed === 0) return {cat:"cousin", label:"いとこ"};
     if(minD === 2 && removed === 1) return {cat:"cousin_once_removed", label:"いとこ半"};
-    if(minD === 3 && removed === 0) return {cat:"second_cousin", label:"またいとこ"};
+    if(minD === 3 && removed === 0) return {cat:"second_cousin", label:"ふたいとこ"};
     return {cat:"extended", label: collateralTerm(minD, removed, dA < dB)};
   }
 
@@ -2193,7 +2193,7 @@
     if(removed === 0){
       if(minD === 1) return "兄弟姉妹";
       if(minD === 2) return "いとこ";
-      if(minD === 3) return "またいとこ";
+      if(minD === 3) return "ふたいとこ";
       return `遠い親戚（${minD-1}従兄弟）`;
     }
     if(minD === 1){
