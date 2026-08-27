@@ -555,6 +555,8 @@
   .edge-sibling{ stroke:var(--amber); stroke-width:2; stroke-dasharray:8 3; fill:none; }
   .edge-extended{ stroke:var(--ink-soft); stroke-width:1; stroke-dasharray:2 4; fill:none; opacity:0.85; }
   .edge-cousin2{ stroke:var(--moss); stroke-width:1.2; stroke-dasharray:2 4; fill:none; opacity:0.9; }
+  .edge-cousin{ stroke:var(--amber); stroke-width:1; stroke-dasharray:2 4; fill:none; opacity:0.85; }
+  .edge-cousin-once-removed{ stroke:var(--plum); stroke-width:1; stroke-dasharray:2 4; fill:none; opacity:0.85; }
   .edge-label{
     font-size:10px;
     fill:var(--ink-soft);
@@ -590,6 +592,8 @@
   .edge-group.hl-active .edge-sibling{ stroke-width:3; }
   .edge-group.hl-active .edge-extended{ stroke-width:1.6; }
   .edge-group.hl-active .edge-cousin2{ stroke-width:1.8; }
+  .edge-group.hl-active .edge-cousin{ stroke-width:1.6; }
+  .edge-group.hl-active .edge-cousin-once-removed{ stroke-width:1.6; }
   .edge-hover-label{
     font-size:10px;
     fill:var(--ink-soft);
@@ -898,6 +902,7 @@
       <div class="hint">
         使える表現の例 — <b>関係</b>：「AはBの父/母/息子/娘/長男/次男/三男/長女/次女/三女/夫/妻/兄/姉/弟/妹/祖父/祖母/孫/叔父/叔母/甥/姪/いとこ/またいとこ/いとこ半」（「です」はあってもなくてもOK）／「Aの息子はBです」のように逆向きでもOK／「AとBは夫婦/兄弟/姉妹です」<br>
         <b>いとこ半</b>：「AはBのいとこ半です」＝Aが一世代上（例：親のいとこ）<br>
+        <b>またいとこ</b>：曾祖父母（ひいおじいちゃん・ひいおばあちゃん）が同じで、祖父母同士がいとこの関係（＝親同士がまたいとこ）。「はとこ」「ふたいとこ」とも呼ばれます<br>
         <b>本人からみた関係</b>：本人（自分）を選んでいれば、「姉に花子がいます」のように書くだけでも「花子は（本人）の姉です」として登録されます<br>
         <b>居住地</b>：「Aは○○に住んでいます」「Aは○○在住」「Aは○○出身です」<br>
         <b>職業</b>：「Aの職業は○○です」「Aは○○として働いています」「Aは○○です」（例：太郎は医者です）
@@ -944,18 +949,6 @@
       </div>
     </details>
 
-    <details class="tool-section">
-      <summary>同じ人としてまとめる（表記ゆれ修正）</summary>
-      <div class="tool-section-body">
-        <div class="lookup-row">
-          <select id="mergeFrom"><option value="">この名前を</option></select>
-          <span class="lookup-arrow">→</span>
-          <select id="mergeTo"><option value="">この名前に統合</option></select>
-        </div>
-        <button class="btn-ghost" id="mergeBtn" style="width:100%;margin-top:6px;">統合する</button>
-        <div id="mergeNote" class="lookup-result"></div>
-      </div>
-    </details>
   </aside>
 
   <main class="stage">
@@ -965,7 +958,9 @@
         <div class="row"><svg width="26" height="10"><line x1="0" y1="5" x2="26" y2="5" class="edge-lineage"/></svg>親子・祖父母</div>
         <div class="row"><svg width="26" height="10"><line x1="0" y1="5" x2="26" y2="5" class="edge-spouse"/></svg>夫婦</div>
         <div class="row"><svg width="26" height="10"><line x1="0" y1="5" x2="26" y2="5" class="edge-sibling"/></svg>兄弟姉妹</div>
-        <div class="row"><svg width="26" height="10"><line x1="0" y1="5" x2="26" y2="5" class="edge-extended"/></svg>叔父叔母・いとこ 等</div>
+        <div class="row"><svg width="26" height="10"><line x1="0" y1="5" x2="26" y2="5" class="edge-extended"/></svg>叔父叔母・甥姪</div>
+        <div class="row"><svg width="26" height="10"><line x1="0" y1="5" x2="26" y2="5" class="edge-cousin"/></svg>いとこ</div>
+        <div class="row"><svg width="26" height="10"><line x1="0" y1="5" x2="26" y2="5" class="edge-cousin-once-removed"/></svg>いとこ半</div>
         <div class="row"><svg width="26" height="10"><line x1="0" y1="5" x2="26" y2="5" class="edge-cousin2"/></svg>またいとこ</div>
       </div>
       <div class="zoom-controls">
@@ -1732,7 +1727,10 @@
         inner += `<rect class="sibling-mark" x="${mx2-3}" y="${my2-3}" width="6" height="6" transform="rotate(45 ${mx2} ${my2})"/>`;
         labelX = (A.cx+B.cx)/2; labelY = (A.cy+B.cy)/2 - 8;
       } else {
-        const cls = cat === "cousin2" ? "edge-cousin2" : "edge-extended";
+        const cls = cat === "cousin2" ? "edge-cousin2"
+          : e.relation === "cousin" ? "edge-cousin"
+          : e.relation === "cousin_once_removed" ? "edge-cousin-once-removed"
+          : "edge-extended";
         if(Math.abs(A.cy - B.cy) > 1){
           // 世代をまたぐ関係（叔父叔母・甥姪・いとこ半など）は、直線だと
           // 間の行の無関係な人の上を斜めに突っ切ってしまうので、
@@ -2108,17 +2106,9 @@
     selB.innerHTML = optsHtml("Bさん", curB);
   }
 
-  function renderMergeSelects(){
-    const names = Object.keys(state.people);
-    const optsHtml = (placeholder) => `<option value="">${placeholder}</option>` + names.map(n =>
-      `<option value="${escapeXml(n)}">${escapeXml(n)}</option>`
-    ).join("");
-    document.getElementById("mergeFrom").innerHTML = optsHtml("この名前を");
-    document.getElementById("mergeTo").innerHTML = optsHtml("この名前に統合");
-  }
-
   // 「from」という表記の人物を「to」に統合する（入力履歴の文字列を
   // 置き換えて再構築するだけなので、表記ゆれの統合はすべてこれで行う）。
+  // ノードクリックの名前修正・自動の表記ゆれ検知から使われる。
   function mergeNames(from, to){
     if(!from || !to || from === to) return;
     state.history = state.history.map(line => line.split(from).join(to));
@@ -2130,18 +2120,6 @@
     rebuildFromHistory();
     refreshAll();
   }
-
-  document.getElementById("mergeBtn").addEventListener("click", () => {
-    const from = document.getElementById("mergeFrom").value;
-    const to = document.getElementById("mergeTo").value;
-    const note = document.getElementById("mergeNote");
-    if(!from || !to || from === to){
-      note.textContent = "違う人を2人選んでください。";
-      return;
-    }
-    mergeNames(from, to);
-    note.textContent = `「${from}」を「${to}」に統合しました。`;
-  });
 
   // 「井上敏美」のように既存の「敏美」に苗字が付いただけ、「凱斗くん」の
   // ように敬称が付いただけ、といった表記ゆれで別人が作られてしまうのを
@@ -2306,7 +2284,6 @@
   function refreshAll(){
     renderEgoSelect();
     renderLookupSelects();
-    renderMergeSelects();
     renderRelList();
     renderPeopleList();
     render();
