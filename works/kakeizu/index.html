@@ -518,6 +518,50 @@
   }
   .zoom-controls button:hover{ background:var(--paper-3); }
 
+  .search-box{
+    position:relative;
+    width:200px;
+    max-width:40vw;
+  }
+  .search-box input{
+    width:100%;
+    font-family:inherit;
+    font-size:0.85rem;
+    padding:7px 12px;
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:var(--card-bg);
+    color:var(--ink);
+    box-shadow:0 2px 10px var(--shadow);
+  }
+  .search-results{
+    position:absolute;
+    top:calc(100% + 4px);
+    left:0;
+    right:0;
+    background:var(--card-bg);
+    border:1px solid var(--line);
+    border-radius:8px;
+    box-shadow:0 4px 16px var(--shadow);
+    max-height:260px;
+    overflow-y:auto;
+    display:none;
+    z-index:10;
+  }
+  .search-results.visible{ display:block; }
+  .search-result-item{
+    padding:8px 12px;
+    font-size:0.85rem;
+    color:var(--ink);
+    cursor:pointer;
+  }
+  .search-result-item:hover{ background:var(--paper-3); }
+  .search-empty{
+    padding:8px 12px;
+    font-size:0.78rem;
+    color:var(--ink-soft);
+  }
+
   #canvasWrap{
     width:100%;
     height:100vh;
@@ -591,6 +635,11 @@
   .node-card.hl-active.hl-cat-second_cousin rect{ stroke:var(--moss); }
   .node-card.hl-active.hl-cat-third_cousin rect{ stroke:var(--teal); }
   .node-card.is-ego rect{ stroke:var(--amber); stroke-width:2.4; }
+  @keyframes search-flash-pulse{
+    0%, 100%{ stroke:var(--vermillion); stroke-width:2.2; }
+    50%{ stroke:var(--vermillion); stroke-width:4; }
+  }
+  .node-card.search-flash rect{ animation:search-flash-pulse 0.5s ease-in-out 3; }
   .node-card .ego-badge{ fill:var(--amber); font-weight:700; }
   .node-card .hl-rel-label{ font-weight:700; }
   .node-card.hl-cat-extended .hl-rel-label{ fill:var(--indigo); }
@@ -906,6 +955,7 @@
     </div>
 
     <div class="btn-row">
+      <button class="btn-ghost" id="undoBtn" disabled>元に戻す</button>
       <button class="btn-ghost" id="sampleBtn">サンプルを見る</button>
       <button class="btn-ghost" id="clearBtn">全部消す</button>
     </div>
@@ -980,10 +1030,15 @@
         <div class="row"><svg width="26" height="10"><line x1="0" y1="5" x2="26" y2="5" class="edge-cousin2"/></svg>ふたいとこ</div>
         <div class="row"><svg width="26" height="10"><line x1="0" y1="5" x2="26" y2="5" class="edge-cousin3"/></svg>三いとこ</div>
       </div>
+      <div class="search-box">
+        <input type="text" id="personSearch" placeholder="人物を検索" autocomplete="off">
+        <div id="searchResults" class="search-results"></div>
+      </div>
       <div class="zoom-controls">
         <button id="zoomOut" title="縮小">−</button>
         <button id="zoomReset" title="拡大率リセット">◎</button>
         <button id="zoomIn" title="拡大">＋</button>
+        <button id="exportPngBtn" title="画像として保存">🖼</button>
       </div>
     </div>
     <div id="canvasWrap">
@@ -1008,19 +1063,19 @@
       </div>
     </div>
     <div class="node-edit-section">
-      <label class="field-label">子供</label>
-      <div class="node-edit-chips" id="nodeEditChildList"></div>
-      <div class="line-input-row">
-        <input type="text" id="nodeEditChildName" placeholder="例：花子" autocomplete="off">
-        <button class="btn-primary" id="nodeEditAddChildBtn" type="button">追加</button>
-      </div>
-    </div>
-    <div class="node-edit-section">
       <label class="field-label">配偶者</label>
       <div class="node-edit-chips" id="nodeEditSpouseList"></div>
       <div class="line-input-row">
         <input type="text" id="nodeEditSpouseName" placeholder="例：花子" autocomplete="off">
         <button class="btn-primary" id="nodeEditAddSpouseBtn" type="button">追加</button>
+      </div>
+    </div>
+    <div class="node-edit-section">
+      <label class="field-label">子供</label>
+      <div class="node-edit-chips" id="nodeEditChildList"></div>
+      <div class="line-input-row">
+        <input type="text" id="nodeEditChildName" placeholder="例：花子" autocomplete="off">
+        <button class="btn-primary" id="nodeEditAddChildBtn" type="button">追加</button>
       </div>
     </div>
     <div class="node-edit-section">
@@ -1052,6 +1107,7 @@
       </div>
     </div>
     <div class="dialog-actions">
+      <button class="btn-danger" id="nodeEditDeleteBtn" style="margin-right:auto;">この人を削除</button>
       <button class="btn-ghost" id="nodeEditCloseBtn">閉じる</button>
     </div>
     <div class="dialog-note" id="nodeEditNote"></div>
@@ -1206,6 +1262,29 @@
 光とみのりはふたいとこです。`;
 
   let state = { history:[], people:{}, edges:[], manualOverrides:{}, egoName:"" };
+
+  // 元に戻す：構造が変わる操作（行の追加・削除・編集、統合、サンプル、
+  // 全部消す、読み込み）の直前にだけ状態を控えておく。居住地・メモなど
+  // 自由記述欄の1文字ごとの編集までは対象にしない（そこまで戻せても
+  // あまり嬉しくないため）。
+  const undoStack = [];
+  function pushUndo(){
+    undoStack.push(JSON.stringify({history: state.history, manualOverrides: state.manualOverrides, egoName: state.egoName}));
+    if(undoStack.length > 30) undoStack.shift();
+    const btn = document.getElementById("undoBtn");
+    if(btn) btn.disabled = false;
+  }
+  function undoLastChange(){
+    if(!undoStack.length) return;
+    const snap = JSON.parse(undoStack.pop());
+    state.history = snap.history;
+    state.manualOverrides = snap.manualOverrides;
+    state.egoName = snap.egoName;
+    rebuildFromHistory();
+    refreshAll();
+    const btn = document.getElementById("undoBtn");
+    if(btn) btn.disabled = undoStack.length === 0;
+  }
 
   function loadState(){
     try{
@@ -1562,10 +1641,29 @@
       });
       if(rowIdx > 0){
         const parentIdx = parentGroupIndex[rowIdx - 1] || {};
+        // 同じ親を持つ兄弟姉妹どうしは、生年月日が分かっていれば年上が
+        // 左・年下が右に来るよう並べる（分からない人は末尾＝右寄りに
+        // 置く）。generic-parseBirthdateParts()はkakeizu内で共通に使う
+        // 生年月日パーサ。
+        function ageSortKeyOf(members){
+          let best = null;
+          for(const name of members){
+            const p = state.people[name];
+            if(!p || !p.birthdate) continue;
+            const parts = parseBirthdateParts(p.birthdate);
+            if(!parts) continue;
+            const key = parts.y*10000 + parts.mo*100 + parts.d;
+            if(best === null || key < best) best = key;
+          }
+          return best === null ? Infinity : best;
+        }
         units.sort((a, b) => {
           const ai = a.targetKey !== null && parentIdx[a.targetKey] !== undefined ? parentIdx[a.targetKey] : Infinity;
           const bi = b.targetKey !== null && parentIdx[b.targetKey] !== undefined ? parentIdx[b.targetKey] : Infinity;
-          return (ai - bi) || (a.i - b.i);
+          if(ai !== bi) return ai - bi;
+          const ageA = ageSortKeyOf(a.members), ageB = ageSortKeyOf(b.members);
+          if(ageA !== ageB) return ageA - ageB;
+          return a.i - b.i;
         });
       }
       const groups = [];
@@ -1876,10 +1974,12 @@
   // 自動で計算する。「昭和30年頃」のような曖昧な書き方は諦めてnullを返す
   // （その場合は年齢欄に自分で書いた内容だけが使われる）。
   const ERA_START_YEAR = { "明治":1868, "大正":1912, "昭和":1926, "平成":1989, "令和":2019 };
-  function computeAgeFromBirthdate(str){
+  // 生年月日の文字列を{y,mo,d}に読み取る。読み取れなければnull。
+  // 年齢の自動計算にも、兄弟を年齢順に並べる処理にも、これを共通で使う。
+  function parseBirthdateParts(str){
     if(!str) return null;
     // 「頃」「くらい」が付いていても年だけは読み取る（多少ずれても
-    // 大まかな年齢が分かった方が便利なため）。
+    // 大まかな年齢・順番が分かった方が便利なため）。
     const s = str.trim().replace(/(頃|ごろ|くらい|ぐらい)$/, "");
     let y, mo, d, m;
     if((m = s.match(/^(明治|大正|昭和|平成|令和)(元|\d{1,2})年(?:(\d{1,2})月(?:(\d{1,2})日)?)?$/))){
@@ -1901,6 +2001,12 @@
     else if((m = s.match(/^(\d{4})年?$/))){ y=+m[1]; mo=1; d=1; }
     else return null;
     if(mo < 1 || mo > 12 || d < 1 || d > 31) return null;
+    return {y, mo, d};
+  }
+  function computeAgeFromBirthdate(str){
+    const parts = parseBirthdateParts(str);
+    if(!parts) return null;
+    const {y, mo, d} = parts;
     const today = new Date();
     let age = today.getFullYear() - y;
     const hadBirthdayThisYear = (today.getMonth()+1 > mo) || (today.getMonth()+1 === mo && today.getDate() >= d);
@@ -2153,6 +2259,7 @@
       btn.addEventListener("click", (ev) => {
         ev.stopPropagation();
         const idx = Number(btn.getAttribute("data-idx"));
+        pushUndo();
         state.history.splice(idx,1);
         if(editingIndex === idx) cancelEditMode();
         rebuildFromHistory();
@@ -2238,6 +2345,7 @@
   // ノードクリックの名前修正・自動の表記ゆれ検知から使われる。
   function mergeNames(from, to){
     if(!from || !to || from === to) return;
+    pushUndo();
     state.history = state.history.map(line => line.split(from).join(to));
     if(state.manualOverrides[from]){
       state.manualOverrides[to] = Object.assign({}, state.manualOverrides[from], state.manualOverrides[to]);
@@ -2453,6 +2561,7 @@
     if(!value) return;
     const lines = value.split(/[。\n]/).map(s=>s.trim().replace(/[、,]+$/,"")).filter(Boolean);
     if(lines.length === 0) return;
+    pushUndo();
     const beforeNames = Object.keys(state.people);
     if(editingIndex !== null){
       state.history.splice(editingIndex, 1, ...lines);
@@ -2487,16 +2596,19 @@
 
   document.getElementById("sampleBtn").addEventListener("click", () => {
     cancelEditMode();
+    pushUndo();
     state.history = SAMPLE.split(/[。\n]/).map(s=>s.trim().replace(/[、,]+$/,"")).filter(Boolean);
     rebuildFromHistory();
     refreshAll();
   });
   document.getElementById("clearBtn").addEventListener("click", () => {
     cancelEditMode();
+    pushUndo();
     state = { history:[], people:{}, edges:[], manualOverrides:{}, egoName:"" };
     saveState();
     refreshAll();
   });
+  document.getElementById("undoBtn").addEventListener("click", undoLastChange);
 
   // pan via drag
   const wrap = document.getElementById("canvasWrap");
@@ -2555,6 +2667,102 @@
   document.getElementById("zoomIn").addEventListener("click", () => { zoom = Math.min(2, zoom+0.15); applyZoom(); });
   document.getElementById("zoomOut").addEventListener("click", () => { zoom = Math.max(0.4, zoom-0.15); applyZoom(); });
   document.getElementById("zoomReset").addEventListener("click", () => { zoom = 1; applyZoom(); });
+
+  // 人物検索：名前の一部を入れると候補が出て、選ぶとその人まで
+  // スクロールして一瞬光らせる（人数が増えても見つけやすくするため）。
+  const personSearch = document.getElementById("personSearch");
+  const searchResults = document.getElementById("searchResults");
+  function renderSearchResults(){
+    const q = personSearch.value.trim();
+    if(!q){ searchResults.classList.remove("visible"); searchResults.innerHTML = ""; return; }
+    const matches = Object.keys(state.people).filter(n => n.includes(q)).slice(0, 20);
+    if(!matches.length){
+      searchResults.innerHTML = `<div class="search-empty">見つかりませんでした</div>`;
+    } else {
+      searchResults.innerHTML = matches.map(n => `<div class="search-result-item" data-name="${escapeXml(n)}">${escapeXml(n)}</div>`).join("");
+      searchResults.querySelectorAll(".search-result-item").forEach(item => {
+        item.addEventListener("click", () => jumpToPerson(item.getAttribute("data-name")));
+      });
+    }
+    searchResults.classList.add("visible");
+  }
+  function jumpToPerson(name){
+    const el = document.querySelector(`.node-card[data-name="${CSS.escape(name)}"]`);
+    if(!el) return;
+    el.scrollIntoView({behavior:"smooth", block:"center", inline:"center"});
+    el.classList.add("search-flash");
+    setTimeout(() => el.classList.remove("search-flash"), 1500);
+    searchResults.classList.remove("visible");
+    personSearch.value = "";
+  }
+  personSearch.addEventListener("input", renderSearchResults);
+  personSearch.addEventListener("keydown", (e) => {
+    if(e.key === "Enter"){
+      const first = searchResults.querySelector(".search-result-item");
+      if(first) jumpToPerson(first.getAttribute("data-name"));
+    } else if(e.key === "Escape"){
+      searchResults.classList.remove("visible");
+      personSearch.blur();
+    }
+  });
+  document.addEventListener("click", (e) => {
+    if(!e.target.closest(".search-box")) searchResults.classList.remove("visible");
+  });
+
+  // 画像として保存：SVGの色などは外部CSSのCSS変数に頼っているので、
+  // そのままだと画像化したときに消えてしまう。各要素のcomputedStyleを
+  // 直接インラインに焼き込んでから、canvas経由でPNGに変換する。
+  function exportTreeAsPng(){
+    const svg = document.getElementById("tree");
+    const width = parseFloat(svg.getAttribute("width"));
+    const height = parseFloat(svg.getAttribute("height"));
+    if(!width || !height){ alert("まだ図がありません。"); return; }
+    const clone = svg.cloneNode(true);
+    const originalEls = svg.querySelectorAll("*");
+    const clonedEls = clone.querySelectorAll("*");
+    const PROPS = ["fill","stroke","stroke-width","stroke-dasharray","stroke-linecap","stroke-linejoin","opacity","font-family","font-weight","font-size","text-anchor"];
+    originalEls.forEach((el, i) => {
+      const cs = getComputedStyle(el);
+      let styleStr = "";
+      PROPS.forEach(p => { const v = cs.getPropertyValue(p); if(v) styleStr += `${p}:${v};`; });
+      clonedEls[i].setAttribute("style", styleStr);
+    });
+    clone.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+    const bgColor = getComputedStyle(document.documentElement).getPropertyValue("--paper").trim() || "#ffffff";
+    const bgRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    bgRect.setAttribute("x", "0"); bgRect.setAttribute("y", "0");
+    bgRect.setAttribute("width", String(width)); bgRect.setAttribute("height", String(height));
+    bgRect.setAttribute("fill", bgColor);
+    clone.insertBefore(bgRect, clone.firstChild);
+    const svgStr = new XMLSerializer().serializeToString(clone);
+    const svgBlob = new Blob([svgStr], {type: "image/svg+xml;charset=utf-8"});
+    const url = URL.createObjectURL(svgBlob);
+    const img = new Image();
+    img.onload = () => {
+      const scale = 2; // 少し高解像度で書き出す
+      const canvas = document.createElement("canvas");
+      canvas.width = width * scale;
+      canvas.height = height * scale;
+      const ctx = canvas.getContext("2d");
+      ctx.scale(scale, scale);
+      ctx.drawImage(img, 0, 0);
+      URL.revokeObjectURL(url);
+      canvas.toBlob((blob) => {
+        if(!blob){ alert("画像の書き出しに失敗しました。"); return; }
+        const dlUrl = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = dlUrl;
+        a.download = "家系図.png";
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(dlUrl), 1000);
+      }, "image/png");
+    };
+    img.onerror = () => { URL.revokeObjectURL(url); alert("画像の書き出しに失敗しました。"); };
+    img.src = url;
+  }
+  document.getElementById("exportPngBtn").addEventListener("click", exportTreeAsPng);
 
   // キーボードでの拡大縮小・移動（入力欄にフォーカスしていないときだけ）
   window.addEventListener("keydown", (e) => {
@@ -2707,6 +2915,18 @@
   function closeNodeEditDialog(){ nodeEditDialog.style.display = "none"; nodeEditTarget = null; }
 
   document.getElementById("nodeEditCloseBtn").addEventListener("click", closeNodeEditDialog);
+  document.getElementById("nodeEditDeleteBtn").addEventListener("click", () => {
+    if(!nodeEditTarget) return;
+    const target = nodeEditTarget;
+    if(!confirm(`「${target}」を削除しますか？\nこの人が出てくる入力履歴の行はすべて削除されます。`)) return;
+    pushUndo();
+    state.history = state.history.filter(line => !line.includes(target));
+    if(state.egoName === target) state.egoName = "";
+    delete state.manualOverrides[target];
+    rebuildFromHistory();
+    refreshAll();
+    closeNodeEditDialog();
+  });
   nodeEditDialog.addEventListener("click", (e) => { if(e.target === nodeEditDialog) closeNodeEditDialog(); });
 
   document.getElementById("nodeEditRenameBtn").addEventListener("click", () => {
@@ -2724,6 +2944,7 @@
   document.getElementById("nodeEditAddChildBtn").addEventListener("click", () => {
     const childName = nodeEditChildName.value.trim();
     if(!nodeEditTarget || !childName) return;
+    pushUndo();
     const beforeNames = Object.keys(state.people);
     state.history.push(`${childName}は${nodeEditTarget}の子です`);
     rebuildFromHistory();
@@ -2736,6 +2957,7 @@
   document.getElementById("nodeEditAddSpouseBtn").addEventListener("click", () => {
     const spouseName = nodeEditSpouseName.value.trim();
     if(!nodeEditTarget || !spouseName) return;
+    pushUndo();
     const beforeNames = Object.keys(state.people);
     state.history.push(`${nodeEditTarget}と${spouseName}は夫婦です`);
     rebuildFromHistory();
@@ -2748,6 +2970,7 @@
   document.getElementById("nodeEditAddSiblingBtn").addEventListener("click", () => {
     const siblingName = nodeEditSiblingName.value.trim();
     if(!nodeEditTarget || !siblingName) return;
+    pushUndo();
     const beforeNames = Object.keys(state.people);
     state.history.push(`${nodeEditTarget}と${siblingName}は兄弟です`);
     rebuildFromHistory();
@@ -2806,6 +3029,7 @@
         shareNote.textContent = "新しく追加できる行がありませんでした。";
         return;
       }
+      pushUndo();
       state.history.push(...added);
       rebuildFromHistory();
       refreshAll();
