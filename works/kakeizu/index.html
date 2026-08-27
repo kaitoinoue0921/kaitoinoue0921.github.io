@@ -265,6 +265,8 @@
     font-family:inherit;
     font-size:0.92rem;
     color:var(--ink);
+    resize:vertical;
+    max-height:220px;
   }
   #lineInput.editing{ border-color:var(--vermillion); }
   #addLineBtn{ flex:none; }
@@ -822,13 +824,13 @@
     </div>
 
     <div>
-      <label class="field-label" for="lineInput">文章を入力してEnterか追加</label>
+      <label class="field-label" for="lineInput">文章を入力して「追加」を押す</label>
       <div class="line-input-row">
-        <input type="text" id="lineInput" placeholder="例：太郎は花子の夫です" autocomplete="off">
+        <textarea id="lineInput" rows="1" placeholder="例：太郎は花子の夫です" autocomplete="off"></textarea>
         <button class="btn-primary" id="addLineBtn" type="button">追加</button>
       </div>
       <div class="edit-banner" id="editBanner" style="display:none;">
-        編集中 — Enterか「追加」で保存 / <a href="#" id="cancelEdit">キャンセル</a>
+        編集中 — 「追加」で保存 / <a href="#" id="cancelEdit">キャンセル</a>
       </div>
     </div>
 
@@ -2077,40 +2079,18 @@
 
   document.getElementById("addLineBtn").addEventListener("click", submitLine);
 
-  // 一行入力欄に複数行のテキストを貼り付けた場合、input要素は改行を保持できず
-  // 全部が1行にくっついてしまうので、貼り付け時点で改行を検知して分割する。
-  lineInput.addEventListener("paste", (ev) => {
-    const text = (ev.clipboardData || window.clipboardData).getData("text");
-    if(!/[\n。]/.test(text)) return; // 1行だけなら普通の貼り付けに任せる
-    ev.preventDefault();
-    const lines = text.split(/[。\n]/).map(s=>s.trim().replace(/[、,]+$/,"")).filter(Boolean);
-    if(lines.length === 0) return;
-    if(editingIndex !== null){
-      state.history.splice(editingIndex, 1, ...lines);
-      editingIndex = null;
-      lineInput.classList.remove("editing");
-      editBanner.style.display = "none";
-    } else {
-      state.history.push(...lines);
-    }
-    lineInput.value = "";
-    rebuildFromHistory();
-    refreshAll();
-  });
-
-  let lastCompositionEnd = 0;
-  lineInput.addEventListener("compositionend", () => { lastCompositionEnd = Date.now(); });
-
+  // 貼り付け（複数行含む）はそのままテキストエリアに残し、「追加」ボタンを
+  // 押したときだけ submitLine() が改行・句点で分割して登録する。
+  // Enterキーでは追加しない（IMEの変換確定や、貼り付け直後の意図しない
+  // 追加を防ぐため）。改行を入力したい場合はShift+Enterを使う。
   lineInput.addEventListener("keydown", (ev) => {
     if(ev.key === "Escape"){
       cancelEditMode();
       return;
     }
-    if(ev.key !== "Enter") return;
-    if(ev.isComposing || ev.keyCode === 229) return;
-    if(Date.now() - lastCompositionEnd < 100) return; // Enterがちょうど変換確定に使われた直後は無視
-    ev.preventDefault();
-    submitLine();
+    if(ev.key === "Enter" && !ev.shiftKey){
+      ev.preventDefault();
+    }
   });
 
   document.getElementById("sampleBtn").addEventListener("click", () => {
