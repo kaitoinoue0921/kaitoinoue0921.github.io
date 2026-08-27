@@ -567,6 +567,8 @@
   svg#tree.hovering .edge-group{ opacity:0.12; }
   svg#tree.hovering .edge-group.hl-active{ opacity:1; }
   .node-card.hl-active rect{ stroke:var(--vermillion); stroke-width:2.2; }
+  .node-card.hl-active.hl-cat-extended rect{ stroke:var(--indigo); }
+  .node-card.hl-active.hl-cat-cousin2 rect{ stroke:var(--moss); }
   .node-card.is-ego rect{ stroke:var(--amber); stroke-width:2.4; }
   .node-card .ego-badge{ fill:var(--amber); font-weight:700; }
   .edge-group.hl-active .edge-lineage{ stroke-width:2.8; }
@@ -1700,11 +1702,15 @@
   }
 
   function wireHoverHighlight(svg){
+    // 相手ごとに関係のカテゴリも覚えておく（いとこ・またいとこは枠線の色を
+    // 変えて、親子・兄弟・夫婦などと見分けやすくするため）。
     const adjacency = {};
     for(const e of state.edges){
-      (adjacency[e.a] = adjacency[e.a] || new Set()).add(e.b);
-      (adjacency[e.b] = adjacency[e.b] || new Set()).add(e.a);
+      const cat = CATEGORY[e.relation] || "extended";
+      (adjacency[e.a] = adjacency[e.a] || new Map()).set(e.b, cat);
+      (adjacency[e.b] = adjacency[e.b] || new Map()).set(e.a, cat);
     }
+    const HL_CAT_CLASSES = ["hl-cat-extended", "hl-cat-cousin2"];
     const nodeEls = svg.querySelectorAll(".node-card");
     const edgeEls = svg.querySelectorAll(".edge-group");
     const tooltip = document.getElementById("personTooltip");
@@ -1712,10 +1718,17 @@
 
     function activate(name){
       svg.classList.add("hovering");
-      const related = adjacency[name] || new Set();
+      const related = adjacency[name] || new Map();
       nodeEls.forEach(el => {
         const n = el.getAttribute("data-name");
-        el.classList.toggle("hl-active", n === name || related.has(n));
+        el.classList.remove(...HL_CAT_CLASSES);
+        const isActive = n === name || related.has(n);
+        el.classList.toggle("hl-active", isActive);
+        if(isActive && n !== name){
+          const cat = related.get(n);
+          if(cat === "extended") el.classList.add("hl-cat-extended");
+          else if(cat === "cousin2") el.classList.add("hl-cat-cousin2");
+        }
       });
       edgeEls.forEach(el => {
         // data-a / data-a2 は親、data-b, data-b1, data-b2… は子（複数の場合あり）
@@ -1732,7 +1745,7 @@
     }
     function deactivate(){
       svg.classList.remove("hovering");
-      nodeEls.forEach(el => el.classList.remove("hl-active"));
+      nodeEls.forEach(el => el.classList.remove("hl-active", ...HL_CAT_CLASSES));
       edgeEls.forEach(el => el.classList.remove("hl-active"));
       tooltip.classList.remove("visible");
     }
