@@ -2880,20 +2880,34 @@
   function getRelatedNames(name){
     const parentsOf = buildParentsOf();
     const spouseOf = buildSpouseOf();
-    const children = Object.keys(parentsOf).filter(c => parentsOf[c].includes(name));
     const spouses = [];
     for(const e of state.edges){
       if(CATEGORY[e.relation] !== "spouse") continue;
       if(e.a === name) spouses.push(e.b);
       else if(e.b === name) spouses.push(e.a);
     }
+    // 「シメの子」と文章で明示していなくても、配偶者（田口藤一郎）の子は
+    // 一覧にも子として出す（図の線ではすでに夫婦そろって親として
+    // 扱われているのに、一覧だけ片方しか出ないと分かりにくいため）。
+    const childrenSet = new Set(Object.keys(parentsOf).filter(c => parentsOf[c].includes(name)));
+    for(const sp of spouses){
+      Object.keys(parentsOf).filter(c => parentsOf[c].includes(sp)).forEach(c => childrenSet.add(c));
+    }
+    // 兄弟姉妹も、明示的な兄弟関係だけでなく、親が共通なら一覧に出す。
     const siblingsSet = new Set();
     for(const e of state.edges){
       if(CATEGORY[e.relation] !== "sibling") continue;
       if(e.a === name) siblingsSet.add(e.b);
       else if(e.b === name) siblingsSet.add(e.a);
     }
-    return { children, spouses, siblings: Array.from(siblingsSet) };
+    const myParents = parentsOf[name] || [];
+    if(myParents.length){
+      for(const other in parentsOf){
+        if(other === name || siblingsSet.has(other)) continue;
+        if(parentsOf[other].some(p => myParents.includes(p))) siblingsSet.add(other);
+      }
+    }
+    return { children: Array.from(childrenSet), spouses, siblings: Array.from(siblingsSet) };
   }
   function renderNodeEditChips(){
     if(!nodeEditTarget) return;
