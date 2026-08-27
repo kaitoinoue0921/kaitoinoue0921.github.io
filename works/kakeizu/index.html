@@ -22,6 +22,7 @@
     --amber: #a3782c;
     --moss: #5f7350;
     --plum: #7d4f8a;
+    --teal: #2f7a72;
     --line: #c9bd9d;
     --shadow: rgba(43,42,40,0.18);
     --card-bg: #fffdf6;
@@ -39,6 +40,7 @@
       --amber: #d8a657;
       --moss: #8ea87b;
       --plum: #b892c2;
+      --teal: #6fbdb3;
       --line: #454b52;
       --shadow: rgba(0,0,0,0.45);
       --card-bg: #262b31;
@@ -56,6 +58,7 @@
     --amber: #d8a657;
     --moss: #8ea87b;
     --plum: #b892c2;
+    --teal: #6fbdb3;
     --line: #454b52;
     --shadow: rgba(0,0,0,0.45);
     --card-bg: #262b31;
@@ -555,6 +558,7 @@
   .edge-sibling{ stroke:var(--amber); stroke-width:2; stroke-dasharray:8 3; fill:none; }
   .edge-extended{ stroke:var(--ink-soft); stroke-width:1; stroke-dasharray:2 4; fill:none; opacity:0.85; }
   .edge-cousin2{ stroke:var(--moss); stroke-width:1.2; stroke-dasharray:2 4; fill:none; opacity:0.9; }
+  .edge-cousin3{ stroke:var(--teal); stroke-width:1.2; stroke-dasharray:2 4; fill:none; opacity:0.9; }
   .edge-cousin{ stroke:var(--amber); stroke-width:1; stroke-dasharray:2 4; fill:none; opacity:0.85; }
   .edge-cousin-once-removed{ stroke:var(--plum); stroke-width:1; stroke-dasharray:2 4; fill:none; opacity:0.85; }
   .edge-label{
@@ -579,6 +583,7 @@
   .node-card.hl-active.hl-cat-cousin rect{ stroke:var(--amber); }
   .node-card.hl-active.hl-cat-cousin_once_removed rect{ stroke:var(--plum); }
   .node-card.hl-active.hl-cat-second_cousin rect{ stroke:var(--moss); }
+  .node-card.hl-active.hl-cat-third_cousin rect{ stroke:var(--teal); }
   .node-card.is-ego rect{ stroke:var(--amber); stroke-width:2.4; }
   .node-card .ego-badge{ fill:var(--amber); font-weight:700; }
   .node-card .hl-rel-label{ font-weight:700; }
@@ -586,12 +591,14 @@
   .node-card.hl-cat-cousin .hl-rel-label{ fill:var(--amber); }
   .node-card.hl-cat-cousin_once_removed .hl-rel-label{ fill:var(--plum); }
   .node-card.hl-cat-second_cousin .hl-rel-label{ fill:var(--moss); }
-  .node-card.hl-active:not(.hl-cat-extended):not(.hl-cat-cousin):not(.hl-cat-cousin_once_removed):not(.hl-cat-second_cousin) .hl-rel-label{ fill:var(--vermillion); }
+  .node-card.hl-cat-third_cousin .hl-rel-label{ fill:var(--teal); }
+  .node-card.hl-active:not(.hl-cat-extended):not(.hl-cat-cousin):not(.hl-cat-cousin_once_removed):not(.hl-cat-second_cousin):not(.hl-cat-third_cousin) .hl-rel-label{ fill:var(--vermillion); }
   .edge-group.hl-active .edge-lineage{ stroke-width:2.8; }
   .edge-group.hl-active .edge-spouse{ stroke-width:3; }
   .edge-group.hl-active .edge-sibling{ stroke-width:3; }
   .edge-group.hl-active .edge-extended{ stroke-width:1.6; }
   .edge-group.hl-active .edge-cousin2{ stroke-width:1.8; }
+  .edge-group.hl-active .edge-cousin3{ stroke-width:1.8; }
   .edge-group.hl-active .edge-cousin{ stroke-width:1.6; }
   .edge-group.hl-active .edge-cousin-once-removed{ stroke-width:1.6; }
   .edge-hover-label{
@@ -900,9 +907,10 @@
     <details class="tool-section">
       <summary>書き方のヒント</summary>
       <div class="hint">
-        使える表現の例 — <b>関係</b>：「AはBの父/母/息子/娘/長男/次男/三男/長女/次女/三女/夫/妻/兄/姉/弟/妹/祖父/祖母/孫/叔父/叔母/甥/姪/いとこ/ふたいとこ/いとこ半」（「です」はあってもなくてもOK）／「Aの息子はBです」のように逆向きでもOK／「AとBは夫婦/兄弟/姉妹です」<br>
+        使える表現の例 — <b>関係</b>：「AはBの父/母/息子/娘/長男/次男/三男/長女/次女/三女/夫/妻/兄/姉/弟/妹/祖父/祖母/孫/叔父/叔母/甥/姪/いとこ/ふたいとこ/三いとこ/いとこ半」（「です」はあってもなくてもOK）／「Aの息子はBです」のように逆向きでもOK／「AとBは夫婦/兄弟/姉妹です」<br>
         <b>いとこ半</b>：「AはBのいとこ半です」＝Aが一世代上（例：親のいとこ）<br>
         <b>ふたいとこ</b>：曾祖父母（ひいおじいちゃん・ひいおばあちゃん）が同じで、祖父母同士がいとこの関係（＝親同士がふたいとこ）。「はとこ」「またいとこ」とも呼ばれます<br>
+        <b>三いとこ</b>：高祖父母（ひいひいおじいちゃん・ひいひいおばあちゃん）が同じで、親同士がふたいとこの関係<br>
         <b>本人からみた関係</b>：本人（自分）を選んでいれば、「姉に花子がいます」のように書くだけでも「花子は（本人）の姉です」として登録されます<br>
         <b>居住地</b>：「Aは○○に住んでいます」「Aは○○在住」「Aは○○出身です」<br>
         <b>職業</b>：「Aの職業は○○です」「Aは○○として働いています」「Aは○○です」（例：太郎は医者です）
@@ -962,6 +970,7 @@
         <div class="row"><svg width="26" height="10"><line x1="0" y1="5" x2="26" y2="5" class="edge-cousin"/></svg>いとこ</div>
         <div class="row"><svg width="26" height="10"><line x1="0" y1="5" x2="26" y2="5" class="edge-cousin-once-removed"/></svg>いとこ半</div>
         <div class="row"><svg width="26" height="10"><line x1="0" y1="5" x2="26" y2="5" class="edge-cousin2"/></svg>ふたいとこ</div>
+        <div class="row"><svg width="26" height="10"><line x1="0" y1="5" x2="26" y2="5" class="edge-cousin3"/></svg>三いとこ</div>
       </div>
       <div class="zoom-controls">
         <button id="zoomOut" title="縮小">−</button>
@@ -1094,6 +1103,7 @@
     "弟":"younger_brother","妹":"younger_sister",
     "叔父":"uncle","伯父":"uncle","叔母":"aunt","伯母":"aunt",
     "甥":"nephew","姪":"niece","いとこ":"cousin","またいとこ":"second_cousin","はとこ":"second_cousin","ふたいとこ":"second_cousin",
+    "三いとこ":"third_cousin","みいとこ":"third_cousin",
     "いとこ半":"cousin_once_removed","いとこ違い":"cousin_once_removed","孫":"grandchild"
   };
   // gen(subject) - gen(object) = offset   [ subject は object の {relation} です ]
@@ -1102,7 +1112,7 @@
     grandfather:-2, grandmother:-2, father:-1, mother:-1, uncle:-1, aunt:-1,
     son:1, daughter:1, child:1, grandchild:2, nephew:1, niece:1,
     son_1:1, son_2:1, son_3:1, son_4:1, daughter_1:1, daughter_2:1, daughter_3:1, daughter_4:1,
-    husband:0, wife:0, older_brother:0, older_sister:0, younger_brother:0, younger_sister:0, cousin:0, second_cousin:0,
+    husband:0, wife:0, older_brother:0, older_sister:0, younger_brother:0, younger_sister:0, cousin:0, second_cousin:0, third_cousin:0,
     cousin_once_removed:-1
   };
   const CATEGORY = {
@@ -1113,14 +1123,14 @@
     husband:"spouse", wife:"spouse",
     older_brother:"sibling", older_sister:"sibling", younger_brother:"sibling", younger_sister:"sibling", sibling:"sibling",
     uncle:"extended", aunt:"extended", nephew:"extended", niece:"extended", cousin:"extended", cousin_once_removed:"extended",
-    second_cousin:"cousin2"
+    second_cousin:"cousin2", third_cousin:"cousin3"
   };
   const RELATION_LABEL_JA = {
     grandfather:"祖父", grandmother:"祖母", father:"父", mother:"母", son:"息子", daughter:"娘", child:"子",
     son_1:"長男", son_2:"次男", son_3:"三男", son_4:"四男",
     daughter_1:"長女", daughter_2:"次女", daughter_3:"三女", daughter_4:"四女",
     husband:"夫", wife:"妻", older_brother:"兄", older_sister:"姉", younger_brother:"弟", younger_sister:"妹",
-    uncle:"叔父/伯父", aunt:"叔母/伯母", nephew:"甥", niece:"姪", cousin:"いとこ", second_cousin:"ふたいとこ",
+    uncle:"叔父/伯父", aunt:"叔母/伯母", nephew:"甥", niece:"姪", cousin:"いとこ", second_cousin:"ふたいとこ", third_cousin:"三いとこ",
     cousin_once_removed:"いとこ半", grandchild:"孫", sibling:"兄弟姉妹"
   };
   // 逆方向（相手にとってではなく、その人にとっての関係）のラベル
@@ -1132,7 +1142,7 @@
     older_brother:"弟/妹", older_sister:"弟/妹", younger_brother:"兄/姉", younger_sister:"兄/姉", sibling:"兄弟姉妹",
     grandfather:"孫", grandmother:"孫", grandchild:"祖父母",
     uncle:"甥/姪", aunt:"甥/姪", nephew:"叔父/叔母", niece:"叔父/叔母",
-    cousin:"いとこ", second_cousin:"ふたいとこ", cousin_once_removed:"いとこ半"
+    cousin:"いとこ", second_cousin:"ふたいとこ", third_cousin:"三いとこ", cousin_once_removed:"いとこ半"
   };
 
   const RELATION_WORDS_SORTED = Object.keys(RELATION_MAP).sort((a,b)=>b.length-a.length).join("|");
@@ -1140,7 +1150,7 @@
   const REL_RE_REVERSE = new RegExp("^(.+?)の(" + RELATION_WORDS_SORTED + ")[はが](.+?)(?:です|だ)?$");
   const COUPLE_RE = /^(.+?)と(.+?)は(夫婦|結婚している|結婚しています|カップル)(?:です)?$/;
   const SIBLING_RE = /^(.+?)と(.+?)は(兄弟|姉妹|兄妹|姉弟)(?:です)?$/;
-  const SYMMETRIC_WORD_MAP = { "またいとこ":"second_cousin", "ふたいとこ":"second_cousin", "はとこ":"second_cousin", "いとこ":"cousin" };
+  const SYMMETRIC_WORD_MAP = { "またいとこ":"second_cousin", "ふたいとこ":"second_cousin", "はとこ":"second_cousin", "三いとこ":"third_cousin", "みいとこ":"third_cousin", "いとこ":"cousin" };
   const SYMMETRIC_WORDS_SORTED = Object.keys(SYMMETRIC_WORD_MAP).sort((a,b)=>b.length-a.length).join("|");
   const SYMMETRIC_RE = new RegExp("^(.+?)と(.+?)は(" + SYMMETRIC_WORDS_SORTED + ")(?:です)?$");
   // 「姉に◯◯がいます」＝「◯◯は（本人）の姉です」。本人を指定していないと
@@ -1728,6 +1738,7 @@
         labelX = (A.cx+B.cx)/2; labelY = (A.cy+B.cy)/2 - 8;
       } else {
         const cls = cat === "cousin2" ? "edge-cousin2"
+          : cat === "cousin3" ? "edge-cousin3"
           : e.relation === "cousin" ? "edge-cousin"
           : e.relation === "cousin_once_removed" ? "edge-cousin-once-removed"
           : "edge-extended";
@@ -1864,11 +1875,12 @@
   // 繋がっていて見ればわかるので色を変えない（無色＝素の見た目）。
   // いとこ・いとこ半・またいとこ（ふたいとこ）はそれぞれ違う色にして、
   // 点線で見分けにくい関係を区別しやすくする。
-  const HL_CAT_CLASSES = ["hl-cat-lineage", "hl-cat-extended", "hl-cat-cousin", "hl-cat-cousin_once_removed", "hl-cat-second_cousin"];
+  const HL_CAT_CLASSES = ["hl-cat-lineage", "hl-cat-extended", "hl-cat-cousin", "hl-cat-cousin_once_removed", "hl-cat-second_cousin", "hl-cat-third_cousin"];
   function highlightCategoryOf(relation){
     if(relation === "cousin") return "cousin";
     if(relation === "cousin_once_removed") return "cousin_once_removed";
     if(relation === "second_cousin") return "second_cousin";
+    if(relation === "third_cousin") return "third_cousin";
     return CATEGORY[relation] || "extended";
   }
 
@@ -1897,6 +1909,7 @@
     if(minD === 2 && removed === 0) return {cat:"cousin", label:"いとこ"};
     if(minD === 2 && removed === 1) return {cat:"cousin_once_removed", label:"いとこ半"};
     if(minD === 3 && removed === 0) return {cat:"second_cousin", label:"ふたいとこ"};
+    if(minD === 4 && removed === 0) return {cat:"third_cousin", label:"三いとこ"};
     return {cat:"extended", label: collateralTerm(minD, removed, dA < dB)};
   }
 
@@ -2194,6 +2207,7 @@
       if(minD === 1) return "兄弟姉妹";
       if(minD === 2) return "いとこ";
       if(minD === 3) return "ふたいとこ";
+      if(minD === 4) return "三いとこ";
       return `遠い親戚（${minD-1}従兄弟）`;
     }
     if(minD === 1){
