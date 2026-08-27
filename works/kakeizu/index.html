@@ -435,7 +435,13 @@
     padding:4px 6px;
     background:var(--paper);
     color:var(--ink);
+    flex:1;
+    min-width:0;
     width:100%;
+  }
+  .person-row input.age-input{
+    flex:none;
+    width:56px;
   }
   .person-row .pname{
     font-weight:700;
@@ -913,6 +919,7 @@
         <b>三いとこ</b>：高祖父母（ひいひいおじいちゃん・ひいひいおばあちゃん）が同じで、親同士がふたいとこの関係<br>
         <b>本人からみた関係</b>：本人（自分）を選んでいれば、「姉に花子がいます」のように書くだけでも「花子は（本人）の姉です」として登録されます<br>
         <b>生年月日</b>：「Aは1990年生まれです」「Aの生年月日は昭和30年頃です」のように、大まかな表現でもそのまま登録されます<br>
+        <b>年齢</b>：「Aは30歳です」「Aの年齢は60代です」のように書くか、生年月日の横の欄に直接入力できます<br>
         <b>居住地</b>：「Aは○○に住んでいます」「Aは○○在住」「Aは○○出身です」<br>
         <b>職業</b>：「Aの職業は○○です」「Aは○○として働いています」「Aは○○です」（例：太郎は医者です）
       </div>
@@ -1029,6 +1036,7 @@
       <div class="line-input-row" style="margin-bottom:6px;">
         <span class="icon-label" title="生年月日">🎂</span>
         <input type="text" id="nodeEditBirthdate" placeholder="生年月日（例：1990年頃、大まかでもOK）" autocomplete="off">
+        <input type="text" id="nodeEditAge" placeholder="年齢" autocomplete="off" style="flex:none;width:64px;">
       </div>
       <div class="line-input-row" style="margin-bottom:6px;">
         <span class="icon-label" title="居住地">📍</span>
@@ -1170,6 +1178,10 @@
   // 日付として厳密にパースせず自由なテキストのまま保存する。
   const BIRTH_RE_A = /^(.+?)の(?:生年月日|誕生日|生まれ)[はが](.+?)(?:です)?$/;
   const BIRTH_RE_B = /^(.+?)[はが](.+?)(?:生まれです|生まれ|に生まれました|に生まれた)$/;
+  // 年齢も生年月日と同じく自由なテキストのまま保存する（享年や「60代」の
+  // ような大まかな表現もそのまま使えるようにするため）。
+  const AGE_RE_A = /^(.+?)の(?:年齢|享年)[はが](.+?)(?:です)?$/;
+  const AGE_RE_B = /^(.+?)[はが](.+?歳)(?:です)?$/;
 
   const SAMPLE = `太郎は花子の夫です。
 花子は太郎の妻です。
@@ -1221,10 +1233,11 @@
   function ensurePerson(name){
     name = name.trim();
     if(!name) return null;
-    if(!state.people[name]) state.people[name] = { name, location:"", occupation:"", memo:"", birthdate:"" };
+    if(!state.people[name]) state.people[name] = { name, location:"", occupation:"", memo:"", birthdate:"", age:"" };
     if(state.people[name].occupation === undefined) state.people[name].occupation = "";
     if(state.people[name].memo === undefined) state.people[name].memo = "";
     if(state.people[name].birthdate === undefined) state.people[name].birthdate = "";
+    if(state.people[name].age === undefined) state.people[name].age = "";
     return state.people[name];
   }
 
@@ -1336,6 +1349,16 @@
       if(p) p.birthdate = m[2];
       return `🎂${m[2]}`;
     }
+    if((m = s.match(AGE_RE_A))){
+      const p = ensurePerson(m[1]);
+      if(p) p.age = m[2];
+      return `🔢${m[2]}`;
+    }
+    if((m = s.match(AGE_RE_B))){
+      const p = ensurePerson(m[1]);
+      if(p) p.age = m[2];
+      return `🔢${m[2]}`;
+    }
     if((m = s.match(OCC_RE_A))){
       const p = ensurePerson(m[1]);
       if(p) p.occupation = m[2];
@@ -1366,6 +1389,7 @@
       if(ov.occupation !== undefined) state.people[name].occupation = ov.occupation;
       if(ov.memo !== undefined) state.people[name].memo = ov.memo;
       if(ov.birthdate !== undefined) state.people[name].birthdate = ov.birthdate;
+      if(ov.age !== undefined) state.people[name].age = ov.age;
     }
     saveState();
   }
@@ -1850,8 +1874,9 @@
   function buildTooltipHtml(name){
     const person = state.people[name] || {};
     let html = `<div class="tt-name">${escapeXml(name)}</div>`;
-    if(person.birthdate){
-      html += `<div class="tt-line"><span class="tt-icon">🎂</span><span>${escapeXml(person.birthdate)}</span></div>`;
+    if(person.birthdate || person.age){
+      const text = [person.birthdate, person.age ? `（${person.age}）` : ""].filter(Boolean).join("");
+      html += `<div class="tt-line"><span class="tt-icon">🎂</span><span>${escapeXml(text)}</span></div>`;
     }
     if(person.location){
       html += `<div class="tt-line"><span class="tt-icon">📍</span><span>${escapeXml(person.location)}</span></div>`;
@@ -2113,7 +2138,8 @@
         <span class="pname" title="${escapeXml(name)}">${escapeXml(name)}</span>
         <div class="field-row">
           <span class="icon-label" title="生年月日">🎂</span>
-          <input type="text" placeholder="生年月日（例：1990年頃、昭和30年代など、大まかでもOK）" value="${escapeXml(p.birthdate||"")}" data-name="${escapeXml(name)}" data-field="birthdate">
+          <input type="text" placeholder="生年月日（例：1990年頃、大まかでもOK）" value="${escapeXml(p.birthdate||"")}" data-name="${escapeXml(name)}" data-field="birthdate">
+          <input type="text" class="age-input" placeholder="年齢" value="${escapeXml(p.age||"")}" data-name="${escapeXml(name)}" data-field="age">
         </div>
         <div class="field-row">
           <span class="icon-label" title="居住地">📍</span>
@@ -2582,6 +2608,7 @@
   const nodeEditSpouseName = document.getElementById("nodeEditSpouseName");
   const nodeEditSiblingName = document.getElementById("nodeEditSiblingName");
   const nodeEditBirthdate = document.getElementById("nodeEditBirthdate");
+  const nodeEditAge = document.getElementById("nodeEditAge");
   const nodeEditLocation = document.getElementById("nodeEditLocation");
   const nodeEditOccupation = document.getElementById("nodeEditOccupation");
   const nodeEditMemo = document.getElementById("nodeEditMemo");
@@ -2627,6 +2654,7 @@
     nodeEditSpouseName.value = "";
     nodeEditSiblingName.value = "";
     nodeEditBirthdate.value = person.birthdate || "";
+    nodeEditAge.value = person.age || "";
     nodeEditLocation.value = person.location || "";
     nodeEditOccupation.value = person.occupation || "";
     nodeEditMemo.value = person.memo || "";
@@ -2701,6 +2729,7 @@
     });
   }
   wireNodeEditPersonField(nodeEditBirthdate, "birthdate");
+  wireNodeEditPersonField(nodeEditAge, "age");
   wireNodeEditPersonField(nodeEditLocation, "location");
   wireNodeEditPersonField(nodeEditOccupation, "occupation");
   wireNodeEditPersonField(nodeEditMemo, "memo");
