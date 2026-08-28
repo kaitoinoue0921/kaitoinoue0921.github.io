@@ -158,6 +158,10 @@
       box-shadow:0 2px 10px var(--shadow);
       flex:none;
     }
+    /* スマホだと上部のツールバー（ハンバーガー・検索欄・拡大縮小など）が
+       複数行に折り返して背が高くなり、図の一番上の行と重なってしまう
+       ので、図の上に余白を作って、スクロールすれば必ず全部見えるようにする。 */
+    svg#tree{ margin-top:130px; }
   }
   .legend-toggle{ display:none; }
   .backlink{
@@ -576,6 +580,7 @@
 
   svg#tree{
     display:block;
+    margin-top:70px;
     transition:transform 0.18s ease;
   }
   svg#tree.no-zoom-transition{
