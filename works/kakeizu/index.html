@@ -1023,12 +1023,7 @@
       <div class="legend" id="legend">
         <div class="row"><svg width="26" height="10"><line x1="0" y1="5" x2="26" y2="5" class="edge-lineage"/></svg>親子・祖父母</div>
         <div class="row"><svg width="26" height="10"><line x1="0" y1="5" x2="26" y2="5" class="edge-spouse"/></svg>夫婦</div>
-        <div class="row"><svg width="26" height="10"><line x1="0" y1="5" x2="26" y2="5" class="edge-sibling"/></svg>兄弟姉妹</div>
-        <div class="row"><svg width="26" height="10"><line x1="0" y1="5" x2="26" y2="5" class="edge-extended"/></svg>叔父叔母・甥姪</div>
-        <div class="row"><svg width="26" height="10"><line x1="0" y1="5" x2="26" y2="5" class="edge-cousin"/></svg>いとこ</div>
-        <div class="row"><svg width="26" height="10"><line x1="0" y1="5" x2="26" y2="5" class="edge-cousin-once-removed"/></svg>いとこ半</div>
-        <div class="row"><svg width="26" height="10"><line x1="0" y1="5" x2="26" y2="5" class="edge-cousin2"/></svg>ふたいとこ</div>
-        <div class="row"><svg width="26" height="10"><line x1="0" y1="5" x2="26" y2="5" class="edge-cousin3"/></svg>三いとこ</div>
+        <div class="hint" style="margin-top:2px;">兄弟姉妹・いとこ等は線を表示せず、カーソルを合わせると色と文字で分かります</div>
       </div>
       <div class="search-box">
         <input type="text" id="personSearch" placeholder="人物を検索" autocomplete="off">
@@ -1859,6 +1854,10 @@
     for(const e of state.edges){
       if(!pos[e.a] || !pos[e.b]) continue;
       const cat = CATEGORY[e.relation] || "extended";
+      // 図がごちゃつくので、常時表示する線は親子・夫婦だけにする
+      // （兄弟姉妹・いとこ等は、カーソルを合わせたときのハイライトと
+      // 文字表示だけで十分と判断）。
+      if(cat !== "lineage" && cat !== "spouse") continue;
       if(cat === "lineage"){
         const off = OFFSET[e.relation] ?? 0;
         const elder = off < 0 ? e.a : e.b;
