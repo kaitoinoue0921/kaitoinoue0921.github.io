@@ -621,6 +621,9 @@
   /* ---------- hover highlight ---------- */
   .node-card, .edge-group{ transition:opacity 0.15s ease; }
   .node-card{ pointer-events:auto; cursor:pointer; }
+  .node-card.dragging{ opacity:0.6; cursor:grabbing; }
+  .node-card.dragging, .node-card.dragging *{ transition:none !important; }
+  .node-card.drop-target rect{ stroke:var(--vermillion); stroke-width:3; stroke-dasharray:4 3; }
   svg#tree.hovering .node-card{ opacity:0.22; }
   svg#tree.hovering .node-card.hl-active{ opacity:1; }
   svg#tree.hovering .edge-group{ opacity:0.12; }
@@ -1256,7 +1259,7 @@
 光は福岡に住んでいて教師をしています。
 光とみのりはふたいとこです。`;
 
-  let state = { history:[], people:{}, edges:[], manualOverrides:{}, egoName:"" };
+  let state = { history:[], people:{}, edges:[], manualOverrides:{}, egoName:"", siblingOrder:{} };
 
   // 元に戻す：構造が変わる操作（行の追加・削除・編集、統合、サンプル、
   // 全部消す、読み込み）の直前にだけ状態を控えておく。居住地・メモなど
@@ -1288,6 +1291,7 @@
         const parsed = JSON.parse(raw);
         if(parsed && Array.isArray(parsed.history)) state = parsed;
         if(!state.manualOverrides) state.manualOverrides = {};
+        if(!state.siblingOrder) state.siblingOrder = {};
       } else {
         // migrate from old textarea-based save, if present
         const oldRaw = localStorage.getItem("kakeizu_state_v1");
@@ -1652,10 +1656,27 @@
           }
           return best === null ? Infinity : best;
         }
+        // ドラッグで並び替えた順序があれば、生年月日より優先する。
+        function customOrderKeyOf(unit){
+          if(unit.targetKey === null) return null;
+          const order = state.siblingOrder[unit.targetKey];
+          if(!order) return null;
+          for(const n of unit.members){
+            const idx = order.indexOf(n);
+            if(idx !== -1) return idx;
+          }
+          return null;
+        }
         units.sort((a, b) => {
           const ai = a.targetKey !== null && parentIdx[a.targetKey] !== undefined ? parentIdx[a.targetKey] : Infinity;
           const bi = b.targetKey !== null && parentIdx[b.targetKey] !== undefined ? parentIdx[b.targetKey] : Infinity;
           if(ai !== bi) return ai - bi;
+          const customA = customOrderKeyOf(a), customB = customOrderKeyOf(b);
+          if(customA !== null || customB !== null){
+            if(customA === null) return 1;
+            if(customB === null) return -1;
+            if(customA !== customB) return customA - customB;
+          }
           const ageA = ageSortKeyOf(a.members), ageB = ageSortKeyOf(b.members);
           if(ageA !== ageB) return ageA - ageB;
           return a.i - b.i;
@@ -2220,9 +2241,100 @@
       el.addEventListener("mouseenter", (ev) => { activate(name); moveTooltip(ev); });
       el.addEventListener("mousemove", moveTooltip);
       el.addEventListener("mouseleave", deactivate);
-      el.addEventListener("click", () => { if(!didDrag) openNodeEditDialog(name); });
+      el.addEventListener("mousedown", (ev) => startSiblingDrag(ev, name));
     });
   }
+
+  // ドラッグで兄弟姉妹の左右の並び順を入れ替える。動かさずに離した場合は
+  // 今まで通りクリックとして編集ダイアログを開く。キャンバスのドラッグ
+  // パン（wrapのmousedown）とぶつからないよう、ノード上のmousedownは
+  // ここで止めてしまう。
+  let siblingDrag = null;
+  function findSiblingGroupFor(name){
+    const groupEl = Array.from(document.querySelectorAll(".edge-group[data-a2]")).find(g => {
+      for(const attr of g.getAttributeNames()){
+        if(attr.startsWith("data-b") && g.getAttribute(attr) === name) return true;
+      }
+      return false;
+    });
+    if(!groupEl) return null;
+    const a = groupEl.getAttribute("data-a"), a2 = groupEl.getAttribute("data-a2");
+    const targetKey = a < a2 ? `${a}|${a2}` : `${a2}|${a}`;
+    const siblings = [];
+    for(const attr of groupEl.getAttributeNames()){
+      if(attr.startsWith("data-b")) siblings.push(groupEl.getAttribute(attr));
+    }
+    return { targetKey, siblings };
+  }
+  function findNearestSibling(clientX, clientY, drag){
+    let best = null, bestDist = Infinity;
+    for(const sibName of drag.siblings){
+      if(sibName === drag.name) continue;
+      const el = document.querySelector(`.node-card[data-name="${CSS.escape(sibName)}"]`);
+      if(!el) continue;
+      const rect = el.getBoundingClientRect();
+      if(clientY < rect.top - 40 || clientY > rect.bottom + 40) continue;
+      const dist = Math.abs(clientX - (rect.left + rect.width/2));
+      if(dist < bestDist){ bestDist = dist; best = el; }
+    }
+    return best;
+  }
+  function startSiblingDrag(ev, name){
+    if(ev.button !== 0) return;
+    ev.stopPropagation();
+    const group = findSiblingGroupFor(name);
+    siblingDrag = {
+      name,
+      startX: ev.clientX,
+      startY: ev.clientY,
+      moved: false,
+      targetKey: group ? group.targetKey : null,
+      siblings: group ? group.siblings : null,
+    };
+  }
+  window.addEventListener("mousemove", (ev) => {
+    if(!siblingDrag) return;
+    const dx = ev.clientX - siblingDrag.startX;
+    const dy = ev.clientY - siblingDrag.startY;
+    if(!siblingDrag.moved && Math.hypot(dx, dy) > 6) siblingDrag.moved = true;
+    if(!siblingDrag.moved || !siblingDrag.siblings || siblingDrag.siblings.length < 2) return;
+    const el = document.querySelector(`.node-card[data-name="${CSS.escape(siblingDrag.name)}"]`);
+    if(el){
+      el.style.transform = `translateX(${dx}px)`;
+      el.classList.add("dragging");
+    }
+    document.querySelectorAll(".node-card.drop-target").forEach(n => n.classList.remove("drop-target"));
+    const target = findNearestSibling(ev.clientX, ev.clientY, siblingDrag);
+    if(target) target.classList.add("drop-target");
+  });
+  window.addEventListener("mouseup", (ev) => {
+    if(!siblingDrag) return;
+    const drag = siblingDrag;
+    siblingDrag = null;
+    const el = document.querySelector(`.node-card[data-name="${CSS.escape(drag.name)}"]`);
+    if(el){ el.style.transform = ""; el.classList.remove("dragging"); }
+    document.querySelectorAll(".node-card.drop-target").forEach(n => n.classList.remove("drop-target"));
+    if(!drag.moved){
+      openNodeEditDialog(drag.name);
+      return;
+    }
+    if(!drag.siblings || drag.siblings.length < 2 || !drag.targetKey) return;
+    const target = findNearestSibling(ev.clientX, ev.clientY, drag);
+    if(!target) return;
+    const targetName = target.getAttribute("data-name");
+    if(targetName === drag.name) return;
+    pushUndo();
+    const existing = state.siblingOrder[drag.targetKey] || [];
+    const merged = existing.concat(drag.siblings.filter(n => !existing.includes(n)));
+    const fromIdx = merged.indexOf(drag.name);
+    const toIdx = merged.indexOf(targetName);
+    if(fromIdx === -1 || toIdx === -1) return;
+    merged.splice(fromIdx, 1);
+    merged.splice(merged.indexOf(targetName), 0, drag.name);
+    state.siblingOrder[drag.targetKey] = merged;
+    saveState();
+    refreshAll();
+  });
 
   function escapeXml(s){
     return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -2613,7 +2725,7 @@
   document.getElementById("clearBtn").addEventListener("click", () => {
     cancelEditMode();
     pushUndo();
-    state = { history:[], people:{}, edges:[], manualOverrides:{}, egoName:"" };
+    state = { history:[], people:{}, edges:[], manualOverrides:{}, egoName:"", siblingOrder:{} };
     saveState();
     refreshAll();
   });
