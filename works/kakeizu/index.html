@@ -2240,6 +2240,9 @@
       tooltip.style.left = Math.max(8, Math.min(x, maxX)) + "px";
       tooltip.style.top = Math.max(8, Math.min(y, maxY)) + "px";
     }
+    currentActivate = activate;
+    currentDeactivate = deactivate;
+    currentMoveTooltip = moveTooltip;
 
     nodeEls.forEach(el => {
       const name = el.getAttribute("data-name");
@@ -2254,6 +2257,13 @@
   // 今まで通りクリックとして編集ダイアログを開く。キャンバスのドラッグ
   // パン（wrapのmousedown）とぶつからないよう、ノード上のmousedownは
   // ここで止めてしまう。
+  // スマホなどタッチ操作の端末では「カーソルを合わせる」ができないので、
+  // 1回目のタップでハイライト・ツールチップを表示し、同じ人をもう一度
+  // タップしたときだけ編集ダイアログを開くようにする（マウス操作の
+  // 端末は今まで通り：ホバーで表示、クリックで即編集）。
+  let currentActivate = null, currentDeactivate = null, currentMoveTooltip = null;
+  let activeTouchName = null;
+  const isTouchLike = window.matchMedia("(hover: none)").matches;
   let siblingDrag = null;
   function findSiblingGroupFor(name){
     const groupEl = Array.from(document.querySelectorAll(".edge-group[data-a2]")).find(g => {
@@ -2320,7 +2330,21 @@
     if(el){ el.style.transform = ""; el.classList.remove("dragging"); }
     document.querySelectorAll(".node-card.drop-target").forEach(n => n.classList.remove("drop-target"));
     if(!drag.moved){
-      openNodeEditDialog(drag.name);
+      if(isTouchLike){
+        // 1回目のタップは「カーソルを合わせた」のと同じ表示だけにして、
+        // 同じ人をもう一度タップしたら編集ダイアログを開く。
+        if(activeTouchName === drag.name){
+          activeTouchName = null;
+          currentDeactivate && currentDeactivate();
+          openNodeEditDialog(drag.name);
+        } else {
+          activeTouchName = drag.name;
+          currentActivate && currentActivate(drag.name);
+          currentMoveTooltip && currentMoveTooltip(ev);
+        }
+      } else {
+        openNodeEditDialog(drag.name);
+      }
       return;
     }
     if(!drag.siblings || drag.siblings.length < 2 || !drag.targetKey) return;
@@ -2738,6 +2762,13 @@
 
   // pan via drag
   const wrap = document.getElementById("canvasWrap");
+  // タッチ端末で、何もない場所をタップしたら1回目タップ状態を解除する。
+  wrap.addEventListener("click", (ev) => {
+    if(isTouchLike && activeTouchName && !ev.target.closest(".node-card")){
+      activeTouchName = null;
+      currentDeactivate && currentDeactivate();
+    }
+  });
   let dragging = false, startX=0, startY=0, scrollL=0, scrollT=0;
   // ノードをクリックして編集ダイアログを開く機能と、キャンバスのドラッグ
   // パンとが競合しないよう、実際にある程度動いた場合だけ「ドラッグだった」
