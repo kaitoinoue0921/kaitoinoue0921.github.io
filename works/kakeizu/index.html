@@ -2346,6 +2346,7 @@
       el.addEventListener("mousemove", moveTooltip);
       el.addEventListener("mouseleave", deactivate);
       el.addEventListener("mousedown", (ev) => startSiblingDrag(ev, name));
+      el.addEventListener("touchstart", (ev) => startTouchSiblingDrag(ev, name), {passive:true});
     });
   }
 
@@ -2361,6 +2362,7 @@
   let activeTouchName = null;
   const isTouchLike = window.matchMedia("(hover: none)").matches;
   let siblingDrag = null;
+  let touchSiblingDrag = null;
   function findSiblingGroupFor(name){
     const groupEl = Array.from(document.querySelectorAll(".edge-group[data-a2]")).find(g => {
       for(const attr of g.getAttributeNames()){
@@ -2389,6 +2391,21 @@
       if(dist < bestDist){ bestDist = dist; best = el; }
     }
     return best;
+  }
+  function startTouchSiblingDrag(ev, name){
+    if(ev.touches.length !== 1) return; // 2本指はピンチズームに譲る
+    const t = ev.touches[0];
+    const group = findSiblingGroupFor(name);
+    touchSiblingDrag = {
+      name,
+      touchId: t.identifier,
+      startX: t.clientX,
+      startY: t.clientY,
+      moved: false,
+      dragging: false,
+      targetKey: group ? group.targetKey : null,
+      siblings: group ? group.siblings : null,
+    };
   }
   function startSiblingDrag(ev, name){
     if(ev.button !== 0) return;
@@ -2446,7 +2463,10 @@
     if(!drag.siblings || drag.siblings.length < 2 || !drag.targetKey) return;
     const target = findNearestSibling(ev.clientX, ev.clientY, drag);
     if(!target) return;
-    const targetName = target.getAttribute("data-name");
+    commitSiblingReorder(drag, target.getAttribute("data-name"));
+  });
+
+  function commitSiblingReorder(drag, targetName){
     if(targetName === drag.name) return;
     pushUndo();
     const existing = state.siblingOrder[drag.targetKey] || [];
@@ -2459,6 +2479,47 @@
     state.siblingOrder[drag.targetKey] = merged;
     saveState();
     refreshAll();
+  }
+
+  // スマホ等のタッチ操作でも兄弟姉妹の並び替えができるよう、
+  // マウスのドラッグと同じ処理をタッチイベントでも行う。
+  // 実際に「並び替え可能な兄弟をドラッグしている」と判定できたときだけ
+  // preventDefault()してページのスクロールを止め、それ以外（兄弟がいない
+  // 人をタップ、単なるタップ）は今まで通りネイティブのスクロール・タップに任せる。
+  window.addEventListener("touchmove", (ev) => {
+    if(!touchSiblingDrag) return;
+    const t = Array.from(ev.touches).find(t => t.identifier === touchSiblingDrag.touchId);
+    if(!t) return;
+    const dx = t.clientX - touchSiblingDrag.startX;
+    const dy = t.clientY - touchSiblingDrag.startY;
+    if(!touchSiblingDrag.moved && Math.hypot(dx, dy) > 8) touchSiblingDrag.moved = true;
+    if(!touchSiblingDrag.moved) return;
+    if(!touchSiblingDrag.siblings || touchSiblingDrag.siblings.length < 2) return;
+    touchSiblingDrag.dragging = true;
+    ev.preventDefault();
+    const el = document.querySelector(`.node-card[data-name="${CSS.escape(touchSiblingDrag.name)}"]`);
+    if(el){
+      el.style.transform = `translateX(${dx}px)`;
+      el.classList.add("dragging");
+    }
+    document.querySelectorAll(".node-card.drop-target").forEach(n => n.classList.remove("drop-target"));
+    const target = findNearestSibling(t.clientX, t.clientY, touchSiblingDrag);
+    if(target) target.classList.add("drop-target");
+  }, {passive:false});
+  window.addEventListener("touchend", (ev) => {
+    if(!touchSiblingDrag) return;
+    if(Array.from(ev.touches).some(t => t.identifier === touchSiblingDrag.touchId)) return;
+    const drag = touchSiblingDrag;
+    touchSiblingDrag = null;
+    const el = document.querySelector(`.node-card[data-name="${CSS.escape(drag.name)}"]`);
+    if(el){ el.style.transform = ""; el.classList.remove("dragging"); }
+    document.querySelectorAll(".node-card.drop-target").forEach(n => n.classList.remove("drop-target"));
+    if(!drag.dragging) return; // 動かしていない・並び替え対象外 → 通常のタップ処理（既存のmouseup経由）に任せる
+    const changed = Array.from(ev.changedTouches).find(t => t.identifier === drag.touchId);
+    if(!changed || !drag.siblings || drag.siblings.length < 2 || !drag.targetKey) return;
+    const target = findNearestSibling(changed.clientX, changed.clientY, drag);
+    if(!target) return;
+    commitSiblingReorder(drag, target.getAttribute("data-name"));
   });
 
   function escapeXml(s){
@@ -3346,6 +3407,26 @@
   document.getElementById("legendToggle").addEventListener("click", () => {
     legendEl.classList.toggle("open");
   });
+
+  // スマホの上部ツールバー（メニュー・検索・拡大縮小など）は、画面が
+  // 縦向きだと折り返して背が高くなり、横向きだと1行に収まって低くなる。
+  // 固定のmargin-topだと横向きで無駄に余白が空いてしまうので、実際の
+  // ツールバーの高さを測って必要な分だけ余白を作る（回転・リサイズの
+  // たびに測り直す）。
+  const stageToolbarEl = document.querySelector(".stage-toolbar");
+  const treeSvgEl = document.getElementById("tree");
+  function syncTreeTopMargin(){
+    if(!stageToolbarEl || !treeSvgEl) return;
+    if(window.matchMedia("(max-width: 900px)").matches){
+      const h = stageToolbarEl.getBoundingClientRect().height;
+      treeSvgEl.style.marginTop = Math.ceil(h + 24) + "px";
+    } else {
+      treeSvgEl.style.marginTop = "";
+    }
+  }
+  window.addEventListener("resize", syncTreeTopMargin);
+  window.addEventListener("orientationchange", () => setTimeout(syncTreeTopMargin, 150));
+  setTimeout(syncTreeTopMargin, 0);
 
   // ---- init ----
   loadState();
