@@ -1566,6 +1566,24 @@
     return parentsOf;
   }
 
+  // buildParentsOf()は文章で明示的に書かれた親だけを返す。片方の親しか
+  // 書いていなくても、その人の配偶者も同じ子の親として扱いたい場面
+  // （兄弟姉妹判定など）でまとめて使うための版。
+  function buildEffectiveParentsOf(){
+    const parentsOf = buildParentsOf();
+    const spouseOf = buildSpouseOf();
+    const effective = {};
+    for(const child in parentsOf){
+      const set = new Set(parentsOf[child]);
+      for(const p of parentsOf[child]){
+        const sp = spouseOf[p];
+        if(sp) set.add(sp);
+      }
+      effective[child] = Array.from(set);
+    }
+    return effective;
+  }
+
   // 子から見て「バスの起点にする親（一人だけ、または夫婦の組）」を一意に
   // 決める。レイアウトの幅計算にも家系図の線を引く render() にも同じ関数を
   // 使うことで、同じ夫婦の子が別々の判定基準でグループ分けされてしまう
@@ -2097,7 +2115,7 @@
     // 一覧に出す（カーソルを合わせたときのハイライトはすでに構造から
     // 自動判定しているので、関係一覧もそれに合わせる）。
     {
-      const parentsOf = buildParentsOf();
+      const parentsOf = buildEffectiveParentsOf();
       const myParents = parentsOf[name] || [];
       if(myParents.length){
         const shown = new Set(relLines.map(r => r.other));
@@ -3036,7 +3054,9 @@
   // その下の欄からいつでも追加できるようにする（1人追加したら次の人も
   // 続けて入力できるよう、ダイアログは閉じない）。
   function getRelatedNames(name){
-    const parentsOf = buildParentsOf();
+    // 片方の親しか文章で書いていなくても、配偶者も同じ子の親として
+    // 扱う版（子供一覧・兄弟姉妹一覧、どちらもこれで揃える）。
+    const parentsOf = buildEffectiveParentsOf();
     const spouseOf = buildSpouseOf();
     const spouses = [];
     for(const e of state.edges){
@@ -3044,13 +3064,7 @@
       if(e.a === name) spouses.push(e.b);
       else if(e.b === name) spouses.push(e.a);
     }
-    // 「シメの子」と文章で明示していなくても、配偶者（田口藤一郎）の子は
-    // 一覧にも子として出す（図の線ではすでに夫婦そろって親として
-    // 扱われているのに、一覧だけ片方しか出ないと分かりにくいため）。
     const childrenSet = new Set(Object.keys(parentsOf).filter(c => parentsOf[c].includes(name)));
-    for(const sp of spouses){
-      Object.keys(parentsOf).filter(c => parentsOf[c].includes(sp)).forEach(c => childrenSet.add(c));
-    }
     // 兄弟姉妹も、明示的な兄弟関係だけでなく、親が共通なら一覧に出す。
     const siblingsSet = new Set();
     for(const e of state.edges){
