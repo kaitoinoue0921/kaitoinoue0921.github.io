@@ -2542,6 +2542,7 @@
   // Aから見てBがどんな関係かを、グラフ上の最短経路から推定する
   // name自身を距離0として、lineage（親子系）の辺だけを遡って先祖までの距離を集める
   function ancestorDistances(name){
+    const spouseOf = buildSpouseOf();
     const dist = new Map([[name, 0]]);
     const queue = [name];
     while(queue.length){
@@ -2559,6 +2560,16 @@
           if(!dist.has(parent) || dist.get(parent) > nd){
             dist.set(parent, nd);
             queue.push(parent);
+          }
+          // 記録されている親に配偶者がいれば、片方の親しか文章で
+          // 書いていなくても、同じ距離の親として扱う。そうしないと
+          // いとこ判定などが、書いていない方の親の血縁をたどれず
+          // 途中で止まってしまう（向井宏美のいとこがハイライトされ
+          // ないバグの原因）。
+          const coParent = spouseOf[parent];
+          if(coParent && (!dist.has(coParent) || dist.get(coParent) > nd)){
+            dist.set(coParent, nd);
+            queue.push(coParent);
           }
         }
       }
