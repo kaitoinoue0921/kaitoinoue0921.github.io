@@ -933,6 +933,7 @@
   </div>
 </div>
 
+<div id="fbSyncOverlay" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(15,17,21,0.75);align-items:center;justify-content:center;color:#dfe6ee;font-size:15px;">最新の家系図を読み込み中…</div>
 <div class="app" id="appRoot" style="display:none;">
   <button class="menu-toggle" id="menuToggle" title="メニュー" aria-label="メニュー">☰</button>
   <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
@@ -1162,6 +1163,8 @@
   }
 })();
 </script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
 <script>
 (function(){
   const RELATION_MAP = {
@@ -1266,6 +1269,78 @@
 
   let state = { history:[], people:{}, edges:[], manualOverrides:{}, egoName:"", siblingOrder:{} };
 
+  // ---- 家族間のリアルタイム共有（Firebase Realtime Database） ----
+  // パスワードを入れた家族全員が同じ最新の家系図を見られるよう、
+  // localStorageに加えてFirebase上の同じデータを常に読み書きする。
+  const FIREBASE_CONFIG = {
+    apiKey: "AIzaSyCWz_qklLee8lTX6MwbSJTC3AhUb3MDzPI",
+    authDomain: "kakeizu-4b4b1.firebaseapp.com",
+    databaseURL: "https://kakeizu-4b4b1-default-rtdb.firebaseio.com",
+    projectId: "kakeizu-4b4b1",
+    storageBucket: "kakeizu-4b4b1.firebasestorage.app",
+    messagingSenderId: "602746727605",
+    appId: "1:602746727605:web:289fe8312e72bf36f922fc"
+  };
+  let fbRef = null;
+  try{
+    if(window.firebase){
+      firebase.initializeApp(FIREBASE_CONFIG);
+      fbRef = firebase.database().ref("kakeizu/state");
+    }
+  }catch(e){ fbRef = null; }
+
+  function normalizeState(s){
+    if(!s.people) s.people = {};
+    if(!s.edges) s.edges = [];
+    if(!s.manualOverrides) s.manualOverrides = {};
+    if(!s.siblingOrder) s.siblingOrder = {};
+    if(typeof s.egoName !== "string") s.egoName = "";
+    return s;
+  }
+
+  // 初回の同期が終わるまで編集させない（同期前に触ると、その編集が
+  // 後から届く最新データで上書きされてしまうのを防ぐため）。
+  //
+  // 「Firebase側にまだ何もなければ今の内容を書き込む」は、複数の端末が
+  // ほぼ同時に初めて開いた場合に単純な set() だとお互いのデータを
+  // 上書きし合う恐れがあるため、transaction()でサーバー側の最新値を
+  // 見てから「本当に空の時だけ」書き込むようにする。
+  function initFirebaseSync(){
+    if(!fbRef) return Promise.resolve();
+    let finished = false;
+    const attachLiveListener = () => {
+      fbRef.on("value", (snap) => {
+        const remote = snap.val();
+        if(!remote || !Array.isArray(remote.history)) return;
+        if(JSON.stringify(remote) === JSON.stringify(state)) return;
+        state = normalizeState(remote);
+        saveState(true);
+        rebuildFromHistory();
+        refreshAll();
+      });
+    };
+    const syncPromise = fbRef.transaction((current) => {
+      if(current && Array.isArray(current.history)) return; // 既にデータがあれば何もしない
+      return state; // まだ誰も使っていなければ今の内容を書き込む
+    }).then((result) => {
+      const committed = result.snapshot.val();
+      if(committed && Array.isArray(committed.history)){
+        state = normalizeState(committed);
+        saveState(true);
+        rebuildFromHistory();
+        refreshAll();
+      }
+      attachLiveListener();
+    }).catch(() => {
+      attachLiveListener();
+    });
+    return new Promise((resolve) => {
+      const finish = () => { if(!finished){ finished = true; resolve(); } };
+      setTimeout(finish, 4000);
+      syncPromise.then(finish, finish);
+    });
+  }
+
   // 元に戻す：構造が変わる操作（行の追加・削除・編集、統合、サンプル、
   // 全部消す、読み込み）の直前にだけ状態を控えておく。居住地・メモなど
   // 自由記述欄の1文字ごとの編集までは対象にしない（そこまで戻せても
@@ -1309,8 +1384,11 @@
       }
     }catch(e){}
   }
-  function saveState(){
+  function saveState(skipRemote){
     try{ localStorage.setItem("kakeizu_state_v2", JSON.stringify(state)); }catch(e){}
+    if(fbRef && !skipRemote){
+      fbRef.set(state).catch(() => {});
+    }
   }
 
   function ensurePerson(name){
@@ -3274,6 +3352,11 @@
   loadFromShareHash();
   rebuildFromHistory();
   refreshAll();
+  const fbSyncOverlay = document.getElementById("fbSyncOverlay");
+  if(fbRef && fbSyncOverlay) fbSyncOverlay.style.display = "flex";
+  initFirebaseSync().then(() => {
+    if(fbSyncOverlay) fbSyncOverlay.style.display = "none";
+  });
 })();
 </script>
 </body>
