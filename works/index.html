@@ -227,7 +227,7 @@
   "isPartOf": { "@id": "https://kaitoinoue0921.github.io/#website" },
   "author": { "@id": "https://kaitoinoue0921.github.io/#person" },
   "publisher": { "@id": "https://kaitoinoue0921.github.io/#person" },
-  "dateModified": "2026-08-22T00:00:00+09:00"
+  "dateModified": "2026-09-12T00:00:00+09:00"
 }
 </script>
 </head>
@@ -731,14 +731,15 @@
             </svg>
             <span class="divider-line"></span>
           </div>
-          <p class="block-label"><span>Works · 13</span><span class="status status--wip">開発中・審査待ち</span></p>
-          <h2 class="block-title">MindfulShield</h2>
-          <p class="block-text">指定したアプリ（YouTubeなど）を開こうとした瞬間に立ち止まらせる、デジタルウェルビーイングアプリ。「本当に今、見る必要がありますか？」というシールド画面を挟み、見るなら時間を区切って許可します。</p>
+          <p class="block-label"><span>Works · 13</span><span class="status status--wip">App Store提出準備中</span></p>
+          <h2 class="block-title">5分でブロック</h2>
+          <p class="block-text">指定したアプリ（YouTubeなど）を開こうとした瞬間に立ち止まらせる、デジタルウェルビーイングアプリ。「本当に今、見る必要がありますか？」というシールド画面を挟み、見るなら時間を区切って許可します。ログインもアカウントも作らず、利用データを外部サーバーに送信しない設計にしています。</p>
 
           <ul class="points">
             <li>対象アプリを開くとOSレベルのシールド画面が挟まる。「N分だけ見る」（1・3・5・10分から選択）か「やめておく」を選ばせる</li>
             <li>N分使い終わると自動で再ブロックされる。手動で解除する抜け道は作っていない</li>
-            <li>Screen Time API（FamilyControls / ManagedSettings / DeviceActivity）ベースで、本体アプリ＋Shield設定／操作／監視の3 Extensionで構成</li>
+            <li>Apple純正のScreen Time API（FamilyControls / ManagedSettings / DeviceActivity）ベースで、本体アプリ＋Shield設定／操作／監視の3 Extensionで構成</li>
+            <li>応援（投げ銭）はStoreKitの消費型課金のみ。それ以外に課金要素はありません</li>
           </ul>
 
           <ul class="tech">
@@ -748,7 +749,14 @@
             <li>StoreKit 2</li>
           </ul>
 
-          <p class="support-note">実機で選択→シールド表示→猶予→再ブロックまで動作確認済み。Family Controls（Distribution）のApple申請は提出済みで承認待ちのため、App Storeにはまだ公開していません。</p>
+          <p class="support-note">実機で選択→シールド表示→猶予→再ブロックまで動作確認済み。Family Controls（Distribution）はApple承認済みで、App Store Connectへの提出準備を進めています。</p>
+
+          <a class="block-action block-action--ghost" href="5funblock/privacy/">
+            <span>プライバシーポリシーを見る</span>
+            <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
         </article>
 
         <!-- 14 思想の系譜 -->
@@ -892,7 +900,7 @@
           </a>
         </article>
 
-        <!-- 18 これから作りたいもの -->
+        <!-- 18 論文ガチャラボ -->
         <article class="block">
           <div class="divider">
             <span class="divider-line"></span>
@@ -903,7 +911,43 @@
             </svg>
             <span class="divider-line"></span>
           </div>
-          <p class="block-label"><span>Backlog · 18</span><span class="status">構想中</span></p>
+          <p class="block-label"><span>Works · 18</span><span class="status status--live">公開中</span></p>
+          <h2 class="block-title">論文ガチャラボ</h2>
+          <p class="block-text">医学英語の勉強がガチャの引き心地で続くように作った学習ゲーム。コインを投入すると循環器から精神科まで各領域の重要な臨床試験・論文がカプセルで出てきて、英語原文中の難しい単語をクリックすると和訳と語源（ギリシャ語・ラテン語の語根や薬剤名のINN語幹）が分かり、単語帳に自動で集まっていきます。</p>
+
+          <ul class="points">
+            <li>SSR/SR/R/Nの4段階レアリティで論文カードを排出。重複入手は自動でコインに還元され、初取得はレベルアップのXPになる</li>
+            <li>7日間の連続ログインボーナスと、コイン不要の「本日の無料カプセル」「今日の一語」で毎日開く理由を作る</li>
+            <li>論文の英語要旨内の医学英単語・薬剤名をクリックすると語源チェーンが分解表示され、単語帳・トロフィーに積み上がる</li>
+          </ul>
+
+          <ul class="tech">
+            <li>Vanilla JS</li>
+            <li>Claude Artifact</li>
+          </ul>
+
+          <p class="support-note">収録している論文情報は学習ゲーム用に簡略化・要約したものです。正確な内容は一次情報（PubMedなど）で確認してください。</p>
+
+          <a class="block-action" href="https://claude.ai/code/artifact/ac093267-7d38-4250-b93d-7a2c974ca92a" target="_blank" rel="noopener noreferrer">
+            <span>論文ガチャラボを見る</span>
+            <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </article>
+
+        <!-- 19 これから作りたいもの -->
+        <article class="block">
+          <div class="divider">
+            <span class="divider-line"></span>
+            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
+              <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
+              <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
+            </svg>
+            <span class="divider-line"></span>
+          </div>
+          <p class="block-label"><span>Backlog · 19</span><span class="status">構想中</span></p>
           <h2 class="block-title">これから作りたいもの</h2>
           <p class="block-text">まだ手をつけていない案です。作ると決めたものではなく、「これが要るのでは」と思って書き留めてあるものを、そのまま置いておきます。どれも、越えないといけない壁のほうを先に書いています。</p>
 
