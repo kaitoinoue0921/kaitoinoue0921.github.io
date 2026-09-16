@@ -105,6 +105,9 @@
   .tg .gp{font-size:11px;color:var(--dim);width:72px}
   .warnbox{background:color-mix(in srgb,var(--warn) 12%,var(--panel));border:1px solid var(--warn);
     border-radius:8px;padding:11px 14px;font-size:12.5px;margin-bottom:14px;line-height:1.6}
+  .qbadge{position:absolute;top:9px;right:11px;z-index:1;font-size:10px;padding:1px 7px;border-radius:4px;font-weight:700}
+  .qbadge.review{background:var(--warn);color:#1a1d23}
+  .qbadge.new{background:var(--accent);color:#fff}
   .big{font-size:30px;font-weight:800;font-variant-numeric:tabular-nums}
   .kpi{display:flex;gap:26px;flex-wrap:wrap;background:var(--panel);border:1px solid var(--line);
     border-radius:8px;padding:14px 18px;margin-bottom:14px}
@@ -255,8 +258,10 @@
     <div class="hstat" id="hs"></div>
   </div>
   <nav>
-    <button data-v="next" class="on">次にやる</button>
+    <button data-v="today" class="on">今日</button>
+    <button data-v="next">次にやる</button>
     <button data-v="review">復習<span class="bdg" id="rvb" style="display:none">0</span></button>
+    <button data-v="mock">模擬試験</button>
     <button data-v="all">全項目</button>
     <button data-v="map">全体マップ</button>
     <button data-v="prob">合格可能性</button>
@@ -326,7 +331,8 @@ function depth(id){
 /* ---- 永続状態 ---- */
 const KEY = 'todai-math-v2';
 const DEF = { rec:{}, exp:0, gems:20, streak:{last:'', days:0}, charms:{}, box:[],
-              placed:false, today:{ d:'', exp:0, n:0 }, exams:[] };
+              placed:false, today:{ d:'', exp:0, n:0 }, exams:[],
+              dailyMinutes:60, examDate:'', notify:false, lastNotified:'', log:[] };
 // localStorage が使えない環境（プライベートブラウズ、file:// の一部、data: URL）でも
 // アプリ自体は動くようにする。保存できないだけで、その場での利用は妨げない。
 let canStore = true;
@@ -362,7 +368,10 @@ function learn(id, ok){
 // 「今日の成果」。日付が変われば自動でリセットされる
 function today(){
   const d = new Date().toISOString().slice(0, 10);
-  if (S.today.d !== d) S.today = { d, exp: 0, n: 0 };
+  if (S.today.d !== d){
+    if (S.today.d) { (S.log ??= []).push(S.today); if (S.log.length > 90) S.log.shift(); }
+    S.today = { d, exp: 0, n: 0 };
+  }
   return S.today;
 }
 // 前提を再帰的に辿る（診断テストで「解けたなら前提も習得済み」と推定するのに使う）
@@ -386,6 +395,36 @@ const probOf   = need => 1 / (1 + Math.exp(-(mscore() - need) / 8));
 const level    = () => Math.floor(Math.sqrt(S.exp / 40)) + 1;         // 減らない（努力の証明）
 const expToNext= () => Math.pow(level(), 2) * 40 - S.exp;
 const prio = n => (isReady(n) ? 1000 : 0) + n.todai * 40 + desc(n.id) * 1.5 - n.level * 3;
+
+/* ---- 期限ペース（現役生向け：いつまでにやればいいか） ----
+   「残りの学習量 ÷ 残り日数」で、1日に必要な分数を逆算する。
+   実績（S.log）が7日分たまれば、直近の実ペースと比べて「間に合っているか」も出す。 */
+const remainingMinutes = () => N.filter(n => !isDone(n.id)).reduce((s,n) => s + n.cost, 0);
+function daysLeft(){
+  if (!S.examDate) return null;
+  const d = Math.ceil((new Date(S.examDate + 'T00:00:00') - Date.now()) / DAY);
+  return d > 0 ? d : 0;
+}
+function recentPaceMinutes(){
+  // 実際の学習「分」は記録していないので、新規習得1項目＝その項目のcostぶん進んだとみなして概算する
+  const recent = (S.log || []).slice(-7);
+  if (recent.length < 3) return null;                           // データが少なすぎる間は出さない
+  const doneIds = new Set(Object.keys(S.rec));
+  const avgCost = doneIds.size ? [...doneIds].reduce((s,id) => s + (byId.get(id)?.cost||0), 0) / doneIds.size
+                                : N.reduce((s,n)=>s+n.cost,0) / N.length;
+  const totalN = recent.reduce((s,d) => s + d.n, 0);
+  return totalN / recent.length * avgCost;                       // 1日あたりの推定学習分数
+}
+function paceInfo(){
+  const rem = remainingMinutes(), dl = daysLeft();
+  const need = dl ? rem / Math.max(1, dl) : null;                // 1日に必要な分数
+  const actual = recentPaceMinutes();
+  const finishDays = S.dailyMinutes > 0 ? Math.ceil(rem / S.dailyMinutes) : null;
+  const finishDate = finishDays !== null
+    ? new Date(Date.now() + finishDays * DAY).toISOString().slice(0,10) : null;
+  return { rem, dl, need, actual, finishDays, finishDate,
+           onTrack: need === null ? null : S.dailyMinutes >= need * 0.92 };
+}
 
 function gain(exp, gems){
   const e = Math.round(exp);
@@ -463,6 +502,211 @@ function buddyCard(){
     </div></div>`;
 }
 
+/* ---------- 今日の学習キュー ----------
+   記憶度が落ちた項目（復習）を優先し、余った時間で新規項目を詰める。
+   1日の学習可能時間と試験日から、必要ペースと終了見込み日を逆算する。 */
+function queueForToday(){
+  const budget = S.dailyMinutes || 60;
+  let used = 0;
+  const queue = [];
+  for (const n of needRev()){
+    queue.push({ n, kind: 'review' });
+    used += Math.min(n.cost, 25);          // 復習は初回学習より短時間で済む想定
+    if (used >= budget) break;
+  }
+  if (used < budget){
+    const nextPool = N.filter(n => !isDone(n.id) && isReady(n)).sort((a,b) => prio(b) - prio(a));
+    for (const n of nextPool){
+      if (used >= budget) break;
+      queue.push({ n, kind: 'new' });
+      used += n.cost;
+    }
+  }
+  return { queue, used, budget };
+}
+
+function todayHTML(){
+  const { queue, used, budget } = queueForToday();
+  const p = paceInfo();
+  const notifyRow = !('Notification' in window)
+    ? '<div style="font-size:12px;color:var(--dim);margin:-6px 0 14px">この環境は通知に対応していません</div>'
+    : Notification.permission === 'granted'
+      ? '<div style="font-size:12px;color:var(--dim);margin:-6px 0 14px">🔔 通知はオンです（このアプリを開いたときに、復習が溜まっていれば知らせます）</div>'
+      : `<div style="font-size:12px;color:var(--dim);margin:-6px 0 14px">
+           <button class="btn sec" id="notifyBtn" style="margin:0 8px 0 0;padding:5px 11px;font-size:12px">🔔 通知を許可する</button>
+           アプリを開いたときにだけ届きます（本当にアプリを閉じている間には届きません。バックグラウンド配信には別途サーバーが必要です）</div>`;
+  return `
+    ${buddyCard()}
+    <div class="tg" style="align-items:center;gap:22px">
+      <span class="nm"><b>目標の試験日</b><br>
+        <input type="date" id="examDate" value="${esc(S.examDate||'')}" style="margin-top:4px;background:var(--bg);
+          border:1px solid var(--line);color:var(--fg);border-radius:6px;padding:5px 9px;font-family:inherit"></span>
+      <span class="nm"><b>1日にかけられる時間</b><br>
+        <input type="number" id="dailyMin" value="${S.dailyMinutes}" min="10" step="10" style="width:72px;margin-top:4px;
+          background:var(--bg);border:1px solid var(--line);color:var(--fg);border-radius:6px;padding:5px 9px;
+          font-family:inherit">　分/日</span>
+    </div>
+    ${p.dl !== null ? `<div class="warnbox" style="border-color:${p.onTrack ? 'var(--ok)' : 'var(--hot)'}">
+        <b>試験まで残り ${p.dl} 日</b>　残りの学習量 約${Math.round(p.rem/60)}時間分<br>
+        必要ペース：<b>1日 約${Math.round(p.need)}分</b>
+        ${p.onTrack
+          ? '<b style="color:var(--ok)">今の設定なら間に合う見込み</b>'
+          : `<b style="color:var(--hot)">今の設定（1日${S.dailyMinutes}分）では間に合わない見込み。1日あたり約${Math.max(0, Math.round(p.need - S.dailyMinutes))}分足りません</b>`}
+        ${p.actual !== null ? `<br><span style="color:var(--dim)">直近7日の実績ペース：1日 約${Math.round(p.actual)}分相当</span>` : ''}
+      </div>`
+      : `<div class="warnbox">上に試験日を入れると、「いつまでに何をやるべきか」を逆算して表示します。</div>`}
+    <div style="font-size:12.5px;color:var(--dim);margin-bottom:14px">
+      今の設定（1日${S.dailyMinutes}分）で全項目を終えるのは、およそ
+      <b style="color:var(--fg)">${p.finishDays}日後（${p.finishDate}）</b> の見込みです。</div>
+    ${notifyRow}
+    <p style="color:var(--dim);font-size:13px;margin:0 0 10px">
+      <b style="color:var(--fg)">今日やるとよい ${queue.length} 項目</b>（目安 ${Math.round(used)}分 / 設定${budget}分）。
+      記憶度が落ちた項目（復習）を優先し、残りの時間で新規項目を詰めています。</p>
+    <div class="grid">${queue.map(({n,kind}) => `<div style="position:relative">
+        <span class="qbadge ${kind}">${kind === 'review' ? '復習' : '新規'}</span>${card(n)}</div>`).join('')}</div>
+    ${!queue.length ? '<div class="empty">今日やることはありません。おつかれさまです。</div>' : ''}`;
+}
+
+function bindToday(){
+  $('#examDate').onchange = e => { S.examDate = e.target.value; save(); render(); };
+  $('#dailyMin').onchange = e => { S.dailyMinutes = Math.max(10, +e.target.value || 60); save(); render(); };
+  $('#notifyBtn') && ($('#notifyBtn').onclick = async () => {
+    const perm = await Notification.requestPermission();
+    S.notify = perm === 'granted'; save(); render();
+  });
+}
+
+/* ---- 通知（ベストエフォート） ----
+   静的サイト・専用サーバーなしでの限界: アプリを開いたときにだけ届く「ローカル通知」。
+   本当の意味でアプリを閉じている間に届くプッシュ通知には、別途通知サーバーが必要。 */
+async function maybeNotify(){
+  if (!('Notification' in window) || Notification.permission !== 'granted') return;
+  const d = new Date().toISOString().slice(0,10);
+  if (S.lastNotified === d) return;
+  const rv = needRev().length;
+  const p = paceInfo();
+  if (!rv && p.onTrack !== false) return;
+  S.lastNotified = d; save();
+  const body = rv ? `記憶度が落ちた項目が ${rv} 個あります。` : '試験までのペースが目安を下回っています。';
+  try {
+    const reg = await navigator.serviceWorker?.getRegistration();
+    if (reg) reg.showNotification('東大理三 数学マップ', { body, icon: 'icon-192.png' });
+    else new Notification('東大理三 数学マップ', { body });
+  } catch (e) { /* 通知に失敗しても学習自体は続けられる */ }
+}
+
+/* ---------- 模擬試験（複数項目にまたがる総合テスト） ----------
+   個々の項目テストとは別に、過去問での頻出度で重み付けしてランダムに問題を集める。
+   ここでの正誤は習得状態・EXPには影響しない（弱点を横断的にあぶり出すための診断）。 */
+let mock = null;
+function mockPool(){
+  const st = themeStat();
+  const weightOf = id => 1 + st.reduce((s,t) => s + (t.nodes.includes(id) ? t.count : 0), 0);
+  const pool = [];
+  for (const q of DATA.quizzes || []){
+    for (const it of q.items) pool.push({ ...it, nodeId: q.nodeId, w: weightOf(q.nodeId) });
+  }
+  return pool;
+}
+function weightedSample(pool, n){
+  // A-Res 法：各要素に -log(rand)/weight のキーを振り、小さい順に n 個選ぶ（重複なし重み付き抽選）
+  return pool.map(x => ({ x, k: -Math.log(Math.random()) / x.w }))
+             .sort((a,b) => a.k - b.k).slice(0, n).map(e => e.x);
+}
+function mockHTML(){
+  if (!mock) return `<div class="plcard">
+      <h2>模擬試験（総合テスト）</h2>
+      <p>複数の項目にまたがる問題をランダムに集めて出題します。過去問で頻出のテーマほど出やすくしています。</p>
+      <p>ここでの正誤は習得状態やEXPには影響しません。<b style="color:var(--fg)">どの分野が弱いかを横断的に確認する</b>ためのものです。</p>
+      <div class="tg" style="align-items:center;gap:22px">
+        <span class="nm"><b>問題数</b><br>
+          <select id="mockN" style="margin-top:4px">
+            <option value="10">10問（15分想定）</option>
+            <option value="20" selected>20問（30分想定）</option>
+            <option value="30">30問（45分想定）</option>
+          </select></span>
+      </div>
+      <button class="btn" id="mockStart">模擬試験を始める</button>
+    </div>`;
+  if (mock.done) return mockResultHTML();
+  const it = mock.items[mock.i], n = byId.get(it.nodeId);
+  const mm = String(Math.floor(mock.left/60)).padStart(2,'0'), ss = String(mock.left%60).padStart(2,'0');
+  return `<div class="prog">問題 ${mock.i+1} / ${mock.items.length}　${esc(n.field)}・${esc(n.unit)}
+      　<b style="color:${mock.left<60?'var(--hot)':'var(--fg)'}">残り ${mm}:${ss}</b></div>
+    <div class="bbar" style="margin:0 0 16px"><i style="width:${(mock.i/mock.items.length*100).toFixed(0)}%"></i></div>
+    <div class="qq">${esc(it.q)}</div>
+    <div id="qa">${it.type === 'number'
+      ? `<div class="ansrow"><input class="qin" id="mnum" placeholder="答えを入力（半角）" autocomplete="off"
+           autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="done">
+           <button class="btn" id="mok">決定</button></div>`
+      : it.options.map((o,i) => `<button class="opt" data-i="${i}">${esc(o)}</button>`).join('')}</div>
+    <div id="qfb"></div>`;
+}
+function mockResultHTML(){
+  const total = mock.items.length, correct = total - mock.wrong.length;
+  const wrongIdx = new Set(mock.wrong.map(w => w.i));
+  const byField = {};
+  mock.items.forEach((it, i) => {
+    const f = byId.get(it.nodeId).field;
+    (byField[f] ??= { t:0, c:0 }).t++;
+    if (!wrongIdx.has(i)) byField[f].c++;
+  });
+  const weak = [...new Set(mock.wrong.map(w => w.nodeId))].map(id => byId.get(id));
+  return `<h2>結果</h2>
+    <div class="kpi"><div><small>正答</small><span class="big">${correct}<span style="font-size:15px">/${total}</span></span></div>
+      <div><small>正答率</small><span class="big">${(correct/total*100).toFixed(0)}<span style="font-size:15px">%</span></span></div></div>
+    <h3 style="font-size:13px;color:var(--accent)">分野別</h3>
+    ${Object.entries(byField).map(([f,v]) => `<div class="plfield"><span>${esc(f)}</span>
+      <span><b>${v.c}</b> / ${v.t}</span></div>`).join('')}
+    ${weak.length ? `<h3 style="font-size:13px;color:var(--accent);margin-top:18px">間違えた項目（要復習）</h3>
+      <div class="grid">${weak.map(card).join('')}</div>` : '<p style="color:var(--ok);margin-top:14px">間違いはありませんでした。</p>'}
+    <button class="btn" id="mockAgain">もう一度</button>`;
+}
+function startMock(){
+  const n = +$('#mockN').value;
+  mock = { i:0, wrong:[], items: weightedSample(mockPool(), n), left: n*90, timer:null, done:false };
+  mock.timer = setInterval(() => {
+    mock.left--;
+    if (mock.left <= 0 || mock.done){ clearInterval(mock.timer); if (!mock.done) finishMock(); }
+    else if (view === 'mock') { const b=$('.prog b'); if (b){ const mm=String(Math.floor(mock.left/60)).padStart(2,'0'), ss=String(mock.left%60).padStart(2,'0'); b.textContent = `残り ${mm}:${ss}`; } }
+  }, 1000);
+  render();
+}
+function mockAnswer(a){
+  const it = mock.items[mock.i];
+  const ok = it.type === 'number'
+    ? (it.accept || [it.answer]).some(x => normalizeAnswer(x) === normalizeAnswer(a))
+    : a === it.answer;
+  if (!ok) mock.wrong.push({ i: mock.i, nodeId: it.nodeId });
+  if (it.type !== 'number'){
+    $('#qa').querySelectorAll('.opt').forEach((b,i) => {
+      if (i === it.answer) b.classList.add('ok'); else if (i === a) b.classList.add('ng');
+      b.onclick = null;
+    });
+  } else { $('#mok').disabled = true; $('#mnum').disabled = true; }
+  $('#qfb').innerHTML = `<div class="fb ${ok?'ok':'ng'}"><b>${ok?'正解':'不正解'}</b>${it.type==='number'&&!ok?`　答え: ${esc(it.answer)}`:''}<br>${esc(it.explain)}</div>
+    <button class="btn" id="mnx">${mock.i+1 < mock.items.length ? '次へ' : '結果を見る'}</button>`;
+  $('#mnx').onclick = () => { mock.i++; mock.i < mock.items.length ? render() : finishMock(); };
+}
+function finishMock(){
+  mock.done = true; clearInterval(mock.timer); render();
+}
+function bindMock(){
+  $('#mockStart') && ($('#mockStart').onclick = startMock);
+  $('#mockAgain') && ($('#mockAgain').onclick = () => { mock = null; render(); });
+  if (mock && !mock.done){
+    const it = mock.items[mock.i];
+    if (it.type === 'number'){
+      const go = () => mockAnswer($('#mnum').value.trim());
+      $('#mok') && ($('#mok').onclick = go);
+      $('#mnum') && ($('#mnum').onkeydown = e => { if (e.key==='Enter' && !isComposing(e)) go(); });
+      setTimeout(() => $('#mnum') && $('#mnum').focus(), 60);
+    } else {
+      $('#qa').querySelectorAll('.opt').forEach(b => b.onclick = () => mockAnswer(+b.dataset.i));
+    }
+  }
+}
+
 /* ---- ログインボーナス（連続日数） ---- */
 (function login(){
   const t = new Date().toISOString().slice(0,10);
@@ -478,7 +722,7 @@ const $ = s => document.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
 const stars = k => '★'.repeat(k) + '<span style="opacity:.25">' + '★'.repeat(5-k) + '</span>';
 const rcol = r => r >= .7 ? 'var(--ok)' : r >= .4 ? 'var(--warn)' : 'var(--hot)';
-let view = 'next', sel = null;
+let view = 'today', sel = null;
 
 function header(){
   const rv = needRev().length;
@@ -565,9 +809,17 @@ function filtered(){
 function render(){
   header();
   const v = $('#view');
-  $('#filters').style.display = ['doc','mon','gacha','prob','past'].includes(view) ? 'none' : 'flex';
+  $('#filters').style.display = ['doc','mon','gacha','prob','past','today','mock'].includes(view) ? 'none' : 'flex';
 
-  if (view === 'next'){
+  if (view === 'today'){
+    v.innerHTML = todayHTML();
+    bindToday();
+  }
+  else if (view === 'mock'){
+    v.innerHTML = mockHTML();
+    bindMock();
+  }
+  else if (view === 'next'){
     const list = filtered().filter(n => !isDone(n.id) && isReady(n)).sort((a,b) => prio(b) - prio(a));
     const rv = needRev().length;
     v.innerHTML = `
@@ -1388,7 +1640,13 @@ function setUnitOptions(){
     S.exp = Math.round(N.filter(n => S.rec[n.id]).reduce((a, n) => a + wt(n) * 3, 0));
     S.expFixed = true; save();
   }
+  if (!S.placed){
+    view = 'next';
+    document.querySelectorAll('nav button').forEach(x => x.classList.remove('on'));
+    document.querySelector('nav button[data-v="next"]').classList.add('on');
+  }
   render();
+  maybeNotify();
   setInterval(() => { if (!quiz) header(); }, 60000);   // 記憶度は時間で減るので定期更新
 }
 </script>
