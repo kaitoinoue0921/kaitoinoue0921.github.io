@@ -115,6 +115,13 @@
   .qbadge.new{background:var(--accent);color:#fff}
   .diagbox{background:var(--panel2);border-radius:8px;padding:14px;margin:8px 0 4px;text-align:center}
   .diagbox svg{max-width:280px;width:100%;height:auto}
+  .installbar{display:flex;align-items:center;gap:12px;background:var(--cover);color:#fff;
+    border-radius:10px;padding:11px 14px;margin-bottom:14px;flex-wrap:wrap}
+  .installbar .itext{flex:1;min-width:200px;font-size:12.5px;line-height:1.6}
+  .installbar .itext b{display:block;font-size:13.5px;margin-bottom:2px}
+  .installbar button{font-family:inherit;cursor:pointer;font-size:12px}
+  .installbar .iok{background:var(--gold);color:#1a1d23;border:none;border-radius:6px;padding:7px 14px;font-weight:700}
+  .installbar .ix{background:none;border:none;color:rgba(255,255,255,.65);padding:4px;font-size:16px;line-height:1}
   .big{font-size:30px;font-weight:800;font-variant-numeric:tabular-nums}
   .kpi{display:flex;gap:26px;flex-wrap:wrap;background:var(--panel);border:1px solid var(--line);
     border-radius:8px;padding:14px 18px;margin-bottom:14px}
@@ -263,7 +270,12 @@
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="apple-touch-icon" href="./apple-touch-icon.png">
   <link rel="icon" href="./icon-192.png">
-  <meta name="theme-color" content="#0f1115">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#173f8c">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#122a5c">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="数学マップ">
 </head>
 <body>
 <header>
@@ -286,6 +298,7 @@
   </nav>
 </header>
 <main>
+  <div id="installBar" style="display:none"></div>
   <div class="filters" id="filters">
     <select id="fField"><option value="">全分野</option></select>
     <select id="fUnit"><option value="">全単元</option></select>
@@ -589,6 +602,56 @@ function bindToday(){
     S.notify = perm === 'granted'; save(); render();
   });
 }
+
+/* ---- ホーム画面に追加（PWAインストール導線） ----
+   Android/Chromeはbeforeinstallpromptで直接インストールできる。
+   iOS Safariはこのイベントが無いので、共有→ホーム画面に追加の手順を案内する。 */
+let deferredInstallPrompt = null;
+const isStandalone = () => window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+const isIOS = () => /iphone|ipad|ipod/i.test(navigator.userAgent);
+
+function installDismissedRecently(){
+  try { return Date.now() - (+localStorage.getItem('installDismissedAt') || 0) < 14 * DAY; }
+  catch (e) { return false; }
+}
+function showInstallBanner(kind){
+  if (isStandalone() || installDismissedRecently()) return;
+  const bar = $('#installBar');
+  bar.innerHTML = kind === 'ios'
+    ? `<div class="installbar">
+        <div class="itext"><b>ホーム画面に追加できます</b>
+          共有ボタンから「ホーム画面に追加」を選ぶと、アプリのように使えます。</div>
+        <button class="ix" id="installX">✕</button>
+      </div>`
+    : `<div class="installbar">
+        <div class="itext"><b>ホーム画面に追加できます</b>
+          アイコンから直接開けるようになり、通知も届きやすくなります。</div>
+        <button class="iok" id="installGo">追加する</button>
+        <button class="ix" id="installX">✕</button>
+      </div>`;
+  if (kind !== 'ios'){
+    $('#installGo').onclick = async () => {
+      if (!deferredInstallPrompt) return;
+      deferredInstallPrompt.prompt();
+      await deferredInstallPrompt.userChoice;
+      deferredInstallPrompt = null;
+      hideInstallBanner();
+    };
+  }
+  $('#installX').onclick = () => {
+    try { localStorage.setItem('installDismissedAt', String(Date.now())); } catch (e) {}
+    hideInstallBanner();
+  };
+  bar.style.display = 'block';
+}
+function hideInstallBanner(){ const bar = $('#installBar'); bar.style.display = 'none'; bar.innerHTML = ''; }
+
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredInstallPrompt = e;
+  showInstallBanner('android');
+});
+window.addEventListener('appinstalled', hideInstallBanner);
 
 /* ---- 通知（ベストエフォート） ----
    静的サイト・専用サーバーなしでの限界: アプリを開いたときにだけ届く「ローカル通知」。
@@ -1646,6 +1709,7 @@ function setUnitOptions(){
   document.querySelectorAll('nav button').forEach(b => b.onclick = () => {
     document.querySelectorAll('nav button').forEach(x => x.classList.remove('on'));
     b.classList.add('on'); view = b.dataset.v; render();
+    history.replaceState(null, '', '#' + view);
   });
   $("#ov").onclick = closeDp; $("#cl").onclick = closeDp;
   document.onkeydown = e => e.key === "Escape" && closeDp();
@@ -1655,13 +1719,18 @@ function setUnitOptions(){
     S.exp = Math.round(N.filter(n => S.rec[n.id]).reduce((a, n) => a + wt(n) * 3, 0));
     S.expFixed = true; save();
   }
-  if (!S.placed){
+  const hashView = location.hash.slice(1);
+  const validViews = [...document.querySelectorAll('nav button')].map(b => b.dataset.v);
+  if (!S.placed && !validViews.includes(hashView)){
     view = 'next';
-    document.querySelectorAll('nav button').forEach(x => x.classList.remove('on'));
-    document.querySelector('nav button[data-v="next"]').classList.add('on');
+  } else if (validViews.includes(hashView)){
+    view = hashView;
   }
+  document.querySelectorAll('nav button').forEach(x => x.classList.remove('on'));
+  document.querySelector(`nav button[data-v="${view}"]`).classList.add('on');
   render();
   maybeNotify();
+  if (isIOS() && !isStandalone()) showInstallBanner('ios');
   setInterval(() => { if (!quiz) header(); }, 60000);   // 記憶度は時間で減るので定期更新
 }
 </script>
