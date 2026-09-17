@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>埼玉大数学 過去問アーカイブ</title>
+<meta name="description" content="埼玉大学前期数学の過去問(1996〜2025年度)を分野・年度別に収録し、高校生にも読める解答をつけたアーカイブ。">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>%F0%9F%93%9A</text></svg>">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap">
+<style>
+
+:root{
+  --bg:#f2f3ee;
+  --surface:#ffffff;
+  --surface-2:#eceee6;
+  --ink:#20281f;
+  --ink-soft:#57604f;
+  --rule:#d7d9cd;
+  --rule-strong:#b9bcaa;
+  --accent:#a6392a;
+  --accent-soft:#f4ded9;
+  --gold:#a17a2e;
+  --gold-soft:#f1e6cd;
+  --ok:#3a7a4e;
+  --ok-soft:#dcebe0;
+}
+
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#181c16;
+    --surface:#20251d;
+    --surface-2:#262b21;
+    --ink:#e9ece2;
+    --ink-soft:#a7ad9c;
+    --rule:#343a2d;
+    --rule-strong:#454c3a;
+    --accent:#e08464;
+    --accent-soft:#3a251d;
+    --gold:#d9b465;
+    --gold-soft:#33291a;
+    --ok:#6fbf8a;
+    --ok-soft:#1e3025;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#181c16;
+  --surface:#20251d;
+  --surface-2:#262b21;
+  --ink:#e9ece2;
+  --ink-soft:#a7ad9c;
+  --rule:#343a2d;
+  --rule-strong:#454c3a;
+  --accent:#e08464;
+  --accent-soft:#3a251d;
+  --gold:#d9b465;
+  --gold-soft:#33291a;
+  --ok:#6fbf8a;
+  --ok-soft:#1e3025;
+}
+
+*{box-sizing:border-box;}
+sup,sub{font-size:.72em; line-height:0;}
+sup{vertical-align:super;}
+sub{vertical-align:sub;}
+
+.backlink{
+  display:inline-block; margin:14px 0 0 20px;
+  color:var(--ink-soft); font-size:13px; text-decoration:none;
+}
+.backlink:hover{color:var(--accent);}
+.archive-link{float:right; margin-right:20px;}
+.site-footer{max-width:900px; margin:20px auto 0; padding:0 20px;}
+
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:"Zen Kaku Gothic New","Hiragino Sans","Noto Sans JP",system-ui,sans-serif;
+  line-height:1.7;
+  padding-bottom:70px;
+}
+
+header{
+  position:sticky; top:0; z-index:20;
+  background:#20281f;
+  color:#f2f3ee;
+  padding:16px 20px 14px;
+}
+.htop{
+  max-width:900px; margin:0 auto;
+  display:flex; justify-content:space-between; align-items:baseline; gap:12px; flex-wrap:wrap;
+}
+h1{
+  font-family:"Shippori Mincho", serif;
+  font-size:19px; margin:0; font-weight:800; letter-spacing:.01em;
+}
+.h-sub{font-size:11.5px; color:rgba(242,243,238,.62); margin-top:3px;}
+.h-stats{font-size:12px; color:rgba(242,243,238,.82); font-variant-numeric:tabular-nums;}
+.h-stats b{color:#fff; font-size:16px; font-family:"Shippori Mincho",serif;}
+.progress-wrap{max-width:900px; margin:10px auto 0;}
+.pbar{height:6px; background:rgba(242,243,238,.16); border-radius:4px; overflow:hidden;}
+.pbar > i{display:block; height:100%; background:var(--gold);}
+
+.controls{max-width:900px; margin:10px auto 0; display:flex; flex-wrap:wrap; gap:8px;}
+.controls input[type=search]{
+  flex:1; min-width:140px;
+  background:rgba(242,243,238,.1); border:1px solid rgba(242,243,238,.28);
+  color:#fff; border-radius:6px; padding:7px 10px; font-size:16px; font-family:inherit;
+}
+.controls input[type=search]::placeholder{color:rgba(242,243,238,.5);}
+.chip-row{display:flex; flex-wrap:wrap; gap:6px; width:100%;}
+.chipbtn{
+  background:rgba(242,243,238,.08); border:1px solid rgba(242,243,238,.28); color:rgba(242,243,238,.85);
+  border-radius:6px; padding:6px 10px; font-size:12px; cursor:pointer; font-family:inherit;
+  white-space:nowrap;
+}
+.chipbtn.on{background:var(--gold); border-color:var(--gold); color:#241c02; font-weight:700;}
+
+.wrap{max-width:900px; margin:0 auto; padding:22px 20px 0;}
+
+.intro{
+  background:var(--surface); border:1px solid var(--rule-strong); border-left:3px solid var(--accent);
+  padding:13px 17px; font-size:12.5px; color:var(--ink-soft); margin-bottom:8px;
+}
+.intro b{color:var(--ink);}
+
+.cat{margin-top:30px;}
+.cat-head{
+  display:flex; align-items:center; gap:10px; cursor:pointer;
+  padding:12px 4px 8px;
+  border-bottom:2px solid var(--ink);
+  user-select:none;
+}
+.cat:first-child .cat-head{margin-top:20px;}
+.cat-head h2{font-family:"Shippori Mincho",serif; font-size:17px; margin:0; font-weight:800; flex:1;}
+.cat-count{font-size:12px; color:var(--ink-soft); font-variant-numeric:tabular-nums;}
+.cat-caret{font-size:11px; color:var(--ink-soft); transition:transform .15s; display:inline-block;}
+.cat.collapsed .cat-caret{transform:rotate(-90deg);}
+.cat.collapsed .card{display:none;}
+
+.card{
+  margin-top:12px;
+  background:var(--surface); border:1px solid var(--rule-strong);
+  cursor:pointer;
+}
+.card-head{
+  display:flex; align-items:baseline; gap:10px; padding:11px 14px;
+}
+.year-badge{
+  font-family:"Shippori Mincho",serif; font-weight:800; font-size:13px;
+  color:var(--gold); background:var(--gold-soft); border-radius:3px; padding:1px 8px;
+  white-space:nowrap;
+}
+.diff-badge{font-size:10.5px; color:var(--ink-soft);}
+.card-arrow{margin-left:auto; font-size:10px; color:var(--ink-soft); transition:transform .15s;}
+.card.open .card-arrow{transform:rotate(90deg);}
+
+.card-body{display:none; padding:0 14px 16px;}
+.card.open .card-body{display:block;}
+
+.problem{font-size:13px; white-space:pre-line; line-height:1.8; padding-top:2px; border-top:1px dashed var(--rule); padding-top:10px;}
+
+.sol-toggle{
+  display:inline-flex; align-items:center; gap:6px;
+  margin-top:12px; padding:7px 13px;
+  background:var(--ok); color:var(--surface); border:none; border-radius:5px;
+  font-size:12.5px; font-weight:700; font-family:inherit; cursor:pointer;
+}
+.sol-toggle:hover{opacity:.88;}
+.solution{
+  margin-top:12px; padding-top:10px; border-top:1px dashed var(--rule);
+  font-size:12.75px; white-space:pre-line; line-height:1.85; display:none;
+}
+.solution.shown{display:block;}
+.sol-label{font-size:10.5px; font-weight:700; color:var(--ink-soft); letter-spacing:.05em; display:block; margin-bottom:6px;}
+
+.empty-msg{text-align:center; color:var(--ink-soft); padding:40px 0; font-size:13px; display:none;}
+
+footer{
+  max-width:900px; margin:36px auto 0; padding:16px 20px 0;
+  border-top:1px solid var(--rule-strong);
+  font-size:11.5px; color:var(--ink-soft);
+  display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+}
+
+@media (max-width:600px){
+  header{padding:12px 14px 12px;}
+  h1{font-size:16px;}
+  .wrap{padding:16px 14px 0;}
+  .card-head{padding:10px 12px;}
+  .card-body{padding:0 12px 14px;}
+}
+
+</style>
+</head>
+<body>
+<a class="backlink" href="/works/">← 作ったもの一覧へ</a>
+<a class="backlink archive-link" href="./">知識チェックリストを見る →</a>
+
+<header>
+  <div class="htop">
+    <div>
+      <h1>埼玉大数学 過去問アーカイブ</h1>
+      <div class="h-sub">前期(経済・教育学部) 1996〜2025年度・全問題+解答</div>
+    </div>
+    <div class="h-stats"><b id="statCovered">0</b> / <span id="statTotal">0</span> 問収録</div>
+  </div>
+  <div class="progress-wrap"><div class="pbar"><i id="pbarFill"></i></div></div>
+  <div class="controls">
+    <input type="search" id="q" placeholder="問題文・年度で検索…">
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="intro">
+    埼玉大学 前期数学の過去問<b>106問</b>(1996〜2025年度、旧課程の行列2問を除く104問が対象)を、分野・年度別に収録。<b>高校生でも読める言葉で</b>解答を書いています。問題をタップすると開き、「解答を見る」でさらに解答を展開します。
+  </div>
+  <div id="app"></div>
+  <p class="empty-msg" id="emptyMsg">条件に一致する問題がありません</p>
+</div>
+
+<footer>
+  <span>出典: mathexamtest.jp 大学入試数学問題集成の埼玉大学アーカイブ</span>
+  <span id="genInfo"></span>
+</footer>
+
+<script>
+let DATA = [];
+let state = { q: "" };
+
+function esc(s){
+  if(s === null || s === undefined) return "";
+  return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+
+const SUP_MAP = {
+  "⁰":"0","¹":"1","²":"2","³":"3","⁴":"4","⁵":"5","⁶":"6","⁷":"7","⁸":"8","⁹":"9",
+  "⁺":"+","⁻":"−","⁼":"=","⁽":"(","⁾":")",
+  "ⁿ":"n","ⁱ":"i","ˣ":"x","ʸ":"y","ᵃ":"a","ᵇ":"b","ᵏ":"k","ᵐ":"m","ᵖ":"p","ᵗ":"t"
+};
+const SUB_MAP = {
+  "₀":"0","₁":"1","₂":"2","₃":"3","₄":"4","₅":"5","₆":"6","₇":"7","₈":"8","₉":"9",
+  "₊":"+","₋":"−","₌":"=","₍":"(","₎":")",
+  "ₐ":"a","ₑ":"e","ᵢ":"i","ⱼ":"j","ₖ":"k","ₗ":"l","ₘ":"m","ₙ":"n","ₒ":"o","ₚ":"p","ᵣ":"r","ₛ":"s","ₜ":"t","ᵤ":"u","ᵥ":"v","ₓ":"x"
+};
+const SUP_RE = new RegExp("[" + Object.keys(SUP_MAP).join("") + "]+", "g");
+const SUB_RE = new RegExp("[" + Object.keys(SUB_MAP).join("") + "]+", "g");
+
+function mathify(s){
+  if(!s) return s;
+  return s
+    .replace(SUP_RE, run => "<sup>" + run.replace(/./g, c => SUP_MAP[c]) + "</sup>")
+    .replace(SUB_RE, run => "<sub>" + run.replace(/./g, c => SUB_MAP[c]) + "</sub>");
+}
+function em(s){ return mathify(esc(s)); }
+
+const CAT_ORDER = ["微分積分","確率・場合の数","数列","ベクトル","図形と方程式・軌跡","三角関数","整数の性質・複素数"];
+
+function render(){
+  const app = document.getElementById("app");
+  app.innerHTML = "";
+  let totalVisible = 0;
+
+  for(const cat of CAT_ORDER){
+    const items = DATA.filter(d => d.category === cat);
+    if(items.length === 0) continue;
+
+    const visibleItems = items.filter(d => {
+      if(!state.q) return true;
+      const hay = (d.year + d.problem).toLowerCase();
+      return hay.includes(state.q.toLowerCase());
+    });
+    if(visibleItems.length === 0) continue;
+
+    const catEl = document.createElement("div");
+    catEl.className = "cat";
+    const head = document.createElement("div");
+    head.className = "cat-head";
+    head.innerHTML = `<span class="cat-caret">▾</span><h2>${cat}</h2><span class="cat-count">${visibleItems.length}問</span>`;
+    head.addEventListener("click", () => catEl.classList.toggle("collapsed"));
+    catEl.appendChild(head);
+
+    for(const d of visibleItems){
+      totalVisible++;
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `
+        <div class="card-head">
+          <span class="year-badge">${esc(d.year)}年度</span>
+          <span class="diff-badge">難易度:${esc(d.meta.difficulty)} / 目安${esc(d.meta.time)}</span>
+          <span class="card-arrow">▸</span>
+        </div>
+        <div class="card-body">
+          <div class="problem">${em(d.problem)}</div>
+          <button type="button" class="sol-toggle" data-toggle-sol="1">✓ 解答を見る</button>
+          <div class="solution"><span class="sol-label">解答</span>${em(d.solution)}</div>
+        </div>
+      `;
+      card.querySelector(".card-head").addEventListener("click", () => card.classList.toggle("open"));
+      card.querySelector("[data-toggle-sol]").addEventListener("click", (e) => {
+        e.stopPropagation();
+        card.querySelector(".solution").classList.add("shown");
+        e.target.hidden = true;
+      });
+      catEl.appendChild(card);
+    }
+    app.appendChild(catEl);
+  }
+  document.getElementById("emptyMsg").style.display = totalVisible === 0 ? "block" : "none";
+}
+
+document.getElementById("q").addEventListener("input", (e) => {
+  state.q = e.target.value;
+  render();
+});
+
+fetch("archive.json")
+  .then(r => r.json())
+  .then(data => {
+    DATA = data;
+    document.getElementById("statCovered").textContent = data.length;
+    document.getElementById("statTotal").textContent = 104;
+    document.getElementById("pbarFill").style.width = (100*data.length/104) + "%";
+    document.getElementById("genInfo").textContent = `${data.length} / 104問収録`;
+    render();
+  })
+  .catch(err => {
+    document.getElementById("app").innerHTML = '<p style="color:var(--accent)">データの読み込みに失敗しました: ' + err + '</p>';
+  });
+</script>
+
+<footer class="site-footer">
+  <a class="backlink" href="/works/">← 作ったもの一覧へ</a>
+</footer>
+</body>
+</html>

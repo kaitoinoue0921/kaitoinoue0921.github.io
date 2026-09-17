@@ -1,0 +1,668 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>埼玉大数学 知識チェックリスト</title>
+<meta name="description" content="埼玉大学前期数学(1996〜2025年度)の過去問分析から必要な知識88項目を抽出したチェックリスト。公式・確認問題・過去問と解答つき。">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>%F0%9F%93%90</text></svg>">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap">
+<style>
+
+:root{
+  --bg:#f2f3ee;
+  --surface:#ffffff;
+  --surface-2:#eceee6;
+  --ink:#20281f;
+  --ink-soft:#57604f;
+  --rule:#d7d9cd;
+  --rule-strong:#b9bcaa;
+  --accent:#a6392a;
+  --accent-soft:#f4ded9;
+  --gold:#a17a2e;
+  --gold-soft:#f1e6cd;
+  --ok:#3a7a4e;
+  --ok-soft:#dcebe0;
+}
+
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#181c16;
+    --surface:#20251d;
+    --surface-2:#262b21;
+    --ink:#e9ece2;
+    --ink-soft:#a7ad9c;
+    --rule:#343a2d;
+    --rule-strong:#454c3a;
+    --accent:#e08464;
+    --accent-soft:#3a251d;
+    --gold:#d9b465;
+    --gold-soft:#33291a;
+    --ok:#6fbf8a;
+    --ok-soft:#1e3025;
+  }
+}
+
+:root[data-theme="dark"]{
+  --bg:#181c16;
+  --surface:#20251d;
+  --surface-2:#262b21;
+  --ink:#e9ece2;
+  --ink-soft:#a7ad9c;
+  --rule:#343a2d;
+  --rule-strong:#454c3a;
+  --accent:#e08464;
+  --accent-soft:#3a251d;
+  --gold:#d9b465;
+  --gold-soft:#33291a;
+  --ok:#6fbf8a;
+  --ok-soft:#1e3025;
+}
+
+*{box-sizing:border-box;}
+
+sup, sub{font-size:.72em; line-height:0;}
+sup{vertical-align:super;}
+sub{vertical-align:sub;}
+
+.backlink{
+  display:inline-block; margin:14px 0 0 20px;
+  color:var(--ink-soft); font-size:13px; text-decoration:none;
+}
+.backlink:hover{color:var(--accent);}
+.archive-link{float:right; margin-right:20px;}
+.site-footer{max-width:900px; margin:20px auto 0; padding:0 20px;}
+
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:"Zen Kaku Gothic New","Hiragino Sans","Noto Sans JP",system-ui,sans-serif;
+  line-height:1.7;
+  padding-bottom:70px;
+}
+
+/* ---------- header ---------- */
+
+header{
+  position:sticky; top:0; z-index:20;
+  background:#20281f;
+  color:#f2f3ee;
+  padding:16px 20px 14px;
+}
+
+.htop{
+  max-width:900px; margin:0 auto;
+  display:flex; justify-content:space-between; align-items:baseline; gap:12px; flex-wrap:wrap;
+}
+
+h1{
+  font-family:"Shippori Mincho", serif;
+  font-size:19px; margin:0; font-weight:800; letter-spacing:.01em;
+}
+.h-sub{font-size:11.5px; color:rgba(242,243,238,.62); margin-top:3px;}
+
+.h-stats{display:flex; gap:16px; font-size:12px; color:rgba(242,243,238,.82); align-items:baseline; font-variant-numeric:tabular-nums;}
+.h-stats b{color:#fff; font-size:16px; font-family:"Shippori Mincho",serif;}
+
+.progress-wrap{max-width:900px; margin:12px auto 0;}
+.pbar{height:7px; background:rgba(242,243,238,.16); border-radius:4px; overflow:hidden;}
+.pbar > i{display:block; height:100%; background:var(--gold); width:0%; transition:width .3s;}
+
+.controls{
+  max-width:900px; margin:10px auto 0;
+  display:flex; gap:8px; flex-wrap:wrap; align-items:center;
+}
+
+.controls input[type=search]{
+  flex:1; min-width:120px;
+  background:rgba(242,243,238,.1); border:1px solid rgba(242,243,238,.28);
+  color:#fff; border-radius:6px; padding:7px 10px; font-size:13px; font-family:inherit;
+}
+.controls input[type=search]::placeholder{color:rgba(242,243,238,.5);}
+
+.chip-row{
+  display:flex; flex-wrap:wrap; gap:6px;
+  width:100%;
+}
+
+.chipbtn{
+  background:rgba(242,243,238,.08); border:1px solid rgba(242,243,238,.28); color:rgba(242,243,238,.85);
+  border-radius:6px; padding:6px 10px; font-size:12px; cursor:pointer; font-family:inherit;
+  white-space:nowrap; flex:0 0 auto;
+}
+.chipbtn.on{background:var(--gold); border-color:var(--gold); color:#241c02; font-weight:700;}
+
+/* ---------- body ---------- */
+
+.wrap{max-width:900px; margin:0 auto; padding:24px 20px 0;}
+
+.intro{
+  background:var(--surface); border:1px solid var(--rule-strong); border-left:3px solid var(--accent);
+  padding:14px 18px; font-size:12.75px; color:var(--ink-soft); margin-bottom:8px;
+}
+.intro b{color:var(--ink);}
+
+.field{margin-bottom:8px;}
+
+.field-head{
+  display:flex; align-items:center; gap:10px; cursor:pointer;
+  padding:14px 4px 8px;
+  border-bottom:2px solid var(--ink);
+  margin-top:30px;
+  user-select:none;
+}
+.field:first-child .field-head{margin-top:26px;}
+
+.field-head h2{
+  font-family:"Shippori Mincho",serif;
+  font-size:18px; margin:0; font-weight:800; flex:1;
+}
+.field-count{font-size:12px; color:var(--ink-soft); font-variant-numeric:tabular-nums;}
+.field-bar{width:70px; height:6px; background:var(--surface-2); border-radius:3px; overflow:hidden; border:1px solid var(--rule);}
+.field-bar > i{display:block; height:100%; background:var(--ok);}
+.field-caret{font-size:11px; color:var(--ink-soft); transition:transform .15s; display:inline-block;}
+.field.collapsed .field-caret{transform:rotate(-90deg);}
+.field.collapsed .unit{display:none;}
+
+.unit{margin-top:16px;}
+.unit-title{
+  font-size:12px; font-weight:700; color:var(--accent); letter-spacing:.04em;
+  margin:0 0 8px 2px;
+}
+
+.row{
+  display:grid;
+  grid-template-columns:26px 1fr;
+  align-items:start;
+  gap:10px;
+  padding:9px 8px;
+  border-radius:2px;
+  border:1px solid var(--rule-strong);
+  background:var(--surface);
+  margin-bottom:6px;
+  cursor:pointer;
+}
+.row.done{border-left:3px solid var(--ok); opacity:.65;}
+.row.done .row-title{text-decoration:line-through; text-decoration-color:var(--ink-soft);}
+.row.status-x{border-left:3px solid var(--accent);}
+.row.status-triangle{border-left:3px solid var(--gold);}
+.row.zero{opacity:.55;}
+.row[hidden]{display:none;}
+
+.status-group{display:flex; flex-direction:column; gap:3px;}
+.status-btn{
+  width:24px; height:22px; padding:0;
+  border-radius:4px; border:1px solid var(--rule-strong);
+  background:var(--surface-2); color:var(--ink-soft);
+  font-size:12px; font-weight:700; line-height:1; font-family:inherit;
+  cursor:pointer; display:flex; align-items:center; justify-content:center;
+}
+.status-btn[data-status="o"].active{background:var(--ok); color:#fff; border-color:var(--ok);}
+.status-btn[data-status="triangle"].active{background:var(--gold); color:#241c02; border-color:var(--gold);}
+.status-btn[data-status="x"].active{background:var(--accent); color:#fff; border-color:var(--accent);}
+
+.row-title{font-weight:700; font-size:13.5px;}
+.row-meta{display:flex; gap:8px; flex-wrap:wrap; margin-top:3px; font-size:11px; color:var(--ink-soft); align-items:center;}
+.star{color:var(--gold); letter-spacing:-1px; font-size:11px;}
+.badge{background:var(--surface-2); border-radius:3px; padding:1px 6px; font-variant-numeric:tabular-nums;}
+.badge.out{background:var(--accent-soft); color:var(--accent); font-weight:700;}
+.prereq-chip{background:var(--surface-2); border:1px solid var(--rule); border-radius:3px; padding:0 5px; font-size:10.5px;}
+.id-chip{color:var(--ink-soft); font-family:ui-monospace,"SF Mono",Menlo,monospace; font-size:10px;}
+
+.detail{
+  grid-column:1 / -1;
+  margin-top:8px; padding-top:8px; border-top:1px dashed var(--rule);
+  font-size:12.5px; color:var(--ink); display:none;
+}
+.row.open .detail{display:block;}
+.detail p{margin:0 0 6px; white-space:pre-line;}
+.detail .lbl{font-size:10.5px; font-weight:700; color:var(--ink-soft); letter-spacing:.05em; display:block; margin-bottom:2px;}
+.detail .trap{color:var(--accent);}
+
+.badge.ex{background:var(--ok-soft); color:var(--ok); font-weight:700;}
+
+.example{
+  margin-top:10px; padding:12px 14px;
+  background:var(--surface-2); border:1px solid var(--rule-strong); border-left:3px solid var(--gold);
+}
+.example .ex-head{
+  font-size:10.5px; font-weight:700; color:var(--gold); letter-spacing:.05em; margin-bottom:6px;
+}
+.example .ex-problem{
+  font-size:12.75px; white-space:pre-line; margin:0 0 10px; line-height:1.75;
+}
+.example .ex-solution-head{
+  font-size:10.5px; font-weight:700; color:var(--ink-soft); letter-spacing:.05em; margin-bottom:4px;
+  display:flex; align-items:center; gap:6px; cursor:pointer;
+}
+.example .ex-solution{
+  font-size:12.5px; white-space:pre-line; line-height:1.75; display:none; padding-top:4px; border-top:1px dashed var(--rule);
+}
+.example.show-sol .ex-solution{display:block;}
+.example .ex-toggle-arrow{transition:transform .15s; display:inline-block; font-size:10px;}
+.example.show-sol .ex-toggle-arrow{transform:rotate(90deg);}
+
+.badge.fm{background:var(--ok-soft); color:var(--ok); font-weight:700; cursor:pointer;}
+
+.formula{
+  margin-top:10px; padding:12px 14px;
+  background:var(--surface-2); border:1px solid var(--rule-strong); border-left:3px solid var(--ok);
+}
+.formula .fm-head{
+  font-size:10.5px; font-weight:700; color:var(--ok); letter-spacing:.05em; margin-bottom:8px;
+  display:flex; align-items:center; gap:6px; cursor:pointer;
+}
+.formula ul.fm-list{margin:0 0 10px; padding-left:1.2em; display:none;}
+.formula.show-formula ul.fm-list{display:block;}
+.formula li{font-size:12.75px; line-height:1.8; font-family:ui-monospace,"SF Mono",Menlo,monospace;}
+.formula .fm-check-head{
+  font-size:10.5px; font-weight:700; color:var(--ink-soft); letter-spacing:.05em; margin-bottom:4px;
+  display:flex; align-items:center; gap:6px; cursor:pointer;
+}
+.formula .fm-check{
+  font-size:12.5px; line-height:1.75; display:none; padding-top:4px; border-top:1px dashed var(--rule);
+}
+.formula .fm-check p{margin:0 0 6px; white-space:pre-line;}
+.formula .fm-check .lbl{font-size:10.5px; font-weight:700; color:var(--ink-soft); letter-spacing:.05em; display:block; margin-bottom:2px;}
+.formula.show-check .fm-check{display:block;}
+.formula .fm-toggle-arrow{transition:transform .15s; display:inline-block; font-size:10px;}
+.formula.show-formula > .fm-head .fm-toggle-arrow{transform:rotate(90deg);}
+.formula.show-check .fm-check-head .fm-toggle-arrow{transform:rotate(90deg);}
+
+.fm-check-btn{
+  display:inline-flex; align-items:center; gap:5px;
+  margin-top:8px; padding:6px 12px;
+  background:var(--ok); color:var(--surface); border:none; border-radius:5px;
+  font-size:12px; font-weight:700; font-family:inherit; cursor:pointer;
+}
+.fm-check-btn:hover{opacity:.88;}
+.fm-answer{
+  margin-top:10px; padding-top:8px; border-top:1px dashed var(--rule);
+  font-size:12.5px; line-height:1.75; display:none;
+}
+.fm-answer.shown{display:block;}
+.fm-answer p{margin:0 0 6px; white-space:pre-line;}
+.fm-answer .lbl{font-size:10.5px; font-weight:700; color:var(--ink-soft); letter-spacing:.05em; display:block; margin-bottom:2px;}
+.fm-check-btn[hidden]{display:none;}
+
+.empty-msg{text-align:center; color:var(--ink-soft); padding:40px 0; font-size:13px; display:none;}
+
+footer{
+  max-width:900px; margin:36px auto 0; padding:16px 20px 0;
+  border-top:1px solid var(--rule-strong);
+  font-size:11.5px; color:var(--ink-soft);
+  display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+}
+
+@media (max-width:600px){
+  header{padding:12px 14px 12px;}
+  h1{font-size:16px;}
+  .h-sub{font-size:10.5px; margin-top:1px;}
+  .h-stats{gap:10px; font-size:11px;}
+  .h-stats b{font-size:14px;}
+  .wrap{padding:18px 14px 0;}
+  .intro{padding:11px 13px; font-size:12px;}
+  .field-head{gap:7px;}
+  .field-head h2{font-size:15.5px;}
+  .field-bar{width:44px;}
+  .row{padding:8px 7px; gap:8px;}
+  .row-title{font-size:13px;}
+  .chipbtn{padding:6px 9px; font-size:11.5px;}
+  .controls input[type=search]{font-size:16px;}
+  footer{padding:14px 14px 0; flex-direction:column; gap:4px;}
+}
+
+</style>
+</head>
+<body>
+<a class="backlink" href="/works/">← 作ったもの一覧へ</a>
+<a class="backlink archive-link" href="archive.html">過去問アーカイブを見る →</a>
+
+<header>
+  <div class="htop">
+    <div>
+      <h1>埼玉大数学 知識チェックリスト</h1>
+      <div class="h-sub">前期(経済・教育学部)過去30年・106問の分析から、必要な知識だけを抽出</div>
+    </div>
+    <div class="h-stats">
+      <span><b id="statDone">0</b> / <span id="statTotal">0</span> 項目</span>
+      <span><b id="statHours">0</b>h 残り</span>
+    </div>
+  </div>
+  <div class="progress-wrap"><div class="pbar"><i id="pbarFill"></i></div></div>
+  <div class="controls">
+    <input type="search" id="q" placeholder="項目名で検索…">
+  </div>
+  <div class="controls">
+    <div class="chip-row">
+      <button class="chipbtn on" data-star="0">すべて</button>
+      <button class="chipbtn" data-star="5">★5だけ</button>
+      <button class="chipbtn" data-star="4">★4以上</button>
+      <button class="chipbtn" id="hideDone">未習得のみ</button>
+      <button class="chipbtn" id="onlyEx">過去問つきだけ</button>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="intro">
+    <b>埼玉大 頻出度</b>(★0〜5)は、知識ノードの構造自体は東大理三向けマップを流用しつつ、埼玉大学 前期数学の過去問106問(1996〜2025年度)に実際に出た形から星の重みを付け直したもの。数学IIIの範囲と、2次曲線・媒介変数・極座標・統計は過去30年出題が確認できないため対象外(★0)。全88項目に東大理三向けマップの<b>公式・要点と確認問題</b>を収録(項目を開くと表示)。主要な項目には実際の埼玉大過去問と解答例も添付(「解答を見る」)。
+  </div>
+  <div id="app"></div>
+  <p class="empty-msg" id="emptyMsg">条件に一致する項目がありません</p>
+</div>
+
+<footer>
+  <span>チェック状態はこの端末のブラウザにだけ保存されます（外部送信なし）</span>
+  <span id="genInfo"></span>
+</footer>
+
+<script>
+const STORAGE_KEY = "saitama-checklist-done-v1";
+const STATUS_KEY = "saitama-checklist-status-v1";
+
+let NODES = [];
+let byId = {};
+let state = { star: 0, hideDone: false, q: "", onlyEx: false };
+let status = {}; // id -> "o" | "triangle" | "x"
+
+try{
+  const raw = localStorage.getItem(STATUS_KEY);
+  if(raw){
+    status = JSON.parse(raw);
+  }else{
+    // migrate from the old plain done-checkbox storage, if present
+    const oldRaw = localStorage.getItem(STORAGE_KEY);
+    if(oldRaw){
+      for(const id of JSON.parse(oldRaw)) status[id] = "o";
+    }
+  }
+}catch(e){}
+
+function isDone(id){ return status[id] === "o"; }
+
+function save(){
+  try{ localStorage.setItem(STATUS_KEY, JSON.stringify(status)); }catch(e){}
+}
+
+const FIELD_ORDER = ["数学I","数学A","数学II","数学B","数学C"];
+
+function esc(s){
+  if(s === null || s === undefined) return "";
+  return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+
+const SUP_MAP = {
+  "⁰":"0","¹":"1","²":"2","³":"3","⁴":"4","⁵":"5","⁶":"6","⁷":"7","⁸":"8","⁹":"9",
+  "⁺":"+","⁻":"−","⁼":"=","⁽":"(","⁾":")",
+  "ⁿ":"n","ⁱ":"i","ˣ":"x","ʸ":"y","ᵃ":"a","ᵇ":"b","ᵏ":"k","ᵐ":"m","ᵖ":"p","ᵗ":"t"
+};
+const SUB_MAP = {
+  "₀":"0","₁":"1","₂":"2","₃":"3","₄":"4","₅":"5","₆":"6","₇":"7","₈":"8","₉":"9",
+  "₊":"+","₋":"−","₌":"=","₍":"(","₎":")",
+  "ₐ":"a","ₑ":"e","ᵢ":"i","ⱼ":"j","ₖ":"k","ₗ":"l","ₘ":"m","ₙ":"n","ₒ":"o","ₚ":"p","ᵣ":"r","ₛ":"s","ₜ":"t","ᵤ":"u","ᵥ":"v","ₓ":"x"
+};
+const SUP_RE = new RegExp("[" + Object.keys(SUP_MAP).join("") + "]+", "g");
+const SUB_RE = new RegExp("[" + Object.keys(SUB_MAP).join("") + "]+", "g");
+
+// Convert unicode sub/superscript run of characters into real <sup>/<sub> tags
+// so they render with the page's own glyphs instead of relying on font coverage
+// for the special unicode code points (which is the "文字化け" users were seeing).
+function mathify(s){
+  if(!s) return s;
+  return s
+    .replace(SUP_RE, run => "<sup>" + run.replace(/./g, c => SUP_MAP[c]) + "</sup>")
+    .replace(SUB_RE, run => "<sub>" + run.replace(/./g, c => SUB_MAP[c]) + "</sub>");
+}
+
+function em(s){ return mathify(esc(s)); }
+
+function stars(n){
+  return '<span class="star">' + '★'.repeat(n) + '☆'.repeat(5-n) + '</span>';
+}
+
+function render(){
+  const app = document.getElementById("app");
+  app.innerHTML = "";
+  let totalVisible = 0;
+
+  for(const field of FIELD_ORDER){
+    const nodesInField = NODES.filter(n => n._field === field);
+    if(nodesInField.length === 0) continue;
+
+    const fieldDone = nodesInField.filter(n => isDone(n.id)).length;
+
+    const fieldEl = document.createElement("div");
+    fieldEl.className = "field";
+
+    const head = document.createElement("div");
+    head.className = "field-head";
+    head.innerHTML = `
+      <span class="field-caret">▾</span>
+      <h2>${field}</h2>
+      <div class="field-bar"><i style="width:${nodesInField.length ? (100*fieldDone/nodesInField.length) : 0}%"></i></div>
+      <span class="field-count">${fieldDone}/${nodesInField.length}</span>
+    `;
+    head.addEventListener("click", () => fieldEl.classList.toggle("collapsed"));
+    fieldEl.appendChild(head);
+
+    const units = [...new Set(nodesInField.map(n => n.unit))];
+    let fieldHasVisible = false;
+
+    for(const unit of units){
+      const nodesInUnit = nodesInField.filter(n => n.unit === unit);
+      const visibleRows = [];
+
+      const unitEl = document.createElement("div");
+      unitEl.className = "unit";
+      unitEl.innerHTML = `<div class="unit-title">${unit}</div>`;
+
+      for(const n of nodesInUnit){
+        if(state.star > 0 && n.saitama < state.star) continue;
+        if(state.hideDone && isDone(n.id)) continue;
+        if(state.onlyEx && !n.example_problem) continue;
+        if(state.q && !n.title.toLowerCase().includes(state.q.toLowerCase())) continue;
+
+        totalVisible++;
+        fieldHasVisible = true;
+
+        const row = document.createElement("div");
+        const stClass = status[n.id] === "o" ? " done" : status[n.id] === "triangle" ? " status-triangle" : status[n.id] === "x" ? " status-x" : "";
+        row.className = "row" + stClass + (n.saitama === 0 ? " zero" : "");
+        row.dataset.id = n.id;
+
+        const prereqChips = (n.prereq || []).map(pid => {
+          const p = byId[pid];
+          return `<span class="prereq-chip">${em(p ? p.title : pid)}</span>`;
+        }).join("");
+
+        const st = status[n.id];
+        row.innerHTML = `
+          <div class="status-group">
+            <button type="button" class="status-btn" data-status="o" title="○ できた">○</button>
+            <button type="button" class="status-btn" data-status="triangle" title="△ あいまい">△</button>
+            <button type="button" class="status-btn" data-status="x" title="× できなかった">×</button>
+          </div>
+          <div>
+            <div class="row-title">${em(n.title)}</div>
+            <div class="row-meta">
+              ${stars(n.saitama)}
+              <span class="badge">Lv.${n.level}</span>
+              <span class="badge">${n.cost}分</span>
+              ${n.saitama === 0 ? '<span class="badge out">出題実績なし</span>' : ""}
+              ${n.example_problem ? '<span class="badge ex">過去問' + esc(n.example_year) + '</span>' : ""}
+              ${n.formula && n.formula.length ? '<span class="badge fm">公式あり</span>' : ""}
+              ${prereqChips}
+              <span class="id-chip">${esc(n.id)}</span>
+            </div>
+            <div class="detail">
+              ${n.formula && n.formula.length ? `
+              <div class="formula">
+                <div class="fm-head" data-toggle-formula="1"><span class="fm-toggle-arrow">▸</span>公式・要点を見る(自分で思い出してから確認)</div>
+                <ul class="fm-list">${n.formula.map(f => `<li>${em(f)}</li>`).join("")}</ul>
+                ${n.formula_q ? `
+                <div class="fm-check-head" data-toggle-check="1"><span class="fm-toggle-arrow">▸</span>確認問題で知識をチェック</div>
+                <div class="fm-check">
+                  <p><span class="lbl">問題</span>${em(n.formula_q)}</p>
+                  <button type="button" class="fm-check-btn" data-reveal-answer="1">✓ 答えをチェック(習得済みにする)</button>
+                  <div class="fm-answer">
+                    <p><span class="lbl">答え</span>${em(n.formula_a)}</p>
+                    ${n.formula_derivation && n.formula_derivation.length ? `<p><span class="lbl">導出・確かめ方</span>${em(n.formula_derivation.join("\n"))}</p>` : ""}
+                  </div>
+                </div>` : ""}
+              </div>` : ""}
+              <p><span class="lbl">なぜ必要か</span>${em(n.why)}</p>
+              <p class="trap"><span class="lbl">よくある躓き</span>${em(n.trap)}</p>
+              ${n.example_problem ? `
+              <div class="example">
+                <div class="ex-head">埼玉大 ${esc(n.example_year)}年度(${esc(n.example_category)})</div>
+                <p class="ex-problem">${em(n.example_problem)}</p>
+                <div class="ex-solution-head" data-toggle-sol="1"><span class="ex-toggle-arrow">▸</span>解答を見る</div>
+                <div class="ex-solution">${em(n.example_solution)}</div>
+              </div>` : ""}
+            </div>
+          </div>
+        `;
+
+        function setStatus(val){
+          // clicking the already-active button clears the status (toggle off)
+          if(status[n.id] === val) delete status[n.id];
+          else status[n.id] = val;
+          save();
+          renderStats();
+          row.querySelectorAll(".status-btn").forEach(b => {
+            b.classList.toggle("active", status[n.id] === b.dataset.status);
+          });
+          row.classList.remove("done","status-triangle","status-x");
+          if(status[n.id] === "o") row.classList.add("done");
+          else if(status[n.id] === "triangle") row.classList.add("status-triangle");
+          else if(status[n.id] === "x") row.classList.add("status-x");
+        }
+
+        row.querySelectorAll(".status-btn").forEach(btn => {
+          btn.classList.toggle("active", status[n.id] === btn.dataset.status);
+          btn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            setStatus(btn.dataset.status);
+          });
+        });
+
+        const solToggle = row.querySelector("[data-toggle-sol]");
+        if(solToggle){
+          solToggle.addEventListener("click", (e) => {
+            e.stopPropagation();
+            solToggle.closest(".example").classList.toggle("show-sol");
+          });
+        }
+
+        const formulaToggle = row.querySelector("[data-toggle-formula]");
+        if(formulaToggle){
+          formulaToggle.addEventListener("click", (e) => {
+            e.stopPropagation();
+            formulaToggle.closest(".formula").classList.toggle("show-formula");
+          });
+        }
+
+        const checkToggle = row.querySelector("[data-toggle-check]");
+        if(checkToggle){
+          checkToggle.addEventListener("click", (e) => {
+            e.stopPropagation();
+            checkToggle.closest(".formula").classList.toggle("show-check");
+          });
+        }
+
+        const revealBtn = row.querySelector("[data-reveal-answer]");
+        if(revealBtn){
+          revealBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            revealBtn.nextElementSibling.classList.add("shown");
+            revealBtn.hidden = true;
+            if(status[n.id] !== "o") setStatus("o");
+          });
+        }
+
+        const fmBadge = row.querySelector(".badge.fm");
+        if(fmBadge){
+          fmBadge.addEventListener("click", (e) => {
+            e.stopPropagation();
+            row.classList.add("open");
+            row.querySelector(".formula")?.classList.add("show-formula");
+            row.querySelector(".formula")?.scrollIntoView({block:"nearest", behavior:"smooth"});
+          });
+        }
+
+        row.addEventListener("click", () => {
+          row.classList.toggle("open");
+        });
+
+        unitEl.appendChild(row);
+        visibleRows.push(row);
+      }
+
+      if(visibleRows.length > 0) fieldEl.appendChild(unitEl);
+    }
+
+    if(fieldHasVisible) app.appendChild(fieldEl);
+  }
+
+  document.getElementById("emptyMsg").style.display = totalVisible === 0 ? "block" : "none";
+  renderStats();
+}
+
+function renderStats(){
+  const doneCount = NODES.filter(n => isDone(n.id)).length;
+  const total = NODES.length;
+  const remainingMin = NODES.filter(n => !isDone(n.id)).reduce((s,n) => s + n.cost, 0);
+
+  document.getElementById("statDone").textContent = doneCount;
+  document.getElementById("statTotal").textContent = total;
+  document.getElementById("statHours").textContent = Math.round(remainingMin/60);
+  document.getElementById("pbarFill").style.width = (total ? 100*doneCount/total : 0) + "%";
+}
+
+document.getElementById("q").addEventListener("input", (e) => {
+  state.q = e.target.value;
+  render();
+});
+
+document.querySelectorAll(".chipbtn[data-star]").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".chipbtn[data-star]").forEach(b => b.classList.remove("on"));
+    btn.classList.add("on");
+    state.star = Number(btn.dataset.star);
+    render();
+  });
+});
+
+document.getElementById("hideDone").addEventListener("click", (e) => {
+  state.hideDone = !state.hideDone;
+  e.target.classList.toggle("on", state.hideDone);
+  render();
+});
+
+document.getElementById("onlyEx").addEventListener("click", (e) => {
+  state.onlyEx = !state.onlyEx;
+  e.target.classList.toggle("on", state.onlyEx);
+  render();
+});
+
+fetch("nodes.json")
+  .then(r => r.json())
+  .then(nodes => {
+    NODES = nodes;
+    byId = Object.fromEntries(nodes.map(n => [n.id, n]));
+    document.getElementById("genInfo").textContent = `全 ${nodes.length} 項目 / 総学習時間 ${Math.round(nodes.reduce((s,n)=>s+n.cost,0)/60)} 時間分`;
+    render();
+  })
+  .catch(err => {
+    document.getElementById("app").innerHTML = '<p style="color:var(--accent)">データの読み込みに失敗しました: ' + err + '</p>';
+  });
+</script>
+
+<footer class="site-footer">
+  <a class="backlink" href="/works/">← 作ったもの一覧へ</a>
+</footer>
+</body>
+</html>
