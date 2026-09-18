@@ -978,7 +978,7 @@
           </a>
         </article>
 
-        <!-- 20 これから作りたいもの -->
+        <!-- 20 無音カメラ -->
         <article class="block">
           <div class="divider">
             <span class="divider-line"></span>
@@ -989,7 +989,44 @@
             </svg>
             <span class="divider-line"></span>
           </div>
-          <p class="block-label"><span>Backlog · 20</span><span class="status">構想中</span></p>
+          <p class="block-label"><span>Works · 20</span><span class="status status--wip">開発中</span></p>
+          <h2 class="block-title">無音カメラ</h2>
+          <p class="block-text">シャッター音を鳴らさずに撮れるシンプルなカメラアプリ。AVCapturePhotoOutputを使わず、常時流しているビデオ映像からシャッターを押した瞬間のフレームを静止画として書き出す方式で、OS側のシャッター音トリガー自体を発生させません。</p>
+
+          <ul class="points">
+            <li>インカメラ/アウトカメラ切り替え、トーチON/OFF、撮影した写真はそのまま端末の写真アプリへ保存</li>
+            <li>撮影回数の制限なし。広告はシャッター操作と重ならない最下部のバナーのみ</li>
+            <li>日本国内端末はOS/キャリア仕様でカメラ関連音が強制される場合がある旨をストア説明文・審査ノートに明記</li>
+          </ul>
+
+          <ul class="tech">
+            <li>Swift / SwiftUI</li>
+            <li>AVFoundation (AVCaptureVideoDataOutput)</li>
+            <li>Google Mobile Ads SDK</li>
+          </ul>
+
+          <p class="support-note">コアロジック実装・ビルド確認済み。実機での無音撮影確認とアプリアイコン用意が次のステップです。</p>
+
+          <a class="block-action block-action--ghost" href="silentcamera/privacy/">
+            <span>プライバシーポリシーを見る</span>
+            <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </article>
+
+        <!-- 21 これから作りたいもの -->
+        <article class="block">
+          <div class="divider">
+            <span class="divider-line"></span>
+            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
+              <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
+              <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
+            </svg>
+            <span class="divider-line"></span>
+          </div>
+          <p class="block-label"><span>Backlog · 21</span><span class="status">構想中</span></p>
           <h2 class="block-title">これから作りたいもの</h2>
           <p class="block-text">まだ手をつけていない案です。作ると決めたものではなく、「これが要るのでは」と思って書き留めてあるものを、そのまま置いておきます。どれも、越えないといけない壁のほうを先に書いています。</p>
 
