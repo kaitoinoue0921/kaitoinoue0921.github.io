@@ -423,22 +423,22 @@ nav button:active{transform:scale(.93)}
       <p class="sub">まちで困っていること、こうなったら嬉しいことを書いてください。誰が書いたかは公開されません。</p>
 
       <div class="field">
-        <label>カテゴリ</label>
-        <div class="catgrid" id="catPick"></div>
+        <label id="catPickLabel">カテゴリ</label>
+        <div class="catgrid" id="catPick" role="group" aria-labelledby="catPickLabel"></div>
       </div>
 
       <div class="field">
-        <label>場所 <span class="hint">地図に表示されます</span></label>
+        <label for="fLoc">場所 <span class="hint">地図に表示されます</span></label>
         <select id="fLoc"></select>
       </div>
 
       <div class="field">
-        <label>タイトル <span class="hint">30字以内が読まれやすい</span></label>
+        <label for="fTitle">タイトル <span class="hint">30字以内が読まれやすい</span></label>
         <input type="text" id="fTitle" maxlength="60" placeholder="例：〇〇公園のベンチが壊れたまま">
       </div>
 
       <div class="field">
-        <label>状況の説明 <span class="hint">いつ・どこで・誰が困るか</span></label>
+        <label for="fBody">状況の説明 <span class="hint">いつ・どこで・誰が困るか</span></label>
         <textarea id="fBody" maxlength="800" placeholder="例：3か月前からベンチの板が割れており、高齢の方が休憩できません。散歩コースの途中にあるため、休める場所がここしかなく…"></textarea>
       </div>
 
@@ -790,7 +790,7 @@ function openDetail(id, keepScroll){
     </div>
 
     <div class="field" style="margin-top:16px">
-      <label>意見・解決策を投稿</label>
+      <label for="dCmtBody">意見・解決策を投稿</label>
       <textarea id="dCmtBody" style="min-height:80px" placeholder="この課題について知っていること、実現できそうな解決策を書いてください"></textarea>
       <div style="display:flex;gap:8px;align-items:center;margin-top:8px">
         <label style="font-size:12px;font-weight:500;display:flex;align-items:center;gap:5px;cursor:pointer">

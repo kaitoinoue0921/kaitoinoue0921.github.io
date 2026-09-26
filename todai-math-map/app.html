@@ -306,19 +306,19 @@
 <main>
   <div id="installBar" style="display:none"></div>
   <div class="filters" id="filters">
-    <select id="fField"><option value="">全分野</option></select>
-    <select id="fUnit"><option value="">全単元</option></select>
-    <select id="fState">
+    <select id="fField" aria-label="分野で絞り込む"><option value="">全分野</option></select>
+    <select id="fUnit" aria-label="単元で絞り込む"><option value="">全単元</option></select>
+    <select id="fState" aria-label="習得状態で絞り込む">
       <option value="">状態: すべて</option>
       <option value="ready">着手可能</option>
       <option value="locked">前提未達</option>
       <option value="done">習得済み</option>
     </select>
-    <select id="fTodai">
+    <select id="fTodai" aria-label="東大必要度で絞り込む">
       <option value="">東大必要度: すべて</option>
       <option value="5">★5のみ</option><option value="4">★4以上</option><option value="3">★3以上</option>
     </select>
-    <input type="search" id="fQ" placeholder="検索…">
+    <input type="search" id="fQ" placeholder="検索…" aria-label="項目を検索">
     <button class="btn sec" id="reset" style="margin:0;padding:5px 11px">リセット</button>
   </div>
   <div id="view"></div>

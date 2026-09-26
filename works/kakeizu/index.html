@@ -190,6 +190,7 @@
     margin-bottom:4px;
   }
   .brand .kanji{
+    margin:0;
     font-family:"Shippori Mincho",serif;
     font-weight:700;
     font-size:1.9rem;
@@ -782,6 +783,7 @@
     box-shadow:0 10px 40px var(--shadow);
   }
   .dialog-title{
+    margin-top:0;
     font-family:"Shippori Mincho",serif;
     font-weight:700;
     font-size:1.1rem;
@@ -949,7 +951,7 @@
   <aside class="sidebar" id="sidebar">
     <a class="backlink" href="/works/">← 作ったもの一覧へ</a>
     <div class="brand">
-      <div class="kanji">家系図</div>
+      <h1 class="kanji">家系図</h1>
       <div class="sub">文章から自動で家系図をつくる</div>
     </div>
 
@@ -1067,7 +1069,7 @@
 
 <div id="nodeEditDialog" class="dialog-overlay" style="display:none;">
   <div class="dialog-card">
-    <div class="dialog-title">「<span id="nodeEditName"></span>」を編集</div>
+    <h2 class="dialog-title">「<span id="nodeEditName"></span>」を編集</h2>
     <div class="node-edit-section">
       <label class="field-label" for="nodeEditRename">名前を修正</label>
       <div class="line-input-row">
@@ -1129,7 +1131,7 @@
 
 <div id="shareDialog" class="dialog-overlay" style="display:none;">
   <div class="dialog-card">
-    <div class="dialog-title" id="shareDialogTitle">書き出し</div>
+    <h2 class="dialog-title" id="shareDialogTitle">書き出し</h2>
     <p class="dialog-desc" id="shareDialogDesc"></p>
     <textarea id="shareTextarea" class="dialog-textarea"></textarea>
     <div class="dialog-actions">
