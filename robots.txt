@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
 Disallow: /fujihara.html
+Disallow: /ayase.html
 
 Sitemap: https://kaitoinoue0921.github.io/sitemap.xml
