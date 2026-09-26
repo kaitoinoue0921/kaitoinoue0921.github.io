@@ -17,7 +17,7 @@
 <style>
 :root{
   --bg:#0f1214; --panel:#171b1f; --panel2:#1e242a; --line:#2b333b;
-  --tx:#e8edf2; --tx2:#9aa7b4; --tx3:#6c7a88;
+  --tx:#e8edf2; --tx2:#9aa7b4; --tx3:#8a97a4;
   --accent:#3fbf8f;
   --s:#f0b429; --a:#3fbf8f; --b:#4d9de0; --c:#7c8894; --un:#414c56; --blocked:#000;
   --ok:#3fbf8f; --mid:#e0a33e; --busy:#d9534f;
@@ -409,12 +409,12 @@ button{cursor:pointer}
     </div>
   </div>
   <div class="region">
-    <select id="pref"></select>
+    <select id="pref" aria-label="都道府県を選択"></select>
     <span class="sep">›</span>
-    <select id="city"></select>
+    <select id="city" aria-label="市区町村を選択"></select>
   </div>
   <div class="searchwrap">
-    <input id="topsearch" placeholder="施設名で検索（例: 図書館、みるる）" autocomplete="off">
+    <input id="topsearch" placeholder="施設名で検索（例: 図書館、みるる）" autocomplete="off" aria-label="施設名で検索">
     <div id="searchsuggest" hidden></div>
   </div>
   <div id="topcount"></div>
@@ -437,7 +437,7 @@ button{cursor:pointer}
         <button data-r="Z" data-on="1">Z</button>
       </div>
       <div class="row">
-        <select id="cat">
+        <select id="cat" aria-label="種別で絞り込む">
           <option value="">すべての種別</option>
           <option>図書館</option><option>公民館・生涯学習センター</option>
           <option>コミュニティセンター</option><option>市民活動センター</option>
@@ -446,7 +446,7 @@ button{cursor:pointer}
           <option>サービスエリア・PA</option><option>大学・学習施設</option>
           <option>市役所・公共施設</option><option>商業施設</option>
         </select>
-        <select id="sort">
+        <select id="sort" aria-label="並び順">
           <option value="score">スコア順</option>
           <option value="rank">ランク順</option>
           <option value="late">遅くまで開いている順</option>
@@ -2996,8 +2996,8 @@ function openReviewForm(sp){
     ${AXES.map(x=>starsRow(x.k,x.label,3)).join('')}
     ${visitBlock(sel)}
     ${factsBlock(sel)}
-    <div class="field" style="margin-top:14px"><label>ニックネーム</label><input id="ru" placeholder="名無しでもOK"></div>
-    <div class="field"><label>コメント</label>
+    <div class="field" style="margin-top:14px"><label for="ru">ニックネーム</label><input id="ru" placeholder="名無しでもOK"></div>
+    <div class="field"><label for="rc">コメント</label>
       <textarea id="rc" placeholder="例）平日の午前中は空いていて席を選べる。電源は窓際の6席のみ。"></textarea></div>
     <button class="btn" id="rsave">投稿する</button>
     <button class="btn ghost" id="rcancel">キャンセル</button>`);
@@ -3031,8 +3031,8 @@ function openFlagForm(sp){
     <p class="lead">星評価はつけず、「ここでは勉強できなかった」ことだけを記録します。
     閉まっていた、自習室ではなかった、満席で入れなかった、など理由があれば書いてください。</p>
     ${visitBlock(sel)}
-    <div class="field" style="margin-top:14px"><label>ニックネーム</label><input id="fu" placeholder="名無しでもOK"></div>
-    <div class="field"><label>理由・コメント <span style="color:var(--s)">*</span></label>
+    <div class="field" style="margin-top:14px"><label for="fu">ニックネーム</label><input id="fu" placeholder="名無しでもOK"></div>
+    <div class="field"><label for="fc">理由・コメント <span style="color:var(--s)">*</span></label>
       <textarea id="fc" placeholder="例）行ったら休館日だった／貸室のみで自習不可だった"></textarea></div>
     <button class="btn" id="fsave">報告する</button>
     <button class="btn ghost" id="fcancel">キャンセル</button>`);
@@ -3063,33 +3063,33 @@ function openAddForm(lat,lng){
   openModal(`<h2>スポットを追加</h2>
     <p class="lead">緯度 ${lat.toFixed(5)} / 経度 ${lng.toFixed(5)} に登録します。<br>
     最初の評価がそのままこのスポットのスコアになります。</p>
-    <div class="field"><label>施設名 <span style="color:var(--s)">*</span></label><input id="n" placeholder="例）○○市立図書館"></div>
+    <div class="field"><label for="n">施設名 <span style="color:var(--s)">*</span></label><input id="n" placeholder="例）○○市立図書館"></div>
     <div class="row" style="gap:8px">
-      <div class="field" style="flex:1"><label>都道府県</label>
+      <div class="field" style="flex:1"><label for="pf">都道府県</label>
         <select id="pf">${PREFS.map(p=>`<option ${p===(state.pref||'栃木県')?'selected':''}>${p}</option>`).join('')}</select></div>
-      <div class="field" style="flex:1"><label>市町村</label><input id="ci" value="${esc(state.city||'')}" placeholder="例）宇都宮市"></div>
+      <div class="field" style="flex:1"><label for="ci">市町村</label><input id="ci" value="${esc(state.city||'')}" placeholder="例）宇都宮市"></div>
     </div>
-    <div class="field"><label>種別</label>
+    <div class="field"><label for="ca">種別</label>
       <select id="ca"><option>図書館</option><option>公民館・生涯学習センター</option>
       <option>コミュニティセンター</option><option>市民活動センター</option>
       <option>カフェ</option><option>ファミレス</option><option>フードコート</option>
       <option>温泉・入浴施設</option><option>道の駅</option>
       <option>サービスエリア・PA</option><option>大学・学習施設</option>
       <option>市役所・公共施設</option><option>商業施設</option></select></div>
-    <div class="field"><label>住所</label><input id="ad" placeholder="例）宇都宮市○○町1-2-3"></div>
+    <div class="field"><label for="ad">住所</label><input id="ad" placeholder="例）宇都宮市○○町1-2-3"></div>
     <div class="row" style="gap:8px">
-      <div class="field" style="flex:1"><label>平日の利用時間</label><input id="hw" placeholder="9:00–19:00"></div>
-      <div class="field" style="flex:1"><label>土日祝の利用時間</label><input id="he" placeholder="9:00–17:00"></div>
+      <div class="field" style="flex:1"><label for="hw">平日の利用時間</label><input id="hw" placeholder="9:00–19:00"></div>
+      <div class="field" style="flex:1"><label for="he">土日祝の利用時間</label><input id="he" placeholder="9:00–17:00"></div>
     </div>
     <div class="row" style="gap:8px">
-      <div class="field" style="flex:1"><label>休館日</label><input id="cl" placeholder="例）月曜"></div>
-      <div class="field" style="flex:1"><label>料金</label><input id="fe" value="無料"></div>
+      <div class="field" style="flex:1"><label for="cl">休館日</label><input id="cl" placeholder="例）月曜"></div>
+      <div class="field" style="flex:1"><label for="fe">料金</label><input id="fe" value="無料"></div>
     </div>
     <div class="grp">あなたの評価</div>
     ${AXES.map(x=>starsRow(x.k,x.label,3)).join('')}
     ${visitBlock(sel)}
     ${factsBlock(sel)}
-    <div class="field" style="margin-top:14px"><label>コメント・注意点</label>
+    <div class="field" style="margin-top:14px"><label for="no">コメント・注意点</label>
       <textarea id="no" placeholder="例）2階の学習室が自由に使える。土日は混雑。給水機は1階。"></textarea></div>
     <button class="btn" id="asave">登録する</button>
     <button class="btn ghost" id="acancel">キャンセル</button>`);
@@ -3297,8 +3297,8 @@ function openCloudForm(){
     <p class="lead">Supabase のプロジェクトURLと <b>anon public</b> キーを入れると、
     スポットと口コミが全員で共有されます。未設定ならこの端末内にだけ保存されます。<br>
     テーブルは同梱の <b>supabase-schema.sql</b> を Supabase の SQL Editor に貼って実行すると作れます。</p>
-    <div class="field"><label>Project URL</label><input id="su" value="${esc(cfg.url)}" placeholder="https://xxxx.supabase.co"></div>
-    <div class="field"><label>anon public key</label><input id="sk" value="${esc(cfg.key)}" placeholder="eyJhbGciOi..."></div>
+    <div class="field"><label for="su">Project URL</label><input id="su" value="${esc(cfg.url)}" placeholder="https://xxxx.supabase.co"></div>
+    <div class="field"><label for="sk">anon public key</label><input id="sk" value="${esc(cfg.key)}" placeholder="eyJhbGciOi..."></div>
     <p class="hint">anonキーは公開前提の鍵なのでブラウザに置いて問題ありませんが、
     テーブルのRLS（行レベルセキュリティ）は必ず設定してください。schema.sqlに雛形が入っています。</p>
     <button class="btn" id="ssave">接続する</button>
@@ -3363,7 +3363,7 @@ function openPlacesForm(){
   openModal(`<h2>Google情報の設定</h2>
     <p class="lead">Places API のキーを入れると、スポット詳細に「Googleで営業時間・評価を確認」ボタンが出ます。
     未設定でも他の機能は変わりません。</p>
-    <div class="field"><label>APIキー（Places API・HTTPリファラー制限推奨）</label>
+    <div class="field"><label for="pk">APIキー（Places API・HTTPリファラー制限推奨）</label>
       <input id="pk" value="${esc(key)}" placeholder="AIza..."></div>
     <p class="hint">キーはこのブラウザの localStorage にだけ保存されます。呼び出しはボタンを押した時だけ発生し、
     自動では叩きません。1回の呼び出しは無料枠内に収まる金額です。</p>

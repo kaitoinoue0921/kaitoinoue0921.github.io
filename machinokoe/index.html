@@ -356,9 +356,9 @@ nav button:active{transform:scale(.93)}
   @page{margin:18mm 16mm}
 }
 .doc{font-family:"Hiragino Mincho ProN","Yu Mincho",serif;color:#000;background:#fff;line-height:1.85;font-size:11pt}
-.doc h1{font-size:16pt;text-align:center;margin-bottom:4mm;letter-spacing:.1em}
+.doc h2{font-size:16pt;text-align:center;margin-bottom:4mm;letter-spacing:.1em}
 .doc .docmeta{text-align:right;font-size:9.5pt;margin-bottom:8mm;line-height:1.6}
-.doc h2{font-size:12pt;border-left:4px solid #000;padding-left:8px;margin:7mm 0 3mm}
+.doc h3{font-size:12pt;border-left:4px solid #000;padding-left:8px;margin:7mm 0 3mm}
 .doc table{width:100%;border-collapse:collapse;font-size:10pt;margin:3mm 0}
 .doc table th,.doc table td{border:1px solid #333;padding:5px 8px;text-align:left}
 .doc table th{background:#eee;width:28%}
@@ -423,22 +423,22 @@ nav button:active{transform:scale(.93)}
       <p class="sub">まちで困っていること、こうなったら嬉しいことを書いてください。誰が書いたかは公開されません。</p>
 
       <div class="field">
-        <label>カテゴリ</label>
-        <div class="catgrid" id="catPick"></div>
+        <label id="catPickLabel">カテゴリ</label>
+        <div class="catgrid" id="catPick" role="group" aria-labelledby="catPickLabel"></div>
       </div>
 
       <div class="field">
-        <label>場所 <span class="hint">地図に表示されます</span></label>
+        <label for="fLoc">場所 <span class="hint">地図に表示されます</span></label>
         <select id="fLoc"></select>
       </div>
 
       <div class="field">
-        <label>タイトル <span class="hint">30字以内が読まれやすい</span></label>
+        <label for="fTitle">タイトル <span class="hint">30字以内が読まれやすい</span></label>
         <input type="text" id="fTitle" maxlength="60" placeholder="例：〇〇公園のベンチが壊れたまま">
       </div>
 
       <div class="field">
-        <label>状況の説明 <span class="hint">いつ・どこで・誰が困るか</span></label>
+        <label for="fBody">状況の説明 <span class="hint">いつ・どこで・誰が困るか</span></label>
         <textarea id="fBody" maxlength="800" placeholder="例：3か月前からベンチの板が割れており、高齢の方が休憩できません。散歩コースの途中にあるため、休める場所がここしかなく…"></textarea>
       </div>
 
@@ -790,7 +790,7 @@ function openDetail(id, keepScroll){
     </div>
 
     <div class="field" style="margin-top:16px">
-      <label>意見・解決策を投稿</label>
+      <label for="dCmtBody">意見・解決策を投稿</label>
       <textarea id="dCmtBody" style="min-height:80px" placeholder="この課題について知っていること、実現できそうな解決策を書いてください"></textarea>
       <div style="display:flex;gap:8px;align-items:center;margin-top:8px">
         <label style="font-size:12px;font-weight:500;display:flex;align-items:center;gap:5px;cursor:pointer">
@@ -840,7 +840,7 @@ function generateProposal(id){
 
   $('#printroot').innerHTML = `
     <div class="doc">
-      <h1>地 域 課 題 に 関 す る 提 案 書</h1>
+      <h2>地 域 課 題 に 関 す る 提 案 書</h2>
       <div class="docmeta">
         ${today.getFullYear()}年${today.getMonth()+1}月${today.getDate()}日<br>
         まちのコエ 運営事務局（非営利）<br>
@@ -851,7 +851,7 @@ function generateProposal(id){
       ${VOTE_THRESHOLD}件以上の賛同が集まったものについて、
       議論の内容を要約し提出するものです。ご検討のほどよろしくお願い申し上げます。</p>
 
-      <h2>1. 課題の概要</h2>
+      <h3>1. 課題の概要</h3>
       <table>
         <tr><th>件名</th><td>${esc(is.title)}</td></tr>
         <tr><th>分類</th><td>${c.label}</td></tr>
@@ -861,18 +861,18 @@ function generateProposal(id){
         <tr><th>議論件数</th><td>${cms.length} 件（うち解決策の提案 ${sols.length} 件）</td></tr>
       </table>
 
-      <h2>2. 住民が共有した状況</h2>
+      <h3>2. 住民が共有した状況</h3>
       <p>${esc(is.body).replace(/\n/g,'<br>')}</p>
 
-      <h2>3. 住民から寄せられた解決策</h2>
+      <h3>3. 住民から寄せられた解決策</h3>
       ${sols.length ? `<ul>${sols.map(s => `<li>${esc(s.body)}（${esc(s.name)}）</li>`).join('')}</ul>`
                     : '<p>具体的な解決策の提案は、本書作成時点では寄せられていません。</p>'}
 
-      <h2>4. その他の意見</h2>
+      <h3>4. その他の意見</h3>
       ${opinions.length ? `<ul>${opinions.map(s => `<li>${esc(s.body)}（${esc(s.name)}）</li>`).join('')}</ul>`
                         : '<p>該当なし。</p>'}
 
-      <h2>5. 要望事項</h2>
+      <h3>5. 要望事項</h3>
       <p>上記の状況を踏まえ、${PLACES[is.place].name}における「${esc(is.title)}」について、
       現地確認および対応可否のご検討をお願いいたします。
       対応の可否・時期にかかわらず、ご回答をいただけましたら、
