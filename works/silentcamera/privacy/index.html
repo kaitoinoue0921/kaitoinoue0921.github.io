@@ -132,7 +132,7 @@
 
   <section>
     <h2><span class="num">2</span>取得する情報</h2>
-    <p>本アプリは、個人を特定できる情報や利用状況データを外部サーバーへ送信しません。取り扱う情報はすべて端末内に留まります。</p>
+    <p>本アプリ自体は、撮影した写真や個人を特定できる情報を外部サーバーへ送信しません。ただし広告表示のため、Google Mobile Ads SDKが下記の情報を取り扱います。</p>
     <div class="card">
       <table class="data-table">
         <thead>
@@ -149,6 +149,11 @@
             <td><span class="pill local">端末内（写真ライブラリ）のみ</span></td>
             <td>撮影した写真は端末の写真ライブラリに保存されます。本アプリ自体が写真を外部に送信・アップロードすることはありません。</td>
           </tr>
+          <tr>
+            <td>広告識別子（IDFA）・デバイス情報</td>
+            <td><span class="pill">Google Mobile Ads SDK</span></td>
+            <td>画面下部のバナー広告を表示するために使用します。初回起動時にトラッキングの許可を確認し、許可しない場合はパーソナライズされない広告が表示されます。</td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -157,8 +162,9 @@
   <section>
     <h2><span class="num">3</span>第三者への提供</h2>
     <p>
-      本アプリは広告SDK・アクセス解析SDK・トラッキングツールを一切使用していません。取得した情報を第三者に提供・販売することもありません。
-      将来的に広告SDKを導入する場合は、本ポリシーを改定した上でSDKが収集する情報を明記します。
+      本アプリは広告表示のためにGoogle Mobile Ads SDK（Google LLC）を使用しています。同SDKが広告配信の目的で取得する情報の詳細は
+      <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer">Googleのパートナーサイト向けポリシー</a>
+      をご確認ください。本アプリ自体がユーザーの情報を第三者に販売することはありません。アクセス解析SDK・トラッキングツールはGoogle Mobile Ads SDK以外に使用していません。
     </p>
   </section>
 
