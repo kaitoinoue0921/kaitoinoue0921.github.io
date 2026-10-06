@@ -2257,6 +2257,18 @@ const SEED=[
    closed:'毎週火曜日（祝日の場合は開館し翌日休館）・毎月最終金曜日・年末年始（12/28~1/3）・特別整理期間',
    fee:'無料',facilities:{aircon:1},
    note:'TEL 096-384-5000',reviews:[]}),
+ s({pref:'熊本県',name:'くまもと文学・歴史館',category:'図書館',city:'熊本市',
+   address:'熊本県熊本市中央区出水2丁目5番1号',lat:32.786147,lng:130.73519,
+   hoursWd:'9:30–17:15',hoursWe:'9:30–17:15',
+   closed:'毎週火曜日（祝日の場合は開館し翌日休館）・毎月最終金曜日・年末年始（12/28~1/3）・特別整理期間（年間14日以内）',
+   fee:'無料',facilities:{aircon:1},
+   note:'熊本県立図書館と同じ建物に入る展示施設。観覧料は無料。館内に勉強向きの席があるかは未確認で、自習は隣の県立図書館の第1・第2閲覧室（平日19時まで）が向いている。',reviews:[]}),
+ s({pref:'熊本県',name:'天草市立中央図書館（ここらす2階）',category:'図書館',city:'天草市',
+   address:'熊本県天草市浄南町4番15号',lat:32.449833,lng:130.196533,
+   hoursWd:'火〜金 9:00–19:00',hoursWe:'土日祝 9:00–17:00',
+   closed:'月曜日（祝日の場合は翌日）・年末年始（12/29~1/3）',
+   fee:'無料',facilities:{power:1,aircon:1},
+   note:'複合施設「ここらす」の2階。窓際に充電プラグ付きの閲覧席があり、閲覧席には間仕切りがある（公式サイトの記載）。',reviews:[]}),
  s({pref:'大分県',name:'大分県立図書館',category:'図書館',city:'大分市',
    address:'大分県大分市王子西町14番1号',lat:33.2394519,lng:131.5899801,
    hoursWd:'9:00–19:00',hoursWe:'土日祝 9:00–17:00',
@@ -2562,8 +2574,8 @@ let MapA=null;
 function LeafletAdapter(){
   const map=L.map('map',{zoomControl:false}).setView([36.62,139.83],9.4);
   L.control.zoom({position:'topleft'}).addTo(map);
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
-    {attribution:'&copy; OpenStreetMap &copy; CARTO',maxZoom:19}).addTo(map);
+  L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png',
+    {attribution:'&copy; <a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noopener">国土地理院</a>',maxNativeZoom:18,maxZoom:19}).addTo(map);
   let markers=[], byId=new Map();
   return {
     clear(){ markers.forEach(m=>map.removeLayer(m)); markers=[]; byId.clear(); },
