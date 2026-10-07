@@ -1,0 +1,635 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>医学部受験ロードマップ｜地方から医学部を目指す人の地図</title>
+<meta name="description" content="ネット上に散らばった医学部受験の情報を一枚にまとめた地図。いつまでに何をするか、何をどの順で覚えるか、答案の書き方、入試方式とお金、地方から受けるときの注意。">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>%F0%9F%A9%BA</text></svg>">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@600;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site-head"><div class="wrap">
+  <a class="brand" href="#top">医学部受験ロードマップ</a>
+  <nav class="nav">
+    <a href="#map">地図</a>
+    <a href="plan.html">月ごとの計画</a>
+    <a href="units.html">単元ごと</a>
+    <a href="kyutei.html">旧帝大向け</a>
+    <a href="region.html">九州の地域枠</a>
+    <a href="math-map/index.html">東大理三 数学マップ</a>
+    <a href="#types">志望校タイプ別</a>
+    <a href="#goals">時期の目安</a>
+    <a href="#subjects">科目別</a>
+    <a href="#answer">答案</a>
+    <a href="#routes">入試方式</a>
+    <a href="#money">お金</a>
+    <a href="#local">地方から</a>
+    <a href="#split">割れている点</a>
+  </nav>
+</div></header>
+
+<main class="wrap" id="top">
+<h1>医学部受験ロードマップ</h1>
+<p class="lead">予備校、医学部専門予備校、大学、官公庁、受験情報サイトなど、100を超えるページを読んで一枚にまとめました。多くの情報源で共通している目安と、情報源によって言うことが違う点は、分けて書いています。地方の公立高校から医学部を目指す人が、いつまでに何をすればいいかを自分で判断するための地図です。</p>
+<p class="note">調べたのは2026年10月6〜7日です。日付と金額は2027年度入試、つまり2027年1〜3月の試験のものです。入試は毎年変わるので、出願の前には必ず各大学の募集要項と、都道府県の公式ページで確かめてください。</p>
+
+<h2 id="stance">このサイトの立場</h2>
+<p class="lead">受験は、生まれた場所や家庭の事情で、始める時点の条件がそろっていない競争です。いつまでに何をすればいいかという情報の差、近くに塾や自習できる場所、答案を見てくれる人がいるかという環境の差が、実力の差として見えてしまいます。この二つの格差のなかに、このサイトを読む人も、書いている人もいます。</p>
+<p class="lead">資本主義そのものを否定するつもりはありません。競争と市場があるから、良い教材や予備校が生まれ、お金をかけた分だけ質の高い支援を受けられる面があります。一方で、お金と情報のある地域に有利さが集まり、そうでない地域の人が同じスタートラインに立ちにくいという欠点もあります。どちらか一方だけを見ず、功と罪の両方を前提にして、地図に書ける情報は無料で出し、お金で買うものは何が必要で何が不要かを線引きして示します。</p>
+
+<section class="now-panel" id="now" aria-live="polite">
+  <div class="pick-row" data-pick="grade"><span>いまの学年</span></div>
+  <div class="pick-row" data-pick="type"><span>志望校</span></div>
+  <div id="now-body"><p class="note">学年を選ぶと、今日の日付から、今月やること、この時期の終わりの目安、次の締切をここに出します。志望校のタイプを選ぶと、そのタイプ向けの補足も出ます。選んだ学年とチェックは、この端末のブラウザにだけ保存されます。</p></div>
+</section>
+
+<h2 id="map">全体の地図</h2>
+<p>高1から本番までを7つの時期に分けて、科目ごとにやることを並べました。多くの情報源で共通している、標準的なペースです。表は横にスクロールできます。学年を選ぶと、いまの時期の列に色がつきます。</p>
+<div class="grid-scroll"><table class="roadmap">
+<thead><tr>
+  <th></th>
+  <th data-col="c1">高1</th>
+  <th data-col="c2">高2<br><small>4〜8月</small></th>
+  <th data-col="c3">高2<br><small>9〜3月</small></th>
+  <th data-col="c4">高3<br><small>4〜6月</small></th>
+  <th data-col="c5">高3<br><small>7〜8月</small></th>
+  <th data-col="c6">高3<br><small>9〜11月</small></th>
+  <th data-col="c7">高3<br><small>12月〜本番</small></th>
+</tr></thead>
+<tbody>
+<tr data-row="数学"><th>数学</th>
+  <td data-col="c1">IA・IIBを教科書と傍用問題集で進める。定期テストで取りこぼさない</td>
+  <td data-col="c2">網羅系の参考書1冊で、IA・IIBを標準レベルまで。夏に数IIIを始める</td>
+  <td data-col="c3">数III・Cを傍用問題集のレベルまで進める</td>
+  <td data-col="c4">網羅系で数IIIまで標準を固める</td>
+  <td data-col="c5">教科書範囲をすべて終えて、演習用の問題集へ</td>
+  <td data-col="c6">志望校レベルの演習と過去問</td>
+  <td data-col="c7">過去問の仕上げと、共通テスト形式の対策</td>
+</tr>
+<tr data-row="英語"><th>英語</th>
+  <td data-col="c1">単語帳を1冊決めて毎日回す。文法を1周</td>
+  <td data-col="c2">単語帳を回し続ける。文法の問題集を解く</td>
+  <td data-col="c3">文法を2周。英文解釈に入る。単語の7〜8割を覚える</td>
+  <td data-col="c4">長文に入る</td>
+  <td data-col="c5">長文の量をこなす。英作文を始める</td>
+  <td data-col="c6">過去問。和訳と英作文を書いて直してもらう</td>
+  <td data-col="c7">共通テスト形式とリスニングの仕上げ</td>
+</tr>
+<tr data-row="理科"><th>理科</th>
+  <td data-col="c1">理科基礎を授業でしっかり</td>
+  <td data-col="c2">2科目を決める。化学に加えて物理か生物。授業に合わせて進める</td>
+  <td data-col="c3">2科目の基礎を進める。学校の進度が遅い分野は自分で先に進める</td>
+  <td data-col="c4">2科目の全範囲を一通り終える</td>
+  <td data-col="c5">標準問題集で演習</td>
+  <td data-col="c6">過去問と記述の練習</td>
+  <td data-col="c7">共通テスト形式の仕上げ</td>
+</tr>
+<tr data-row="国語・社会・情報"><th>国語・社会・情報</th>
+  <td data-col="c1">授業と定期テストを大事にする</td>
+  <td data-col="c2">授業と定期テスト</td>
+  <td data-col="c3">1月に共通テストを一度解いて、距離を知る</td>
+  <td data-col="c4">模試で現在地を確かめる</td>
+  <td data-col="c5">古文・漢文と社会を始める。薄く長く続ける</td>
+  <td data-col="c6">遅くとも11月に情報Iを始める</td>
+  <td data-col="c7">共通テスト形式で本格的に仕上げる</td>
+</tr>
+<tr data-row="答案・面接・小論文"><th>答案・面接・小論文</th>
+  <td data-col="c1">医療のニュースを読んで短く要約する</td>
+  <td data-col="c2">要約を続ける。大学が公開している出題の意図を読んでみる</td>
+  <td data-col="c3">数学の答案を、日本語で過程を書く形で書く</td>
+  <td data-col="c4">記述模試で、答案を採点される経験をする</td>
+  <td data-col="c5">小論文を書き始める。答案を人に見てもらう</td>
+  <td data-col="c6">時間を計って過去問。面接の準備</td>
+  <td data-col="c7">面接の練習を人相手に繰り返す</td>
+</tr>
+<tr data-row="情報・手続き"><th>情報・手続き</th>
+  <td data-col="c1">オンラインのオープンキャンパスを見る。地域枠や自治医大があることを知る</td>
+  <td data-col="c2">志望校の候補と、使える入試方式を調べる</td>
+  <td data-col="c3">自分の県の地域枠と修学資金のページを読む</td>
+  <td data-col="c4">奨学金の予約採用を学校経由で申し込む</td>
+  <td data-col="c5">受験校と日程の候補を決め、宿の目処をつける。総合型は9月から出願</td>
+  <td data-col="c6">防衛医大は10月上旬締切。共通テストの出願は9月中旬〜10月初め。推薦・地域枠は11月上旬が多い</td>
+  <td data-col="c7">私立の出願は12〜1月。国公立の出願は1月下旬〜2月初め</td>
+</tr>
+</tbody>
+</table></div>
+<p class="note">この表は、多くの情報源が共通して挙げている標準的なペースです。数IIIや理科をいつ始めるかのように、情報源によって大きく違う点は「<a href="#split">情報源で割れているところ</a>」にまとめています。</p>
+
+<div class="cards">
+  <a class="card" href="plan.html"><b>月ごとの計画</b><span>高1・高2は2か月ごと、高3と既卒は1か月ごとに、科目ごとのやることを並べた計画。志望校のタイプ別の補足つき。</span></a>
+  <a class="card" href="units.html"><b>単元ごとの目安</b><span>数学、英語、化学、物理、生物、国語、社会、情報Iを単元に分けて、順番、時期、終えたと言える基準、医学部での位置づけ。</span></a>
+</div>
+
+<h2 id="types">志望校のタイプ別の違い</h2>
+<p>同じ医学部でも、志望校のタイプによって、どこに力を入れるべきかが変わります。上のボタンでタイプを選ぶと、月ごとの計画と単元のページに、そのタイプ向けの補足が出ます。</p>
+<div class="tscroll"><table class="t">
+  <tr><th></th><th>旧帝大・上位国立</th><th>地方国立</th><th>私立</th><th>地域枠・自治医大</th></tr>
+  <tr><th>共通テスト</th><td>ボーダーは86〜90%</td><td>80%台前半の大学が多い。共通テストの比重が高い大学もあり、失点を減らすことが最重要</td><td>使わない一般選抜が中心。共通テスト利用の方式もある</td><td>推薦では課す大学と課さない大学がある。自治医大は使わず、独自の一次試験</td></tr>
+  <tr><th>二次の重み</th><td>総点の75〜80%ほど。記述で決まる</td><td>大学によって3割〜7割と幅がある</td><td>一次が学力試験、二次が面接と小論文という形が多い</td><td>面接の比重が大きい。学力は一般選抜と同じ水準が求められると考えておく</td></tr>
+  <tr><th>数学</th><td>難しい問題で部分点を積む論証力。整数、確率、微積分</td><td>標準問題を落とさない</td><td>計算の速さと正確さ。数IIIの計算量</td><td>受ける方式に合わせる</td></tr>
+  <tr><th>英語</th><td>和訳、要約、自由英作文と書く量が多い</td><td>標準的な長文と和訳</td><td>文法・語法の問題を出す大学もある。大学ごとの癖が大きい</td><td>受ける方式に合わせる</td></tr>
+  <tr><th>理科</th><td>考察と論述まで</td><td>標準問題集のレベルを完璧に</td><td>時間内に解き切る速さ</td><td>受ける方式に合わせる</td></tr>
+  <tr><th>面接・小論文</th><td>面接を点数化する大学もある</td><td>面接で不合格になる大学がある</td><td>二次でほぼ必須。MMIの大学もある</td><td>地域医療への考えを、自分の県の実情とあわせて話せるように</td></tr>
+  <tr><th>ペース</th><td>数IIIと理科を高2のうちに一通り終える前倒しが要る</td><td>標準のペースで、共通テスト対策を手厚く</td><td>国語と社会が要らない分、英数理に集中できる</td><td>推薦は11月出願なので、高3の夏までに仕上げる</td></tr>
+  <tr><th>併願</th><td>前期の1校が勝負。後期は少ない</td><td>共通テストの自己採点で、配点の比を見て出願先を選ぶ</td><td>5〜6校を受けることが多い。2月上旬は連戦になり、学費と入学金も考える</td><td>働く場所と年数の義務を理解したうえで出願する</td></tr>
+</table></div>
+<p class="note">ボーダーと配点の比は、このページ下の「<a href="#border">共通テストと二次試験の重み</a>」と同じ出典です。タイプ別の書き分けは、それらの情報と各大学の入試の形式からこのページがまとめたもので、個々の大学で例外があります。</p>
+
+<h2 id="goals">時期ごとの目安</h2>
+<p>それぞれの時期の終わりに、ここまでできていれば順調、という目安です。できたものにチェックを入れてください。チェックはこの端末のブラウザに保存されます。</p>
+
+<section class="goal" data-col="c1" id="goal-c1"><h3>高1の終わり <span class="prog"></span></h3><ul class="checks">
+  <li><label><input type="checkbox" data-id="c1-1"><span>数学IA・IIを教科書と傍用問題集で一通り進め、定期テストで取りこぼしがない</span></label></li>
+  <li><label><input type="checkbox" data-id="c1-2"><span>英単語帳を1冊に決めて、毎日回す習慣がある</span></label></li>
+  <li><label><input type="checkbox" data-id="c1-3"><span>英文法を1周した</span></label></li>
+  <li><label><input type="checkbox" data-id="c1-4"><span>医学部の入試方式をひととおり知っている。一般選抜、推薦、地域枠、自治医大、防衛医大、産業医大</span></label></li>
+  <li><label><input type="checkbox" data-id="c1-5"><span>医療のニュースを読んで、短く要約する習慣がある</span></label></li>
+</ul><p class="note">高1のうちに数IIIを一周する、という情報源もありますが少数派です。まずはIA・IIBを固めるほうが多数です。</p></section>
+
+<section class="goal" data-col="c2" id="goal-c2"><h3>高2の夏の終わり <span class="prog"></span></h3><ul class="checks">
+  <li><label><input type="checkbox" data-id="c2-1"><span>数学IA・IIBを、網羅系の参考書の例題レベルまで解ける</span></label></li>
+  <li><label><input type="checkbox" data-id="c2-2"><span>数学IIIに手をつけた</span></label></li>
+  <li><label><input type="checkbox" data-id="c2-3"><span>理科の2科目を決めた</span></label></li>
+  <li><label><input type="checkbox" data-id="c2-4"><span>英単語帳の半分以上が言える</span></label></li>
+</ul></section>
+
+<section class="goal" data-col="c3" id="goal-c3"><h3>高2の終わり <span class="prog"></span></h3><ul class="checks">
+  <li><label><input type="checkbox" data-id="c3-1"><span>共通テストの過去問を一度解いて、英語と数学で7〜8割取れる</span></label></li>
+  <li><label><input type="checkbox" data-id="c3-2"><span>数学III・Cを、傍用問題集のレベルまで進めた</span></label></li>
+  <li><label><input type="checkbox" data-id="c3-3"><span>英単語の7〜8割が言える。英文法は2周した。英文解釈に入った</span></label></li>
+  <li><label><input type="checkbox" data-id="c3-4"><span>理科は2科目とも基礎レベルまで進んだ。学校で遅い分野は自分で先に進めた</span></label></li>
+  <li><label><input type="checkbox" data-id="c3-5"><span>志望校の候補と、使える入試方式を調べた。地域枠や推薦の出願条件も確認した</span></label></li>
+</ul><p class="note">公立校から逆転できるのは高2の冬まで、と書く情報源もあります。ただし1件だけで、根拠は示されていません。</p></section>
+
+<section class="goal" data-col="c4" id="goal-c4"><h3>高3の6月の終わり <span class="prog"></span></h3><ul class="checks">
+  <li><label><input type="checkbox" data-id="c4-1"><span>理科2科目の全範囲を一通り終えた。ゴールデンウィークまでを目標にする情報源もある</span></label></li>
+  <li><label><input type="checkbox" data-id="c4-2"><span>英語の長文に入った</span></label></li>
+  <li><label><input type="checkbox" data-id="c4-3"><span>5月の模試を受けて、現在地を知った</span></label></li>
+  <li><label><input type="checkbox" data-id="c4-4"><span>奨学金が必要なら、予約採用を学校経由で申し込んだ。締切は学校ごとに違い、5〜6月が多い</span></label></li>
+</ul></section>
+
+<section class="goal" data-col="c5" id="goal-c5"><h3>高3の夏の終わり <span class="prog"></span></h3><ul class="checks">
+  <li><label><input type="checkbox" data-id="c5-1"><span>全科目の教科書範囲を終えて、演習用の問題集に入った</span></label></li>
+  <li><label><input type="checkbox" data-id="c5-2"><span>志望校の過去問を1年分解いて、何が足りないかを知った</span></label></li>
+  <li><label><input type="checkbox" data-id="c5-3"><span>古文・漢文と社会の共通テスト対策を始めた</span></label></li>
+  <li><label><input type="checkbox" data-id="c5-4"><span>小論文を書く練習を始めた</span></label></li>
+  <li><label><input type="checkbox" data-id="c5-5"><span>受験する大学と日程の候補を決めて、宿の目処をつけた</span></label></li>
+  <li><label><input type="checkbox" data-id="c5-6"><span>総合型、推薦、地域枠、防衛医大を考えるなら、出願の時期と条件を確認した</span></label></li>
+</ul></section>
+
+<section class="goal" data-col="c6" id="goal-c6"><h3>高3の11月の終わり <span class="prog"></span></h3><ul class="checks">
+  <li><label><input type="checkbox" data-id="c6-1"><span>過去問を時間を計って解き、答案を人に見てもらっている</span></label></li>
+  <li><label><input type="checkbox" data-id="c6-2"><span>情報Iの対策を始めた</span></label></li>
+  <li><label><input type="checkbox" data-id="c6-3"><span>推薦や地域枠を受けるなら、出願を済ませた</span></label></li>
+  <li><label><input type="checkbox" data-id="c6-4"><span>面接の準備を始めた。志望理由と、目指す医師像を自分の言葉で言える</span></label></li>
+  <li><label><input type="checkbox" data-id="c6-5"><span>私立を受けるなら、受験校の試験日と入学金の締切を一覧にした</span></label></li>
+</ul></section>
+
+<section class="goal" data-col="c7" id="goal-c7"><h3>本番まで <span class="prog"></span></h3><ul class="checks">
+  <li><label><input type="checkbox" data-id="c7-1"><span>12月から、共通テストの形式で英数理を仕上げた</span></label></li>
+  <li><label><input type="checkbox" data-id="c7-2"><span>共通テストの後、自己採点とボーダーを見て出願校を決めた。国公立の出願は1月25日〜2月3日</span></label></li>
+  <li><label><input type="checkbox" data-id="c7-3"><span>面接の練習を、人を相手に何度かやった</span></label></li>
+  <li><label><input type="checkbox" data-id="c7-4"><span>私立の連続受験に向けて、移動と宿を確定した</span></label></li>
+</ul></section>
+
+<h3 id="ronin">既卒の1年の流れ</h3>
+<p>浪人の1年は、多くの情報源がほぼ同じ流れを示しています。</p>
+<table class="t">
+  <tr><th>4〜6月</th><td>教科書、単語、文法を一からやり直す。わかったつもりの分野を洗い出す</td></tr>
+  <tr><th>7〜8月</th><td>標準問題で演習量を積む。苦手分野を補強する</td></tr>
+  <tr><th>9〜11月</th><td>過去問と記述の練習。答案を人に見てもらう</td></tr>
+  <tr><th>12月〜</th><td>共通テスト形式と過去問の総仕上げ</td></tr>
+</table>
+<p class="note">共通テストの国語と社会は、3月から薄く始めるという情報源と、10月以降でよいという情報源があります。1日の勉強時間は10〜13時間を目安に挙げる記事がありますが、根拠は示されていません。</p>
+
+<h2 id="subjects">科目別に、何をどの順で</h2>
+<p>教材名の後ろの数字は、調べたページのうち、その本を勧めていたページの数です。どの本でも合格できますが、複数の情報源で名前が挙がる本は、それだけ多くの人が使って結果を出しています。迷ったら数字の大きいものから選んで、途中で乗り換えないことが大事です。チェックを入れると、終えた段階を記録できます。</p>
+
+<h3 id="sub-math">数学</h3>
+<ol class="stage">
+  <li><label class="checks"><input type="checkbox" data-id="m-1"> <span>基礎</span></label><span class="when">高1〜高2の春</span><br>
+    教科書と傍用問題集を確実に。<span class="book">基礎問題精講<i>4件</i></span><br>
+    <span class="note">基礎問題精講だけでは偏差値55〜60あたりで止まり、入試には足りないという指摘が2件あります。</span></li>
+  <li><label class="checks"><input type="checkbox" data-id="m-2"> <span>標準</span></label><span class="when">IA・IIBは高2の夏まで、IIIは高3の春まで</span><br>
+    網羅系の参考書を1冊選んで、最後までやる。全問ではなく例題を中心にする。<br>
+    <span class="book">青チャート<i>8件</i></span><span class="book">Focus Gold<i>6件</i></span>のどちらか1冊、その後に<span class="book">1対1対応の演習<i>3件</i></span></li>
+  <li><label class="checks"><input type="checkbox" data-id="m-3"> <span>医学部レベル</span></label><span class="when">高3の夏から</span><br>
+    <span class="book">黒チャート<i>2件</i></span><span class="book">数学重要問題集<i>2件</i></span><br>
+    <span class="note">全問を網羅しようとしないこと。志望校の過去問で出る分野を優先する。</span></li>
+  <li><label class="checks"><input type="checkbox" data-id="m-4"> <span>過去問</span></label><span class="when">高3の夏に1年分、秋から本格的に</span><br>
+    本番の半年前から、冬から、と情報源で幅があります。</li>
+</ol>
+<p class="fail">難しすぎる教材から始める。途中で別の参考書に乗り換える。青チャートを全部やろうとして時間切れになる。難問を解けば医学部レベルになると思い込む。</p>
+<p class="note">数IIIなしで受けられる医学部は、国公立の後期の一部と私立の4校ほどしかありません。事実上、数IIIは必須です。</p>
+
+<h3 id="sub-eng">英語</h3>
+<ol class="stage">
+  <li><label class="checks"><input type="checkbox" data-id="e-1"> <span>単語</span></label><span class="when">高2の終わりまでに7〜8割</span><br>
+    <span class="book">システム英単語<i>4件</i></span><span class="book">ターゲット1900<i>2件</i></span><br>
+    <span class="note">丸暗記で終わらせず、長文の中で出会い直すこと。</span></li>
+  <li><label class="checks"><input type="checkbox" data-id="e-2"> <span>文法</span></label><span class="when">高2のうちに2周</span><br>
+    <span class="book">Vintage<i>4件</i></span><span class="book">Next Stage<i>1件</i></span><br>
+    <span class="note">共通テストには文法だけを問う問題がないので、Vintageは半分で十分という見方もあります。</span></li>
+  <li><label class="checks"><input type="checkbox" data-id="e-3"> <span>英文解釈</span></label><span class="when">高2の後半〜高3</span><br>
+    <span class="book">入門英文解釈の技術70</span><span class="book">ポレポレ英文読解プロセス50</span><span class="book">英文読解の透視図<i>1件</i></span><br>
+    <span class="note">ここを飛ばして長文に行くのが、いちばん多い失敗です。</span></li>
+  <li><label class="checks"><input type="checkbox" data-id="e-4"> <span>長文</span></label><span class="when">高3の春〜夏</span><br>
+    <span class="book">やっておきたい英語長文<i>2件</i></span><span class="book">ポラリス<i>1件</i></span></li>
+  <li><label class="checks"><input type="checkbox" data-id="e-5"> <span>英作文と和訳</span></label><span class="when">高3の夏から</span><br>
+    <span class="book">ハイパートレーニング<i>2件</i></span><span class="book">基礎英作文問題精講<i>1件</i></span><span class="book">ユメサク<i>1件</i></span><br>
+    <span class="note">書いたものを人に見てもらわないと伸びにくい分野です。「<a href="#answer">答案を書く力</a>」も読んでください。</span></li>
+  <li><label class="checks"><input type="checkbox" data-id="e-6"> <span>リスニング</span></label><span class="when">高3の秋〜冬</span><br>
+    音の変化のルールを知る、形式に慣れる、過去問、の順。設問の先読みは有効です。</li>
+</ol>
+<p class="note">医学部だからといって特別な対策は要りません。医学系の単語は、過去問で慣れれば足ります。英検のスコアで優遇がある大学もありますが、条件は大学ごとに違うので要項で確認してください。</p>
+
+<h3 id="sub-chem">化学</h3>
+<ol class="stage">
+  <li><label class="checks"><input type="checkbox" data-id="ch-1"> <span>講義系で理解</span></label><span class="when">高2の秋〜</span><br>
+    <span class="book">鎌田・福間の化学 Doシリーズ<i>5件</i></span><br>
+    <span class="note">理論化学を土台にして、無機と有機へ進む。辞書として<span class="book">化学の新研究<i>4件</i></span>を手元に置く人が多い。</span></li>
+  <li><label class="checks"><input type="checkbox" data-id="ch-2"> <span>標準の演習</span></label><span class="when">高3の春〜夏</span><br>
+    <span class="book">重要問題集<i>4件</i></span></li>
+  <li><label class="checks"><input type="checkbox" data-id="ch-3"> <span>最難関向け</span></label><span class="when">重要問題集を仕上げてから</span><br>
+    <span class="book">化学の新演習<i>1件</i></span>。全員に必要なわけではありません。</li>
+</ol>
+<p class="fail">英語と数学に偏って化学を後回しにする。暗記だけで理由を押さえない。参考書を終えても、時間内に得点する練習をしていない。</p>
+
+<h3 id="sub-phys">物理</h3>
+<ol class="stage">
+  <li><label class="checks"><input type="checkbox" data-id="p-1"> <span>入門</span></label><span class="when">高2</span><br>
+    <span class="book">セミナー物理<i>3件</i></span><span class="book">漆原の物理<i>2件</i></span>のどちらかで、情報源が割れています。</li>
+  <li><label class="checks"><input type="checkbox" data-id="p-2"> <span>理解を固める</span></label><br>
+    <span class="book">物理のエッセンス<i>4件</i></span></li>
+  <li><label class="checks"><input type="checkbox" data-id="p-3"> <span>標準の演習</span></label><br>
+    <span class="book">良問の風<i>3件</i></span>、続いて<span class="book">名問の森<i>5件</i></span></li>
+  <li><label class="checks"><input type="checkbox" data-id="p-4"> <span>最難関向け</span></label><br>
+    <span class="book">難問題の系統とその解き方<i>3件</i></span></li>
+</ol>
+<p class="note">学校の授業では電磁気が高3の秋になることが多いので、高2の冬から春に自分で進めておく、という提案があります。</p>
+<p class="fail">わかったつもりで先へ進む。公式を覚えるだけで終わる。問題が解けることと、本番で時間内に点が取れることは別だと気づかない。</p>
+
+<h3 id="sub-bio">生物</h3>
+<ol class="stage">
+  <li><label class="checks"><input type="checkbox" data-id="b-1"> <span>基礎</span></label><br>
+    <span class="book">セミナー生物</span>か<span class="book">エクセル生物</span><i class="note">あわせて2件</i></li>
+  <li><label class="checks"><input type="checkbox" data-id="b-2"> <span>理解を深める</span></label><br>
+    <span class="book">大森徹の最強講義<i>2件</i></span></li>
+  <li><label class="checks"><input type="checkbox" data-id="b-3"> <span>標準の問題集</span></label><span class="when">受験年の7〜9月に基礎と知識の論述</span></li>
+  <li><label class="checks"><input type="checkbox" data-id="b-4"> <span>考察と論述</span></label><span class="when">9〜11月から過去問</span><br>
+    考察問題と論述の専用の問題集で、書く練習をする。</li>
+</ol>
+<p class="fail">数学が苦手だという理由だけで生物を選ぶ。入試に出ない高度な知識に時間を使う。</p>
+
+<h3 id="sub-choice">理科の選び方</h3>
+<p>化学を軸にして、物理か生物を選ぶ形が、どの情報源でも共通しています。</p>
+<table class="t">
+  <tr><th>物理を選ぶ理由</th><td>受けられる大学がいちばん多い。暗記が少なく高得点を狙える。本番の得点が安定しやすい</td></tr>
+  <tr><th>生物を選ぶ理由</th><td>基礎知識で安定して点が取れる。入学後の勉強に直結する</td></tr>
+  <tr><th>決める時期</th><td>高2の春から冬。学校の科目選択に合わせる</td></tr>
+</table>
+<p class="note">国公立で生物を選べない医学部は数校あるとされますが、どの大学かは記事によって食い違っています。志望校の最新の要項で確かめてください。数学が得意かどうかで選ぶという記事と、数学が苦手だから生物というのは危ないという記事でも割れています。</p>
+
+<h3 id="sub-kyotsu">共通テストの国語・社会・情報I</h3>
+<ul>
+  <li>英数理は、二次試験の勉強がそのまま共通テストにも効きます。共通テストの形式に合わせた対策は、12月から本格的に始める情報源が多いです。</li>
+  <li>現代文は、特別な対策をあまりしなくていいとされます。古文・漢文と社会は暗記が中心なので、夏までに始めて薄く長く続けます。古典を12月から始めて最後まで苦手だった、という合格者の声があります。</li>
+  <li>情報Iは、11月から2か月足らずで9割近く取れたという記事と、夏休みまでに始めるのが理想という記事があります。医学部では、共通テストの総点のうち情報Iの配点は5〜10%ほどの大学が多いです。</li>
+</ul>
+
+<h2 id="answer">答案を書く力</h2>
+<p>知識があっても、採点する人に伝わる答案になっていなければ点になりません。そして答案の力は、教材を読むだけでは身につきにくく、書いたものを誰かに見てもらう必要があります。地方でいちばん手に入りにくいのがこの部分です。まず、大学自身が公表していることから見ていきます。</p>
+
+<h3>大学が公表していること</h3>
+<p>いくつかの大学は、入試問題と一緒に、出題の意図や解答例をWebで公開しています。無料で読める、いちばん確かな情報です。</p>
+<ul>
+  <li>東京科学大は、2026年度前期の医学科数学の解答に、論証が不十分な答案は正答としない場合があり、方針が正しければ加点する場合があると書いています。生物では、基本的な知識に加えて、問題文を根拠に正確に論理を展開できるか、グラフから結論を導けるかを見るとしています。</li>
+  <li>京都府立医科大は、数学の問題ごとに、知識を問うのか論証力や応用力を試すのかを示しています。生物では論理的に筋が通っていれば正解として扱い、部分点も出すとしています。英語の自由英作文では、論理的で合理的な内容を制限字数の中で表現できるかを見ています。</li>
+  <li>東京大は、数学で解答の道筋を論理的かつ簡潔に表現する力を求めています。医学部に限った話ではありません。</li>
+</ul>
+<p>どの大学も、答えそのものより、そこに至る過程が読み手に伝わるかを見ています。配点の内訳や、よくある誤答まで書いた採点講評は、医学科については見つかりませんでした。</p>
+
+<h3>科目ごとの書き方</h3>
+<p class="note">ここから先は予備校や塾の経験則で、大学が公式に示した基準ではありません。</p>
+<table class="t">
+  <tr><th>数学</th><td>式を並べるだけにせず、日本語で過程を書く。時間が足りなくても方針は書く。n=1,2,3と試した跡や図を残す。必要条件と十分条件の片方だけでも示す。前の小問の結果を使って先に進む。こうした書き方で部分点がつくことがあります。同値記号の使い間違いと、論理の飛躍は典型的な減点です</td></tr>
+  <tr><th>物理</th><td>使う法則の名前、式、答えの順に書く。図と前提条件を言葉で添える。計算の細かい部分は評価の中心ではありません</td></tr>
+  <tr><th>化学</th><td>字数指定のある記述は、指定字数の8〜9割を埋める</td></tr>
+  <tr><th>生物</th><td>採点のポイント1つにつき1点という見立てが多い。知識を問う論述は1〜2行、考察は2〜3行が目安</td></tr>
+  <tr><th>英語の和訳</th><td>文の構造と文法がわかっていることを訳で示す。部分的な誤訳や訳し漏れは減点される。友人が読んで意味が通じる日本語にする</td></tr>
+  <tr><th>自由英作文</th><td>内容と構成で基礎点がつき、文法のミスで引かれる。難しい表現より正確な文。主張、理由、主張の順。冠詞と時制に注意し、書いた英文を日本語に訳し戻して点検する</td></tr>
+</table>
+
+<h3>練習の回し方</h3>
+<ol>
+  <li>時間を計って、本番と同じように答案を書く。</li>
+  <li>大学が公開している解答例や出題の意図と見比べる。公開していない大学なら、過去問集の解答と比べる。</li>
+  <li>自分で点検する。式だけが並んでいないか、日本語で過程を書いたか、論理が飛んでいないか、自分にしかわからない書き方になっていないか。</li>
+  <li>人に見てもらう。学校の先生、通信添削、オンラインの指導など。入試の採点基準を知っている人に見てもらうのがいちばんです。</li>
+  <li>直されたところを踏まえて、同じ問題をもう一度書く。</li>
+</ol>
+<p class="note">第三者に添削してもらうことが有効だという点は、多くの情報源で一致しています。何回書き直せばいいか、どのくらいの頻度で見てもらえばいいかについて、根拠のあるデータは見つかりませんでした。</p>
+<div class="judge">1から3は一人でもできます。4だけは人が要ります。学校の先生に頼みにくいときは、まず1から3を回して、自分で直せない疑問だけをまとめて持っていくと、見てもらう側の負担も小さくなります。</div>
+
+<h2 id="routes">入試方式を知る</h2>
+<p>医学部への入口は一般選抜だけではありません。地方の高校生にとって大事なのは、地元の出身であることが条件になる入口があることです。地域枠と自治医大がそうです。ただし多くは、卒業後に決められた地域で働く義務とセットになっています。</p>
+
+<div class="tscroll"><table class="t">
+  <tr><th>方式</th><th>いつ</th><th>特徴と縛り</th></tr>
+  <tr><td>一般選抜 前期</td><td>共通テストが1月中旬、出願が1月下旬〜2月初め、試験が2月25日から</td><td>国公立の中心。前期と後期でそれぞれ1校ずつ受けられる</td></tr>
+  <tr><td>一般選抜 後期</td><td>3月12日から</td><td>実施する国公立医学部は12〜13校ほどに減り、募集人数も大半が30人未満。学科試験がない大学が多い</td></tr>
+  <tr><td>学校推薦型</td><td>出願は11月上旬が多い。共通テストを課さないものは12月から発表、課すものは2月10日までに発表</td><td>県内の高校出身などの条件がつくことが多い。地域枠の推薦もここに入る</td></tr>
+  <tr><td>総合型</td><td>出願は9月から、発表は11月から</td><td>医学部の総合型と推薦では面接が必須</td></tr>
+  <tr><td>地域枠</td><td>推薦か一般の中に設けられる。県の修学資金の事前募集が10月にある県もある</td><td>県の修学資金を借り、卒業後に借りた期間の1.5倍、6年なら9年、県が指定する病院などで働くと返済が免除される。途中でやめると利息をつけて返す</td></tr>
+  <tr><td>自治医科大学</td><td>出願は1月4〜20日、一次試験は1月25・26日に自分の都道府県で、二次は2月3日に栃木</td><td>都道府県ごとに2〜3人、全体で約100人。出願できる県は1つだけ。学費などの修学資金約2,300万円が貸与され、卒業後9年、そのうち半分はへき地などで働くと返済が免除される</td></tr>
+  <tr><td>防衛医科大学校</td><td>受付は10月上旬まで、一次試験は10月下旬、最終発表は1月下旬</td><td>18歳以上21歳未満。学費はかからず、学生のうちから手当が月16.1万円出る。卒業後9年の勤務義務があり、満たさずにやめると償還金がかかる。2025年3月卒業生の最高額は約4,421万円</td></tr>
+  <tr><td>産業医科大学</td><td>推薦は11月上旬に出願して12月に試験、一般は2月中旬</td><td>修学資金があり、9年、そのうち2年以上は産業医として働くと返済が免除される</td></tr>
+</table></div>
+
+<h4>地域枠について知っておくこと</h4>
+<ul>
+  <li>修学資金の額は県によって違います。たとえば長野県は月20万円、6年で1,440万円で、途中でやめると年10%の利息をつけて返します。鹿児島県は6年で940万円、義務は9年で、県内の高校出身者が対象です。自分の県の「医師確保」や「医学生修学資金」のページが、いちばん確かな情報源です。</li>
+  <li>2008〜2019年に地域枠で入学した約9,700人のうち、約450人、4.6%が途中で離脱したという集計があります。働く場所や診療科が縛られることが、いちばん大きな制約です。</li>
+  <li>地域枠などの臨時の定員は、2027年度から少しずつ減らしていく方針が国の検討会で了承されています。どの県でどれだけ減るかは、まだはっきりしていません。大学によっては一般の枠を減らして地域枠を増やしているところもあります。</li>
+</ul>
+
+<h3 id="schedule">2027年度入試の主な日程</h3>
+<div class="tscroll"><table class="t">
+  <tr><th>時期</th><th>できごと</th></tr>
+  <tr><td>2026年9月15日〜10月2日</td><td>共通テストの出願（締切済み）</td></tr>
+  <tr><td>2026年10月上旬</td><td>防衛医科大学校の受付締切は10月8日</td></tr>
+  <tr><td>2026年11月上旬</td><td>学校推薦型と地域枠の出願締切が集中する</td></tr>
+  <tr><td>2026年12月〜2027年1月</td><td>私立医学部の一般選抜の出願</td></tr>
+  <tr><td>2027年1月16・17日</td><td>共通テスト。追試は1月23・24日</td></tr>
+  <tr><td>2027年1月下旬</td><td>1月に一次試験をする私立は4校に減った。自治医科と国際医療福祉が1月25日、帝京が1月21〜23日、近畿の前期が1月31日</td></tr>
+  <tr><td>2027年1月25日〜2月3日</td><td>国公立の出願</td></tr>
+  <tr><td>2027年2月1〜4日</td><td>私立の一次試験が18校集中する。2月4日だけで6校</td></tr>
+  <tr><td>2027年2月10日まで</td><td>国公立前期の第一段階選抜の結果</td></tr>
+  <tr><td>2027年2月25日〜</td><td>国公立の前期試験</td></tr>
+  <tr><td>2027年3月上旬</td><td>前期の合格発表。国立は3月6〜10日、公立は3月1〜10日</td></tr>
+  <tr><td>2027年3月12日〜</td><td>国公立の後期試験。発表は3月20〜24日</td></tr>
+</table></div>
+
+<h3 id="border">共通テストと二次試験の重み</h3>
+<ul>
+  <li>河合塾の2027年度入試の予想、9月時点では、国公立医学部の共通テストのボーダーは78〜90%です。最上位の大学は86〜90%、多くの大学は80%台前半にあります。予想の細かい数字は版や資料によって少し違います。</li>
+  <li>実際の合格者の平均点も、ボーダーとほぼ同じ水準でした。2026年度は東大の91.9%から弘前の76.2%まで幅があります。</li>
+  <li>共通テストと二次試験の配点の比は、大学によって大きく違います。旧帝大は二次が75〜80%を占める一方、弘前、佐賀、徳島などは二次が3割ほどです。</li>
+</ul>
+<div class="judge">配点の比は、志望校選びにそのまま使えます。共通テストで安定して点が取れる人は共通テストの比重が高い大学を、記述が得意な人は二次の比重が高い大学を探すと、同じ学力でも合格の可能性が変わります。</div>
+<ul>
+  <li>前期の二次試験は、英語、数学、理科2科目、面接が主流です。東大と京大は国語もあり、群馬、横浜市立、京都府立医科、奈良県立医科は小論文を課します。</li>
+  <li>情報Iを点数に入れる大学が増えています。2026年度は総点の0〜11%で、10%の大学が16校と最も多く、2027年度からは徳島や香川なども点数化します。</li>
+</ul>
+
+<h3 id="interview">面接と小論文</h3>
+<ul>
+  <li>2025年の時点で、国公立も私立も、すべての医学部が面接をしているとされます。</li>
+  <li>面接は点数をつけない大学もありますが、面接の結果だけで不合格になる大学があります。広島大は2027年度から面接を200点にし、50点以下は不合格です。面接を軽く見ないことです。</li>
+  <li>MMIと呼ばれる、短い面接を部屋を変えて何回も受ける形式があります。慈恵、東邦、昭和、藤田、国公立では千葉、筑波、東北が導入していて、東京医科も2027年度の一般選抜から始めます。</li>
+  <li>小論文は私立の多くが一次試験で課します。よく出るテーマは、AIと医療、地域医療と医師の偏り、高齢化、再生医療、感染症、チーム医療、医療倫理、医師の働き方、予防医療、災害医療です。面接でも、目指す医師像、チーム医療、地域医療はよく聞かれるので、準備が重なります。</li>
+  <li>始める時期の目安は、高1と高2は医療のニュースを読んで要約する、高3の春から夏に小論文を書く練習を増やす、秋からは時間を計って過去問を解く、です。</li>
+</ul>
+
+<h2 id="money">お金</h2>
+<div class="tscroll"><table class="t">
+  <tr><th>国公立の学費</th><td>入学料28.2万円と授業料が年53.58万円で、6年で約350万円。東大は2025年度の入学者から授業料が年64.3万円になるなど、標準より高い大学もある</td></tr>
+  <tr><th>私立の学費</th><td>6年の総額は、いちばん安い国際医療福祉大で約1,850万円、いちばん高い川崎医科大で4,550万円。川崎医科大は別に寮費や食費もかかる。多くの大学は2,000万〜3,000万円台。資料によって数字が違うので、志望校の公式ページで確認する</td></tr>
+  <tr><th>受験料</th><td>共通テストは3教科以上で18,000円、国公立の二次は17,000円、私立の一般選抜は1校あたり約6万円。私立を5〜6校受けると、受験料だけで23〜47万円になるという試算がある</td></tr>
+  <tr><th>入学金の二重払い</th><td>私立は合格すると、国公立の発表より前に入学金の100万〜200万円を納める締切が来ることがある。併願の計画を立てるときに一緒に考える</td></tr>
+  <tr><th>交通費と宿泊</th><td>地方から都市部へ何度も受けに行くと、移動と連泊の費用がかかる。地方からの実際の額をまとめたデータは見つからなかった</td></tr>
+</table></div>
+
+<h3>奨学金と修学資金</h3>
+<ul>
+  <li>日本学生支援機構の給付型奨学金は、返さなくていい奨学金です。2025年度の第1区分では、国公立で自宅外なら月6.67万円、私立で自宅外なら月7.58万円です。</li>
+  <li>貸与型は、無利子の第一種が最大で月6.4万円、有利子の第二種が月2万〜12万円です。</li>
+  <li>高校生のうちに申し込む予約採用は、学校を通して高3の5〜6月ごろに申し込む例が多いです。締切は学校ごとに違うので、春のうちに先生に聞いておきます。</li>
+  <li>学費をほぼまかなえる道もあります。地域枠の修学資金、自治医大の修学資金、産業医大の修学資金、学費がかからない防衛医大です。どれも9年ほど働く義務と引き換えです。</li>
+</ul>
+<div class="judge">家の経済的な事情で医学部をあきらめる前に、地域枠と自治医大の条件を一度は読んでください。働く場所が決まる代わりに、学費の心配がほぼなくなります。地元で医師として働きたい人にとっては、縛りではなく近道になります。</div>
+
+<h2 id="local">地方から受けるときに</h2>
+<h3>学校の進度が遅いとき</h3>
+<p>地方の公立高校では、数IIIや物理の電磁気が高3の秋にずれ込むことがあります。学校の進度を待っていると、過去問に入る時間がなくなります。得意な科目からでも自分で先に進めて、遅くとも高3の7月には過去問に手をつける、という助言が予備校から出ています。</p>
+
+<h3>模試</h3>
+<ul>
+  <li>河合塾の全統模試は、高3なら共通テスト模試が5月・7月・10月、記述模試が5月・8月・10月にあります。プレ共通テストは11月で、12月には自宅で受けられる形式もあります。</li>
+  <li>駿台の模試は、会場が東京、愛知、京都、大阪、広島、福岡など都市部が中心です。</li>
+  <li>東進には、医学部82大学判定テストが6月と10月にあります。</li>
+  <li>日付は2026年度の実績です。毎年ほぼ同じ時期ですが、2027年度の日程は各社の発表で確認してください。</li>
+</ul>
+
+<h3>宿と移動</h3>
+<ul>
+  <li>私立の試験日は8月ごろに出揃います。宿の予約は1月後半から2月前半に集中するので、早めに押さえます。受験票が届くまで会場がわからない大学もあるので、無料でキャンセルできる期限を確認しておきます。</li>
+  <li>私立の一次試験は2月1〜4日に集中します。どこに何泊するかを一覧にしておきます。</li>
+</ul>
+
+<h3>過去問と無料の情報源</h3>
+<ul>
+  <li>過去問の公開のしかたは大学によって違います。たとえば長崎大学は、共通科目の問題はWebで公開していますが、医学部の個別試験の問題は窓口での閲覧だけです。遠くに住んでいると見に行けないので、市販の過去問集や予備校のサイトを使うことになります。逆に、東京科学大や京都府立医科大のように、解答例や出題の意図までWebで公開している大学もあります。</li>
+  <li>共通テストの過去問は、大学入試センターのサイトで3年分の問題と正解が見られます。</li>
+  <li>全国医学部バーチャル・オープンキャンパスでは、54大学の説明を2027年1月31日まで無料で見られます。岡山大学のように、オープンキャンパスをライブ配信する大学もあります。</li>
+  <li>地域枠と修学資金については、都道府県庁の医師確保の担当ページが一次情報です。事前募集の締切が10月にある県もあるので、高2のうちに一度読んでおきます。</li>
+</ul>
+
+<h2 id="split">情報源で割れているところ</h2>
+<p>同じことについて、情報源によって言うことが違うところです。それぞれの言い分を並べて、このページとしての判断を添えました。</p>
+
+<div class="split"><h3>数学IIIをいつ始めるか</h3>
+<p>高1で一周する、高2の夏から、高2で全範囲を終える、高3からでも地方国立なら間に合う、まで幅があります。IA・IIBを完璧にしてからにすべきだという意見もあります。</p>
+<div class="judge">学校の進度が遅い地方の公立高校なら、高2の夏から自分で始める。ただし、IA・IIBの網羅系の例題がまだ解けないなら、そちらを先に固める。</div></div>
+
+<div class="split"><h3>青チャートか、Focus Goldか</h3>
+<p>Focus Goldは到達できる上限が高く解説がわかりやすいという意見と、青チャートは例題を絞って使えば十分という意見があります。青チャートの解説は難しいという声と、簡潔で記述の手本になるという声もあります。</p>
+<div class="judge">どちらでもいい。1冊に決めて、例題を中心に最後までやり、乗り換えない。この点はすべての情報源で一致しています。</div></div>
+
+<div class="split"><h3>共通テストの対策をいつ始めるか</h3>
+<p>高2の1月に一度解く、高3の6月から、10月以降、英数理は12月から、まで幅があります。</p>
+<div class="judge">高2の1月に一度解いて、距離を知る。英数理は二次の勉強がそのまま効くので、形式に合わせた対策は12月から。古文・漢文と社会は暗記なので夏から薄く長く。情報Iは遅くとも11月に始める。</div></div>
+
+<div class="split"><h3>過去問をいつから解くか</h3>
+<p>高3の夏から、遅くとも7月、10月以降、と分かれます。</p>
+<div class="judge">夏に1年分だけ解いて、何が足りないかを知る。本格的に何年分も回すのは秋から。</div></div>
+
+<div class="split"><h3>理科をいつ始めるか</h3>
+<p>高1から、高2の秋から、高2で1科目を完成させる、高3で集中する、と分かれます。</p>
+<div class="judge">遅くとも高2の秋には始めて、高3の夏までに2科目の全範囲を終える。学校で電磁気などが高3の秋になる場合は、その分野だけ自分で前倒しにする。</div></div>
+
+<div class="split"><h3>英語の基礎をいつまでに固めるか</h3>
+<p>高2の終わりに共通テストで8割、高3の夏までに単語帳の8〜9割と文法2周、高3の4〜8月で基礎を終える、と分かれます。</p>
+<div class="judge">単語と文法は高2の終わりまでに7〜8割。高3の春からは長文と英作文に時間を回せるようにする。</div></div>
+
+<div class="split"><h3>理科は物理か生物か</h3>
+<p>受けられる大学の数と点の安定を理由に物理を勧める意見と、知識で安定して取れて入学後にも役立つことを理由に生物を勧める意見があります。</p>
+<div class="judge">どちらでも医学部には行ける。迷ったら、模試で点が安定するほうを選ぶ。志望校が生物を選べるかどうかだけは、最新の要項で確かめる。</div></div>
+
+<h2 id="method">このページの作り方と出典</h2>
+<p>2026年10月6〜7日に、時期と入試制度、科目別の学習の順番と答案の書き方、入試方式とお金と地方からの受験、の3つに分けてネット上のページを調べました。読んだのは、予備校や医学部専門予備校のコラム、受験情報サイト、合格者のブログ、大学と官公庁の公式ページです。予備校の記事には自社の講座への誘導が含まれることがあるので、1つの記事だけが言っていることは、その旨を書きました。日付と金額は、公式のページで確認できたものを優先しています。</p>
+<p class="check-src">入試の日程、配点、修学資金の額は毎年変わります。出願する前に、必ず各大学の募集要項と、都道府県の公式ページで確認してください。</p>
+
+<details><summary>時期の目安と浪人の流れ</summary><ul class="src">
+<li><a href="https://www.agaroot.jp/agaroot-medical/column/how-to-study-high1/" rel="noopener" target="_blank">https://www.agaroot.jp/agaroot-medical/column/how-to-study-high1/</a></li>
+<li><a href="https://www.agaroot.jp/agaroot-medical/column/how-to-study-high2/" rel="noopener" target="_blank">https://www.agaroot.jp/agaroot-medical/column/how-to-study-high2/</a></li>
+<li><a href="https://www.agaroot.jp/agaroot-medical/column/mathmatics3/" rel="noopener" target="_blank">https://www.agaroot.jp/agaroot-medical/column/mathmatics3/</a></li>
+<li><a href="https://www.tomonokai.net/article/high-school/daiju/medical-department/2nd-grade/" rel="noopener" target="_blank">https://www.tomonokai.net/article/high-school/daiju/medical-department/2nd-grade/</a></li>
+<li><a href="https://jyuke-labo.com/igakubutaisaku/benkyojikan/" rel="noopener" target="_blank">https://jyuke-labo.com/igakubutaisaku/benkyojikan/</a></li>
+<li><a href="https://axis.onl/reports/igakubu-start/" rel="noopener" target="_blank">https://axis.onl/reports/igakubu-start/</a></li>
+<li><a href="https://smartrador.com/blog/%E5%8F%97%E9%A8%93%E6%83%85%E5%A0%B1/%E5%A4%A7%E5%AD%A6%E5%8F%97%E9%A8%93/igakubu_when/" rel="noopener" target="_blank">https://smartrador.com/blog/%E5%8F%97%E9%A8%93%E6%83%85%E5%A0%B1/%E5%A4%A7%E5%AD%A6%E5%8F%97%E9%A8%93/igakubu_when/</a></li>
+<li><a href="https://resemom.jp/article/2025/12/24/84435.html" rel="noopener" target="_blank">https://resemom.jp/article/2025/12/24/84435.html</a></li>
+<li><a href="https://www2.sundai.ac.jp/column/howto/start-kyotsu-test-prep/" rel="noopener" target="_blank">https://www2.sundai.ac.jp/column/howto/start-kyotsu-test-prep/</a></li>
+<li><a href="https://www.tohsemi.com/nyushi/11137.html" rel="noopener" target="_blank">https://www.tohsemi.com/nyushi/11137.html</a></li>
+<li><a href="https://www.pro-dic.jp/blog/16340/" rel="noopener" target="_blank">https://www.pro-dic.jp/blog/16340/</a></li>
+<li><a href="https://www.medical-labo.com/users/senior/" rel="noopener" target="_blank">https://www.medical-labo.com/users/senior/</a></li>
+<li><a href="https://gpzemi.gakken.jp/gplab/category-1/1865/" rel="noopener" target="_blank">https://gpzemi.gakken.jp/gplab/category-1/1865/</a></li>
+<li><a href="https://jyuke-labo.com/igakubutaisaku/english/" rel="noopener" target="_blank">https://jyuke-labo.com/igakubutaisaku/english/</a></li>
+<li><a href="https://www.kawai-juku.ac.jp/summer/stc/unv-medical/" rel="noopener" target="_blank">https://www.kawai-juku.ac.jp/summer/stc/unv-medical/</a></li>
+<li><a href="https://www.kobekyo.com/column/high2nd-medical-late/" rel="noopener" target="_blank">https://www.kobekyo.com/column/high2nd-medical-late/</a></li>
+<li><a href="https://www.agaroot.jp/agaroot-medical/column/english-study/" rel="noopener" target="_blank">https://www.agaroot.jp/agaroot-medical/column/english-study/</a></li>
+<li><a href="https://www.tomas.co.jp/schola/list/study-plan/6838/" rel="noopener" target="_blank">https://www.tomas.co.jp/schola/list/study-plan/6838/</a></li>
+<li><a href="https://daigakujukensenryaku.com/kihon/kihon-5300-study-trun/" rel="noopener" target="_blank">https://daigakujukensenryaku.com/kihon/kihon-5300-study-trun/</a></li>
+<li><a href="https://www2.sundai.ac.jp/column/benkyoho/igakubu-rounin/" rel="noopener" target="_blank">https://www2.sundai.ac.jp/column/benkyoho/igakubu-rounin/</a></li>
+<li><a href="https://www.agaroot.jp/agaroot-medical/column/ronin-schedule/" rel="noopener" target="_blank">https://www.agaroot.jp/agaroot-medical/column/ronin-schedule/</a></li>
+</ul></details>
+
+<details><summary>科目別の学習の順番</summary><ul class="src">
+<li><a href="https://shotosha.com/medical-school/textbook/math-2" rel="noopener" target="_blank">https://shotosha.com/medical-school/textbook/math-2</a></li>
+<li><a href="https://www.kame.co.jp/column/column000169-html" rel="noopener" target="_blank">https://www.kame.co.jp/column/column000169-html</a></li>
+<li><a href="https://www.goukaku-tensi.info/content-benkyouhou-mathematics-igakubu.html" rel="noopener" target="_blank">https://www.goukaku-tensi.info/content-benkyouhou-mathematics-igakubu.html</a></li>
+<li><a href="https://benkyo-koryaku.com/focusgold-aokikou-hikaku/" rel="noopener" target="_blank">https://benkyo-koryaku.com/focusgold-aokikou-hikaku/</a></li>
+<li><a href="https://rams-yobikou.com/archives/rams-style/004-aochart-focusgold-comparison" rel="noopener" target="_blank">https://rams-yobikou.com/archives/rams-style/004-aochart-focusgold-comparison</a></li>
+<li><a href="https://www.agaroot.jp/agaroot-medical/column/math-referencebook/" rel="noopener" target="_blank">https://www.agaroot.jp/agaroot-medical/column/math-referencebook/</a></li>
+<li><a href="https://ishin-kai.tv/678/" rel="noopener" target="_blank">https://ishin-kai.tv/678/</a></li>
+<li><a href="https://note.com/mathemedics/n/n06d60d1984ce" rel="noopener" target="_blank">https://note.com/mathemedics/n/n06d60d1984ce</a></li>
+<li><a href="https://note.com/ishinlabo/n/n91ad18bc2580" rel="noopener" target="_blank">https://note.com/ishinlabo/n/n91ad18bc2580</a></li>
+<li><a href="https://www.win-education.com/study/juniorhigh3/highschoolmath/" rel="noopener" target="_blank">https://www.win-education.com/study/juniorhigh3/highschoolmath/</a></li>
+<li><a href="https://manaviism.com/column/faculty-of-medicine-high-school-2/" rel="noopener" target="_blank">https://manaviism.com/column/faculty-of-medicine-high-school-2/</a></li>
+<li><a href="https://shotosha.com/medical-school/textbook/english-2" rel="noopener" target="_blank">https://shotosha.com/medical-school/textbook/english-2</a></li>
+<li><a href="https://www.kame.co.jp/column/column000188-html" rel="noopener" target="_blank">https://www.kame.co.jp/column/column000188-html</a></li>
+<li><a href="https://www.goukaku-tensi.info/content-benkyouhou-english-igakubu.html" rel="noopener" target="_blank">https://www.goukaku-tensi.info/content-benkyouhou-english-igakubu.html</a></li>
+<li><a href="https://www.agaroot.jp/agaroot-medical/column/english-referencebook/" rel="noopener" target="_blank">https://www.agaroot.jp/agaroot-medical/column/english-referencebook/</a></li>
+<li><a href="https://strux.oner.jp/blog/medical-english/" rel="noopener" target="_blank">https://strux.oner.jp/blog/medical-english/</a></li>
+<li><a href="https://jena-academy.com/kyotsu-listening/" rel="noopener" target="_blank">https://jena-academy.com/kyotsu-listening/</a></li>
+<li><a href="https://www.agaroot.jp/agaroot-medical/column/chemistry-referencebook/" rel="noopener" target="_blank">https://www.agaroot.jp/agaroot-medical/column/chemistry-referencebook/</a></li>
+<li><a href="https://jena-academy.com/chemistry-textbook-route/" rel="noopener" target="_blank">https://jena-academy.com/chemistry-textbook-route/</a></li>
+<li><a href="https://axivacademy.com/book_routes/chemistry_1" rel="noopener" target="_blank">https://axivacademy.com/book_routes/chemistry_1</a></li>
+<li><a href="https://jena-academy.com/physics-textbook-route/" rel="noopener" target="_blank">https://jena-academy.com/physics-textbook-route/</a></li>
+<li><a href="https://takeuchikobetsu.com/physics-textbook-route/" rel="noopener" target="_blank">https://takeuchikobetsu.com/physics-textbook-route/</a></li>
+<li><a href="https://m-academia-s.com/faq/exam-subject/science/physics/physics-000164.html" rel="noopener" target="_blank">https://m-academia-s.com/faq/exam-subject/science/physics/physics-000164.html</a></li>
+<li><a href="https://www.agaroot.jp/agaroot-medical/column/physics-textbook/" rel="noopener" target="_blank">https://www.agaroot.jp/agaroot-medical/column/physics-textbook/</a></li>
+<li><a href="https://www.agaroot.jp/agaroot-medical/column/biology-referencebook/" rel="noopener" target="_blank">https://www.agaroot.jp/agaroot-medical/column/biology-referencebook/</a></li>
+<li><a href="https://www.goukaku-tensi.info/content-benkyouhou-biology.html" rel="noopener" target="_blank">https://www.goukaku-tensi.info/content-benkyouhou-biology.html</a></li>
+<li><a href="https://shotosha.com/medical-school/info/rika-sentaku" rel="noopener" target="_blank">https://shotosha.com/medical-school/info/rika-sentaku</a></li>
+<li><a href="https://www.kame.co.jp/column/column000174-html" rel="noopener" target="_blank">https://www.kame.co.jp/column/column000174-html</a></li>
+<li><a href="https://www.kurse.co.jp/pickup/pickup_all/1478/" rel="noopener" target="_blank">https://www.kurse.co.jp/pickup/pickup_all/1478/</a></li>
+<li><a href="https://benkyo-koryaku.com/igakubu-rika-sentaku/" rel="noopener" target="_blank">https://benkyo-koryaku.com/igakubu-rika-sentaku/</a></li>
+<li><a href="https://igakubu-juken.com/igakubu-basics/igakubu-butsuri-vs-seibutsu-sentaku/" rel="noopener" target="_blank">https://igakubu-juken.com/igakubu-basics/igakubu-butsuri-vs-seibutsu-sentaku/</a></li>
+<li><a href="https://www.agaroot.jp/agaroot-medical/column/organism-choice/" rel="noopener" target="_blank">https://www.agaroot.jp/agaroot-medical/column/organism-choice/</a></li>
+<li><a href="https://www.goukaku-tensi.info/content-benkyouhou-igakubu-select-rika.html" rel="noopener" target="_blank">https://www.goukaku-tensi.info/content-benkyouhou-igakubu-select-rika.html</a></li>
+<li><a href="https://shotosha.com/medical-school/kyotsu-test/general-kyotsu-test/from-when-kyote" rel="noopener" target="_blank">https://shotosha.com/medical-school/kyotsu-test/general-kyotsu-test/from-when-kyote</a></li>
+<li><a href="https://www.goukaku-tensi.info/content-test-jouhou.html" rel="noopener" target="_blank">https://www.goukaku-tensi.info/content-test-jouhou.html</a></li>
+<li><a href="https://www.goukaku-tensi.info/content-test-japanese-all.html" rel="noopener" target="_blank">https://www.goukaku-tensi.info/content-test-japanese-all.html</a></li>
+<li><a href="https://note.com/rabbit_med/n/n6bd0a7cf23f3" rel="noopener" target="_blank">https://note.com/rabbit_med/n/n6bd0a7cf23f3</a></li>
+</ul></details>
+
+<details><summary>答案を書く力</summary><ul class="src">
+<li>東京科学大 過去の入試問題と出題の意図 <a href="https://admissions.isct.ac.jp/ja/013/undergraduate/examination-questions" rel="noopener" target="_blank">https://admissions.isct.ac.jp/ja/013/undergraduate/examination-questions</a></li>
+<li>京都府立医科大 過去の入試問題と解答例 <a href="https://www.kpu-m.ac.jp/doc/examination/exam_gakubu/kakomon.html" rel="noopener" target="_blank">https://www.kpu-m.ac.jp/doc/examination/exam_gakubu/kakomon.html</a></li>
+<li>東京大 数学の出題の意図 <a href="https://www.u-tokyo.ac.jp/content/400239145.pdf" rel="noopener" target="_blank">https://www.u-tokyo.ac.jp/content/400239145.pdf</a></li>
+<li><a href="https://www.kobe-koushikai.org/blog/sugaku-kijutsu-saitenkijun/" rel="noopener" target="_blank">https://www.kobe-koushikai.org/blog/sugaku-kijutsu-saitenkijun/</a></li>
+<li><a href="https://examist.jp/mathematics/kijyutu-touan/scoring-system-2/" rel="noopener" target="_blank">https://examist.jp/mathematics/kijyutu-touan/scoring-system-2/</a></li>
+<li><a href="https://kyoikujo.com/2nd-test-math/" rel="noopener" target="_blank">https://kyoikujo.com/2nd-test-math/</a></li>
+<li><a href="https://www.zkai.co.jp/solutions/teacher/ejournal/writing-math/" rel="noopener" target="_blank">https://www.zkai.co.jp/solutions/teacher/ejournal/writing-math/</a></li>
+<li><a href="https://www.kyotoijuku.com/column/mathematics-writing/" rel="noopener" target="_blank">https://www.kyotoijuku.com/column/mathematics-writing/</a></li>
+<li><a href="https://rikeijuken-chishiki.com/physics-kijutu" rel="noopener" target="_blank">https://rikeijuken-chishiki.com/physics-kijutu</a></li>
+<li><a href="https://rikyukai.com/note/written-physics/" rel="noopener" target="_blank">https://rikyukai.com/note/written-physics/</a></li>
+<li><a href="https://juken-philo.com/butsuri-kijyutsu/" rel="noopener" target="_blank">https://juken-philo.com/butsuri-kijyutsu/</a></li>
+<li><a href="https://rikeijuken-chishiki.com/chemistry-kijutu" rel="noopener" target="_blank">https://rikeijuken-chishiki.com/chemistry-kijutu</a></li>
+<li><a href="https://www.agaroot.jp/agaroot-medical/column/organism/" rel="noopener" target="_blank">https://www.agaroot.jp/agaroot-medical/column/organism/</a></li>
+<li><a href="https://www.kobe-koushikai.org/blog/kijutsusiki-eigo-koutokuten/" rel="noopener" target="_blank">https://www.kobe-koushikai.org/blog/kijutsusiki-eigo-koutokuten/</a></li>
+<li><a href="https://www.takeda.tv/marugame/blog/post-204993/" rel="noopener" target="_blank">https://www.takeda.tv/marugame/blog/post-204993/</a></li>
+<li><a href="https://shotosha.com/study-method/english/free-english-composition" rel="noopener" target="_blank">https://shotosha.com/study-method/english/free-english-composition</a></li>
+</ul></details>
+
+<details><summary>入試方式、日程、配点、面接と小論文</summary><ul class="src">
+<li>文部科学省 令和9年度大学入学者選抜実施要項 <a href="https://www.mext.go.jp/content/20260529-mxt_daigakuc02-000005144_1.pdf" rel="noopener" target="_blank">https://www.mext.go.jp/content/20260529-mxt_daigakuc02-000005144_1.pdf</a></li>
+<li>大学入試センター 令和9年度共通テスト <a href="https://www.dnc.ac.jp/kyotsu/shiken_jouhou/r9/" rel="noopener" target="_blank">https://www.dnc.ac.jp/kyotsu/shiken_jouhou/r9/</a></li>
+<li><a href="https://www2.sundai.ac.jp/news/2027news/2027_nenkan_schedule.pdf" rel="noopener" target="_blank">https://www2.sundai.ac.jp/news/2027news/2027_nenkan_schedule.pdf</a></li>
+<li><a href="https://resemom.jp/article/2026/05/20/86119.html" rel="noopener" target="_blank">https://resemom.jp/article/2026/05/20/86119.html</a></li>
+<li><a href="https://dazaifu-academy.jp/topics/33150/" rel="noopener" target="_blank">https://dazaifu-academy.jp/topics/33150/</a></li>
+<li><a href="https://studykartelab.com/news-posts/exam-format-changes2027" rel="noopener" target="_blank">https://studykartelab.com/news-posts/exam-format-changes2027</a></li>
+<li><a href="https://studykartelab.com/news-posts/late_exams" rel="noopener" target="_blank">https://studykartelab.com/news-posts/late_exams</a></li>
+<li><a href="https://www.agaroot.jp/agaroot-medical/column/the-second-examination/" rel="noopener" target="_blank">https://www.agaroot.jp/agaroot-medical/column/the-second-examination/</a></li>
+<li><a href="https://gritmedical.info/2025/12/25/itpaperexamratio/" rel="noopener" target="_blank">https://gritmedical.info/2025/12/25/itpaperexamratio/</a></li>
+<li><a href="https://gritmedical.info/2026/04/25/2027-igakubu-nyushi-henkouten/" rel="noopener" target="_blank">https://gritmedical.info/2026/04/25/2027-igakubu-nyushi-henkouten/</a></li>
+<li><a href="https://www.yotsuyagakuin.com/b_geneki/igakubu-schedule/" rel="noopener" target="_blank">https://www.yotsuyagakuin.com/b_geneki/igakubu-schedule/</a></li>
+<li><a href="https://www.medical-labo.com/labo-tsushin/labo-tsushin-61042/" rel="noopener" target="_blank">https://www.medical-labo.com/labo-tsushin/labo-tsushin-61042/</a></li>
+<li><a href="https://yms.ne.jp/suisen-information-np/" rel="noopener" target="_blank">https://yms.ne.jp/suisen-information-np/</a></li>
+<li><a href="https://www.kyotoijuku.com/column/national-medical-school/" rel="noopener" target="_blank">https://www.kyotoijuku.com/column/national-medical-school/</a></li>
+<li>河合塾 2027年度入試難易予想 <a href="https://www.keinet.ne.jp/exam/ranking/2027/h_kei_k10.pdf" rel="noopener" target="_blank">https://www.keinet.ne.jp/exam/ranking/2027/h_kei_k10.pdf</a></li>
+<li><a href="https://dazaifu-academy.jp/topics/22113/" rel="noopener" target="_blank">https://dazaifu-academy.jp/topics/22113/</a></li>
+<li><a href="https://dazaifu-academy.jp/topics/18472/" rel="noopener" target="_blank">https://dazaifu-academy.jp/topics/18472/</a></li>
+<li><a href="https://www.medical-labo.com/labo-tsushin/labo-tsushin-57013/" rel="noopener" target="_blank">https://www.medical-labo.com/labo-tsushin/labo-tsushin-57013/</a></li>
+<li><a href="https://shotosha.com/medical-school/choice/ranking/second-test-ratio" rel="noopener" target="_blank">https://shotosha.com/medical-school/choice/ranking/second-test-ratio</a></li>
+<li><a href="https://studykartelab.com/news-posts/haiten-ranking" rel="noopener" target="_blank">https://studykartelab.com/news-posts/haiten-ranking</a></li>
+<li><a href="https://y-sapix.net/n/n9ea40f179386" rel="noopener" target="_blank">https://y-sapix.net/n/n9ea40f179386</a></li>
+<li><a href="https://www.kyotoijuku.com/column/faculty-of-medicine-interview-score/" rel="noopener" target="_blank">https://www.kyotoijuku.com/column/faculty-of-medicine-interview-score/</a></li>
+<li><a href="https://dazaifu-academy.jp/topics/34082/" rel="noopener" target="_blank">https://dazaifu-academy.jp/topics/34082/</a></li>
+<li><a href="https://gritmedical.info/2026/02/17/latest-mmi-medical-college-list/" rel="noopener" target="_blank">https://gritmedical.info/2026/02/17/latest-mmi-medical-college-list/</a></li>
+<li><a href="https://www.medical-labo.com/labo-tsushin/labo-tsushin-54321/" rel="noopener" target="_blank">https://www.medical-labo.com/labo-tsushin/labo-tsushin-54321/</a></li>
+</ul></details>
+
+<details><summary>地域枠、自治医大、防衛医大、産業医大</summary><ul class="src">
+<li>長野県 医学生修学資金の事前募集 <a href="https://www.pref.nagano.lg.jp/doctor/kenko/iryo/ishikakuho/shugaku-jizen.html" rel="noopener" target="_blank">https://www.pref.nagano.lg.jp/doctor/kenko/iryo/ishikakuho/shugaku-jizen.html</a></li>
+<li>山梨県 医師修学資金 <a href="https://www.pref.yamanashi.jp/imuka/ishikakuho/kakuhojigyo/shugakushikin.html" rel="noopener" target="_blank">https://www.pref.yamanashi.jp/imuka/ishikakuho/kakuhojigyo/shugakushikin.html</a></li>
+<li>鹿児島県 医師修学資金 <a href="https://www.pref.kagoshima.jp/ae03/kenko-fukushi/doctorbank/taisaku/syuugakutaiyo1.html" rel="noopener" target="_blank">https://www.pref.kagoshima.jp/ae03/kenko-fukushi/doctorbank/taisaku/syuugakutaiyo1.html</a></li>
+<li><a href="https://gritmedical.info/2025/05/13/regionalquotaformedicalschools/" rel="noopener" target="_blank">https://gritmedical.info/2025/05/13/regionalquotaformedicalschools/</a></li>
+<li><a href="https://gemmed.ghc-j.com/?p=64863" rel="noopener" target="_blank">https://gemmed.ghc-j.com/?p=64863</a></li>
+<li><a href="https://gemmed.ghc-j.com/?p=71451" rel="noopener" target="_blank">https://gemmed.ghc-j.com/?p=71451</a></li>
+<li>自治医科大学 入試案内 <a href="https://www.jichi.ac.jp/exam/medicine/exam/" rel="noopener" target="_blank">https://www.jichi.ac.jp/exam/medicine/exam/</a></li>
+<li>自治医科大学 修学資金 <a href="https://www.jichi.ac.jp/exam/medicine/backup/" rel="noopener" target="_blank">https://www.jichi.ac.jp/exam/medicine/backup/</a></li>
+<li>北海道 自治医科大学の入試日程 <a href="https://www.pref.hokkaido.lg.jp/hf/cis/ishikakuho/192204.html" rel="noopener" target="_blank">https://www.pref.hokkaido.lg.jp/hf/cis/ishikakuho/192204.html</a></li>
+<li>防衛医科大学校 入試情報 <a href="https://www.ndmc.ac.jp/sh_test000%E5%85%A5%E8%A9%A6%E6%83%85%E5%A0%B1/sh_test001igakuka/" rel="noopener" target="_blank">https://www.ndmc.ac.jp/sh_test000%E5%85%A5%E8%A9%A6%E6%83%85%E5%A0%B1/sh_test001igakuka/</a></li>
+<li>防衛医科大学校 学生の身分 <a href="https://www.ndmc.ac.jp/about/identification/" rel="noopener" target="_blank">https://www.ndmc.ac.jp/about/identification/</a></li>
+<li>産業医科大学 修学資金 <a href="https://www.uoeh-u.ac.jp/Exam/College/02.html" rel="noopener" target="_blank">https://www.uoeh-u.ac.jp/Exam/College/02.html</a></li>
+<li>産業医科大学 入試 <a href="https://www.uoeh-u.ac.jp/Exam.html" rel="noopener" target="_blank">https://www.uoeh-u.ac.jp/Exam.html</a></li>
+</ul></details>
+
+<details><summary>お金と奨学金</summary><ul class="src">
+<li><a href="https://gritmedical.info/2025/12/14/kokkouritsutuitionfee/" rel="noopener" target="_blank">https://gritmedical.info/2025/12/14/kokkouritsutuitionfee/</a></li>
+<li>日本私立学校振興・共済事業団 <a href="https://up-j.shigaku.go.jp/department/category06/00000000120901014.html" rel="noopener" target="_blank">https://up-j.shigaku.go.jp/department/category06/00000000120901014.html</a></li>
+<li>川崎医科大学 学費 <a href="https://m.kawasaki-m.ac.jp/information/academicpay.php" rel="noopener" target="_blank">https://m.kawasaki-m.ac.jp/information/academicpay.php</a></li>
+<li><a href="https://www.medical-ark.co.jp/shiritunyushiinfo/tuition-scholarship/" rel="noopener" target="_blank">https://www.medical-ark.co.jp/shiritunyushiinfo/tuition-scholarship/</a></li>
+<li><a href="https://www.keinet.ne.jp/exam/common_test-guide/application/payment.html" rel="noopener" target="_blank">https://www.keinet.ne.jp/exam/common_test-guide/application/payment.html</a></li>
+<li><a href="https://ishin-kai.info/column/fee/3099" rel="noopener" target="_blank">https://ishin-kai.info/column/fee/3099</a></li>
+<li><a href="https://www.fujigakuin.jp/sp/column/tuition-and-various-expenses.html" rel="noopener" target="_blank">https://www.fujigakuin.jp/sp/column/tuition-and-various-expenses.html</a></li>
+<li>日本学生支援機構 給付奨学金の金額 <a href="https://www.jasso.go.jp/shogakukin/about/kyufu/kingaku.html" rel="noopener" target="_blank">https://www.jasso.go.jp/shogakukin/about/kyufu/kingaku.html</a></li>
+<li>日本学生支援機構 第一種奨学金の金額 <a href="https://www.jasso.go.jp/shogakukin/about/taiyo/taiyo_1shu/kingaku/2018ikou.html" rel="noopener" target="_blank">https://www.jasso.go.jp/shogakukin/about/taiyo/taiyo_1shu/kingaku/2018ikou.html</a></li>
+<li>日本学生支援機構 予約採用 <a href="https://www.jasso.go.jp/shogakukin/moshikomi/yoyaku/index.html" rel="noopener" target="_blank">https://www.jasso.go.jp/shogakukin/moshikomi/yoyaku/index.html</a></li>
+</ul></details>
+
+<details><summary>模試と、地方から受けるときの情報</summary><ul class="src">
+<li>河合塾 全統模試 2026年度日程 <a href="https://www.kawai-juku.ac.jp/zento/pdf/schedule-2026.pdf" rel="noopener" target="_blank">https://www.kawai-juku.ac.jp/zento/pdf/schedule-2026.pdf</a></li>
+<li>東進 模試日程 <a href="https://www.toshin-moshi.com/schedules/" rel="noopener" target="_blank">https://www.toshin-moshi.com/schedules/</a></li>
+<li><a href="https://www.manabi-door.jp/news/moshi-2026/" rel="noopener" target="_blank">https://www.manabi-door.jp/news/moshi-2026/</a></li>
+<li><a href="https://jukushiru.com/article/post-29912/" rel="noopener" target="_blank">https://jukushiru.com/article/post-29912/</a></li>
+<li><a href="https://travel.rakuten.co.jp/mytrip/howto/entrance-exam" rel="noopener" target="_blank">https://travel.rakuten.co.jp/mytrip/howto/entrance-exam</a></li>
+<li><a href="https://prtimes.jp/main/html/rd/p/000000391.000030937.html" rel="noopener" target="_blank">https://prtimes.jp/main/html/rd/p/000000391.000030937.html</a></li>
+<li>岡山大学 ライブ配信オープンキャンパス <a href="https://www.okayama-u.ac.jp/tp/prospective/live_oc.html" rel="noopener" target="_blank">https://www.okayama-u.ac.jp/tp/prospective/live_oc.html</a></li>
+<li>大学入試センター 共通テストの過去問題 <a href="https://www.dnc.ac.jp/kyotsu/kakomondai/" rel="noopener" target="_blank">https://www.dnc.ac.jp/kyotsu/kakomondai/</a></li>
+<li>文部科学省 大学入試情報 <a href="https://www.mext.go.jp/nyushi/" rel="noopener" target="_blank">https://www.mext.go.jp/nyushi/</a></li>
+<li>長崎大学 入試情報 <a href="https://www.nagasaki-u.ac.jp/nyugaku/admission/profile/" rel="noopener" target="_blank">https://www.nagasaki-u.ac.jp/nyugaku/admission/profile/</a></li>
+</ul></details>
+
+<footer>
+  <p class="note">2026年10月7日作成。入試の情報は毎年変わります。誤りに気づいたら、各大学の公式の情報を優先してください。</p>
+</footer>
+</main>
+<script src="assets/data.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
