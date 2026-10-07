@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241"
+     crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>受験・学習 | 井上凱斗</title>
+<meta name="description" content="地方から医学部を目指す人のための受験ロードマップ、数学・英語・理科のノート、埼玉大対策、家庭教師のご案内。井上凱斗（自治医科大学 医学部）が作っています。">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/juken/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="受験・学習 | 井上凱斗">
+<meta property="og:description" content="地方から医学部を目指す人のための受験ロードマップ、数学・英語・理科のノート、埼玉大対策、家庭教師のご案内。井上凱斗（自治医科大学 医学部）が作っています。">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/juken/">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/ogp.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Zen+Kaku+Gothic+New:wght@300;400;500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #ffffff;
+    --ink: #121212;
+    --ink-soft: #3a3a3a;
+    --ink-faint: #707070;
+    --line-faint: rgba(18,18,18,0.14);
+    --serif: 'Shippori Mincho', serif;
+    --sans: 'Zen Kaku Gothic New', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+    --gap: clamp(48px, 9vh, 96px);
+    --side: clamp(24px, 7vw, 64px);
+    --measure: 700px;
+  }
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink-soft);
+    font-family: var(--sans);
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  ::selection{ background: var(--ink); color: #fff; }
+
+  /* ---------- corner marks ---------- */
+  .corner-marks{ position: fixed; inset: 0; z-index: 3; pointer-events: none; }
+  .corner{
+    position: absolute; width: 18px; height: 18px;
+    border: 1px solid var(--ink); opacity: 0.28;
+  }
+  .corner.tl{ top: 18px; left: 18px; border-right: none; border-bottom: none; }
+  .corner.tr{ top: 18px; right: 18px; border-left: none; border-bottom: none; }
+  .corner.bl{ bottom: 18px; left: 18px; border-right: none; border-top: none; }
+  .corner.br{ bottom: 18px; right: 18px; border-left: none; border-top: none; }
+
+  /* ---------- layout ---------- */
+  .page{ position: relative; z-index: 1; }
+  .container{ max-width: var(--measure); margin: 0 auto; padding: 0 var(--side); }
+  .hero{ padding-top: clamp(72px, 14vh, 148px); padding-bottom: var(--gap); }
+  .eyebrow{
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.22em;
+    color: var(--ink-faint); text-transform: uppercase; margin: 0 0 28px;
+  }
+  .name{
+    font-family: var(--serif); font-weight: 600; color: var(--ink);
+    font-size: clamp(32px, 6vw, 54px); line-height: 1.3; margin: 0; letter-spacing: 0.04em;
+  }
+  .name-en{
+    display: block; font-family: var(--mono); font-weight: 400; font-size: 12.5px;
+    letter-spacing: 0.3em; color: var(--ink-faint); margin-top: 14px;
+  }
+  .tagline{
+    font-size: 16.5px; line-height: 2; color: var(--ink-soft);
+    max-width: 42ch; margin: 32px 0 0;
+  }
+
+  /* ---------- divider ---------- */
+  .divider{ display: flex; align-items: center; gap: 14px; margin: 0 0 26px; }
+  .divider-line{ flex: 1; height: 1px; background: var(--line-faint); }
+  .fhole{ flex-shrink: 0; color: var(--ink); opacity: 0.5; width: 11px; height: 26px; }
+  .divider--major{ margin: 0 0 var(--gap); }
+  .divider--major .fhole{ width: 16px; height: 38px; opacity: 0.75; }
+
+  /* ---------- podcast list ---------- */
+  .stack{ padding-top: var(--gap); padding-bottom: var(--gap); }
+  .pod-list{ list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--line-faint); }
+  .pod{
+    display: grid;
+    grid-template-columns: 52px 1fr;
+    gap: 4px 20px;
+    grid-template-areas:
+      "num  title"
+      ".    host"
+      ".    body"
+      ".    link";
+    padding: 34px 0;
+    border-bottom: 1px solid var(--line-faint);
+  }
+  .pod-num{
+    grid-area: num;
+    font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.14em;
+    color: var(--ink-faint); padding-top: 7px;
+  }
+  .pod-title{
+    grid-area: title;
+    font-family: var(--serif); font-weight: 600; color: var(--ink);
+    font-size: clamp(18px, 2.4vw, 22px); margin: 0; letter-spacing: 0.02em; line-height: 1.5;
+  }
+  .pod-host{
+    grid-area: host;
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.16em;
+    color: var(--ink-faint); text-transform: uppercase; margin: 6px 0 0;
+  }
+  .pod-body{
+    grid-area: body;
+    font-size: 15px; line-height: 2; color: var(--ink-soft); margin: 14px 0 0; max-width: 54ch;
+  }
+  .pod-link{
+    grid-area: link;
+    justify-self: start;
+    display: inline-flex; align-items: center; gap: 9px;
+    border: 1px solid var(--ink); color: var(--ink); background: transparent;
+    padding: 10px 18px; margin-top: 20px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em;
+    text-transform: uppercase; text-decoration: none;
+    transition: background 0.35s ease, color 0.35s ease, transform 0.2s ease;
+  }
+  .pod-link:hover{ background: var(--ink); color: #fff; transform: translateY(-2px); }
+  .pod-link:active{ transform: translateY(0); }
+  .pod-link:focus-visible{ outline: 2px solid var(--ink); outline-offset: 3px; }
+  .action-icon{ width: 13px; height: 13px; flex-shrink: 0; }
+  .action-icon path{ stroke: currentColor; fill: none; }
+  @media (max-width: 520px){
+    .pod{
+      grid-template-columns: 1fr;
+      grid-template-areas: "num" "title" "host" "body" "link";
+      gap: 0;
+    }
+    .pod-num{ padding-top: 0; margin-bottom: 8px; }
+  }
+
+  /* ---------- footer ---------- */
+  .footer{ padding-bottom: clamp(64px, 12vh, 120px); }
+  .footer-signature{ display: flex; justify-content: center; margin-bottom: 28px; opacity: 0.5; }
+  .footer-signature svg{ width: 22px; height: 52px; color: var(--ink); }
+  .footer-note{
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em;
+    color: var(--ink-faint); text-align: center; text-transform: uppercase; margin: 0;
+  }
+  .backlink{
+    display: block; text-align: center; margin-top: 26px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em;
+    color: var(--ink-faint); text-decoration: none; text-transform: uppercase;
+  }
+  .backlink:hover{ color: var(--ink); }
+
+  @media (max-width: 640px){ .corner{ width: 12px; height: 12px; } }
+
+  .grp-title{ font-family: var(--serif); font-weight: 600; color: var(--ink); font-size: clamp(20px,2.8vw,26px); margin: 0 0 8px; letter-spacing: .03em; }
+  .grp-lead{ font-size: 15px; line-height: 2; margin: 0 0 22px; max-width: 54ch; }
+  .grp{ margin-bottom: var(--gap); }
+  .pod-link.plain{ border-color: var(--line-faint); }
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"CollectionPage","@id":"https://kaitoinoue0921.github.io/juken/#webpage","url":"https://kaitoinoue0921.github.io/juken/","name":"受験・学習 | 井上凱斗","description":"地方から医学部を目指す人のための受験ロードマップ、数学・英語・理科のノート、埼玉大対策、家庭教師のご案内。井上凱斗（自治医科大学 医学部）が作っています。","inLanguage":"ja","isPartOf":{"@id":"https://kaitoinoue0921.github.io/#website"},"author":{"@id":"https://kaitoinoue0921.github.io/#person"},"publisher":{"@id":"https://kaitoinoue0921.github.io/#person"},"dateModified":"2026-10-07T00:00:00+09:00"}
+</script>
+</head>
+<body>
+  <div class="corner-marks"><span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span></div>
+  <div class="page">
+    <div class="container">
+      <header class="hero">
+        <p class="eyebrow">Study — 受験・学習</p>
+        <h1 class="name">受験と学習の地図<span class="name-en">STUDY</span></h1>
+        <p class="tagline">地方で受験をしていて一番困ったのは、何をいつまでにどの順でやればいいのか、という地図が手に入らなかったことでした。ここには、そのために作ったページを目的別に並べています。</p>
+      </header>
+      <div class="divider divider--major"><span class="divider-line"></span><svg class="fhole" viewBox="0 0 24 56" aria-hidden="true"><path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="15" cy="10" r="1.6" fill="currentColor"/><circle cx="9" cy="38" r="1.6" fill="currentColor"/></svg><span class="divider-line"></span></div>
+    </div>
+    <div class="container">
+      <main class="stack">
+      <section class="grp">
+        <h2 class="grp-title">受験の地図</h2>
+        <p class="grp-lead">何を、いつ、どの順でやるか。情報はあるのに順序が分からない、という状態をなくすためのページです。</p>
+        <ul class="pod-list">
+          <li class="pod">
+            <span class="pod-num">01</span>
+            <h3 class="pod-title">医学部受験ロードマップ</h3>
+            <p class="pod-host">地方から医学部を目指す人へ</p>
+            <p class="pod-body">月ごとの計画、単元ごとの対策、志望校の入試傾向別の戦い方を、ネット上に散らばった情報から並べ直しました。まず読むならここです。</p>
+            <a class="pod-link" href="../igakubu-roadmap/"><span>開く</span><svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </li>
+          <li class="pod">
+            <span class="pod-num">02</span>
+            <h3 class="pod-title">東大理三 数学マップ</h3>
+            <p class="pod-host">数学の依存関係をグラフにしたもの</p>
+            <p class="pod-body">中学数学から東大数学まで154のノードを、前提のつながりで構造化。分からない場所から前提をたどると、原因のノードに行き着きます。</p>
+            <a class="pod-link" href="../todai-math-map/"><span>開く</span><svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </li>
+          <li class="pod">
+            <span class="pod-num">03</span>
+            <h3 class="pod-title">スタディスポットMAP</h3>
+            <p class="pod-host">勉強できる場所の地図</p>
+            <p class="pod-body">意志の強さに頼らず、勉強に向く場所を探せるようにした地図です。</p>
+            <a class="pod-link" href="../study-map/"><span>開く</span><svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </li>
+          <li class="pod">
+            <span class="pod-num">04</span>
+            <h3 class="pod-title">とちます！</h3>
+            <p class="pod-host">栃木県の入試数学</p>
+            <p class="pod-body">栃木県の入試数学の対策サイト。</p>
+            <a class="pod-link" href="/tochimasu/"><span>開く</span><svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </li>
+        </ul>
+      </section>
+      <section class="grp">
+        <h2 class="grp-title">数学・英語・理科のノート</h2>
+        <p class="grp-lead">項目ごとに、必須・差がつく・不要の線を引いています。全部を覚えるのではなく、何を捨てるかを決めるためのノートです。</p>
+        <ul class="pod-list">
+          <li class="pod">
+            <span class="pod-num">05</span>
+            <h3 class="pod-title">高校数学 公式・解法ノート</h3>
+            <p class="pod-host">数学</p>
+            <p class="pod-body">公式と解法を、ネットがつながらない場所でも読める1ファイルにまとめています。</p>
+            <a class="pod-link" href="../works/math-notes/"><span>開く</span><svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </li>
+          <li class="pod">
+            <span class="pod-num">06</span>
+            <h3 class="pod-title">英文法ノート</h3>
+            <p class="pod-host">英語</p>
+            <p class="pod-body">英文法の要点をまとめたノート。</p>
+            <a class="pod-link" href="../works/eng-grammar-notes/"><span>開く</span><svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </li>
+          <li class="pod">
+            <span class="pod-num">07</span>
+            <h3 class="pod-title">受験英語 完全攻略ノート</h3>
+            <p class="pod-host">英語</p>
+            <p class="pod-body">191項目（構文130）を、読んで確認し、チェックすると隠れる形にしました。必須・差がつく・不要の3段階で線引きしています。</p>
+            <a class="pod-link" href="/eigo-kouryaku/"><span>開く</span><svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </li>
+          <li class="pod">
+            <span class="pod-num">08</span>
+            <h3 class="pod-title">英検 英作文・面接スクリプト集</h3>
+            <p class="pod-host">英検</p>
+            <p class="pod-body">型で攻める。書ける側を選んで、英作文と面接の答え方を固めます。</p>
+            <a class="pod-link" href="/eiken-script/"><span>開く</span><svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </li>
+          <li class="pod">
+            <span class="pod-num">09</span>
+            <h3 class="pod-title">サクッと英和</h3>
+            <p class="pod-host">英和辞書</p>
+            <p class="pod-body">広告の多い辞書サイトの置き換えを狙った、軽い英和辞書。語源つきです。</p>
+            <a class="pod-link" href="/eigo-tango/"><span>開く</span><svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </li>
+        </ul>
+      </section>
+      <section class="grp">
+        <h2 class="grp-title">志望校別の対策ツール</h2>
+        <p class="grp-lead">家庭教師先の生徒のために作った、埼玉大学向けの対策です。過去問を分析して、必要な知識を項目に整理しています。</p>
+        <ul class="pod-list">
+          <li class="pod">
+            <span class="pod-num">10</span>
+            <h3 class="pod-title">埼玉大数学 知識チェックリスト</h3>
+            <p class="pod-host">数学</p>
+            <p class="pod-body">過去問106問（1996〜2025年度）を分析し、必要な知識88項目に整理。全問題と解答を年度別に読むアーカイブつきです。</p>
+            <a class="pod-link" href="../works/saitama-math/"><span>開く</span><svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </li>
+          <li class="pod">
+            <span class="pod-num">11</span>
+            <h3 class="pod-title">埼玉大理科 知識チェックリスト</h3>
+            <p class="pod-host">生物・化学</p>
+            <p class="pod-body">細胞・代謝から有機化学まで、頻出分野を49項目に整理。各項目に要点と確認問題がつきます。</p>
+            <a class="pod-link" href="../works/saitama-science/"><span>開く</span><svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </li>
+          <li class="pod">
+            <span class="pod-num">12</span>
+            <h3 class="pod-title">埼玉大英語 対策チェックリスト</h3>
+            <p class="pod-host">英語</p>
+            <p class="pod-body">長文と自由英作文という独特の構成に合わせた、17項目の対策ポイントです。</p>
+            <a class="pod-link" href="../works/saitama-english/"><span>開く</span><svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </li>
+        </ul>
+      </section>
+      <section class="grp">
+        <h2 class="grp-title">医学生向け</h2>
+        <ul class="pod-list">
+          <li class="pod">
+            <span class="pod-num">13</span>
+            <h3 class="pod-title">国試対策 ブルーノート</h3>
+            <p class="pod-host">医師国家試験</p>
+            <p class="pod-body">思索ノート欄はブラウザ内に保存され、アカウント登録は不要です。</p>
+            <a class="pod-link" href="../blue-note/"><span>開く</span><svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </li>
+        </ul>
+      </section>
+      <section class="grp" id="tutor">
+        <h2 class="grp-title">家庭教師</h2>
+        <p class="grp-lead">個人契約で、数学・英語・理科の家庭教師をしています。解き方を教えるより先に、知識のつながりと考える順番を整えることを大事にしています。上のチェックリストは、実際の生徒のために作ったものです。科目、志望校、現在の状況を書いてご連絡ください。</p>
+        <a class="pod-link" href="mailto:kaito.inoue0921@gmail.com?subject=%E5%AE%B6%E5%BA%AD%E6%95%99%E5%B8%AB%E3%81%AE%E3%81%94%E4%BE%9D%E9%A0%BC"><span>ご依頼・お問い合わせ</span><svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </section>
+      </main>
+    </div>
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-signature"><svg class="fhole" viewBox="0 0 24 56" aria-hidden="true"><path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="15" cy="10" r="1.6" fill="currentColor"/><circle cx="9" cy="38" r="1.6" fill="currentColor"/></svg></div>
+        <p class="footer-note">Study — 受験・学習</p>
+        <a class="backlink" href="../">← 井上凱斗 プロフィールに戻る</a>
+      </div>
+    </footer>
+  </div>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
