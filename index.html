@@ -487,6 +487,15 @@
     margin-top: 26px;
   }
   .block-actions .block-action{ margin-top: 0; }
+  .self-toggle{ cursor: pointer; font: inherit; font-family: var(--mono); font-size: 12px; }
+  .self-toggle[aria-expanded="true"] .action-icon{ transform: rotate(180deg); }
+  .self-body{ margin-top: 8px; }
+  .about-fold{ margin: 8px 0 0; }
+  .about-summary{ cursor: pointer; list-style: none; }
+  .about-summary::-webkit-details-marker{ display: none; }
+  .about-fold[open] .about-summary .action-icon{ transform: rotate(180deg); }
+  .about-fold[open] .about-summary{ margin-bottom: 24px; }
+  .self-body[hidden]{ display: none; }
   .action-icon{
     width: 14px;
     height: 14px;
@@ -845,7 +854,7 @@
           </li>
         </ul>
 
-        <p class="tagline">自治医科大学 医学部。臨床実習を通じて医療の現場を学びながら、資産運用やビジネスの構造化にも関心を持つ。</p>
+        <p class="tagline">自治医科大学 医学部。臨床実習で現場を学びながら、お金やビジネスの仕組みにも興味がある。</p>
       </header>
 
 
@@ -899,8 +908,8 @@
             <span class="divider-line"></span>
           </div>
           <p class="block-label">MED · 01</p>
-          <h2 class="block-title">知識を構造化する</h2>
-          <p class="block-text">総合判定試験に向けた演習や臨床実習で得たナレッジを、NotionやObsidianを活用して構造化・管理している。復習のペース配分には、自作の「国試対策 ブルーノート」を使っている。</p>
+          <h2 class="block-title">覚えたことには、置き場所を</h2>
+          <p class="block-text">総合判定試験の演習や実習で出会ったことは、NotionとObsidianに置き場所を決めてしまっておく。復習の段取りは、自作の「国試対策 ブルーノート」に任せている。</p>
           <div class="block-actions">
             <a class="block-action" href="./blue-note/">
               <span>ブルーノートを見る</span>
@@ -917,8 +926,8 @@
             <span class="divider-line"></span>
           </div>
           <p class="block-label">MUS · 01</p>
-          <h2 class="block-title">低音という基盤</h2>
-          <p class="block-text">ベース・コントラバスを演奏。低音から楽曲の基盤を支え、全体の構造をコントロールする役割に魅力を感じる。</p>
+          <h2 class="block-title">いちばん下の音</h2>
+          <p class="block-text">ベースとコントラバスを弾く。目立たないけれど、抜けたら全部が崩れる音が好きだ。</p>
         </article>
 
         <!-- 発信 (OUTPUT) -->
@@ -929,8 +938,8 @@
             <span class="divider-line"></span>
           </div>
           <p class="block-label">OUTPUT · 01</p>
-          <h2 class="block-title">書いて、作って、出す</h2>
-          <p class="block-text">考えたことは note に、作ったものは公開して置いています。日々の思考の記録、無料で勉強できる場所を集めた「スタディスポットMAP」、実機を試したガジェットのレビュー。形はばらばらですが、どれも自分が欲しかったものを形にしたものです。</p>
+          <h2 class="block-title">書いて、作って、置いておく</h2>
+          <p class="block-text">考えたことは note に。作ったものは、公開して置いておく。無料で勉強できる場所の地図、試したガジェットの記録。形はばらばらだけれど、どれも自分が欲しかったものです。</p>
           <div class="block-actions">
             <a class="block-action" href="https://note.com/jikotaiwa" target="_blank" rel="noopener noreferrer">
               <span>noteを読む</span>
@@ -960,7 +969,7 @@
           </div>
           <p class="block-label">INPUT · 01</p>
           <h2 class="block-title">読む、聴く</h2>
-          <p class="block-text">読んだ本から概念を取り出して、自分のやり方に当て直す「読書マップ」。通学や移動の時間に聴いているポッドキャスト。どちらも、自分の中にない考え方を入れるための入口です。</p>
+          <p class="block-text">本から考え方をひとつ抜き出して、自分のやり方に当てはめ直す「読書マップ」。移動中に聴いているポッドキャスト。どちらも、自分の中にない考えを入れるための、細い入口です。</p>
           <div class="block-actions">
             <a class="block-action" href="./books.html">
               <span>読書マップを見る</span>
@@ -982,7 +991,12 @@
           </div>
           <p class="block-label">SELF · 01</p>
           <h2 class="block-title">自分と、まわりの人</h2>
-          <p class="block-text">自分が何を基準に動いているのかを、五つのレンズで棚卸しした「人生マップ」。そして、関わりのある人を地図として並べた「人間関係マップ」。どちらも、自分の輪郭を外側から確かめるための作業です。</p>
+          <button class="block-action self-toggle" id="selfToggle" type="button" aria-expanded="false" aria-controls="selfBody">
+            <span>ちょっとだけ、自分のこと</span>
+            <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="self-body" id="selfBody" data-nosnippet hidden>
+          <p class="block-text">何を基準に動いているのかを五つの見方で並べた「人生マップ」と、周りの人を地図にした「人間関係マップ」。自分の輪郭を、外側から確かめる作業です。</p>
           <div class="block-actions">
             <a class="block-action" href="./life.html">
               <span>人生マップを見る</span>
@@ -1021,6 +1035,8 @@
             </li>
           </ul>
           <p class="friend-empty" id="friendEmpty" hidden>該当する人が見つかりません。</p>
+        
+          </div>
         </article>
 
         <!-- 教育 (TUTOR) -->
@@ -1031,8 +1047,8 @@
             <span class="divider-line"></span>
           </div>
           <p class="block-label">TUTOR · 01</p>
-          <h2 class="block-title">学びを構造化する</h2>
-          <p class="block-text">個人契約の家庭教師として、知識のネットワーク化と論理的な学習の構造化をサポートしています。</p>
+          <h2 class="block-title">わかる順番を、一緒に</h2>
+          <p class="block-text">個人契約で家庭教師をしています。知識のつながりと、考える順番を整えるのが仕事です。</p>
           <a class="block-action" href="mailto:kaito.inoue0921@gmail.com?subject=%E3%81%94%E4%BE%9D%E9%A0%BC%E3%83%BB%E3%81%8A%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B">
             <span>ご依頼・お問い合わせ</span>
             <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true">
@@ -1058,6 +1074,8 @@
       </div>
       <!-- prose section: gives search engines real text to read, and gives a
            first-time visitor an actual answer to "who is this person" -->
+      <details class="about-fold">
+        <summary class="block-action about-summary"><span>このサイトについて</span><svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
       <section class="about" aria-labelledby="aboutHeading">
         <h2 class="about-heading" id="aboutHeading">井上凱斗について</h2>
 
@@ -1115,6 +1133,7 @@
 
         <p class="about-p">内容は、気づいた誤りや古くなった情報から順に直しています。入試制度が変わる年は、ロードマップを優先して更新します。誤りを見つけたら、メールでお知らせください。</p>
       </section>
+      </details>
     </div>
 
     <footer class="footer">
@@ -1405,7 +1424,21 @@
     nodes.appendChild(node(X_SELF, selfY, 'rel-center', '井上凱斗', 'ME'));
   }
 
-  renderRelMap();
+  (function selfToggle(){
+    var btn = document.getElementById('selfToggle');
+    var body = document.getElementById('selfBody');
+    if (!btn || !body) return;
+    var rendered = false;
+    btn.addEventListener('click', function(){
+      var open = body.hidden;           // hidden now -> opening
+      body.hidden = !open;
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      btn.querySelector('span').textContent = open ? '閉じる' : 'ちょっとだけ、自分のこと';
+      if (open && !rendered){ renderRelMap(); rendered = true; }
+      var block = btn.closest('.block');
+      if (block){ block.style.maxHeight = 'none'; block.style.maxHeight = block.scrollHeight + 'px'; }
+    });
+  })();
 
   // re-lay out when the viewport crosses the compact breakpoint
   var relResizeTimer;
