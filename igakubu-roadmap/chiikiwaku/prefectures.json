@@ -1,0 +1,161 @@
+[
+ {
+  "id": "nagasaki",
+  "pref": "長崎県",
+  "univ": "長崎大学",
+  "capacity": "2026年度推薦で長崎医療枠25名、地域医療特別枠12名。ほかの区分は未確認",
+  "loan": "入学金と授業料は国立大学の額。生活費は月7万円以内。専門課程の図書費は年20万円",
+  "monthly_yen": 70000,
+  "obligation": "卒業後9年。うち半分以上を離島・へき地で",
+  "obligation_years": 9,
+  "fiscal_year": "貸与額は2025年度",
+  "status": "一部未確認",
+  "unconfirmed": [
+   "2027年度の貸与額",
+   "推薦のほかの区分の定員"
+  ],
+  "sources": [
+   "https://www.pref.nagasaki.jp/shared/uploads/2025/03/1741929070.pdf",
+   "https://www.pref.nagasaki.jp/bunrui/hukushi-hoken/hoken-iryo/iryojinzai/isinoyousei/tiiki-iryo-tokubetuwaku/"
+  ],
+  "checked": "2026-10-08"
+ },
+ {
+  "id": "kumamoto",
+  "pref": "熊本県",
+  "univ": "熊本大学",
+  "capacity": "8名",
+  "loan": "入学料28万2000円、授業料年53万5800円、生活費月7万5000円。6年間の合計889万6800円",
+  "monthly_yen": 75000,
+  "obligation": "貸与期間の1.5倍で9年。県指定の33医療機関で、へき地側から順にグループ分け",
+  "obligation_years": 9,
+  "fiscal_year": "2025年9月の県資料",
+  "status": "確認済み",
+  "unconfirmed": [],
+  "sources": [
+   "https://www.pref.kumamoto.jp/uploaded/attachment/304576.pdf"
+  ],
+  "checked": "2026-10-08"
+ },
+ {
+  "id": "kagoshima",
+  "pref": "鹿児島県",
+  "univ": "鹿児島大学",
+  "capacity": "地域枠20名、特定診療科枠10名",
+  "loan": "地域枠は6年間で約940万円、月にならすと約13万円",
+  "monthly_yen": null,
+  "obligation": "地域枠は9年(臨床研修2年を含む)。特定診療科枠は3〜8年",
+  "obligation_years": 9,
+  "fiscal_year": "年度の表記なし",
+  "status": "年度未確認",
+  "unconfirmed": [
+   "年度"
+  ],
+  "sources": [
+   "https://www.pref.kagoshima.jp/ae03/kenko-fukushi/doctorbank/taisaku/syuugakutaiyo1.html"
+  ],
+  "checked": "2026-10-08"
+ },
+ {
+  "id": "oita",
+  "pref": "大分県",
+  "univ": "大分大学",
+  "capacity": "13名(2015年度以降)",
+  "loan": "入学料と授業料のほか月5万円の場合で合計709万6800円。月5万〜15万円から選べ、合計709万〜1079万円ほど",
+  "monthly_yen": null,
+  "obligation": "貸与期間の1.5倍、最短9年",
+  "obligation_years": 9,
+  "fiscal_year": "2023年度までの資料",
+  "status": "年度未確認",
+  "unconfirmed": [
+   "2026年度の額と定員"
+  ],
+  "sources": [
+   "https://www.pref.oita.jp/uploaded/attachment/2137002.pdf"
+  ],
+  "checked": "2026-10-08"
+ },
+ {
+  "id": "miyazaki",
+  "pref": "宮崎県",
+  "univ": "宮崎大学",
+  "capacity": "4名程度",
+  "loan": "月10万円と、1年次だけ入学金相当の28万2000円",
+  "monthly_yen": 100000,
+  "obligation": "キャリア形成プログラムの適用で、臨床研修を含め原則9年、県内の指定医療機関",
+  "obligation_years": 9,
+  "fiscal_year": "年度未確認",
+  "status": "年度未確認",
+  "unconfirmed": [
+   "年度"
+  ],
+  "sources": [
+   "https://www.pref.miyazaki.lg.jp/documents/1496/1496_20260227084604-1.pdf"
+  ],
+  "checked": "2026-10-08"
+ },
+ {
+  "id": "fukuoka",
+  "pref": "福岡県",
+  "univ": "久留米大学(私立)",
+  "capacity": "久留米大学のみ4名(2025年度入試)",
+  "loan": "月10万円(年120万円)。1〜6年次、年4回交付",
+  "monthly_yen": 100000,
+  "obligation": "貸与期間の1.5倍、通常9年(臨床研修2年を含む)。県内の指定診療科",
+  "obligation_years": 9,
+  "fiscal_year": "2025年度入試",
+  "status": "確認済み(定員は最新年度未確認)",
+  "unconfirmed": [
+   "最新年度の定員"
+  ],
+  "sources": [
+   "https://www.pref.fukuoka.lg.jp/contents/ishi-syougakukin.html"
+  ],
+  "checked": "2026-10-08"
+ },
+ {
+  "id": "saga",
+  "pref": "佐賀県",
+  "univ": "佐賀大学",
+  "capacity": "2020・2021年度の県資料で義務のある枠5名(うち佐賀県枠4名)",
+  "loan": "生活資金は月5万円以内(条例、2024年4月施行の改正後)。学費にあたる資金の額は未確認",
+  "monthly_yen": 50000,
+  "obligation": "学費分は貸与期間の1.5倍、生活資金は2分の1。2019年資料には臨床研修2年のあと9年、小児科等とあり、どちらが当てはまるか未確認",
+  "obligation_years": null,
+  "fiscal_year": "条例2024年4月施行",
+  "status": "一部未確認",
+  "unconfirmed": [
+   "学費分の貸与額",
+   "最新定員と募集要項",
+   "9年・小児科等の確約が現行か"
+  ],
+  "sources": [
+   "https://www.pref.saga.lg.jp/kiji003101474/3_101474_314374_up_46zlm75s.pdf",
+   "https://www.pref.saga.lg.jp/kiji00380717/3_80717_206731_up_pmat5olm.pdf",
+   "https://www.pref.saga.lg.jp/kiji00380734/3_80734_206911_up_wj6hwwtd.pdf"
+  ],
+  "checked": "2026-10-08"
+ },
+ {
+  "id": "okinawa",
+  "pref": "沖縄県",
+  "univ": "琉球大学",
+  "capacity": "地域枠14名程度、離島・北部枠3名程度(2021年度入試の要項)",
+  "loan": "授業料年53万円以内。生活費は離島・北部枠が月10万円、地域枠が月5万円",
+  "monthly_yen": 50000,
+  "obligation": "貸与期間に応じ1〜4年の勤務で、6年貸与なら4年。勤務先は県指定の離島・北部の医療機関。9〜12年とする資料は一次資料で未確認",
+  "obligation_years": null,
+  "fiscal_year": "規則の施行年度は記載なし",
+  "status": "一部未確認",
+  "unconfirmed": [
+   "最新定員",
+   "規則の施行年度",
+   "9〜12年の根拠"
+  ],
+  "sources": [
+   "https://chi.med.u-ryukyu.ac.jp/for_student_and_doctor/physician-loan-regulations",
+   "https://www.chi.med.u-ryukyu.ac.jp/uploads/2020/10/R3gakkosuisen2-boshuyoko.pdf"
+  ],
+  "checked": "2026-10-08"
+ }
+]

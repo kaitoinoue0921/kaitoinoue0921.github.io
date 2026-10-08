@@ -1,0 +1,133 @@
+:root{
+  --bg:#f2f3ee;--surface:#fff;--surface-2:#eceee6;--ink:#20281f;--ink-soft:#57604f;
+  --rule:#d7d9cd;--rule-strong:#b9bcaa;
+  --accent:#a6392a;--accent-soft:#f4ded9;--gold:#a17a2e;--gold-soft:#f1e6cd;
+  --ok:#3a7a4e;--ok-soft:#dcebe0;--now:#2f6d8a;--now-soft:#dbeaf1;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#181c16;--surface:#20251d;--surface-2:#262b21;--ink:#e9ece2;--ink-soft:#a7ad9c;
+    --rule:#343a2d;--rule-strong:#454c3a;
+    --accent:#e08464;--accent-soft:#3a251d;--gold:#d9b465;--gold-soft:#33291a;
+    --ok:#6fbf8a;--ok-soft:#1e3025;--now:#7fb8d4;--now-soft:#1d2e36;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Zen Kaku Gothic New",-apple-system,"Hiragino Sans",sans-serif;line-height:1.85;font-size:16px}
+a{color:var(--accent)}
+.wrap{max-width:860px;margin:0 auto;padding:0 16px}
+.site-head{background:var(--surface);border-bottom:1px solid var(--rule);z-index:10}
+@media(min-width:760px){.site-head{position:sticky;top:0}}
+.site-head .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:4px 16px;padding-top:10px;padding-bottom:10px}
+.brand{font-family:"Shippori Mincho",serif;font-weight:800;font-size:1.05rem;color:var(--ink);text-decoration:none;margin-right:auto}
+.nav{display:flex;flex-wrap:wrap;gap:2px 14px;font-size:.88rem}
+.nav a{color:var(--ink-soft);text-decoration:none;padding:4px 0}
+.nav a:hover{color:var(--ink)}
+h1,h2,h3{font-family:"Shippori Mincho",serif;line-height:1.4}
+h1{font-size:1.9rem;font-weight:800;margin:36px 0 8px}
+h2{font-size:1.35rem;font-weight:800;margin:52px 0 12px;padding-bottom:6px;border-bottom:2px solid var(--rule-strong);scroll-margin-top:70px}
+h3{font-size:1.08rem;font-weight:700;margin:28px 0 8px;scroll-margin-top:70px}
+h4{font-size:.98rem;margin:18px 0 4px}
+.lead{color:var(--ink-soft);margin:0 0 12px}
+.note{font-size:.88rem;color:var(--ink-soft)}
+small{font-size:.8em}
+/* いまの場所 */
+.now-panel{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:16px 18px;margin:24px 0}
+.grade-pick{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:8px}
+.grade-pick span{font-weight:700;margin-right:4px}
+.grade-pick button{font:inherit;font-size:.92rem;padding:4px 14px;border-radius:999px;border:1px solid var(--rule-strong);background:var(--surface);color:var(--ink);cursor:pointer}
+.grade-pick button[aria-pressed="true"]{background:var(--now);border-color:var(--now);color:#fff}
+.now-title{font-family:"Shippori Mincho",serif;font-size:1.2rem;font-weight:800;margin:10px 0 4px}
+.now-do{margin:6px 0 0;padding:0;list-style:none}
+.now-do li{display:grid;grid-template-columns:9.5em 1fr;gap:10px;padding:6px 0;border-bottom:1px dashed var(--rule)}
+.now-do b{color:var(--now)}
+@media(max-width:520px){.now-do li{grid-template-columns:1fr;gap:0}}
+.deadlines{list-style:none;padding:0;margin:6px 0 0}
+.deadlines li{display:flex;gap:12px;padding:6px 0;border-bottom:1px dashed var(--rule)}
+.deadlines .d{flex:0 0 7.2em;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums}
+.deadlines .soon .d::after{content:"まもなく";display:block;font-size:.72rem;color:var(--accent)}
+/* 地図 */
+.grid-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--rule);border-radius:10px;background:var(--surface)}
+.roadmap{border-collapse:separate;border-spacing:0;min-width:1020px;font-size:.84rem;line-height:1.6}
+.roadmap th,.roadmap td{border-bottom:1px solid var(--rule);border-right:1px solid var(--rule);padding:8px 10px;vertical-align:top;background:var(--surface)}
+.roadmap thead th{background:var(--surface-2);font-family:"Shippori Mincho",serif;text-align:left}
+.roadmap tbody th{position:sticky;left:0;background:var(--surface-2);white-space:nowrap;z-index:1;text-align:left}
+.roadmap td.now{background:var(--now-soft)}
+.roadmap thead th.now{background:var(--now);color:#fff}
+/* チェック */
+.goal{background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:4px 16px 10px;margin:14px 0}
+.goal h3{margin:12px 0 4px;display:flex;align-items:baseline;gap:10px}
+.goal.now{border-color:var(--now);box-shadow:0 0 0 2px var(--now-soft)}
+.prog{font-family:inherit;font-size:.8rem;font-weight:500;color:var(--ink-soft)}
+.checks{list-style:none;padding:0;margin:4px 0}
+.checks li{padding:3px 0}
+.checks label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+.checks input{margin-top:.45em;flex:0 0 auto;width:1.05em;height:1.05em;accent-color:var(--ok)}
+.checks input:checked + span{color:var(--ink-soft);text-decoration:line-through;text-decoration-color:var(--rule-strong)}
+/* 科目 */
+.stage{list-style:none;padding:0;margin:8px 0;counter-reset:st}
+.stage > li{position:relative;padding:10px 0 10px 44px;border-bottom:1px solid var(--rule)}
+.stage > li::before{counter-increment:st;content:counter(st);position:absolute;left:4px;top:10px;width:28px;height:28px;border-radius:50%;background:var(--surface-2);border:1px solid var(--rule-strong);text-align:center;line-height:26px;font-weight:700;font-size:.85rem}
+.stage .when{font-size:.8rem;color:var(--now);font-weight:700;margin-left:6px}
+.book{display:inline-block;font-size:.82rem;padding:0 8px;margin:2px 4px 2px 0;border-radius:6px;background:var(--surface-2);border:1px solid var(--rule)}
+.book i{font-style:normal;color:var(--ink-soft);font-size:.75rem;margin-left:4px}
+.fail{font-size:.9rem;color:var(--ink-soft)}
+.fail::before{content:"よくある失敗　";color:var(--accent);font-weight:700}
+/* 囲み */
+.judge{background:var(--gold-soft);border-left:4px solid var(--gold);border-radius:6px;padding:10px 14px;margin:12px 0}
+.judge::before{content:"このページの判断";display:block;font-size:.78rem;font-weight:700;color:var(--gold);letter-spacing:.04em}
+.split{background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:4px 16px 10px;margin:14px 0}
+.check-src{background:var(--accent-soft);border-radius:6px;padding:8px 12px;font-size:.88rem;margin:10px 0}
+table.t{border-collapse:collapse;width:100%;font-size:.88rem;margin:10px 0;background:var(--surface)}
+table.t th,table.t td{border:1px solid var(--rule);padding:6px 9px;vertical-align:top;text-align:left}
+table.t th{background:var(--surface-2);white-space:nowrap}
+.tscroll{overflow-x:auto}
+.tscroll table.t{min-width:640px}
+details{margin:8px 0}
+details summary{cursor:pointer;color:var(--ink-soft);font-size:.9rem}
+.stage label.checks{display:inline-flex;gap:8px;align-items:center;font-weight:700;cursor:pointer}
+.stage label.checks input{margin-top:0}
+.src{font-size:.82rem;color:var(--ink-soft);padding-left:1.2em;word-break:break-all}
+.src li{margin:2px 0}
+footer{margin:60px 0 40px;padding-top:16px;border-top:1px solid var(--rule)}
+@media print{.site-head,.grade-pick{display:none}.grid-scroll{overflow:visible}}
+
+/* 学年・タイプの選択 */
+.pick-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:6px 0}
+.pick-row > span{font-weight:700;margin-right:4px;min-width:5.5em}
+.pick-row button{font:inherit;font-size:.9rem;padding:3px 13px;border-radius:999px;border:1px solid var(--rule-strong);background:var(--surface);color:var(--ink);cursor:pointer}
+.pick-row button[aria-pressed="true"]{background:var(--now);border-color:var(--now);color:#fff}
+.pick-row[data-pick="type"] button[aria-pressed="true"]{background:var(--gold);border-color:var(--gold)}
+.toolbar{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:10px 16px;margin:18px 0}
+/* 月ごとの計画 */
+.block{background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:2px 16px 12px;margin:14px 0;scroll-margin-top:80px}
+.block.now{border-color:var(--now);box-shadow:0 0 0 3px var(--now-soft)}
+.block h3{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;margin:12px 0 6px}
+.block h3 .badge{font-family:"Zen Kaku Gothic New",sans-serif;font-size:.72rem;background:var(--now);color:#fff;border-radius:999px;padding:0 9px}
+.area{display:grid;grid-template-columns:8.5em 1fr;gap:8px;padding:5px 0;border-top:1px dashed var(--rule)}
+.area > b{color:var(--now);font-size:.9rem}
+.area .checks{margin:0}
+@media(max-width:520px){.area{grid-template-columns:1fr;gap:0}}
+.tnote{margin:8px 0 0;padding:6px 10px;border-left:3px solid var(--gold);background:var(--gold-soft);border-radius:4px;font-size:.9rem}
+.tnote b{color:var(--gold);margin-right:6px;font-size:.82rem}
+.tnote.dim{opacity:.45}
+/* 単元 */
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0}
+.tabs button{font:inherit;font-size:.92rem;padding:4px 14px;border-radius:8px;border:1px solid var(--rule-strong);background:var(--surface);color:var(--ink);cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.unit{background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:8px 16px 10px;margin:10px 0}
+.unit-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px}
+.unit-head label{display:inline-flex;gap:8px;align-items:center;font-weight:700;cursor:pointer;font-size:1.02rem}
+.unit-head input{width:1.05em;height:1.05em;accent-color:var(--ok)}
+.unit-head input:checked + span{color:var(--ink-soft);text-decoration:line-through}
+.unit-head .no{font-size:.8rem;color:var(--ink-soft)}
+.unit p{margin:4px 0;font-size:.93rem}
+.unit .lbl{display:inline-block;font-size:.75rem;font-weight:700;color:var(--ink-soft);min-width:4.8em}
+.unit .why{color:var(--accent)}
+.group-title{font-family:"Shippori Mincho",serif;font-weight:800;margin:24px 0 4px;font-size:1.05rem}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin:14px 0}
+.card{display:block;background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:12px 14px;text-decoration:none;color:var(--ink)}
+.card b{display:block;font-family:"Shippori Mincho",serif;font-size:1.02rem}
+.card span{font-size:.88rem;color:var(--ink-soft)}
+.card:hover{border-color:var(--now)}
