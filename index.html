@@ -293,26 +293,6 @@
     fill: none;
   }
 
-  /* ---------- about (prose) ---------- */
-  .about{
-    padding-top: clamp(28px, 5vh, 52px);
-  }
-  .about-heading{
-    font-family: var(--serif);
-    font-weight: 600;
-    color: var(--ink);
-    font-size: clamp(19px, 2.6vw, 23px);
-    letter-spacing: 0.04em;
-    margin: 0 0 26px;
-  }
-  .about-p{
-    font-size: 15.5px;
-    line-height: 2.15;
-    color: var(--ink-soft);
-    max-width: 58ch;
-    margin: 0 0 22px;
-  }
-  .about-p:last-child{ margin-bottom: 0; }
 
   /* ---------- divider / f-hole ---------- */
   .divider{
@@ -490,11 +470,6 @@
   .self-toggle{ cursor: pointer; font: inherit; font-family: var(--mono); font-size: 12px; }
   .self-toggle[aria-expanded="true"] .action-icon{ transform: rotate(180deg); }
   .self-body{ margin-top: 8px; }
-  .about-fold{ margin: 8px 0 0; }
-  .about-summary{ cursor: pointer; list-style: none; }
-  .about-summary::-webkit-details-marker{ display: none; }
-  .about-fold[open] .about-summary .action-icon{ transform: rotate(180deg); }
-  .about-fold[open] .about-summary{ margin-bottom: 24px; }
   .self-body[hidden]{ display: none; }
   .action-icon{
     width: 14px;
@@ -1000,75 +975,6 @@
         </article>
 
       </main>
-    </div>
-
-    <div class="container">
-      <div class="divider divider--major">
-        <span class="divider-line"></span>
-        <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
-          <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52"
-                fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-          <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
-          <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
-        </svg>
-        <span class="divider-line"></span>
-      </div>
-      <!-- prose section: gives search engines real text to read, and gives a
-           first-time visitor an actual answer to "who is this person" -->
-      <details class="about-fold">
-        <summary class="block-action about-summary"><span>このサイトについて</span><svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 6 L8 11 L13 6" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
-      <section class="about" aria-labelledby="aboutHeading">
-        <h2 class="about-heading" id="aboutHeading">井上凱斗について</h2>
-
-        <p class="about-p">井上凱斗（いのうえ かいと）です。自治医科大学 医学部に在籍し、臨床実習で医療の現場に立ちながら、総合判定試験に向けた演習を進めています。</p>
-
-        <p class="about-p">勉強では、実習や演習で覚えたことを NotionやObsidian に入れて、あとから辿れるようにつないでおくのが習慣になっています。</p>
-
-        <p class="about-p">音楽ではベースとコントラバスを弾いています。始めたのは希望ではなく割り当てでしたが、いまは低音のほうが好きです。</p>
-
-        <p class="about-p">考えたことは note に書いています。</p>
-
-        <p class="about-p">それ以外に、個人契約の家庭教師として学習の設計を手伝ったり、無料で勉強できる場所を集めた「スタディスポットMAP」や、実機を試したガジェットのレビューなど、自分が欲しかったものを作って公開したりしています。</p>
-      </section>
-
-      <section class="about" aria-labelledby="originHeading">
-        <h2 class="about-heading" id="originHeading">なぜこのサイトを作ったか</h2>
-
-        <p class="about-p">長崎県南島原市の口之津で育ちました。高校のころ困ったのは、勉強する場所がないことと、何をいつまでにどの順でやればいいのかが分からないことでした。都市部の友人が塾や先輩から自然に聞いていることを、自分は一人で探し回り、後から知ることが多くありました。</p>
-
-        <p class="about-p">自分が受験のときに欲しかったものを、同じ状況の人にも使える形にして置いています。</p>
-      </section>
-
-      <section class="about" aria-labelledby="commonHeading">
-        <h2 class="about-heading" id="commonHeading">作っているものに共通する考え方</h2>
-
-        <p class="about-p">このサイトに並ぶものは、一見ばらばらです。数学と英文法のノート、医学部受験のロードマップ、勉強する場所の地図、集中して勉強するためのアプリ、医学生向けの知識整理。ただ、どれも同じ二つの問いから出ています。</p>
-
-        <p class="about-p">一つ目は、情報はあるのに、順序と優先度が分からないせいで使えない、という問題です。ノートでは項目ごとに「必須」「差がつく」「不要」の線を引いています。全部を覚えるのではなく、何を捨てるかを決めることが、時間のない受験生にはいちばん効くからです。<a href="./igakubu-roadmap/">医学部受験ロードマップ</a>は、ネット上に散らばった多数のページを読み込み、月ごとの計画、単元ごとの対策、志望校のタイプ別の戦い方に並べ直したものです。</p>
-
-        <p class="about-p">二つ目は、一人で続けるのは難しい、という問題です。<a href="./study-map/">スタディスポットMAP</a>のように勉強できる場所を地図にしたり、他の人と一緒に勉強している状態をつくるアプリを作ったりしているのは、意志の強さに頼らない仕組みを考えた結果です。</p>
-
-        <p class="about-p">どれも無料か、広告だけで成り立つ形にしています。困っている人ほどお金を払いにくいからです。</p>
-
-        <p class="about-p">数学と英文法のノートを作ったきっかけは、家庭教師先へ教科書や資料を毎回持っていくのが面倒で、教えるのも楽にしたかった、という実用的なものでした。そこから、埼玉大学の数学、英語、栃木県立入試の数学をウェブサイトにまとめ、実際の指導で使っています。</p>
-      </section>
-
-      <section class="about" aria-labelledby="guideHeading">
-        <h2 class="about-heading" id="guideHeading">このサイトの読み方</h2>
-
-        <p class="about-p">目的別に入口を分けています。受験生や保護者の方は、まず<a href="./igakubu-roadmap/">医学部受験ロードマップ</a>をご覧ください。月ごとの計画、単元ごとの対策、志望校の傾向別のページがあります。数学と英文法のノートは<a href="./works/">作ったもの</a>から入れます。</p>
-
-        <p class="about-p">医学部生や医学に関心のある方は、知識を構造化して残す方法をまとめた<a href="./blue-note/">ブルーノート</a>をどうぞ。聴いている番組は<a href="./podcasts.html">ポッドキャスト</a>のページにまとめています。</p>
-
-        <p class="about-p">お問い合わせはメールでお願いします。家庭教師のご依頼も同じ窓口です。</p>
-      </section>
-
-      <section class="about" aria-labelledby="updateHeading">
-        <h2 class="about-heading" id="updateHeading">更新について</h2>
-
-        <p class="about-p">内容は、気づいた誤りや古くなった情報から順に直しています。入試制度が変わる年は、ロードマップを優先して更新します。誤りを見つけたら、メールでお知らせください。</p>
-      </section>
-      </details>
     </div>
 
     <footer class="footer">
