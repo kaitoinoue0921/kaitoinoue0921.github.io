@@ -3,27 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>井上凱斗 | 地図とノート — 医学部受験ロードマップ・受験ノート</title>
+<title>井上凱斗 | 小さな実験室 — 医学部受験ロードマップ・FocusRoom・国試ノート</title>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241"
      crossorigin="anonymous"></script>
-<meta name="description" content="井上凱斗（いのうえ かいと）が運営する「地図とノート」。医学部受験ロードマップ、数学・英文法などの受験ノート、医学生向けの学習ツールを無料で公開しています。">
+<meta name="description" content="井上凱斗（いのうえ かいと）の「小さな実験室」。地方の受験生に届ける医学部受験ロードマップ、勉強を続けるためのアプリFocusRoom、国試対策ノートなど、自分がつまずいたところから作って試しているものを置いています。">
 <link rel="canonical" href="https://kaitoinoue0921.github.io/">
 <meta name="robots" content="index, follow, max-image-preview:large">
 
 <!-- share cards (LINE / X / Facebook) -->
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="地図とノート">
-<meta property="og:title" content="井上凱斗 | 地図とノート — 医学部受験ロードマップ・受験ノート">
-<meta property="og:description" content="医学部受験ロードマップ、受験ノート、医学生向けの学習ツール。">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="井上凱斗 | 小さな実験室 — 医学部受験ロードマップ・FocusRoom・国試ノート">
+<meta property="og:description" content="自分がつまずいたところから、小さく作って試しているもの。">
 <meta property="og:url" content="https://kaitoinoue0921.github.io/">
 <meta property="og:image" content="https://kaitoinoue0921.github.io/ogp.png">
-<meta property="og:image:alt" content="地図とノート — 受験生と医学生のための無料の学習資料">
+<meta property="og:image:alt" content="小さな実験室 — 作って試しているものの置き場">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="井上凱斗 | 地図とノート — 医学部受験ロードマップ・受験ノート">
-<meta name="twitter:description" content="医学部受験ロードマップ、受験ノート、医学生向けの学習ツール。">
+<meta name="twitter:title" content="井上凱斗 | 小さな実験室 — 医学部受験ロードマップ・FocusRoom・国試ノート">
+<meta name="twitter:description" content="自分がつまずいたところから、小さく作って試しているもの。">
 <meta name="twitter:image" content="https://kaitoinoue0921.github.io/ogp.png">
 
 <link rel="icon" href="./favicon.png" type="image/png">
@@ -35,8 +35,8 @@
   "@type": "WebSite",
   "@id": "https://kaitoinoue0921.github.io/#website",
   "url": "https://kaitoinoue0921.github.io/",
-  "name": "地図とノート",
-  "description": "医学部受験ロードマップ、受験ノート、医学生向けの学習ツールを無料で公開しています。",
+  "name": "小さな実験室",
+  "description": "自分がつまずいたところから、小さく作って試しているものを置いています。",
   "inLanguage": "ja",
   "publisher": { "@id": "https://kaitoinoue0921.github.io/#person" }
 }
@@ -100,7 +100,7 @@
   a:focus-visible{ outline: 2px solid var(--ink); outline-offset: 3px; }
 
   /* Japanese headings and short copy break at phrase boundaries where supported */
-  .tagline, .section-title, .section-text, .feature-title, .feature-desc, .row-title, .row-desc, .footer-support, .site-footer p{
+  .tagline, .section-title, .section-text, .exp-q, .exp-desc, .row-title, .row-desc, .footer-support, .site-footer p{
     word-break: auto-phrase;
     text-wrap: pretty;
   }
@@ -228,48 +228,6 @@
     padding-bottom: 1px;
   }
 
-  /* ---------- index (in-page contents) ---------- */
-  .index{
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    border-top: 1px solid var(--line);
-    border-bottom: 1px solid var(--line-faint);
-  }
-  .index li + li{ border-left: 1px solid var(--line-faint); }
-  .index a{
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    padding: 16px 14px 18px;
-    min-height: 64px;
-    color: var(--ink);
-    text-decoration: none;
-    transition: background 0.3s ease;
-  }
-  .index-no{
-    font-family: var(--mono);
-    font-size: 10.5px;
-    letter-spacing: 0.16em;
-    color: var(--ink-faint);
-  }
-  .index-jp{
-    font-family: var(--serif);
-    font-weight: 500;
-    font-size: 15px;
-    letter-spacing: 0.04em;
-  }
-  @media (hover: hover){
-    .index a:hover{ background: var(--line-ghost); }
-  }
-  @media (max-width: 560px){
-    .index{ grid-template-columns: 1fr 1fr; }
-    .index li:nth-child(3){ border-left: none; }
-    .index li:nth-child(n+3){ border-top: 1px solid var(--line-faint); }
-  }
-
   /* ---------- sections ---------- */
   .stack{ padding: var(--gap) 0 0; }
   .section{
@@ -310,59 +268,84 @@
     text-wrap: pretty;
   }
 
-  /* featured link: the one thing to open first in a section */
-  .feature{
+  /* experiments: question first, then what was made and where it stands */
+  .exps{
+    list-style: none;
+    margin: 28px 0 0;
+    padding: 0;
+    border-top: 1px solid var(--line);
+  }
+  .exps li{ border-bottom: 1px solid var(--line-faint); }
+  .exp{
+    position: relative;
     display: block;
-    margin: 32px 0 0;
-    padding: 24px 22px 22px;
-    border: 1px solid var(--ink);
-    color: var(--ink);
+    padding: 26px 34px 28px 2px;
+    color: inherit;
     text-decoration: none;
-    transition: background 0.35s ease, color 0.35s ease;
+    transition: background 0.25s ease, padding 0.25s ease;
   }
-  .feature-kicker{
-    display: block;
-    font-family: var(--mono);
-    font-size: 10.5px;
-    letter-spacing: 0.2em;
-    color: var(--ink-faint);
+  .exp-head{
+    display: flex;
+    align-items: center;
+    gap: 12px;
     margin-bottom: 12px;
-    transition: color 0.35s ease;
   }
-  .feature-title{
+  .exp-no{
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    color: var(--ink-faint);
+  }
+  .exp-status{
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    line-height: 1;
+    color: var(--ink-faint);
+    border: 1px solid var(--line-faint);
+    padding: 5px 8px 4px;
+  }
+  .exp-status.is-live{ color: var(--ink); border-color: var(--ink); }
+  .exp-q{
     display: block;
     font-family: var(--serif);
     font-weight: 600;
-    font-size: clamp(20px, 5.4vw, 24px);
-    line-height: 1.5;
-    letter-spacing: 0.04em;
+    font-size: clamp(18px, 4.9vw, 21px);
+    line-height: 1.7;
+    letter-spacing: 0.03em;
+    color: var(--ink);
   }
-  .feature-desc{
+  .exp-made{
     display: block;
+    margin-top: 12px;
     font-size: 13.5px;
-    line-height: 1.95;
-    color: var(--ink-soft);
-    margin-top: 10px;
-    transition: color 0.35s ease;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--ink);
   }
-  .feature-more{
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 8px;
-    margin-top: 18px;
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.18em;
+  .exp-made::before{ content: "→ "; color: var(--ink-faint); font-weight: 400; }
+  .exp-desc{
+    display: block;
+    margin-top: 6px;
+    font-size: 13px;
+    line-height: 1.9;
+    color: var(--ink-faint);
   }
-  .feature-more svg{ width: 16px; height: 16px; transition: transform 0.25s ease; }
+  .exp-arrow{
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    width: 15px;
+    height: 15px;
+    margin-top: -7px;
+    color: var(--ink-faint);
+    transition: transform 0.25s ease, color 0.25s ease;
+  }
+  .exp-arrow path{ stroke: currentColor; fill: none; }
   @media (hover: hover){
-    .feature:hover{ background: var(--ink); color: #fff; }
-    .feature:hover .feature-kicker,
-    .feature:hover .feature-desc{ color: rgba(255,255,255,0.72); }
-    .feature:hover .feature-more svg{ transform: translateX(3px); }
+    a.exp:hover{ background: var(--line-ghost); padding-left: 10px; }
+    a.exp:hover .exp-arrow{ color: var(--ink); transform: translateX(3px); }
   }
-  .feature:active{ background: var(--ink); color: #fff; }
+  a.exp:active{ background: var(--line-ghost); }
 
   /* link rows: thin-ruled list, whole row is the tap target */
   .rows{
@@ -371,8 +354,7 @@
     padding: 0;
     border-top: 1px solid var(--line-faint);
   }
-  .feature + .rows{ margin-top: 12px; border-top: none; }
-  .rows li{ border-bottom: 1px solid var(--line-faint); }
+    .rows li{ border-bottom: 1px solid var(--line-faint); }
   .row{
     display: grid;
     grid-template-columns: 1fr auto;
@@ -479,37 +461,67 @@
     <div class="container">
       <header class="hero">
         <img class="mark" src="./avatar.png" width="56" height="56" alt="">
-        <h1 class="name">地図とノート<span class="name-en">MAPS &amp; NOTES FOR STUDY</span></h1>
-        <p class="tagline">医学部受験のロードマップと受験ノート、医学生向けの学習ツールを、無料で置いています。</p>
+        <h1 class="name">小さな実験室<span class="name-en">SMALL EXPERIMENTS</span></h1>
+        <p class="tagline">自分がつまずいたところから始めて、小さく作って試しています。うまくいったものも、途中のものも、ここに置いておきます。</p>
         <p class="operator">運営　<a href="./about/">井上凱斗</a></p>
       </header>
 
-      <nav aria-label="このページの目次">
-        <ol class="index">
-          <li><a href="#study"><span class="index-no">01</span><span class="index-jp">受験・学習</span></a></li>
-          <li><a href="#medicine"><span class="index-no">02</span><span class="index-jp">医学</span></a></li>
-          <li><a href="#output"><span class="index-no">03</span><span class="index-jp">作ったもの</span></a></li>
-          <li><a href="#input"><span class="index-no">04</span><span class="index-jp">聴く</span></a></li>
-        </ol>
-      </nav>
-
       <main class="stack">
 
-        <section class="section" id="study" aria-labelledby="study-title">
-          <p class="section-label">01　STUDY</p>
-          <h2 class="section-title" id="study-title">地方から医学部を目指す人へ</h2>
-          <p class="section-text">何をいつまでにどの順でやればいいのかを、ネット上に散らばった受験情報から並べ直しました。項目ごとに「必須・差がつく・不要」の線を引いているので、時間のない時期に何を捨てるかを決める助けになります。</p>
+        <section class="section" id="experiments" aria-labelledby="experiments-title">
+          <p class="section-label">EXPERIMENTS</p>
+          <h2 class="section-title" id="experiments-title">いま試していること</h2>
 
-          <a class="feature" href="./igakubu-roadmap/">
-            <span class="feature-kicker">START HERE</span>
-            <span class="feature-title">医学部受験ロードマップ</span>
-            <span class="feature-desc">いつまでに何をするか、何をどの順で覚えるか、答案の書き方、入試方式とお金、地方から受けるときの注意。</span>
-            <span class="feature-more">開く<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8 H13 M9 4 L13 8 L9 12" stroke="currentColor" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          </a>
+          <ol class="exps">
+            <li><a class="exp" href="./igakubu-roadmap/">
+              <span class="exp-head"><span class="exp-no">01</span><span class="exp-status is-live">公開中</span></span>
+              <span class="exp-q">地方の高校生にも、受験の地図を届けられないか。</span>
+              <span class="exp-made">医学部受験ロードマップ</span>
+              <span class="exp-desc">何をいつまでに、どの順で。ネット上に散らばった情報を並べ直し、項目ごとに「必須・差がつく・不要」の線を引きました。</span>
+              <svg class="exp-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8 H13 M9 4 L13 8 L9 12" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a></li>
+            <li><a class="exp" href="./works/focusroom/">
+              <span class="exp-head"><span class="exp-no">02</span><span class="exp-status">開発中</span></span>
+              <span class="exp-q">一人だと続かない勉強を、誰かの気配で続けられないか。</span>
+              <span class="exp-made">FocusRoom（iOSアプリ）</span>
+              <span class="exp-desc">集中している時間を記録して、同じ時間に机に向かっている人がいることを見えるようにするアプリです。まだ配信していません。</span>
+              <svg class="exp-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8 H13 M9 4 L13 8 L9 12" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a></li>
+            <li><a class="exp" href="./blue-note/">
+              <span class="exp-head"><span class="exp-no">03</span><span class="exp-status is-live">公開中</span></span>
+              <span class="exp-q">国試の範囲を、自分の手で一枚にまとめられないか。</span>
+              <span class="exp-made">国試対策 ブルーノート</span>
+              <span class="exp-desc">全科目と公衆衛生を、問題解説と結びつけて整理している学習マップです。</span>
+              <svg class="exp-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8 H13 M9 4 L13 8 L9 12" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a></li>
+            <li><a class="exp" href="./machinokoe/">
+              <span class="exp-head"><span class="exp-no">04</span><span class="exp-status">試作</span></span>
+              <span class="exp-q">住民の小さな願いを、行政が動ける形にできないか。</span>
+              <span class="exp-made">まちのコエ</span>
+              <span class="exp-desc">住民の声を集めて、行政が扱えるデータに整える仕組みの試作です。</span>
+              <svg class="exp-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8 H13 M9 4 L13 8 L9 12" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a></li>
+            <li><div class="exp">
+              <span class="exp-head"><span class="exp-no">05</span><span class="exp-status">試している</span></span>
+              <span class="exp-q">広告だけで、無料のサイトを続けられないか。</span>
+              <span class="exp-made">このサイト</span>
+              <span class="exp-desc">ここに置いているものはすべて無料です。運営の費用を広告でまかなえるかを試しています。</span>
+            </div></li>
+            <li><div class="exp">
+              <span class="exp-head"><span class="exp-no">06</span><span class="exp-status">準備中</span></span>
+              <span class="exp-q">Amazonで本を出して、少しでも稼げないか。</span>
+              <span class="exp-made">塗り絵の本（Amazon KDP）</span>
+              <span class="exp-desc">オリジナルの絵で塗り絵の本を作っています。</span>
+            </div></li>
+          </ol>
+        </section>
 
+        <section class="section" id="shelf" aria-labelledby="shelf-title">
+          <p class="section-label">SHELF</p>
+          <h2 class="section-title" id="shelf-title">ほかに置いているもの</h2>
           <ul class="rows">
             <li><a class="row" href="./works/math-notes/">
-              <span class="row-text"><span class="row-title">高校数学ノート</span><span class="row-desc">数Ⅰ・A〜Ⅲ・Cの公式と解き方の型を例題つきで。ネットがなくても開けます。</span></span>
+              <span class="row-text"><span class="row-title">高校数学ノート</span><span class="row-desc">公式と解き方の型を例題つきで。ネットがなくても開けます。</span></span>
               <svg class="row-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8 H13 M9 4 L13 8 L9 12" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a></li>
             <li><a class="row" href="./works/eng-grammar-notes/">
@@ -517,54 +529,23 @@
               <svg class="row-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8 H13 M9 4 L13 8 L9 12" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a></li>
             <li><a class="row" href="./juken/">
-              <span class="row-text"><span class="row-title">受験・学習のページ</span><span class="row-desc">化学・物理のノート、埼玉大学の過去問分析、家庭教師のご案内もここに。</span></span>
+              <span class="row-text"><span class="row-title">受験・学習のページ</span><span class="row-desc">化学・物理のノート、埼玉大学の過去問分析、家庭教師のご案内。</span></span>
               <svg class="row-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8 H13 M9 4 L13 8 L9 12" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a></li>
-            <li><a class="row" href="./contact/">
-              <span class="row-text"><span class="row-title">家庭教師のご依頼・お問い合わせ</span><span class="row-desc">個人契約で家庭教師をしています。</span></span>
-              <svg class="row-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8 H13 M9 4 L13 8 L9 12" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a></li>
-          </ul>
-        </section>
-
-        <section class="section" id="medicine" aria-labelledby="medicine-title">
-          <p class="section-label">02　MEDICINE</p>
-          <h2 class="section-title" id="medicine-title">覚えたことには、置き場所を</h2>
-          <p class="section-text">演習や実習で出会った知識を、置き場所を決めて整理し、復習につなげるためのものです。</p>
-          <ul class="rows">
-            <li><a class="row" href="./blue-note/">
-              <span class="row-text"><span class="row-title">国試対策 ブルーノート</span><span class="row-desc">医師国家試験の全科目と公衆衛生を、問題解説と連動させて構造化した学習マップ。</span></span>
-              <svg class="row-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8 H13 M9 4 L13 8 L9 12" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a></li>
-          </ul>
-        </section>
-
-        <section class="section" id="output" aria-labelledby="output-title">
-          <p class="section-label">03　WORKS</p>
-          <h2 class="section-title" id="output-title">作ったもの</h2>
-          <p class="section-text">無料で勉強できる場所の地図、ガジェットの記録、noteの記事。</p>
-          <ul class="rows">
             <li><a class="row" href="./works/">
-              <span class="row-text"><span class="row-title">作ったものの一覧</span><span class="row-desc">学習サイトとアプリをまとめています。</span></span>
+              <span class="row-text"><span class="row-title">作ったものの一覧</span><span class="row-desc">アプリと学習サイトをまとめています。</span></span>
               <svg class="row-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8 H13 M9 4 L13 8 L9 12" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a></li>
-            <li><a class="row" href="https://kaitoinoue0921.github.io/gadget-log/" target="_blank" rel="noopener noreferrer">
-              <span class="row-text"><span class="row-title">GADGET LOG</span><span class="row-desc">使っている道具の記録。</span></span>
-              <svg class="row-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <li><a class="row" href="./podcasts.html">
+              <span class="row-text"><span class="row-title">移動中に聴くポッドキャスト</span><span class="row-desc">歴史、ライフハック、言語など。</span></span>
+              <svg class="row-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8 H13 M9 4 L13 8 L9 12" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a></li>
             <li><a class="row" href="https://note.com/jikotaiwa" target="_blank" rel="noopener noreferrer">
-              <span class="row-text"><span class="row-title">note</span><span class="row-desc">記事はこちらに書いています。</span></span>
+              <span class="row-text"><span class="row-title">note</span><span class="row-desc">記事を書いています。</span></span>
               <svg class="row-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a></li>
-          </ul>
-        </section>
-
-        <section class="section" id="input" aria-labelledby="input-title">
-          <p class="section-label">04　LISTEN</p>
-          <h2 class="section-title" id="input-title">移動中に聴くもの</h2>
-          <ul class="rows">
-            <li><a class="row" href="./podcasts.html">
-              <span class="row-text"><span class="row-title">ポッドキャストの一覧</span><span class="row-desc">歴史、ライフハック、言語など。</span></span>
+            <li><a class="row" href="./contact/">
+              <span class="row-text"><span class="row-title">お問い合わせ</span><span class="row-desc">家庭教師のご依頼、内容の誤りのご指摘など。</span></span>
               <svg class="row-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8 H13 M9 4 L13 8 L9 12" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a></li>
           </ul>
