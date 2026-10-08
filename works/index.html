@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>作ったもの — 井上凱斗</title>
-<meta name="description" content="井上凱斗が作ったウェブサイト・ツールの一覧。">
+<meta name="description" content="医学部受験ロードマップ、高校数学・英語・化学・物理のノート、埼玉大対策マップなど、井上凱斗が作った学習サイトとアプリの一覧。">
 <link rel="canonical" href="https://kaitoinoue0921.github.io/works/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="作ったもの — 井上凱斗">
@@ -118,6 +118,9 @@
   .divider--major .fhole{ width: 16px; height: 38px; opacity: 0.75; }
 
   /* ---------- blocks ---------- */
+  .works-group{ padding: var(--gap) 0 0; }
+  .works-group-title{ font-family: var(--serif); font-weight: 600; color: var(--ink); font-size: clamp(22px, 4vw, 28px); margin: 0 0 10px; letter-spacing: 0.04em; }
+  .works-group-lead{ margin: 0; color: var(--ink-faint); line-height: 1.9; }
   .stack{ padding-top: var(--gap); padding-bottom: var(--gap); }
   .block{ margin-bottom: var(--gap); }
   .block-label{
@@ -262,7 +265,7 @@
         <p class="eyebrow">Works — 作ったもの</p>
         <h1 class="name">作ったもの<span class="name-en">WORKS &amp; EXPERIMENTS</span></h1>
 
-        <p class="tagline">自分が欲しかったものを、自分で作って置いておく場所。動くところまで作って、実際に使いながら直しています。</p>
+        <p class="tagline">地方から医学部を目指す人のための受験ロードマップと、数学・英語・理科のノート。そのほかに、自分が欲しくて作ったアプリや試作を置いています。動くところまで作って、実際に使いながら直しています。</p>
 
         <!-- hero illustration: stacked screens, line art -->
         <svg class="hero-art" viewBox="0 0 200 165" aria-hidden="true" focusable="false">
@@ -307,35 +310,41 @@
     <div class="container">
       <main class="stack">
 
-        <!-- 01 スタディスポットMAP -->
+        <section class="works-group">
+          <h2 class="works-group-title">受験・学習のノートと地図</h2>
+          <p class="works-group-lead">医学部受験のロードマップと、数学・英語・理科のノート、志望校別の対策マップ。家庭教師で実際に使うものから作っています。</p>
+        </section>
+
+        <!-- 医学部受験ロードマップ -->
         <article class="block">
-          <p class="block-label"><span>Works · 01</span><span class="status status--live">プロトタイプ公開中</span></p>
-          <h2 class="block-title">スタディスポットMAP</h2>
-          <p class="block-text">無料で勉強できる場所を地図に並べて、S〜Cのランクと点数で共有するサイト。栃木県から始めています。図書館や公民館は「行ってみないと使えるか分からない」ので、行く前に分かるようにしたかった。</p>
+          <div class="divider">
+            <span class="divider-line"></span>
+            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
+              <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
+              <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
+            </svg>
+            <span class="divider-line"></span>
+          </div>
+          <p class="block-label"><span>Works · 01</span><span class="status status--live">公開中</span></p>
+          <h2 class="block-title">医学部受験ロードマップ</h2>
+          <p class="block-text">地方から医学部を目指す人のために、ネット上に散らばった受験情報を読み込んで、順序と優先度のある形に並べ直したサイト。いつ何をやるかの月ごとの計画、単元ごとの対策、志望校のタイプ別の戦い方を載せています。</p>
 
           <ul class="points">
-            <li>静音性・電源・Wi-Fi・座席・人目・空調・アクセス・水の8軸で採点し、100点満点とS/A/B/Cランクに変換</li>
-            <li>時間帯ごとの空き状況をヒートマップで表示。「いま空いてる」場所だけに絞り込める</li>
-            <li>都道府県から市町村まで絞り込み。誰でもスポットと口コミを書き込める</li>
+            <li>トップの全体図に加えて、月ごとの計画、単元ごとの目安、九州の地域枠と修学資金、旧帝大医学部を目指す場合のページに分けて整理</li>
+            <li>情報源で割れているところや出典を、ページ内にまとめている。入試制度は毎年変わるため、最終確認は各大学の募集要項で行う前提</li>
+            <li>2026年10月に作成。誤りがあれば順次直していきます</li>
           </ul>
 
-          <ul class="tech">
-            <li>Leaflet / OpenStreetMap</li>
-            <li>Google Maps API</li>
-            <li>Supabase</li>
-            <li>Vanilla JS</li>
-          </ul>
-
-          <a class="block-action" href="../study-map/">
-            <span>開いてみる</span>
+          <a class="block-action" href="/igakubu-roadmap/">
+            <span>ロードマップを開く</span>
             <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true">
               <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </a>
-          <div><a class="support-inline" href="#support" data-ksup-open="study-map">この作品を応援する</a></div>
         </article>
 
-        <!-- 02 GADGET LOG -->
+        <!-- 26 高校数学 公式・解法ノート -->
         <article class="block">
           <div class="divider">
             <span class="divider-line"></span>
@@ -347,24 +356,31 @@
             <span class="divider-line"></span>
           </div>
           <p class="block-label"><span>Works · 02</span><span class="status status--live">公開中</span></p>
-          <h2 class="block-title">GADGET LOG</h2>
-          <p class="block-text">モバイルバッテリーやワイヤレスイヤホンなど、実際に買って使ったガジェットのレビューを置いているブログ。スペック表の比較ではなく、使ってどうだったかを残しています。</p>
+          <h2 class="block-title">高校数学 公式・解法ノート</h2>
+          <p class="block-text">家庭教師先に参考書を持っていかなくて済むように作った、高校数学の持ち運びノート。数Ⅰ・A・Ⅱ・B・C・Ⅲの22単元・302項目を、公式・例題・確認問題でまとめています。ファイル1つ保存すれば、ネットがなくても開けます。</p>
+
+          <ul class="points">
+            <li>すべての項目を「必須／差がつく／不要」の3段階に分け、表示範囲を切り替えられる。例題の解答はタップで開く</li>
+            <li>「理解した」にチェックすると項目が隠れ、単元ごとの進み具合が出る。検索・印刷にも対応</li>
+            <li>例題はすべて自作。公開したばかりで、誤りがあれば順次直していきます。進捗はこの端末のブラウザにだけ保存</li>
+          </ul>
 
           <ul class="tech">
-            <li>Static Site</li>
+            <li>Vanilla JS</li>
+            <li>KaTeX</li>
+            <li>Node(ビルド)</li>
             <li>GitHub Pages</li>
           </ul>
 
-          <a class="block-action" href="https://kaitoinoue0921.github.io/gadget-log/" target="_blank" rel="noopener noreferrer">
-            <span>GADGET LOGを見る</span>
+          <a class="block-action" href="math-notes/">
+            <span>数学ノートを開く</span>
             <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true">
               <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </a>
-          <div><a class="support-inline" href="#support" data-ksup-open="gadget-log">この作品を応援する</a></div>
         </article>
 
-        <!-- 03 このサイト -->
+        <!-- 27 英文法ノート -->
         <article class="block">
           <div class="divider">
             <span class="divider-line"></span>
@@ -376,17 +392,199 @@
             <span class="divider-line"></span>
           </div>
           <p class="block-label"><span>Works · 03</span><span class="status status--live">公開中</span></p>
-          <h2 class="block-title">プロフィールサイト</h2>
-          <p class="block-text">いま見ているこのサイト自体。興味の領域をタグで絞り込めるようにした、縦一列の名刺のようなページ。フレームワークは使わず、HTML・CSS・素のJavaScriptだけで組んでいます。</p>
+          <h2 class="block-title">英文法ノート</h2>
+          <p class="block-text">高校英文法を、用法の表・例文・確認問題でまとめた持ち運びノート。文型から仮定法、語法まで19単元・196項目。数学ノートと同じ作りで、ファイル1つ保存すればネットなしで開けます。</p>
+
+          <ul class="points">
+            <li>「必須／差がつく／不要」の3段階で、やらなくていいことまで線引き</li>
+            <li>例文はすべて自作で、日本語訳つき。確認問題は空所補充・誤文訂正・書き換え</li>
+            <li>進捗はこの端末のブラウザにだけ保存。外部への送信なし</li>
+          </ul>
 
           <ul class="tech">
-            <li>HTML / CSS</li>
+            <li>Vanilla JS</li>
+            <li>Node(ビルド)</li>
+            <li>GitHub Pages</li>
+          </ul>
+
+          <a class="block-action" href="eng-grammar-notes/">
+            <span>英文法ノートを開く</span>
+            <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </article>
+
+        <!-- 28 高校化学ノート -->
+        <article class="block">
+          <div class="divider">
+            <span class="divider-line"></span>
+            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
+              <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
+              <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
+            </svg>
+            <span class="divider-line"></span>
+          </div>
+          <p class="block-label"><span>Works · 04</span><span class="status status--live">公開中</span></p>
+          <h2 class="block-title">高校化学ノート</h2>
+          <p class="block-text">高校化学を、要点・例題・確認問題でまとめた持ち運びノート。化学基礎から理論・無機・有機まで17単元・219項目。数学ノートと同じ作りで、ファイル1つ保存すればネットなしで開けます。</p>
+
+          <ul class="points">
+            <li>「必須／差がつく／不要」の3段階で線引き。無機の暗記項目は表にして覚え方を添える</li>
+            <li>計算問題は原子量や定数を問題文に明記し、有効数字まで答えを書く</li>
+            <li>進捗はこの端末のブラウザにだけ保存。外部への送信なし</li>
+          </ul>
+
+          <ul class="tech">
+            <li>Vanilla JS</li>
+            <li>KaTeX</li>
+            <li>Node(ビルド)</li>
+            <li>GitHub Pages</li>
+          </ul>
+
+          <a class="block-action" href="chem-notes/">
+            <span>化学ノートを開く</span>
+            <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </article>
+
+        <!-- 29 高校物理ノート -->
+        <article class="block">
+          <div class="divider">
+            <span class="divider-line"></span>
+            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
+              <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
+              <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
+            </svg>
+            <span class="divider-line"></span>
+          </div>
+          <p class="block-label"><span>Works · 05</span><span class="status status--live">公開中</span></p>
+          <h2 class="block-title">高校物理ノート</h2>
+          <p class="block-text">高校物理を、公式・例題・確認問題でまとめた持ち運びノート。力学・熱・波・電磁気・原子の17単元・204項目。数学・化学ノートと同じ作りで、ネットなしで開けます。</p>
+
+          <ul class="points">
+            <li>「必須／差がつく／不要」の3段階で線引き。符号や向きのミスは項目ごとに注意書き</li>
+            <li>例題は定数と有効数字を明記した自作問題。解答はタップで開く</li>
+            <li>公開したばかりで、誤りがあれば順次直します。進捗はこの端末のブラウザにだけ保存</li>
+          </ul>
+
+          <ul class="tech">
+            <li>Vanilla JS</li>
+            <li>KaTeX</li>
+            <li>Node(ビルド)</li>
+            <li>GitHub Pages</li>
+          </ul>
+
+          <a class="block-action" href="physics-notes/">
+            <span>物理ノートを開く</span>
+            <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </article>
+
+        <!-- 24 受験英語 完全攻略ノート -->
+        <article class="block">
+          <div class="divider">
+            <span class="divider-line"></span>
+            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
+              <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
+              <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
+            </svg>
+            <span class="divider-line"></span>
+          </div>
+          <p class="block-label"><span>Works · 06</span><span class="status status--live">公開中</span></p>
+          <h2 class="block-title">受験英語 完全攻略ノート</h2>
+          <p class="block-text">英語長文を解く前に、記号・文法・構文・論理のルールを全部わかっておくための学習サイト。192項目を「必須／差がつく／ここまで不要」の3段階に分けて、やらなくていいことまで決められるようにしています。共通テスト〜MARCH・地方国公立が基準です。</p>
+
+          <ul class="points">
+            <li>記号の役割(コンマ・セミコロン・コロン・ダッシュ)、文法、構文8分野(倒置・関係詞・節・準動詞・比較・否定・仮定法・動詞の型)、長文の前に知っておく読み方、得点のコツを収録。構文だけで131項目</li>
+            <li>中心から枝が広がる英語構文マップ、全項目を横断するサイト内検索と目次つき。チェックした項目は隠れて、経験値・レベル・トロフィーがたまる</li>
+            <li>例文と解説はすべて自作。進捗はこの端末のブラウザにだけ保存し、外部への送信はなし</li>
+          </ul>
+
+          <ul class="tech">
+            <li>Vanilla JS</li>
+            <li>Python(ビルド)</li>
+            <li>GitHub Pages</li>
+          </ul>
+
+          <a class="block-action" href="https://kaitoinoue0921.github.io/eigo-kouryaku/" target="_blank" rel="noopener noreferrer">
+            <span>英語のサイトを見る</span>
+            <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </article>
+
+        <!-- 23 英検スクリプト -->
+        <article class="block">
+          <div class="divider">
+            <span class="divider-line"></span>
+            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
+              <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
+              <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
+            </svg>
+            <span class="divider-line"></span>
+          </div>
+          <p class="block-label"><span>Works · 07</span><span class="status status--live">公開中</span></p>
+          <h2 class="block-title">英検スクリプト</h2>
+          <p class="block-text">英検の英作文と面接を、型(スクリプト)に当てはめて書ける・話せるようにする対策サイト。受ける級を選んで、その級の対策を順番に進めます。いまは準2級のEメール返信と意見論述を公開していて、面接や2級以上は順次公開していきます。</p>
+
+          <ul class="points">
+            <li>Eメール(下線部について質問を2つ)と意見論述(意見＋理由2つ)を、書ける側を選ぶ・下書きメモ・骨組みの順で手順化</li>
+            <li>模範解答はすべて自作で、語数の目安に収まっているかをビルド時に自動チェック</li>
+            <li>試験形式や語数は公式の過去問で確認したものだけを掲載し、未確認の点はそう明記。進捗はこの端末のブラウザにだけ保存</li>
+          </ul>
+
+          <ul class="tech">
             <li>Vanilla JS</li>
             <li>GitHub Pages</li>
           </ul>
 
-          <a class="block-action block-action--ghost" href="../">
-            <span>トップへ戻る</span>
+          <a class="block-action" href="https://kaitoinoue0921.github.io/eiken-script/" target="_blank" rel="noopener noreferrer">
+            <span>英検スクリプトを見る</span>
+            <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </article>
+
+        <!-- 25 サクッと英和 -->
+        <article class="block">
+          <div class="divider">
+            <span class="divider-line"></span>
+            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
+              <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
+              <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
+            </svg>
+            <span class="divider-line"></span>
+          </div>
+          <p class="block-label"><span>Works · 08</span><span class="status status--live">公開中</span></p>
+          <h2 class="block-title">サクッと英和</h2>
+          <p class="block-text">広告の少ない、読みやすさを優先した英和辞書。英単語の意味・発音・例文をすばやく調べられます。14,749語を収録し、頻度順リストも用意しています。まだプロトタイプ（仮称）です。</p>
+
+          <ul class="points">
+            <li>語義はEJDict-hand(CC0)、例文はTatoeba(CC BY 2.0 FR)、語源はWiktionary(CC BY-SA 4.0)、発音はCMUdictから自動変換。出典は各ページとサイトの説明ページに明記</li>
+            <li>単語ごとに静的ページを生成しているので、ビルド不要でそのまま配信できる</li>
+            <li>語義は簡潔で、市販の辞書ほどの網羅性はないことも、あらかじめ書いています</li>
+          </ul>
+
+          <ul class="tech">
+            <li>Vanilla JS</li>
+            <li>Python(ビルド)</li>
+            <li>GitHub Pages</li>
+          </ul>
+
+          <a class="block-action" href="https://kaitoinoue0921.github.io/eigo-tango/" target="_blank" rel="noopener noreferrer">
+            <span>サクッと英和を見る</span>
             <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true">
               <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
@@ -404,7 +602,7 @@
             </svg>
             <span class="divider-line"></span>
           </div>
-          <p class="block-label"><span>Works · 04</span><span class="status status--live">公開中</span></p>
+          <p class="block-label"><span>Works · 09</span><span class="status status--live">公開中</span></p>
           <h2 class="block-title">東大理三 数学マップ</h2>
           <p class="block-text">参考書を何冊も渡り歩くのが非効率だと思ったので、数学の全範囲を「これが分からないとこれが分からない」の依存関係で構造化しました。1つのノードを開けば、着眼点・手順・別解・東大での出方が全部そこにあります。何を、どの順で、なぜやるかを、感覚ではなくグラフで決めるためのものです。</p>
 
@@ -434,7 +632,7 @@
           <div><a class="support-inline" href="#support" data-ksup-open="todai-math-map">この作品を応援する</a></div>
         </article>
 
-        <!-- 05 まちのコエ -->
+        <!-- 19 埼玉大数学 過去問マップ -->
         <article class="block">
           <div class="divider">
             <span class="divider-line"></span>
@@ -445,33 +643,168 @@
             </svg>
             <span class="divider-line"></span>
           </div>
-          <p class="block-label"><span>Works · 05</span><span class="status status--live">プロトタイプ公開中</span></p>
-          <h2 class="block-title">まちのコエ</h2>
-          <p class="block-text">まちの困りごとを住民同士で共有し、賛同が集まったら行政提出用の提案書を自動で作る、非営利のシビックテック・プラットフォーム。手数料は取らず、運営費は寄付だけで賄う設計にしています。</p>
+          <p class="block-label"><span>Works · 10</span><span class="status status--live">公開中</span></p>
+          <h2 class="block-title">埼玉大数学 過去問マップ</h2>
+          <p class="block-text">家庭教師先の生徒のために作った、埼玉大学 前期数学の対策ツール。過去問106問(1996〜2025年度)を分析して必要な知識88項目に整理したチェックリストと、全問題+解答を年度別に読めるアーカイブの2本立て。</p>
 
           <ul class="points">
-            <li>課題を地図とリストで可視化。賛同（1人1票）とコメントで議論を集約する</li>
-            <li>賛同が50件に達すると、議論の要約を行政提出フォーマットに組んでPDF化する</li>
-            <li>寄付額と運営費の内訳を毎月公開する透明性ダッシュボードつき</li>
+            <li>知識項目ごとに「埼玉大での頻出度(★0〜5)」「公式・要点」「確認問題」がつき、○△×で自己採点しながら進められる</li>
+            <li>過去問アーカイブは全問題文と、高校生にも読める言葉で書いた解答つき。検索でも探せる</li>
+            <li>進捗はこの端末のブラウザにだけ保存。外部への送信なし</li>
           </ul>
-
-          <p class="support-note">いまはデータを端末内に保存するだけのプロトタイプです。ログインと共有データベースはこれから。</p>
 
           <ul class="tech">
             <li>Vanilla JS</li>
-            <li>Supabase（設計済み）</li>
-            <li>PostgreSQL</li>
             <li>GitHub Pages</li>
           </ul>
 
-          <a class="block-action" href="../machinokoe/">
+          <a class="block-action" href="saitama-math/">
             <span>開いてみる</span>
             <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true">
               <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </a>
-          <div><a class="support-inline" href="#support" data-ksup-open="machinokoe">この作品を応援する</a></div>
         </article>
+
+        <!-- 21 埼玉大理科 知識マップ -->
+        <article class="block">
+          <div class="divider">
+            <span class="divider-line"></span>
+            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
+              <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
+              <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
+            </svg>
+            <span class="divider-line"></span>
+          </div>
+          <p class="block-label"><span>Works · 11</span><span class="status status--live">公開中</span></p>
+          <h2 class="block-title">埼玉大理科 知識マップ</h2>
+          <p class="block-text">同じ家庭教師先向けの、生物・化学の対策チェックリスト。埼玉大の過去問本文はまだ手元にないため、一般的な入試(理学部レベル)での出題頻度をもとに、細胞・代謝から有機化学まで頻出分野を49項目に整理。過去問アーカイブは資料が揃い次第、数学と同じ形で追加予定。</p>
+
+          <ul class="points">
+            <li>生物(細胞と分子・代謝・遺伝情報・生殖と発生・環境応答・生態と環境・進化と系統)と化学(理論化学・無機化学・有機化学・高分子化合物)を単元ごとに整理</li>
+            <li>各項目に公式・要点と確認問題がつき、数学版と同じく○△×で自己採点しながら進められる</li>
+            <li>進捗はこの端末のブラウザにだけ保存。外部への送信なし</li>
+          </ul>
+
+          <ul class="tech">
+            <li>Vanilla JS</li>
+            <li>GitHub Pages</li>
+          </ul>
+
+          <a class="block-action" href="saitama-science/">
+            <span>開いてみる</span>
+            <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </article>
+
+        <!-- 22 埼玉大英語 対策マップ -->
+        <article class="block">
+          <div class="divider">
+            <span class="divider-line"></span>
+            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
+              <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
+              <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
+            </svg>
+            <span class="divider-line"></span>
+          </div>
+          <p class="block-label"><span>Works · 12</span><span class="status status--live">公開中</span></p>
+          <h2 class="block-title">埼玉大英語 対策マップ</h2>
+          <p class="block-text">同じ家庭教師先向けの、英語(読解・自由英作文)の対策チェックリスト。埼玉大の英語は長文2題(900〜1250語級)+120〜150語の自由英作文という独特の構成のため、パラフレーズ力・構造読み・エッセイの型など、出題傾向に沿った対策ポイントを17項目に整理。</p>
+
+          <ul class="points">
+            <li>読解(パラフレーズ力・内容一致・下線部和訳・構造読み)、英作文(型・頻出テーマ・文法)、語彙・背景知識の3分野構成</li>
+            <li>各項目にコツ・型と練習問題がつき、数学・理科版と同じく○△×で自己採点しながら進められる</li>
+            <li>進捗はこの端末のブラウザにだけ保存。外部への送信なし</li>
+          </ul>
+
+          <ul class="tech">
+            <li>Vanilla JS</li>
+            <li>GitHub Pages</li>
+          </ul>
+
+          <a class="block-action" href="saitama-english/">
+            <span>開いてみる</span>
+            <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </article>
+
+        <!-- 11 国試対策 ブルーノート -->
+        <article class="block">
+          <div class="divider">
+            <span class="divider-line"></span>
+            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
+              <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
+              <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
+            </svg>
+            <span class="divider-line"></span>
+          </div>
+          <p class="block-label"><span>Works · 13</span><span class="status status--live">プロトタイプ公開中</span></p>
+          <h2 class="block-title">国試対策 ブルーノート</h2>
+          <p class="block-text">医師国家試験に向けた演習アプリ。Ankiの間隔反復を国試向けに厳格化し、復習期日を過ぎるとEXPが指数的に減衰してレベルダウンする仕組みにしました。解いた問題にはその場で自分の語呂合わせや理解を書き込め、公式解説はみんなで編集できるWikiにしています。</p>
+
+          <ul class="points">
+            <li>SM-2アルゴリズムで復習間隔を計算。評価4段階（Again/Hard/Good/Easy）で次の復習日を決める</li>
+            <li>復習期日超過1日ごとにEXPが0.9倍される厳格な減衰式。放置すると容赦なくレベルダウンする</li>
+            <li>出題基準（ブループリント）に紐づけ、必修85%・一般臨床75%を目標に到達度をレーダーチャートで可視化</li>
+            <li>公式解説は全員で編集できるWiki、自分用の語呂合わせや病態生理メモは公開/非公開を選べる「My Note」として分離</li>
+          </ul>
+
+          <p class="support-note">まだモックデータで動く段階のプロトタイプです。Supabaseを繋いで、実際の過去問データと共有DBに置き換えていきます。</p>
+
+          <ul class="tech">
+            <li>React / TypeScript</li>
+            <li>Tailwind CSS</li>
+            <li>Supabase</li>
+            <li>Recharts</li>
+          </ul>
+
+          <a class="block-action" href="../blue-note/">
+            <span>開いてみる</span>
+            <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </article>
+
+        <!-- 01 スタディスポットMAP -->
+        <article class="block">
+          <p class="block-label"><span>Works · 14</span><span class="status status--live">プロトタイプ公開中</span></p>
+          <h2 class="block-title">スタディスポットMAP</h2>
+          <p class="block-text">無料で勉強できる場所を地図に並べて、S〜Cのランクと点数で共有するサイト。栃木県から始めています。図書館や公民館は「行ってみないと使えるか分からない」ので、行く前に分かるようにしたかった。</p>
+
+          <ul class="points">
+            <li>静音性・電源・Wi-Fi・座席・人目・空調・アクセス・水の8軸で採点し、100点満点とS/A/B/Cランクに変換</li>
+            <li>時間帯ごとの空き状況をヒートマップで表示。「いま空いてる」場所だけに絞り込める</li>
+            <li>都道府県から市町村まで絞り込み。誰でもスポットと口コミを書き込める</li>
+          </ul>
+
+          <ul class="tech">
+            <li>Leaflet / OpenStreetMap</li>
+            <li>Google Maps API</li>
+            <li>Supabase</li>
+            <li>Vanilla JS</li>
+          </ul>
+
+          <a class="block-action" href="../study-map/">
+            <span>開いてみる</span>
+            <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <div><a class="support-inline" href="#support" data-ksup-open="study-map">この作品を応援する</a></div>
+        </article>
+
+        <section class="works-group">
+          <h2 class="works-group-title">アプリ</h2>
+          <p class="works-group-lead">iPhone向けに作ったもの。勉強や生活の小さな困りごとから出発しています。</p>
+        </section>
 
         <!-- 06 Focus Game（旧FocusRoom） -->
         <article class="block">
@@ -484,7 +817,7 @@
             </svg>
             <span class="divider-line"></span>
           </div>
-          <p class="block-label"><span>Works · 06</span><span class="status status--live">App Storeで公開中</span></p>
+          <p class="block-label"><span>Works · 15</span><span class="status status--live">App Storeで公開中</span></p>
           <h2 class="block-title">Focus Game</h2>
           <p class="block-text">「頑張るのを、ひとりでやらない。」がコンセプトの、勉強に集中するためのiOSアプリ。もとは1つのアプリでモードを切り替える「FocusRoom」でしたが、分岐が事故のもとになるので姉妹アプリ「Focus」（大学生・社会人向け）として完全に分離しました。スマホを触らせないアプリはOS標準のスクリーンタイムが最強なので、そこでは勝負していません。同じ部屋に入った人どうしが、お互いの状態を見ている、という一点に賭けています。</p>
 
@@ -532,7 +865,7 @@
             </svg>
             <span class="divider-line"></span>
           </div>
-          <p class="block-label"><span>Works · 07</span><span class="status status--wip">開発中</span></p>
+          <p class="block-label"><span>Works · 16</span><span class="status status--wip">開発中</span></p>
           <h2 class="block-title">Focus</h2>
           <p class="block-text">Focus Gameの姉妹アプリ。大学生・社会人向けで、コインやガチャなどのゲーム要素は持ちません。集中の前に一言トピックを書くだけで、終わったあとは何も書かせず自動で記録が積み上がります。自習室での相互監視という一点は、Focus Gameと共有しています。</p>
 
@@ -559,67 +892,6 @@
           <div><a class="support-inline" href="focusroom/donate/">開発を寄付で支える</a></div>
         </article>
 
-        <!-- 08 マナビト（家庭教師プラットフォーム、開発中） -->
-        <article class="block">
-          <div class="divider">
-            <span class="divider-line"></span>
-            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
-              <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-              <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
-              <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
-            </svg>
-            <span class="divider-line"></span>
-          </div>
-          <p class="block-label"><span>Works · 08</span><span class="status status--wip">開発中</span></p>
-          <h2 class="block-title">マナビト（仮称）</h2>
-          <p class="block-text">家庭教師のマッチングプラットフォーム。既存の大手が中抜き65〜75%で講師の時給を1,300〜1,800円に抑えていることへの問題意識から作っています。授業料からの運営手数料は0%。講師が時給を自分で決められることが、このサービスの存在理由です。</p>
-
-          <ul class="points">
-            <li>手数料0%。収益は家庭側が負担するプラットフォーム利用料10%と、投げ銭手数料20%だけでまかなう設計</li>
-            <li>初期ニッチは「地方の医学部志望者×自治医科大学の学生講師」。47都道府県から選抜される自治医大でしか作れない、同じ県出身の先輩マッチングが強み</li>
-            <li>講師オンボーディングは構造化インタビューから専門性タグを自動提案。家庭側の学習プロファイル、講師検索とマッチング理由の生成まで動く</li>
-          </ul>
-
-          <ul class="tech">
-            <li>Next.js</li>
-            <li>Supabase</li>
-            <li>TypeScript</li>
-          </ul>
-
-          <p class="support-note">MVPの実装は完了していますが、Supabaseプロジェクトとの本番接続はまだで、公開はしていません。あっせん・特商法・資金決済法まわりの法務レビューも未実施です。</p>
-        </article>
-
-        <!-- 09 ママの健康ノート（服薬管理アプリ、開発中） -->
-        <article class="block">
-          <div class="divider">
-            <span class="divider-line"></span>
-            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
-              <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-              <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
-              <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
-            </svg>
-            <span class="divider-line"></span>
-          </div>
-          <p class="block-label"><span>Works · 09</span><span class="status status--wip">開発中</span></p>
-          <h2 class="block-title">ママの健康ノート</h2>
-          <p class="block-text">母のために作ったiOSアプリ。複数の薬とサプリを、食前・食後・外出前のタイミングごとに管理し、飲み合わせ事故と飲み忘れを防ぎます。継続の可視化ではなく、飲み合わせのタイミングを逃さないことだけを目的にしています。</p>
-
-          <ul class="points">
-            <li>薬・サプリは複数登録可能。それぞれ食前／食後／外出前のタイミングと対象の食事を設定できる</li>
-            <li>通知は薬×食事の組み合わせごとに1本。「はい」を押した時だけ記録され、記録を強制する導線は作らない</li>
-            <li>共有は招待制の小さいグループのみ。CloudKit共有で家族と食事の記録を任意で共有できる</li>
-          </ul>
-
-          <ul class="tech">
-            <li>Swift / SwiftUI</li>
-            <li>SwiftData</li>
-            <li>CloudKit</li>
-            <li>WidgetKit</li>
-          </ul>
-
-          <p class="support-note">App Store提出に向けて準備中。アイコン・プライバシーポリシー・提出用メタデータは用意済みで、残るはApple Developerアカウントでの登録・審査提出のみです。</p>
-        </article>
-
         <!-- 10 InkVault -->
         <article class="block">
           <div class="divider">
@@ -631,7 +903,7 @@
             </svg>
             <span class="divider-line"></span>
           </div>
-          <p class="block-label"><span>Works · 10</span><span class="status status--wip">開発中</span></p>
+          <p class="block-label"><span>Works · 17</span><span class="status status--wip">開発中</span></p>
           <h2 class="block-title">InkVault</h2>
           <p class="block-text">Obsidianで医学知識をまとめていたのですが、画像を並べて比較できない・画像に直接書き込めないという不便さが解決できず、自分の使い方に合わせて作り直しました。文章はObsidianと同じく上から下へ書き、画像はWordのように自由に動かせて、その上からペンで直接書き込めます。</p>
 
@@ -659,84 +931,6 @@
           </a>
         </article>
 
-        <!-- 11 国試対策 ブルーノート -->
-        <article class="block">
-          <div class="divider">
-            <span class="divider-line"></span>
-            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
-              <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-              <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
-              <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
-            </svg>
-            <span class="divider-line"></span>
-          </div>
-          <p class="block-label"><span>Works · 11</span><span class="status status--live">プロトタイプ公開中</span></p>
-          <h2 class="block-title">国試対策 ブルーノート</h2>
-          <p class="block-text">医師国家試験に向けた演習アプリ。Ankiの間隔反復を国試向けに厳格化し、復習期日を過ぎるとEXPが指数的に減衰してレベルダウンする仕組みにしました。解いた問題にはその場で自分の語呂合わせや理解を書き込め、公式解説はみんなで編集できるWikiにしています。</p>
-
-          <ul class="points">
-            <li>SM-2アルゴリズムで復習間隔を計算。評価4段階（Again/Hard/Good/Easy）で次の復習日を決める</li>
-            <li>復習期日超過1日ごとにEXPが0.9倍される厳格な減衰式。放置すると容赦なくレベルダウンする</li>
-            <li>出題基準（ブループリント）に紐づけ、必修85%・一般臨床75%を目標に到達度をレーダーチャートで可視化</li>
-            <li>公式解説は全員で編集できるWiki、自分用の語呂合わせや病態生理メモは公開/非公開を選べる「My Note」として分離</li>
-          </ul>
-
-          <p class="support-note">まだモックデータで動く段階のプロトタイプです。Supabaseを繋いで、実際の過去問データと共有DBに置き換えていきます。</p>
-
-          <ul class="tech">
-            <li>React / TypeScript</li>
-            <li>Tailwind CSS</li>
-            <li>Supabase</li>
-            <li>Recharts</li>
-          </ul>
-
-          <a class="block-action" href="../blue-note/">
-            <span>開いてみる</span>
-            <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true">
-              <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </a>
-        </article>
-
-        <!-- 12 Creator Shield AI -->
-        <article class="block">
-          <div class="divider">
-            <span class="divider-line"></span>
-            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
-              <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-              <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
-              <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
-            </svg>
-            <span class="divider-line"></span>
-          </div>
-          <p class="block-label"><span>Works · 12</span><span class="status status--live">公開中</span></p>
-          <h2 class="block-title">Creator Shield AI</h2>
-          <p class="block-text">YouTube配信者のメンタルを、コメント欄の誹謗中傷や定型的な「イジり」から守るツール。URLを入れるだけでコメントを解析し、攻撃的な表現を穏やかな要約に言い換えて見せます。</p>
-
-          <ul class="points">
-            <li>コメントを応援・建設的指摘・心配・ミーム定型文・誹謗中傷の5カテゴリに自動分類</li>
-            <li>攻撃的な表現をマスキング・トーン変換する「メンタルシールド」機能。悪意の量と強度をダッシュボードで可視化</li>
-            <li>チャンネル健全度スコア、次回企画案・NGワードの自動生成、誹謗中傷の証拠保全、返信ドラフト生成</li>
-            <li>好意的なコメントだけをカード表示する「癒やしモード」つき</li>
-          </ul>
-
-          <ul class="tech">
-            <li>Next.js / TypeScript</li>
-            <li>Tailwind CSS</li>
-            <li>YouTube Data API v3</li>
-            <li>Google Gemini API</li>
-          </ul>
-
-          <p class="support-note">Vercelに公開済みで、実データでの解析が動作します。</p>
-
-          <a class="block-action" href="https://creator-shield-ai-three.vercel.app/" target="_blank" rel="noopener noreferrer">
-            <span>Creator Shield AI を見る</span>
-            <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true">
-              <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </a>
-        </article>
-
         <!-- 13 5分でブロック（旧MindfulShield） -->
         <article class="block">
           <div class="divider">
@@ -748,7 +942,7 @@
             </svg>
             <span class="divider-line"></span>
           </div>
-          <p class="block-label"><span>Works · 13</span><span class="status status--wip">App Store提出準備中</span></p>
+          <p class="block-label"><span>Works · 18</span><span class="status status--wip">App Store提出準備中</span></p>
           <h2 class="block-title">5分でブロック</h2>
           <p class="block-text">指定したアプリ（YouTubeなど）を開こうとした瞬間に立ち止まらせる、デジタルウェルビーイングアプリ。「本当に今、見る必要がありますか？」というシールド画面を挟み、見るなら時間を区切って許可します。ログインもアカウントも作らず、利用データを外部サーバーに送信しない設計にしています。</p>
 
@@ -776,6 +970,245 @@
           </a>
         </article>
 
+        <!-- 20 無音カメラ -->
+        <article class="block">
+          <div class="divider">
+            <span class="divider-line"></span>
+            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
+              <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
+              <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
+            </svg>
+            <span class="divider-line"></span>
+          </div>
+          <p class="block-label"><span>Works · 19</span><span class="status status--wip">開発中</span></p>
+          <h2 class="block-title">無音カメラ</h2>
+          <p class="block-text">シャッター音を鳴らさずに撮れるシンプルなカメラアプリ。AVCapturePhotoOutputを使わず、常時流しているビデオ映像からシャッターを押した瞬間のフレームを静止画として書き出す方式で、OS側のシャッター音トリガー自体を発生させません。</p>
+
+          <ul class="points">
+            <li>インカメラ/アウトカメラ切り替え、トーチON/OFF、撮影した写真はそのまま端末の写真アプリへ保存</li>
+            <li>撮影回数の制限なし。広告はシャッター操作と重ならない最下部のバナーのみ</li>
+            <li>日本国内端末はOS/キャリア仕様でカメラ関連音が強制される場合がある旨をストア説明文・審査ノートに明記</li>
+          </ul>
+
+          <ul class="tech">
+            <li>Swift / SwiftUI</li>
+            <li>AVFoundation (AVCaptureVideoDataOutput)</li>
+            <li>Google Mobile Ads SDK</li>
+          </ul>
+
+          <p class="support-note">コアロジック実装・ビルド確認済み。実機での無音撮影確認とアプリアイコン用意が次のステップです。</p>
+
+          <a class="block-action block-action--ghost" href="silentcamera/privacy/">
+            <span>プライバシーポリシーを見る</span>
+            <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </article>
+
+        <!-- 12 Creator Shield AI -->
+        <article class="block">
+          <div class="divider">
+            <span class="divider-line"></span>
+            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
+              <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
+              <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
+            </svg>
+            <span class="divider-line"></span>
+          </div>
+          <p class="block-label"><span>Works · 20</span><span class="status status--live">公開中</span></p>
+          <h2 class="block-title">Creator Shield AI</h2>
+          <p class="block-text">YouTube配信者のメンタルを、コメント欄の誹謗中傷や定型的な「イジり」から守るツール。URLを入れるだけでコメントを解析し、攻撃的な表現を穏やかな要約に言い換えて見せます。</p>
+
+          <ul class="points">
+            <li>コメントを応援・建設的指摘・心配・ミーム定型文・誹謗中傷の5カテゴリに自動分類</li>
+            <li>攻撃的な表現をマスキング・トーン変換する「メンタルシールド」機能。悪意の量と強度をダッシュボードで可視化</li>
+            <li>チャンネル健全度スコア、次回企画案・NGワードの自動生成、誹謗中傷の証拠保全、返信ドラフト生成</li>
+            <li>好意的なコメントだけをカード表示する「癒やしモード」つき</li>
+          </ul>
+
+          <ul class="tech">
+            <li>Next.js / TypeScript</li>
+            <li>Tailwind CSS</li>
+            <li>YouTube Data API v3</li>
+            <li>Google Gemini API</li>
+          </ul>
+
+          <p class="support-note">Vercelに公開済みで、実データでの解析が動作します。</p>
+
+          <a class="block-action" href="https://creator-shield-ai-three.vercel.app/" target="_blank" rel="noopener noreferrer">
+            <span>Creator Shield AI を見る</span>
+            <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </article>
+
+        <!-- 09 ママの健康ノート（服薬管理アプリ、開発中） -->
+        <article class="block">
+          <div class="divider">
+            <span class="divider-line"></span>
+            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
+              <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
+              <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
+            </svg>
+            <span class="divider-line"></span>
+          </div>
+          <p class="block-label"><span>Works · 21</span><span class="status status--wip">開発中</span></p>
+          <h2 class="block-title">ママの健康ノート</h2>
+          <p class="block-text">母のために作ったiOSアプリ。複数の薬とサプリを、食前・食後・外出前のタイミングごとに管理し、飲み合わせ事故と飲み忘れを防ぎます。継続の可視化ではなく、飲み合わせのタイミングを逃さないことだけを目的にしています。</p>
+
+          <ul class="points">
+            <li>薬・サプリは複数登録可能。それぞれ食前／食後／外出前のタイミングと対象の食事を設定できる</li>
+            <li>通知は薬×食事の組み合わせごとに1本。「はい」を押した時だけ記録され、記録を強制する導線は作らない</li>
+            <li>共有は招待制の小さいグループのみ。CloudKit共有で家族と食事の記録を任意で共有できる</li>
+          </ul>
+
+          <ul class="tech">
+            <li>Swift / SwiftUI</li>
+            <li>SwiftData</li>
+            <li>CloudKit</li>
+            <li>WidgetKit</li>
+          </ul>
+
+          <p class="support-note">App Store提出に向けて準備中。アイコン・プライバシーポリシー・提出用メタデータは用意済みで、残るはApple Developerアカウントでの登録・審査提出のみです。</p>
+        </article>
+
+        <!-- 08 マナビト（家庭教師プラットフォーム、開発中） -->
+        <article class="block">
+          <div class="divider">
+            <span class="divider-line"></span>
+            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
+              <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
+              <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
+            </svg>
+            <span class="divider-line"></span>
+          </div>
+          <p class="block-label"><span>Works · 22</span><span class="status status--wip">開発中</span></p>
+          <h2 class="block-title">マナビト（仮称）</h2>
+          <p class="block-text">家庭教師のマッチングプラットフォーム。既存の大手が中抜き65〜75%で講師の時給を1,300〜1,800円に抑えていることへの問題意識から作っています。授業料からの運営手数料は0%。講師が時給を自分で決められることが、このサービスの存在理由です。</p>
+
+          <ul class="points">
+            <li>手数料0%。収益は家庭側が負担するプラットフォーム利用料10%と、投げ銭手数料20%だけでまかなう設計</li>
+            <li>初期ニッチは「地方の医学部志望者×自治医科大学の学生講師」。47都道府県から選抜される自治医大でしか作れない、同じ県出身の先輩マッチングが強み</li>
+            <li>講師オンボーディングは構造化インタビューから専門性タグを自動提案。家庭側の学習プロファイル、講師検索とマッチング理由の生成まで動く</li>
+          </ul>
+
+          <ul class="tech">
+            <li>Next.js</li>
+            <li>Supabase</li>
+            <li>TypeScript</li>
+          </ul>
+
+          <p class="support-note">MVPの実装は完了していますが、Supabaseプロジェクトとの本番接続はまだで、公開はしていません。あっせん・特商法・資金決済法まわりの法務レビューも未実施です。</p>
+        </article>
+
+        <!-- 05 まちのコエ -->
+        <article class="block">
+          <div class="divider">
+            <span class="divider-line"></span>
+            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
+              <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
+              <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
+            </svg>
+            <span class="divider-line"></span>
+          </div>
+          <p class="block-label"><span>Works · 23</span><span class="status status--live">プロトタイプ公開中</span></p>
+          <h2 class="block-title">まちのコエ</h2>
+          <p class="block-text">まちの困りごとを住民同士で共有し、賛同が集まったら行政提出用の提案書を自動で作る、非営利のシビックテック・プラットフォーム。手数料は取らず、運営費は寄付だけで賄う設計にしています。</p>
+
+          <ul class="points">
+            <li>課題を地図とリストで可視化。賛同（1人1票）とコメントで議論を集約する</li>
+            <li>賛同が50件に達すると、議論の要約を行政提出フォーマットに組んでPDF化する</li>
+            <li>寄付額と運営費の内訳を毎月公開する透明性ダッシュボードつき</li>
+          </ul>
+
+          <p class="support-note">いまはデータを端末内に保存するだけのプロトタイプです。ログインと共有データベースはこれから。</p>
+
+          <ul class="tech">
+            <li>Vanilla JS</li>
+            <li>Supabase（設計済み）</li>
+            <li>PostgreSQL</li>
+            <li>GitHub Pages</li>
+          </ul>
+
+          <a class="block-action" href="../machinokoe/">
+            <span>開いてみる</span>
+            <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <div><a class="support-inline" href="#support" data-ksup-open="machinokoe">この作品を応援する</a></div>
+        </article>
+
+        <section class="works-group">
+          <h2 class="works-group-title">そのほかの試作</h2>
+          <p class="works-group-lead">受験や学習とは別に、気になって作ってみたものです。</p>
+        </section>
+
+        <!-- 02 GADGET LOG -->
+        <article class="block">
+          <div class="divider">
+            <span class="divider-line"></span>
+            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
+              <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
+              <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
+            </svg>
+            <span class="divider-line"></span>
+          </div>
+          <p class="block-label"><span>Works · 24</span><span class="status status--live">公開中</span></p>
+          <h2 class="block-title">GADGET LOG</h2>
+          <p class="block-text">モバイルバッテリーやワイヤレスイヤホンなど、実際に買って使ったガジェットのレビューを置いているブログ。スペック表の比較ではなく、使ってどうだったかを残しています。</p>
+
+          <ul class="tech">
+            <li>Static Site</li>
+            <li>GitHub Pages</li>
+          </ul>
+
+          <a class="block-action" href="https://kaitoinoue0921.github.io/gadget-log/" target="_blank" rel="noopener noreferrer">
+            <span>GADGET LOGを見る</span>
+            <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <div><a class="support-inline" href="#support" data-ksup-open="gadget-log">この作品を応援する</a></div>
+        </article>
+
+        <!-- 03 このサイト -->
+        <article class="block">
+          <div class="divider">
+            <span class="divider-line"></span>
+            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
+              <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
+              <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
+            </svg>
+            <span class="divider-line"></span>
+          </div>
+          <p class="block-label"><span>Works · 25</span><span class="status status--live">公開中</span></p>
+          <h2 class="block-title">プロフィールサイト</h2>
+          <p class="block-text">いま見ているこのサイト自体。興味の領域をタグで絞り込めるようにした、縦一列の名刺のようなページ。フレームワークは使わず、HTML・CSS・素のJavaScriptだけで組んでいます。</p>
+
+          <ul class="tech">
+            <li>HTML / CSS</li>
+            <li>Vanilla JS</li>
+            <li>GitHub Pages</li>
+          </ul>
+
+          <a class="block-action block-action--ghost" href="../">
+            <span>トップへ戻る</span>
+            <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </article>
+
         <!-- 14 思想の系譜 -->
         <article class="block">
           <div class="divider">
@@ -787,7 +1220,7 @@
             </svg>
             <span class="divider-line"></span>
           </div>
-          <p class="block-label"><span>Works · 14</span><span class="status status--live">プロトタイプ公開中</span></p>
+          <p class="block-label"><span>Works · 26</span><span class="status status--live">プロトタイプ公開中</span></p>
           <h2 class="block-title">思想の系譜</h2>
           <p class="block-text">高校の「倫理」で学ぶ体系を、大人の教養として読み直すナレッジマップ。クイズやEXPは一切なく、思想家どうしの継承・批判・影響を系譜図として可視化し、気になる人物をクリックすると根本の問い・コア思想・現代への示唆・名著ガイドを読めます。</p>
 
@@ -822,7 +1255,7 @@
             </svg>
             <span class="divider-line"></span>
           </div>
-          <p class="block-label"><span>Works · 15</span><span class="status status--live">公開中</span></p>
+          <p class="block-label"><span>Works · 27</span><span class="status status--live">公開中</span></p>
           <h2 class="block-title">南島原のお盆のお経</h2>
           <p class="block-text">実家のお盆で読まれていたお経の意味を調べて、家族向けにまとめたページ。浄土真宗の正信偈・阿弥陀経が何を語っているかの解説と、南島原の宗派事情を歴史背景つきで書いています。合わせて、長崎県内13市の寺院数と宗派傾向を実際の海岸線の地図に重ねたページ、香典の相場・書き方や南島原・島原に伝わる「御目覚まし」、通夜から火葬までの基本の流れをまとめたページも作りました。</p>
 
@@ -858,7 +1291,7 @@
             </svg>
             <span class="divider-line"></span>
           </div>
-          <p class="block-label"><span>Works · 16</span><span class="status status--live">公開中</span></p>
+          <p class="block-label"><span>Works · 28</span><span class="status status--live">公開中</span></p>
           <h2 class="block-title">吉田家の家紋リサーチ</h2>
           <p class="block-text">実家の家紋「丸に違い鷹の羽」を調べてまとめたページ。紋の由来・構成の解説に加えて、阿蘇神社→菊池氏→有馬氏（南島原市）という伝播ルートを地図で追い、吉田姓そのものの分布や家紋を調べられる参考サイトも整理しています。</p>
 
@@ -893,7 +1326,7 @@
             </svg>
             <span class="divider-line"></span>
           </div>
-          <p class="block-label"><span>Works · 17</span><span class="status status--live">公開中</span></p>
+          <p class="block-label"><span>Works · 29</span><span class="status status--live">公開中</span></p>
           <h2 class="block-title">家系図メーカー</h2>
           <p class="block-text">文章を打つだけで家族関係を自動で分類し、居住地・職業つきの家系図を描くツール。「太郎は次郎の父です」のように書くだけで、親子・夫婦・兄弟姉妹から叔父叔母・いとこまで判定し、世代ごとに自動でレイアウトします。</p>
 
@@ -928,7 +1361,7 @@
             </svg>
             <span class="divider-line"></span>
           </div>
-          <p class="block-label"><span>Works · 18</span><span class="status status--live">公開中</span></p>
+          <p class="block-label"><span>Works · 30</span><span class="status status--live">公開中</span></p>
           <h2 class="block-title">論文ガチャラボ</h2>
           <p class="block-text">医学英語の勉強がガチャの引き心地で続くように作った学習ゲーム。コインを投入すると循環器から精神科まで各領域の重要な臨床試験・論文がカプセルで出てきて、英語原文中の難しい単語をクリックすると和訳と語源（ギリシャ語・ラテン語の語根や薬剤名のINN語幹）が分かり、単語帳に自動で集まっていきます。</p>
 
@@ -947,392 +1380,6 @@
 
           <a class="block-action" href="https://claude.ai/code/artifact/ac093267-7d38-4250-b93d-7a2c974ca92a" target="_blank" rel="noopener noreferrer">
             <span>論文ガチャラボを見る</span>
-            <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true">
-              <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </a>
-        </article>
-
-        <!-- 19 埼玉大数学 過去問マップ -->
-        <article class="block">
-          <div class="divider">
-            <span class="divider-line"></span>
-            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
-              <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-              <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
-              <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
-            </svg>
-            <span class="divider-line"></span>
-          </div>
-          <p class="block-label"><span>Works · 19</span><span class="status status--live">公開中</span></p>
-          <h2 class="block-title">埼玉大数学 過去問マップ</h2>
-          <p class="block-text">家庭教師先の生徒のために作った、埼玉大学 前期数学の対策ツール。過去問106問(1996〜2025年度)を分析して必要な知識88項目に整理したチェックリストと、全問題+解答を年度別に読めるアーカイブの2本立て。</p>
-
-          <ul class="points">
-            <li>知識項目ごとに「埼玉大での頻出度(★0〜5)」「公式・要点」「確認問題」がつき、○△×で自己採点しながら進められる</li>
-            <li>過去問アーカイブは全問題文と、高校生にも読める言葉で書いた解答つき。検索でも探せる</li>
-            <li>進捗はこの端末のブラウザにだけ保存。外部への送信なし</li>
-          </ul>
-
-          <ul class="tech">
-            <li>Vanilla JS</li>
-            <li>GitHub Pages</li>
-          </ul>
-
-          <a class="block-action" href="saitama-math/">
-            <span>開いてみる</span>
-            <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true">
-              <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </a>
-        </article>
-
-        <!-- 20 無音カメラ -->
-        <article class="block">
-          <div class="divider">
-            <span class="divider-line"></span>
-            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
-              <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-              <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
-              <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
-            </svg>
-            <span class="divider-line"></span>
-          </div>
-          <p class="block-label"><span>Works · 20</span><span class="status status--wip">開発中</span></p>
-          <h2 class="block-title">無音カメラ</h2>
-          <p class="block-text">シャッター音を鳴らさずに撮れるシンプルなカメラアプリ。AVCapturePhotoOutputを使わず、常時流しているビデオ映像からシャッターを押した瞬間のフレームを静止画として書き出す方式で、OS側のシャッター音トリガー自体を発生させません。</p>
-
-          <ul class="points">
-            <li>インカメラ/アウトカメラ切り替え、トーチON/OFF、撮影した写真はそのまま端末の写真アプリへ保存</li>
-            <li>撮影回数の制限なし。広告はシャッター操作と重ならない最下部のバナーのみ</li>
-            <li>日本国内端末はOS/キャリア仕様でカメラ関連音が強制される場合がある旨をストア説明文・審査ノートに明記</li>
-          </ul>
-
-          <ul class="tech">
-            <li>Swift / SwiftUI</li>
-            <li>AVFoundation (AVCaptureVideoDataOutput)</li>
-            <li>Google Mobile Ads SDK</li>
-          </ul>
-
-          <p class="support-note">コアロジック実装・ビルド確認済み。実機での無音撮影確認とアプリアイコン用意が次のステップです。</p>
-
-          <a class="block-action block-action--ghost" href="silentcamera/privacy/">
-            <span>プライバシーポリシーを見る</span>
-            <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true">
-              <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </a>
-        </article>
-
-        <!-- 21 埼玉大理科 知識マップ -->
-        <article class="block">
-          <div class="divider">
-            <span class="divider-line"></span>
-            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
-              <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-              <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
-              <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
-            </svg>
-            <span class="divider-line"></span>
-          </div>
-          <p class="block-label"><span>Works · 21</span><span class="status status--live">公開中</span></p>
-          <h2 class="block-title">埼玉大理科 知識マップ</h2>
-          <p class="block-text">同じ家庭教師先向けの、生物・化学の対策チェックリスト。埼玉大の過去問本文はまだ手元にないため、一般的な入試(理学部レベル)での出題頻度をもとに、細胞・代謝から有機化学まで頻出分野を49項目に整理。過去問アーカイブは資料が揃い次第、数学と同じ形で追加予定。</p>
-
-          <ul class="points">
-            <li>生物(細胞と分子・代謝・遺伝情報・生殖と発生・環境応答・生態と環境・進化と系統)と化学(理論化学・無機化学・有機化学・高分子化合物)を単元ごとに整理</li>
-            <li>各項目に公式・要点と確認問題がつき、数学版と同じく○△×で自己採点しながら進められる</li>
-            <li>進捗はこの端末のブラウザにだけ保存。外部への送信なし</li>
-          </ul>
-
-          <ul class="tech">
-            <li>Vanilla JS</li>
-            <li>GitHub Pages</li>
-          </ul>
-
-          <a class="block-action" href="saitama-science/">
-            <span>開いてみる</span>
-            <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true">
-              <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </a>
-        </article>
-
-        <!-- 22 埼玉大英語 対策マップ -->
-        <article class="block">
-          <div class="divider">
-            <span class="divider-line"></span>
-            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
-              <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-              <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
-              <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
-            </svg>
-            <span class="divider-line"></span>
-          </div>
-          <p class="block-label"><span>Works · 22</span><span class="status status--live">公開中</span></p>
-          <h2 class="block-title">埼玉大英語 対策マップ</h2>
-          <p class="block-text">同じ家庭教師先向けの、英語(読解・自由英作文)の対策チェックリスト。埼玉大の英語は長文2題(900〜1250語級)+120〜150語の自由英作文という独特の構成のため、パラフレーズ力・構造読み・エッセイの型など、出題傾向に沿った対策ポイントを17項目に整理。</p>
-
-          <ul class="points">
-            <li>読解(パラフレーズ力・内容一致・下線部和訳・構造読み)、英作文(型・頻出テーマ・文法)、語彙・背景知識の3分野構成</li>
-            <li>各項目にコツ・型と練習問題がつき、数学・理科版と同じく○△×で自己採点しながら進められる</li>
-            <li>進捗はこの端末のブラウザにだけ保存。外部への送信なし</li>
-          </ul>
-
-          <ul class="tech">
-            <li>Vanilla JS</li>
-            <li>GitHub Pages</li>
-          </ul>
-
-          <a class="block-action" href="saitama-english/">
-            <span>開いてみる</span>
-            <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true">
-              <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </a>
-        </article>
-
-        <!-- 23 英検スクリプト -->
-        <article class="block">
-          <div class="divider">
-            <span class="divider-line"></span>
-            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
-              <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-              <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
-              <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
-            </svg>
-            <span class="divider-line"></span>
-          </div>
-          <p class="block-label"><span>Works · 23</span><span class="status status--live">公開中</span></p>
-          <h2 class="block-title">英検スクリプト</h2>
-          <p class="block-text">英検の英作文と面接を、型(スクリプト)に当てはめて書ける・話せるようにする対策サイト。受ける級を選んで、その級の対策を順番に進めます。いまは準2級のEメール返信と意見論述を公開していて、面接や2級以上は順次公開していきます。</p>
-
-          <ul class="points">
-            <li>Eメール(下線部について質問を2つ)と意見論述(意見＋理由2つ)を、書ける側を選ぶ・下書きメモ・骨組みの順で手順化</li>
-            <li>模範解答はすべて自作で、語数の目安に収まっているかをビルド時に自動チェック</li>
-            <li>試験形式や語数は公式の過去問で確認したものだけを掲載し、未確認の点はそう明記。進捗はこの端末のブラウザにだけ保存</li>
-          </ul>
-
-          <ul class="tech">
-            <li>Vanilla JS</li>
-            <li>GitHub Pages</li>
-          </ul>
-
-          <a class="block-action" href="https://kaitoinoue0921.github.io/eiken-script/" target="_blank" rel="noopener noreferrer">
-            <span>英検スクリプトを見る</span>
-            <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true">
-              <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </a>
-        </article>
-
-        <!-- 24 受験英語 完全攻略ノート -->
-        <article class="block">
-          <div class="divider">
-            <span class="divider-line"></span>
-            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
-              <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-              <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
-              <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
-            </svg>
-            <span class="divider-line"></span>
-          </div>
-          <p class="block-label"><span>Works · 24</span><span class="status status--live">公開中</span></p>
-          <h2 class="block-title">受験英語 完全攻略ノート</h2>
-          <p class="block-text">英語長文を解く前に、記号・文法・構文・論理のルールを全部わかっておくための学習サイト。192項目を「必須／差がつく／ここまで不要」の3段階に分けて、やらなくていいことまで決められるようにしています。共通テスト〜MARCH・地方国公立が基準です。</p>
-
-          <ul class="points">
-            <li>記号の役割(コンマ・セミコロン・コロン・ダッシュ)、文法、構文8分野(倒置・関係詞・節・準動詞・比較・否定・仮定法・動詞の型)、長文の前に知っておく読み方、得点のコツを収録。構文だけで131項目</li>
-            <li>中心から枝が広がる英語構文マップ、全項目を横断するサイト内検索と目次つき。チェックした項目は隠れて、経験値・レベル・トロフィーがたまる</li>
-            <li>例文と解説はすべて自作。進捗はこの端末のブラウザにだけ保存し、外部への送信はなし</li>
-          </ul>
-
-          <ul class="tech">
-            <li>Vanilla JS</li>
-            <li>Python(ビルド)</li>
-            <li>GitHub Pages</li>
-          </ul>
-
-          <a class="block-action" href="https://kaitoinoue0921.github.io/eigo-kouryaku/" target="_blank" rel="noopener noreferrer">
-            <span>英語のサイトを見る</span>
-            <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true">
-              <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </a>
-        </article>
-
-        <!-- 25 サクッと英和 -->
-        <article class="block">
-          <div class="divider">
-            <span class="divider-line"></span>
-            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
-              <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-              <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
-              <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
-            </svg>
-            <span class="divider-line"></span>
-          </div>
-          <p class="block-label"><span>Works · 25</span><span class="status status--live">公開中</span></p>
-          <h2 class="block-title">サクッと英和</h2>
-          <p class="block-text">広告の少ない、読みやすさを優先した英和辞書。英単語の意味・発音・例文をすばやく調べられます。14,749語を収録し、頻度順リストも用意しています。まだプロトタイプ（仮称）です。</p>
-
-          <ul class="points">
-            <li>語義はEJDict-hand(CC0)、例文はTatoeba(CC BY 2.0 FR)、語源はWiktionary(CC BY-SA 4.0)、発音はCMUdictから自動変換。出典は各ページとサイトの説明ページに明記</li>
-            <li>単語ごとに静的ページを生成しているので、ビルド不要でそのまま配信できる</li>
-            <li>語義は簡潔で、市販の辞書ほどの網羅性はないことも、あらかじめ書いています</li>
-          </ul>
-
-          <ul class="tech">
-            <li>Vanilla JS</li>
-            <li>Python(ビルド)</li>
-            <li>GitHub Pages</li>
-          </ul>
-
-          <a class="block-action" href="https://kaitoinoue0921.github.io/eigo-tango/" target="_blank" rel="noopener noreferrer">
-            <span>サクッと英和を見る</span>
-            <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true">
-              <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </a>
-        </article>
-
-        <!-- 26 高校数学 公式・解法ノート -->
-        <article class="block">
-          <div class="divider">
-            <span class="divider-line"></span>
-            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
-              <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-              <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
-              <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
-            </svg>
-            <span class="divider-line"></span>
-          </div>
-          <p class="block-label"><span>Works · 26</span><span class="status status--live">公開中</span></p>
-          <h2 class="block-title">高校数学 公式・解法ノート</h2>
-          <p class="block-text">家庭教師先に参考書を持っていかなくて済むように作った、高校数学の持ち運びノート。数Ⅰ・A・Ⅱ・B・C・Ⅲの22単元・302項目を、公式・例題・確認問題でまとめています。ファイル1つ保存すれば、ネットがなくても開けます。</p>
-
-          <ul class="points">
-            <li>すべての項目を「必須／差がつく／不要」の3段階に分け、表示範囲を切り替えられる。例題の解答はタップで開く</li>
-            <li>「理解した」にチェックすると項目が隠れ、単元ごとの進み具合が出る。検索・印刷にも対応</li>
-            <li>例題はすべて自作。公開したばかりで、誤りがあれば順次直していきます。進捗はこの端末のブラウザにだけ保存</li>
-          </ul>
-
-          <ul class="tech">
-            <li>Vanilla JS</li>
-            <li>KaTeX</li>
-            <li>Node(ビルド)</li>
-            <li>GitHub Pages</li>
-          </ul>
-
-          <a class="block-action" href="math-notes/">
-            <span>数学ノートを開く</span>
-            <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true">
-              <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </a>
-        </article>
-
-        <!-- 27 英文法ノート -->
-        <article class="block">
-          <div class="divider">
-            <span class="divider-line"></span>
-            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
-              <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-              <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
-              <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
-            </svg>
-            <span class="divider-line"></span>
-          </div>
-          <p class="block-label"><span>Works · 27</span><span class="status status--live">公開中</span></p>
-          <h2 class="block-title">英文法ノート</h2>
-          <p class="block-text">高校英文法を、用法の表・例文・確認問題でまとめた持ち運びノート。文型から仮定法、語法まで19単元・196項目。数学ノートと同じ作りで、ファイル1つ保存すればネットなしで開けます。</p>
-
-          <ul class="points">
-            <li>「必須／差がつく／不要」の3段階で、やらなくていいことまで線引き</li>
-            <li>例文はすべて自作で、日本語訳つき。確認問題は空所補充・誤文訂正・書き換え</li>
-            <li>進捗はこの端末のブラウザにだけ保存。外部への送信なし</li>
-          </ul>
-
-          <ul class="tech">
-            <li>Vanilla JS</li>
-            <li>Node(ビルド)</li>
-            <li>GitHub Pages</li>
-          </ul>
-
-          <a class="block-action" href="eng-grammar-notes/">
-            <span>英文法ノートを開く</span>
-            <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true">
-              <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </a>
-        </article>
-
-        <!-- 28 高校化学ノート -->
-        <article class="block">
-          <div class="divider">
-            <span class="divider-line"></span>
-            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
-              <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-              <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
-              <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
-            </svg>
-            <span class="divider-line"></span>
-          </div>
-          <p class="block-label"><span>Works · 28</span><span class="status status--live">公開中</span></p>
-          <h2 class="block-title">高校化学ノート</h2>
-          <p class="block-text">高校化学を、要点・例題・確認問題でまとめた持ち運びノート。化学基礎から理論・無機・有機まで17単元・219項目。数学ノートと同じ作りで、ファイル1つ保存すればネットなしで開けます。</p>
-
-          <ul class="points">
-            <li>「必須／差がつく／不要」の3段階で線引き。無機の暗記項目は表にして覚え方を添える</li>
-            <li>計算問題は原子量や定数を問題文に明記し、有効数字まで答えを書く</li>
-            <li>進捗はこの端末のブラウザにだけ保存。外部への送信なし</li>
-          </ul>
-
-          <ul class="tech">
-            <li>Vanilla JS</li>
-            <li>KaTeX</li>
-            <li>Node(ビルド)</li>
-            <li>GitHub Pages</li>
-          </ul>
-
-          <a class="block-action" href="chem-notes/">
-            <span>化学ノートを開く</span>
-            <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true">
-              <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </a>
-        </article>
-
-        <!-- 29 高校物理ノート -->
-        <article class="block">
-          <div class="divider">
-            <span class="divider-line"></span>
-            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
-              <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-              <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
-              <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
-            </svg>
-            <span class="divider-line"></span>
-          </div>
-          <p class="block-label"><span>Works · 29</span><span class="status status--live">公開中</span></p>
-          <h2 class="block-title">高校物理ノート</h2>
-          <p class="block-text">高校物理を、公式・例題・確認問題でまとめた持ち運びノート。力学・熱・波・電磁気・原子の17単元・204項目。数学・化学ノートと同じ作りで、ネットなしで開けます。</p>
-
-          <ul class="points">
-            <li>「必須／差がつく／不要」の3段階で線引き。符号や向きのミスは項目ごとに注意書き</li>
-            <li>例題は定数と有効数字を明記した自作問題。解答はタップで開く</li>
-            <li>公開したばかりで、誤りがあれば順次直します。進捗はこの端末のブラウザにだけ保存</li>
-          </ul>
-
-          <ul class="tech">
-            <li>Vanilla JS</li>
-            <li>KaTeX</li>
-            <li>Node(ビルド)</li>
-            <li>GitHub Pages</li>
-          </ul>
-
-          <a class="block-action" href="physics-notes/">
-            <span>物理ノートを開く</span>
             <svg class="action-icon" viewBox="0 0 16 16" aria-hidden="true">
               <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
@@ -1420,5 +1467,24 @@
 
 <script data-goatcounter="https://kaitoinoue.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
+<!-- site-footer: 運営者情報・お問い合わせ（共通） -->
+<style>
+  .site-footer{max-width:700px;margin:0 auto;padding:8px 24px 72px;text-align:center;font-size:12.5px;line-height:1.9;color:var(--ink-faint,#707070);font-family:inherit}
+  .site-footer ul{list-style:none;margin:0 0 10px;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:6px 22px}
+  .site-footer a{color:var(--ink-faint,#707070);text-decoration:none;border-bottom:1px solid var(--line-faint,rgba(18,18,18,.14));padding-bottom:2px}
+  .site-footer a:hover{color:var(--ink,#121212);border-color:var(--ink,#121212)}
+  .site-footer p{margin:0}
+</style>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">プロフィール</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
 </body>
 </html>
