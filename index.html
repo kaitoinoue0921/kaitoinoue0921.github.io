@@ -100,7 +100,7 @@
   a:focus-visible{ outline: 2px solid var(--ink); outline-offset: 3px; }
 
   /* Japanese headings and short copy break at phrase boundaries where supported */
-  .tagline, .section-title, .section-text, .exp-q, .exp-desc, .row-title, .row-desc, .footer-support, .site-footer p{
+  .tagline, .section-title, .section-text, .exp-q, .exp-desc, .exp-how, .row-title, .row-desc, .footer-support, .site-footer p{
     word-break: auto-phrase;
     text-wrap: pretty;
   }
@@ -337,6 +337,16 @@
     line-height: 1.9;
     color: var(--ink-faint);
   }
+  .exp-how{
+    display: block;
+    margin-top: 8px;
+    padding-left: 10px;
+    border-left: 1px solid var(--line-faint);
+    font-size: 12.5px;
+    line-height: 1.85;
+    color: var(--ink-faint);
+  }
+  .exp-how::before{ content: "作り方　"; color: var(--ink); font-size: 11.5px; letter-spacing: 0.08em; }
   .exp-arrow{
     position: absolute;
     right: 4px;
@@ -485,12 +495,14 @@
               <span class="exp-q">「井上凱斗」で検索したとき、いちばん上に自分のページを出せないか。</span>
               <span class="exp-made">このサイト（名前の検索）</span>
               <span class="exp-desc">このサイトを作ったそもそものきっかけです。ページの題名や説明に名前を入れて、Googleで何番目に出るかを見ています。</span>
+              <span class="exp-how">7月31日に、HTMLとCSSだけで作り始めました。翌日にGoogleのSearch Consoleに登録して、何番目に出ているかを見られるようにしました。</span>
             </div></li>
             <li><a class="exp" href="./study-map/">
               <span class="exp-head"><span class="exp-no">02</span><span class="exp-status is-live">公開中</span></span>
               <span class="exp-q">図書館や公民館が勉強に使えるか、行く前に分かるようにできないか。</span>
               <span class="exp-made">スタディスポットMAP</span>
               <span class="exp-desc">静音性・電源・Wi-Fiなど8つの軸で採点して、地図に並べています。栃木県から始めました。</span>
+              <span class="exp-how">最初は仮のデータで地図を作り、翌日、県内の施設を一件ずつ確かめた記録に入れ替えました。設備の事実と、自分の主観の点数は分けて載せています。</span>
               <svg class="exp-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8 H13 M9 4 L13 8 L9 12" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a></li>
             <li><a class="exp" href="./todai-math-map/">
@@ -498,6 +510,7 @@
               <span class="exp-q">参考書を渡り歩かずに、数学をやる順番を地図で決められないか。</span>
               <span class="exp-made">東大理三 数学マップ</span>
               <span class="exp-desc">中学から東大レベルまでの154項目を「これが分からないとこれが分からない」のつながりで並べました。</span>
+              <span class="exp-how">まず単元どうしのつながりを地図にして公開し、半月後に、いまの実力を測る診断テストと解説36項目を足しました。</span>
               <svg class="exp-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8 H13 M9 4 L13 8 L9 12" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a></li>
             <li><div class="exp">
@@ -505,12 +518,14 @@
               <span class="exp-q">家庭教師の時給を、講師が自分で決められるようにできないか。</span>
               <span class="exp-made">マナビト（仮称）</span>
               <span class="exp-desc">授業料から手数料を取らない家庭教師のマッチングです。まだ形にしている途中です。</span>
+              <span class="exp-how">要件定義から学習プロファイルまで、先に6本の設計書を書きました。そのあと、登録からマッチングまで動く試作を作っています。サーバーにはまだつないでいません。</span>
             </div></li>
             <li><a class="exp" href="./works/focusroom/">
               <span class="exp-head"><span class="exp-no">05</span><span class="exp-status">開発中</span></span>
               <span class="exp-q">一人だと続かない勉強を、誰かの気配で続けられないか。</span>
               <span class="exp-made">FocusRoom（iOSアプリ）</span>
               <span class="exp-desc">集中している時間を記録して、同じ時間に机に向かっている人がいることを見えるようにするアプリです。まだ配信していません。</span>
+              <span class="exp-how">スマホの利用を制限するAppleの仕組みを使うため、Swiftで作り始めました。途中で、高校生向けのFocus Gameと大学生・社会人向けのFocusの二つに分けています。</span>
               <svg class="exp-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8 H13 M9 4 L13 8 L9 12" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a></li>
             <li><div class="exp">
@@ -518,12 +533,14 @@
               <span class="exp-q">母の薬の飲み合わせと飲み忘れを、アプリで防げないか。</span>
               <span class="exp-made">ママの健康ノート（iOSアプリ）</span>
               <span class="exp-desc">母のために作っています。薬とサプリを食前・食後・外出前のタイミングごとに管理します。</span>
+              <span class="exp-how">父に頼まれて作り始めました。はじめは習慣づけのアプリにしましたが、要るのは飲み合わせを守るための通知だと分かって、作り直しました。</span>
             </div></li>
             <li><a class="exp" href="./machinokoe/">
               <span class="exp-head"><span class="exp-no">07</span><span class="exp-status">試作</span></span>
               <span class="exp-q">住民の小さな願いを、行政が動ける形にできないか。</span>
               <span class="exp-made">まちのコエ</span>
               <span class="exp-desc">住民の声を集めて、行政が扱えるデータに整える仕組みの試作です。</span>
+              <span class="exp-how">南島原を例にして一日で試作しました。同じ日に、実際の地図に差し替えて、運営にかかる費用も正直に書いています。</span>
               <svg class="exp-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8 H13 M9 4 L13 8 L9 12" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a></li>
             <li><a class="exp" href="./blue-note/">
@@ -531,6 +548,7 @@
               <span class="exp-q">国試の範囲を、自分の手で一枚にまとめられないか。</span>
               <span class="exp-made">国試対策 ブルーノート</span>
               <span class="exp-desc">全科目と公衆衛生を、問題解説と結びつけて整理している学習マップです。</span>
+              <span class="exp-how">Ankiの間隔反復をもとに一日で骨組みを作り、翌日、厚生労働省の出題基準に沿った知識マップを足しました。</span>
               <svg class="exp-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8 H13 M9 4 L13 8 L9 12" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a></li>
             <li><div class="exp">
@@ -538,12 +556,14 @@
               <span class="exp-q">スマホでアプリを開いた瞬間に、一度だけ立ち止まらせられないか。</span>
               <span class="exp-made">5分でブロック（iOSアプリ）</span>
               <span class="exp-desc">YouTubeなどを開こうとしたときに「本当に今、見る必要がありますか」と一度だけ聞くアプリです。</span>
+              <span class="exp-how">スマホの利用を制限する仕組みを使う許可をAppleに申請して、取れてから作りました。ログインなしで、使い方のデータを外に送らない作りにしています。</span>
             </div></li>
             <li><a class="exp" href="./works/obon-nagasaki/">
               <span class="exp-head"><span class="exp-no">10</span><span class="exp-status is-live">公開中</span></span>
               <span class="exp-q">実家のお盆で聞いてきたお経が何を言っているのか、家族に説明できないか。</span>
               <span class="exp-made">南島原のお盆のお経</span>
               <span class="exp-desc">正信偈と阿弥陀経の意味を、南島原の宗派の歴史と一緒に家族向けにまとめました。</span>
+              <span class="exp-how">実家のお盆で読まれていたお経を調べて書き、翌日、葬儀の基本と、本願寺派と大谷派の違いを足しました。</span>
               <svg class="exp-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8 H13 M9 4 L13 8 L9 12" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a></li>
             <li><a class="exp" href="./works/kamon/">
@@ -551,6 +571,7 @@
               <span class="exp-q">実家の家紋がどこから来たのか、地図でたどれないか。</span>
               <span class="exp-made">吉田家の家紋リサーチ</span>
               <span class="exp-desc">「丸に違い鷹の羽」が阿蘇から南島原へ伝わった道筋を、地図で追っています。</span>
+              <span class="exp-how">お経のページと同じ日に作りました。紋の由来を調べて、阿蘇から菊池氏、有馬氏へと伝わった道筋を地図に置いています。</span>
               <svg class="exp-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8 H13 M9 4 L13 8 L9 12" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a></li>
             <li><a class="exp" href="https://claude.ai/code/artifact/ac093267-7d38-4250-b93d-7a2c974ca92a" target="_blank" rel="noopener noreferrer">
@@ -558,6 +579,7 @@
               <span class="exp-q">医学英語の勉強を、ガチャを引く楽しさで続けられないか。</span>
               <span class="exp-made">論文ガチャラボ</span>
               <span class="exp-desc">重要な臨床試験の論文がカプセルで出てきて、難しい単語を押すと和訳と語源が分かります。</span>
+              <span class="exp-how">はじめはiPhoneアプリとして作り始め、先にブラウザで遊べる試作を置きました。</span>
               <svg class="exp-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8 H13 M9 4 L13 8 L9 12" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a></li>
             <li><div class="exp">
@@ -565,24 +587,28 @@
               <span class="exp-q">ベースの後輩たちに、機材のことを詳しく伝えられないか。</span>
               <span class="exp-made">ベースアンプ道場</span>
               <span class="exp-desc">アンプの基礎、スピーカーのΩ計算、電源の入れ方・切り方、音作りと困ったときの対処をまとめています。まだ公開していません。</span>
+              <span class="exp-how">ベースの種類、アンプの基礎、機種ごと（HartkeとTC Electronic）の使い方を1ページにまとめ、スピーカーをつなぐ前のΩ計算機を付けました。</span>
             </div></li>
             <li><div class="exp">
               <span class="exp-head"><span class="exp-no">14</span><span class="exp-status">試している</span></span>
               <span class="exp-q">広告だけで、無料のサイトを続けられないか。</span>
               <span class="exp-made">このサイト</span>
               <span class="exp-desc">ここに置いているものはすべて無料です。運営の費用を広告でまかなえるかを試しています。</span>
+              <span class="exp-how">9月26日に広告を入れました。審査に通るよう、見出しの順番や文字の見やすさを直し、中身の薄いページは検索に出さない設定にしています。</span>
             </div></li>
             <li><div class="exp">
               <span class="exp-head"><span class="exp-no">15</span><span class="exp-status">準備中</span></span>
               <span class="exp-q">Amazonで本を出して、少しでも稼げないか。</span>
               <span class="exp-made">塗り絵の本（Amazon KDP）</span>
               <span class="exp-desc">オリジナルの絵で塗り絵の本を作っています。</span>
+              <span class="exp-how">画像を作るAIに線画を描かせ、本の形のPDFに組んでいます。1冊目はシニア向けの太い線の塗り絵40枚で、出品の下書きまで済んでいます。</span>
             </div></li>
             <li><a class="exp" href="./igakubu-roadmap/">
               <span class="exp-head"><span class="exp-no">16</span><span class="exp-status is-live">公開中</span></span>
               <span class="exp-q">地方の高校生にも、受験の地図を届けられないか。</span>
               <span class="exp-made">医学部受験ロードマップ</span>
               <span class="exp-desc">何をいつまでに、どの順で。ネット上に散らばった情報を並べ直し、項目ごとに「必須・差がつく・不要」の線を引きました。</span>
+              <span class="exp-how">ネット上の100を超えるページを、AIと手分けして読み比べ、何をいつ、どの順でやるかに並べ直しました。翌日に公開し、月ごと・単元ごとのページに分けています。</span>
               <svg class="exp-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8 H13 M9 4 L13 8 L9 12" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a></li>
           </ol>
