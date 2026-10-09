@@ -144,8 +144,15 @@
   }
   .page.is-bitten{ animation: pageShake 0.4s ease-in-out; }
   @media (prefers-reduced-motion: reduce){
-    .shark-attack{ display: none; }
+    /* no swim or shake: the shark just fades in and out where it stands */
+    .shark-attack{ transform: translate(-50%, -50%) scale(-1, 1); }
+    .shark-attack.is-active{ animation: sharkFade 2.4s ease-in-out forwards; }
+    .page.is-bitten{ animation: none; }
     html{ scroll-behavior: auto; }
+  }
+  @keyframes sharkFade{
+    0%,100%{ opacity: 0; }
+    30%,70%{ opacity: 0.85; }
   }
 
   /* ---------- corner marks ---------- */
