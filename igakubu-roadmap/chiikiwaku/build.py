@@ -9,7 +9,7 @@ import os, json, html, shutil
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "site")
-BASE_URL = os.environ.get("BASE_URL", "https://kaitoinoue0921.github.io/chiikiwaku").rstrip("/")
+BASE_URL = os.environ.get("BASE_URL", "https://kaitoinoue0921.github.io/igakubu-roadmap/chiikiwaku/site").rstrip("/")
 SITE = os.environ.get("SITE", "地域枠・修学資金くらべ")
 PARENT = ("医学部受験ロードマップ", "https://kaitoinoue0921.github.io/igakubu-roadmap/")
 esc = html.escape

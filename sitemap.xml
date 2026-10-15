@@ -52,7 +52,7 @@
   </url>
   <url>
     <loc>https://kaitoinoue0921.github.io/igakubu-roadmap/region.html</loc>
-    <lastmod>2026-10-08</lastmod>
+    <lastmod>2026-10-15</lastmod>
   </url>
   <url>
     <loc>https://kaitoinoue0921.github.io/igakubu-roadmap/kyutei.html</loc>
@@ -81,5 +81,41 @@
     <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://kaitoinoue0921.github.io/igakubu-roadmap/chiikiwaku/site/index.html</loc>
+    <lastmod>2026-10-15</lastmod>
+  </url>
+  <url>
+    <loc>https://kaitoinoue0921.github.io/igakubu-roadmap/chiikiwaku/site/pref/nagasaki.html</loc>
+    <lastmod>2026-10-15</lastmod>
+  </url>
+  <url>
+    <loc>https://kaitoinoue0921.github.io/igakubu-roadmap/chiikiwaku/site/pref/kumamoto.html</loc>
+    <lastmod>2026-10-15</lastmod>
+  </url>
+  <url>
+    <loc>https://kaitoinoue0921.github.io/igakubu-roadmap/chiikiwaku/site/pref/kagoshima.html</loc>
+    <lastmod>2026-10-15</lastmod>
+  </url>
+  <url>
+    <loc>https://kaitoinoue0921.github.io/igakubu-roadmap/chiikiwaku/site/pref/oita.html</loc>
+    <lastmod>2026-10-15</lastmod>
+  </url>
+  <url>
+    <loc>https://kaitoinoue0921.github.io/igakubu-roadmap/chiikiwaku/site/pref/miyazaki.html</loc>
+    <lastmod>2026-10-15</lastmod>
+  </url>
+  <url>
+    <loc>https://kaitoinoue0921.github.io/igakubu-roadmap/chiikiwaku/site/pref/fukuoka.html</loc>
+    <lastmod>2026-10-15</lastmod>
+  </url>
+  <url>
+    <loc>https://kaitoinoue0921.github.io/igakubu-roadmap/chiikiwaku/site/pref/saga.html</loc>
+    <lastmod>2026-10-15</lastmod>
+  </url>
+  <url>
+    <loc>https://kaitoinoue0921.github.io/igakubu-roadmap/chiikiwaku/site/pref/okinawa.html</loc>
+    <lastmod>2026-10-15</lastmod>
   </url>
 </urlset>
