@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>東大理三 数学マップ</title>
+<title>受験数学マップ</title>
 <style>
   :root{
     --bg:#0f1115; --panel:#171a21; --panel2:#1a2030; --line:#2a2f3a;
@@ -263,7 +263,7 @@
   .boxlist{margin-top:16px;font-size:12.5px}
   .boxlist div{padding:5px 0;border-bottom:1px solid var(--line)}
 </style>
-  <meta property="og:title" content="東大理三 数学マップ">
+  <meta property="og:title" content="受験数学マップ">
   <meta property="og:description" content="何を、どの順で、なぜやるか。数学の全範囲を構造化した学習マップ。">
   <meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
   <meta name="twitter:card" content="summary_large_image">
@@ -283,18 +283,18 @@
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="医学部受験ロードマップ">
 <meta property="og:locale" content="ja_JP">
-<meta property="og:title" content="東大理三 数学マップ">
+<meta property="og:title" content="受験数学マップ">
 <meta property="og:description" content="ネット上に散らばった医学部受験の情報を一枚にまとめた地図。いつまでに何をするか、何をどの順で覚えるか、答案の書き方、入試方式とお金、地方から受けるときの注意。">
 <meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/app.html">
 <meta property="og:image" content="https://kaitoinoue0921.github.io/igakubu-roadmap/assets/ogp.png">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "東大理三 数学マップ", "url": "https://kaitoinoue0921.github.io/todai-math-map/app.html", "inLanguage": "ja", "isPartOf": {"@type": "WebSite", "name": "医学部受験ロードマップ", "url": "https://kaitoinoue0921.github.io/igakubu-roadmap/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "受験数学マップ", "url": "https://kaitoinoue0921.github.io/todai-math-map/app.html", "inLanguage": "ja", "isPartOf": {"@type": "WebSite", "name": "医学部受験ロードマップ", "url": "https://kaitoinoue0921.github.io/igakubu-roadmap/"}}</script>
 </head>
 <body>
 <header>
   <div class="hrow">
-    <h1>東大理三 数学マップ</h1>
+    <h1>受験数学マップ</h1>
     <div class="hstat" id="hs"></div>
   </div>
   <nav>
@@ -681,8 +681,8 @@ async function maybeNotify(){
   const body = rv ? `記憶度が落ちた項目が ${rv} 個あります。` : '試験までのペースが目安を下回っています。';
   try {
     const reg = await navigator.serviceWorker?.getRegistration();
-    if (reg) reg.showNotification('東大理三 数学マップ', { body, icon: 'icon-192.png' });
-    else new Notification('東大理三 数学マップ', { body });
+    if (reg) reg.showNotification('受験数学マップ', { body, icon: 'icon-192.png' });
+    else new Notification('受験数学マップ', { body });
   } catch (e) { /* 通知に失敗しても学習自体は続けられる */ }
 }
 
