@@ -446,6 +446,14 @@
     padding-bottom: 2px;
     margin-left: 4px;
   }
+  /* 数が取れたときだけ表示 */
+  .visit-count{
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--ink-faint);
+    text-align: center;
+    margin: 14px 0 0;
+  }
 
   @media (max-width: 640px){
     .corner{ width: 12px; height: 12px; }
@@ -612,6 +620,7 @@
           <span class="divider-line"></span>
         </div>
         <p class="footer-support">個人で作って、個人で置いています。<br><a href="./support/">寄付する</a></p>
+        <p class="visit-count" id="visitCount" hidden></p>
       </div>
     </footer>
   </div>
@@ -643,6 +652,19 @@
       });
     }, { threshold: 0.4 });
     io.observe(footerEl);
+  }
+
+  /* ---------------- visitor count (GoatCounter) ---------------- */
+  var countEl = document.getElementById('visitCount');
+  if (countEl && window.fetch){
+    fetch('https://kaitoinoue.goatcounter.com/counter/TOTAL.json')
+      .then(function(r){ return r.ok ? r.json() : Promise.reject(r.status); })
+      .then(function(d){
+        if (!d || !d.count) return;
+        countEl.textContent = d.count + ' visits';
+        countEl.hidden = false;
+      })
+      .catch(function(){});
   }
 })();
 </script>
