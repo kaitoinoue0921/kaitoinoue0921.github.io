@@ -2,3 +2,5 @@ User-agent: *
 Allow: /
 
 Sitemap: https://kaitoinoue0921.github.io/sitemap.xml
+Sitemap: https://kaitoinoue0921.github.io/eigo-kouryaku/sitemap.xml
+Sitemap: https://kaitoinoue0921.github.io/eigo-tango/sitemap.xml
