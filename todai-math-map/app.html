@@ -1747,7 +1747,13 @@ function setUnitOptions(){
   }
   const hashView = location.hash.slice(1);
   const validViews = [...document.querySelectorAll('nav button')].map(b => b.dataset.v);
-  if (!S.placed && !validViews.includes(hashView)){
+  // #unit=数列 のように単元名を渡されたら、全項目をその単元で絞って開く（医学部受験ロードマップからのリンク用）
+  const hashUnit = hashView.startsWith('unit=') ? decodeURIComponent(hashView.slice(5)) : '';
+  if (hashUnit && N.some(n => n.unit === hashUnit)){
+    $('#fField').value = ''; setUnitOptions();
+    $('#fUnit').value = hashUnit;
+    view = 'all';
+  } else if (!S.placed && !validViews.includes(hashView)){
     view = 'next';
   } else if (validViews.includes(hashView)){
     view = hashView;
