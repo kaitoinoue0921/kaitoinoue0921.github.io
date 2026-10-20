@@ -99,6 +99,19 @@
 
   a:focus-visible{ outline: 2px solid var(--ink); outline-offset: 3px; }
 
+  .finder{ margin: 0 0 var(--gap); }
+  .finder-label{ display:block; font-size:12.5px; color:var(--ink-faint); margin-bottom:8px; letter-spacing:.04em; }
+  .finder-input{ width:100%; font:inherit; font-size:16px; color:var(--ink); background:var(--bg); border:1px solid var(--line-faint); border-radius:0; padding:12px 14px; -webkit-appearance:none; appearance:none; }
+  .finder-input:focus{ outline:none; border-color:var(--ink); }
+  .finder-results{ list-style:none; margin:0; padding:0; border:1px solid var(--line-faint); border-top:0; }
+  .finder-results li + li{ border-top:1px solid var(--line-ghost); }
+  .finder-results a{ display:block; padding:11px 14px; color:var(--ink); text-decoration:none; }
+  .finder-results a:hover, .finder-results a:focus-visible{ background:var(--line-ghost); }
+  .finder-results b{ display:block; font-weight:500; font-size:15px; }
+  .finder-results small{ display:block; color:var(--ink-faint); font-size:12.5px; line-height:1.6; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .finder-results .finder-none{ padding:11px 14px; color:var(--ink-faint); font-size:13px; }
+
+
   /* Japanese headings and short copy break at phrase boundaries where supported */
   .tagline, .section-title, .section-text, .exp-q, .exp-desc, .exp-how, .row-title, .row-desc, .footer-support, .site-footer p{
     word-break: auto-phrase;
@@ -491,6 +504,12 @@
         <p class="operator">運営　<a href="./about/">井上凱斗</a></p>
       </header>
 
+      <div class="finder" role="search">
+        <label class="finder-label" for="finderInput">作ったサイトを探す</label>
+        <input class="finder-input" id="finderInput" type="search" placeholder="例: 数学、地図、英語" autocomplete="off" enterkeyhint="search">
+        <ul class="finder-results" id="finderResults" hidden></ul>
+      </div>
+
       <main class="stack">
 
         <section class="section" id="experiments" aria-labelledby="experiments-title">
@@ -652,6 +671,73 @@
       });
     }, { threshold: 0.4 });
     io.observe(footerEl);
+  }
+
+
+  /* ---------------- 作ったサイトを探す: このページと works/ の一覧から名前と説明で絞り込む ---------------- */
+  var finderInput = document.getElementById('finderInput');
+  var finderResults = document.getElementById('finderResults');
+  if (finderInput && finderResults){
+    var items = [];
+    var seen = {};
+    var add = function(title, desc, href, ext){
+      if (!title || !href) return;
+      var key = href;
+      try { key = new URL(href, location.href).pathname.replace(/\/$/, ''); } catch (e) {}
+      if (seen[key]) return;
+      seen[key] = true;
+      items.push({ title: title.trim(), desc: (desc || '').trim(), href: href, ext: ext });
+    };
+    Array.prototype.forEach.call(document.querySelectorAll('.exp, .row'), function(a){
+      var t = a.querySelector('.exp-made, .row-title'), d = a.querySelector('.exp-desc, .row-desc'), q = a.querySelector('.exp-q');
+      add(t && t.textContent, (d ? d.textContent : '') + (q ? ' ' + q.textContent : ''), a.getAttribute('href'), a.target === '_blank');
+    });
+    var loaded = false;
+    var loadWorks = function(){
+      if (loaded || !window.fetch || !window.DOMParser) return;
+      loaded = true;
+      fetch('./works/').then(function(r){ return r.ok ? r.text() : Promise.reject(r.status); }).then(function(text){
+        var docW = new DOMParser().parseFromString(text, 'text/html');
+        Array.prototype.forEach.call(docW.querySelectorAll('article.block'), function(b){
+          var t = b.querySelector('.block-title'), d = b.querySelector('.block-text'), a = b.querySelector('a.block-action');
+          if (!a) return;
+          var href = new URL(a.getAttribute('href'), new URL('./works/', location.href)).href;
+          add(t && t.textContent, d && d.textContent, href, a.target === '_blank');
+        });
+        search();
+      }).catch(function(){});
+    };
+    var norm = function(s){ return s.toLowerCase().replace(/[ァ-ヶ]/g, function(c){ return String.fromCharCode(c.charCodeAt(0) - 0x60); }); };
+    var search = function(){
+      var words = norm(finderInput.value).split(/[\s　]+/).filter(Boolean);
+      finderResults.innerHTML = '';
+      if (!words.length){ finderResults.hidden = true; return; }
+      var hits = items.filter(function(it){
+        var hay = norm(it.title + ' ' + it.desc);
+        return words.every(function(w){ return hay.indexOf(w) >= 0; });
+      }).sort(function(a, b){
+        return (norm(b.title).indexOf(words[0]) >= 0) - (norm(a.title).indexOf(words[0]) >= 0);
+      }).slice(0, 8);
+      if (!hits.length){
+        var li = document.createElement('li'); li.className = 'finder-none'; li.textContent = '見つかりませんでした';
+        finderResults.appendChild(li);
+      }
+      hits.forEach(function(it){
+        var li = document.createElement('li'), a = document.createElement('a'), b = document.createElement('b'), sm = document.createElement('small');
+        a.href = it.href;
+        if (it.ext){ a.target = '_blank'; a.rel = 'noopener noreferrer'; }
+        b.textContent = it.title; sm.textContent = it.desc;
+        a.appendChild(b); a.appendChild(sm); li.appendChild(a); finderResults.appendChild(li);
+      });
+      finderResults.hidden = false;
+    };
+    finderInput.addEventListener('focus', loadWorks);
+    finderInput.addEventListener('input', function(){ loadWorks(); search(); });
+    finderInput.addEventListener('keydown', function(e){
+      if (e.key !== 'Enter') return;
+      var first = finderResults.querySelector('a');
+      if (first){ e.preventDefault(); first.click(); }
+    });
   }
 
   /* ---------------- visitor count (GoatCounter) ---------------- */
