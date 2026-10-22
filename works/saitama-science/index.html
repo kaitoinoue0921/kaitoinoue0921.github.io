@@ -221,6 +221,8 @@ h1{
 .detail p{margin:0 0 6px; white-space:pre-line;}
 .detail .lbl{font-size:10.5px; font-weight:700; color:var(--ink-soft); letter-spacing:.05em; display:block; margin-bottom:2px;}
 .detail .trap{color:var(--accent);}
+.notes-links{margin:8px 0 10px; display:flex; flex-direction:column; gap:4px;}
+.notes-links a{font-size:13px; color:var(--accent, #c0392b); text-decoration:none; border-bottom:1px solid currentColor; align-self:flex-start; padding:2px 0;}
 .past{margin:8px 0 10px; padding:10px 12px; border:1px solid var(--line, rgba(0,0,0,.15)); border-radius:6px;}
 .past-item{margin:6px 0 10px;}
 .past-label{font-size:11.5px; font-weight:700;}
@@ -478,6 +480,11 @@ function render(){
                     ${n.formula_derivation && n.formula_derivation.length ? `<p><span class="lbl">導出・確かめ方</span>${em(n.formula_derivation.join("\n"))}</p>` : ""}
                   </div>
                 </div>` : ""}
+              </div>` : ""}
+              ${n.notes && n.notes.length ? `
+              <div class="notes-links">
+                <span class="lbl">化学ノートで復習</span>
+                ${n.notes.map(x => `<a href="../chem-notes/#i=${encodeURIComponent(x.id)}" target="_blank" rel="noopener">${esc(x.t)} →</a>`).join("")}
               </div>` : ""}
               ${n.past && n.past.length ? `
               <div class="past">
