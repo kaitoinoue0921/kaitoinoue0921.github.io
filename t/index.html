@@ -14,10 +14,6 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:"Zen Kaku Gothic
 main{max-width:680px;margin:0 auto;padding:32px 16px 80px}
 h1{font-size:22px;margin:0 0 4px}
 .sub{color:var(--ink-soft);font-size:14px;margin:0 0 24px}
-#gate{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px}
-#gate input{width:100%;font:inherit;font-size:18px;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
-#gate button{margin-top:12px;width:100%;font:inherit;font-weight:700;padding:10px;border:0;border-radius:8px;background:var(--accent);color:#fff;cursor:pointer}
-#err{color:var(--accent);font-size:14px;min-height:1.5em;margin-top:8px}
 .week{margin-bottom:36px}
 .week h2{font-size:18px;border-bottom:2px solid var(--ink);padding-bottom:4px;margin:0 0 14px}
 .week.old h2{border-color:var(--line);color:var(--ink-soft)}
@@ -29,31 +25,18 @@ h1{font-size:22px;margin:0 0 4px}
 .review li{margin:6px 0}
 .review a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--accent)}
 .lbl{font-size:13px;color:var(--ink-soft);margin-top:12px}
-.out{font-size:13px;color:var(--ink-soft);background:none;border:0;padding:0;cursor:pointer;text-decoration:underline}
 </style>
 </head>
 <body>
 <main>
 <h1>今週の問題</h1>
 <p class="sub">毎週木曜に更新します</p>
-<div id="gate">
-  <label for="pw">合言葉</label>
-  <input id="pw" type="password" autocomplete="off" autocapitalize="off">
-  <button id="go" type="button">ひらく</button>
-  <div id="err"></div>
-</div>
 <div id="app"></div>
 </main>
 <script>
-async function keyOf(pw){
-  const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(pw.trim().toLowerCase()));
-  return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2,"0")).join("").slice(0,16);
-}
 function esc(s){return String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
-function show(data, key){
-  document.getElementById("gate").hidden = true;
-  const app = document.getElementById("app");
-  app.innerHTML = data.weeks.map((w,i) => `
+function show(data){
+  document.getElementById("app").innerHTML = data.weeks.map((w,i) => `
     <section class="week${i ? " old" : ""}">
       <h2>${esc(w.label)}${i ? "" : "（今週）"}</h2>
       ${w.items.map(it => `
@@ -65,24 +48,10 @@ function show(data, key){
           <div class="lbl">解き終わったら、ここで復習</div>
           <ul class="review">${it.review.map(r => `<li><a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.label)}</a></li>`).join("")}</ul>
         </div>`).join("")}
-    </section>`).join("") + `<button class="out" type="button" id="out">合言葉を忘れさせる</button>`;
-  document.getElementById("out").onclick = () => { try{localStorage.removeItem("t-key")}catch(e){} location.reload(); };
-  try{ localStorage.setItem("t-key", key); }catch(e){}
+    </section>`).join("");
 }
-async function load(key){
-  const r = await fetch("d/" + key + ".json", {cache:"no-store"});
-  if(!r.ok) return false;
-  show(await r.json(), key); return true;
-}
-async function tryOpen(){
-  const pw = document.getElementById("pw").value;
-  if(!pw) return;
-  const ok = await load(await keyOf(pw)).catch(() => false);
-  document.getElementById("err").textContent = ok ? "" : "合言葉がちがいます";
-}
-document.getElementById("go").onclick = tryOpen;
-document.getElementById("pw").addEventListener("keydown", e => { if(e.key === "Enter") tryOpen(); });
-(async () => { let k = null; try{ k = localStorage.getItem("t-key"); }catch(e){} if(k) await load(k).catch(() => {}); })();
+fetch("weeks.json", {cache:"no-store"}).then(r => r.json()).then(show)
+  .catch(() => { document.getElementById("app").textContent = "読み込めませんでした。少し待ってから開き直してください。"; });
 </script>
 </body>
 </html>

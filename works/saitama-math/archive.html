@@ -200,6 +200,7 @@ footer{
   .card-body{padding:0 12px 14px;}
 }
 
+.done-badge{font-size:12px;font-weight:700;color:#fff;background:var(--accent,#a6392a);border-radius:4px;padding:1px 8px;white-space:nowrap;}
 </style>
 </head>
 <body>
@@ -297,6 +298,7 @@ function render(){
         <div class="card-head">
           <span class="year-badge">${esc(d.year)}年度</span>
           <span class="diff-badge">難易度:${esc(d.meta.difficulty)} / 目安${esc(d.meta.time)}</span>
+          ${ASSIGNED[DATA.indexOf(d)] ? `<span class="done-badge">✓ ${esc(ASSIGNED[DATA.indexOf(d)])}</span>` : ""}
           <span class="card-arrow">▸</span>
         </div>
         <div class="card-body">
@@ -323,6 +325,11 @@ document.getElementById("q").addEventListener("input", (e) => {
   render();
 });
 
+let ASSIGNED = {};
+fetch("assigned.json", {cache:"no-store"}).then(r => r.ok ? r.json() : []).then(list => {
+  for(const a of list) ASSIGNED[a.i] = a.label;
+  if(DATA.length) render();
+}).catch(() => {});
 fetch("archive.json")
   .then(r => r.json())
   .then(data => {
