@@ -5,11 +5,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>埼玉大理科 知識チェックリスト(生物・化学)</title>
-<meta name="description" content="埼玉大学 理科(生物・化学)の頻出分野を49項目に整理したチェックリスト。公式・要点と確認問題つき。">
+<meta name="description" content="埼玉大学 理科(生物・化学)の頻出分野を51項目に整理したチェックリスト。公式・要点と確認問題つき。">
 <link rel="canonical" href="https://kaitoinoue0921.github.io/works/saitama-science/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="埼玉大理科 知識チェックリスト(生物・化学)">
-<meta property="og:description" content="埼玉大学 理科(生物・化学)の頻出分野を49項目に整理したチェックリスト。公式・要点と確認問題つき。">
+<meta property="og:description" content="埼玉大学 理科(生物・化学)の頻出分野を51項目に整理したチェックリスト。公式・要点と確認問題つき。">
 <meta property="og:url" content="https://kaitoinoue0921.github.io/works/saitama-science/">
 <meta property="og:image" content="https://kaitoinoue0921.github.io/ogp.png">
 <meta property="og:locale" content="ja_JP">
@@ -221,6 +221,11 @@ h1{
 .detail p{margin:0 0 6px; white-space:pre-line;}
 .detail .lbl{font-size:10.5px; font-weight:700; color:var(--ink-soft); letter-spacing:.05em; display:block; margin-bottom:2px;}
 .detail .trap{color:var(--accent);}
+.past{margin:8px 0 10px; padding:10px 12px; border:1px solid var(--line, rgba(0,0,0,.15)); border-radius:6px;}
+.past-item{margin:6px 0 10px;}
+.past-label{font-size:11.5px; font-weight:700;}
+.past details summary{cursor:pointer; font-size:12px; color:var(--ink-soft);}
+.past-src{font-size:11px; color:var(--ink-soft);}
 
 .badge.fm{background:var(--ok-soft); color:var(--ok); font-weight:700; cursor:pointer;}
 
@@ -306,7 +311,7 @@ footer{
   <div class="htop">
     <div>
       <h1>埼玉大理科 知識チェックリスト</h1>
-      <div class="h-sub">生物・化学の頻出分野を49項目に整理(一般的な出題傾向にもとづく構成、実際の過去問本文は未収録)</div>
+      <div class="h-sub">生物・化学の頻出分野を51項目に整理(2026年度 教育学部 前期の過去問を該当項目に紐付け済み)</div>
     </div>
     <div class="h-stats">
       <span><b id="statDone">0</b> / <span id="statTotal">0</span> 項目</span>
@@ -329,7 +334,7 @@ footer{
 
 <div class="wrap">
   <div class="intro">
-    <b>生物・化学</b>それぞれの頻出分野を、細胞と分子・代謝・遺伝情報・生殖と発生・環境応答・生態と環境・進化と系統(生物)、理論化学・無機化学・有機化学・高分子化合物(化学)という単元ごとに49項目へ整理したもの。<b>頻出度(★0〜5)</b>は一般的な大学入試(理学部レベル)での出題頻度をもとにした目安で、実際の埼玉大過去問本文にもとづく数値ではない点に注意。各項目に<b>公式・要点と確認問題</b>を収録(項目を開くと表示)。数学の過去問アーカイブのような実際の過去問本文・解答は、資料が手元にないため今のところ未収録。
+    <b>生物・化学</b>それぞれの頻出分野を、細胞と分子・代謝・遺伝情報・生殖と発生・環境応答・生態と環境・進化と系統(生物)、理論化学・無機化学・有機化学・高分子化合物(化学)という単元ごとに51項目へ整理したもの。<b>頻出度(★0〜5)</b>は一般的な大学入試(理学部レベル)での出題頻度をもとにした目安で、実際の埼玉大過去問本文にもとづく数値ではない点に注意。各項目に<b>公式・要点と確認問題</b>を収録(項目を開くと表示)。2026年度 教育学部 前期の化学・生物は、出題された項目に「2026出題」の印を付け、項目を開くと問題の要約と答えの要点を見られる。それ以前の年度は未収録。
   </div>
   <div id="app"></div>
   <p class="empty-msg" id="emptyMsg">条件に一致する項目がありません</p>
@@ -455,6 +460,7 @@ function render(){
               <span class="badge">${n.cost}分</span>
               ${n.saitama === 0 ? '<span class="badge out">出題実績なし</span>' : ""}
               ${n.formula && n.formula.length ? '<span class="badge fm">公式あり</span>' : ""}
+              ${n.past && n.past.length ? '<span class="badge fm">2026出題</span>' : ""}
               <span class="id-chip">${esc(n.id)}</span>
             </div>
             <div class="detail">
@@ -472,6 +478,17 @@ function render(){
                     ${n.formula_derivation && n.formula_derivation.length ? `<p><span class="lbl">導出・確かめ方</span>${em(n.formula_derivation.join("\n"))}</p>` : ""}
                   </div>
                 </div>` : ""}
+              </div>` : ""}
+              ${n.past && n.past.length ? `
+              <div class="past">
+                <span class="lbl">埼玉大の過去問で出た形</span>
+                ${n.past.map(p => `
+                <div class="past-item">
+                  <div class="past-label">${esc(p.label)}</div>
+                  <p>${em(p.ask)}</p>
+                  <details><summary>答えの要点</summary><p>${em(p.point)}</p></details>
+                </div>`).join("")}
+                <p class="past-src">問題の要約です。原文は<a href="https://www.cybercollege.jp/saitama/" target="_blank" rel="noopener">サイバーカレッジ(埼玉大学)</a>で見られます。</p>
               </div>` : ""}
               <p><span class="lbl">なぜ必要か</span>${em(n.why)}</p>
               <p class="trap"><span class="lbl">よくある躓き</span>${em(n.trap)}</p>
