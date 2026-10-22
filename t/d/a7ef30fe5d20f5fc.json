@@ -1,0 +1,48 @@
+{
+ "name": "つばさ",
+ "weeks": [
+  {
+   "date": "2026-10-22",
+   "label": "10月22日(木)",
+   "items": [
+    {
+     "subject": "数学",
+     "title": "埼玉大学 2012年度 確率",
+     "time": "25分",
+     "problem": "正三角形の頂点を反時計回りにそれぞれA,B,Cとし、頂点A上に碁石が置かれているとする。さいころを何回か投げ、以下の規則[R]に従って碁石を移動させるゲームを考える。\n[R] さいころの目が3の倍数のときは反時計回りに隣の頂点に移動し、3の倍数でないときは移動しないでその頂点に留まる。\nこのとき次の問に答えよ。\n(1) さいころを3回投げたとき、碁石が頂点A,B,C上にある確率をそれぞれ求めよ。\n(2) さいころをn回投げたとき、碁石が頂点A,B,C上にある確率をそれぞれ p,q,r とする。さらに続けて4回投げたとき、碁石が頂点A,B,C上にある確率をそれぞれ求めよ。\n(3) さいころを100回投げたとき、碁石が置かれている確率の最も高い頂点はA,B,Cのうちのどれか求めよ。",
+     "review": [
+      {
+       "label": "解き方のヒント：3つの状態を行き来する確率（数学ノート）",
+       "url": "https://kaitoinoue0921.github.io/works/math-notes/#prob-markov3"
+      },
+      {
+       "label": "反復試行の確率（数学ノート）",
+       "url": "https://kaitoinoue0921.github.io/works/math-notes/#prob-binomial"
+      },
+      {
+       "label": "埼玉大数学チェックリスト：確率漸化式・確率の定義",
+       "url": "https://kaitoinoue0921.github.io/works/saitama-math/#ma-prob-rec,ma-prob-def"
+      }
+     ]
+    },
+    {
+     "subject": "化学",
+     "title": "信州大学 2026年度 後期 化学 大問2（反応速度と化学平衡）",
+     "time": "30分",
+     "problem_note": "問題は大学公式PDFの6〜7ページ。LINEで送った画像と同じもの。",
+     "problem_url": "https://www.shinshu-u.ac.jp/ad_portal/uploads/R8_b_kagaku.pdf#page=9",
+     "review": [
+      {
+       "label": "反応速度と化学平衡のまとめ（化学ノート）",
+       "url": "https://kaitoinoue0921.github.io/works/chem-notes/#u-ch-equil"
+      },
+      {
+       "label": "埼玉大理科チェックリスト：反応速度・化学平衡",
+       "url": "https://kaitoinoue0921.github.io/works/saitama-science/#chem-theory-07,chem-theory-08"
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

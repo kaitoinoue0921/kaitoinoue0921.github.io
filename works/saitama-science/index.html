@@ -581,6 +581,21 @@ document.getElementById("hideDone").addEventListener("click", (e) => {
   render();
 });
 
+function openFromHash(){
+  const ids = decodeURIComponent(location.hash.slice(1)).split(",").filter(Boolean);
+  let first = null;
+  for(const id of ids){
+    const row = document.querySelector('.row[data-id="' + CSS.escape(id) + '"]');
+    if(!row) continue;
+    row.classList.add("open");
+    row.style.outline = "2px solid var(--accent, #c0392b)";
+    row.style.outlineOffset = "4px";
+    if(!first) first = row;
+  }
+  if(first) setTimeout(() => first.scrollIntoView({behavior:"smooth", block:"center"}), 50);
+}
+window.addEventListener("hashchange", openFromHash);
+
 fetch("nodes.json")
   .then(r => r.json())
   .then(nodes => {
@@ -588,6 +603,7 @@ fetch("nodes.json")
     byId = Object.fromEntries(nodes.map(n => [n.id, n]));
     document.getElementById("genInfo").textContent = `全 ${nodes.length} 項目 / 総学習時間 ${Math.round(nodes.reduce((s,n)=>s+n.cost,0)/60)} 時間分`;
     render();
+    openFromHash();
   })
   .catch(err => {
     document.getElementById("app").innerHTML = '<p style="color:var(--accent)">データの読み込みに失敗しました: ' + err + '</p>';
