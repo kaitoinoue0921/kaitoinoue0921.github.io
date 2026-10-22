@@ -7,46 +7,46 @@
    "items": [
     {
      "subject": "数学",
-     "title": "埼玉大学 2012年度 確率",
-     "time": "25分",
-     "problem": "正三角形の頂点を反時計回りにそれぞれA,B,Cとし、頂点A上に碁石が置かれているとする。さいころを何回か投げ、以下の規則[R]に従って碁石を移動させるゲームを考える。\n[R] さいころの目が3の倍数のときは反時計回りに隣の頂点に移動し、3の倍数でないときは移動しないでその頂点に留まる。\nこのとき次の問に答えよ。\n(1) さいころを3回投げたとき、碁石が頂点A,B,C上にある確率をそれぞれ求めよ。\n(2) さいころをn回投げたとき、碁石が頂点A,B,C上にある確率をそれぞれ p,q,r とする。さらに続けて4回投げたとき、碁石が頂点A,B,C上にある確率をそれぞれ求めよ。\n(3) さいころを100回投げたとき、碁石が置かれている確率の最も高い頂点はA,B,Cのうちのどれか求めよ。",
+     "title": "埼玉大学 2010年度 数列",
+     "time": "20分",
+     "problem": "数列{aₙ}をaₙ₊₂=-aₙ₊₁+2aₙ、a₁=-1、a₂=3で定める。pₙ=aₙ₊₁-aₙ、qₙ=aₙ₊₁+2aₙとおく。\n(1) pₙ₊₁=-2pₙ、qₙ₊₁=qₙとなることを示し、{pₙ},{qₙ}の一般項を求めよ。\n(2) {aₙ}の一般項を求めよ。\n(3) 数列{bₙ}をbₙ₊₂=-bₙ₊₁+2bₙ+1、b₁=0、b₂=3で定める。bₙ₊₁-bₙ=aₙ₊₁となることを示し、{bₙ}の一般項を求めよ。",
      "review": [
       {
-       "label": "解き方のヒント：3つの状態を行き来する確率（数学ノート）",
-       "url": "https://kaitoinoue0921.github.io/works/math-notes/#prob-markov3"
+       "label": "3項間の漸化式（数学ノート）",
+       "url": "https://kaitoinoue0921.github.io/works/math-notes/#seq-rec-3term"
       },
       {
-       "label": "反復試行の確率（数学ノート）",
-       "url": "https://kaitoinoue0921.github.io/works/math-notes/#prob-binomial"
+       "label": "階差数列（数学ノート）",
+       "url": "https://kaitoinoue0921.github.io/works/math-notes/#seq-diff"
       },
       {
-       "label": "埼玉大数学チェックリスト：確率漸化式・確率の定義",
-       "url": "https://kaitoinoue0921.github.io/works/saitama-math/#ma-prob-rec,ma-prob-def"
+       "label": "埼玉大数学チェックリスト：漸化式の型・階差数列",
+       "url": "https://kaitoinoue0921.github.io/works/saitama-math/#mb-rec-type,mb-diff-seq"
       }
      ]
     },
     {
      "subject": "化学",
-     "title": "信州大学 2024年度 前期 化学 大問2（加水分解とpH）",
-     "time": "25分",
-     "problem_note": "問題は大学公式PDFの6〜7ページ（LINEで送った画像と同じ）。解くのは(1)のオ、(4)、(5)、(6)。(1)ア〜エ、(2)、(3)は飛ばしてOK。\n追加問題：B点（塩酸20mL）とC点（中和点）のpHも求めてみよう。Kw=1.0×10⁻¹⁴、log2.3=0.36、log4.8=0.68",
-     "problem_url": "https://www.shinshu-u.ac.jp/ad_portal/uploads/R6_a_kagaku.pdf#page=9",
+     "title": "佐賀大学 2024年度 理工学部前期 化学 大問1（結合エネルギー）",
+     "time": "20分",
+     "problem_note": "問題は大学公式PDFの1ページ目（LINEで送った画像と同じ）。計算は途中式も書いて、整数で答える。",
+     "problem_url": "https://www.sao.saga-u.ac.jp/PDF/R6/2024ZRIKA.pdf#page=2",
      "review": [
       {
-       "label": "塩の加水分解（化学ノート）",
-       "url": "https://kaitoinoue0921.github.io/works/chem-notes/#ch-acidbase-salt"
+       "label": "結合エネルギーで反応熱を求める（化学ノート）",
+       "url": "https://kaitoinoue0921.github.io/works/chem-notes/#ch-energy-bond"
       },
       {
-       "label": "中和滴定曲線（化学ノート）",
-       "url": "https://kaitoinoue0921.github.io/works/chem-notes/#ch-acidbase-curve"
+       "label": "ヘスの法則と生成熱（化学ノート）",
+       "url": "https://kaitoinoue0921.github.io/works/chem-notes/#ch-energy-hess-formula"
       },
       {
-       "label": "緩衝液（化学ノート）",
-       "url": "https://kaitoinoue0921.github.io/works/chem-notes/#ch-acidbase-buffer"
+       "label": "エネルギー図（化学ノート）",
+       "url": "https://kaitoinoue0921.github.io/works/chem-notes/#ch-energy-diagram"
       },
       {
-       "label": "埼玉大理科チェックリスト：電離平衡（pHと緩衝液）",
-       "url": "https://kaitoinoue0921.github.io/works/saitama-science/#chem-theory-09"
+       "label": "埼玉大理科チェックリスト：熱化学",
+       "url": "https://kaitoinoue0921.github.io/works/saitama-science/#chem-theory-05"
       }
      ]
     }
