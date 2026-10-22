@@ -13,11 +13,11 @@
      "review": [
       {
        "label": "3項間の漸化式（数学ノート）",
-       "url": "https://kaitoinoue0921.github.io/works/math-notes/#seq-rec-3term"
+       "url": "https://kaitoinoue0921.github.io/works/math-notes/#i=seq-rec-3term"
       },
       {
        "label": "階差数列（数学ノート）",
-       "url": "https://kaitoinoue0921.github.io/works/math-notes/#seq-diff"
+       "url": "https://kaitoinoue0921.github.io/works/math-notes/#i=seq-diff"
       },
       {
        "label": "埼玉大数学チェックリスト：漸化式の型・階差数列",
@@ -34,15 +34,15 @@
      "review": [
       {
        "label": "結合エネルギーで反応熱を求める（化学ノート）",
-       "url": "https://kaitoinoue0921.github.io/works/chem-notes/#ch-energy-bond"
+       "url": "https://kaitoinoue0921.github.io/works/chem-notes/#i=ch-energy-bond"
       },
       {
        "label": "ヘスの法則と生成熱（化学ノート）",
-       "url": "https://kaitoinoue0921.github.io/works/chem-notes/#ch-energy-hess-formula"
+       "url": "https://kaitoinoue0921.github.io/works/chem-notes/#i=ch-energy-hess-formula"
       },
       {
        "label": "エネルギー図（化学ノート）",
-       "url": "https://kaitoinoue0921.github.io/works/chem-notes/#ch-energy-diagram"
+       "url": "https://kaitoinoue0921.github.io/works/chem-notes/#i=ch-energy-diagram"
       },
       {
        "label": "埼玉大理科チェックリスト：熱化学",
