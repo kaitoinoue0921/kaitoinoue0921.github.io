@@ -27,18 +27,26 @@
     },
     {
      "subject": "化学",
-     "title": "信州大学 2026年度 後期 化学 大問2（反応速度と化学平衡）",
-     "time": "30分",
-     "problem_note": "問題は大学公式PDFの6〜7ページ。LINEで送った画像と同じもの。",
-     "problem_url": "https://www.shinshu-u.ac.jp/ad_portal/uploads/R8_b_kagaku.pdf#page=9",
+     "title": "信州大学 2024年度 前期 化学 大問2（加水分解とpH）",
+     "time": "25分",
+     "problem_note": "問題は大学公式PDFの6〜7ページ（LINEで送った画像と同じ）。解くのは(1)のオ、(4)、(5)、(6)。(1)ア〜エ、(2)、(3)は飛ばしてOK。\n追加問題：B点（塩酸20mL）とC点（中和点）のpHも求めてみよう。Kw=1.0×10⁻¹⁴、log2.3=0.36、log4.8=0.68",
+     "problem_url": "https://www.shinshu-u.ac.jp/ad_portal/uploads/R6_a_kagaku.pdf#page=9",
      "review": [
       {
-       "label": "反応速度と化学平衡のまとめ（化学ノート）",
-       "url": "https://kaitoinoue0921.github.io/works/chem-notes/#u-ch-equil"
+       "label": "塩の加水分解（化学ノート）",
+       "url": "https://kaitoinoue0921.github.io/works/chem-notes/#ch-acidbase-salt"
       },
       {
-       "label": "埼玉大理科チェックリスト：反応速度・化学平衡",
-       "url": "https://kaitoinoue0921.github.io/works/saitama-science/#chem-theory-07,chem-theory-08"
+       "label": "中和滴定曲線（化学ノート）",
+       "url": "https://kaitoinoue0921.github.io/works/chem-notes/#ch-acidbase-curve"
+      },
+      {
+       "label": "緩衝液（化学ノート）",
+       "url": "https://kaitoinoue0921.github.io/works/chem-notes/#ch-acidbase-buffer"
+      },
+      {
+       "label": "埼玉大理科チェックリスト：電離平衡（pHと緩衝液）",
+       "url": "https://kaitoinoue0921.github.io/works/saitama-science/#chem-theory-09"
       }
      ]
     }

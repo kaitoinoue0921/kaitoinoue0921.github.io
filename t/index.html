@@ -44,7 +44,7 @@ function show(data){
           <span class="tag">${esc(it.subject)}</span><span class="tag">目安${esc(it.time)}</span>
           <h3>${esc(it.title)}</h3>
           ${it.problem ? `<div class="problem">${esc(it.problem)}</div>` : ""}
-          ${it.problem_url ? `<p>${esc(it.problem_note || "")}<br><a href="${esc(it.problem_url)}" target="_blank" rel="noopener">問題を開く（大学公式PDF）</a></p>` : ""}
+          ${it.problem_url ? `<p style="white-space:pre-wrap">${esc(it.problem_note || "")}<br><a href="${esc(it.problem_url)}" target="_blank" rel="noopener">問題を開く（大学公式PDF）</a></p>` : ""}
           <div class="lbl">解き終わったら、ここで復習</div>
           <ul class="review">${it.review.map(r => `<li><a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.label)}</a></li>`).join("")}</ul>
         </div>`).join("")}
