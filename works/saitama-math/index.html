@@ -322,6 +322,11 @@ footer{
   footer{padding:14px 14px 0; flex-direction:column; gap:4px;}
 }
 
+/* スマホでは見出しを貼り付けない（画面の大半を覆うため） */
+@media (max-width:700px){
+  header{position:static;}
+  .htop > *:first-child{flex:1 1 100%;}
+}
 </style>
 </head>
 <body>
@@ -667,7 +672,7 @@ function openFromHash(){
     row.style.outlineOffset = "4px";
     if(!first) first = row;
   }
-  if(first) setTimeout(() => first.scrollIntoView({behavior:"smooth", block:"center"}), 50);
+  if(first) setTimeout(() => first.scrollIntoView({behavior:"smooth", block:"start"}), 50);
 }
 window.addEventListener("hashchange", openFromHash);
 
