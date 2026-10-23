@@ -17,7 +17,7 @@
   - https://kaitoinoue0921.github.io/works/math-notes/items/patterns.html（着眼点まとめ）
 
 ## 2. Google Search Console（公開した日に）
-- [ ] 「サイトマップ」で `sitemap.xml` を送信し直す。状態が「成功」になり、検出された URL が 955 前後になることを確かめる
+- [ ] 「サイトマップ」で `sitemap.xml` を送信し直す。状態が「成功」になり、検出された URL が 1131 前後になることを確かめる
 - [ ] 「URL 検査」で次の URL を1つずつ入れ、「インデックス登録をリクエスト」を押す（1日の上限があるので、この順で入るところまで）
   1. https://kaitoinoue0921.github.io/juken/
   2. https://kaitoinoue0921.github.io/works/math-notes/items/
@@ -25,6 +25,7 @@
   4. https://kaitoinoue0921.github.io/works/physics-notes/items/
   5. https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/
   6. 各ノートの `items/patterns.html`（4つ）
+  7. https://kaitoinoue0921.github.io/todai-math-map/n/
 
 ## 3. Search Console（2〜3週間後）
 - [ ] 「ページ」レポートで、登録済みのページ数と「検出 - インデックス未登録」の数を下の記録欄に書く
