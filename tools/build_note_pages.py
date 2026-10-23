@@ -146,7 +146,7 @@ def write_katex(styles, scripts):
     return True
 
 
-def page(*, title, desc, url, css_math, body, crumbs_ld, site_id):
+def page(*, title, desc, url, css_math, body, crumbs_ld, site_id, noindex=False):
     head_math = '<link rel="stylesheet" href="/assets/katex/katex.css">\n' if css_math else ''
     foot_math = ('<script defer src="/assets/katex/katex.js"></script>\n'
                  '<script defer src="/assets/katex/mhchem.js"></script>\n'
@@ -163,7 +163,7 @@ def page(*, title, desc, url, css_math, body, crumbs_ld, site_id):
 {ADS}
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(desc)}">
-<link rel="canonical" href="{url}">
+{ROBOTS if noindex else ''}<link rel="canonical" href="{url}">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="小さな実験室">
 <meta property="og:title" content="{esc(title)}">
@@ -183,6 +183,8 @@ def page(*, title, desc, url, css_math, body, crumbs_ld, site_id):
 
 
 FOOTER = ''
+ROBOTS = '<meta name="robots" content="noindex,follow">\n'
+THIN_CHARS = 300  # 本文（項目ページの article）がこれより短い項目は検索に出さない
 
 
 def build_note(folder, short):
@@ -228,6 +230,7 @@ def build_note(folder, short):
 
     patterns_url = f'{items_url}patterns.html'
     sitemap = [items_url, patterns_url]
+    n_thin = 0
     focus_of = {}  # 項目ID → 着眼点の本文（先頭の「着眼点」ラベルを除いたもの）
     for k, it in enumerate(order):
         iid, u = it['id'], unit_of[it['id']]
@@ -271,12 +274,17 @@ def build_note(folder, short):
 <p class="back"><a href="./">{esc(short)}の項目一覧</a> ・ <a href="patterns.html">着眼点まとめ</a> ・ <a href="../">ノート全体を開く</a>（「理解した」のチェックと進み具合はノートに保存されます）</p>
 </main>"""
         url = f'{items_url}{iid}.html'
+        body_len = len(re.sub(r'\s+', '', re.sub(r'<[^>]+>', '', re.sub(r'<footer.*?</footer>', '', a, flags=re.S))))
+        thin = it['tier'] == 'skip' or body_len < THIN_CHARS
         write(out / f'{iid}.html', page(
             title=f'{it["title"]}（{u["name"]}）｜{short}', desc=desc, url=url,
-            css_math=has_katex and 'class="tx"' in a, body=body, site_id=site['id'],
+            css_math=has_katex and 'class="tx"' in a, body=body, site_id=site['id'], noindex=thin,
             crumbs_ld=[('トップ', f'{BASE}/'), (short, note_url), (f'{u["name"]}', f'{items_url}#{u["id"]}'),
                        (it['title'], url)]))
-        sitemap.append(url)
+        if not thin:
+            sitemap.append(url)
+        else:
+            n_thin += 1
 
     # 項目一覧と着眼点まとめは、分野（group）・単元の並べ方を共有する
     def unit_blocks(render_items):
@@ -334,7 +342,7 @@ def build_note(folder, short):
         title=f'{pat_title}｜{note_title}', desc=pat_desc, url=patterns_url,
         css_math=has_katex and any('class="tx"' in f for f in focus_of.values()), body=body, site_id=site['id'],
         crumbs_ld=[('トップ', f'{BASE}/'), (short, note_url), ('着眼点まとめ', patterns_url)]))
-    print(f'{folder}: {len(order)} 項目 / 記事 {len(arts)} / 数式 {"あり" if has_katex else "なし"}')
+    print(f'{folder}: {len(order)} 項目 / 記事 {len(arts)} / noindex {n_thin} / 数式 {"あり" if has_katex else "なし"}')
     return sitemap
 
 

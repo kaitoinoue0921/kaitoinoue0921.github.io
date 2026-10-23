@@ -123,12 +123,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/math-notes/items/numexp-abc.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/math-notes/items/numexp-rational.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -226,12 +220,6 @@
   </url>
   <url>
     <loc>https://kaitoinoue0921.github.io/works/math-notes/items/quad-maxmin-sub.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/math-notes/items/quad-2var.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -339,12 +327,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/math-notes/items/trigratio-heron.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/math-notes/items/data-mean.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -406,12 +388,6 @@
   </url>
   <url>
     <loc>https://kaitoinoue0921.github.io/works/math-notes/items/data-hypo.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/math-notes/items/data-zscore.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -507,12 +483,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/math-notes/items/prob-derangement.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/math-notes/items/integer-divisor.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -579,12 +549,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/math-notes/items/integer-fermat.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/math-notes/items/geom-centers.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -615,12 +579,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/math-notes/items/geom-triangle-ineq.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/math-notes/items/geom-inscribed.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -645,19 +603,7 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/math-notes/items/geom-ptolemy.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/math-notes/items/geom-solid.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/math-notes/items/geom-construct.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -735,12 +681,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/math-notes/items/eqproof-cauchy.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/math-notes/items/complexeq-calc.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -802,12 +742,6 @@
   </url>
   <url>
     <loc>https://kaitoinoue0921.github.io/works/math-notes/items/complexeq-omega.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/math-notes/items/complexeq-reciprocal.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -885,12 +819,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/math-notes/items/coord-sweep.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/math-notes/items/trigfunc-radian.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -928,12 +856,6 @@
   </url>
   <url>
     <loc>https://kaitoinoue0921.github.io/works/math-notes/items/trigfunc-synthesis.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/math-notes/items/trigfunc-sum-product.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -1017,12 +939,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/math-notes/items/explog-logsubst.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/math-notes/items/explog-3var.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -1036,12 +952,6 @@
   </url>
   <url>
     <loc>https://kaitoinoue0921.github.io/works/math-notes/items/explog-applied.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/math-notes/items/explog-estimate.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -1107,12 +1017,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/math-notes/items/diff2-maxmin-app.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/math-notes/items/diff2-subst.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -1132,12 +1036,6 @@
   </url>
   <url>
     <loc>https://kaitoinoue0921.github.io/works/math-notes/items/diff2-ineq.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/math-notes/items/diff2-tangent-region.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -1191,12 +1089,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/math-notes/items/integ2-bisect.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/math-notes/items/integ2-const.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -1215,19 +1107,7 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/math-notes/items/integ2-varlimit-max.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/math-notes/items/integ2-proof.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/math-notes/items/integ2-thirtieth.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -1240,12 +1120,6 @@
   </url>
   <url>
     <loc>https://kaitoinoue0921.github.io/works/math-notes/items/seq-geo.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/math-notes/items/seq-mean.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -1287,19 +1161,7 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/math-notes/items/seq-rec-recip.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/math-notes/items/seq-rec-3term.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/math-notes/items/seq-rec-Sn.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -1312,18 +1174,6 @@
   </url>
   <url>
     <loc>https://kaitoinoue0921.github.io/works/math-notes/items/seq-induction.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/math-notes/items/seq-rec-frac-general.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/math-notes/items/seq-sigma-k4.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -1384,24 +1234,6 @@
   </url>
   <url>
     <loc>https://kaitoinoue0921.github.io/works/math-notes/items/stat-test.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/math-notes/items/stat-prop.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/math-notes/items/stat-continuous.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/math-notes/items/stat-lln.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -1485,12 +1317,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/math-notes/items/vector-plane-eq.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/math-notes/items/cplane-basic.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -1540,18 +1366,6 @@
   </url>
   <url>
     <loc>https://kaitoinoue0921.github.io/works/math-notes/items/cplane-map.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/math-notes/items/cplane-roots-sum.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/math-notes/items/cplane-triangle-shape.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -1617,18 +1431,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/math-notes/items/curve-eccentricity.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/math-notes/items/curve-cycloid.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/math-notes/items/limit-seq-basic.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -1660,12 +1462,6 @@
   </url>
   <url>
     <loc>https://kaitoinoue0921.github.io/works/math-notes/items/limit-telescoping.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/math-notes/items/limit-paren.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -1708,12 +1504,6 @@
   </url>
   <url>
     <loc>https://kaitoinoue0921.github.io/works/math-notes/items/limit-ivt.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/math-notes/items/limit-epsilon.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -1809,12 +1599,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/math-notes/items/diff3-lhopital.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/math-notes/items/integ3-basic.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -1899,18 +1683,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/math-notes/items/integ3-shell.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/math-notes/items/integ3-oblique.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -1959,42 +1731,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-matter-flame.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-matter-detect.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-matter-state.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-matter-change.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-matter-kelvin.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-matter-rf.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-atom-struct.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -2025,12 +1761,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-atom-orbital.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-atom-table.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -2043,25 +1773,7 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-atom-ea.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-atom-en.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-atom-radius.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-atom-ie-zigzag.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -2091,12 +1803,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-bond-metal.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-bond-shape.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -2115,31 +1821,7 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-bond-hybrid.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-bond-crystal.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-bond-graphite.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-bond-ice.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-bond-unitcell.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -2169,19 +1851,7 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-mol-gas.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-mol-avg.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-mol-avogadro-exp.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -2212,12 +1882,6 @@
   </url>
   <url>
     <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-mol-hydrate.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-mol-molality.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -2295,12 +1959,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-stoich-laws.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-acidbase-def.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -2373,18 +2031,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-acidbase-buffer.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-acidbase-lewis.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-redox-def.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -2392,12 +2038,6 @@
   </url>
   <url>
     <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-redox-ox.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-redox-fraction.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -2434,12 +2074,6 @@
   </url>
   <url>
     <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-redox-iodo.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-redox-cod.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -2529,12 +2163,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-gas-vdw.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-solution-dissolve.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -2590,12 +2218,6 @@
   </url>
   <url>
     <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-solution-osmotic.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-solution-raoult.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -2673,18 +2295,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-energy-lattice.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-energy-entropy.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-equil-rate.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -2698,12 +2308,6 @@
   </url>
   <url>
     <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-equil-ea.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-equil-arrhenius.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -2787,12 +2391,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-ion-indicator.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-equil-ksp.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -2805,18 +2403,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-equil-h2s.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-ion-dilute.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-electro-basic.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -2824,12 +2410,6 @@
   </url>
   <url>
     <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-electro-daniell.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-electro-volta.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -2889,12 +2469,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-electro-potential.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-inorg-nm-gasprep.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -2925,12 +2499,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-inorg-nm-oxoacid.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-inorg-nm-oxide.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -2950,18 +2518,6 @@
   </url>
   <url>
     <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-inorg-nm-nitrogen.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-inorg-nm-phos.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-inorg-nm-carbon.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -3057,12 +2613,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-inorg-m-isomer.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-org-aliph-analysis.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -3094,12 +2644,6 @@
   </url>
   <url>
     <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-org-aliph-alkyne.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-org-aliph-ozone.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -3154,12 +2698,6 @@
   </url>
   <url>
     <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-org-arom-sidechain.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-org-arom-orient.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -3285,12 +2823,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-polymer-func.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/physics-notes/items/</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -3345,19 +2877,7 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/physics-notes/items/ph-kinem-down.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/physics-notes/items/ph-kinem-meet.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/physics-notes/items/ph-kinem-resist.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -3406,12 +2926,6 @@
   </url>
   <url>
     <loc>https://kaitoinoue0921.github.io/works/physics-notes/items/ph-proj-monkey.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/physics-notes/items/ph-proj-closest.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -3489,12 +3003,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/physics-notes/items/ph-force-lami.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/physics-notes/items/ph-motion-law.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -3544,12 +3052,6 @@
   </url>
   <url>
     <loc>https://kaitoinoue0921.github.io/works/physics-notes/items/ph-motion-pulley.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/physics-notes/items/ph-motion-wedge.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -3610,12 +3112,6 @@
   </url>
   <url>
     <loc>https://kaitoinoue0921.github.io/works/physics-notes/items/ph-energy-system.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/physics-notes/items/ph-energy-integral.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -3687,12 +3183,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/physics-notes/items/ph-momentum-rocket.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/physics-notes/items/ph-circ-omega.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -3754,12 +3244,6 @@
   </url>
   <url>
     <loc>https://kaitoinoue0921.github.io/works/physics-notes/items/ph-circ-ellipse.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/physics-notes/items/ph-circ-rotation.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -3831,12 +3315,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/physics-notes/items/ph-shm-damped.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/physics-notes/items/ph-thermo-heat.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -3903,12 +3381,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/physics-notes/items/ph-thermo-second.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/physics-notes/items/ph-wave-basic.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -3939,12 +3411,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/physics-notes/items/ph-wave-super.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/physics-notes/items/ph-wave-standing.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -3957,12 +3423,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/physics-notes/items/ph-wave-refeq.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/physics-notes/items/ph-wave-huygens.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -3970,12 +3430,6 @@
   </url>
   <url>
     <loc>https://kaitoinoue0921.github.io/works/physics-notes/items/ph-wave-interfere.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/physics-notes/items/ph-wave-diffract.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -4047,12 +3501,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/physics-notes/items/ph-sound-oblique.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/physics-notes/items/ph-light-refract.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -4077,12 +3525,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/physics-notes/items/ph-light-fizeau.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/physics-notes/items/ph-light-lens.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -4096,12 +3538,6 @@
   </url>
   <url>
     <loc>https://kaitoinoue0921.github.io/works/physics-notes/items/ph-light-combo.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/physics-notes/items/ph-light-mirror.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -4149,12 +3585,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/physics-notes/items/ph-elec-dipole.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/physics-notes/items/ph-elec-potential.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -4168,12 +3598,6 @@
   </url>
   <url>
     <loc>https://kaitoinoue0921.github.io/works/physics-notes/items/ph-elec-conductor.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/physics-notes/items/ph-elec-image.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -4257,12 +3681,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/physics-notes/items/ph-circuit-potentiometer.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/physics-notes/items/ph-circuit-capdc.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -4276,12 +3694,6 @@
   </url>
   <url>
     <loc>https://kaitoinoue0921.github.io/works/physics-notes/items/ph-circuit-nonlinear.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/physics-notes/items/ph-circuit-diode.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -4323,12 +3735,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/physics-notes/items/ph-magnet-material.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/physics-notes/items/ph-magnet-lorentz.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -4354,12 +3760,6 @@
   </url>
   <url>
     <loc>https://kaitoinoue0921.github.io/works/physics-notes/items/ph-magnet-hall.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/physics-notes/items/ph-magnet-cyclotron.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -4432,12 +3832,6 @@
   </url>
   <url>
     <loc>https://kaitoinoue0921.github.io/works/physics-notes/items/ph-induct-emwave.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/physics-notes/items/ph-induct-rlc.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -4521,12 +3915,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/physics-notes/items/ph-atom-elementary.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -4575,12 +3963,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-sentence-it-oc.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-sentence-pos.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -4588,18 +3970,6 @@
   </url>
   <url>
     <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-sentence-phrase.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-sentence-there.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-sentence-rare.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -4659,12 +4029,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-noun-some-any.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-noun-each-every.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -4672,12 +4036,6 @@
   </url>
   <url>
     <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-noun-all-not.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-noun-collective.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -4695,18 +4053,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-adj-order.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-adj-post.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-adj-quantity.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -4719,12 +4065,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-adj-enough.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-adv-position.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -4732,18 +4072,6 @@
   </url>
   <url>
     <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-adv-confuse.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-adv-so.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-adv-also.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -4791,25 +4119,7 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-tense-have-see.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-tense-sequence.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-tense-hist.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-perfect-image.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -4827,31 +4137,13 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-perfect-past-diff.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-perfect-past.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-perfect-future.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-perfect-progressive.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-perfect-past-prog.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -4869,19 +4161,7 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-modal-may.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-modal-must.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-modal-should.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -4923,18 +4203,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-modal-should-emotion.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-modal-idiom.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-passive-form.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -4947,19 +4215,7 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-passive-neg-q.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-passive-svoo.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-passive-svoc.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -4990,18 +4246,6 @@
   </url>
   <url>
     <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-passive-it.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-passive-get.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-passive-active.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -5067,12 +4311,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-inf-split.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-ger-basic.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -5103,12 +4341,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-ger-need.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-ger-prepto.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -5116,12 +4348,6 @@
   </url>
   <url>
     <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-ger-idiom.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-ger-prevent.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -5164,12 +4390,6 @@
   </url>
   <url>
     <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-part-spend.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-part-unusual.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -5229,12 +4449,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-pcons-literary.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-rel-case.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -5284,12 +4498,6 @@
   </url>
   <url>
     <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-rel-contain.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-rel-quasi.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -5355,12 +4563,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-conj-lest.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-cmp-basic.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -5421,12 +4623,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-cmp-skip.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-subj-past.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -5463,12 +4659,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-subj-time.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-subj-should-were.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -5482,12 +4672,6 @@
   </url>
   <url>
     <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-subj-noif.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-subj-polite.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -5530,12 +4714,6 @@
   </url>
   <url>
     <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-neg-speech.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-neg-skip.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -5595,19 +4773,7 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-inv-skip.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-prep-time.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-prep-by.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -5644,12 +4810,6 @@
   </url>
   <url>
     <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-prep-idiom.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-prep-skip.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -5704,12 +4864,6 @@
   </url>
   <url>
     <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-verbs-sayspeak.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-verbs-skip.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
