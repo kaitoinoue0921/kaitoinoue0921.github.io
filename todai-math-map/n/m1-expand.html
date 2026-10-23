@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>展開・因数分解の型（数と式）｜受験数学マップ</title>
+<meta name="description" content="展開・因数分解は数学全体で最も反復回数の多い操作であり、ここでの手の速さと正確さが、数III積分や複素数計算など後段のすべての作業時間を左右する。公式は覚えるだけでなく、なぜその形になるかを一度展開して確認しておくと、…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/m1-expand.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="展開・因数分解の型（数と式）｜受験数学マップ">
+<meta property="og:description" content="展開・因数分解は数学全体で最も反復回数の多い操作であり、ここでの手の速さと正確さが、数III積分や複素数計算など後段のすべての作業時間を左右する。公式は覚えるだけでなく、なぜその形になるかを一度展開して確認しておくと、…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/m1-expand.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "展開・因数分解の型", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/m1-expand.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 展開・因数分解の型</nav>
+<h1>展開・因数分解の型</h1>
+<p class="meta">数学I ／ 数と式 ／ 東大での重要度 ★★☆☆☆</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>展開・因数分解は数学全体で最も反復回数の多い操作であり、ここでの手の速さと正確さが、数III積分や複素数計算など後段のすべての作業時間を左右する。公式は覚えるだけでなく、なぜその形になるかを一度展開して確認しておくと、符号ミスや型の取り違えが激減する。特に3乗の公式と対称式がらみの因数分解は、単独では地味だが、後の単元で突然必要になる場面が多い。</p>
+<h2>こんなときに使う</h2>
+<ul><li>(a±b)²、(a+b)(a−b)の形を見たら瞬時に展開できるか確認する</li><li>3次式（x³±1、x³±8など）は3乗の和・差の公式を疑う</li><li>3文字の対称な式は基本対称式（和・積）への還元を考える</li><li>複2次式や係数が汚い式は、平方の差の形を作れないか試す</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 式の次数と項の数から使う公式の候補を絞る</li><li>2. 3乗が絡むなら a³±b³=(a±b)(a²∓ab+b²) を試す</li><li>3. 3文字対称なら a+b+c、ab+bc+ca などの基本対称式に置き換える</li><li>4. 因数分解できたら展開して元の式に戻るか検算する</li></ol>
+<h2>例題</h2>
+<div class="problem">x³ − 27 を因数分解せよ。</div><details><summary>解答</summary><ol class="steps"><li>x³ − 27 = x³ − 3³ の形なので、a³−b³=(a−b)(a²+ab+b²) を使う。</li><li>a=x, b=3 として (x−3)(x²+3x+9)。</li><li>検算：展開すると x³+3x²+9x−3x²−9x−27=x³−27 で一致。</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>因数定理で先に1つの解を見つけてから割り算する方法もあるが、3乗の公式が使える形なら公式のほうが速い</li><li>複2次式は t=x² と置換してから因数分解する</li></ul>
+<h2>落とし穴</h2>
+<ul><li>a³+b³ と a³−b³ で中間の符号（∓ab）を取り違える</li><li>展開して検算する習慣がないまま次に進み、符号ミスに気づかない</li><li>3文字対称式・複2次式の因数分解が反射で出ない</li></ul>
+<h2>なぜ大事か</h2>
+<p>式変形の速度そのもの。ここが遅いと数III積分で毎回時間を失う</p>
+<h2>東大での出方</h2>
+<p>単独の出題は少ないが、積分の被積分関数を整理する場面や、整数問題で積の形に持ち込む場面で、ここの速さがそのまま試験時間の余裕になる。</p>
+<h2>確認問題</h2>
+<ul><li>x³+8 を因数分解せよ</li><li>a³−b³+a−b を因数分解せよ（共通因数に注意）</li></ul>
+<h2>発展</h2>
+<p>4次式の因数分解（複2次式でない場合）。適切に平方の差の形を作れないか工夫する練習は、数IIIの部分分数分解の準備になる。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="jh-expand-factor.html">展開と因数分解（乗法公式の基礎）</a></li></ul>
+<h2>このノードを前提にするノード</h2>
+<ul class="links"><li><a href="m1-sym.html">対称式・交代式</a></li><li><a href="m2f-quad-complete.html">平方完成</a></li><li><a href="ma-int-div.html">約数・倍数・素因数分解</a></li><li><a href="m2-identity.html">恒等式・係数比較</a></li><li><a href="m2-diff-def.html">微分係数の定義・導関数</a></li></ul>
+<h2>「数と式」のノード</h2>
+<ul class="links"><li><span class="cur">展開・因数分解の型</span></li><li><a href="m1-sym.html">対称式・交代式</a></li><li><a href="m1-real.html">実数・絶対値・平方根の扱い</a></li><li><a href="m1-ineq1.html">1次不等式・連立不等式</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

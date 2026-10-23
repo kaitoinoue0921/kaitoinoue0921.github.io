@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>同じものを含む順列・円順列・じゅず順列（場合の数）｜受験数学マップ</title>
+<meta name="description" content="『割る』という操作の意味は、同値類で数えているということに尽きる。同じものを含む順列で n!/(p!q!…) と割るのは、全部区別して並べたあと、区別を消すと同じになるものが p!q!… 個ずつ現れるからである。円順列…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/ma-samekind.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="同じものを含む順列・円順列・じゅず順列（場合の数）｜受験数学マップ">
+<meta property="og:description" content="『割る』という操作の意味は、同値類で数えているということに尽きる。同じものを含む順列で n!/(p!q!…) と割るのは、全部区別して並べたあと、区別を消すと同じになるものが p!q!… 個ずつ現れるからである。円順列…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/ma-samekind.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "同じものを含む順列・円順列・じゅず順列", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/ma-samekind.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 同じものを含む順列・円順列・じゅず順列</nav>
+<h1>同じものを含む順列・円順列・じゅず順列</h1>
+<p class="meta">数学A ／ 場合の数 ／ 東大での重要度 ★★★☆☆</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>『割る』という操作の意味は、同値類で数えているということに尽きる。同じものを含む順列で n!/(p!q!…) と割るのは、全部区別して並べたあと、区別を消すと同じになるものが p!q!… 個ずつ現れるからである。円順列で n! を n で割るのも、回転して一致するものが n 個ずつあるから。この見方があれば公式は不要になり、さらに重要なことに、割ってはいけない場合（回転しても一致しないものが混ざる場合）を自分で判断できるようになる。</p>
+<h2>こんなときに使う</h2>
+<ul><li>同じ文字・同じ色が含まれる → 全部区別して並べ、同じものの個数の階乗で割る</li><li>円形に並べる → 回転を同一視。n で割る、または1つを固定する</li><li>裏返しても同じ（じゅず、ネックレス）→ さらに 2 で割る</li><li>『1つを固定する』方法のほうが、割り算より事故が少ない</li><li>最短経路の数え上げ → 『右3回・上2回』の並べ方に読み替える</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. まず全部を区別して並べる（n! 通り）</li><li>2. 区別を消したとき、何個ずつが同じものになるかを数える</li><li>3. その個数で割る</li><li>4. 円順列は『1人を固定して残りを並べる』と考えると、割り算が不要になる</li><li>5. 小さい場合を書き出して検算する</li></ol>
+<h2>例題</h2>
+<div class="problem">文字 A, A, B, B, B, C を1列に並べる方法は何通りか。</div><details><summary>解答</summary><ol class="steps"><li>【解法1：区別して並べてから割る】</li><li>6文字を全部区別して並べると 6! = 720 通り。</li><li>ここで A 2個の区別を消すと、同じ並びが 2! = 2 個ずつ現れる。</li><li>同様に B 3個の区別を消すと 3! = 6 個ずつ現れる。</li><li>よって 720 / (2! × 3!) = 720 / 12 = 60 通り</li><li></li><li>【解法2：位置を選ぶ】</li><li>6個の位置のうち、A を置く2箇所を選ぶ： C(6,2) = 15</li><li>残り4箇所から B を置く3箇所を選ぶ： C(4,3) = 4</li><li>残り1箇所に C が入る： 1</li><li>15 × 4 × 1 = 60 通り</li><li></li><li>2通りの数え方が一致した。数え上げでは、この二重確認が最も確実な検算になる。</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>位置を選ぶ方式（解法2）。同じものが3種類以上でも同じ手順で処理できる</li><li>円順列は1つを固定する（(n−1)! と覚えるのではなく、固定すると考える）</li><li>最短経路：右に p 回、上に q 回進む並べ方 (p+q)!/(p!q!) に帰着する</li><li>同じものを含む円順列は単純に割れないことがある（回転で自分自身に戻る配置が存在するため）</li></ul>
+<h2>落とし穴</h2>
+<ul><li>回転して一致しないものが混ざっているのに、機械的に n で割る</li><li>じゅず順列で、左右対称な配置まで 2 で割ってしまう</li><li>同じものの個数を数え間違える</li><li>円順列で『1つ固定』と『n で割る』を両方やってしまう</li><li>回転・裏返しで割れない場合に機械的に割る</li></ul>
+<h2>なぜ大事か</h2>
+<p>「割る」操作の正当化（同値類で数える）を理解する場</p>
+<h2>東大での出方</h2>
+<p>単独出題は少ないが、確率の分母として、また格子上の最短経路の数え上げとして頻出する。特に最短経路は、東大の格子点問題や確率の移動問題の下地になっている。</p>
+<h2>確認問題</h2>
+<ul><li>碁盤の目状の道路で、左下から右上（右へ3区画、上へ2区画）へ行く最短経路は何通りか</li><li>男子3人と女子3人が円卓に座るとき、男女が交互になる並び方は何通りか</li><li>SUUGAKU の7文字を並べる方法は何通りか</li></ul>
+<h2>発展</h2>
+<p>回転や裏返しで一致するものを正しく数える一般論（バーンサイドの補題）は高校範囲外だが、『自分自身と一致する配置は割れない』という感覚だけは持っておくと、色の塗り分け問題で事故を防げる。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="ma-perm.html">順列・組合せ</a></li></ul>
+<h2>このノードを前提にするノード</h2>
+<ul class="links"><li><a href="ma-partition.html">組分け・重複組合せ（仕切り）</a></li></ul>
+<h2>「場合の数」のノード</h2>
+<ul class="links"><li><a href="ma-count-basic.html">数え上げの原則（和の法則・積の法則・辞書式）</a></li><li><a href="ma-perm.html">順列・組合せ</a></li><li><span class="cur">同じものを含む順列・円順列・じゅず順列</span></li><li><a href="ma-partition.html">組分け・重複組合せ（仕切り）</a></li><li><a href="ma-incl.html">包除原理・余事象で数える</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

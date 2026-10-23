@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>④ 和S(n)から一般項を逆算（数列）｜受験数学マップ</title>
+<meta name="description" content="S(n) − S(n−1) は『n番目までの和』から『n−1番目までの和』を引いたものだから a(n)。ただし n=1 のとき S(0) は定義されていない（和が空なので0と考えるのが自然だが、与えられた式に n=0 …">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/mb-p04-sn.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="④ 和S(n)から一般項を逆算（数列）｜受験数学マップ">
+<meta property="og:description" content="S(n) − S(n−1) は『n番目までの和』から『n−1番目までの和』を引いたものだから a(n)。ただし n=1 のとき S(0) は定義されていない（和が空なので0と考えるのが自然だが、与えられた式に n=0 …">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/mb-p04-sn.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "④ 和S(n)から一般項を逆算", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/mb-p04-sn.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › ④ 和S(n)から一般項を逆算</nav>
+<h1>④ 和S(n)から一般項を逆算</h1>
+<p class="meta">数学B ／ 数列 ／ 東大での重要度 ★★★☆☆</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>S(n) − S(n−1) は『n番目までの和』から『n−1番目までの和』を引いたものだから a(n)。ただし n=1 のとき S(0) は定義されていない（和が空なので0と考えるのが自然だが、与えられた式に n=0 を入れた値が0とは限らない）。だから n=1 だけ a(1) = S(1) で別に求める。不一致は『式が S(0) ≠ 0 を返す』ときに起きる。</p>
+<h2>こんなときに使う</h2>
+<ul><li>『初項から第n項までの和が S(n) = …』と和の式が与えられた</li><li>S(n) と a(n) が混ざった関係式 → まず n を1つずらして引く（⑰）</li><li>S(n) の式の定数項が0でない → n=1 で食い違うと身構える</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. a(1) = S(1) を計算する</li><li>2. n≧2 のとき a(n) = S(n) − S(n−1) を計算する</li><li>3. 2 の式に n=1 を入れて 1 と比較する</li><li>4. 一致すれば1本にまとめ、一致しなければ a(1) と n≧2 の式を分けて答える</li></ol>
+<h2>例題</h2>
+<div class="problem">初項から第n項までの和が S(n) = n² + 2n + 3 である数列 {a(n)} の一般項を求めよ。</div><details><summary>解答</summary><ol class="steps"><li>a(1) = S(1) = 1 + 2 + 3 = 6</li><li>n≧2 のとき a(n) = S(n) − S(n−1) = (n² + 2n + 3) − ((n−1)² + 2(n−1) + 3) = 2n + 1</li><li>2n + 1 に n=1 を入れると 3 で、a(1) = 6 と一致しない</li><li>∴ a(1) = 6、a(n) = 2n + 1（n≧2）</li><li>確認：S(2) = 4 + 4 + 3 = 11 = 6 + 5 ○</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>積で与えられる場合（a(1)a(2)…a(n) = T(n)）も同じ発想で a(n) = T(n)/T(n−1)（n≧2）</li><li>S(n) が等比型 S(n) = 3ⁿ − 1 なら a(n) = 2·3ⁿ⁻¹ で n=1 も一致する（定数項が −1 で S(0) = 0 になるため）</li></ul>
+<h2>落とし穴</h2>
+<ul><li>n≧2 を書かずに a(n) = S(n) − S(n−1) を全nで使う</li><li>不一致なのに無理に1本の式にまとめる</li><li>S(n−1) の展開で符号を間違える</li><li>a(n) = S(n) − S(n−1) を n=1 でも使ってしまう</li></ul>
+<h2>なぜ大事か</h2>
+<p>和の式しか分からない数列、和を含む漸化式（⑰）の土台。n=1 だけ別扱いという条件処理の型</p>
+<h2>東大での出方</h2>
+<p>単独では出ない。和の条件や⑰の和と一般項の混在型で、n=1 の扱いが採点される。</p>
+<h2>確認問題</h2>
+<ul><li>S(n) = 2ⁿ のとき a(n) を求めよ（答：a(1)=2、a(n)=2ⁿ⁻¹（n≧2））</li><li>S(n) = n³ のとき a(n) を求め、n=1 で一致するか確かめよ</li></ul>
+<h2>発展</h2>
+<p>S(n) に n=0 を代入して0になるかどうかで、計算する前に不一致を予言できる。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="mb-p05-sigma-formula.html">⑤ Σの基本公式（k, k², k³, 等比）</a></li></ul>
+<h2>このノードを前提にするノード</h2>
+<ul class="links"><li><a href="mb-p17-sn-rec.html">⑰ 和S(n)と一般項の混在型</a></li><li><a href="mb-diff-seq.html">階差数列・Sとaの関係</a></li></ul>
+<h2>「数列」のノード</h2>
+<ul class="links"><li><a href="mb-seq-basic.html">①② 等差数列・等比数列</a></li><li><a href="mb-p03-kaisa.html">③ 階差数列 a(n+1)−a(n)=f(n)</a></li><li><span class="cur">④ 和S(n)から一般項を逆算</span></li><li><a href="mb-p05-sigma-formula.html">⑤ Σの基本公式（k, k², k³, 等比）</a></li><li><a href="mb-p06-ar-geo.html">⑥ (等差)×(等比)の和：S−rS</a></li><li><a href="mb-p07-partial.html">⑦ 部分分数分解で隣同士を消す</a></li><li><a href="mb-p08-root.html">⑧ ルートの和は有理化して差の形</a></li><li><a href="mb-p09-log.html">⑨ 対数の和は log の差に分解して消す</a></li><li><a href="mb-p23-group.html">㉓ 群数列（項数と末項の通算番号）</a></li><li><a href="mb-sigma.html">Σ計算・部分分数分解による差の形（望遠鏡和）</a></li><li><a href="mb-diff-seq.html">階差数列・Sとaの関係</a></li><li><a href="mb-induction.html">数学的帰納法（通常・強化・二段仮定）</a></li><li><a href="mb-lattice.html">格子点の数え上げ</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

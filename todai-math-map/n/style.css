@@ -1,0 +1,45 @@
+/* 受験数学マップ 1ノード1ページ用（tools/build_mathmap_pages.py が書き出す。手で直さない） */
+:root{--bg:#f6f7fa;--panel:#fff;--panel2:#eef2fb;--line:#d7dfef;--fg:#1a2436;--dim:#5c6b85;
+  --accent:#173f8c;--ok:#1a8f5a;--warn:#a97b12}
+@media (prefers-color-scheme:dark){:root{--bg:#0f1115;--panel:#171a21;--panel2:#1a2030;--line:#2a2f3a;
+  --fg:#e6e9ef;--dim:#98a0b0;--accent:#7aa5f5;--ok:#4ec9a0;--warn:#e0b34a}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.85 -apple-system,"Hiragino Sans","Noto Sans JP",
+  "Yu Gothic",sans-serif;-webkit-text-size-adjust:100%}
+a{color:var(--accent)}
+.top{border-bottom:1px solid var(--line);background:var(--panel)}
+.top a{display:block;max-width:760px;margin:0 auto;padding:12px 16px;font-weight:700;color:var(--fg);text-decoration:none}
+main{max-width:760px;margin:0 auto;padding:12px 16px 56px;overflow-wrap:anywhere}
+.crumbs{font-size:.8rem;color:var(--dim);margin:8px 0;line-height:1.6}
+.crumbs a{color:inherit}
+h1{font-size:1.6rem;line-height:1.4;margin:8px 0 6px}
+h2{font-size:1.1rem;margin:30px 0 8px;padding-left:10px;border-left:3px solid var(--accent);line-height:1.5}
+p{margin:0 0 12px}
+.meta{font-size:.85rem;color:var(--dim);margin:0 0 14px}
+.open{display:inline-block;margin:6px 0 4px;padding:9px 16px;border-radius:8px;background:var(--accent);
+  color:#fff;text-decoration:none;font-size:.9rem}
+@media (prefers-color-scheme:dark){.open{color:#0f1115}}
+.open-note{font-size:.8rem;color:var(--dim)}
+ul,ol{padding-left:1.4em;margin:0 0 12px}
+li{margin:4px 0}
+ol.steps{list-style:none;padding-left:0}
+ol.steps li{padding-left:0}
+.problem{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin:0 0 10px}
+details{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px 14px;margin:0 0 12px}
+summary{cursor:pointer;font-weight:700;color:var(--accent)}
+details ol{margin-top:8px}
+.diagram{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px;margin:0 0 14px;max-width:420px}
+.diagram svg{display:block;width:100%;height:auto;max-width:100%}
+.links{list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:6px 8px}
+.links li{margin:0}
+.links a{display:inline-block;padding:3px 10px;border:1px solid var(--line);border-radius:999px;background:var(--panel);
+  text-decoration:none;font-size:.9rem;line-height:1.7}
+.links .cur{display:inline-block;padding:3px 10px;border-radius:999px;background:var(--panel2);font-weight:700;font-size:.9rem}
+.own{margin-top:32px;font-size:.85rem;color:var(--dim)}
+.back{margin-top:24px;font-size:.9rem}
+.grp{font-size:.85rem;color:var(--dim);margin:28px 0 -6px}
+.lead{color:var(--dim);font-size:.95rem}
+.site-footer{max-width:700px;margin:0 auto;padding:8px 16px 72px;text-align:center;font-size:12.5px;line-height:1.9;color:var(--dim)}
+.site-footer ul{list-style:none;margin:0 0 10px;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:6px 22px}
+.site-footer a{color:var(--dim);text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:2px}
+.site-footer p{margin:0}

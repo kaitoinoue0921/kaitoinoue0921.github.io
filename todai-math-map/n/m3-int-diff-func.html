@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>積分で定義された関数の微分（微積分学の基本定理）（積分法）｜受験数学マップ</title>
+<meta name="description" content="d/dx∫[a→x]f(t)dt=f(x)は、F(x)=∫[a→x]f(t)dtとおくとF(x+h)−F(x)が幅hの積分になり、fが連続なら平均値の定理（積分版）よりf(c)・h（xとx+hの間のc）と書けるため、h…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/m3-int-diff-func.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="積分で定義された関数の微分（微積分学の基本定理）（積分法）｜受験数学マップ">
+<meta property="og:description" content="d/dx∫[a→x]f(t)dt=f(x)は、F(x)=∫[a→x]f(t)dtとおくとF(x+h)−F(x)が幅hの積分になり、fが連続なら平均値の定理（積分版）よりf(c)・h（xとx+hの間のc）と書けるため、h…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/m3-int-diff-func.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "積分で定義された関数の微分（微積分学の基本定理）", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/m3-int-diff-func.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 積分で定義された関数の微分（微積分学の基本定理）</nav>
+<h1>積分で定義された関数の微分（微積分学の基本定理）</h1>
+<p class="meta">数学III ／ 積分法 ／ 東大での重要度 ★★★★☆</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>d/dx∫[a→x]f(t)dt=f(x)は、F(x)=∫[a→x]f(t)dtとおくとF(x+h)−F(x)が幅hの積分になり、fが連続なら平均値の定理（積分版）よりf(c)・h（xとx+hの間のc）と書けるため、h→0でc→xとなりF′(x)=f(x)が導かれる。上端がg(x)のときは合成関数の微分によりg′(x)が掛かる。</p>
+<h2>こんなときに使う</h2>
+<ul><li>上端が変数（またはxの関数）である積分の微分は、この定理をそのまま適用する</li><li>上端がg(x)のときはg′(x)を掛け忘れない</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. F(x)=∫[a→x]f(t)dtの形を確認する</li><li>2. F′(x)=f(x)を適用する</li><li>3. 上端がg(x)ならF′(x)=f(g(x))・g′(x)</li></ol>
+<h2>例題</h2>
+<div class="problem">F(x)=∫[0→x²]sintdtのときF′(x)を求めよ。</div><details><summary>解答</summary><ol class="steps"><li>sin(x²)・2x</li></ol></details>
+<h2>落とし穴</h2>
+<ul><li>上端がg(x)のときにg′(x)を掛け忘れる</li><li>上端がg(x)のときにg&#x27;(x)を掛け忘れる</li></ul>
+<h2>なぜ大事か</h2>
+<p>上端が関数のときの合成の扱い。定義に戻れることが要求される</p>
+<h2>東大での出方</h2>
+<p>上端が関数のときの合成の扱い。定義に戻れることが要求される。</p>
+<h2>確認問題</h2>
+<ul><li>G(x)=∫[1→x³]logt dtのときG′(x)を求めよ</li></ul>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="m3-int-basic.html">不定積分の基本形（微分の逆）</a></li><li><a href="m3-diff-formula.html">積・商の微分、合成関数の微分</a></li></ul>
+<h2>「積分法」のノード</h2>
+<ul class="links"><li><a href="m3-int-basic.html">不定積分の基本形（微分の逆）</a></li><li><a href="m3-int-sub.html">置換積分（型の判別）</a></li><li><a href="m3-int-parts.html">部分積分（何を微分側に置くか）</a></li><li><a href="m3-int-rational.html">有理関数の積分（部分分数分解）</a></li><li><a href="m3-int-trig.html">三角関数の積分（次数下げ・積和・t=tan(x/2)）</a></li><li><a href="m3-int-irrational.html">無理関数の積分（√(a²-x²) 型の三角置換）</a></li><li><a href="m3-int-def-prop.html">定積分の性質（偶奇・周期・区間の対称性）</a></li><li><a href="m3-int-recur.html">定積分と漸化式（I_n を n で結ぶ）</a></li><li><span class="cur">積分で定義された関数の微分（微積分学の基本定理）</span></li><li><a href="m3-int-riemann.html">区分求積法</a></li><li><a href="m3-int-ineq.html">積分と不等式（面積比較・評価）</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

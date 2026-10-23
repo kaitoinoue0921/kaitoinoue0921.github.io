@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>媒介変数表示された関数の微分（微分法）｜受験数学マップ</title>
+<meta name="description" content="dy/dx=(dy/dt)/(dx/dt)が成り立つのは、Δy/ΔxがΔy/ΔtとΔx/Δtの比として書き直せて、Δt→0の極限でそれぞれdy/dt,dx/dtに収束するから。この式はdx/dt=0となる点（尖点）では…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/m3-diff-param.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="媒介変数表示された関数の微分（微分法）｜受験数学マップ">
+<meta property="og:description" content="dy/dx=(dy/dt)/(dx/dt)が成り立つのは、Δy/ΔxがΔy/ΔtとΔx/Δtの比として書き直せて、Δt→0の極限でそれぞれdy/dt,dx/dtに収束するから。この式はdx/dt=0となる点（尖点）では…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/m3-diff-param.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "媒介変数表示された関数の微分", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/m3-diff-param.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 媒介変数表示された関数の微分</nav>
+<h1>媒介変数表示された関数の微分</h1>
+<p class="meta">数学III ／ 微分法 ／ 東大での重要度 ★★★★☆</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>dy/dx=(dy/dt)/(dx/dt)が成り立つのは、Δy/ΔxがΔy/ΔtとΔx/Δtの比として書き直せて、Δt→0の極限でそれぞれdy/dt,dx/dtに収束するから。この式はdx/dt=0となる点（尖点）では使えない、という制約も、割り算の定義から直接従う。</p>
+<h2>こんなときに使う</h2>
+<ul><li>媒介変数表示された曲線の接線・増減を調べる問題はこの公式を使う</li><li>dx/dt=0となる点は別途扱う</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. dy/dt, dx/dtをそれぞれ計算する</li><li>2. dy/dx=(dy/dt)/(dx/dt)</li></ol>
+<h2>例題</h2>
+<div class="problem">x=t²,y=t³のときdy/dxを求めよ（t≠0）。</div><details><summary>解答</summary><ol class="steps"><li>(dy/dt)/(dx/dt)=3t²/2t=3t/2</li></ol></details>
+<h2>落とし穴</h2>
+<ul><li>dx/dt=0の点でこの公式をそのまま適用しようとする</li><li>dy/dx = (dy/dt)/(dx/dt) の分母0の点（尖点）を調べない</li></ul>
+<h2>なぜ大事か</h2>
+<p>サイクロイド等の増減・接線・面積へ</p>
+<h2>東大での出方</h2>
+<p>サイクロイド等の増減・接線・面積へ発展する基礎。</p>
+<h2>確認問題</h2>
+<ul><li>x=cos t, y=sin2tのときdy/dxを求めよ</li></ul>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="m3-diff-formula.html">積・商の微分、合成関数の微分</a></li><li><a href="mc-param.html">媒介変数表示（円・楕円・サイクロイド）</a></li></ul>
+<h2>このノードを前提にするノード</h2>
+<ul class="links"><li><a href="m3-velocity.html">速度・加速度・近似式</a></li><li><a href="m3-length.html">曲線の長さ・道のり</a></li></ul>
+<h2>「微分法」のノード</h2>
+<ul class="links"><li><a href="m3-diff-formula.html">積・商の微分、合成関数の微分</a></li><li><a href="m3-diff-trig.html">三角関数・指数関数・対数関数の微分</a></li><li><a href="m3-diff-inv.html">逆関数・陰関数の微分</a></li><li><span class="cur">媒介変数表示された関数の微分</span></li><li><a href="m3-diff-log.html">対数微分法</a></li><li><a href="m3-graph.html">増減・凹凸・変曲点・漸近線（グラフを描き切る）</a></li><li><a href="m3-diff-minmax.html">最大最小（実用・図形量への応用）</a></li><li><a href="m3-root-count3.html">方程式の実数解の個数（数III版・定数分離とグラフ）</a></li><li><a href="m3-ineq-diff.html">微分を用いた不等式の証明</a></li><li><a href="m3-mvt.html">平均値の定理</a></li><li><a href="m3-velocity.html">速度・加速度・近似式</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

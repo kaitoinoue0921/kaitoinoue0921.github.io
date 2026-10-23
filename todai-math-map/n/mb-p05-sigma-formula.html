@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>⑤ Σの基本公式（k, k², k³, 等比）（数列）｜受験数学マップ</title>
+<meta name="description" content="Σk = n(n+1)/2、Σk² = n(n+1)(2n+1)/6、Σk³ = {n(n+1)/2}²、Σc = nc、Σr^(k−1) = (rⁿ − 1)/(r − 1)（r≠1）。これらは全部『(k+1)の何乗…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/mb-p05-sigma-formula.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="⑤ Σの基本公式（k, k², k³, 等比）（数列）｜受験数学マップ">
+<meta property="og:description" content="Σk = n(n+1)/2、Σk² = n(n+1)(2n+1)/6、Σk³ = {n(n+1)/2}²、Σc = nc、Σr^(k−1) = (rⁿ − 1)/(r − 1)（r≠1）。これらは全部『(k+1)の何乗…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/mb-p05-sigma-formula.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "⑤ Σの基本公式（k, k², k³, 等比）", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/mb-p05-sigma-formula.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › ⑤ Σの基本公式（k, k², k³, 等比）</nav>
+<h1>⑤ Σの基本公式（k, k², k³, 等比）</h1>
+<p class="meta">数学B ／ 数列 ／ 東大での重要度 ★★★☆☆</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>Σk = n(n+1)/2、Σk² = n(n+1)(2n+1)/6、Σk³ = {n(n+1)/2}²、Σc = nc、Σr^(k−1) = (rⁿ − 1)/(r − 1)（r≠1）。これらは全部『(k+1)の何乗 − kの何乗』を足すと隣同士が消える、という同じ仕組みで出てくる。和の計算は『展開してこの部品に分解する』か『差の形にして消す（⑦⑧⑨）』かの二択。</p>
+<h2>こんなときに使う</h2>
+<ul><li>Σの中身が k の多項式 → 展開して部品に分解</li><li>k(k+1)、k(k+1)(k+2) のような連続整数の積 → 展開せず差の形 k(k+1)(k+2) − (k−1)k(k+1) = 3k(k+1) を使うと速い</li><li>等比の和で公比が文字 → r = 1 と r ≠ 1 で場合分け</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. Σの中身を k の多項式に展開する</li><li>2. 定数・k・k²・k³ の項ごとに公式を当てる</li><li>3. 共通因数 n(n+1) などでくくってから整理する（展開しきると因数分解に戻すのが大変）</li><li>4. n=1 または n=2 を代入して、元の和と一致するか確かめる</li></ol>
+<h2>例題</h2>
+<div class="problem">Σ[k=1〜n] k(k+1) を求めよ。</div><details><summary>解答</summary><ol class="steps"><li>k(k+1) = k² + k なので、和は n(n+1)(2n+1)/6 + n(n+1)/2</li><li>n(n+1)/6 でくくると n(n+1)/6 · {(2n+1) + 3} = n(n+1)(2n+4)/6</li><li>∴ n(n+1)(n+2)/3</li><li>別解：k(k+1)(k+2) − (k−1)k(k+1) = 3k(k+1) を k=1〜n で足すと右辺の和の3倍が n(n+1)(n+2) になる</li><li>検算：n=2 で 2 + 6 = 8、2·3·4/3 = 8 ○</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>Σ[k=1〜n] k(k+1)(k+2) = n(n+1)(n+2)(n+3)/4。連続整数の積の和は『1つ増やして個数で割る』</li><li>下端が1でない和は Σ[k=m〜n] = Σ[k=1〜n] − Σ[k=1〜m−1]</li></ul>
+<h2>落とし穴</h2>
+<ul><li>Σ[k=1〜n] 3 = 3 としてしまう</li><li>Σ(k²) と (Σk)² を混同する</li><li>等比の和で r = 1 の場合を書き忘れる</li><li>全部展開してから因数分解できずに時間を失う</li><li>Σ[k=1〜n] c = c と書く（正しくは nc）／等比の和で r=1 の場合分けを落とす</li></ul>
+<h2>なぜ大事か</h2>
+<p>すべての和の計算の部品。覚えるだけでなく『差の形』から作り直せると忘れても困らない</p>
+<h2>東大での出方</h2>
+<p>部品として毎年使う。格子点の数え上げ（Σk²）、確率の期待値、数IIIの区分求積の前段階など。</p>
+<h2>確認問題</h2>
+<ul><li>Σ[k=1〜n] (2k − 1)² を求めよ（答：n(2n−1)(2n+1)/3）</li><li>Σk³ = (Σk)² を n=3 で確かめよ</li></ul>
+<h2>発展</h2>
+<p>Σk² の公式を (k+1)³ − k³ = 3k² + 3k + 1 を足し合わせて自分で導けるか。試験中に公式を忘れても復元できる。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="mb-seq-basic.html">①② 等差数列・等比数列</a></li></ul>
+<h2>このノードを前提にするノード</h2>
+<ul class="links"><li><a href="mb-p03-kaisa.html">③ 階差数列 a(n+1)−a(n)=f(n)</a></li><li><a href="mb-p04-sn.html">④ 和S(n)から一般項を逆算</a></li><li><a href="mb-p06-ar-geo.html">⑥ (等差)×(等比)の和：S−rS</a></li><li><a href="mb-p07-partial.html">⑦ 部分分数分解で隣同士を消す</a></li><li><a href="mb-p23-group.html">㉓ 群数列（項数と末項の通算番号）</a></li><li><a href="mb-sigma.html">Σ計算・部分分数分解による差の形（望遠鏡和）</a></li></ul>
+<h2>「数列」のノード</h2>
+<ul class="links"><li><a href="mb-seq-basic.html">①② 等差数列・等比数列</a></li><li><a href="mb-p03-kaisa.html">③ 階差数列 a(n+1)−a(n)=f(n)</a></li><li><a href="mb-p04-sn.html">④ 和S(n)から一般項を逆算</a></li><li><span class="cur">⑤ Σの基本公式（k, k², k³, 等比）</span></li><li><a href="mb-p06-ar-geo.html">⑥ (等差)×(等比)の和：S−rS</a></li><li><a href="mb-p07-partial.html">⑦ 部分分数分解で隣同士を消す</a></li><li><a href="mb-p08-root.html">⑧ ルートの和は有理化して差の形</a></li><li><a href="mb-p09-log.html">⑨ 対数の和は log の差に分解して消す</a></li><li><a href="mb-p23-group.html">㉓ 群数列（項数と末項の通算番号）</a></li><li><a href="mb-sigma.html">Σ計算・部分分数分解による差の形（望遠鏡和）</a></li><li><a href="mb-diff-seq.html">階差数列・Sとaの関係</a></li><li><a href="mb-induction.html">数学的帰納法（通常・強化・二段仮定）</a></li><li><a href="mb-lattice.html">格子点の数え上げ</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>⑳ 偶奇分け（(−1)ⁿ型・2つ飛び）（漸化式）｜受験数学マップ</title>
+<meta name="description" content="a(n+1) + a(n) = f(n) のような式は、n を1つずらして引くと a(n+2) − a(n) = f(n+1) − f(n) となり『2つ飛びの階差数列』になる。奇数番目 a(1), a(3), … と…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/mb-p20-parity.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="⑳ 偶奇分け（(−1)ⁿ型・2つ飛び）（漸化式）｜受験数学マップ">
+<meta property="og:description" content="a(n+1) + a(n) = f(n) のような式は、n を1つずらして引くと a(n+2) − a(n) = f(n+1) − f(n) となり『2つ飛びの階差数列』になる。奇数番目 a(1), a(3), … と…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/mb-p20-parity.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "⑳ 偶奇分け（(−1)ⁿ型・2つ飛び）", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/mb-p20-parity.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › ⑳ 偶奇分け（(−1)ⁿ型・2つ飛び）</nav>
+<h1>⑳ 偶奇分け（(−1)ⁿ型・2つ飛び）</h1>
+<p class="meta">数学B ／ 漸化式 ／ 東大での重要度 ★★★☆☆</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>a(n+1) + a(n) = f(n) のような式は、n を1つずらして引くと a(n+2) − a(n) = f(n+1) − f(n) となり『2つ飛びの階差数列』になる。奇数番目 a(1), a(3), … と偶数番目 a(2), a(4), … は別々の数列として解き、最後に (−1)ⁿ を使って1本にまとめる。(−1)ⁿ が入った式も、偶奇で場合分ければ (−1)ⁿ が ±1 の定数になる。</p>
+<h2>こんなときに使う</h2>
+<ul><li>(−1)ⁿ が式に入っている</li><li>a(n+1) + a(n) = …、a(n+1)·a(n) = … のように隣同士の和や積</li><li>a(n+2) と a(n) だけの関係（1つ飛び）</li><li>数列を書き並べると、偶数番目と奇数番目で別々の規則がある</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. a(n+1) + a(n) 型なら n をずらして引き、a(n+2) と a(n) の関係にする</li><li>2. 奇数番目 n = 2m − 1 と偶数番目 n = 2m に分け、それぞれの初項から解く</li><li>3. 偶数番目の初項 a(2) は元の式から計算する</li><li>4. m を n に戻し（m = (n+1)/2 または n/2）、必要なら (−1)ⁿ で1本にまとめる</li><li>5. n = 1, 2, 3 で検算する</li></ol>
+<h2>例題</h2>
+<div class="problem">a(1) = 1、a(n+1) + a(n) = 2n の一般項を求めよ。</div><details><summary>解答</summary><ol class="steps"><li>n をずらした a(n+2) + a(n+1) = 2(n+1) から元の式を引くと a(n+2) − a(n) = 2</li><li>a(2) = 2·1 − a(1) = 1</li><li>奇数番目：a(1) = 1 から2ずつ増えるので a(2m−1) = 2m − 1。つまり n が奇数なら a(n) = n</li><li>偶数番目：a(2) = 1 から2ずつ増えるので a(2m) = 2m − 1。つまり n が偶数なら a(n) = n − 1</li><li>まとめると a(n) = n − (1 + (−1)ⁿ)/2</li><li>検算：a(2) + a(1) = 1 + 1 = 2 ○、a(3) + a(2) = 3 + 1 = 4 ○</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>a(n+1) = a(n) + (−1)ⁿ·n のような階差型は、Σ(−1)ᵏk を偶奇で分けて計算する</li><li>a(n+1) + a(n) = f(n) を (−1)ⁿ⁺¹ を掛けて c(n) = (−1)ⁿa(n) とおくと階差型にもできる</li><li>a(n+1)·a(n) = cⁿ 型は対数を取るか、割って a(n+2)/a(n) = c にする</li></ul>
+<h2>落とし穴</h2>
+<ul><li>偶数番目の初項 a(2) を求め忘れる</li><li>a(2m) を求めた後に m = n/2 に戻し忘れる</li><li>(1 + (−1)ⁿ)/2 と (1 − (−1)ⁿ)/2 の取り違え（n=1 で確かめる）</li><li>偶数番目と奇数番目で初項を取り違える／最後に1本にまとめるときの式</li></ul>
+<h2>なぜ大事か</h2>
+<p>(−1)ⁿ や a(n+1)+a(n) の形は、nの偶奇で別々の数列に分けると単純になる</p>
+<h2>東大での出方</h2>
+<p>単独での難度は低いが、確率漸化式で偶数回と奇数回で状態が入れ替わる設定や、周期2の振動で使う。</p>
+<h2>確認問題</h2>
+<ul><li>a(1) = 1、a(n+1) = −a(n) + 3 の一般項を偶奇で求めよ（答：奇数で1、偶数で2）</li><li>Σ[k=1〜n] (−1)ᵏk を n の偶奇で求めよ（答：偶数なら n/2、奇数なら −(n+1)/2）</li></ul>
+<h2>発展</h2>
+<p>(1 + (−1)ⁿ)/2 は『偶数なら1、奇数なら0』を返す関数。場合分けの答えを1本の式に書く道具として覚えておく。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="mb-p03-kaisa.html">③ 階差数列 a(n+1)−a(n)=f(n)</a></li></ul>
+<h2>「漸化式」のノード</h2>
+<ul class="links"><li><a href="mb-p10-linear.html">⑩ 特性方程式型 a(n+1)=p·a(n)+q</a></li><li><a href="mb-p11-exp.html">⑪ 指数型 a(n+1)=p·a(n)+rⁿ（rⁿ⁺¹で割る）</a></li><li><a href="mb-p12-poly.html">⑫ nの多項式型 a(n+1)=p·a(n)+(An+B)</a></li><li><a href="mb-p13-recip.html">⑬ 分数型（逆数をとる） a(n+1)=a(n)/(p·a(n)+q)</a></li><li><a href="mb-p14-logtype.html">⑭ 積・累乗型（対数をとる） a(n+1)=q·a(n)^p</a></li><li><a href="mb-p15-3term.html">⑮ 隣接3項間 a(n+2)+p·a(n+1)+q·a(n)=0</a></li><li><a href="mb-p16-system.html">⑯ 連立漸化式（和と差・消去）</a></li><li><a href="mb-p17-sn-rec.html">⑰ 和S(n)と一般項の混在型</a></li><li><a href="mb-p18-mobius.html">⑱ 一次分数変換型 a(n+1)=(p·a(n)+q)/(r·a(n)+s)</a></li><li><a href="mb-p19-trig.html">⑲ 三角関数置換型 a(n+1)=2a(n)²−1</a></li><li><span class="cur">⑳ 偶奇分け（(−1)ⁿ型・2つ飛び）</span></li><li><a href="mb-p21-mod.html">㉑ 周期・余り（mod）を書き出して見つける</a></li><li><a href="mb-rec-type.html">漸化式の型別処理（等比型・特性方程式・分数型・連立）</a></li><li><a href="mb-rec-hard.html">㉔ 推測＋数学的帰納法（誘導のない漸化式）</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

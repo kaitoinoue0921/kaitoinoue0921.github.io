@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>部分積分（何を微分側に置くか）（積分法）｜受験数学マップ</title>
+<meta name="description" content="部分積分の公式∫fg′dx=fg−∫f′gdxは、積の微分(fg)′=f′g+fg′を移項して積分するだけで導ける。微分側に置くべきは、微分すると簡単になる関数（logなら1/x、多項式なら次数が下がる）。eˣや三角関…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/m3-int-parts.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="部分積分（何を微分側に置くか）（積分法）｜受験数学マップ">
+<meta property="og:description" content="部分積分の公式∫fg′dx=fg−∫f′gdxは、積の微分(fg)′=f′g+fg′を移項して積分するだけで導ける。微分側に置くべきは、微分すると簡単になる関数（logなら1/x、多項式なら次数が下がる）。eˣや三角関…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/m3-int-parts.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "部分積分（何を微分側に置くか）", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/m3-int-parts.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 部分積分（何を微分側に置くか）</nav>
+<h1>部分積分（何を微分側に置くか）</h1>
+<p class="meta">数学III ／ 積分法 ／ 東大での重要度 ★★★★★</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>部分積分の公式∫fg′dx=fg−∫f′gdxは、積の微分(fg)′=f′g+fg′を移項して積分するだけで導ける。微分側に置くべきは、微分すると簡単になる関数（logなら1/x、多項式なら次数が下がる）。eˣや三角関数は何度微分しても複雑にならないので積分側に置く。</p>
+<h2>こんなときに使う</h2>
+<ul><li>logやxⁿを含む積分は部分積分を検討する</li><li>logは必ず微分側に置く</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 微分側・積分側を決める</li><li>2. ∫fg′=fg−∫f′gを適用する</li><li>3. 残った積分がさらに部分積分を要する場合は繰り返す</li></ol>
+<h2>例題</h2>
+<div class="problem">∫[1→e]logxdxを求めよ。</div><details><summary>解答</summary><ol class="steps"><li>logxを微分側、1を積分側にとって[xlogx−x]=(e−e)−(0−1)=1</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>eˣsinx型は2回部分積分すると元の積分が再現され、方程式として解く</li></ul>
+<h2>落とし穴</h2>
+<ul><li>logやarctanを積分側に置いてしまう</li><li>logやarctan系を積分側に置いてしまう</li></ul>
+<h2>なぜ大事か</h2>
+<p>log・多項式×指数/三角の定番。2回使って元に戻す型も必須</p>
+<h2>東大での出方</h2>
+<p>log・多項式×指数/三角の定番。2回使って元に戻す型も必須。</p>
+<h2>確認問題</h2>
+<ul><li>∫[0→1]xe^xdxを求めよ</li></ul>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="m3-int-basic.html">不定積分の基本形（微分の逆）</a></li></ul>
+<h2>このノードを前提にするノード</h2>
+<ul class="links"><li><a href="m3-int-recur.html">定積分と漸化式（I_n を n で結ぶ）</a></li></ul>
+<h2>「積分法」のノード</h2>
+<ul class="links"><li><a href="m3-int-basic.html">不定積分の基本形（微分の逆）</a></li><li><a href="m3-int-sub.html">置換積分（型の判別）</a></li><li><span class="cur">部分積分（何を微分側に置くか）</span></li><li><a href="m3-int-rational.html">有理関数の積分（部分分数分解）</a></li><li><a href="m3-int-trig.html">三角関数の積分（次数下げ・積和・t=tan(x/2)）</a></li><li><a href="m3-int-irrational.html">無理関数の積分（√(a²-x²) 型の三角置換）</a></li><li><a href="m3-int-def-prop.html">定積分の性質（偶奇・周期・区間の対称性）</a></li><li><a href="m3-int-recur.html">定積分と漸化式（I_n を n で結ぶ）</a></li><li><a href="m3-int-diff-func.html">積分で定義された関数の微分（微積分学の基本定理）</a></li><li><a href="m3-int-riemann.html">区分求積法</a></li><li><a href="m3-int-ineq.html">積分と不等式（面積比較・評価）</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

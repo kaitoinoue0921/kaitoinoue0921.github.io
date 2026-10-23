@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>独立試行・反復試行（確率）｜受験数学マップ</title>
+<meta name="description" content="独立とは、一方の結果が他方の確率を変えないということであり、このとき確率は掛け算になる。反復試行の公式 C(n,k)·pᵏ·(1−p)ⁿ⁻ᵏ は暗記するものではなく、2つの部分の積として読むものである。C(n,k) は…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/ma-prob-indep.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="独立試行・反復試行（確率）｜受験数学マップ">
+<meta property="og:description" content="独立とは、一方の結果が他方の確率を変えないということであり、このとき確率は掛け算になる。反復試行の公式 C(n,k)·pᵏ·(1−p)ⁿ⁻ᵏ は暗記するものではなく、2つの部分の積として読むものである。C(n,k) は…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/ma-prob-indep.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "独立試行・反復試行", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/ma-prob-indep.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 独立試行・反復試行</nav>
+<h1>独立試行・反復試行</h1>
+<p class="meta">数学A ／ 確率 ／ 東大での重要度 ★★★★☆</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>独立とは、一方の結果が他方の確率を変えないということであり、このとき確率は掛け算になる。反復試行の公式 C(n,k)·pᵏ·(1−p)ⁿ⁻ᵏ は暗記するものではなく、2つの部分の積として読むものである。C(n,k) は n 回のうちどの k 回で成功するかの選び方、pᵏ(1−p)ⁿ⁻ᵏ はその並び1つが起こる確率。この分解ができていれば、『初めて成功するのが k 回目』のように C がつかない類題にも自然に対応できる。</p>
+<h2>こんなときに使う</h2>
+<ul><li>『同じ試行を n 回繰り返す』→ 反復試行</li><li>『ちょうど k 回起こる』→ C(n,k)·pᵏ·qⁿ⁻ᵏ</li><li>『少なくとも1回』→ 余事象（1 −『1回も起こらない』）</li><li>『初めて成功するのが k 回目』→ 前の k−1 回は失敗、k 回目に成功。C はつかない</li><li>玉を戻すか戻さないか → 戻せば独立、戻さなければ独立でない（条件付き確率へ）</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 各回の試行が独立か確認する（前の結果が次の確率を変えないか）</li><li>2. 『どの回で起こるか』の場合の数を数える</li><li>3. その並び1つが起こる確率を計算する</li><li>4. 2 と 3 を掛ける</li><li>5. 『少なくとも』が出てきたら、余事象のほうが楽でないか必ず比べる</li></ol>
+<h2>例題</h2>
+<div class="problem">1個のサイコロを4回投げる。(1) 1の目がちょうど1回出る確率 (2) 1の目が少なくとも1回出る確率 を求めよ。</div><details><summary>解答</summary><ol class="steps"><li>各回の試行は独立で、1の目が出る確率は毎回 1/6。</li><li></li><li>(1) ちょうど1回</li><li>　どの回で出るかの選び方： C(4,1) = 4 通り</li><li>　その並び1つが起こる確率： (1/6)¹ · (5/6)³ = 125/1296</li><li>　よって 4 × 125/1296 = 500/1296 = 125/324</li><li></li><li>(2) 少なくとも1回</li><li>　直接数えると『1回・2回・3回・4回』の4通りを足すことになる。</li><li>　余事象『1回も出ない』を使うほうが速い。</li><li>　1回も出ない確率 = (5/6)⁴ = 625/1296</li><li>　よって 1 − 625/1296 = 671/1296</li><li></li><li>検算：(1) の 125/324 = 500/1296 は (2) の 671/1296 より小さい。</li><li>『ちょうど1回』は『少なくとも1回』に含まれるので、大小関係は整合的 ○</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>余事象を使う（『少なくとも』はほぼ常にこちらが速い）</li><li>『初めて成功するのが k 回目』は (1−p)^(k−1)·p。どの回かは選ばないので C がつかない</li><li>戻さない抽出（非復元）は独立でないので、条件付き確率の積で処理する</li><li>成功回数の期待値だけなら、線形性から np と即座に出る（分布を求める必要がない）</li></ul>
+<h2>落とし穴</h2>
+<ul><li>独立でないのに掛け算する（玉を戻さない場合が典型）</li><li>『初めて〜』の問題に C をつけてしまう</li><li>『少なくとも1回』を直接数えて場合分けが増える</li><li>(5/6)³ のような累乗の計算ミス。約分は最後にまとめて行う</li></ul>
+<h2>なぜ大事か</h2>
+<p>二項分布型の確率計算の基本形</p>
+<h2>東大での出方</h2>
+<p>単独では易しいので、他の要素と組み合わせて出る。特に確率漸化式では、各ステップの遷移確率を求める部分がこの反復試行の考え方になっている。ここが不安定だと、状態設計が正しくても答えが合わない。</p>
+<h2>確認問題</h2>
+<ul><li>コインを5回投げて、表がちょうど3回出る確率を求めよ</li><li>サイコロを投げ続けるとき、初めて1の目が出るのが3回目である確率を求めよ</li><li>サイコロを4回投げて、1の目が2回以上出る確率を求めよ（余事象を使う）</li></ul>
+<h2>発展</h2>
+<p>反復試行の確率 C(n,k)pᵏqⁿ⁻ᵏ を k の関数と見て、最大になる k を求める問題。隣接する項の比を取って 1 との大小を調べる、という手法は数列の最大項の議論と共通している。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="ma-prob-def.html">確率の定義（同様に確からしい・根元事象の設定）</a></li></ul>
+<h2>このノードを前提にするノード</h2>
+<ul class="links"><li><a href="ma-prob-cond.html">条件付き確率・原因の確率</a></li><li><a href="ma-prob-exp.html">期待値</a></li></ul>
+<h2>「確率」のノード</h2>
+<ul class="links"><li><a href="ma-prob-def.html">確率の定義（同様に確からしい・根元事象の設定）</a></li><li><span class="cur">独立試行・反復試行</span></li><li><a href="ma-prob-cond.html">条件付き確率・原因の確率</a></li><li><a href="ma-prob-rec.html">確率漸化式</a></li><li><a href="ma-prob-exp.html">期待値</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>解の配置問題（2次関数）｜受験数学マップ</title>
+<meta name="description" content="2次方程式の解の配置（特定の区間に解があるか）を決めるには、判別式・軸の位置・区間の端点での関数の値、という3つの情報が必要で、どれか1つでも欠けると誤った結論に至る。この3点セットは、東大が繰り返し出す『方程式の実数…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/m2f-place.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="解の配置問題（2次関数）｜受験数学マップ">
+<meta property="og:description" content="2次方程式の解の配置（特定の区間に解があるか）を決めるには、判別式・軸の位置・区間の端点での関数の値、という3つの情報が必要で、どれか1つでも欠けると誤った結論に至る。この3点セットは、東大が繰り返し出す『方程式の実数…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/m2f-place.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "解の配置問題", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/m2f-place.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 解の配置問題</nav>
+<h1>解の配置問題</h1>
+<p class="meta">数学I ／ 2次関数 ／ 東大での重要度 ★★★★☆</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>2次方程式の解の配置（特定の区間に解があるか）を決めるには、判別式・軸の位置・区間の端点での関数の値、という3つの情報が必要で、どれか1つでも欠けると誤った結論に至る。この3点セットは、東大が繰り返し出す『方程式の実数解の個数』問題の最も基本的な型であり、ここでの精度が数III の定数分離の議論にそのまま接続する。</p>
+<h2>こんなときに使う</h2>
+<ul><li>『区間内に解を持つ』『異なる2つの正の解を持つ』という条件は判別式・軸・端点の3点セットで攻める</li><li>端点の値の符号だけで済ませようとしたら、軸の確認を忘れていないか疑う</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 判別式で実数解の存在を確認する</li><li>2. 軸の位置が求める区間内にあるか確認する</li><li>3. 区間の端点でのf(x)の値の符号を確認する</li><li>4. 3つの条件をすべて満たすかで範囲を決める</li></ol>
+<h2>例題</h2>
+<div class="problem">x²−2ax+a+2=0が異なる2つの正の解を持つようなaの範囲を求めよ。</div><details><summary>解答</summary><ol class="steps"><li>f(x)=x²−2ax+a+2とする。</li><li>(i) D/4=a²−a−2&gt;0 → (a−2)(a+1)&gt;0 → a&lt;−1またはa&gt;2</li><li>(ii) 軸 x=a&gt;0</li><li>(iii) f(0)=a+2&gt;0 → a&gt;−2</li><li>3つの共通範囲：a&gt;2（(i)のa&gt;2かつ(ii)a&gt;0かつ(iii)a&gt;−2）</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>解と係数の関係（両解の和・積の符号）で攻める方法もある：和2a&gt;0かつ積a+2&gt;0かつD&gt;0</li></ul>
+<h2>落とし穴</h2>
+<ul><li>端点の値だけ確認して軸の条件を落とす（放物線が区間の外側で2回交わる場合を見逃す）</li><li>3つの条件のうち1つでも忘れると誤った範囲になる</li><li>端点の値の符号だけで済ませて軸条件を落とす</li></ul>
+<h2>なぜ大事か</h2>
+<p>判別式・軸・端点の値の3点セット。方程式の解の個数問題の原型</p>
+<h2>東大での出方</h2>
+<p>方程式の実数解の個数を問う問題の基本形。数IIIでは定数分離とグラフの交点を数える方法に発展する。</p>
+<h2>確認問題</h2>
+<ul><li>x²−2ax+a²−1=0が−1と1の間に異なる2つの解を持つaの範囲を求めよ</li></ul>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="m2f-disc.html">判別式と解の存在</a></li><li><a href="m2f-minmax.html">2次関数の最大最小（区間・軸の場合分け）</a></li></ul>
+<h2>このノードを前提にするノード</h2>
+<ul class="links"><li><a href="m2-trig-eq.html">三角方程式・不等式（置換と範囲）</a></li></ul>
+<h2>「2次関数」のノード</h2>
+<ul class="links"><li><a href="m2f-quad-complete.html">平方完成</a></li><li><a href="m2f-minmax.html">2次関数の最大最小（区間・軸の場合分け）</a></li><li><a href="m2f-param-minmax.html">文字定数入りの最大最小（逆に見る）</a></li><li><a href="m2f-disc.html">判別式と解の存在</a></li><li><span class="cur">解の配置問題</span></li><li><a href="m2f-ineq2.html">2次不等式と符号</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

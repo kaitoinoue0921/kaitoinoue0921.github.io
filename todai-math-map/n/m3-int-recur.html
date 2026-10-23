@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>定積分と漸化式（I_n を n で結ぶ）（積分法）｜受験数学マップ</title>
+<meta name="description" content="I_n = ∫ (n を含む式) の形の定積分は、直接計算しようとしても n が一般のままでは原始関数が書けない。そこで部分積分を1回だけ行い、I_n を I_{n-1} や I_{n-2} で表す関係式（漸化式）を作…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/m3-int-recur.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="定積分と漸化式（I_n を n で結ぶ）（積分法）｜受験数学マップ">
+<meta property="og:description" content="I_n = ∫ (n を含む式) の形の定積分は、直接計算しようとしても n が一般のままでは原始関数が書けない。そこで部分積分を1回だけ行い、I_n を I_{n-1} や I_{n-2} で表す関係式（漸化式）を作…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/m3-int-recur.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "定積分と漸化式（I_n を n で結ぶ）", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/m3-int-recur.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 定積分と漸化式（I_n を n で結ぶ）</nav>
+<h1>定積分と漸化式（I_n を n で結ぶ）</h1>
+<p class="meta">数学III ／ 積分法 ／ 東大での重要度 ★★★★★</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>I_n = ∫ (n を含む式) の形の定積分は、直接計算しようとしても n が一般のままでは原始関数が書けない。そこで部分積分を1回だけ行い、I_n を I_{n-1} や I_{n-2} で表す関係式（漸化式）を作る。個別の値を求めるのではなく、値どうしの関係を作ってから初期値で下ろす、という発想の転換がこの単元の全てである。さらに東大はここで止めず、作った漸化式から不等式評価や極限へ繋げてくる。</p>
+<h2>こんなときに使う</h2>
+<ul><li>積分の中に自然数 n が指数として入っている（sinⁿx, xⁿeˣ, (log x)ⁿ など）→ 漸化式を作る</li><li>『I_n を I_{n-2} で表せ』という誘導がある → 部分積分ほぼ確定</li><li>(1) で漸化式を作らせ (2) で極限 → 最後ははさみうち</li><li>n乗の積分で n が偶数か奇数かで答えが変わりそう → 2つ飛びの漸化式（I_n と I_{n-2}）</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. I_n を定義通りに書き、部分積分の形に分ける（何を微分側・積分側に置くかを決める）</li><li>2. 一度部分積分し、出てきた積分を I_{n-1} または I_{n-2} の形に整理する</li><li>3. 整理の途中で sin²x = 1 - cos²x などを使い、同じ I_n が右辺に現れたら移項してまとめる</li><li>4. 初期値 I_0, I_1 を直接計算する</li><li>5. 漸化式を繰り返し適用して一般項を出す（n の偶奇で分かれることが多い）</li><li>6. 極限が問われていれば、0 ≦ I_n ≦ (評価しやすい式) を作ってはさみうち</li></ol>
+<h2>例題</h2>
+<div class="problem">I_n = ∫[0→π/2] sinⁿx dx (n は 0 以上の整数) について、I_n を I_{n-2} で表し、lim[n→∞] I_n を求めよ。</div><details><summary>解答</summary><ol class="steps"><li>n ≧ 2 とする。sinⁿx = sinⁿ⁻¹x · sinx と分け、sinx を積分側に取る。</li><li>I_n = [-sinⁿ⁻¹x · cosx]₀^(π/2) + ∫[0→π/2] (n-1)sinⁿ⁻²x · cos²x dx</li><li>第1項は x = π/2 で cos = 0、x = 0 で sinⁿ⁻¹ = 0 (n ≧ 2) より 0。</li><li>cos²x = 1 - sin²x を代入すると</li><li>I_n = (n-1)∫[0→π/2] sinⁿ⁻²x dx - (n-1)∫[0→π/2] sinⁿx dx = (n-1)I_{n-2} - (n-1)I_n</li><li>移項して n·I_n = (n-1)I_{n-2}、すなわち I_n = ((n-1)/n) I_{n-2}</li><li>初期値は I_0 = π/2、I_1 = 1。</li><li>極限について：0 ≦ x ≦ π/2 で 0 ≦ sinx ≦ 1 だから sinⁿ⁺¹x ≦ sinⁿx、よって I_n は単調減少で I_n &gt; 0。</li><li>漸化式より I_n = ((n-1)/n)I_{n-2} で、係数 (n-1)/n &lt; 1 が掛かり続ける。</li><li>n·I_n·I_{n-1} = (n-1)I_{n-2}·I_{n-1} より数列 n·I_n·I_{n-1} は一定で、I_1·I_0·1 = π/2。</li><li>よって I_n·I_{n-1} = π/(2n) → 0。I_n は単調減少で正だから I_n² ≦ I_n·I_{n-1} = π/(2n) → 0。</li><li>∴ lim[n→∞] I_n = 0</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>部分積分を2回使って元の I_n に戻し、移項して解く型（eˣsinx の積分など）</li><li>積分の中身を評価してから積分する（漸化式を作らずに、はさみうちだけで極限を出す）</li><li>置換で別の漸化式に化ける場合がある。x → π/2 - x の置換で cosⁿx の積分と等しいことが分かる</li><li>(log x)ⁿ 型は log を微分側に置くのが定石。xⁿeˣ 型は xⁿ を微分側に置く</li></ul>
+<h2>落とし穴</h2>
+<ul><li>部分積分で微分側・積分側の選択を誤り、次数が下がらない</li><li>漸化式は作れたが、初期値 I_0 と I_1 の両方を出さない（偶奇で必要）</li><li>極限で『(n-1)/n &lt; 1 だから 0 に収束する』と書いてしまう（1に近づく係数を無限回掛けても 0 とは限らないので、評価が必要）</li><li>はさみうちの下側 0 ≦ I_n を書かない</li><li>移項が必要な形で、右辺に出た I_n を見落として計算を続ける</li><li>漸化式は作れても最後の極限評価（はさみうち）に繋げられない</li></ul>
+<h2>なぜ大事か</h2>
+<p>東大の頻出構造。部分積分でI_nとI_{n-2}を結び、極限や不等式へ繋ぐ</p>
+<h2>東大での出方</h2>
+<p>東大が構造的に好むテーマ。(1) 漸化式を作らせ、(2) 不等式を示させ、(3) その不等式で極限を出す、という3段の誘導で出る。誘導を使わずに解こうとすると詰まるように設計されているので、前問の結果を必ず使う。</p>
+<h2>確認問題</h2>
+<ul><li>J_n = ∫[0→1] xⁿeˣ dx について J_n を J_{n-1} で表し、lim[n→∞] J_n を求めよ</li><li>K_n = ∫[1→e] (log x)ⁿ dx について漸化式を作れ</li></ul>
+<h2>発展</h2>
+<p>漸化式から一般項を出さずに、不等式評価だけで極限の速さ（何のオーダーで 0 に近づくか）を求める問題。理三の最上位帯。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="m3-int-parts.html">部分積分（何を微分側に置くか）</a></li><li><a href="mb-rec-type.html">漸化式の型別処理（等比型・特性方程式・分数型・連立）</a></li></ul>
+<h2>このノードを前提にするノード</h2>
+<ul class="links"><li><a href="td-limit-tools.html">極限の3種の神器（はさみうち・区分求積・漸化式評価）</a></li><li><a href="td-t-eval.html">【東大型】評価と極限の融合</a></li></ul>
+<h2>「積分法」のノード</h2>
+<ul class="links"><li><a href="m3-int-basic.html">不定積分の基本形（微分の逆）</a></li><li><a href="m3-int-sub.html">置換積分（型の判別）</a></li><li><a href="m3-int-parts.html">部分積分（何を微分側に置くか）</a></li><li><a href="m3-int-rational.html">有理関数の積分（部分分数分解）</a></li><li><a href="m3-int-trig.html">三角関数の積分（次数下げ・積和・t=tan(x/2)）</a></li><li><a href="m3-int-irrational.html">無理関数の積分（√(a²-x²) 型の三角置換）</a></li><li><a href="m3-int-def-prop.html">定積分の性質（偶奇・周期・区間の対称性）</a></li><li><span class="cur">定積分と漸化式（I_n を n で結ぶ）</span></li><li><a href="m3-int-diff-func.html">積分で定義された関数の微分（微積分学の基本定理）</a></li><li><a href="m3-int-riemann.html">区分求積法</a></li><li><a href="m3-int-ineq.html">積分と不等式（面積比較・評価）</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

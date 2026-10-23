@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>条件付き確率・原因の確率（確率）｜受験数学マップ</title>
+<meta name="description" content="条件付き確率 P(B|A) = P(A∩B)/P(A) が意味しているのは、全体を A に縮めてから、その中で B の占める割合を測るということである。分母が全体から A に変わる、ただそれだけの操作にすぎない。難しく…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/ma-prob-cond.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="条件付き確率・原因の確率（確率）｜受験数学マップ">
+<meta property="og:description" content="条件付き確率 P(B|A) = P(A∩B)/P(A) が意味しているのは、全体を A に縮めてから、その中で B の占める割合を測るということである。分母が全体から A に変わる、ただそれだけの操作にすぎない。難しく…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/ma-prob-cond.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "条件付き確率・原因の確率", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/ma-prob-cond.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 条件付き確率・原因の確率</nav>
+<h1>条件付き確率・原因の確率</h1>
+<p class="meta">数学A ／ 確率 ／ 東大での重要度 ★★★★☆</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>条件付き確率 P(B|A) = P(A∩B)/P(A) が意味しているのは、全体を A に縮めてから、その中で B の占める割合を測るということである。分母が全体から A に変わる、ただそれだけの操作にすぎない。難しく感じる原因はほぼ一つで、問題文のどちらが条件でどちらが結果かを取り違えることにある。『〜であったとき』と書かれているほうが条件、つまり分母になる。この読み取りさえ正確なら、あとは割り算である。</p>
+<h2>こんなときに使う</h2>
+<ul><li>『〜であったとき、〜である確率』→ 前者が条件（分母）</li><li>『〜と分かった。では〜だった確率は』→ 原因の確率。全確率の公式で分母を作る</li><li>玉を戻さずに続けて取り出す → 条件付き確率の積で処理する</li><li>状態を分けて考える必要がある → 確率漸化式への入口</li><li>検査の陽性・不良品の混入など、原因を逆算する設定 → ベイズ型</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. どちらが条件（分母）かを問題文から確定させる</li><li>2. P(A∩B) と P(A) をそれぞれ求める</li><li>3. P(B|A) = P(A∩B) / P(A) で割る</li><li>4. 原因を逆算する型では、全確率の公式 P(A) = ΣP(Aかつ各原因) で分母を作る</li><li>5. 検算：条件付き確率も 0 以上 1 以下に収まるか確認する</li></ol>
+<h2>例題</h2>
+<div class="problem">袋に赤玉3個、白玉2個が入っている。玉を1個ずつ2回続けて取り出す（取り出した玉は戻さない）。2回目が赤であったとき、1回目も赤であった確率を求めよ。</div><details><summary>解答</summary><ol class="steps"><li>事象を A：2回目が赤、B：1回目が赤 とおく。求めるのは P(B|A)。</li><li></li><li>【分子 P(A∩B)：1回目も2回目も赤】</li><li>　(3/5) × (2/4) = 6/20 = 3/10</li><li></li><li>【分母 P(A)：2回目が赤】</li><li>　1回目が赤のとき： (3/5)×(2/4) = 3/10</li><li>　1回目が白のとき： (2/5)×(3/4) = 6/20 = 3/10</li><li>　これらは排反なので P(A) = 3/10 + 3/10 = 6/10 = 3/5</li><li></li><li>【割る】</li><li>　P(B|A) = (3/10) ÷ (3/5) = (3/10) × (5/3) = 1/2</li><li></li><li>∴ 1/2</li><li></li><li>検算：P(A) = 3/5 は『1回目が赤である確率』と同じ値になっている。</li><li>何回目に取り出しても赤である確率は変わらない（対称性）ので、これは正しい。</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>樹形図を描き、条件に当てはまる枝の確率の比を取る（視覚的で間違えにくい）</li><li>全確率の公式で分母を作る（原因が3つ以上あるときはこれが必須）</li><li>ベイズの定理は公式として覚える必要はない。定義から2行で導ける</li><li>対称性を使う（上の問題では『2回目が赤』の確率が1回目と等しいことがすぐ分かる）</li></ul>
+<h2>落とし穴</h2>
+<ul><li>条件と結果を取り違え、分母を間違える（この単元の失点のほぼ全て）</li><li>非復元抽出なのに独立として掛け算する</li><li>分母を全体のままにしてしまい、条件で絞るのを忘れる</li><li>P(A∩B) と P(B|A) を混同する</li><li>分母にどの事象を置くかを取り違える</li></ul>
+<h2>なぜ大事か</h2>
+<p>状態を分けて考える発想の入口。漸化式の立式に直結する</p>
+<h2>東大での出方</h2>
+<p>条件付き確率が単独で大問になることは少ないが、確率漸化式の立式は実質的にこの計算になっている。『n回後に状態Xにいるとき、次に状態Yへ移る確率』はまさに条件付き確率であり、ここが曖昧だと遷移図が書けない。</p>
+<h2>確認問題</h2>
+<ul><li>2個のサイコロを投げ、出た目の和が偶数であったとき、両方とも偶数である確率を求めよ</li><li>上の袋の問題で、1回目が赤であったとき2回目も赤である確率を求めよ（答えを見比べると面白い）</li><li>袋Aには赤2白1、袋Bには赤1白3が入っている。袋を等確率で選んで1個取り出したら赤だった。袋Aを選んでいた確率を求めよ</li></ul>
+<h2>発展</h2>
+<p>3つ以上の原因がある場合の逆算。全確率の公式で分母を作る手順が本質的に効いてくる。医療検査の偽陽性の議論（有病率が低いと陽性でも実際に病気である確率は低い）は、この計算の最も有名な応用。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="ma-prob-indep.html">独立試行・反復試行</a></li></ul>
+<h2>このノードを前提にするノード</h2>
+<ul class="links"><li><a href="ma-prob-rec.html">確率漸化式</a></li></ul>
+<h2>「確率」のノード</h2>
+<ul class="links"><li><a href="ma-prob-def.html">確率の定義（同様に確からしい・根元事象の設定）</a></li><li><a href="ma-prob-indep.html">独立試行・反復試行</a></li><li><span class="cur">条件付き確率・原因の確率</span></li><li><a href="ma-prob-rec.html">確率漸化式</a></li><li><a href="ma-prob-exp.html">期待値</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

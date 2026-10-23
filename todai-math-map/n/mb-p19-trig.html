@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>⑲ 三角関数置換型 a(n+1)=2a(n)²−1（漸化式）｜受験数学マップ</title>
+<meta name="description" content="2cos²θ − 1 = cos 2θ なので、a(n) = cos θ(n) と置けば a(n+1) = 2a(n)² − 1 は θ(n+1) = 2θ(n)、つまり θ(n) = 2ⁿ⁻¹·θ(1) になる。非線…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/mb-p19-trig.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="⑲ 三角関数置換型 a(n+1)=2a(n)²−1（漸化式）｜受験数学マップ">
+<meta property="og:description" content="2cos²θ − 1 = cos 2θ なので、a(n) = cos θ(n) と置けば a(n+1) = 2a(n)² − 1 は θ(n+1) = 2θ(n)、つまり θ(n) = 2ⁿ⁻¹·θ(1) になる。非線…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/mb-p19-trig.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "⑲ 三角関数置換型 a(n+1)=2a(n)²−1", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/mb-p19-trig.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › ⑲ 三角関数置換型 a(n+1)=2a(n)²−1</nav>
+<h1>⑲ 三角関数置換型 a(n+1)=2a(n)²−1</h1>
+<p class="meta">数学B ／ 漸化式 ／ 東大での重要度 ★★★★☆</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>2cos²θ − 1 = cos 2θ なので、a(n) = cos θ(n) と置けば a(n+1) = 2a(n)² − 1 は θ(n+1) = 2θ(n)、つまり θ(n) = 2ⁿ⁻¹·θ(1) になる。非線形の漸化式が、角度の世界では単なる等比数列。半角 a(n+1) = √((1 + a(n))/2) なら θ が 1/2 ずつ、3倍角 4a³ − 3a なら3倍ずつ。どの公式の形かを見抜くのが全て。</p>
+<h2>こんなときに使う</h2>
+<ul><li>2a² − 1、4a³ − 3a、√((1 + a)/2)、2a/(1 − a²) などの形</li><li>|a(1)| ≦ 1 が条件にある → cos か sin で置ける</li><li>|a(1)| &gt; 1 なら a = (t + 1/t)/2 と置く（双曲線版）</li><li>2a/(1 − a²) → tan の倍角</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 漸化式がどの三角関数の公式（倍角・半角・3倍角・tan の倍角）と同じ形か見抜く</li><li>2. a(1) = cos θ（0 ≦ θ ≦ π）と θ を1つに決める</li><li>3. 帰納法で a(n) = cos(2ⁿ⁻¹θ) を示す（半角なら範囲の確認が必要）</li><li>4. 具体的な値・周期性・極限を答える</li></ol>
+<h2>例題</h2>
+<div class="problem">a(1) = 1/2、a(n+1) = 2a(n)² − 1 のとき a(n) を求めよ。</div><details><summary>解答</summary><ol class="steps"><li>a(1) = 1/2 = cos(π/3)</li><li>a(n) = cos θ(n) とすると a(n+1) = 2cos²θ(n) − 1 = cos 2θ(n)</li><li>よって a(n) = cos(2ⁿ⁻¹·π/3) と帰納法で示せる</li><li>2ⁿ⁻¹π/3 は n≧2 で 2π/3, 4π/3, 8π/3, … で、cos の値は常に −1/2</li><li>∴ a(1) = 1/2、a(n) = −1/2（n≧2）</li><li>検算：a(2) = 2·(1/4) − 1 = −1/2 ○、a(3) = 2·(1/4) − 1 = −1/2 ○</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>半角型：a(1) = 0、a(n+1) = √((1 + a(n))/2) なら a(n) = cos(π/2ⁿ)。極限は1、さらに 4ⁿ(1 − a(n)) の極限なども問える</li><li>|a(1)| &gt; 1：a(1) = (t + 1/t)/2 と置くと a(n) = (t^(2ⁿ⁻¹) + t^(−2ⁿ⁻¹))/2</li><li>tan 型：a(n+1) = 2a(n)/(1 − a(n)²) なら a(n) = tan(2ⁿ⁻¹θ)</li></ul>
+<h2>落とし穴</h2>
+<ul><li>|a(1)| &gt; 1 なのに cos で置く</li><li>θ の範囲を決めずに置き、半角で符号（√ の正負）を取り違える</li><li>『cos で置けば解ける』を証明せずに一般項を書く（帰納法で示す）</li><li>|a(1)| ≦ 1 でないと cos で置けない／θ の範囲を決めない</li></ul>
+<h2>なぜ大事か</h2>
+<p>倍角・半角公式と同じ形の漸化式は、cos θ と置くと角度が等比（2倍ずつ）になる</p>
+<h2>東大での出方</h2>
+<p>東大は三角関数と漸化式の融合を好む。極限や整数性（cos の値が有理数になる条件）と絡めて出る。</p>
+<h2>確認問題</h2>
+<ul><li>a(1) = 0、a(n+1) = √((1 + a(n))/2) の一般項を求めよ（答：cos(π/2ⁿ)）</li><li>a(1) = cos(2π/7)、a(n+1) = 2a(n)² − 1 のとき a(4) = a(1) となることを示せ（16π/7 = 2π + 2π/7）</li></ul>
+<h2>発展</h2>
+<p>2x² − 1 はチェビシェフ多項式 T₂、4x³ − 3x は T₃。T_m(T_n(x)) = T_mn(x) という性質が、この型の漸化式がきれいに解ける理由。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="mb-p10-linear.html">⑩ 特性方程式型 a(n+1)=p·a(n)+q</a></li><li><a href="m2-trig-add.html">加法定理</a></li></ul>
+<h2>「漸化式」のノード</h2>
+<ul class="links"><li><a href="mb-p10-linear.html">⑩ 特性方程式型 a(n+1)=p·a(n)+q</a></li><li><a href="mb-p11-exp.html">⑪ 指数型 a(n+1)=p·a(n)+rⁿ（rⁿ⁺¹で割る）</a></li><li><a href="mb-p12-poly.html">⑫ nの多項式型 a(n+1)=p·a(n)+(An+B)</a></li><li><a href="mb-p13-recip.html">⑬ 分数型（逆数をとる） a(n+1)=a(n)/(p·a(n)+q)</a></li><li><a href="mb-p14-logtype.html">⑭ 積・累乗型（対数をとる） a(n+1)=q·a(n)^p</a></li><li><a href="mb-p15-3term.html">⑮ 隣接3項間 a(n+2)+p·a(n+1)+q·a(n)=0</a></li><li><a href="mb-p16-system.html">⑯ 連立漸化式（和と差・消去）</a></li><li><a href="mb-p17-sn-rec.html">⑰ 和S(n)と一般項の混在型</a></li><li><a href="mb-p18-mobius.html">⑱ 一次分数変換型 a(n+1)=(p·a(n)+q)/(r·a(n)+s)</a></li><li><span class="cur">⑲ 三角関数置換型 a(n+1)=2a(n)²−1</span></li><li><a href="mb-p20-parity.html">⑳ 偶奇分け（(−1)ⁿ型・2つ飛び）</a></li><li><a href="mb-p21-mod.html">㉑ 周期・余り（mod）を書き出して見つける</a></li><li><a href="mb-rec-type.html">漸化式の型別処理（等比型・特性方程式・分数型・連立）</a></li><li><a href="mb-rec-hard.html">㉔ 推測＋数学的帰納法（誘導のない漸化式）</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

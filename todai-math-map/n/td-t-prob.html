@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>【東大型】確率の状態設計（出題テーマ）｜受験数学マップ</title>
+<meta name="description" content="東大の確率は、何を状態と見るかを自分で決めさせてくる。そして状態の分類さえ正しく決まれば、残りの計算は易しいことがほとんどである。良い分類の条件は2つしかない。第一に、互いに排反で網羅的であること。第二に、同じ状態に属…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/td-t-prob.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="【東大型】確率の状態設計（出題テーマ）｜受験数学マップ">
+<meta property="og:description" content="東大の確率は、何を状態と見るかを自分で決めさせてくる。そして状態の分類さえ正しく決まれば、残りの計算は易しいことがほとんどである。良い分類の条件は2つしかない。第一に、互いに排反で網羅的であること。第二に、同じ状態に属…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/td-t-prob.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "【東大型】確率の状態設計", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/td-t-prob.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 【東大型】確率の状態設計</nav>
+<h1>【東大型】確率の状態設計</h1>
+<p class="meta">東大レイヤー ／ 出題テーマ ／ 東大での重要度 ★★★★★</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>東大の確率は、何を状態と見るかを自分で決めさせてくる。そして状態の分類さえ正しく決まれば、残りの計算は易しいことがほとんどである。良い分類の条件は2つしかない。第一に、互いに排反で網羅的であること。第二に、同じ状態に属するなら、そこから先の遷移確率が等しいこと。第二の条件を満たさない粗い分類が最大の敗因で、これは『分類したつもりで、実は違うものを混ぜている』という形で現れる。逆に、対称性を使えば状態を大幅に減らせることが多く、ここに気づけるかどうかで計算量が数倍変わる。</p>
+<h2>こんなときに使う</h2>
+<ul><li>同じルールの操作が n 回繰り返される → 状態と遷移で捉える</li><li>『n回後に〜である確率』『ちょうどn回目に初めて〜』→ 漸化式</li><li>状態が多そうに見える → まず対称性で潰せないか考える（正多面体、円形配置、色の入れ替え）</li><li>直前だけでなく履歴に依存しそう → 状態に情報を足して履歴依存を消す</li><li>『初めて到達する』→ 到達済みを吸収状態として分ける</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. n=1, 2 を実際に書き出し、何が起こりうるかを掴む</li><li>2. 『ここから先の動き方が同じ』ものをまとめて1つの状態にする</li><li>3. 状態が互いに排反かつ網羅的か確認する（確率の和が1になるか）</li><li>4. 遷移図を描き、各状態から出る矢印と確率を全部書く</li><li>5. 漸化式を立てる（状態が3つ以上なら連立、和=1で1本消せる）</li><li>6. 対称性でさらに状態を減らせないか、ここでもう一度考える</li><li>7. 解いたあと n=1, 2 を代入し、手で数えた値と一致するか検算する</li></ol>
+<h2>例題</h2>
+<div class="problem">正四面体 ABCD の頂点上を点Pが動く。1回の操作で、Pは今いる頂点と辺で結ばれた3つの頂点のいずれかへ等確率で移動する。最初 A にいるとき、n回の操作後に A にいる確率 p_n を求めよ。</div><details><summary>解答</summary><ol class="steps"><li>正四面体では、どの頂点も他の3頂点すべてと辺で結ばれている。</li><li>また B, C, D は A から見て完全に対等なので、『A にいる』『A 以外にいる』の2状態で足りる（対称性）。</li><li>n回後に A にいる確率を p_n とすると、A 以外にいる確率は 1 - p_n。</li><li></li><li>A にいるとき：次の1手で必ず A を出るので、A に留まる寄与は 0。</li><li>A 以外にいるとき：その頂点から移動できる3頂点のうち A はちょうど1つなので、A へ移る確率は 1/3。</li><li></li><li>よって p_(n+1) = (1/3)(1 - p_n)、p_0 = 1。</li><li>特性方程式 α = (1/3)(1 - α) より 3α = 1 - α、α = 1/4。</li><li>p_(n+1) - 1/4 = -(1/3)(p_n - 1/4) となり、p_n - 1/4 = (3/4)·(-1/3)^n。</li><li></li><li>∴ p_n = 1/4 + (3/4)(-1/3)^n</li><li></li><li>検算：p_0 = 1/4 + 3/4 = 1 ○。p_1 = 1/4 - 1/4 = 0 ○（1回で必ず A を出る）。</li><li>p_2 = 1/4 + (3/4)(1/9) = 1/4 + 1/12 = 1/3 ○（A以外の頂点から3つのうち1つが A）。</li><li>n→∞ で p_n → 1/4。4頂点が対等になるので直感とも合う。</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>対称性が使えない設定では素直に状態を増やし、連立漸化式にする。p+q+r=1 で1本消して2元にするのが定石</li><li>一般項が出せない形なら、n=1,2,3 を書き出して予想し、数学的帰納法で示す（東大はこちらを要求することがある）</li><li>期待値の線形性を使うと、漸化式を立てずに済む場合がある（『何回目に初めて』ではなく『平均何回か』を聞かれたとき）</li><li>立方体・正八面体などでは『頂点までの距離』を状態に取ると、状態数が一気に減る</li></ul>
+<h2>落とし穴</h2>
+<ul><li>分類が粗く、同じ状態の中に遷移確率の異なるものが混ざっている（最大の敗因）</li><li>逆に状態を増やしすぎて、立った漸化式が解けなくなる</li><li>対称性の確認を怠り、本来まとめられる状態を分けたまま計算する</li><li>確率の和が1になる検算をしない</li><li>p_0 で立てた漸化式に p_1 の初期条件を入れて添字が1ずれる</li><li>状態の個数を増やしすぎて漸化式が解けなくなる</li></ul>
+<h2>なぜ大事か</h2>
+<p>設定が複雑で、何を状態と見るかを自分で決めさせる。分類さえ決まれば計算は易しい</p>
+<h2>東大での出方</h2>
+<p>サイコロ、カードの並べ替え、格子上や多面体上の点の移動、トーナメントなど、設定を変えて繰り返し出題される東大の主力テーマ。(1) 小さい n の具体値 →(2) 漸化式 →(3) 極限、という3段の誘導が定番で、(1) の数え方がそのまま (2) の状態設計のヒントになっている。</p>
+<h2>確認問題</h2>
+<ul><li>立方体の8頂点を辺に沿って移動する点について、n回後に元の頂点にいる確率を求めよ（状態を『元の頂点からの距離 0,1,2,3』に取る）</li><li>上の正四面体の問題で、n回後に特定の頂点 B にいる確率を求めよ</li><li>サイコロを n 回投げ、出た目の和が3の倍数になる確率を求めよ（状態は和を3で割った余り）</li></ul>
+<h2>発展</h2>
+<p>状態の個数が n に依存して増える設定では漸化式が立たない。その場合は直接数え上げるか、別のパラメータについて漸化式を立て直す。どちらも無理なら、実験して予想し帰納法で示す。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="ma-prob-rec.html">確率漸化式</a></li><li><a href="td-experiment.html">実験する手癖（n=1,2,3 を書き出す）</a></li></ul>
+<h2>このノードを前提にするノード</h2>
+<ul class="links"><li><a href="td-goal.html">理三の合格ライン（数学 6問中4完+α / 目安80〜100点）</a></li></ul>
+<h2>「出題テーマ」のノード</h2>
+<ul class="links"><li><span class="cur">【東大型】確率の状態設計</span></li><li><a href="td-t-integer.html">【東大型】整数の論証</a></li><li><a href="td-t-region.html">【東大型】通過領域・存在条件</a></li><li><a href="td-t-volume.html">【東大型】立体の体積</a></li><li><a href="td-t-cplx.html">【東大型】複素数平面と図形</a></li><li><a href="td-t-eval.html">【東大型】評価と極限の融合</a></li><li><a href="td-t-space.html">【東大型】空間図形の最大最小</a></li><li><a href="td-t-func.html">【東大型】関数の決定・不等式の成立条件</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

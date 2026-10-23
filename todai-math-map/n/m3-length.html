@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>曲線の長さ・道のり（積分の応用）｜受験数学マップ</title>
+<meta name="description" content="曲線の長さL=∫√(1+(y′)²)dxは、曲線を細かい区間に分割し各区間を線分（弦）で近似すると、三平方の定理より長さが√((Δx)²+(Δy)²)になり、これをΔxで括ると√(1+(Δy/Δx)²)Δxとなることか…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/m3-length.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="曲線の長さ・道のり（積分の応用）｜受験数学マップ">
+<meta property="og:description" content="曲線の長さL=∫√(1+(y′)²)dxは、曲線を細かい区間に分割し各区間を線分（弦）で近似すると、三平方の定理より長さが√((Δx)²+(Δy)²)になり、これをΔxで括ると√(1+(Δy/Δx)²)Δxとなることか…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/m3-length.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "曲線の長さ・道のり", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/m3-length.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 曲線の長さ・道のり</nav>
+<h1>曲線の長さ・道のり</h1>
+<p class="meta">数学III ／ 積分の応用 ／ 東大での重要度 ★★★☆☆</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>曲線の長さL=∫√(1+(y′)²)dxは、曲線を細かい区間に分割し各区間を線分（弦）で近似すると、三平方の定理より長さが√((Δx)²+(Δy)²)になり、これをΔxで括ると√(1+(Δy/Δx)²)Δxとなることから導かれる。これを足し合わせてΔx→0の極限を取ると定積分になる。公式自体は単純だが、√の中を平方完成できる形に整理する計算力が必要。</p>
+<h2>こんなときに使う</h2>
+<ul><li>曲線の長さ・道のりを求める問題はこの公式（または媒介変数版）を使う</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. y′（または媒介変数ならdx/dt,dy/dt）を計算する</li><li>2. L=∫√(1+(y′)²)dx（媒介変数ならL=∫√((dx/dt)²+(dy/dt)²)dt）を計算する</li></ol>
+<h2>例題</h2>
+<div class="problem">x=cos t, y=sin t（0≦t≦π）の曲線の長さを求めよ。</div><details><summary>解答</summary><ol class="steps"><li>√(sin²t+cos²t)=1なのでL=∫[0→π]dt=π（半円の弧長）</li></ol></details>
+<h2>落とし穴</h2>
+<ul><li>√の中を平方完成できる形に整理できず計算が進まない</li></ul>
+<h2>なぜ大事か</h2>
+<p>公式自体は単純だが、√の中を平方完成できる形に整理する計算力が要る</p>
+<h2>東大での出方</h2>
+<p>公式自体は単純だが、√の中を整理する計算力が要る。</p>
+<h2>確認問題</h2>
+<ul><li>y=x^(3/2)（0≦x≦4）の曲線の長さを求めよ</li></ul>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="m3-int-sub.html">置換積分（型の判別）</a></li><li><a href="m3-diff-param.html">媒介変数表示された関数の微分</a></li></ul>
+<h2>「積分の応用」のノード</h2>
+<ul class="links"><li><a href="m3-area.html">面積（上下・左右・媒介変数・逆関数）</a></li><li><a href="m3-vol-rot.html">回転体の体積（x軸・y軸まわり）</a></li><li><a href="m3-vol-cross.html">非回転体の体積（断面積を積分する）</a></li><li><a href="m3-vol-slant.html">斜回転体・回転軸が座標軸でない体積</a></li><li><span class="cur">曲線の長さ・道のり</span></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>㉑ 周期・余り（mod）を書き出して見つける（漸化式）｜受験数学マップ</title>
+<meta name="description" content="漸化式が『直前の k 項だけで次が決まる』なら、連続 k 項の組が一度再登場した瞬間から先は完全に繰り返す。余り（mod m）を取れば組の種類は有限個なので、必ずいつか再登場する。だから周期は予想ではなく『同じ組が出た…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/mb-p21-mod.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="㉑ 周期・余り（mod）を書き出して見つける（漸化式）｜受験数学マップ">
+<meta property="og:description" content="漸化式が『直前の k 項だけで次が決まる』なら、連続 k 項の組が一度再登場した瞬間から先は完全に繰り返す。余り（mod m）を取れば組の種類は有限個なので、必ずいつか再登場する。だから周期は予想ではなく『同じ組が出た…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/mb-p21-mod.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "㉑ 周期・余り（mod）を書き出して見つける", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/mb-p21-mod.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › ㉑ 周期・余り（mod）を書き出して見つける</nav>
+<h1>㉑ 周期・余り（mod）を書き出して見つける</h1>
+<p class="meta">数学B ／ 漸化式 ／ 東大での重要度 ★★★★★</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>漸化式が『直前の k 項だけで次が決まる』なら、連続 k 項の組が一度再登場した瞬間から先は完全に繰り返す。余り（mod m）を取れば組の種類は有限個なので、必ずいつか再登場する。だから周期は予想ではなく『同じ組が出た』ことで証明できる。a(n+1) = 1/(1 − a(n)) のように値そのものが周期的になる分数型もある。</p>
+<h2>こんなときに使う</h2>
+<ul><li>a(2026) を 7 で割った余り、のように大きな添字の余りを問う</li><li>a(n) がすべて整数であることを示せ、隣り合う項が互いに素であることを示せ</li><li>分数型で数項書くと元に戻る</li><li>一般項は求まるが、余りの計算には漸化式のまま使う方が楽</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 漸化式を mod m で書き直し、初項から順に余りを書き出す</li><li>2. 連続する（漸化式の階数分の）項の組が最初の組と一致したところで周期を確定させる</li><li>3. 『直前の項だけで次が決まるので、以後この繰り返し』と根拠を書く</li><li>4. 添字を周期で割った余りから答える</li></ol>
+<h2>例題</h2>
+<div class="problem">a(1) = a(2) = 1、a(n+2) = a(n+1) + a(n) のとき a(2026) を 3 で割った余りを求めよ。</div><details><summary>解答</summary><ol class="steps"><li>mod 3 で書き出す：a(1)〜a(10) は 1, 1, 2, 0, 2, 2, 1, 0, 1, 1</li><li>(a(9), a(10)) = (1, 1) = (a(1), a(2))。次の項は直前の2項だけで決まるので、以後は周期8で繰り返す</li><li>2026 = 8·253 + 2 なので a(2026) ≡ a(2) ≡ 1</li><li>∴ 余りは 1</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>値そのものの周期：a(1) = 2、a(n+1) = 1/(1 − a(n)) は 2, −1, 1/2, 2, … で周期3</li><li>互いに素の証明：gcd(a(n+1), a(n)) = gcd(a(n), a(n−1)) = … = gcd(a(2), a(1)) とユークリッドの互除法で遡る</li><li>整数性の証明：一般項が無理数を含んでも（フィボナッチ）、漸化式から帰納法で整数と示す</li><li>mod m の周期は m によって変わる（フィボナッチは mod 2 で3、mod 3 で8、mod 5 で20）</li></ul>
+<h2>落とし穴</h2>
+<ul><li>2項間なら1項、3項間なら2項の組が一致したことを確認せずに周期を主張する</li><li>周期の途中から始まる（前周期がある）場合に、添字の割り算がずれる</li><li>書き出しの計算ミスで偽の周期を見つける（2周期分書いて確認する）</li><li>周期を『予想』しただけで終わる（同じ組が再登場したことを根拠にする）</li></ul>
+<h2>なぜ大事か</h2>
+<p>一般項が求まらない・不要なとき、余りや値を書き出して周期を見つける。整数問題との融合で東大頻出</p>
+<h2>東大での出方</h2>
+<p>東大は数列と整数の融合を好み、余り・互いに素・整数性が頻出テーマ。⑩〜⑮で一般項を出すより、漸化式のまま mod で扱う方が速いことが多い。</p>
+<h2>確認問題</h2>
+<ul><li>a(1) = 1、a(n+1) = 3a(n) + 1 を 5 で割った余りの周期を求めよ（答：1, 4, 3, 0, 1, … で周期4）</li><li>a(1) = 2、a(n+1) = 1/(1 − a(n)) のとき a(100) を求めよ（答：2）</li></ul>
+<h2>発展</h2>
+<p>mod m で2項間なら組は m² 通りしかないので、周期は必ず m² 以下（鳩の巣原理）。漸化式が逆向きにも解けるなら、前周期なしの純周期になる。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="mb-p10-linear.html">⑩ 特性方程式型 a(n+1)=p·a(n)+q</a></li><li><a href="ma-int-mod.html">合同式（mod）</a></li></ul>
+<h2>「漸化式」のノード</h2>
+<ul class="links"><li><a href="mb-p10-linear.html">⑩ 特性方程式型 a(n+1)=p·a(n)+q</a></li><li><a href="mb-p11-exp.html">⑪ 指数型 a(n+1)=p·a(n)+rⁿ（rⁿ⁺¹で割る）</a></li><li><a href="mb-p12-poly.html">⑫ nの多項式型 a(n+1)=p·a(n)+(An+B)</a></li><li><a href="mb-p13-recip.html">⑬ 分数型（逆数をとる） a(n+1)=a(n)/(p·a(n)+q)</a></li><li><a href="mb-p14-logtype.html">⑭ 積・累乗型（対数をとる） a(n+1)=q·a(n)^p</a></li><li><a href="mb-p15-3term.html">⑮ 隣接3項間 a(n+2)+p·a(n+1)+q·a(n)=0</a></li><li><a href="mb-p16-system.html">⑯ 連立漸化式（和と差・消去）</a></li><li><a href="mb-p17-sn-rec.html">⑰ 和S(n)と一般項の混在型</a></li><li><a href="mb-p18-mobius.html">⑱ 一次分数変換型 a(n+1)=(p·a(n)+q)/(r·a(n)+s)</a></li><li><a href="mb-p19-trig.html">⑲ 三角関数置換型 a(n+1)=2a(n)²−1</a></li><li><a href="mb-p20-parity.html">⑳ 偶奇分け（(−1)ⁿ型・2つ飛び）</a></li><li><span class="cur">㉑ 周期・余り（mod）を書き出して見つける</span></li><li><a href="mb-rec-type.html">漸化式の型別処理（等比型・特性方程式・分数型・連立）</a></li><li><a href="mb-rec-hard.html">㉔ 推測＋数学的帰納法（誘導のない漸化式）</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

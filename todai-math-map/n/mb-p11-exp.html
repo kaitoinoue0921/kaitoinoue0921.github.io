@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>⑪ 指数型 a(n+1)=p·a(n)+rⁿ（rⁿ⁺¹で割る）（漸化式）｜受験数学マップ</title>
+<meta name="description" content="rⁿ がじゃまなら、両辺を rⁿ⁺¹ で割って b(n) = a(n)/rⁿ と置くと b(n+1) = (p/r)b(n) + 1/r となり⑩に落ちる。pⁿ⁺¹ で割れば c(n+1) = c(n) + (r/p)…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/mb-p11-exp.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="⑪ 指数型 a(n+1)=p·a(n)+rⁿ（rⁿ⁺¹で割る）（漸化式）｜受験数学マップ">
+<meta property="og:description" content="rⁿ がじゃまなら、両辺を rⁿ⁺¹ で割って b(n) = a(n)/rⁿ と置くと b(n+1) = (p/r)b(n) + 1/r となり⑩に落ちる。pⁿ⁺¹ で割れば c(n+1) = c(n) + (r/p)…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/mb-p11-exp.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "⑪ 指数型 a(n+1)=p·a(n)+rⁿ（rⁿ⁺¹で割る）", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/mb-p11-exp.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › ⑪ 指数型 a(n+1)=p·a(n)+rⁿ（rⁿ⁺¹で割る）</nav>
+<h1>⑪ 指数型 a(n+1)=p·a(n)+rⁿ（rⁿ⁺¹で割る）</h1>
+<p class="meta">数学B ／ 漸化式 ／ 東大での重要度 ★★★★☆</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>rⁿ がじゃまなら、両辺を rⁿ⁺¹ で割って b(n) = a(n)/rⁿ と置くと b(n+1) = (p/r)b(n) + 1/r となり⑩に落ちる。pⁿ⁺¹ で割れば c(n+1) = c(n) + (r/p)ⁿ/p となり③（階差型）に落ちる。どちらで割っても解けるが、p = r のときは割ると b(n+1) = b(n) + 1/r の等差数列になり、答えに n·rⁿ が現れる（共鳴型）。</p>
+<h2>こんなときに使う</h2>
+<ul><li>a(n+1) = p·a(n) + (定数)·rⁿ</li><li>p と r が等しい → 共鳴型。答えは n·pⁿ の形になると予想できる</li><li>3項間漸化式で重解（⑮）を処理した後の a(n+1) − α·a(n) = c·αⁿ もこの形</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 両辺を rⁿ⁺¹（または pⁿ⁺¹）で割る</li><li>2. b(n) = a(n)/rⁿ と置き、b の漸化式に書き直す</li><li>3. p ≠ r なら⑩、p = r なら等差数列、pⁿ⁺¹ で割ったなら③で解く</li><li>4. a(n) = rⁿ·b(n) に戻す</li><li>5. a(2) で検算する</li></ol>
+<h2>例題</h2>
+<div class="problem">a(1) = 1、a(n+1) = 2a(n) + 3ⁿ の一般項を求めよ。</div><details><summary>解答</summary><ol class="steps"><li>両辺を 3ⁿ⁺¹ で割る：a(n+1)/3ⁿ⁺¹ = (2/3)·a(n)/3ⁿ + 1/3</li><li>b(n) = a(n)/3ⁿ とおくと b(n+1) = (2/3)b(n) + 1/3、b(1) = 1/3</li><li>α = 1 なので b(n+1) − 1 = (2/3)(b(n) − 1)</li><li>b(n) − 1 = (1/3 − 1)(2/3)ⁿ⁻¹ = −(2/3)ⁿ</li><li>∴ a(n) = 3ⁿ·b(n) = 3ⁿ − 2ⁿ</li><li>検算：a(2) = 2 + 3 = 5、9 − 4 = 5 ○</li><li>共鳴型の例：a(1) = 1、a(n+1) = 2a(n) + 2ⁿ なら 2ⁿ⁺¹ で割って b(n+1) = b(n) + 1/2、b(1) = 1/2 より b(n) = n/2、a(n) = n·2ⁿ⁻¹</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>2ⁿ⁺¹ で割って階差型にする：c(n) = a(n)/2ⁿ、c(n+1) − c(n) = (1/2)(3/2)ⁿ、③で戻す</li><li>a(n) = A·3ⁿ + B·2ⁿ と形を決め打ちして係数を合わせる（解の形が分かっているときの検算にもなる）</li></ul>
+<h2>落とし穴</h2>
+<ul><li>rⁿ で割って rⁿ⁺¹ で割ったつもりになり、係数が1つずれる</li><li>共鳴型（p = r）で特性方程式を立てて α が出ない、と止まる</li><li>b(1) = a(1)/r の計算で r と r² を取り違える</li><li>p = r のとき特性方程式型に持ち込もうとして詰まる／割る指数を1ずらす</li></ul>
+<h2>なぜ大事か</h2>
+<p>非同次項が指数のとき、割って⑩か③に落とす。p = r の共鳴型で答えに n が掛かる</p>
+<h2>東大での出方</h2>
+<p>確率漸化式で (1/2)ⁿ のような項が残るときによく出る。共鳴型は東大好みの『形が崩れる場合』。</p>
+<h2>確認問題</h2>
+<ul><li>a(1) = 3、a(n+1) = 3a(n) + 3ⁿ⁺¹ の一般項を求めよ（答：a(n) = n·3ⁿ）</li><li>a(1) = 1、a(n+1) = 2a(n) + 3ⁿ を 2ⁿ⁺¹ で割る方法でも解き、同じ答えになるか確かめよ</li></ul>
+<h2>発展</h2>
+<p>一般に a(n+1) = p·a(n) + f(n) の解は『等比部分 C·pⁿ』＋『f(n) と同じ形の特殊解』。f が rⁿ なら A·rⁿ、ただし r = p なら n·pⁿ に格上げ。微分方程式と同じ構造。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="mb-p10-linear.html">⑩ 特性方程式型 a(n+1)=p·a(n)+q</a></li><li><a href="mb-p03-kaisa.html">③ 階差数列 a(n+1)−a(n)=f(n)</a></li></ul>
+<h2>このノードを前提にするノード</h2>
+<ul class="links"><li><a href="mb-p15-3term.html">⑮ 隣接3項間 a(n+2)+p·a(n+1)+q·a(n)=0</a></li><li><a href="mb-rec-type.html">漸化式の型別処理（等比型・特性方程式・分数型・連立）</a></li></ul>
+<h2>「漸化式」のノード</h2>
+<ul class="links"><li><a href="mb-p10-linear.html">⑩ 特性方程式型 a(n+1)=p·a(n)+q</a></li><li><span class="cur">⑪ 指数型 a(n+1)=p·a(n)+rⁿ（rⁿ⁺¹で割る）</span></li><li><a href="mb-p12-poly.html">⑫ nの多項式型 a(n+1)=p·a(n)+(An+B)</a></li><li><a href="mb-p13-recip.html">⑬ 分数型（逆数をとる） a(n+1)=a(n)/(p·a(n)+q)</a></li><li><a href="mb-p14-logtype.html">⑭ 積・累乗型（対数をとる） a(n+1)=q·a(n)^p</a></li><li><a href="mb-p15-3term.html">⑮ 隣接3項間 a(n+2)+p·a(n+1)+q·a(n)=0</a></li><li><a href="mb-p16-system.html">⑯ 連立漸化式（和と差・消去）</a></li><li><a href="mb-p17-sn-rec.html">⑰ 和S(n)と一般項の混在型</a></li><li><a href="mb-p18-mobius.html">⑱ 一次分数変換型 a(n+1)=(p·a(n)+q)/(r·a(n)+s)</a></li><li><a href="mb-p19-trig.html">⑲ 三角関数置換型 a(n+1)=2a(n)²−1</a></li><li><a href="mb-p20-parity.html">⑳ 偶奇分け（(−1)ⁿ型・2つ飛び）</a></li><li><a href="mb-p21-mod.html">㉑ 周期・余り（mod）を書き出して見つける</a></li><li><a href="mb-rec-type.html">漸化式の型別処理（等比型・特性方程式・分数型・連立）</a></li><li><a href="mb-rec-hard.html">㉔ 推測＋数学的帰納法（誘導のない漸化式）</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

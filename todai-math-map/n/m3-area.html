@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>面積（上下・左右・媒介変数・逆関数）（積分の応用）｜受験数学マップ</title>
+<meta name="description" content="面積を求める前に交点を求め、区間内でどちらの関数が上かを必ず確認する。上下が入れ替わる点があれば、そこで区間を分割する必要がある。媒介変数表示の曲線の面積はS=∫y(dx/dt)dtという置換積分の形になり、tの動く向…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/m3-area.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="面積（上下・左右・媒介変数・逆関数）（積分の応用）｜受験数学マップ">
+<meta property="og:description" content="面積を求める前に交点を求め、区間内でどちらの関数が上かを必ず確認する。上下が入れ替わる点があれば、そこで区間を分割する必要がある。媒介変数表示の曲線の面積はS=∫y(dx/dt)dtという置換積分の形になり、tの動く向…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/m3-area.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "面積（上下・左右・媒介変数・逆関数）", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/m3-area.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 面積（上下・左右・媒介変数・逆関数）</nav>
+<h1>面積（上下・左右・媒介変数・逆関数）</h1>
+<p class="meta">数学III ／ 積分の応用 ／ 東大での重要度 ★★★★★</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>面積を求める前に交点を求め、区間内でどちらの関数が上かを必ず確認する。上下が入れ替わる点があれば、そこで区間を分割する必要がある。媒介変数表示の曲線の面積はS=∫y(dx/dt)dtという置換積分の形になり、tの動く向き（増加か減少か）にも注意が必要。逆関数のグラフはy=xに関して対称という性質を使うと、計算を大きく省略できることがある。</p>
+<div class="diagram" role="img" aria-label="面積（上下・左右・媒介変数・逆関数）の図"><svg viewBox='0 0 240 155' width='100%'>
+<line x1='15' y1='130' x2='225' y2='130' stroke='var(--dim)' stroke-width='1'/>
+<rect x='30' y='100' width='36' height='30' fill='var(--ok)' opacity='0.3' stroke='var(--ok)' stroke-width='0.5'/>
+<rect x='66' y='55' width='36' height='75' fill='var(--ok)' opacity='0.3' stroke='var(--ok)' stroke-width='0.5'/>
+<rect x='102' y='40' width='36' height='90' fill='var(--ok)' opacity='0.3' stroke='var(--ok)' stroke-width='0.5'/>
+<rect x='138' y='50' width='36' height='80' fill='var(--ok)' opacity='0.3' stroke='var(--ok)' stroke-width='0.5'/>
+<rect x='174' y='95' width='36' height='35' fill='var(--ok)' opacity='0.3' stroke='var(--ok)' stroke-width='0.5'/>
+<path d='M30,130 C70,40 170,40 210,110' fill='none' stroke='var(--accent)' stroke-width='1.8'/>
+<text x='24' y='143' font-size='10' fill='var(--dim)'>a</text>
+<text x='206' y='143' font-size='10' fill='var(--dim)'>b</text>
+<text x='40' y='20' font-size='12.5' fill='var(--accent)'>∫[a→b] f(x) dx = 面積</text>
+</svg></div>
+<h2>こんなときに使う</h2>
+<ul><li>面積を求める前に交点を求め、上下関係を確認する</li><li>逆関数のグラフが絡む面積はy=x対称性を利用できないか考える</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 交点を求めて積分区間を決める</li><li>2. 上下関係を確認し、上下が入れ替わる点があれば区間を分ける</li><li>3. (上−下)を積分する</li></ol>
+<h2>例題</h2>
+<div class="problem">y=x²とy=xで囲まれた面積を求めよ。</div><details><summary>解答</summary><ol class="steps"><li>交点0,1。区間内でy=xが上。∫[0→1](x−x²)dx=1/2−1/3=1/6</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>逆関数の性質を使うと、y=f(x)とy=xとの面積を、逆関数f⁻¹の積分に置き換えられる場合がある</li></ul>
+<h2>落とし穴</h2>
+<ul><li>交点を出さずに積分区間を決める</li><li>上下が入れ替わる点を見落とす</li><li>交点を出さずに積分区間を決める／曲線の上下が入れ替わる点を見落とす</li></ul>
+<h2>なぜ大事か</h2>
+<p>領域を正しく図示し、どちらの軸で積分するか選ぶ判断</p>
+<h2>東大での出方</h2>
+<p>領域を正しく図示し、どちらの軸で積分するか選ぶ判断。</p>
+<h2>確認問題</h2>
+<ul><li>y=√xとy=x²で囲まれた面積を求めよ</li></ul>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="m3-int-sub.html">置換積分（型の判別）</a></li><li><a href="m3-graph.html">増減・凹凸・変曲点・漸近線（グラフを描き切る）</a></li></ul>
+<h2>このノードを前提にするノード</h2>
+<ul class="links"><li><a href="m3-vol-rot.html">回転体の体積（x軸・y軸まわり）</a></li><li><a href="td-calc.html">計算の設計と検算（次数・単位・特殊値）</a></li></ul>
+<h2>「積分の応用」のノード</h2>
+<ul class="links"><li><span class="cur">面積（上下・左右・媒介変数・逆関数）</span></li><li><a href="m3-vol-rot.html">回転体の体積（x軸・y軸まわり）</a></li><li><a href="m3-vol-cross.html">非回転体の体積（断面積を積分する）</a></li><li><a href="m3-vol-slant.html">斜回転体・回転軸が座標軸でない体積</a></li><li><a href="m3-length.html">曲線の長さ・道のり</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

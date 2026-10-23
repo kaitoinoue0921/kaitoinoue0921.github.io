@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>不等式の表す領域・線形計画（図形と方程式）｜受験数学マップ</title>
+<meta name="description" content="領域の問題は「図示」→「kを動かして最大最小」の2段構え。最大値は多くの場合、領域の頂点か境界との接点に現れる。">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/m2-region.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="不等式の表す領域・線形計画（図形と方程式）｜受験数学マップ">
+<meta property="og:description" content="領域の問題は「図示」→「kを動かして最大最小」の2段構え。最大値は多くの場合、領域の頂点か境界との接点に現れる。">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/m2-region.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "不等式の表す領域・線形計画", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/m2-region.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 不等式の表す領域・線形計画</nav>
+<h1>不等式の表す領域・線形計画</h1>
+<p class="meta">数学II ／ 図形と方程式 ／ 東大での重要度 ★★★★☆</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>領域の問題は「図示」→「kを動かして最大最小」の2段構え。最大値は多くの場合、領域の頂点か境界との接点に現れる。</p>
+<div class="diagram" role="img" aria-label="不等式の表す領域・線形計画の図"><svg viewBox='0 0 240 165' width='100%'>
+<polygon points='55,135 175,135 145,60 85,80' fill='var(--accent)' opacity='0.15' stroke='var(--accent)' stroke-width='1.4'/>
+<line x1='90' y1='150' x2='195' y2='30' stroke='var(--dim)' stroke-width='1' stroke-dasharray='4 3'/>
+<line x1='60' y1='150' x2='165' y2='30' stroke='var(--dim)' stroke-width='1' stroke-dasharray='4 3'/>
+<circle cx='145' cy='60' r='3' fill='var(--gold)'/>
+<text x='150' y='42' font-size='10.5' fill='var(--gold)'>最大を与える</text>
+<text x='150' y='56' font-size='10.5' fill='var(--gold)'>頂点</text>
+<text x='14' y='20' font-size='11' fill='var(--dim)'>k一定の直線を動かして考える</text>
+</svg></div>
+<h2>こんなときに使う</h2>
+<ul><li>『領域Dにおける ax + by の最大値』→ 直線 ax+by=k を平行移動する</li><li>『x² + y² の最大』→ 原点中心の円の半径を動かす</li><li>『y/x の最大』→ 原点を通る直線の傾きと読む</li><li>『(x-a)² + (y-b)² の最大』→ 点 (a,b) を中心とする円</li><li>境界が曲線 → 接する場合を必ず調べる（頂点だけでは足りない）</li><li>領域が非有界 → 最大値や最小値が存在しない可能性を疑う</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 領域を図示する。境界を含むか（実線/破線）を明示する</li><li>2. 最大化したい量を k と置き、k を含む図形を書く</li><li>3. その図形を動かし、領域と共有点を持つ k の範囲を調べる</li><li>4. 候補は領域の頂点と、境界への接点</li><li>5. 接する場合は判別式、または点と直線の距離で条件を出す</li><li>6. 境界を含まない場合、その値が最大値として『取れるか』を確認する</li></ol>
+<h2>例題</h2>
+<div class="problem">領域 D: x ≧ 0, y ≧ 0, x + 2y ≦ 8, 2x + y ≦ 10 において、x + y の最大値を求めよ。</div><details><summary>解答</summary><ol class="steps"><li>まず領域の頂点を求める。</li><li>・原点 (0, 0)</li><li>・x軸との交点：2x + y = 10 で y = 0 → (5, 0)（x + 2y ≦ 8 も満たす：5 ≦ 8 ○）</li><li>・y軸との交点：x + 2y = 8 で x = 0 → (0, 4)（2x + y ≦ 10 も満たす：4 ≦ 10 ○）</li><li>・2直線の交点：x + 2y = 8 と 2x + y = 10 を連立</li><li>　　x + 2y = 8 を2倍して 2x + 4y = 16、これから 2x + y = 10 を引いて 3y = 6、y = 2</li><li>　　x = 8 - 4 = 4　∴ (4, 2)</li><li></li><li>領域 D は (0,0), (5,0), (4,2), (0,4) を頂点とする四角形（境界を含む）。</li><li></li><li>x + y = k とおくと、これは傾き -1 の直線。k を大きくすると直線は右上へ平行移動する。</li><li>領域と共有点を持つ最大の k は、直線が領域から離れる直前の位置、すなわちどれかの頂点を通るとき。</li><li></li><li>各頂点での x + y の値：</li><li>　(0,0) → 0　　(5,0) → 5　　(4,2) → 6　　(0,4) → 4</li><li></li><li>∴ 最大値は 6（点 (4, 2) のとき）</li><li></li><li>検算：(4,2) は x+2y = 4+4 = 8 ○、2x+y = 8+2 = 10 ○ で、2本の境界の交点上にある。</li><li>傾き -1 の直線が、傾き -1/2 と傾き -2 の2直線に挟まれた角の頂点で最大になるのは整合的。</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>境界が曲線のときは接線条件（判別式 = 0 または点と直線の距離 = 半径）を使う</li><li>分数式 (y - b)/(x - a) は、定点 (a, b) を通る直線の傾きと読む</li><li>予選決勝法：一方の変数を固定して最大値を求め、そのあとで固定した変数を動かす</li><li>通過領域の問題と表裏の関係にある。逆像法で得た不等式は、そのまま領域の条件として使える</li></ul>
+<h2>落とし穴</h2>
+<ul><li>境界を含む/含まないの処理を落とし、最大値が存在しないのに答えてしまう</li><li>頂点だけ調べて、曲線境界への接点を見落とす</li><li>領域が非有界なのに最大値を求めようとする</li><li>図を描かずに式だけで処理し、どこで最大になるかを見誤る</li><li>k の範囲を求めたあと、その k が実際に達成可能かを確認しない</li><li>境界を含む/含まないの処理</li></ul>
+<h2>なぜ大事か</h2>
+<p>「領域上での最大最小」は東大の頻出テーマ</p>
+<h2>東大での出方</h2>
+<p>単独より融合で出る。数IIIの関数の値域と組み合わせたり、通過領域を求めさせたうえでその領域上の最大最小を問うたりする形が多い。線形計画法そのものを問う出題は少なく、『k を動かす』という考え方が使えるかを見ている。</p>
+<h2>確認問題</h2>
+<ul><li>上の領域 D において 2x + 3y の最大値を求めよ（最大を与える頂点が変わることを確認する）</li><li>x² + y² ≦ 1 において x + y の最大値を求めよ（接線条件を使う）</li><li>x ≧ 0, y ≧ 0, x + y ≦ 1 において y/(x+2) の最大値を求めよ</li></ul>
+<h2>発展</h2>
+<p>領域の定義に文字定数が含まれ、最大値がその定数によって変わる問題。場合分けの網羅性がそのまま採点対象になる。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="m2-circle.html">円の方程式・円と直線の位置関係</a></li><li><a href="m2f-ineq2.html">2次不等式と符号</a></li></ul>
+<h2>このノードを前提にするノード</h2>
+<ul class="links"><li><a href="m2-pass-region.html">通過領域（存在条件に読み替える）</a></li><li><a href="mb-lattice.html">格子点の数え上げ</a></li><li><a href="mc-vec-region.html">ベクトルの終点の存在範囲</a></li></ul>
+<h2>「図形と方程式」のノード</h2>
+<ul class="links"><li><a href="m2-line.html">直線の方程式・点と直線の距離</a></li><li><a href="m2-circle.html">円の方程式・円と直線の位置関係</a></li><li><a href="m2-locus.html">軌跡（動点の条件を式にする）</a></li><li><span class="cur">不等式の表す領域・線形計画</span></li><li><a href="m2-pass-region.html">通過領域（存在条件に読み替える）</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

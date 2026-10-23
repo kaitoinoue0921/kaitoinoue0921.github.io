@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>⑱ 一次分数変換型 a(n+1)=(p·a(n)+q)/(r·a(n)+s)（漸化式）｜受験数学マップ</title>
+<meta name="description" content="分数型の不動点 x = (px + q)/(rx + s) の解を α, β とすると、a(n+1) − α と a(n+1) − β はどちらも (a(n) − α) や (a(n) − β) の定数倍を (r·a(…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/mb-p18-mobius.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="⑱ 一次分数変換型 a(n+1)=(p·a(n)+q)/(r·a(n)+s)（漸化式）｜受験数学マップ">
+<meta property="og:description" content="分数型の不動点 x = (px + q)/(rx + s) の解を α, β とすると、a(n+1) − α と a(n+1) − β はどちらも (a(n) − α) や (a(n) − β) の定数倍を (r·a(…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/mb-p18-mobius.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "⑱ 一次分数変換型 a(n+1)=(p·a(n)+q)/(r·a(n)+s)", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/mb-p18-mobius.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › ⑱ 一次分数変換型 a(n+1)=(p·a(n)+q)/(r·a(n)+s)</nav>
+<h1>⑱ 一次分数変換型 a(n+1)=(p·a(n)+q)/(r·a(n)+s)</h1>
+<p class="meta">数学B ／ 漸化式 ／ 東大での重要度 ★★★★☆</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>分数型の不動点 x = (px + q)/(rx + s) の解を α, β とすると、a(n+1) − α と a(n+1) − β はどちらも (a(n) − α) や (a(n) − β) の定数倍を (r·a(n) + s) で割った形になる。比を取れば分母が消えて (a(n+1) − α)/(a(n+1) − β) = k·(a(n) − α)/(a(n) − β) の等比数列になる。重解なら 1/(a(n) − α) が等差数列。⑬は不動点が 0 の場合にあたる。</p>
+<h2>こんなときに使う</h2>
+<ul><li>分子にも分母にも a(n) の1次式がある分数型</li><li>関数 f(x) = (px + q)/(rx + s) を n 回合成する問題</li><li>連分数・ニュートン法の反復（√2 の近似など）</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 不動点 x = (px + q)/(rx + s) を解き α, β を得る</li><li>2. a(n+1) − α、a(n+1) − β をそれぞれ通分して計算する</li><li>3. 比を取り、b(n) = (a(n) − α)/(a(n) − β) が等比数列になることを示す</li><li>4. 重解なら b(n) = 1/(a(n) − α) が等差数列になる</li><li>5. b(n) を求めて a(n) について解く。a(n) ≠ β（分母 ≠ 0）は帰納法で示しておく</li></ol>
+<h2>例題</h2>
+<div class="problem">a(1) = 2、a(n+1) = (4a(n) − 3)/a(n) の一般項を求めよ。</div><details><summary>解答</summary><ol class="steps"><li>不動点：x = (4x − 3)/x より x² − 4x + 3 = 0、x = 1, 3</li><li>a(n+1) − 1 = 3(a(n) − 1)/a(n)、a(n+1) − 3 = (a(n) − 3)/a(n)</li><li>（a(1) = 2 で、1 &lt; a(n) &lt; 3 なら a(n+1) = 4 − 3/a(n) も 1 &lt; a(n+1) &lt; 3。よって a(n) ≠ 0, 3）</li><li>比を取ると b(n) = (a(n) − 1)/(a(n) − 3) は公比 3、初項 (2 − 1)/(2 − 3) = −1 の等比数列：b(n) = −3ⁿ⁻¹</li><li>a(n) − 1 = b(n)(a(n) − 3) より a(n) = (1 − 3b(n))/(1 − b(n)) = (3ⁿ + 1)/(3ⁿ⁻¹ + 1)</li><li>検算：a(2) = (8 − 3)/2 = 5/2、(9 + 1)/(3 + 1) = 5/2 ○。n→∞ で 3 に近づく</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>重解の例：a(n+1) = (3a(n) − 1)/(a(n) + 1) は不動点 x = 1（重解）。1/(a(n) − 1) が公差 1/2 の等差数列</li><li>行列 [[p, q], [r, s]] の n 乗と対応する（一次分数変換の合成＝行列の積）</li><li>a(n+1) = (a(n)² + 2)/(2a(n))（ニュートン法、√2 の近似）は2次分数だが、(a − √2)/(a + √2) が2乗ずつ変化する同じ発想で解ける</li></ul>
+<h2>落とし穴</h2>
+<ul><li>a(n) − α の計算で通分を誤る</li><li>比 b(n) の初項を a(1) にしてしまう</li><li>a(n) ≠ β の確認を省く（b(n) が定義できない）</li><li>重解なのに比を取ろうとして 0/0 になる</li><li>a(n) ≠ α, β や分母 ≠ 0 の確認／重解なのに比を取ろうとする</li></ul>
+<h2>なぜ大事か</h2>
+<p>特性方程式（不動点）の2解 α, β で (a−α)/(a−β) が等比になる。重解なら 1/(a−α) が等差</p>
+<h2>東大での出方</h2>
+<p>関数の反復合成として出題され、極限まで問われることが多い。不動点の安定性（どちらに収束するか）の理解が問われる。</p>
+<h2>確認問題</h2>
+<ul><li>a(1) = 2、a(n+1) = (3a(n) − 1)/(a(n) + 1) の一般項を求めよ（答：a(n) = (n + 3)/(n + 1)）</li><li>例題で、a(1) を 1 と 3 以外のどんな正の値にしても a(n) → 3 となることを b(n) の式から説明せよ</li></ul>
+<h2>発展</h2>
+<p>(a − α)/(a − β) が等比になる理由は、一次分数変換が α を 0 に、β を ∞ に移す座標で見ると単なる拡大 x → kx になるから（共役）。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="mb-p13-recip.html">⑬ 分数型（逆数をとる） a(n+1)=a(n)/(p·a(n)+q)</a></li><li><a href="mb-p15-3term.html">⑮ 隣接3項間 a(n+2)+p·a(n+1)+q·a(n)=0</a></li></ul>
+<h2>「漸化式」のノード</h2>
+<ul class="links"><li><a href="mb-p10-linear.html">⑩ 特性方程式型 a(n+1)=p·a(n)+q</a></li><li><a href="mb-p11-exp.html">⑪ 指数型 a(n+1)=p·a(n)+rⁿ（rⁿ⁺¹で割る）</a></li><li><a href="mb-p12-poly.html">⑫ nの多項式型 a(n+1)=p·a(n)+(An+B)</a></li><li><a href="mb-p13-recip.html">⑬ 分数型（逆数をとる） a(n+1)=a(n)/(p·a(n)+q)</a></li><li><a href="mb-p14-logtype.html">⑭ 積・累乗型（対数をとる） a(n+1)=q·a(n)^p</a></li><li><a href="mb-p15-3term.html">⑮ 隣接3項間 a(n+2)+p·a(n+1)+q·a(n)=0</a></li><li><a href="mb-p16-system.html">⑯ 連立漸化式（和と差・消去）</a></li><li><a href="mb-p17-sn-rec.html">⑰ 和S(n)と一般項の混在型</a></li><li><span class="cur">⑱ 一次分数変換型 a(n+1)=(p·a(n)+q)/(r·a(n)+s)</span></li><li><a href="mb-p19-trig.html">⑲ 三角関数置換型 a(n+1)=2a(n)²−1</a></li><li><a href="mb-p20-parity.html">⑳ 偶奇分け（(−1)ⁿ型・2つ飛び）</a></li><li><a href="mb-p21-mod.html">㉑ 周期・余り（mod）を書き出して見つける</a></li><li><a href="mb-rec-type.html">漸化式の型別処理（等比型・特性方程式・分数型・連立）</a></li><li><a href="mb-rec-hard.html">㉔ 推測＋数学的帰納法（誘導のない漸化式）</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

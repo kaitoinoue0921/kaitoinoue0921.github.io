@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>垂線の足・点と平面の距離・射影（ベクトル）｜受験数学マップ</title>
+<meta name="description" content="点から平面へ下ろした垂線の足Hは、PHが平面を張る2つのベクトルの両方と垂直になる点として決まる。この垂直条件を2本立てて連立することで、Hの座標が確定する。点と平面の距離の公式|ax₀+by₀+cz₀+d|/√(a²…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/mc-vec-foot.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="垂線の足・点と平面の距離・射影（ベクトル）｜受験数学マップ">
+<meta property="og:description" content="点から平面へ下ろした垂線の足Hは、PHが平面を張る2つのベクトルの両方と垂直になる点として決まる。この垂直条件を2本立てて連立することで、Hの座標が確定する。点と平面の距離の公式|ax₀+by₀+cz₀+d|/√(a²…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/mc-vec-foot.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "垂線の足・点と平面の距離・射影", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/mc-vec-foot.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 垂線の足・点と平面の距離・射影</nav>
+<h1>垂線の足・点と平面の距離・射影</h1>
+<p class="meta">数学C ／ ベクトル ／ 東大での重要度 ★★★★★</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>点から平面へ下ろした垂線の足Hは、PHが平面を張る2つのベクトルの両方と垂直になる点として決まる。この垂直条件を2本立てて連立することで、Hの座標が確定する。点と平面の距離の公式|ax₀+by₀+cz₀+d|/√(a²+b²+c²)は、法線ベクトル(a,b,c)方向への正射影の長さとして導ける。</p>
+<div class="diagram" role="img" aria-label="垂線の足・点と平面の距離・射影の図"><svg viewBox='0 0 220 175' width='100%'>
+<line x1='20' y1='60' x2='210' y2='110' stroke='var(--fg)' stroke-width='1.5'/>
+<text x='212' y='113' font-size='11' fill='var(--dim)'>ℓ</text>
+<circle cx='150' cy='35' r='2.8' fill='var(--accent)'/>
+<text x='156' y='32' font-size='12' fill='var(--accent)'>P</text>
+<circle cx='136.5' cy='89.1' r='2.8' fill='var(--ok)'/>
+<text x='108' y='102' font-size='12' fill='var(--ok)'>H（垂線の足）</text>
+<line x1='150' y1='35' x2='136.5' y2='89.1' stroke='var(--warn)' stroke-width='1.4' stroke-dasharray='3 2'/>
+<text x='155' y='68' font-size='11' fill='var(--warn)'>d</text>
+<text x='16' y='168' font-size='10.5' fill='var(--warn)'>d = 点Pと直線ℓの最短距離（PH）</text>
+<path d='M141,84 L146,89 L141,94' fill='none' stroke='var(--dim)' stroke-width='1'/>
+</svg></div>
+<h2>こんなときに使う</h2>
+<ul><li>体積計算で『高さ』が必要な場面は、点と平面の距離の公式か垂線の足の計算を使う</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 平面の法線ベクトルを求める</li><li>2. 点と平面の距離の公式に代入する、または垂直条件を2本立てて垂線の足を求める</li></ol>
+<h2>例題</h2>
+<div class="problem">点(1,1,1)と平面x+y+z=0の距離を求めよ。</div><details><summary>解答</summary><ol class="steps"><li>|1+1+1|/√(1+1+1)=3/√3=√3</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>垂線の足を実際に求めてから距離を計算する方法もある</li></ul>
+<h2>落とし穴</h2>
+<ul><li>垂直条件を1本しか立てず、垂線の足が一意に決まらない</li><li>垂直条件を内積で2本立てるところを1本で済ませる</li></ul>
+<h2>なぜ大事か</h2>
+<p>体積計算（高さ）と最短距離問題の心臓部</p>
+<h2>東大での出方</h2>
+<p>体積計算（高さ）と最短距離問題の心臓部。</p>
+<h2>確認問題</h2>
+<ul><li>点(2,0,1)と平面2x−y+2z−3=0の距離を求めよ</li></ul>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="mc-vec-space.html">空間ベクトル・座標設定</a></li></ul>
+<h2>このノードを前提にするノード</h2>
+<ul class="links"><li><a href="td-t-volume.html">【東大型】立体の体積</a></li><li><a href="td-t-space.html">【東大型】空間図形の最大最小</a></li></ul>
+<h2>「ベクトル」のノード</h2>
+<ul class="links"><li><a href="mc-vec-basic.html">ベクトルの演算・1次独立</a></li><li><a href="mc-vec-dot.html">内積（成分・なす角・垂直条件）</a></li><li><a href="mc-vec-pos.html">位置ベクトル・分点・重心</a></li><li><a href="mc-vec-line.html">共線条件・共面条件（係数の和=1）</a></li><li><a href="mc-vec-space.html">空間ベクトル・座標設定</a></li><li><span class="cur">垂線の足・点と平面の距離・射影</span></li><li><a href="mc-vec-region.html">ベクトルの終点の存在範囲</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

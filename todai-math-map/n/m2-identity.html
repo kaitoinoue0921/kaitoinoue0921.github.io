@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>恒等式・係数比較（式と証明）｜受験数学マップ</title>
+<meta name="description" content="恒等式とは『すべてのxで成り立つ式』であり、この性質から2つの有効な手段が導かれる。1つは係数比較（両辺の同じ次数の項の係数が一致する）、もう1つは数値代入（どんな値を代入しても成り立つので、都合のよい値を選べる）。数…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/m2-identity.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="恒等式・係数比較（式と証明）｜受験数学マップ">
+<meta property="og:description" content="恒等式とは『すべてのxで成り立つ式』であり、この性質から2つの有効な手段が導かれる。1つは係数比較（両辺の同じ次数の項の係数が一致する）、もう1つは数値代入（どんな値を代入しても成り立つので、都合のよい値を選べる）。数…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/m2-identity.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "恒等式・係数比較", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/m2-identity.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 恒等式・係数比較</nav>
+<h1>恒等式・係数比較</h1>
+<p class="meta">数学II ／ 式と証明 ／ 東大での重要度 ★★★☆☆</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>恒等式とは『すべてのxで成り立つ式』であり、この性質から2つの有効な手段が導かれる。1つは係数比較（両辺の同じ次数の項の係数が一致する）、もう1つは数値代入（どんな値を代入しても成り立つので、都合のよい値を選べる）。数値代入で求めた係数は必要条件にすぎないため、最後に恒等式として成り立つことを確認する一言が必要になる。</p>
+<h2>こんなときに使う</h2>
+<ul><li>部分分数分解の係数を求める問題は恒等式の性質を使う</li><li>未定係数を求める問題は係数比較か数値代入を検討する</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 恒等式の形を設定する</li><li>2. 係数比較、または都合のよい値を代入して未知数を求める</li><li>3. 数値代入で求めた場合は、恒等式として成り立つか確認する</li></ol>
+<h2>例題</h2>
+<div class="problem">1/{x(x+1)}=a/x+b/(x+1)が恒等式となるa,bを求めよ。</div><details><summary>解答</summary><ol class="steps"><li>両辺にx(x+1)を掛けると1=a(x+1)+bx</li><li>x=0を代入：1=a → a=1</li><li>x=−1を代入：1=−b → b=−1</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>係数比較で連立方程式を立てて解く方法もある</li></ul>
+<h2>落とし穴</h2>
+<ul><li>数値代入で得た値を、恒等式であることの確認なしに最終解答にする</li></ul>
+<h2>なぜ大事か</h2>
+<p>部分分数分解、未定係数法の根拠</p>
+<h2>東大での出方</h2>
+<p>部分分数分解、未定係数法の根拠として頻出。</p>
+<h2>確認問題</h2>
+<ul><li>x²+ax+b=(x−1)(x−2)となるa,bを求めよ</li></ul>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="m1-expand.html">展開・因数分解の型</a></li></ul>
+<h2>このノードを前提にするノード</h2>
+<ul class="links"><li><a href="m2-div-poly.html">整式の除法・剰余定理・因数定理</a></li><li><a href="mb-p07-partial.html">⑦ 部分分数分解で隣同士を消す</a></li><li><a href="mb-sigma.html">Σ計算・部分分数分解による差の形（望遠鏡和）</a></li><li><a href="m3-int-rational.html">有理関数の積分（部分分数分解）</a></li></ul>
+<h2>「式と証明」のノード</h2>
+<ul class="links"><li><a href="m2-binom.html">二項定理・多項定理</a></li><li><span class="cur">恒等式・係数比較</span></li><li><a href="m2-amgm.html">相加相乗平均</a></li><li><a href="m2-ineq-proof.html">不等式の証明（差をとる・平方完成・コーシー）</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

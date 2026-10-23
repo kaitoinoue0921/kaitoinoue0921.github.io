@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>2次曲線（楕円・双曲線・放物線）の定義と性質（平面上の曲線）｜受験数学マップ</title>
+<meta name="description" content="楕円の標準形は、2定点（焦点）からの距離の和が一定という定義から、距離の式を2回の2乗操作で根号を消去していくことで導かれる。双曲線は距離の差が一定、放物線は焦点と準線からの距離が等しい、という定義の違いだけで式の形が…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/mc-conic.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="2次曲線（楕円・双曲線・放物線）の定義と性質（平面上の曲線）｜受験数学マップ">
+<meta property="og:description" content="楕円の標準形は、2定点（焦点）からの距離の和が一定という定義から、距離の式を2回の2乗操作で根号を消去していくことで導かれる。双曲線は距離の差が一定、放物線は焦点と準線からの距離が等しい、という定義の違いだけで式の形が…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/mc-conic.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "2次曲線（楕円・双曲線・放物線）の定義と性質", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/mc-conic.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 2次曲線（楕円・双曲線・放物線）の定義と性質</nav>
+<h1>2次曲線（楕円・双曲線・放物線）の定義と性質</h1>
+<p class="meta">数学C ／ 平面上の曲線 ／ 東大での重要度 ★★★☆☆</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>楕円の標準形は、2定点（焦点）からの距離の和が一定という定義から、距離の式を2回の2乗操作で根号を消去していくことで導かれる。双曲線は距離の差が一定、放物線は焦点と準線からの距離が等しい、という定義の違いだけで式の形が変わる。式を暗記するより定義（距離の条件）に戻れることのほうが、融合問題では効く。</p>
+<div class="diagram" role="img" aria-label="2次曲線（楕円・双曲線・放物線）の定義と性質の図"><svg viewBox='0 0 250 130' width='100%'>
+<line x1='80' y1='5' x2='80' y2='125' stroke='var(--line)' stroke-width='1'/>
+<line x1='165' y1='5' x2='165' y2='125' stroke='var(--line)' stroke-width='1'/>
+<ellipse cx='37' cy='60' rx='32' ry='22' fill='none' stroke='var(--accent)' stroke-width='1.5'/>
+<circle cx='17' cy='60' r='2' fill='var(--dim)'/><circle cx='57' cy='60' r='2' fill='var(--dim)'/>
+<text x='16' y='120' font-size='11' fill='var(--fg)'>楕円</text>
+<path d='M147,15 Q170,60 147,105' fill='none' stroke='var(--ok)' stroke-width='1.5'/>
+<path d='M97,15 Q74,60 97,105' fill='none' stroke='var(--ok)' stroke-width='1.5'/>
+<line x1='82' y1='20' x2='162' y2='100' stroke='var(--dim)' stroke-width='0.8' stroke-dasharray='2 2'/>
+<line x1='82' y1='100' x2='162' y2='20' stroke='var(--dim)' stroke-width='0.8' stroke-dasharray='2 2'/>
+<text x='100' y='120' font-size='11' fill='var(--fg)'>双曲線</text>
+<path d='M182,40 Q207,110 232,40' fill='none' stroke='var(--warn)' stroke-width='1.5'/>
+<line x1='170' y1='118' x2='244' y2='118' stroke='var(--dim)' stroke-width='0.8' stroke-dasharray='2 2'/>
+<circle cx='207' cy='68' r='2' fill='var(--dim)'/>
+<text x='188' y='128' font-size='11' fill='var(--fg)'>放物線</text>
+</svg></div>
+<h2>こんなときに使う</h2>
+<ul><li>2次曲線の性質を問われたら、まず定義（距離の条件）に戻れないか考える</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 焦点の位置を確認する</li><li>2. 定義（距離の和・差・等しさ）から式を立てる、または標準形の公式を使う</li></ol>
+<h2>例題</h2>
+<div class="problem">楕円x²/9+y²/4=1の焦点を求めよ。</div><details><summary>解答</summary><ol class="steps"><li>c²=a²−b²=9−4=5より焦点は(±√5,0)</li></ol></details>
+<h2>落とし穴</h2>
+<ul><li>焦点の位置（長軸方向）を勘違いする</li><li>式の暗記のみで定義（距離の条件）に戻れない</li></ul>
+<h2>なぜ大事か</h2>
+<p>焦点・準線の定義から立式できること。単独出題は少ないが融合で出る</p>
+<h2>東大での出方</h2>
+<p>単独出題は少ないが、融合問題で定義に戻れるかが差になる。</p>
+<h2>確認問題</h2>
+<ul><li>双曲線x²/4−y²/5=1の焦点を求めよ</li></ul>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="m2-circle.html">円の方程式・円と直線の位置関係</a></li></ul>
+<h2>このノードを前提にするノード</h2>
+<ul class="links"><li><a href="mc-param.html">媒介変数表示（円・楕円・サイクロイド）</a></li></ul>
+<h2>「平面上の曲線」のノード</h2>
+<ul class="links"><li><span class="cur">2次曲線（楕円・双曲線・放物線）の定義と性質</span></li><li><a href="mc-param.html">媒介変数表示（円・楕円・サイクロイド）</a></li><li><a href="mc-polar.html">極座標・極方程式</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

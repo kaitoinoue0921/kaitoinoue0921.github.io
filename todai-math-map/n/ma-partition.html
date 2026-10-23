@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>組分け・重複組合せ（仕切り）（場合の数）｜受験数学マップ</title>
+<meta name="description" content="組分けで迷うのは、2つの軸を意識していないからである。分けられる側（人・ボール）に区別があるか、分ける先（組・箱）に区別があるか。この2つを最初に確定させれば、あとは機械的に処理できる。組にラベルがあるなら割らない、な…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/ma-partition.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="組分け・重複組合せ（仕切り）（場合の数）｜受験数学マップ">
+<meta property="og:description" content="組分けで迷うのは、2つの軸を意識していないからである。分けられる側（人・ボール）に区別があるか、分ける先（組・箱）に区別があるか。この2つを最初に確定させれば、あとは機械的に処理できる。組にラベルがあるなら割らない、な…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/ma-partition.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "組分け・重複組合せ（仕切り）", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/ma-partition.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 組分け・重複組合せ（仕切り）</nav>
+<h1>組分け・重複組合せ（仕切り）</h1>
+<p class="meta">数学A ／ 場合の数 ／ 東大での重要度 ★★★★☆</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>組分けで迷うのは、2つの軸を意識していないからである。分けられる側（人・ボール）に区別があるか、分ける先（組・箱）に区別があるか。この2つを最初に確定させれば、あとは機械的に処理できる。組にラベルがあるなら割らない、なければ同じ大きさの組の個数の階乗で割る。一方、重複組合せはこれとは別の問題で、区別しないものを区別する箱に入れる数え方であり、仕切りを使って順列に帰着させる。この2つを混同しないことが第一歩になる。</p>
+<h2>こんなときに使う</h2>
+<ul><li>『A組・B組に分ける』→ 組に区別あり。割らない</li><li>『2つの組に分ける』（名前なし）→ 組に区別なし。同数の組の個数の階乗で割る</li><li>組の人数がすべて異なる → 入れ替わりようがないので割らない</li><li>『区別しないものを区別する箱に入れる』→ 重複組合せ（仕切り）</li><li>『x + y + z = n の非負整数解の個数』→ 重複組合せそのもの</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 分けられる側に区別があるか確認する</li><li>2. 分ける先（組・箱）に区別があるか確認する</li><li>3. 両方に区別あり → 順に選んでいく（積の法則）</li><li>4. 組に区別がない → 区別ありで数えてから、同じ大きさの組の個数の階乗で割る</li><li>5. 要素に区別がなく箱に区別あり → 仕切りを使う（重複組合せ）</li><li>6. 小さい場合で書き出して検算する</li></ol>
+<h2>例題</h2>
+<div class="problem">6人を2人ずつ3つの組に分ける。(1) 組に A, B, C の名前がある場合 (2) 組に名前がない場合、それぞれ何通りか。</div><details><summary>解答</summary><ol class="steps"><li>(1) 組に区別があるので、順に選んでいけばよい。</li><li>　A組に入る2人： C(6,2) = 15</li><li>　B組に入る2人： C(4,2) = 6</li><li>　C組に入る2人： C(2,2) = 1</li><li>　15 × 6 × 1 = 90 通り</li><li></li><li>(2) 組に名前がないので、3つの組を入れ替えたものは同じ分け方になる。</li><li>　3つの組はすべて2人ずつで大きさが同じなので、入れ替え方は 3! = 6 通り。</li><li>　90 / 3! = 90 / 6 = 15 通り</li><li></li><li>【注意：割ってよいのは大きさが同じ組どうしだけ】</li><li>たとえば6人を1人・2人・3人に分ける場合、3つの組は大きさが違うので入れ替わりようがない。</li><li>この場合は名前がなくても割ってはいけない： C(6,1)·C(5,2)·C(3,3) = 6·10·1 = 60 通り。</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>重複組合せ：区別しない n 個を区別する k 箱に入れる方法は C(n+k−1, k−1) 通り。○ を n 個と仕切り | を k−1 本並べる問題に読み替える</li><li>x + y + z = 10 の非負整数解の個数は C(12, 2) = 66（○10個と仕切り2本の並べ方）</li><li>各箱に1個以上という条件があるときは、先に各箱に1個ずつ配ってから残りを配る</li><li>組分けを『各人がどの組に行くか』で数える方法（組に区別があるときのみ有効）</li></ul>
+<h2>落とし穴</h2>
+<ul><li>組に区別があるのに割ってしまう（最頻出）</li><li>大きさの異なる組まで含めて階乗で割ってしまう</li><li>重複組合せと組分けを混同する</li><li>『空の組を許すか』の条件を読み落とす</li><li>組に区別があるかで割り方が変わる点</li></ul>
+<h2>なぜ大事か</h2>
+<p>整数解の個数、多項式の係数、確率の分母すべてに顔を出す</p>
+<h2>東大での出方</h2>
+<p>確率の分母、整数解の個数、多項式の係数など、いろいろな装いで現れる。東大では『区別があるかないか』を問題文から読み取らせる形で出るので、条件文の読解そのものが得点差になる。</p>
+<h2>確認問題</h2>
+<ul><li>6人を1人・2人・3人の組に分ける方法は何通りか（組に名前はない）</li><li>x + y + z = 8 を満たす非負整数の組は何通りあるか</li><li>区別しないボール10個を、区別する3つの箱に、各箱1個以上入れる方法は何通りか</li></ul>
+<h2>発展</h2>
+<p>分けられる側にも分ける先にも区別がない場合（自然数の分割）は、高校範囲の公式では扱えない。この場合は書き出すか漸化式を立てるしかない、という限界を知っておくこと。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="ma-samekind.html">同じものを含む順列・円順列・じゅず順列</a></li></ul>
+<h2>このノードを前提にするノード</h2>
+<ul class="links"><li><a href="ma-incl.html">包除原理・余事象で数える</a></li></ul>
+<h2>「場合の数」のノード</h2>
+<ul class="links"><li><a href="ma-count-basic.html">数え上げの原則（和の法則・積の法則・辞書式）</a></li><li><a href="ma-perm.html">順列・組合せ</a></li><li><a href="ma-samekind.html">同じものを含む順列・円順列・じゅず順列</a></li><li><span class="cur">組分け・重複組合せ（仕切り）</span></li><li><a href="ma-incl.html">包除原理・余事象で数える</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

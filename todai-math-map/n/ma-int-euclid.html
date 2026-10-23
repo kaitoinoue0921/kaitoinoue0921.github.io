@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>ユークリッドの互除法・最大公約数（整数）｜受験数学マップ</title>
+<meta name="description" content="互除法a=bq+rにおいて、aとbの公約数の集合とbとrの公約数の集合が完全に一致する、という事実がこのアルゴリズムを支えている。dがaとbを割るならr=a−bqも割り、逆にdがbとrを割るならa=bq+rも割る、とい…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/ma-int-euclid.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="ユークリッドの互除法・最大公約数（整数）｜受験数学マップ">
+<meta property="og:description" content="互除法a=bq+rにおいて、aとbの公約数の集合とbとrの公約数の集合が完全に一致する、という事実がこのアルゴリズムを支えている。dがaとbを割るならr=a−bqも割り、逆にdがbとrを割るならa=bq+rも割る、とい…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/ma-int-euclid.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "ユークリッドの互除法・最大公約数", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/ma-int-euclid.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › ユークリッドの互除法・最大公約数</nav>
+<h1>ユークリッドの互除法・最大公約数</h1>
+<p class="meta">数学A ／ 整数 ／ 東大での重要度 ★★★★☆</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>互除法a=bq+rにおいて、aとbの公約数の集合とbとrの公約数の集合が完全に一致する、という事実がこのアルゴリズムを支えている。dがaとbを割るならr=a−bqも割り、逆にdがbとrを割るならa=bq+rも割る、という双方向の関係から、gcd(a,b)=gcd(b,r)が成り立つ。余りは操作のたびに必ず小さくなるので、有限回で0になり、そこで手前の値が最大公約数になる。</p>
+<h2>こんなときに使う</h2>
+<ul><li>最大公約数を求める問題、または不定方程式の前提として互除法を使う</li><li>連続する整数（差が1）は互いに素であることを利用する</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 大きいほうを小さいほうで割り、商と余りを求める</li><li>2. 割る数と余りの組で同じ操作を繰り返す</li><li>3. 余りが0になったときの割る数が最大公約数</li></ol>
+<h2>例題</h2>
+<div class="problem">gcd(126,98)を求めよ。</div><details><summary>解答</summary><ol class="steps"><li>126=98・1+28</li><li>98=28・3+14</li><li>28=14・2+0</li><li>∴ gcd(126,98)=14</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>互除法を逆にたどれば、ax+by=gcd(a,b)を満たす特殊解が構成できる（1次不定方程式の解法に直結）</li></ul>
+<h2>落とし穴</h2>
+<ul><li>余りが0になる直前の値ではなく、直後の割る数を最大公約数と勘違いする</li></ul>
+<h2>なぜ大事か</h2>
+<p>gcdを動かす道具。連続整数の互いに素の議論で必ず使う</p>
+<h2>東大での出方</h2>
+<p>連続整数の互いに素の証明、1次不定方程式の解法で必ず使う基礎技術。</p>
+<h2>確認問題</h2>
+<ul><li>gcd(84,36)を互除法で求めよ</li></ul>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="ma-int-div.html">約数・倍数・素因数分解</a></li></ul>
+<h2>このノードを前提にするノード</h2>
+<ul class="links"><li><a href="ma-int-dio.html">1次不定方程式</a></li><li><a href="ma-int-mod.html">合同式（mod）</a></li></ul>
+<h2>「整数」のノード</h2>
+<ul class="links"><li><a href="ma-int-div.html">約数・倍数・素因数分解</a></li><li><span class="cur">ユークリッドの互除法・最大公約数</span></li><li><a href="ma-int-dio.html">1次不定方程式</a></li><li><a href="ma-int-mod.html">合同式（mod）</a></li><li><a href="ma-int-factor.html">積の形に持ち込む（因数分解型の不定方程式）</a></li><li><a href="ma-int-bound.html">範囲で絞る（不等式評価で有限化）</a></li><li><a href="ma-int-base.html">n進法</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

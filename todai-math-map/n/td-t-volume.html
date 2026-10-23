@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>【東大型】立体の体積（出題テーマ）｜受験数学マップ</title>
+<meta name="description" content="東大の体積は毎年のように出る最大配点帯であり、勝負どころは3つに集約される。座標の取り方、断面の把握、そして場合分けである。特に『2つの立体の共通部分』は東大が繰り返し出す形で、これは断面同士の共通部分を取る2次元の問…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/td-t-volume.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="【東大型】立体の体積（出題テーマ）｜受験数学マップ">
+<meta property="og:description" content="東大の体積は毎年のように出る最大配点帯であり、勝負どころは3つに集約される。座標の取り方、断面の把握、そして場合分けである。特に『2つの立体の共通部分』は東大が繰り返し出す形で、これは断面同士の共通部分を取る2次元の問…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/td-t-volume.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "【東大型】立体の体積", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/td-t-volume.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 【東大型】立体の体積</nav>
+<h1>【東大型】立体の体積</h1>
+<p class="meta">東大レイヤー ／ 出題テーマ ／ 東大での重要度 ★★★★★</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>東大の体積は毎年のように出る最大配点帯であり、勝負どころは3つに集約される。座標の取り方、断面の把握、そして場合分けである。特に『2つの立体の共通部分』は東大が繰り返し出す形で、これは断面同士の共通部分を取る2次元の問題に落ちる。立体を3次元のまま想像しようとすると必ず詰まるので、x = t で切った瞬間に2次元の問題になるという手続きを身体に入れておくこと。そして最も落としやすいのが場合分けで、t の範囲によって断面の形が変わる設定を、東大は意図的に作ってくる。</p>
+<h2>こんなときに使う</h2>
+<ul><li>『2つの立体の共通部分の体積』→ 断面同士の共通部分を取る</li><li>球と円柱、円柱と円柱、球と円錐 → 断面はどちらも円か正方形。半径の大小で場合分けが生じる</li><li>回転軸が座標軸でない → 座標を回転させてから通常の回転体に帰着させる</li><li>『線分が通過する部分』→ 通過領域の3次元版。断面で通過領域を求める</li><li>断面の形が t によって変わりそう → 変わる境目の t を先に求めておく</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 対称性が最も活きるように座標を設定する</li><li>2. 切る向きを決める（迷ったら2通り試し、断面が単純なほうを採る）</li><li>3. 平面 x = t で切り、断面を y-z 平面上の2次元の図として描く</li><li>4. 断面の形が変わる境目の t を求め、場合分けを確定させる</li><li>5. 各場合で断面積 S(t) を求める</li><li>6. 区間ごとに積分して足す</li><li>7. 検算：端で S(t) = 0 になるか、既知の立体の体積と比べて妥当か</li></ol>
+<h2>例題</h2>
+<div class="problem">原点を中心とする半径 1 の球と、z 軸を軸とする半径 1/2 の円柱がある。球の内部にあり、かつ円柱の外部にある部分の立体の体積を求めよ。</div><details><summary>解答</summary><ol class="steps"><li>z 軸に垂直な平面 z = t で切る。断面は2次元の図形になる。</li><li></li><li>【断面を求める】</li><li>球 x² + y² + z² ≦ 1 を z = t で切ると、x² + y² ≦ 1 − t²。</li><li>　→ 半径 √(1 − t²) の円（|t| ≦ 1 のとき）</li><li>円柱 x² + y² ≦ 1/4 を z = t で切ると、x² + y² ≦ 1/4。</li><li>　→ 半径 1/2 の円（t によらず一定）</li><li></li><li>求める立体の断面は「球の断面から円柱の断面を除いた部分」＝ 円環。</li><li></li><li>【場合分け】</li><li>球の断面の半径 √(1 − t²) と、円柱の半径 1/2 の大小で形が変わる。</li><li>　√(1 − t²) ≧ 1/2 　⇔ 　1 − t² ≧ 1/4 　⇔ 　t² ≦ 3/4 　⇔ 　|t| ≦ √3/2</li><li></li><li>(i) |t| ≦ √3/2 のとき：円環になり、S(t) = π(1 − t²) − π/4</li><li>(ii) √3/2 &lt; |t| ≦ 1 のとき：球の断面が円柱の中に完全に入るので、除いた残りは空。S(t) = 0</li><li></li><li>【積分する】</li><li>V = ∫[−√3/2 → √3/2] {π(1 − t²) − π/4} dt = π∫[−√3/2 → √3/2] (3/4 − t²) dt</li><li></li><li>偶関数なので 2 倍して 0 から積分できる。</li><li>= 2π [ (3/4)t − t³/3 ]₀^(√3/2)</li><li>= 2π { (3/4)(√3/2) − (1/3)(3√3/8) }</li><li>= 2π { 3√3/8 − √3/8 }</li><li>= 2π · (2√3/8) = 2π · √3/4</li><li></li><li>∴ V = (√3/2)π</li><li></li><li>検算：球全体の体積は 4π/3 ≒ 4.19。求めた値は (√3/2)π ≒ 2.72。</li><li>円柱に抜かれた分が約 1.47 で、球の3分の1程度。半径 1/2 の円柱が貫いていることを考えると妥当 ○</li><li></li><li>【落とし穴】(ii) の場合分けを忘れて積分区間を [−1, 1] のままにすると、</li><li>S(t) が負になる領域まで足してしまい、答えが小さくなる。</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>切る向きを変える（この問題では z 軸に垂直が最善だが、常にそうとは限らない）</li><li>円柱の側から考え、球から円柱内部の体積を引く（バームクーヘン型の分割）</li><li>カヴァリエリの原理：断面積が等しい立体は体積も等しい。検算に使える</li><li>回転体として処理できる部分と、できない部分を分ける</li><li>斜めの回転軸は、複素数平面の回転を使って座標変換してから処理する</li></ul>
+<h2>落とし穴</h2>
+<ul><li>断面の形が変わる場合分けを落とす（東大が最も狙ってくる箇所）</li><li>立体を3次元で把握しようとして手が止まる</li><li>断面が円だと決めつける（2円柱の共通部分の断面は正方形）</li><li>積分区間を、立体が実際に存在する範囲ではなく、片方の立体の範囲で取る</li><li>座標設定が対称性を無視しており、式が汚いまま突き進む</li><li>立体を3次元で把握しようとして詰まる（断面の2次元問題に落とす）</li></ul>
+<h2>なぜ大事か</h2>
+<p>毎年のように出る最大配点帯。切断面をどの向きで取るかの一択で難易度が変わる</p>
+<h2>東大での出方</h2>
+<p>東大理系で毎年のように出題される最重要テーマ。共通部分・通過領域・斜回転が三大パターンで、いずれも『断面を2次元で捉える』一点に帰着する。配点が大きいので、ここを確実に取れるかどうかが理三の合否に直結する。</p>
+<h2>確認問題</h2>
+<ul><li>2つの円柱 x² + y² ≦ 1 と x² + z² ≦ 1 の共通部分の体積を求めよ（断面が正方形になる）</li><li>上の問題で、断面が正方形になる理由を x = t の代入から説明せよ</li><li>半径 1 の球を、中心から距離 1/2 の平面で切ったときの小さい方の体積を求めよ</li></ul>
+<h2>発展</h2>
+<p>線分や図形が動いて通過する部分の体積。断面を取ったうえで、その断面内での通過領域を求める必要があり、2次元の通過領域の技術と体積が合流する。東大の最難問はこの形で出る。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="m3-vol-cross.html">非回転体の体積（断面積を積分する）</a></li><li><a href="mc-vec-foot.html">垂線の足・点と平面の距離・射影</a></li><li><a href="td-symmetry.html">対称性を利用して場合を減らす</a></li></ul>
+<h2>このノードを前提にするノード</h2>
+<ul class="links"><li><a href="td-goal.html">理三の合格ライン（数学 6問中4完+α / 目安80〜100点）</a></li></ul>
+<h2>「出題テーマ」のノード</h2>
+<ul class="links"><li><a href="td-t-prob.html">【東大型】確率の状態設計</a></li><li><a href="td-t-integer.html">【東大型】整数の論証</a></li><li><a href="td-t-region.html">【東大型】通過領域・存在条件</a></li><li><span class="cur">【東大型】立体の体積</span></li><li><a href="td-t-cplx.html">【東大型】複素数平面と図形</a></li><li><a href="td-t-eval.html">【東大型】評価と極限の融合</a></li><li><a href="td-t-space.html">【東大型】空間図形の最大最小</a></li><li><a href="td-t-func.html">【東大型】関数の決定・不等式の成立条件</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

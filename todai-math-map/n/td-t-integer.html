@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>【東大型】整数の論証（出題テーマ）｜受験数学マップ</title>
+<meta name="description" content="東大の整数は『解を求めよ』より『存在しないことを示せ』『〜であることを示せ』の比重が大きい。つまり証明として完結させる力を測っており、具体例をいくつか確認しただけでは点にならない。使える手段は合同式・因数分解・評価の3…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/td-t-integer.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="【東大型】整数の論証（出題テーマ）｜受験数学マップ">
+<meta property="og:description" content="東大の整数は『解を求めよ』より『存在しないことを示せ』『〜であることを示せ』の比重が大きい。つまり証明として完結させる力を測っており、具体例をいくつか確認しただけでは点にならない。使える手段は合同式・因数分解・評価の3…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/td-t-integer.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "【東大型】整数の論証", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/td-t-integer.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 【東大型】整数の論証</nav>
+<h1>【東大型】整数の論証</h1>
+<p class="meta">東大レイヤー ／ 出題テーマ ／ 東大での重要度 ★★★★★</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>東大の整数は『解を求めよ』より『存在しないことを示せ』『〜であることを示せ』の比重が大きい。つまり証明として完結させる力を測っており、具体例をいくつか確認しただけでは点にならない。使える手段は合同式・因数分解・評価の3つで、どれを選ぶかは問題の形がほぼ決めている。手が止まるのは発想が足りないからではなく、この対応表を持っていないか、小さい場合の実験を飛ばしているかのどちらかである。</p>
+<h2>こんなときに使う</h2>
+<ul><li>『割った余り』『倍数である』『存在しない』→ 合同式（法をいくつに取るかが本体）</li><li>『積 = 定数』の形に変形できる → 因数分解して約数を調べる</li><li>『解をすべて求めよ』で候補が無限にある → 評価で有限化</li><li>『すべての自然数 n について』→ 数学的帰納法</li><li>素数が絡む → 素数の定義（p が ab を割るなら p は a か b を割る）に戻る</li><li>平方数が絡む → mod 3, 4, 8 を試す（平方数の取りうる余りが限られる）</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 何を示すのかを確定する（存在／非存在／すべての解／ある性質）</li><li>2. n = 1, 2, 3 で実験し、構造を掴む（ここを飛ばすと手段を選べない）</li><li>3. 3手段のどれが効くか試す。1つで決まらなければ組み合わせる</li><li>4. 証明として書く。仮定から結論への流れを切らさない</li><li>5. 『〜としてよい』『〜だから〜である』と書いた箇所すべてに根拠があるか点検する</li></ol>
+<h2>例題</h2>
+<div class="problem">n を自然数とするとき、n² + n + 1 は 5 の倍数にならないことを示せ。</div><details><summary>解答</summary><ol class="steps"><li>5 の倍数かどうかが問題なので、n を 5 で割った余りで分類する。</li><li>n ≡ 0, 1, 2, 3, 4 (mod 5) のいずれかであり、それぞれについて n² + n + 1 を mod 5 で計算する。</li><li></li><li>n ≡ 0 のとき：0 + 0 + 1 ≡ 1</li><li>n ≡ 1 のとき：1 + 1 + 1 ≡ 3</li><li>n ≡ 2 のとき：4 + 2 + 1 = 7 ≡ 2</li><li>n ≡ 3 のとき：9 + 3 + 1 = 13 ≡ 3</li><li>n ≡ 4 のとき：16 + 4 + 1 = 21 ≡ 1</li><li></li><li>いずれの場合も n² + n + 1 ≢ 0 (mod 5)。</li><li>∴ n² + n + 1 は 5 の倍数にならない。（証明終）</li><li></li><li>【なぜ mod 5 か】問われているのが 5 の倍数性だから。ここは迷う余地がない。</li><li>【なぜ5通りで尽くせるか】どんな整数も 5 で割った余りは 0〜4 のいずれかであり、</li><li>合同式は積と和を保つので、余りだけで n²+n+1 の余りが決まる。ここが合同式を使う理由そのもの。</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>合同式で決まらないときは法を変える（mod 3 で駄目なら mod 4, 8, 9 を試す）</li><li>因数分解して積の形にし、約数を全部調べる</li><li>評価で有限化してから、残りを合同式で潰す</li><li>背理法 ＋ 無限降下（『最小の解を取る』と宣言してから議論を始める）</li><li>数学的帰納法。示したい命題が弱すぎて回らないときは、より強い命題を立てて帰納する</li></ul>
+<h2>落とし穴</h2>
+<ul><li>具体例で確認して満足し、一般の証明を書かない（東大では点にならない）</li><li>『x² が3の倍数 ⇒ x が3の倍数』に、3 が素数であることの言及がない</li><li>mod の取り方を1つ試して諦める</li><li>場合分けが網羅的であることを示さない</li><li>合同式で両辺を割ってしまう（法と互いに素なときしか割れない）</li><li>具体例で確認して終わりにし、一般の証明を書かない</li></ul>
+<h2>なぜ大事か</h2>
+<p>合同式・因数分解・評価の3手段から選ぶ。証明として完結させる力を測ってくる</p>
+<h2>東大での出方</h2>
+<p>単独の大問になる年が多く、誘導が薄いのが特徴。(1) で小さい場合を実験させ、(2) で一般の証明を書かせる構成が典型。(1) は答えを出すための問いではなく、(2) の方針を発見させるために置かれている。</p>
+<h2>確認問題</h2>
+<ul><li>n³ - n が 6 の倍数であることを示せ</li><li>連続する2つの整数は互いに素であることを示せ</li><li>n² を 4 で割った余りは 0 か 1 に限ることを示し、それを使って x² + y² = 2003 に整数解がないことを示せ</li></ul>
+<h2>発展</h2>
+<p>複数の法を同時に使って絞る。mod 4 と mod 9 の両方の条件を並べると候補が急激に減る。中国剰余定理は範囲外だが、条件を並べて絞るだけなら高校範囲で書ける。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="ma-int-mod.html">合同式（mod）</a></li><li><a href="ma-int-bound.html">範囲で絞る（不等式評価で有限化）</a></li><li><a href="mb-induction.html">数学的帰納法（通常・強化・二段仮定）</a></li></ul>
+<h2>このノードを前提にするノード</h2>
+<ul class="links"><li><a href="td-goal.html">理三の合格ライン（数学 6問中4完+α / 目安80〜100点）</a></li></ul>
+<h2>「出題テーマ」のノード</h2>
+<ul class="links"><li><a href="td-t-prob.html">【東大型】確率の状態設計</a></li><li><span class="cur">【東大型】整数の論証</span></li><li><a href="td-t-region.html">【東大型】通過領域・存在条件</a></li><li><a href="td-t-volume.html">【東大型】立体の体積</a></li><li><a href="td-t-cplx.html">【東大型】複素数平面と図形</a></li><li><a href="td-t-eval.html">【東大型】評価と極限の融合</a></li><li><a href="td-t-space.html">【東大型】空間図形の最大最小</a></li><li><a href="td-t-func.html">【東大型】関数の決定・不等式の成立条件</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

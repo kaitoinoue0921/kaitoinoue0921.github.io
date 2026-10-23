@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>Σ計算・部分分数分解による差の形（望遠鏡和）（数列）｜受験数学マップ</title>
+<meta name="description" content="Σk²=n(n+1)(2n+1)/6は、(k+1)³−k³=3k²+3k+1という式をk=1からnまで足し合わせ、左辺が(n+1)³−1に潰れることから逆算して求まる。部分分数分解1/{k(k+1)}=1/k−1/(k…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/mb-sigma.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="Σ計算・部分分数分解による差の形（望遠鏡和）（数列）｜受験数学マップ">
+<meta property="og:description" content="Σk²=n(n+1)(2n+1)/6は、(k+1)³−k³=3k²+3k+1という式をk=1からnまで足し合わせ、左辺が(n+1)³−1に潰れることから逆算して求まる。部分分数分解1/{k(k+1)}=1/k−1/(k…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/mb-sigma.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "Σ計算・部分分数分解による差の形（望遠鏡和）", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/mb-sigma.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › Σ計算・部分分数分解による差の形（望遠鏡和）</nav>
+<h1>Σ計算・部分分数分解による差の形（望遠鏡和）</h1>
+<p class="meta">数学B ／ 数列 ／ 東大での重要度 ★★★★☆</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>Σk²=n(n+1)(2n+1)/6は、(k+1)³−k³=3k²+3k+1という式をk=1からnまで足し合わせ、左辺が(n+1)³−1に潰れることから逆算して求まる。部分分数分解1/{k(k+1)}=1/k−1/(k+1)を使って和を求める方法は、隣り合う項が打ち消し合う『望遠鏡和』の典型で、数IIIの無限級数でもそのまま使う考え方。</p>
+<h2>こんなときに使う</h2>
+<ul><li>Σ1/{k(k+1)}のような分数の和は部分分数分解を試す</li><li>Σk²、Σk³の公式を忘れたら(k+1)^n−k^nの展開から導く</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 基本公式Σk、Σk²、Σk³を使う、または導出する</li><li>2. 分数の和は部分分数分解して打ち消し合う形を作る</li></ol>
+<h2>例題</h2>
+<div class="problem">Σ[k=1→n]1/{k(k+1)}を求めよ。</div><details><summary>解答</summary><ol class="steps"><li>1/{k(k+1)}=1/k−1/(k+1)</li><li>Σ(1/k−1/(k+1))=1−1/(n+1)=n/(n+1)（中間の項がすべて消える）</li></ol></details>
+<h2>落とし穴</h2>
+<ul><li>部分分数分解の符号を間違える</li><li>望遠鏡和で消える項と残る項を取り違える</li><li>Σの上端下端の対応、n=1の確認漏れ</li></ul>
+<h2>なぜ大事か</h2>
+<p>和を閉じた形にする二大手段（公式／差の形に割る）。数IIIの無限級数へ直結</p>
+<h2>東大での出方</h2>
+<p>数IIIの無限級数へ直結する重要技法。</p>
+<h2>確認問題</h2>
+<ul><li>Σ[k=1→n]1/{(2k−1)(2k+1)}を求めよ</li></ul>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="mb-seq-basic.html">①② 等差数列・等比数列</a></li><li><a href="m2-identity.html">恒等式・係数比較</a></li><li><a href="mb-p05-sigma-formula.html">⑤ Σの基本公式（k, k², k³, 等比）</a></li><li><a href="mb-p06-ar-geo.html">⑥ (等差)×(等比)の和：S−rS</a></li><li><a href="mb-p07-partial.html">⑦ 部分分数分解で隣同士を消す</a></li><li><a href="mb-p08-root.html">⑧ ルートの和は有理化して差の形</a></li></ul>
+<h2>このノードを前提にするノード</h2>
+<ul class="links"><li><a href="mb-diff-seq.html">階差数列・Sとaの関係</a></li><li><a href="mb-lattice.html">格子点の数え上げ</a></li><li><a href="mc-cplx-root.html">1のn乗根と正多角形・和の計算</a></li><li><a href="m3-lim-series.html">無限級数・無限等比級数</a></li><li><a href="m3-int-riemann.html">区分求積法</a></li></ul>
+<h2>「数列」のノード</h2>
+<ul class="links"><li><a href="mb-seq-basic.html">①② 等差数列・等比数列</a></li><li><a href="mb-p03-kaisa.html">③ 階差数列 a(n+1)−a(n)=f(n)</a></li><li><a href="mb-p04-sn.html">④ 和S(n)から一般項を逆算</a></li><li><a href="mb-p05-sigma-formula.html">⑤ Σの基本公式（k, k², k³, 等比）</a></li><li><a href="mb-p06-ar-geo.html">⑥ (等差)×(等比)の和：S−rS</a></li><li><a href="mb-p07-partial.html">⑦ 部分分数分解で隣同士を消す</a></li><li><a href="mb-p08-root.html">⑧ ルートの和は有理化して差の形</a></li><li><a href="mb-p09-log.html">⑨ 対数の和は log の差に分解して消す</a></li><li><a href="mb-p23-group.html">㉓ 群数列（項数と末項の通算番号）</a></li><li><span class="cur">Σ計算・部分分数分解による差の形（望遠鏡和）</span></li><li><a href="mb-diff-seq.html">階差数列・Sとaの関係</a></li><li><a href="mb-induction.html">数学的帰納法（通常・強化・二段仮定）</a></li><li><a href="mb-lattice.html">格子点の数え上げ</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>sinx/x → 1 とその証明（極限）｜受験数学マップ</title>
+<meta name="description" content="半径1、中心角θの扇形で、三角形OAB、扇形OAB、三角形OATの3つの面積を比較すると、sinθ&lt;θ&lt;tanθ（0&lt;θ&lt;π/2）という不等式が得られる。各辺をsinθで割ってはさみうちを適用すると、θ/sinθ→1、…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/m3-lim-sin.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="sinx/x → 1 とその証明（極限）｜受験数学マップ">
+<meta property="og:description" content="半径1、中心角θの扇形で、三角形OAB、扇形OAB、三角形OATの3つの面積を比較すると、sinθ&lt;θ&lt;tanθ（0&lt;θ&lt;π/2）という不等式が得られる。各辺をsinθで割ってはさみうちを適用すると、θ/sinθ→1、…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/m3-lim-sin.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "sinx/x → 1 とその証明", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/m3-lim-sin.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › sinx/x → 1 とその証明</nav>
+<h1>sinx/x → 1 とその証明</h1>
+<p class="meta">数学III ／ 極限 ／ 東大での重要度 ★★★★★</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>半径1、中心角θの扇形で、三角形OAB、扇形OAB、三角形OATの3つの面積を比較すると、sinθ&lt;θ&lt;tanθ（0&lt;θ&lt;π/2）という不等式が得られる。各辺をsinθで割ってはさみうちを適用すると、θ/sinθ→1、すなわちsinθ/θ→1が示される。この証明は弧度法（扇形の面積が(1/2)r²θになること）を前提にしており、度数法では成り立たない。</p>
+<h2>こんなときに使う</h2>
+<ul><li>三角関数を含む0/0型の極限はsinx/x→1に帰着できないか考える</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 与えられた式をsin(f(x))/f(x)の形に変形する</li><li>2. f(x)→0のときこの部分が1に収束することを使う</li></ol>
+<h2>例題</h2>
+<div class="problem">lim[x→0]sin3x/xを求めよ。</div><details><summary>解答</summary><ol class="steps"><li>3・(sin3x)/(3x)と変形。括弧の中は1に収束するので極限は3</li></ol></details>
+<h2>落とし穴</h2>
+<ul><li>この極限をロピタルの定理で示そうとすると、(sinx)′=cosxの証明自体がこの極限に依存しているため循環論法になる</li><li>円弧の長さと面積の大小評価を再現できない</li></ul>
+<h2>なぜ大事か</h2>
+<p>三角関数の微分の根拠。証明そのものが東大で出題された（1999年）</p>
+<h2>東大での出方</h2>
+<p>三角関数の微分の根拠。証明そのものが東大で出題された（1999年）。</p>
+<h2>確認問題</h2>
+<ul><li>lim[x→0]tan2x/xを求めよ</li></ul>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="m3-lim-func.html">関数の極限・不定形の処理</a></li><li><a href="m3-lim-squeeze.html">はさみうちの原理</a></li></ul>
+<h2>このノードを前提にするノード</h2>
+<ul class="links"><li><a href="m3-diff-trig.html">三角関数・指数関数・対数関数の微分</a></li></ul>
+<h2>「極限」のノード</h2>
+<ul class="links"><li><a href="m3-lim-seq.html">数列の極限・収束発散の判定</a></li><li><a href="m3-lim-squeeze.html">はさみうちの原理</a></li><li><a href="m3-lim-series.html">無限級数・無限等比級数</a></li><li><a href="m3-lim-func.html">関数の極限・不定形の処理</a></li><li><span class="cur">sinx/x → 1 とその証明</span></li><li><a href="m3-lim-e.html">e の定義と (1+1/n)^n 型の極限</a></li><li><a href="m3-lim-cont.html">連続性・中間値の定理</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

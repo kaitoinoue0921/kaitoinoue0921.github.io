@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>加法定理（三角関数）｜受験数学マップ</title>
+<meta name="description" content="加法定理cos(α−β)=cosαcosβ+sinαsinβは、単位円上の2点(cosα,sinα),(cosβ,sinβ)間の距離を、座標を使った計算と余弦定理による計算の2通りで表し比較することで導かれる。1999…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/m2-trig-add.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="加法定理（三角関数）｜受験数学マップ">
+<meta property="og:description" content="加法定理cos(α−β)=cosαcosβ+sinαsinβは、単位円上の2点(cosα,sinα),(cosβ,sinβ)間の距離を、座標を使った計算と余弦定理による計算の2通りで表し比較することで導かれる。1999…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/m2-trig-add.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "加法定理", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/m2-trig-add.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 加法定理</nav>
+<h1>加法定理</h1>
+<p class="meta">数学II ／ 三角関数 ／ 東大での重要度 ★★★★☆</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>加法定理cos(α−β)=cosαcosβ+sinαsinβは、単位円上の2点(cosα,sinα),(cosβ,sinβ)間の距離を、座標を使った計算と余弦定理による計算の2通りで表し比較することで導かれる。1999年の東大入試はこの証明そのものを出題した。倍角・半角・積和・合成のすべての公式がこの1つの式から派生するので、覚えるべきは加法定理だけでよい。</p>
+<div class="diagram" role="img" aria-label="加法定理の図"><svg viewBox='0 0 240 190' width='100%'>
+<line x1='20' y1='100' x2='220' y2='100' stroke='var(--dim)' stroke-width='1'/>
+<line x1='100' y1='175' x2='100' y2='20' stroke='var(--dim)' stroke-width='1'/>
+<circle cx='100' cy='100' r='70' fill='none' stroke='var(--dim)' stroke-width='1'/>
+<line x1='100' y1='100' x2='157.3' y2='59.8' stroke='var(--dim)' stroke-width='1.2' stroke-dasharray='3 2'/>
+<line x1='100' y1='100' x2='118.1' y2='32.4' stroke='var(--accent)' stroke-width='1.6'/>
+<path d='M118,100 A18,18 0 0,0 114.8,82.4' fill='none' stroke='var(--ok)' stroke-width='1.2'/>
+<path d='M144.9,66.8 A26,26 0 0,0 123.5,40.4' fill='none' stroke='var(--warn)' stroke-width='1.2'/>
+<text x='120' y='94' font-size='11' fill='var(--ok)'>α</text>
+<text x='138' y='60' font-size='11' fill='var(--warn)'>β</text>
+<circle cx='118.1' cy='32.4' r='2.8' fill='var(--accent)'/>
+<text x='40' y='26' font-size='10.5' fill='var(--fg)'>P(cos(α+β), sin(α+β))</text>
+<text x='205' y='96' font-size='10' fill='var(--dim)'>x</text>
+</svg></div>
+<h2>こんなときに使う</h2>
+<ul><li>三角関数の値を求める問題で、特殊角の組み合わせ（15°=45°−30°など）が使えないか考える</li><li>公式を忘れたら単位円の距離の計算から復元する</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 求めたい角を既知の特殊角の和・差で表す</li><li>2. 加法定理を適用する</li></ol>
+<h2>例題</h2>
+<div class="problem">sin75°の値を求めよ。</div><details><summary>解答</summary><ol class="steps"><li>sin(45°+30°)=sin45°cos30°+cos45°sin30°=(√2/2)(√3/2)+(√2/2)(1/2)=(√6+√2)/4</li></ol></details>
+<h2>落とし穴</h2>
+<ul><li>cos(α−β)とcos(α+β)で符号を取り違える</li><li>導出できず暗記のみ</li></ul>
+<h2>なぜ大事か</h2>
+<p>三角関数の全公式の親。証明も出題される（1999年東大）</p>
+<h2>東大での出方</h2>
+<p>三角関数の全公式の親。証明も出題される（1999年東大）。</p>
+<h2>確認問題</h2>
+<ul><li>cos15°の値を求めよ</li></ul>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="m1-trigratio.html">三角比の定義と拡張（0〜180°）</a></li></ul>
+<h2>このノードを前提にするノード</h2>
+<ul class="links"><li><a href="m2-trig-double.html">倍角・半角・3倍角</a></li><li><a href="m2-trig-synth.html">三角関数の合成</a></li><li><a href="m2-trig-sumprod.html">和積・積和公式</a></li><li><a href="mb-p19-trig.html">⑲ 三角関数置換型 a(n+1)=2a(n)²−1</a></li><li><a href="mc-param.html">媒介変数表示（円・楕円・サイクロイド）</a></li><li><a href="mc-cplx-polar.html">複素数の極形式・ド・モアブルの定理</a></li></ul>
+<h2>「三角関数」のノード</h2>
+<ul class="links"><li><span class="cur">加法定理</span></li><li><a href="m2-trig-double.html">倍角・半角・3倍角</a></li><li><a href="m2-trig-synth.html">三角関数の合成</a></li><li><a href="m2-trig-sumprod.html">和積・積和公式</a></li><li><a href="m2-trig-eq.html">三角方程式・不等式（置換と範囲）</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

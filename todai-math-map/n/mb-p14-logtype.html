@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>⑭ 積・累乗型（対数をとる） a(n+1)=q·a(n)^p（漸化式）｜受験数学マップ</title>
+<meta name="description" content="log は積を和に、累乗を係数に変える。a(n+1) = q·a(n)^p の両辺の対数を取ると log a(n+1) = p·log a(n) + log q で、b(n) = log a(n) は⑩そのもの。底は …">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/mb-p14-logtype.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="⑭ 積・累乗型（対数をとる） a(n+1)=q·a(n)^p（漸化式）｜受験数学マップ">
+<meta property="og:description" content="log は積を和に、累乗を係数に変える。a(n+1) = q·a(n)^p の両辺の対数を取ると log a(n+1) = p·log a(n) + log q で、b(n) = log a(n) は⑩そのもの。底は …">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/mb-p14-logtype.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "⑭ 積・累乗型（対数をとる） a(n+1)=q·a(n)^p", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/mb-p14-logtype.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › ⑭ 積・累乗型（対数をとる） a(n+1)=q·a(n)^p</nav>
+<h1>⑭ 積・累乗型（対数をとる） a(n+1)=q·a(n)^p</h1>
+<p class="meta">数学B ／ 漸化式 ／ 東大での重要度 ★★★☆☆</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>log は積を和に、累乗を係数に変える。a(n+1) = q·a(n)^p の両辺の対数を取ると log a(n+1) = p·log a(n) + log q で、b(n) = log a(n) は⑩そのもの。底は q や a(1) に合わせて選ぶと数がきれいになる。対数を取るには a(n) &gt; 0 が必要なので、最初に帰納法で示す。</p>
+<h2>こんなときに使う</h2>
+<ul><li>a(n+1) = q·a(n)^p、a(n+1)·a(n)^k = c などの積と累乗の漸化式</li><li>a(n+1) = √(a(n)·a(n−1)) のような積の平均 → 対数で3項間（⑮）</li><li>答えが 2 の何乗の何乗、のように指数が爆発的に増える</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. a(1) &gt; 0 と帰納法で、すべての n で a(n) &gt; 0 を示す</li><li>2. 底を決めて（q か a(1) の底に揃える）両辺の対数を取る</li><li>3. b(n) = log a(n) と置き、⑩で解く</li><li>4. a(n) = (底)^b(n) に戻す</li></ol>
+<h2>例題</h2>
+<div class="problem">a(1) = 2、a(n+1) = 4a(n)² の一般項を求めよ。</div><details><summary>解答</summary><ol class="steps"><li>a(1) &gt; 0 で、a(n) &gt; 0 なら a(n+1) &gt; 0。よって常に a(n) &gt; 0</li><li>底2の対数を取る：log₂ a(n+1) = 2 + 2log₂ a(n)</li><li>b(n) = log₂ a(n) とおくと b(n+1) = 2b(n) + 2、b(1) = 1</li><li>α = −2 より b(n) + 2 = 3·2ⁿ⁻¹</li><li>∴ a(n) = 2^(3·2ⁿ⁻¹ − 2)</li><li>検算：a(2) = 4·4 = 16 = 2⁴、3·2 − 2 = 4 ○</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>a(n+2) = a(n+1)²·a(n) なら対数で b(n+2) = 2b(n+1) + b(n)（⑮）</li><li>答えの指数が整数かどうかを問う整数問題に化けることがある</li></ul>
+<h2>落とし穴</h2>
+<ul><li>a(n) &gt; 0 を示さずに log を取る</li><li>log(4a(n)²) = 4 + 2log a(n) としてしまう（log 4 = 2 を忘れる）</li><li>最後に指数に戻すときに底を間違える</li><li>a(n) &gt; 0 を示さずに対数を取る／底を何にするかで計算量が変わる</li></ul>
+<h2>なぜ大事か</h2>
+<p>掛け算と累乗の漸化式は、対数で足し算と掛け算の漸化式（⑩）になる</p>
+<h2>東大での出方</h2>
+<p>単独より、積の極限や整数の桁数問題の中で使う。</p>
+<h2>確認問題</h2>
+<ul><li>a(1) = 3、a(n+1) = a(n)³ の一般項を求めよ（答：3^(3ⁿ⁻¹)）</li><li>a(1) = 10、a(n+1) = 10a(n)² の一般項を求めよ（答：10^(2ⁿ − 1)）</li></ul>
+<h2>発展</h2>
+<p>p &gt; 1 なら指数部が pⁿ で増える（二重指数）。ニュートン法の収束の速さ（誤差が2乗で減る）もこの構造。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="mb-p10-linear.html">⑩ 特性方程式型 a(n+1)=p·a(n)+q</a></li><li><a href="m2-log.html">対数の定義と法則</a></li></ul>
+<h2>「漸化式」のノード</h2>
+<ul class="links"><li><a href="mb-p10-linear.html">⑩ 特性方程式型 a(n+1)=p·a(n)+q</a></li><li><a href="mb-p11-exp.html">⑪ 指数型 a(n+1)=p·a(n)+rⁿ（rⁿ⁺¹で割る）</a></li><li><a href="mb-p12-poly.html">⑫ nの多項式型 a(n+1)=p·a(n)+(An+B)</a></li><li><a href="mb-p13-recip.html">⑬ 分数型（逆数をとる） a(n+1)=a(n)/(p·a(n)+q)</a></li><li><span class="cur">⑭ 積・累乗型（対数をとる） a(n+1)=q·a(n)^p</span></li><li><a href="mb-p15-3term.html">⑮ 隣接3項間 a(n+2)+p·a(n+1)+q·a(n)=0</a></li><li><a href="mb-p16-system.html">⑯ 連立漸化式（和と差・消去）</a></li><li><a href="mb-p17-sn-rec.html">⑰ 和S(n)と一般項の混在型</a></li><li><a href="mb-p18-mobius.html">⑱ 一次分数変換型 a(n+1)=(p·a(n)+q)/(r·a(n)+s)</a></li><li><a href="mb-p19-trig.html">⑲ 三角関数置換型 a(n+1)=2a(n)²−1</a></li><li><a href="mb-p20-parity.html">⑳ 偶奇分け（(−1)ⁿ型・2つ飛び）</a></li><li><a href="mb-p21-mod.html">㉑ 周期・余り（mod）を書き出して見つける</a></li><li><a href="mb-rec-type.html">漸化式の型別処理（等比型・特性方程式・分数型・連立）</a></li><li><a href="mb-rec-hard.html">㉔ 推測＋数学的帰納法（誘導のない漸化式）</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

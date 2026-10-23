@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>【東大型】評価と極限の融合（出題テーマ）｜受験数学マップ</title>
+<meta name="description" content="「(1) で不等式を示し、(2) でその不等式を使って極限を出す」——東大が最も好む構造である。ここで理解すべきは、(1) は独立した小問ではなく、(2) のために置かれているということ。だから (1) が解けたら必ず…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/td-t-eval.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="【東大型】評価と極限の融合（出題テーマ）｜受験数学マップ">
+<meta property="og:description" content="「(1) で不等式を示し、(2) でその不等式を使って極限を出す」——東大が最も好む構造である。ここで理解すべきは、(1) は独立した小問ではなく、(2) のために置かれているということ。だから (1) が解けたら必ず…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/td-t-eval.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "【東大型】評価と極限の融合", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/td-t-eval.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 【東大型】評価と極限の融合</nav>
+<h1>【東大型】評価と極限の融合</h1>
+<p class="meta">東大レイヤー ／ 出題テーマ ／ 東大での重要度 ★★★★★</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>「(1) で不等式を示し、(2) でその不等式を使って極限を出す」——東大が最も好む構造である。ここで理解すべきは、(1) は独立した小問ではなく、(2) のために置かれているということ。だから (1) が解けたら必ず (2) で使う。逆に (2) で手が止まったら、まず (1) の結果を見返す。この誘導の読み方が身についているかどうかが、そのまま得点差になる。誘導を無視して (2) を正面から解こうとすると、まず解けないように設計されている。</p>
+<h2>こんなときに使う</h2>
+<ul><li>『(1) 不等式を示せ → (2) 極限を求めよ』の構成 → (1) をはさみうちに使う</li><li>I_n のように n が入った積分や数列 → 漸化式を作るか、評価して挟む</li><li>直接計算できない量が出てくる → 挟む以外に道はない</li><li>(1) で作った漸化式が (2) の和や極限に繋がる</li><li>『〜より小さいことを示せ』→ その評価が後で効く</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. (1) の結論を正確に書き留める（これが後で使う道具）</li><li>2. (2) の対象が、その不等式の中央に来るように整理する</li><li>3. 両端の極限を計算する</li><li>4. 一致すればはさみうちの原理で確定（『はさみうちの原理より』と明記する）</li><li>5. 一致しなければ評価が甘い。より強い不等式を作り直す</li><li>6. 漸化式が与えられている場合は、それを繰り返し使って和や一般項に持ち込む</li></ol>
+<h2>例題</h2>
+<div class="problem">I_n = ∫[0→1] xⁿ/(1 + x) dx （n = 0, 1, 2, …）とする。
+(1) 0 &lt; I_n ≦ 1/(n+1) を示せ。
+(2) I_n + I_(n+1) = 1/(n+1) を示せ。
+(3) lim[n→∞] { 1 − 1/2 + 1/3 − … + (−1)^(n−1)/n } を求めよ。</div><details><summary>解答</summary><ol class="steps"><li>(1) 0 ≦ x ≦ 1 のとき 1 ≦ 1 + x ≦ 2 だから、xⁿ ≧ 0 より</li><li>　　0 ≦ xⁿ/(1 + x) ≦ xⁿ</li><li>　積分して 0 ≦ I_n ≦ ∫[0→1] xⁿ dx = 1/(n+1)。</li><li>　被積分関数は x &gt; 0 で正なので I_n &gt; 0。よって 0 &lt; I_n ≦ 1/(n+1)。</li><li></li><li>(2) I_n + I_(n+1) = ∫[0→1] (xⁿ + x^(n+1))/(1 + x) dx</li><li>　　　　　　　　 = ∫[0→1] xⁿ(1 + x)/(1 + x) dx</li><li>　　　　　　　　 = ∫[0→1] xⁿ dx = 1/(n+1)</li><li>　分子が分母で割り切れる、という一点だけの計算。</li><li></li><li>(3) まず I₀ = ∫[0→1] dx/(1 + x) = [log(1 + x)]₀¹ = log 2。</li><li></li><li>　(2) の関係 I_(n+1) = 1/(n+1) − I_n を繰り返し使う。</li><li>　　I₁ = 1/1 − I₀ = 1 − log 2</li><li>　　I₂ = 1/2 − I₁ = log 2 − (1 − 1/2)</li><li>　　I₃ = 1/3 − I₂ = (1 − 1/2 + 1/3) − log 2</li><li></li><li>　ここで S_n = 1 − 1/2 + 1/3 − … + (−1)^(n−1)/n とおくと、上の形から</li><li>　　log 2 − S_n = (−1)ⁿ I_n</li><li>　が成り立つ（n についての帰納法で示せる）。</li><li></li><li>　(1) より 0 &lt; I_n ≦ 1/(n+1) であり、1/(n+1) → 0。</li><li>　はさみうちの原理より I_n → 0。したがって |log 2 − S_n| = I_n → 0。</li><li></li><li>　∴ lim[n→∞] S_n = log 2</li><li></li><li>【誘導の構造】(1) は挟むための道具、(2) は和を作るための道具。</li><li>どちらも (3) のために置かれており、単独では意味を持たない。</li><li>検算：S₁ = 1、S₂ = 0.5、S₃ ≒ 0.833、S₄ ≒ 0.583 … log 2 ≒ 0.693 の周りで振動しながら収束 ○</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>漸化式を作ってから極限へ（部分積分で I_n と I_(n−2) を結ぶ）</li><li>評価だけで極限を出す（漸化式を作らずに、上下から挟む）</li><li>区分求積と組み合わせる（和の極限を積分に翻訳してから評価する）</li><li>平均値の定理で不等式を作る</li><li>(1) の不等式が甘くて挟めないときは、被積分関数の評価を精密にし直す</li></ul>
+<h2>落とし穴</h2>
+<ul><li>(1) を独立した小問だと思い、(2)(3) で使わない（最大の失点原因）</li><li>はさみうちを使ったのに『はさみうちの原理より』と書かない</li><li>下からの評価（0 &lt; I_n）を書かず、上からだけで極限を主張する</li><li>係数が 1 に近いことを理由に極限が 0 だと決めつける</li><li>n の偶奇で符号が変わる構造を見落とす</li><li>(1)を飛ばして(2)を解こうとする（誘導は使うために置かれている）</li></ul>
+<h2>なぜ大事か</h2>
+<p>『(1)で不等式を示し (2)で極限を出す』という誘導の意味を読む。理三で差がつく最上位テーマ</p>
+<h2>東大での出方</h2>
+<p>理三で最も差がつく最上位テーマ。3段構成の誘導で出るのが典型で、(1) と (2) は易しく作られていることが多い。つまり (1)(2) を確実に取り、(3) に手を伸ばすのが正しい戦い方であり、完答できなくても部分点で大きく稼げる。</p>
+<h2>確認問題</h2>
+<ul><li>J_n = ∫[0→1] xⁿ e^x dx について 0 &lt; J_n &lt; e/(n+1) を示し、極限を求めよ</li><li>上の I_n について、n·I_n の極限を予想し、数値で確かめよ</li><li>I_n が単調減少であることを示せ</li></ul>
+<h2>発展</h2>
+<p>極限が 0 になる速さ（オーダー）まで求めさせる問題。n·I_n や n²·I_n の極限を問う形で、より精密な評価が必要になる。ここまで来ると挟む不等式を自分で設計する力が問われる。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="m3-int-ineq.html">積分と不等式（面積比較・評価）</a></li><li><a href="m3-int-recur.html">定積分と漸化式（I_n を n で結ぶ）</a></li><li><a href="m3-mvt.html">平均値の定理</a></li><li><a href="td-limit-tools.html">極限の3種の神器（はさみうち・区分求積・漸化式評価）</a></li></ul>
+<h2>このノードを前提にするノード</h2>
+<ul class="links"><li><a href="td-goal.html">理三の合格ライン（数学 6問中4完+α / 目安80〜100点）</a></li></ul>
+<h2>「出題テーマ」のノード</h2>
+<ul class="links"><li><a href="td-t-prob.html">【東大型】確率の状態設計</a></li><li><a href="td-t-integer.html">【東大型】整数の論証</a></li><li><a href="td-t-region.html">【東大型】通過領域・存在条件</a></li><li><a href="td-t-volume.html">【東大型】立体の体積</a></li><li><a href="td-t-cplx.html">【東大型】複素数平面と図形</a></li><li><span class="cur">【東大型】評価と極限の融合</span></li><li><a href="td-t-space.html">【東大型】空間図形の最大最小</a></li><li><a href="td-t-func.html">【東大型】関数の決定・不等式の成立条件</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

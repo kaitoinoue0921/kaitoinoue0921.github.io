@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>合同式（mod）（整数）｜受験数学マップ</title>
+<meta name="description" content="整数問題で『割った余り』を持ち出す理由は、無限個の整数を有限個のグループに潰せるからにほかならない。mod m で考えるとは、整数全体を m 個の箱に分けて、箱の名前だけで計算することを指す。積と和が箱のまま計算できる…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/ma-int-mod.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="合同式（mod）（整数）｜受験数学マップ">
+<meta property="og:description" content="整数問題で『割った余り』を持ち出す理由は、無限個の整数を有限個のグループに潰せるからにほかならない。mod m で考えるとは、整数全体を m 個の箱に分けて、箱の名前だけで計算することを指す。積と和が箱のまま計算できる…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/ma-int-mod.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "合同式（mod）", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/ma-int-mod.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 合同式（mod）</nav>
+<h1>合同式（mod）</h1>
+<p class="meta">数学A ／ 整数 ／ 東大での重要度 ★★★★★</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>整数問題で『割った余り』を持ち出す理由は、無限個の整数を有限個のグループに潰せるからにほかならない。mod m で考えるとは、整数全体を m 個の箱に分けて、箱の名前だけで計算することを指す。積と和が箱のまま計算できる（合同式が積・和で保たれる）ことが唯一にして最大の武器で、逆に割り算だけは自由にできない、という一点さえ押さえれば道具として完成する。</p>
+<h2>こんなときに使う</h2>
+<ul><li>『〜で割った余り』『〜の倍数であることを示せ』→ 即 mod</li><li>末尾の数字 → mod 10（下2桁なら mod 100）</li><li>平方数が絡む → mod 3, mod 4, mod 8 を試す（平方数は mod 3 で 0,1 / mod 4 で 0,1 / mod 8 で 0,1,4 しか取らない）</li><li>3乗が絡む → mod 9（立方数は mod 9 で 0, 1, 8 のみ）</li><li>n^k の余りの周期を聞かれている → 小さいkで実際に計算し周期を見つける</li><li>解が存在しないことを示せ → mod で矛盾を出す（存在しないことの証明はほぼこれか無限降下）</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 何で割るか（mod をいくつに取るか）を決める。これが8割</li><li>2. 決め方：問題に出てくる数の素因数、平方数なら 3・4・8、周期性なら実験して決める</li><li>3. 各文字を mod m での余りで場合分けする（m個の場合、対称性で減ることもある）</li><li>4. 合同式のまま計算し、両辺の取りうる値を比較して矛盾を出す／条件を絞る</li><li>5. 割り算をした箇所がないか点検する（gcd(a,m)=1 のときしか a で割れない）</li></ol>
+<h2>例題</h2>
+<div class="problem">x, y, z を自然数とするとき、x² + y² = 3z² を満たすものは存在しないことを示せ。</div><details><summary>解答</summary><ol class="steps"><li>平方数を3で割った余りを調べる。整数 n は n ≡ 0, 1, 2 (mod 3) のいずれかで、</li><li>n ≡ 0 なら n² ≡ 0、n ≡ ±1 なら n² ≡ 1 (mod 3)。よって平方数は mod 3 で 0 か 1 のみ。</li><li>x² + y² ≡ 0 (mod 3) が必要（右辺が3の倍数だから）。</li><li>0 と 1 の2つの和で 0 (mod 3) になるのは 0 + 0 のときだけ。</li><li>よって x ≡ 0 かつ y ≡ 0 (mod 3)、すなわち x = 3a, y = 3b と書ける。</li><li>代入して 9a² + 9b² = 3z² より 3(a² + b²) = z²。よって z² は3の倍数、3は素数だから z も3の倍数で z = 3c。</li><li>3(a² + b²) = 9c² より a² + b² = 3c²。</li><li>これは元と同じ形で、a &lt; x, b &lt; y, c &lt; z。同じ操作を繰り返せば自然数が無限に減り続けることになり矛盾（無限降下法）。</li><li>∴ 自然数解は存在しない。</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>mod を使わず因数分解で積の形に持ち込む（(x+y)(x-y)=n 型）。有限個に閉じ込めたいときはこちら</li><li>不等式で範囲を絞る（大小関係を仮定して有限化）。3つの手段のうちどれが効くかは、問題の形で決まる</li><li>『存在しない』の証明は mod での矛盾か無限降下。『存在する』の証明は構成するだけでよい</li><li>フェルマーの小定理は高校範囲外だが、周期性の実験で同じ結論に辿り着ける</li></ul>
+<h2>落とし穴</h2>
+<ul><li>合同式で両辺を割ってしまう（法と互いに素でなければ不可）</li><li>mod をいくつに取るかを試行錯誤せず、最初の1つで諦める</li><li>『x²が3の倍数 ⇒ xが3の倍数』に3が素数であることの言及がない（東大はここを見る）</li><li>具体例で確認して満足し、一般の証明を書かない</li><li>無限降下で『最小の解を取る』と宣言せずに議論を進める</li><li>mod を何で取るかを問題から読み取れない（末尾→mod 10、平方数→mod 3,4,8）</li></ul>
+<h2>なぜ大事か</h2>
+<p>整数論証の共通言語。周期性・剰余での分類は東大整数の主戦場</p>
+<h2>東大での出方</h2>
+<p>東大の整数は合同式・因数分解・評価の3手段のどれを選ぶかを問う形で出る。単独の大問になる年が多く、誘導が薄いのが特徴。(1)で小さい場合を実験させ、(2)で一般の証明という構成が多い。</p>
+<h2>確認問題</h2>
+<ul><li>2ⁿ を 7 で割った余りを n について調べ、周期を求めよ</li><li>n が 3 の倍数でないとき n² - 1 が 3 の倍数であることを示せ</li><li>x² + y² = z² で x, y の少なくとも一方は 3 の倍数であることを示せ</li></ul>
+<h2>発展</h2>
+<p>mod の複数取り（mod 4 と mod 9 を同時に見て絞る）。中国剰余定理の考え方は範囲外だが、2つの条件を並べて絞るだけなら高校範囲で書ける。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="ma-int-euclid.html">ユークリッドの互除法・最大公約数</a></li></ul>
+<h2>このノードを前提にするノード</h2>
+<ul class="links"><li><a href="mb-p21-mod.html">㉑ 周期・余り（mod）を書き出して見つける</a></li><li><a href="td-t-integer.html">【東大型】整数の論証</a></li></ul>
+<h2>「整数」のノード</h2>
+<ul class="links"><li><a href="ma-int-div.html">約数・倍数・素因数分解</a></li><li><a href="ma-int-euclid.html">ユークリッドの互除法・最大公約数</a></li><li><a href="ma-int-dio.html">1次不定方程式</a></li><li><span class="cur">合同式（mod）</span></li><li><a href="ma-int-factor.html">積の形に持ち込む（因数分解型の不定方程式）</a></li><li><a href="ma-int-bound.html">範囲で絞る（不等式評価で有限化）</a></li><li><a href="ma-int-base.html">n進法</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

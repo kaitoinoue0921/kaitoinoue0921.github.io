@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>【東大型】通過領域・存在条件（出題テーマ）｜受験数学マップ</title>
+<meta name="description" content="通過領域は『∃t の条件に翻訳する』問題として説明されることが多いが、東大が本当に問うているのはその一段手前にある。∀（すべての t で）と ∃（ある t が存在して）を読み分ける力、そしてどちらの変数を先に固定するか…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/td-t-region.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="【東大型】通過領域・存在条件（出題テーマ）｜受験数学マップ">
+<meta property="og:description" content="通過領域は『∃t の条件に翻訳する』問題として説明されることが多いが、東大が本当に問うているのはその一段手前にある。∀（すべての t で）と ∃（ある t が存在して）を読み分ける力、そしてどちらの変数を先に固定するか…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/td-t-region.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "【東大型】通過領域・存在条件", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/td-t-region.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 【東大型】通過領域・存在条件</nav>
+<h1>【東大型】通過領域・存在条件</h1>
+<p class="meta">東大レイヤー ／ 出題テーマ ／ 東大での重要度 ★★★★★</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>通過領域は『∃t の条件に翻訳する』問題として説明されることが多いが、東大が本当に問うているのはその一段手前にある。∀（すべての t で）と ∃（ある t が存在して）を読み分ける力、そしてどちらの変数を先に固定するかを設計する力である。同じ問題でも、点 (x, y) を固定して t の存在条件を見る（逆像法）か、t を固定して x ごとの y の範囲を求めてから合併する（順像法）かで、難易度が何倍も変わる。方針の選択そのものが得点差になる、数少ないテーマの一つ。</p>
+<h2>こんなときに使う</h2>
+<ul><li>パラメータが2次以下で範囲が実数全体 → 逆像法（判別式）が最速</li><li>パラメータに範囲がついている → 逆像法だが、解の配置の問題になる</li><li>パラメータが三角関数や指数の中にあって整理しにくい → 順像法が有利</li><li>パラメータが2つ → 1つずつ処理する。どちらを先に動かすかで難易度が変わる</li><li>『すべての t で成り立つ』→ ∀。最小値・最大値の問題に翻訳する</li><li>『ある t が存在して』『通過する』→ ∃。解の存在条件に翻訳する</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. ∀ か ∃ かを最初に確定する（ここを誤ると以降の作業がすべて無駄になる）</li><li>2. ∃ の場合：点を (X, Y) と固定し、t についての方程式と見て解の存在条件を求める</li><li>3. あるいは：t を固定して x ごとの y の範囲を出し、t を動かして合併する</li><li>4. t に範囲があれば、解の配置（軸の位置・端点の値）で処理する</li><li>5. 得られた条件を図示し、境界を含むかを判定する</li><li>6. 検算：領域内の点を1つ取り、対応する t を実際に求めて確認する</li></ol>
+<h2>例題</h2>
+<div class="problem">実数 t が全実数を動くとき、放物線 y = x² - 2tx + 2t² が通過する領域を図示せよ。</div><details><summary>解答</summary><ol class="steps"><li>【逆像法】点 (X, Y) が通過領域に属する条件は、Y = X² - 2tX + 2t² を満たす実数 t が存在すること。</li><li>t について整理すると　2t² - 2Xt + (X² - Y) = 0</li><li>これを t の2次方程式と見る（X, Y は定数）。実数解 t が存在する条件は判別式 ≧ 0。</li><li>D/4 = X² - 2(X² - Y) = -X² + 2Y ≧ 0</li><li>∴ Y ≧ X²/2</li><li></li><li>求める領域は、放物線 y = x²/2 とその上側（境界を含む）。</li><li></li><li>【順像法（別解）】x を固定し、y = 2t² - 2xt + x² を t の関数と見る。</li><li>= 2(t - x/2)² + x²/2　より、t が全実数を動くとき y の最小値は x²/2（t = x/2 のとき）。</li><li>y はいくらでも大きくなれるので、y ≧ x²/2。同じ答えが出る。</li><li></li><li>検算：t = 0 のとき放物線は y = x²。点 (1, 1) は Y ≧ X²/2 すなわち 1 ≧ 1/2 を満たす ○</li><li>境界上の点 (2, 2) については、t = 1 のとき y = 4 - 4 + 2 = 2 ○（t = X/2 = 1 で境界に達する）</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>逆像法：点を固定してパラメータの存在条件に落とす。パラメータが低次のとき最速</li><li>順像法：パラメータを固定して値域を求め、合併する。パラメータに範囲があるとき、または式が整理しにくいとき有利</li><li>上の問題のように両方で解けることは多い。試験場では計算が軽い方を選び、時間が許せばもう一方で検算する</li><li>包絡線として捉える（高校範囲外だが、答えの検算に使える。接線族なら包絡線が境界になる）</li></ul>
+<h2>落とし穴</h2>
+<ul><li>∀ と ∃ を取り違える（答えが正反対になる。下の確認問題で必ず体感しておくこと）</li><li>パラメータの範囲の制約を落とし、余分な領域まで塗る</li><li>逆像法で判別式だけ見て、解が許された範囲にあるかの確認（解の配置）を飛ばす</li><li>境界を含むかどうかの判定を書かない</li><li>動点と固定点を同じ文字で書く</li><li>パラメータの範囲制約を落とし、余分な領域まで塗る</li></ul>
+<h2>なぜ大事か</h2>
+<p>『あるtが存在してこの式を満たす点の集合』への読み替え。逆像法（yを固定してxの存在条件）が主武器</p>
+<h2>東大での出方</h2>
+<p>東大の最重要テーマの一つ。数IIIの関数と組み合わせて『曲線群の通過領域』として出し、そのうえで領域の面積を計算させる2段構成が定番。誘導が薄く、逆像法と順像法のどちらを選ぶかから任される年もある。</p>
+<h2>確認問題</h2>
+<ul><li>t が 0 ≦ t ≦ 1 を動くとき、直線 y = 2tx - t² の通過領域を求めよ（範囲がつくと解の配置が必要になることを体感する）</li><li>『すべての実数 t に対して y ≧ 2tx - t² が成り立つような点 (x, y)』の範囲を求めよ。∃版（y ≦ x²）と答えがどう違うか確認せよ</li><li>t が実数全体を動くとき、円 (x - t)² + y² = 1 の通過領域を求めよ</li></ul>
+<h2>発展</h2>
+<p>パラメータが2つ (s, t) ある場合。片方を固定してもう片方で処理し、最後に固定した方を動かす。処理の順序を変えると難易度が大きく変わるので、両方の順序を試してから書き始める。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="m2-pass-region.html">通過領域（存在条件に読み替える）</a></li><li><a href="m3-root-count3.html">方程式の実数解の個数（数III版・定数分離とグラフ）</a></li></ul>
+<h2>このノードを前提にするノード</h2>
+<ul class="links"><li><a href="td-goal.html">理三の合格ライン（数学 6問中4完+α / 目安80〜100点）</a></li></ul>
+<h2>「出題テーマ」のノード</h2>
+<ul class="links"><li><a href="td-t-prob.html">【東大型】確率の状態設計</a></li><li><a href="td-t-integer.html">【東大型】整数の論証</a></li><li><span class="cur">【東大型】通過領域・存在条件</span></li><li><a href="td-t-volume.html">【東大型】立体の体積</a></li><li><a href="td-t-cplx.html">【東大型】複素数平面と図形</a></li><li><a href="td-t-eval.html">【東大型】評価と極限の融合</a></li><li><a href="td-t-space.html">【東大型】空間図形の最大最小</a></li><li><a href="td-t-func.html">【東大型】関数の決定・不等式の成立条件</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

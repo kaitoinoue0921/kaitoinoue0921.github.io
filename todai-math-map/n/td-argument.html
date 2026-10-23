@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>場合分けを漏らさない・同値性を保つ記述（メタ技能）｜受験数学マップ</title>
+<meta name="description" content="東大の採点は論理の飛躍に厳しく、答えが合っていても過程で落ちる。押さえるべきは2点しかない。場合分けが排反かつ網羅的であること、そして式変形が同値であることである。特に危ないのが、両辺を2乗する・両辺に文字を掛ける・分…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/td-argument.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="場合分けを漏らさない・同値性を保つ記述（メタ技能）｜受験数学マップ">
+<meta property="og:description" content="東大の採点は論理の飛躍に厳しく、答えが合っていても過程で落ちる。押さえるべきは2点しかない。場合分けが排反かつ網羅的であること、そして式変形が同値であることである。特に危ないのが、両辺を2乗する・両辺に文字を掛ける・分…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/td-argument.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "場合分けを漏らさない・同値性を保つ記述", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/td-argument.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 場合分けを漏らさない・同値性を保つ記述</nav>
+<h1>場合分けを漏らさない・同値性を保つ記述</h1>
+<p class="meta">東大レイヤー ／ メタ技能 ／ 東大での重要度 ★★★★★</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>東大の採点は論理の飛躍に厳しく、答えが合っていても過程で落ちる。押さえるべきは2点しかない。場合分けが排反かつ網羅的であること、そして式変形が同値であることである。特に危ないのが、両辺を2乗する・両辺に文字を掛ける・分母を払うといった操作で、これらは同値ではない。必要条件だけで進んだのなら、最後に必ず十分性を確認する。この確認を書くかどうかが、そのまま点差になる。</p>
+<h2>こんなときに使う</h2>
+<ul><li>絶対値・平方根・対数が出てきた → 場合分けか条件（真数条件など）</li><li>両辺を2乗した → 同値でない。符号の確認が必要</li><li>両辺に文字を掛けた／割った → その文字が 0 の場合を分ける</li><li>分母を払った → 分母 ≠ 0 を条件として残す</li><li>『⇒』の向きにだけ進んだ → 逆が言えるか確認する</li><li>図形で点の位置によって形が変わる → その境目で場合分け</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 場合分けの基準を明示する（『x &lt; 0 のとき』のように見出しを立てる）</li><li>2. 排反か（重複していないか）を確認する</li><li>3. 網羅的か（漏れがないか）を確認する。境界値をどちらに入れたかも明示</li><li>4. 同値でない変形をしたら、その場に印をつけておく</li><li>5. 最後に十分性を確認する（求めた解を元の式に戻す）</li><li>6. 各場合の結論を統合して、最終的な答えを書く</li></ol>
+<h2>例題</h2>
+<div class="problem">方程式 √(x + 2) = x を解け。</div><details><summary>解答</summary><ol class="steps"><li>【よくある答案】</li><li>両辺を2乗して x + 2 = x²</li><li>x² − x − 2 = 0、(x − 2)(x + 1) = 0</li><li>よって x = 2, −1　　← ここで終えると誤り</li><li></li><li>【なぜ誤りか】</li><li>「A = B」から「A² = B²」は言えるが、逆は言えない（A = −B でも A² = B² になる）。</li><li>つまり2乗は同値変形ではなく、必要条件しか得られていない。</li><li>実際 x = −1 を元の式に代入すると √1 = 1 だが右辺は −1 で、成り立たない。</li><li></li><li>【正しい書き方その1：十分性を確認する】</li><li>2乗して得た候補 x = 2, −1 を元の式に代入して確かめる。</li><li>　x = 2 のとき √4 = 2 ○</li><li>　x = −1 のとき √1 = 1 ≠ −1 ✕</li><li>∴ x = 2</li><li></li><li>【正しい書き方その2：最初から同値変形にする】</li><li>√(x+2) = x  ⇔  x ≧ 0 かつ x + 2 = x²　（左辺は 0 以上なので右辺も 0 以上が必要）</li><li>　　　　　　⇔  x ≧ 0 かつ (x − 2)(x + 1) = 0</li><li>　　　　　　⇔  x = 2</li><li></li><li>この書き方なら十分性の確認が要らない。東大の答案としてはこちらが望ましい。</li><li>（真数条件 x + 2 ≧ 0 は x = x² − 2 ≧ 0 から自動的に従う）</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>同値記号（⇔）で繋いで書く（最も安全。ただし本当に同値か毎回確認すること）</li><li>必要条件で候補を絞り、最後に十分性を確認する（計算は軽いが確認を忘れやすい）</li><li>場合分けを表にまとめる（3つ以上の条件が絡むとき）</li><li>『少なくとも』『すべての』が出たら、∀ と ∃ を明示的に書き分ける</li></ul>
+<h2>落とし穴</h2>
+<ul><li>2乗したあと十分性を確認しない（最頻出）</li><li>場合分けの境界値をどちらに入れたか書かない</li><li>『x ≠ 0 のとき』で割ったのに、x = 0 の場合を扱わない</li><li>必要条件で出した答えを、そのまま最終解答にする</li><li>場合分けの見出しを立てず、地の文に混ぜて書く（採点者が追えない）</li><li>必要条件だけ出して十分性の確認を書かない</li></ul>
+<h2>なぜ大事か</h2>
+<p>東大の採点は論理の飛躍に厳しい。合っている答えでも過程で落ちる</p>
+<h2>東大での出方</h2>
+<p>東大は同値性の意識を直接測ってくる。特に軌跡・領域・方程式の解の議論では、必要条件だけで進むと必ず余分な解が混じる設計になっている。答えが合っているのに点が来ないという経験の大半は、ここが原因。</p>
+<h2>確認問題</h2>
+<ul><li>√(2x + 3) = x を解け（十分性の確認まで書くこと）</li><li>|x − 1| + |x − 3| = 4 を解け（場合分けの網羅性を意識すること）</li><li>方程式 x + 1/x = a が実数解を持つ a の条件を、同値変形で求めよ</li></ul>
+<h2>発展</h2>
+<p>同値でない変形を意図的に使い、あとで十分性を確認するほうが速い場面もある。どちらが速いかを判断できるようになると、時間の使い方が変わる。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="m1-logic.html">必要条件・十分条件</a></li><li><a href="m2f-minmax.html">2次関数の最大最小（区間・軸の場合分け）</a></li><li><a href="m2-int-abs.html">絶対値付き積分・区間の分割</a></li></ul>
+<h2>このノードを前提にするノード</h2>
+<ul class="links"><li><a href="td-writing.html">減点されない答案の書き方</a></li><li><a href="td-t-func.html">【東大型】関数の決定・不等式の成立条件</a></li></ul>
+<h2>「メタ技能」のノード</h2>
+<ul class="links"><li><a href="td-experiment.html">実験する手癖（n=1,2,3 を書き出す）</a></li><li><a href="td-symmetry.html">対称性を利用して場合を減らす</a></li><li><a href="td-limit-tools.html">極限の3種の神器（はさみうち・区分求積・漸化式評価）</a></li><li><a href="td-reduce.html">未知を既知に帰着させる（言い換えの技術）</a></li><li><span class="cur">場合分けを漏らさない・同値性を保つ記述</span></li><li><a href="td-writing.html">減点されない答案の書き方</a></li><li><a href="td-calc.html">計算の設計と検算（次数・単位・特殊値）</a></li><li><a href="td-time.html">150分の運用（大問の選択と撤退の判断）</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

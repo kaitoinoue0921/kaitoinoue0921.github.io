@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>実験する手癖（n=1,2,3 を書き出す）（メタ技能）｜受験数学マップ</title>
+<meta name="description" content="東大の問題は、方針が見えない状態から始まる。そして手を動かして規則を見つける以外に入口がない問題が、毎年のように出る。10分考えて紙が白いままなら、それは考えているのではなく実験を飛ばしている。小さい場合を書き出すこと…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/td-experiment.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="実験する手癖（n=1,2,3 を書き出す）（メタ技能）｜受験数学マップ">
+<meta property="og:description" content="東大の問題は、方針が見えない状態から始まる。そして手を動かして規則を見つける以外に入口がない問題が、毎年のように出る。10分考えて紙が白いままなら、それは考えているのではなく実験を飛ばしている。小さい場合を書き出すこと…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/td-experiment.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "実験する手癖（n=1,2,3 を書き出す）", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/td-experiment.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 実験する手癖（n=1,2,3 を書き出す）</nav>
+<h1>実験する手癖（n=1,2,3 を書き出す）</h1>
+<p class="meta">東大レイヤー ／ メタ技能 ／ 東大での重要度 ★★★★★</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>東大の問題は、方針が見えない状態から始まる。そして手を動かして規則を見つける以外に入口がない問題が、毎年のように出る。10分考えて紙が白いままなら、それは考えているのではなく実験を飛ばしている。小さい場合を書き出すことは泥臭い手段ではなく、正規の第一手である。実際、誘導の (1) は多くの場合この実験そのもので、出題者は『まず手を動かせ』と言っている。</p>
+<h2>こんなときに使う</h2>
+<ul><li>n を含む一般の主張が問われている → n = 1, 2, 3 を実際に書く</li><li>設定が複雑で全体像が見えない → 最小のケース（点2個、サイコロ1回、n=1）を作る</li><li>漸化式が型に当てはまらない → 数列を4〜5項書き出す</li><li>『〜であることを示せ』で構造が見えない → 具体例で構造を掴む</li><li>図形問題 → 正確な図を描く。これも実験のうち</li><li>誘導の (1) が『n = 1 のとき求めよ』→ そこに方針が埋まっている</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. パラメータを最小にする（n = 1、点を2個、操作を1回）</li><li>2. 頭の中でやらず、実際に紙に書き出す</li><li>3. n = 2, 3 と増やし、何がどう変化するかを見る</li><li>4. 規則を予想する（数列なら一般項、確率なら状態の個数）</li><li>5. 予想を数学的帰納法か直接証明で示す</li><li>6. 予想が立たなければ n = 4, 5 まで伸ばす。たいていそこで見える</li></ol>
+<h2>例題</h2>
+<div class="problem">a₁ = 1、a_(n+1) = a_n / (1 + a_n) で定まる数列 {a_n} の一般項を求めよ。</div><details><summary>解答</summary><ol class="steps"><li>この漸化式は等比型でも特性方程式型でもなく、既知の型に当てはまらない。</li><li>そこで実際に書き出す。</li><li></li><li>a₁ = 1</li><li>a₂ = 1 / (1 + 1) = 1/2</li><li>a₃ = (1/2) / (1 + 1/2) = (1/2) / (3/2) = 1/3</li><li>a₄ = (1/3) / (1 + 1/3) = (1/3) / (4/3) = 1/4</li><li></li><li>【予想】a_n = 1/n</li><li></li><li>【数学的帰納法で証明】</li><li>n = 1 のとき a₁ = 1 = 1/1 で成立。</li><li>n = k で a_k = 1/k と仮定すると</li><li>　a_(k+1) = (1/k) / (1 + 1/k) = (1/k) / ((k+1)/k) = 1/(k+1)</li><li>よって n = k+1 でも成立。ゆえにすべての自然数 n で a_n = 1/n。</li><li></li><li>【別解：逆数を取る】</li><li>漸化式の両辺の逆数を取ると</li><li>　1/a_(n+1) = (1 + a_n)/a_n = 1/a_n + 1</li><li>b_n = 1/a_n とおくと b_(n+1) = b_n + 1、b₁ = 1。つまり公差1の等差数列で b_n = n。</li><li>∴ a_n = 1/n</li><li></li><li>【要点】別解のほうが鮮やかだが、逆数を取るという発想は実験で 1, 1/2, 1/3, 1/4 という並びを</li><li>見たあとなら自然に出てくる。実験は答えを予想するだけでなく、方針そのものを教えてくれる。</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>実験 → 予想 → 帰納法（最も汎用的な流れ）</li><li>実験で置き換えのヒントを得る（逆数、対数、差を取る）</li><li>確率なら n = 1, 2 の場合を樹形図で書き、状態の分類を発見する</li><li>整数なら小さい値を代入し、mod をいくつに取るかの当たりをつける</li><li>図形なら特殊な位置（正三角形、直角、中点）で試して予想を立てる</li></ul>
+<h2>落とし穴</h2>
+<ul><li>実験を飛ばして一般の議論から入り、手が止まる（この項目の存在理由そのもの）</li><li>頭の中だけで計算して、間違ったまま予想を立てる</li><li>n = 1, 2 だけで打ち切り、規則を見誤る（n = 3, 4 まで伸ばす）</li><li>予想を書いただけで証明を書かない（実験は証明ではない）</li><li>実験の計算ミスに気づかず、存在しない規則を追いかける</li><li>考え込んで10分間紙が白いまま</li></ul>
+<h2>なぜ大事か</h2>
+<p>東大の問題は方針が見えない状態から始まる。手を動かして規則を見つける以外に入口がない問題が毎年ある</p>
+<h2>東大での出方</h2>
+<p>東大は誘導の (1) を実験に充てることが多い。『n = 1 のときを求めよ』『具体的に書き出せ』という小問は、点を取らせるためではなく、(2) 以降の方針を発見させるために置かれている。逆に誘導がない年は、自分で実験を始められるかどうかが分かれ目になる。</p>
+<h2>確認問題</h2>
+<ul><li>a₁ = 2、a_(n+1) = 2a_n/(a_n + 1) の一般項を、実験して予想し帰納法で示せ</li><li>1 から n までの整数の3乗の和を n = 1, 2, 3, 4 で計算し、規則を予想せよ</li><li>サイコロを n 回投げて出た目の積が偶数になる確率を、n = 1, 2 で数えてから一般化せよ</li></ul>
+<h2>発展</h2>
+<p>実験しても規則が見えない場合。見方を変える（差を取る、比を取る、階差の階差を見る、素因数分解する）と現れることがある。この『見方の引き出し』は経験の蓄積そのもの。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="mb-rec-hard.html">㉔ 推測＋数学的帰納法（誘導のない漸化式）</a></li></ul>
+<h2>このノードを前提にするノード</h2>
+<ul class="links"><li><a href="td-reduce.html">未知を既知に帰着させる（言い換えの技術）</a></li><li><a href="td-t-prob.html">【東大型】確率の状態設計</a></li></ul>
+<h2>「メタ技能」のノード</h2>
+<ul class="links"><li><span class="cur">実験する手癖（n=1,2,3 を書き出す）</span></li><li><a href="td-symmetry.html">対称性を利用して場合を減らす</a></li><li><a href="td-limit-tools.html">極限の3種の神器（はさみうち・区分求積・漸化式評価）</a></li><li><a href="td-reduce.html">未知を既知に帰着させる（言い換えの技術）</a></li><li><a href="td-argument.html">場合分けを漏らさない・同値性を保つ記述</a></li><li><a href="td-writing.html">減点されない答案の書き方</a></li><li><a href="td-calc.html">計算の設計と検算（次数・単位・特殊値）</a></li><li><a href="td-time.html">150分の運用（大問の選択と撤退の判断）</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

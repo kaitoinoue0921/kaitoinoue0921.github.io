@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>区分求積法（積分法）｜受験数学マップ</title>
+<meta name="description" content="区分求積法は『和の極限を積分に翻訳する辞書』である。n個の項の和を、幅 1/n の長方形 n 個の面積の和と見れば、n→∞ で曲線の下の面積、すなわち定積分になる。使えるようになる鍵は公式の暗記ではなく、与えられた和を…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/m3-int-riemann.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="区分求積法（積分法）｜受験数学マップ">
+<meta property="og:description" content="区分求積法は『和の極限を積分に翻訳する辞書』である。n個の項の和を、幅 1/n の長方形 n 個の面積の和と見れば、n→∞ で曲線の下の面積、すなわち定積分になる。使えるようになる鍵は公式の暗記ではなく、与えられた和を…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/m3-int-riemann.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "区分求積法", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/m3-int-riemann.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 区分求積法</nav>
+<h1>区分求積法</h1>
+<p class="meta">数学III ／ 積分法 ／ 東大での重要度 ★★★★★</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>区分求積法は『和の極限を積分に翻訳する辞書』である。n個の項の和を、幅 1/n の長方形 n 個の面積の和と見れば、n→∞ で曲線の下の面積、すなわち定積分になる。使えるようになる鍵は公式の暗記ではなく、与えられた和を (1/n)·Σ f(k/n) の形に整形する手の動きにある。1/n を括り出せるかどうか、それだけを見ればよい。</p>
+<h2>こんなときに使う</h2>
+<ul><li>Σ と lim が同時に出てくる → まず区分求積を疑う</li><li>和の中に k/n の形が見える、または作れる → 確定</li><li>分母が n の1次で、Σ の項数も n → 1/n を括り出せる形</li><li>Σ の中身が n だけの式で k がない → 区分求積ではない（単なる和の公式）</li><li>はさみうちで処理しようとして評価がうまく作れない → 区分求積で厳密値が出ないか見る</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 和の形を Σ[k=1..n] の形に統一する</li><li>2. 全体から 1/n を括り出す</li><li>3. 残りが k/n だけの式 f(k/n) になっているか確認する（なっていなければ変形する）</li><li>4. lim (1/n)Σ[k=1..n] f(k/n) = ∫[0→1] f(x) dx と書き換える</li><li>5. k の動く範囲と積分区間の対応を確認する（k=1..n なら [0,1]、k=1..2n なら [0,2] など）</li><li>6. 定積分を計算する</li></ol>
+<h2>例題</h2>
+<div class="problem">lim[n→∞] Σ[k=1..n] n/(n² + k²) を求めよ。</div><details><summary>解答</summary><ol class="steps"><li>分母分子を n² で割る：n/(n² + k²) = (1/n) · 1/(1 + (k/n)²)。</li><li>よって与式 = lim[n→∞] (1/n) Σ[k=1..n] 1/(1 + (k/n)²)。</li><li>f(x) = 1/(1 + x²) とすると、これは f の [0,1] 上の区分求積の形。</li><li>= ∫[0→1] dx/(1 + x²)</li><li>x = tanθ と置換すると dx = dθ/cos²θ、1 + x² = 1/cos²θ、x: 0→1 のとき θ: 0→π/4。</li><li>= ∫[0→π/4] dθ = π/4</li><li>∴ π/4</li><li>検算：各項は正で、n=1 のとき 1/2、項数が増えても和は π/4 ≒ 0.785 に近づく。数値的にも整合する。</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>はさみうち：区分求積で厳密値が出ない場合、単調性を使って積分で上下から挟む（∫ ≦ Σ ≦ ∫ の形）</li><li>積分区間を [0,1] 以外に取る：k が 1 から 2n まで動くなら [0,2]</li><li>log を取ってから区分求積：積の形の極限（例：(n!/nⁿ)^(1/n)）は log で和に変えると使える。東大の頻出変形</li><li>逆向きの利用：積分の値を近似する不等式を作るために、和と積分の大小を比較する</li></ul>
+<h2>落とし穴</h2>
+<ul><li>1/n を括り出す整形ができず手が止まる（この単元の失敗はほぼ全てこれ）</li><li>k の範囲と積分区間の対応を間違える（k=0 から始まるか k=1 からかで区間の端がずれるが、極限では一致することの確認）</li><li>Σ の中に n が k と独立に残っているのに区分求積を適用してしまう</li><li>積の形の極限に log を取らずに直接適用しようとする</li><li>1/n を括り出す形に整理できない／k/n の範囲と積分区間の対応ミス</li></ul>
+<h2>なぜ大事か</h2>
+<p>Σの極限を積分に翻訳する。東大は「和の極限」を積分で解かせるのが好き</p>
+<h2>東大での出方</h2>
+<p>『和の極限』を求めさせる形で頻出。単独では易しいため、不等式評価（はさみうち）と組み合わせて難度を上げてくるのが東大の通例。(1)で不等式を示させ、(2)でその不等式を使って極限を出す誘導が典型。</p>
+<h2>確認問題</h2>
+<ul><li>lim[n→∞] (1/n) Σ[k=1..n] √(k/n) を求めよ</li><li>lim[n→∞] (n!/nⁿ)^(1/n) を求めよ（log を取る）</li></ul>
+<h2>発展</h2>
+<p>和と積分の大小比較による評価（Σ 1/k と log n の比較）。調和級数の発散速度を押さえると、上位の極限問題が処理できるようになる。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="m3-int-basic.html">不定積分の基本形（微分の逆）</a></li><li><a href="mb-sigma.html">Σ計算・部分分数分解による差の形（望遠鏡和）</a></li><li><a href="m3-lim-seq.html">数列の極限・収束発散の判定</a></li></ul>
+<h2>このノードを前提にするノード</h2>
+<ul class="links"><li><a href="m3-int-ineq.html">積分と不等式（面積比較・評価）</a></li><li><a href="td-limit-tools.html">極限の3種の神器（はさみうち・区分求積・漸化式評価）</a></li></ul>
+<h2>「積分法」のノード</h2>
+<ul class="links"><li><a href="m3-int-basic.html">不定積分の基本形（微分の逆）</a></li><li><a href="m3-int-sub.html">置換積分（型の判別）</a></li><li><a href="m3-int-parts.html">部分積分（何を微分側に置くか）</a></li><li><a href="m3-int-rational.html">有理関数の積分（部分分数分解）</a></li><li><a href="m3-int-trig.html">三角関数の積分（次数下げ・積和・t=tan(x/2)）</a></li><li><a href="m3-int-irrational.html">無理関数の積分（√(a²-x²) 型の三角置換）</a></li><li><a href="m3-int-def-prop.html">定積分の性質（偶奇・周期・区間の対称性）</a></li><li><a href="m3-int-recur.html">定積分と漸化式（I_n を n で結ぶ）</a></li><li><a href="m3-int-diff-func.html">積分で定義された関数の微分（微積分学の基本定理）</a></li><li><span class="cur">区分求積法</span></li><li><a href="m3-int-ineq.html">積分と不等式（面積比較・評価）</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
