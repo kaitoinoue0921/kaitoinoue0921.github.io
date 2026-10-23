@@ -18,6 +18,13 @@
 - `t/` 家庭教師の生徒用「今週の問題」（`weeks.json`）、`works/saitama-*` 埼玉大対策
 - `study-map/` スタディスポットMAP（Supabase）
 
-## 作業のこつ（クレジットを節約する）
+## 節約のきまり
+- モデルは `.claude/settings.json` で `opusplan`（計画モードのときだけ Opus、作業は Sonnet）、考える量は medium、上限 high にしてある。
+- 方針が決まった手作業（ページの一括生成、多数ファイルの編集、表示やリンクの確認）は、サブエージェント `worker`（Sonnet）に仕様を渡して任せる。Opus は方針決めと最後の確認だけ。
+- 1つのセッションでは1つのテーマだけ。別のテーマは新しいセッションで。
 - 1〜2MB の HTML は丸ごと読まない。`grep -o` や Python で必要な部分だけ取り出す。
-- 見た目の確認: `python3 -m http.server 8765` を立て、`NODE_PATH=$(npm root -g) node` から Playwright（Chromium はインストール済み）でスクリーンショットを撮る。
+- 見た目の確認: `python3 -m http.server 8765 --bind 127.0.0.1` を立て、`NODE_PATH=$(npm root -g) node` から Playwright（Chromium はインストール済み）でスクリーンショットを撮る。止めるときは `kill $(pgrep -f "[h]ttp.server 8765")`（`pkill -f` は自分のシェルも止める）。
+
+## ローカルとクラウドの分担
+- Search Console・AdSense・GoatCounter・Stripe など、ブラウザでログインして見る作業はローカル（Mac）の Claude がやる。やることの一覧は `.claude/local-tasks.md`。
+- ローカルが書き出した Search Console の数字は `.claude/gsc/` に置かれる。クラウドではそれを読んで、タイトルや説明文を直す。

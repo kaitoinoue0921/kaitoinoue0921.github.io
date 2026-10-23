@@ -1,0 +1,8 @@
+{
+  "model": "opusplan",
+  "effortLevel": "medium",
+  "maxEffortLevel": "high",
+  "env": {
+    "CLAUDE_CODE_SUBAGENT_MODEL": "sonnet"
+  }
+}
