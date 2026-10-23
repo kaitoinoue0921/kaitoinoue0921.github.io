@@ -3,18 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>井上凱斗 | 小さな実験室 — 医学部受験ロードマップ・FocusRoom・国試ノート</title>
+<title>井上凱斗 | 小さな実験室 — 高校ノート・受験数学マップ・医学部受験ロードマップ</title>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241"
      crossorigin="anonymous"></script>
-<meta name="description" content="井上凱斗（いのうえ かいと）の「小さな実験室」。地方の受験生に届ける医学部受験ロードマップ、勉強を続けるためのアプリFocusRoom、国試対策ノートなど、自分がつまずいたところから作って試しているものを置いています。">
+<meta name="description" content="井上凱斗（いのうえ かいと）の「小さな実験室」。高校4教科ノート（930項目）、受験数学マップ（175ノード）、勉強場所の地図、医学部受験ロードマップなど、自分がつまずいたところから作って試しているものを置いています。">
 <link rel="canonical" href="https://kaitoinoue0921.github.io/">
 <meta name="robots" content="index, follow, max-image-preview:large">
 
 <!-- share cards (LINE / X / Facebook) -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="小さな実験室">
-<meta property="og:title" content="井上凱斗 | 小さな実験室 — 医学部受験ロードマップ・FocusRoom・国試ノート">
-<meta property="og:description" content="自分がつまずいたところから、小さく作って試しているもの。">
+<meta property="og:title" content="井上凱斗 | 小さな実験室 — 高校ノート・受験数学マップ・医学部受験ロードマップ">
+<meta property="og:description" content="高校4教科ノート（930項目）、受験数学マップ（175ノード）、勉強場所の地図、医学部受験ロードマップ。自分がつまずいたところから、小さく作って試しているもの。">
 <meta property="og:url" content="https://kaitoinoue0921.github.io/">
 <meta property="og:image" content="https://kaitoinoue0921.github.io/ogp.png">
 <meta property="og:image:alt" content="小さな実験室 — 作って試しているものの置き場">
@@ -22,8 +22,8 @@
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="井上凱斗 | 小さな実験室 — 医学部受験ロードマップ・FocusRoom・国試ノート">
-<meta name="twitter:description" content="自分がつまずいたところから、小さく作って試しているもの。">
+<meta name="twitter:title" content="井上凱斗 | 小さな実験室 — 高校ノート・受験数学マップ・医学部受験ロードマップ">
+<meta name="twitter:description" content="高校4教科ノート（930項目）、受験数学マップ（175ノード）、勉強場所の地図、医学部受験ロードマップ。自分がつまずいたところから、小さく作って試しているもの。">
 <meta name="twitter:image" content="https://kaitoinoue0921.github.io/ogp.png">
 
 <link rel="icon" href="./favicon.png" type="image/png">
@@ -428,6 +428,11 @@
   }
   .row:active{ background: var(--line-ghost); }
 
+  /* ノートの行の下に添える小さなリンク */
+  .row-links{ margin: -8px 0 0; padding: 0 2px 14px; display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: 12.5px; line-height: 1.8; }
+  .row-links a{ color: var(--ink-faint); text-decoration: none; border-bottom: 1px solid var(--line-faint); padding-bottom: 1px; }
+  .row-links a:hover{ color: var(--ink); border-color: var(--ink); }
+
   /* ---------- f-hole divider ---------- */
   .divider{
     display: flex;
@@ -506,8 +511,8 @@
       </header>
 
       <div class="finder" role="search">
-        <label class="finder-label" for="finderInput">作ったサイトを探す</label>
-        <input class="finder-input" id="finderInput" type="search" placeholder="例: 数学、地図、英語" autocomplete="off" enterkeyhint="search">
+        <label class="finder-label" for="finderInput">サイト内を探す</label>
+        <input class="finder-input" id="finderInput" type="search" placeholder="例: モル濃度、漸化式、医学部 地域枠" autocomplete="off" enterkeyhint="search">
         <ul class="finder-results" id="finderResults" hidden></ul>
       </div>
 
@@ -519,16 +524,8 @@
           <p class="section-text">どれも、文章やコード、絵の下書きにAIを使って作っています。何を作るか、何を載せるかは自分で決めて、確かめています。</p>
 
           <ol class="exps">
-            <li><a class="exp" href="./igakubu-roadmap/">
-              <span class="exp-head"><span class="exp-no">01</span><span class="exp-status is-live">公開中</span></span>
-              <span class="exp-q">地方の高校生にも、受験の地図を届けられないか。</span>
-              <span class="exp-made">医学部受験ロードマップ</span>
-              <span class="exp-desc">何をいつまでに、どの順で。ネット上に散らばった情報を並べ直し、項目ごとに「必須・差がつく・不要」の線を引きました。</span>
-              <span class="exp-how">ネット上の100を超えるページを読み比べ、何をいつ、どの順でやるかに並べ直しました。翌日に公開し、月ごと・単元ごとのページに分けています。</span>
-              <svg class="exp-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8 H13 M9 4 L13 8 L9 12" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a></li>
             <li><a class="exp" href="./todai-math-map/">
-              <span class="exp-head"><span class="exp-no">02</span><span class="exp-status is-live">公開中</span></span>
+              <span class="exp-head"><span class="exp-no">01</span><span class="exp-status is-live">公開中</span></span>
               <span class="exp-q">参考書を渡り歩かずに、数学をやる順番を地図で決められないか。</span>
               <span class="exp-made">受験数学マップ</span>
               <span class="exp-desc">中学から東大レベルまでの154項目を「これが分からないとこれが分からない」のつながりで並べました。</span>
@@ -536,40 +533,27 @@
               <svg class="exp-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8 H13 M9 4 L13 8 L9 12" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a></li>
             <li><a class="exp" href="./study-map/">
-              <span class="exp-head"><span class="exp-no">03</span><span class="exp-status is-live">公開中</span></span>
-              <span class="exp-q">図書館や公民館が勉強に使えるか、行く前に分かるようにできないか。</span>
+              <span class="exp-head"><span class="exp-no">02</span><span class="exp-status is-live">公開中</span></span>
+              <span class="exp-q">お金がなくても勉強できる場所を、行く前に見つけられないか。</span>
               <span class="exp-made">スタディスポットMAP</span>
               <span class="exp-desc">静音性・電源・Wi-Fiなど8つの軸で採点して、地図に並べています。栃木県から始めました。</span>
               <span class="exp-how">最初は仮のデータで地図を作り、翌日、県内の施設を一件ずつ確かめた記録に入れ替えました。設備の事実と、自分の主観の点数は分けて載せています。</span>
               <svg class="exp-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8 H13 M9 4 L13 8 L9 12" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a></li>
-            <li><a class="exp" href="./works/obon-nagasaki/">
-              <span class="exp-head"><span class="exp-no">04</span><span class="exp-status is-live">公開中</span></span>
-              <span class="exp-q">実家のお盆で聞いてきたお経が何を言っているのか、実家の家紋がどこから来たのか、調べて残せないか。</span>
-              <span class="exp-made">家のルーツを調べる（お盆のお経・家紋）</span>
-              <span class="exp-desc">南島原のお盆のお経：正信偈と阿弥陀経の意味を、南島原の宗派の歴史と一緒に家族向けにまとめました。</span>
-              <span class="exp-how">実家のお盆で読まれていたお経を調べて書き、翌日、葬儀の基本と、本願寺派と大谷派の違いを足しました。</span>
-              <svg class="exp-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8 H13 M9 4 L13 8 L9 12" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a><a class="exp exp-sub" href="./works/kamon/">
-              <span class="exp-made">吉田家の家紋リサーチ</span>
-              <span class="exp-desc">「丸に違い鷹の羽」が阿蘇から南島原へ伝わった道筋を、地図で追っています。</span>
-              <span class="exp-how">お経のページと同じ日に作りました。紋の由来を調べて、阿蘇から菊池氏、有馬氏へと伝わった道筋を地図に置いています。</span>
-              <svg class="exp-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8 H13 M9 4 L13 8 L9 12" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a></li>
-            <li><a class="exp" href="./blue-note/">
-              <span class="exp-head"><span class="exp-no">05</span><span class="exp-status is-live">公開中</span></span>
-              <span class="exp-q">国試の範囲を、自分の手で一枚にまとめられないか。</span>
-              <span class="exp-made">国試対策 ブルーノート</span>
-              <span class="exp-desc">全科目と公衆衛生を、問題解説と結びつけて整理している学習マップです。</span>
-              <span class="exp-how">Ankiの間隔反復をもとに一日で骨組みを作り、翌日、厚生労働省の出題基準に沿った知識マップを足しました。</span>
-              <svg class="exp-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8 H13 M9 4 L13 8 L9 12" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a></li>
             <li><a class="exp" href="/tochimasu/">
-              <span class="exp-head"><span class="exp-no">06</span><span class="exp-status is-live">公開中</span></span>
+              <span class="exp-head"><span class="exp-no">03</span><span class="exp-status is-live">公開中</span></span>
               <span class="exp-q">栃木の高校入試の数学を、過去問だけで一歩ずつ練習できないか。</span>
               <span class="exp-made">とちます！（栃木県公立入試 数学）</span>
               <span class="exp-desc">令和3〜7年度の栃木県立高校入試の数学を、小問ごとに一歩ずつ解いていく練習サイトです。私立の宇都宮短大附属の問題も入れています。</span>
               <span class="exp-how">家庭教師で教える中学生のために作りました。令和5年度は全29小問を公式の正答と照らし合わせています。</span>
+              <svg class="exp-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8 H13 M9 4 L13 8 L9 12" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a></li>
+            <li><a class="exp" href="./igakubu-roadmap/">
+              <span class="exp-head"><span class="exp-no">04</span><span class="exp-status is-live">公開中</span></span>
+              <span class="exp-q">地方の高校生にも、受験の地図を届けられないか。</span>
+              <span class="exp-made">医学部受験ロードマップ</span>
+              <span class="exp-desc">何をいつまでに、どの順で。ネット上に散らばった情報を並べ直し、項目ごとに「必須・差がつく・不要」の線を引きました。</span>
+              <span class="exp-how">ネット上の100を超えるページを読み比べ、何をいつ、どの順でやるかに並べ直しました。翌日に公開し、月ごと・単元ごとのページに分けています。</span>
               <svg class="exp-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8 H13 M9 4 L13 8 L9 12" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a></li>
           </ol>
@@ -577,22 +561,34 @@
 
         <section class="section" id="notes" aria-labelledby="notes-title">
           <p class="section-label">NOTES</p>
-          <h2 class="section-title" id="notes-title">高校4教科のノート</h2>
+          <h2 class="section-title" id="notes-title">ノートと数学マップ</h2>
           <ul class="rows">
             <li><a class="row" href="./works/math-notes/">
               <span class="row-text"><span class="row-title">高校数学ノート</span><span class="row-desc">公式と解き方の型を例題つきで。ネットがなくても開けます。</span></span>
               <svg class="row-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8 H13 M9 4 L13 8 L9 12" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a></li>
+            </a>
+              <p class="row-links"><a href="./works/math-notes/items/">項目ごとのページ（302項目）</a><a href="./works/math-notes/items/patterns.html">着眼点まとめ</a></p>
+            </li>
             <li><a class="row" href="./works/eng-grammar-notes/">
               <span class="row-text"><span class="row-title">英文法ノート</span><span class="row-desc">用法の表・例文・確認問題で高校英文法をひととおり。</span></span>
               <svg class="row-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8 H13 M9 4 L13 8 L9 12" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a></li>
+            </a>
+              <p class="row-links"><a href="./works/eng-grammar-notes/items/">項目ごとのページ（196項目）</a><a href="./works/eng-grammar-notes/items/patterns.html">着眼点まとめ</a></p>
+            </li>
             <li><a class="row" href="./works/chem-notes/">
               <span class="row-text"><span class="row-title">高校化学ノート</span><span class="row-desc">要点と解き方の型を単元ごとに。</span></span>
               <svg class="row-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8 H13 M9 4 L13 8 L9 12" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a></li>
+            </a>
+              <p class="row-links"><a href="./works/chem-notes/items/">項目ごとのページ（228項目）</a><a href="./works/chem-notes/items/patterns.html">着眼点まとめ</a></p>
+            </li>
             <li><a class="row" href="./works/physics-notes/">
               <span class="row-text"><span class="row-title">高校物理ノート</span><span class="row-desc">要点と解き方の型を単元ごとに。</span></span>
+              <svg class="row-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8 H13 M9 4 L13 8 L9 12" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+              <p class="row-links"><a href="./works/physics-notes/items/">項目ごとのページ（204項目）</a><a href="./works/physics-notes/items/patterns.html">着眼点まとめ</a></p>
+            </li>
+            <li><a class="row" href="./todai-math-map/n/">
+              <span class="row-text"><span class="row-title">受験数学マップ ノードごとのページ</span><span class="row-desc">175ノード。つながりをたどりながら、1項目ずつ開けます。</span></span>
               <svg class="row-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8 H13 M9 4 L13 8 L9 12" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a></li>
           </ul>
@@ -617,10 +613,6 @@
             <li><a class="row" href="./podcasts.html">
               <span class="row-text"><span class="row-title">移動中に聴くポッドキャスト</span><span class="row-desc">歴史、ライフハック、言語など。</span></span>
               <svg class="row-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8 H13 M9 4 L13 8 L9 12" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a></li>
-            <li><a class="row" href="https://note.com/jikotaiwa" target="_blank" rel="noopener noreferrer">
-              <span class="row-text"><span class="row-title">note</span><span class="row-desc">記事を書いています。</span></span>
-              <svg class="row-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a></li>
             <li><a class="row" href="./contact/">
               <span class="row-text"><span class="row-title">お問い合わせ</span><span class="row-desc">家庭教師のご依頼、内容の誤りのご指摘など。</span></span>
@@ -680,7 +672,7 @@
   }
 
 
-  /* ---------------- 作ったサイトを探す: このページと works/ の一覧から名前と説明で絞り込む ---------------- */
+  /* ---------------- サイト内を探す: このページ・works/ の一覧・assets/search-index.json（ノート全項目と数学マップ全ノード）から絞り込む ---------------- */
   var finderInput = document.getElementById('finderInput');
   var finderResults = document.getElementById('finderResults');
   if (finderInput && finderResults){
@@ -698,18 +690,31 @@
       var t = a.querySelector('.exp-made, .row-title'), d = a.querySelector('.exp-desc, .row-desc'), q = a.querySelector('.exp-q');
       add(t && t.textContent, (d ? d.textContent : '') + (q ? ' ' + q.textContent : ''), a.getAttribute('href'), a.target === '_blank');
     });
+    /* 検索窓にフォーカスしたとき1回だけ読む。読めなかったらトップの索引だけで動く */
     var loaded = false;
-    var loadWorks = function(){
-      if (loaded || !window.fetch || !window.DOMParser) return;
+    var loadIndex = function(){
+      if (loaded || !window.fetch) return;
       loaded = true;
-      fetch('./works/').then(function(r){ return r.ok ? r.text() : Promise.reject(r.status); }).then(function(text){
-        var docW = new DOMParser().parseFromString(text, 'text/html');
-        Array.prototype.forEach.call(docW.querySelectorAll('article.block'), function(b){
-          var t = b.querySelector('.block-title'), d = b.querySelector('.block-text'), a = b.querySelector('a.block-action');
-          if (!a) return;
-          var href = new URL(a.getAttribute('href'), new URL('./works/', location.href)).href;
-          add(t && t.textContent, d && d.textContent, href, a.target === '_blank');
-        });
+      if (window.DOMParser){
+        fetch('./works/').then(function(r){ return r.ok ? r.text() : Promise.reject(r.status); }).then(function(text){
+          var docW = new DOMParser().parseFromString(text, 'text/html');
+          Array.prototype.forEach.call(docW.querySelectorAll('article.block'), function(b){
+            var t = b.querySelector('.block-title'), d0 = b.querySelector('.block-text'), pts = b.querySelectorAll('.points li'); var d = { textContent: (d0 ? d0.textContent : '') + ' ' + Array.prototype.map.call(pts, function(x){ return x.textContent; }).join(' ') };
+            var acts = b.querySelectorAll('a.block-action');
+            var many = acts.length > 1;
+            Array.prototype.forEach.call(acts, function(a){
+              var href = new URL(a.getAttribute('href'), new URL('./works/', location.href)).href;
+              var label = (a.textContent || '').replace(/\s+/g, ' ').trim();
+              var ttl = t ? t.textContent.trim() : '';
+              if (many){ add(label || ttl, ttl + ' ' + (d ? d.textContent : ''), href, a.target === '_blank'); }
+              else { add(ttl, d && d.textContent, href, a.target === '_blank'); }
+            });
+          });
+          search();
+        }).catch(function(){});
+      }
+      fetch('./assets/search-index.json').then(function(r){ return r.ok ? r.json() : Promise.reject(r.status); }).then(function(list){
+        list.forEach(function(e){ add(e.t, e.s, e.u, false); });
         search();
       }).catch(function(){});
     };
@@ -718,12 +723,18 @@
       var words = norm(finderInput.value).split(/[\s　]+/).filter(Boolean);
       finderResults.innerHTML = '';
       if (!words.length){ finderResults.hidden = true; return; }
-      var hits = items.filter(function(it){
-        var hay = norm(it.title + ' ' + it.desc);
-        return words.every(function(w){ return hay.indexOf(w) >= 0; });
-      }).sort(function(a, b){
-        return (norm(b.title).indexOf(words[0]) >= 0) - (norm(a.title).indexOf(words[0]) >= 0);
-      }).slice(0, 8);
+      /* 全語を含むものだけ残す。タイトルに含む語が多いほど上、補足だけに含む語は下 */
+      var hits = [];
+      items.forEach(function(it){
+        var ti = norm(it.title), hay = ti + ' ' + norm(it.desc), score = 0;
+        for (var i = 0; i < words.length; i++){
+          if (hay.indexOf(words[i]) < 0) return;
+          if (ti.indexOf(words[i]) >= 0) score++;
+        }
+        hits.push({ it: it, score: score });
+      });
+      hits.sort(function(a, b){ return b.score - a.score; });
+      hits = hits.slice(0, 12).map(function(h){ return h.it; });
       if (!hits.length){
         var li = document.createElement('li'); li.className = 'finder-none'; li.textContent = '見つかりませんでした';
         finderResults.appendChild(li);
@@ -737,8 +748,8 @@
       });
       finderResults.hidden = false;
     };
-    finderInput.addEventListener('focus', loadWorks);
-    finderInput.addEventListener('input', function(){ loadWorks(); search(); });
+    finderInput.addEventListener('focus', loadIndex);
+    finderInput.addEventListener('input', function(){ loadIndex(); search(); });
     finderInput.addEventListener('keydown', function(e){
       if (e.key !== 'Enter') return;
       var first = finderResults.querySelector('a');
