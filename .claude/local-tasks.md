@@ -4,14 +4,14 @@
 終わった項目は `[x]` にしてコミットする（クラウド側がそれを見て次に進む）。
 
 ## 1. 公開（最初に1回）
-- [ ] `claude/bold-brahmagupta-qeg5jp` ブランチを main に取り込んで push する
+- [x] `claude/bold-brahmagupta-qeg5jp` ブランチを main に取り込んで push する
   ```
   git fetch origin
   git checkout main && git pull
   git merge origin/claude/bold-brahmagupta-qeg5jp
   git push origin main
   ```
-- [ ] 1〜2分待って、次のページが開くことを確かめる
+- [x] 1〜2分待って、次のページが開くことを確かめる
   - https://kaitoinoue0921.github.io/works/chem-notes/items/
   - https://kaitoinoue0921.github.io/works/chem-notes/items/ch-matter-pure.html（化学式が描画されているか）
   - https://kaitoinoue0921.github.io/works/math-notes/items/patterns.html（着眼点まとめ）
@@ -47,3 +47,4 @@
 |---|---|---|---|---|---|
 | 2026-10-23 | （未確認） | 3か月で34 | 3か月で11 | 再審査待ち | 930ページ化の前 |
 | 2026-10-23（夕） | （未確認） | — | — | — | 1131ページ化をmainに取り込み公開（sitemap.xml は1131件を配信中）、サイトマップ再送信済み（送信直後で検出数は数日後に確認。画面上は直前の読み込みが「取得できませんでした」のまま）、URL検査は /juken/ を再リクエスト、残り7件は同日に8件リクエスト済みのため省略 |
+| 2026-10-23（確認） | — | — | — | — | 公開確認: chem-notes/items/・ch-matter-pure.html・math-notes/items/patterns.html が200、化学式の描画エラーなし（.katex 10個、エラー0）。マージ済みで origin/main と一致 |
