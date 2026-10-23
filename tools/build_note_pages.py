@@ -100,6 +100,7 @@ def plain(fragment, limit=None):
         return tex_plain(html.unescape(m.group(1)))
     s = re.sub(r'<span class="tx"[^>]*>(.*?)</span>', tex, fragment, flags=re.S)
     s = re.sub(r'<b class="bl">.*?</b>|<b>着眼点</b>', '', s)
+    s = re.sub(r'</?(?:b|i|em|strong|span|sub|sup|code|u|a)(?:\s[^>]*)?>', '', s)
     s = re.sub(r'<[^>]+>', ' ', s)
     s = re.sub(r'\s+', ' ', html.unescape(s)).strip()
     if limit and len(s) > limit:
