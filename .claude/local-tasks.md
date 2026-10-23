@@ -4,21 +4,21 @@
 終わった項目は `[x]` にしてコミットする（クラウド側がそれを見て次に進む）。
 
 ## 1. 公開（最初に1回）
-- [ ] `claude/bold-brahmagupta-qeg5jp` ブランチを main に取り込んで push する
+- [x] `claude/bold-brahmagupta-qeg5jp` ブランチを main に取り込んで push する
   ```
   git fetch origin
   git checkout main && git pull
   git merge origin/claude/bold-brahmagupta-qeg5jp
   git push origin main
   ```
-- [ ] 1〜2分待って、次のページが開くことを確かめる
+- [x] 1〜2分待って、次のページが開くことを確かめる
   - https://kaitoinoue0921.github.io/works/chem-notes/items/
   - https://kaitoinoue0921.github.io/works/chem-notes/items/ch-matter-pure.html（化学式が描画されているか）
   - https://kaitoinoue0921.github.io/works/math-notes/items/patterns.html（着眼点まとめ）
 
 ## 2. Google Search Console（公開した日に）
-- [ ] 「サイトマップ」で `sitemap.xml` を送信し直す。状態が「成功」になり、検出された URL が 955 前後になることを確かめる
-- [ ] 「URL 検査」で次の URL を1つずつ入れ、「インデックス登録をリクエスト」を押す（1日の上限があるので、この順で入るところまで）
+- [x] 「サイトマップ」で `sitemap.xml` を送信し直す。状態が「成功」になり、検出された URL が 955 前後になることを確かめる
+- [x] 「URL 検査」で次の URL を1つずつ入れ、「インデックス登録をリクエスト」を押す（1日の上限があるので、この順で入るところまで）
   1. https://kaitoinoue0921.github.io/juken/
   2. https://kaitoinoue0921.github.io/works/math-notes/items/
   3. https://kaitoinoue0921.github.io/works/chem-notes/items/
@@ -33,7 +33,7 @@
   - クラウドの Claude がこれを読んで、表示はあるのにクリックされないページのタイトルと説明文を直す
 
 ## 4. そのほかの画面の確認
-- [ ] AdSense: 審査の状態と、ads.txt に警告が出ていないかを見て、記録欄に書く
+- [x] AdSense: 審査の状態と、ads.txt に警告が出ていないかを見て、記録欄に書く
 - [ ] GoatCounter（https://kaitoinoue.goatcounter.com）: `/items/` で始まるページの訪問数を週に1回、記録欄に書く
 
 ## 5. 人がやること（Claude には頼めない）
@@ -45,3 +45,4 @@
 | 日付 | 登録済みページ数 | 表示回数（28日） | クリック（28日） | AdSense | メモ |
 |---|---|---|---|---|---|
 | 2026-10-23 | （未確認） | 3か月で34 | 3か月で11 | 再審査待ち | 930ページ化の前 |
+| 2026-10-23 | （未確認） | — | — | 要確認（有用性の低いコンテンツ）・ads.txt承認済み | 930ページ化を公開、sitemap再送信済み・検出数と処理状況は数日後に確認、URL検査8件リクエスト |
