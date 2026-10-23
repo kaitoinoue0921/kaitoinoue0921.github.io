@@ -14,7 +14,7 @@
 - `igakubu-roadmap/` 医学部受験ロードマップ（地域枠は `chiikiwaku/build.py` で生成）
 - `works/{math,chem,physics,eng-grammar}-notes/index.html` 高校ノート。別の場所でビルドした1ファイル版（1〜2MB）。元のソースはこのリポジトリにない。
 - `works/*-notes/items/` ノートを1項目1ページに分けたもの。**手で直さない**。ノートを差し替えたら `python3 tools/build_note_pages.py` で作り直す（sitemap.xml の `/items/` 行も作り直される）。
-- `todai-math-map/n/` 受験数学マップを1ノード1ページにしたもの。**手で直さない**。`python3 tools/build_mathmap_pages.py` で作り直す（入試問題の本文 pastexams/kakomon は広告つきページに載せない）。
+- `todai-math-map/n/` 受験数学マップを1ノード1ページにしたもの。**手で直さない**。`python3 tools/build_mathmap_pages.py` で作り直す（入試問題の本文 pastexams/kakomon は広告つきページに載せない）。`~/todai-math-map/` で数学マップを作り直して app.html を差し替えたときは、`python3 tools/build_mathmap_pages.py` も実行してからコミットする。
 - `assets/katex/` 項目ページ用の KaTeX（ノートから抜き出したもの）
 - `t/` 家庭教師の生徒用「今週の問題」（`weeks.json`）、`works/saitama-*` 埼玉大対策
 - `study-map/` スタディスポットMAP（Supabase）
