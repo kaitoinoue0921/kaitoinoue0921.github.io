@@ -6,6 +6,7 @@
 
   入力: works/<ノート>/index.html（触らない）
   出力: works/<ノート>/items/index.html   項目一覧
+        works/<ノート>/items/patterns.html 着眼点まとめ（全項目の着眼点を単元ごとに1枚へ）
         works/<ノート>/items/<項目ID>.html 各項目
         works/<ノート>/items/note.css     ノートの見た目（ノート本体から抜き出す）
         assets/katex/                     数式の描画（全ノートで共有）
@@ -65,6 +66,27 @@ EXTRA_CSS = """
 .tier-mini.skip{background:var(--skip-soft);color:var(--skip)}
 .ilist .grp{font-size:.8rem;color:var(--ink-soft);margin:24px 0 -4px}
 .back{margin:28px 0 0;font-size:.9rem}
+.ip-pat{margin:0 0 8px;font-size:.95rem}
+/* 着眼点まとめ（patterns.html）: 1項目 = 項目名の行 + 着眼点の行 */
+.plist .pt-list{list-style:none;padding:0;margin:0}
+.plist .pt{margin:0;padding:10px 0}
+.plist .pt + .pt{border-top:1px solid var(--rule)}
+.plist .pt-h{margin:0;line-height:1.5}
+.plist .pt-h a{font-weight:700}
+.plist .pt-f{margin:4px 0 0;font-size:.95rem;line-height:1.75;overflow-wrap:anywhere}
+/* 印刷はダークモードでも明るい配色にする（紙に薄い字が出ないように） */
+@media print{:root,:root:not([data-theme="light"]){--bg:#fff;--surface:#fff;--surface-2:#f2f2f2;--ink:#111;--ink-soft:#444;
+  --rule:#ccc;--rule-strong:#999;--must:#a6392a;--must-soft:#f4ded9;--core:#9a7425;--core-soft:#f1e6cd;--skip:#555;--skip-soft:#eee}}
+@media print{
+  .top,.crumbs,.site-footer,ins.adsbygoogle{display:none!important}
+  .plist{max-width:none;padding:0}
+  .plist h1{font-size:1.2rem}
+  .plist h2,.plist .grp{break-after:avoid}
+  .plist h2{margin:16px 0 4px}
+  .plist .pt{break-inside:avoid;padding:5px 0}
+  .plist .pt-h{font-size:.9rem}
+  .plist .pt-f{font-size:.8rem;line-height:1.6}
+}
 """
 
 
@@ -204,7 +226,9 @@ def build_note(folder, short):
                    lambda m: f'href="{m.group(1)}.html"' if m.group(1) in ids else f'href="../#i={m.group(1)}"', a)
         return re.sub(r'href="#u=([^"]+)"', r'href="./#\1"', a)
 
-    sitemap = [items_url]
+    patterns_url = f'{items_url}patterns.html'
+    sitemap = [items_url, patterns_url]
+    focus_of = {}  # 項目ID → 着眼点の本文（先頭の「着眼点」ラベルを除いたもの）
     for k, it in enumerate(order):
         iid, u = it['id'], unit_of[it['id']]
         siblings = [x for x in u['items'] if x['id'] in arts]
@@ -219,6 +243,8 @@ def build_note(folder, short):
         a = fix_links(a)
         focus = re.search(r'<p class="focus">(.*?)</p>', a, flags=re.S)
         lead = plain(focus.group(1) if focus else a, 90)
+        if focus:  # a は fix_links を通してある
+            focus_of[iid] = re.sub(r'^\s*<b>着眼点</b>\s*', '', focus.group(1))
         desc = f'{it["title"]}（{u["name"]}）。{lead}'
         if len(desc) > 120:
             desc = desc[:119] + '…'
@@ -242,7 +268,7 @@ def build_note(folder, short):
 {a}
 {pn}
 <section class="sib"><h2>「{esc(u['name'])}」の項目</h2><ol>{sib}</ol></section>
-<p class="back"><a href="./">{esc(short)}の項目一覧</a> ・ <a href="../">ノート全体を開く</a>（「理解した」のチェックと進み具合はノートに保存されます）</p>
+<p class="back"><a href="./">{esc(short)}の項目一覧</a> ・ <a href="patterns.html">着眼点まとめ</a> ・ <a href="../">ノート全体を開く</a>（「理解した」のチェックと進み具合はノートに保存されます）</p>
 </main>"""
         url = f'{items_url}{iid}.html'
         write(out / f'{iid}.html', page(
@@ -252,31 +278,62 @@ def build_note(folder, short):
                        (it['title'], url)]))
         sitemap.append(url)
 
+    # 項目一覧と着眼点まとめは、分野（group）・単元の並べ方を共有する
+    def unit_blocks(render_items):
+        blocks, last_group = [], None
+        for u in site['units']:
+            its = [x for x in u['items'] if x['id'] in arts]
+            if not its:
+                continue
+            if u.get('group') and u['group'] != last_group:
+                blocks.append(f'<p class="grp">{esc(u["group"])}</p>')
+                last_group = u['group']
+            blocks.append(f'<h2 id="{u["id"]}">{u.get("icon", "")} {esc(u["name"])}</h2>{render_items(its)}')
+        return ''.join(blocks)
+
+    def tier_badge(x):
+        return f'<span class="tier-mini {x["tier"]}">{TIER[x["tier"]]}</span>'
+
     # 項目一覧
-    blocks, last_group = [], None
-    for u in site['units']:
-        its = [x for x in u['items'] if x['id'] in arts]
-        if not its:
-            continue
-        if u.get('group') and u['group'] != last_group:
-            blocks.append(f'<p class="grp">{esc(u["group"])}</p>')
-            last_group = u['group']
-        lis = ''.join(f'<li><a href="{x["id"]}.html">{esc(x["title"])}</a>'
-                      f'<span class="tier-mini {x["tier"]}">{TIER[x["tier"]]}</span></li>' for x in its)
-        blocks.append(f'<h2 id="{u["id"]}">{u.get("icon", "")} {esc(u["name"])}</h2><ol>{lis}</ol>')
+    blocks = unit_blocks(lambda its: '<ol>' + ''.join(
+        f'<li><a href="{x["id"]}.html">{esc(x["title"])}</a>{tier_badge(x)}</li>' for x in its) + '</ol>')
     lead = re.search(r'<meta name="description" content="([^"]*)"', src).group(1)
     body = f"""<header class="top"><a class="brand" href="../">{esc(note_title)}</a></header>
 <main class="ip-main ilist">
 <nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">{esc(short)}</a> › 項目一覧</nav>
 <h1>{esc(short)} 項目一覧（全{len(order)}項目）</h1>
 <p class="ip-note">{esc(lead)} 各項目を1ページずつ読めます。必須・差がつく・不要の3段階の線引きつき。</p>
-{''.join(blocks)}
+<p class="ip-pat"><a href="patterns.html">着眼点だけを1枚で見る →</a></p>
+{blocks}
 <p class="back"><a href="../">ノート全体を開く</a>（オフラインで使える1ファイル版。「理解した」のチェックと進み具合を記録できます）</p>
 </main>"""
     write(out / 'index.html', page(
         title=f'{short} 項目一覧（全{len(order)}項目）｜{note_title}', desc=f'{lead} 全{len(order)}項目を1ページずつ。',
         url=items_url, css_math=False, body=body, site_id=site['id'],
         crumbs_ld=[('トップ', f'{BASE}/'), (short, note_url), ('項目一覧', items_url)]))
+
+    # 着眼点まとめ
+    def pattern_items(its):
+        rows = ''
+        for x in its:
+            f = focus_of.get(x['id'])
+            rows += (f'<li class="pt"><p class="pt-h"><a href="{x["id"]}.html">{esc(x["title"])}</a>{tier_badge(x)}</p>'
+                     + (f'<p class="pt-f">{f}</p>' if f else '') + '</li>')
+        return f'<ul class="pt-list">{rows}</ul>'
+    pat_title = f'{short}の着眼点まとめ（全{len(order)}項目）'
+    pat_desc = f'{short}の全{len(order)}項目の着眼点（問題文のどこを見て、どう解き始めるか）を1ページにまとめた一覧。'
+    body = f"""<header class="top"><a class="brand" href="../">{esc(note_title)}</a></header>
+<main class="ip-main ilist plist">
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">{esc(short)}</a> › 着眼点まとめ</nav>
+<h1>{esc(pat_title)}</h1>
+<p class="ip-note">各項目の「着眼点」（問題文のどこを見て、どう解き始めるか）を、単元ごとに1ページへ並べました。項目名を押すと、その項目のページに進みます。必須・差がつく・不要の3段階つき。</p>
+{unit_blocks(pattern_items)}
+<p class="back"><a href="./">{esc(short)}の項目一覧</a> ・ <a href="../">ノート全体を開く</a></p>
+</main>"""
+    write(out / 'patterns.html', page(
+        title=f'{pat_title}｜{note_title}', desc=pat_desc, url=patterns_url,
+        css_math=has_katex and any('class="tx"' in f for f in focus_of.values()), body=body, site_id=site['id'],
+        crumbs_ld=[('トップ', f'{BASE}/'), (short, note_url), ('着眼点まとめ', patterns_url)]))
     print(f'{folder}: {len(order)} 項目 / 記事 {len(arts)} / 数式 {"あり" if has_katex else "なし"}')
     return sitemap
 

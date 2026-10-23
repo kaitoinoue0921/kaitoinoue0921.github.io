@@ -277,3 +277,24 @@ h1,h2,h1,.brand{font-family:-apple-system,"Hiragino Sans","Hiragino Kaku Gothic 
 .tier-mini.skip{background:var(--skip-soft);color:var(--skip)}
 .ilist .grp{font-size:.8rem;color:var(--ink-soft);margin:24px 0 -4px}
 .back{margin:28px 0 0;font-size:.9rem}
+.ip-pat{margin:0 0 8px;font-size:.95rem}
+/* 着眼点まとめ（patterns.html）: 1項目 = 項目名の行 + 着眼点の行 */
+.plist .pt-list{list-style:none;padding:0;margin:0}
+.plist .pt{margin:0;padding:10px 0}
+.plist .pt + .pt{border-top:1px solid var(--rule)}
+.plist .pt-h{margin:0;line-height:1.5}
+.plist .pt-h a{font-weight:700}
+.plist .pt-f{margin:4px 0 0;font-size:.95rem;line-height:1.75;overflow-wrap:anywhere}
+/* 印刷はダークモードでも明るい配色にする（紙に薄い字が出ないように） */
+@media print{:root,:root:not([data-theme="light"]){--bg:#fff;--surface:#fff;--surface-2:#f2f2f2;--ink:#111;--ink-soft:#444;
+  --rule:#ccc;--rule-strong:#999;--must:#a6392a;--must-soft:#f4ded9;--core:#9a7425;--core-soft:#f1e6cd;--skip:#555;--skip-soft:#eee}}
+@media print{
+  .top,.crumbs,.site-footer,ins.adsbygoogle{display:none!important}
+  .plist{max-width:none;padding:0}
+  .plist h1{font-size:1.2rem}
+  .plist h2,.plist .grp{break-after:avoid}
+  .plist h2{margin:16px 0 4px}
+  .plist .pt{break-inside:avoid;padding:5px 0}
+  .plist .pt-h{font-size:.9rem}
+  .plist .pt-f{font-size:.8rem;line-height:1.6}
+}

@@ -93,6 +93,12 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://kaitoinoue0921.github.io/works/math-notes/items/patterns.html</loc>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://kaitoinoue0921.github.io/works/math-notes/items/numexp-expand.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -1911,6 +1917,12 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/patterns.html</loc>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://kaitoinoue0921.github.io/works/chem-notes/items/ch-matter-pure.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -3285,6 +3297,12 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://kaitoinoue0921.github.io/works/physics-notes/items/patterns.html</loc>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://kaitoinoue0921.github.io/works/physics-notes/items/ph-kinem-vel.html</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -4513,6 +4531,12 @@
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/patterns.html</loc>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/eg-sentence-five.html</loc>
