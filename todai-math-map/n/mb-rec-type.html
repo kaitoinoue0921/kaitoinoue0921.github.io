@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>漸化式の型別処理（等比型・特性方程式・分数型・連立）（漸化式）｜受験数学マップ</title>
+<meta name="description" content="a_(n+1)=pa_n+qの特性方程式α=pα+qを解く理由は、この式を使うとa_(n+1)−α=p(a_n−α)と書き直せて、数列{a_n−α}が公比pの等比数列になるから。αは『動かない点』を表している。分数型で…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/mb-rec-type.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="漸化式の型別処理（等比型・特性方程式・分数型・連立）（漸化式）｜受験数学マップ">
+<meta property="og:description" content="a_(n+1)=pa_n+qの特性方程式α=pα+qを解く理由は、この式を使うとa_(n+1)−α=p(a_n−α)と書き直せて、数列{a_n−α}が公比pの等比数列になるから。αは『動かない点』を表している。分数型で…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/mb-rec-type.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "漸化式の型別処理（等比型・特性方程式・分数型・連立）", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/mb-rec-type.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 漸化式の型別処理（等比型・特性方程式・分数型・連立）</nav>
+<h1>漸化式の型別処理（等比型・特性方程式・分数型・連立）</h1>
+<p class="meta">数学B ／ 漸化式 ／ 東大での重要度 ★★★★★</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>a_(n+1)=pa_n+qの特性方程式α=pα+qを解く理由は、この式を使うとa_(n+1)−α=p(a_n−α)と書き直せて、数列{a_n−α}が公比pの等比数列になるから。αは『動かない点』を表している。分数型で逆数を取る、積の形で対数を取る、といった変換もすべて『既知の型（等差・等比）に帰着させる』という同じ目的を持つ。</p>
+<h2>こんなときに使う</h2>
+<ul><li>a_(n+1)=pa_n+qの形は特性方程式を解いて等比数列に帰着させる</li><li>分数型（a_(n+1)=a_n/(pa_n+q)など）は逆数を取る</li><li>積の形は対数を取って和の形に変える</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 型を判別する（等比、階差、分数、積など）</li><li>2. 特性方程式、逆数、対数など適切な変換を行う</li><li>3. 既知の型（等差・等比）に帰着させて一般項を求める</li></ol>
+<h2>例題</h2>
+<div class="problem">a₁=1、a_(n+1)=2a_n+3の一般項を求めよ。</div><details><summary>解答</summary><ol class="steps"><li>特性方程式α=2α+3よりα=−3</li><li>a_(n+1)+3=2(a_n+3)なので{a_n+3}は公比2の等比数列。</li><li>a_n+3=(a_1+3)・2^(n−1)=4・2^(n−1)</li><li>∴ a_n=2^(n+1)−3</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>連立漸化式は行列（または加減法）で対角化して解く</li></ul>
+<h2>落とし穴</h2>
+<ul><li>特性方程式の解を求めた後、元の数列にどう適用するかの手順を誤る</li><li>型に当てはめられない形で手が止まる（両辺を何かで割る・置換する発想）</li></ul>
+<h2>なぜ大事か</h2>
+<p>確率漸化式・数III極限のすべての前提。型を反射で分類できる状態が目標</p>
+<h2>東大での出方</h2>
+<p>確率漸化式・数III極限のすべての前提。型を反射で分類できる状態が目標。</p>
+<h2>確認問題</h2>
+<ul><li>a₁=2、a_(n+1)=3a_n−4の一般項を求めよ</li></ul>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="mb-diff-seq.html">階差数列・Sとaの関係</a></li><li><a href="mb-p10-linear.html">⑩ 特性方程式型 a(n+1)=p·a(n)+q</a></li><li><a href="mb-p11-exp.html">⑪ 指数型 a(n+1)=p·a(n)+rⁿ（rⁿ⁺¹で割る）</a></li><li><a href="mb-p12-poly.html">⑫ nの多項式型 a(n+1)=p·a(n)+(An+B)</a></li><li><a href="mb-p13-recip.html">⑬ 分数型（逆数をとる） a(n+1)=a(n)/(p·a(n)+q)</a></li><li><a href="mb-p15-3term.html">⑮ 隣接3項間 a(n+2)+p·a(n+1)+q·a(n)=0</a></li><li><a href="mb-p16-system.html">⑯ 連立漸化式（和と差・消去）</a></li></ul>
+<h2>このノードを前提にするノード</h2>
+<ul class="links"><li><a href="ma-prob-rec.html">確率漸化式</a></li><li><a href="mb-rec-hard.html">㉔ 推測＋数学的帰納法（誘導のない漸化式）</a></li><li><a href="m3-lim-seq.html">数列の極限・収束発散の判定</a></li><li><a href="m3-int-recur.html">定積分と漸化式（I_n を n で結ぶ）</a></li></ul>
+<h2>「漸化式」のノード</h2>
+<ul class="links"><li><a href="mb-p10-linear.html">⑩ 特性方程式型 a(n+1)=p·a(n)+q</a></li><li><a href="mb-p11-exp.html">⑪ 指数型 a(n+1)=p·a(n)+rⁿ（rⁿ⁺¹で割る）</a></li><li><a href="mb-p12-poly.html">⑫ nの多項式型 a(n+1)=p·a(n)+(An+B)</a></li><li><a href="mb-p13-recip.html">⑬ 分数型（逆数をとる） a(n+1)=a(n)/(p·a(n)+q)</a></li><li><a href="mb-p14-logtype.html">⑭ 積・累乗型（対数をとる） a(n+1)=q·a(n)^p</a></li><li><a href="mb-p15-3term.html">⑮ 隣接3項間 a(n+2)+p·a(n+1)+q·a(n)=0</a></li><li><a href="mb-p16-system.html">⑯ 連立漸化式（和と差・消去）</a></li><li><a href="mb-p17-sn-rec.html">⑰ 和S(n)と一般項の混在型</a></li><li><a href="mb-p18-mobius.html">⑱ 一次分数変換型 a(n+1)=(p·a(n)+q)/(r·a(n)+s)</a></li><li><a href="mb-p19-trig.html">⑲ 三角関数置換型 a(n+1)=2a(n)²−1</a></li><li><a href="mb-p20-parity.html">⑳ 偶奇分け（(−1)ⁿ型・2つ飛び）</a></li><li><a href="mb-p21-mod.html">㉑ 周期・余り（mod）を書き出して見つける</a></li><li><span class="cur">漸化式の型別処理（等比型・特性方程式・分数型・連立）</span></li><li><a href="mb-rec-hard.html">㉔ 推測＋数学的帰納法（誘導のない漸化式）</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

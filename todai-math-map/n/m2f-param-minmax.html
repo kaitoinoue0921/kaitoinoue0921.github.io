@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>文字定数入りの最大最小（逆に見る）（2次関数）｜受験数学マップ</title>
+<meta name="description" content="文字定数aを含む式で行き詰まったら、xについて考えるのをやめてaについて整理してみる、という視点の切り替えが有効なことが多い。多くの場合、aについては1次式になり、符号や範囲の判定が一気に単純になる。この『変数と定数を…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/m2f-param-minmax.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="文字定数入りの最大最小（逆に見る）（2次関数）｜受験数学マップ">
+<meta property="og:description" content="文字定数aを含む式で行き詰まったら、xについて考えるのをやめてaについて整理してみる、という視点の切り替えが有効なことが多い。多くの場合、aについては1次式になり、符号や範囲の判定が一気に単純になる。この『変数と定数を…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/m2f-param-minmax.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "文字定数入りの最大最小（逆に見る）", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/m2f-param-minmax.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 文字定数入りの最大最小（逆に見る）</nav>
+<h1>文字定数入りの最大最小（逆に見る）</h1>
+<p class="meta">数学I ／ 2次関数 ／ 東大での重要度 ★★★★☆</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>文字定数aを含む式で行き詰まったら、xについて考えるのをやめてaについて整理してみる、という視点の切り替えが有効なことが多い。多くの場合、aについては1次式になり、符号や範囲の判定が一気に単純になる。この『変数と定数を入れ替えて眺める』発想は、東大が繰り返し使う頻出のテーマで、通過領域や存在条件の議論の原型になっている。</p>
+<h2>こんなときに使う</h2>
+<ul><li>文字定数を含む不等式・方程式で、xについての処理が煩雑なときはaについて整理してみる</li><li>『すべてのxで成り立つ』は最小値の議論、『あるxで成り立つ』は最大値の議論に翻訳する</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 式をaについて整理し、1次式（またはそれに近い形）にする</li><li>2. aの係数の符号で場合分けする、または不等式の向きを確認する</li><li>3. 元の問題（∀か∃か）に応じて最小値・最大値の条件に戻す</li></ol>
+<h2>例題</h2>
+<div class="problem">すべての実数xについてx²+ax+1&gt;0が成り立つようなaの値の範囲を求めよ。</div><details><summary>解答</summary><ol class="steps"><li>この2次関数が常に正であるためには、下に凸で、判別式D&lt;0であればよい。</li><li>D=a²−4&lt;0 より −2&lt;a&lt;2。</li><li>検算：a=0のときx²+1&gt;0は常に成り立つ ○。a=2のとき(x+1)²≧0で等号が成立するxがあり不適 ○</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>aについて整理して1次不等式に帰着させる方法：ax&gt;−x²−1として、xの符号で場合分けする方法もあるが、この問題では判別式のほうが速い</li></ul>
+<h2>落とし穴</h2>
+<ul><li>『すべてのx』と『あるx』を混同し、最小値と最大値を取り違える</li><li>aについて整理する際に、係数の符号で場合分けするのを忘れる</li><li>誰を主役の変数と見るかを固定できない</li></ul>
+<h2>なぜ大事か</h2>
+<p>「変数と定数を入れ替えて眺める」東大頻出の視点の原型</p>
+<h2>東大での出方</h2>
+<p>通過領域・存在条件の議論の原型。東大では2変数の問題でどちらを主役にするかの判断力として頻出。</p>
+<h2>確認問題</h2>
+<ul><li>ある実数xに対してx²+ax+1&lt;0が成り立つようなaの範囲を求めよ（∃の場合と∀の場合の違いを確認する）</li></ul>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="m2f-minmax.html">2次関数の最大最小（区間・軸の場合分け）</a></li></ul>
+<h2>このノードを前提にするノード</h2>
+<ul class="links"><li><a href="m2-pass-region.html">通過領域（存在条件に読み替える）</a></li><li><a href="m2-root-count.html">3次方程式の実数解の個数（定数分離）</a></li><li><a href="m2-int-param.html">定積分で表された関数・パラメータ入り積分の最小化</a></li></ul>
+<h2>「2次関数」のノード</h2>
+<ul class="links"><li><a href="m2f-quad-complete.html">平方完成</a></li><li><a href="m2f-minmax.html">2次関数の最大最小（区間・軸の場合分け）</a></li><li><span class="cur">文字定数入りの最大最小（逆に見る）</span></li><li><a href="m2f-disc.html">判別式と解の存在</a></li><li><a href="m2f-place.html">解の配置問題</a></li><li><a href="m2f-ineq2.html">2次不等式と符号</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

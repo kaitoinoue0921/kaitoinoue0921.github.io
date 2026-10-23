@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>非回転体の体積（断面積を積分する）（積分の応用）｜受験数学マップ</title>
+<meta name="description" content="立体の体積を求める作業は、立体そのものを3次元で把握する作業ではない。軸を1本決め、その軸に垂直な平面 x = t で切ったときの断面積 S(t) を求め、∫S(t)dt を計算する——ただそれだけの手続きである。だか…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/m3-vol-cross.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="非回転体の体積（断面積を積分する）（積分の応用）｜受験数学マップ">
+<meta property="og:description" content="立体の体積を求める作業は、立体そのものを3次元で把握する作業ではない。軸を1本決め、その軸に垂直な平面 x = t で切ったときの断面積 S(t) を求め、∫S(t)dt を計算する——ただそれだけの手続きである。だか…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/m3-vol-cross.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "非回転体の体積（断面積を積分する）", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/m3-vol-cross.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 非回転体の体積（断面積を積分する）</nav>
+<h1>非回転体の体積（断面積を積分する）</h1>
+<p class="meta">数学III ／ 積分の応用 ／ 東大での重要度 ★★★★★</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>立体の体積を求める作業は、立体そのものを3次元で把握する作業ではない。軸を1本決め、その軸に垂直な平面 x = t で切ったときの断面積 S(t) を求め、∫S(t)dt を計算する——ただそれだけの手続きである。だから難しさは積分ではなく、『t を固定したときに断面がどんな図形になるか』を求める2次元の問題を解けるかどうかに集約される。立体が頭の中で見えないまま止まってしまう人は、3次元で見ようとしているのであって、断面という2次元の問題に落とす手続きを踏んでいない。</p>
+<h2>こんなときに使う</h2>
+<ul><li>回転体ではない立体の体積 → 断面積を積分する以外の道はない</li><li>『2つの立体の共通部分』→ 断面同士の共通部分を取る（2次元の問題になる）</li><li>軸の選び方が自由なとき → 断面が最も単純になる向きを選ぶ（対称性のある向き）</li><li>断面が t の範囲によって形を変えそう → 場合分けを最初に見積もる</li><li>空間の点の条件が不等式で与えられている → x = t を代入して y, z の条件にする</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 座標軸を設定する。対称性が最も活きる取り方を選ぶ（ここで難易度が半分になる）</li><li>2. 積分する軸を決め、その軸に垂直な平面 x = t で切る</li><li>3. t を定数として扱い、断面が y-z 平面上のどんな図形かを求める（これは2次元の問題）</li><li>4. 断面積 S(t) を t の式で表す</li><li>5. t の動く範囲で断面の形が変わるなら場合分けし、各区間で S(t) を求める</li><li>6. V = ∫ S(t) dt を計算する</li><li>7. 検算：t の端で S(t) が 0 または既知の値になるか、体積のオーダーが直感と合うか</li></ol>
+<h2>例題</h2>
+<div class="problem">底面が半径1の円である円柱を、底面の直径を含み底面と 45° をなす平面で切る。このとき小さい方の立体の体積を求めよ。</div><details><summary>解答</summary><ol class="steps"><li>底面の円の中心を原点、切断に使う直径を x 軸に取る。底面は x² + y² ≦ 1、高さ方向を z とする。</li><li>立体は、底面の半円 (y ≧ 0 の側) の上にあり、平面 z = y·tan45° = y の下にある部分。</li><li>x = t (-1 ≦ t ≦ 1) で切る。断面は y-z 平面上で、0 ≦ y ≦ √(1 - t²)、0 ≦ z ≦ y の領域。</li><li>これは直角をはさむ2辺が √(1 - t²) の直角三角形。</li><li>S(t) = (1/2)·√(1 - t²)·√(1 - t²) = (1 - t²)/2</li><li>V = ∫[-1→1] (1 - t²)/2 dt = (1/2)[t - t³/3]₋₁¹ = (1/2)·(2 - 2/3) = (1/2)·(4/3) = 2/3</li><li>∴ 2/3</li><li>検算：t = ±1 で S = 0 ○（円の端では断面が潰れる）。t = 0 で S = 1/2（斜辺が45°の直角三角形）○。</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>軸の取り方を変える：同じ立体でも切る向きで計算量が数倍変わる。迷ったら2通り試して軽い方を採る</li><li>共通部分の体積：立体A ∩ 立体B の断面は (Aの断面) ∩ (Bの断面)。2次元の共通部分を求める問題に落ちる</li><li>回転体でも断面積で処理できる：回転体の公式 πr² は、断面が円である場合の特殊例にすぎない</li><li>斜回転体：回転軸が座標軸でないときは、座標を回転させてから通常の回転体に帰着する（複素数平面の回転が使える）</li><li>カヴァリエリの原理：断面積が等しい立体は体積も等しい。答えの検算や、難しい立体を易しい立体に置き換えるのに使える</li></ul>
+<h2>落とし穴</h2>
+<ul><li>3次元の形を頭で把握しようとして手が止まる（断面という2次元問題に落とす手続きを踏む）</li><li>断面の形が t の範囲で変わるのに、1つの式で押し通す（東大はここを狙って出す）</li><li>断面積を求める際に、断面が回転体の一部だと思い込んで円だと決めつける</li><li>座標設定が対称性を無視しており、式が汚くなったまま突き進む</li><li>積分区間を立体の存在範囲ではなく、なんとなくの範囲で取る</li><li>断面の形状をtの範囲で場合分けせず一つの式で通そうとする</li></ul>
+<h2>なぜ大事か</h2>
+<p>「x=t で切った断面を求める」。東大の空間問題の標準解法にして最難関。ここを完成させると理三の得点が安定する</p>
+<h2>東大での出方</h2>
+<p>東大理系で毎年のように出題される最大配点帯のテーマ。特に『2つの立体（円柱・球・正四面体など）の共通部分』の形が頻出。切る向きの選択と、断面の場合分けの2点が採点上の分岐になる。</p>
+<h2>確認問題</h2>
+<ul><li>半径1の2つの円柱 x² + y² ≦ 1 と x² + z² ≦ 1 の共通部分の体積を求めよ（断面は正方形になる）</li><li>上の問題で、断面が正方形になる理由を、x = t を代入して説明せよ</li></ul>
+<h2>発展</h2>
+<p>回転体と非回転体の融合。領域を回転させた立体を、さらに別の平面で切る問題。断面を求める段階で回転を考える必要があり、最難問クラスになる。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="m3-vol-rot.html">回転体の体積（x軸・y軸まわり）</a></li><li><a href="mc-vec-space.html">空間ベクトル・座標設定</a></li></ul>
+<h2>このノードを前提にするノード</h2>
+<ul class="links"><li><a href="m3-vol-slant.html">斜回転体・回転軸が座標軸でない体積</a></li><li><a href="td-t-volume.html">【東大型】立体の体積</a></li></ul>
+<h2>「積分の応用」のノード</h2>
+<ul class="links"><li><a href="m3-area.html">面積（上下・左右・媒介変数・逆関数）</a></li><li><a href="m3-vol-rot.html">回転体の体積（x軸・y軸まわり）</a></li><li><span class="cur">非回転体の体積（断面積を積分する）</span></li><li><a href="m3-vol-slant.html">斜回転体・回転軸が座標軸でない体積</a></li><li><a href="m3-length.html">曲線の長さ・道のり</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>⑯ 連立漸化式（和と差・消去）（漸化式）｜受験数学マップ</title>
+<meta name="description" content="a(n+1) = p·a(n) + q·b(n)、b(n+1) = r·a(n) + s·b(n) は、a(n) + k·b(n) が等比数列になるような k を探すのが基本（固有ベクトル探し）。係数が対称なら k =…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/mb-p16-system.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="⑯ 連立漸化式（和と差・消去）（漸化式）｜受験数学マップ">
+<meta property="og:description" content="a(n+1) = p·a(n) + q·b(n)、b(n+1) = r·a(n) + s·b(n) は、a(n) + k·b(n) が等比数列になるような k を探すのが基本（固有ベクトル探し）。係数が対称なら k =…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/mb-p16-system.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "⑯ 連立漸化式（和と差・消去）", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/mb-p16-system.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › ⑯ 連立漸化式（和と差・消去）</nav>
+<h1>⑯ 連立漸化式（和と差・消去）</h1>
+<p class="meta">数学B ／ 漸化式 ／ 東大での重要度 ★★★★★</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>a(n+1) = p·a(n) + q·b(n)、b(n+1) = r·a(n) + s·b(n) は、a(n) + k·b(n) が等比数列になるような k を探すのが基本（固有ベクトル探し）。係数が対称なら k = ±1（和と差）でうまくいく。見つからない・面倒なときは、1本目から b(n) = … を作って2本目に代入し、a だけの3項間漸化式（⑮）にする。この消去法はどんな係数でも必ず通る。</p>
+<h2>こんなときに使う</h2>
+<ul><li>2つ以上の数列が互いに入り組んだ漸化式</li><li>確率漸化式で状態が2〜3個（和が1になる条件で1つ消せないか先に考える）</li><li>係数が対称（p = s、q = r）→ 和と差</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 和が一定などの保存量（確率なら a + b + c = 1）がないか確認し、あれば1つ消す</li><li>2. 係数が対称なら、和と差を取って2本の等比数列にする</li><li>3. 対称でなければ a(n+1) + k·b(n+1) = t{a(n) + k·b(n)} として k, t を決める（k が2つ出る）</li><li>4. または消去法：1本目を b(n) について解き、2本目に代入して⑮に帰着</li><li>5. a(n), b(n) を求め、n=2 で検算する</li></ol>
+<h2>例題</h2>
+<div class="problem">a(1) = 1、b(1) = 0、a(n+1) = 2a(n) + b(n)、b(n+1) = a(n) + 2b(n) の一般項を求めよ。</div><details><summary>解答</summary><ol class="steps"><li>足すと a(n+1) + b(n+1) = 3{a(n) + b(n)}、初項 1 なので a(n) + b(n) = 3ⁿ⁻¹</li><li>引くと a(n+1) − b(n+1) = a(n) − b(n)、初項 1 なので a(n) − b(n) = 1</li><li>∴ a(n) = (3ⁿ⁻¹ + 1)/2、b(n) = (3ⁿ⁻¹ − 1)/2</li><li>検算：a(2) = 2、b(2) = 1。(3 + 1)/2 = 2、(3 − 1)/2 = 1 ○</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>消去法：b(n) = a(n+1) − 2a(n) を2本目に代入すると a(n+2) − 4a(n+1) + 3a(n) = 0（⑮）。特性方程式の解 1, 3 が和・差の公比と一致する</li><li>行列で書くと固有値が公比、固有ベクトルが k。数Cの行列（旧課程）やベクトルの知識があると見通しが立つ</li><li>3状態以上の確率漸化式は、対称性で状態をまとめて2状態に減らせないか先に考える</li></ul>
+<h2>落とし穴</h2>
+<ul><li>係数が対称でないのに和と差を取ってしまい、等比にならず止まる</li><li>消去法で b(n+1) を作るときに添字を1ずらし忘れる</li><li>確率の和が1の条件を使わずに3本の連立を解こうとする</li><li>係数が対称でないのに単純な和・差で等比になると思い込む</li></ul>
+<h2>なぜ大事か</h2>
+<p>確率漸化式で状態が2つ以上あると必ずこの形。足し引きか、1本消して3項間に落とす</p>
+<h2>東大での出方</h2>
+<p>東大の確率漸化式の主戦場。状態が2〜3個の連立になり、それを解けるかが問われる。</p>
+<h2>確認問題</h2>
+<ul><li>a(1) = 1、b(1) = 1、a(n+1) = 3a(n) + b(n)、b(n+1) = 2a(n) + 2b(n) を解け（k = 1/2 で公比4、k = −1 で公比1。答：a(n) = b(n) = 4ⁿ⁻¹）</li><li>上の連立を消去法で3項間にして解き、k を使う方法と一致するか確かめよ</li></ul>
+<h2>発展</h2>
+<p>a + k·b が等比になる k を探すことは、行列の固有ベクトルを探すことと同じ。2つの k が実数で出ない（固有値が複素数）とき、数列は回転しながら変化する（三角関数で書ける）。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="mb-p15-3term.html">⑮ 隣接3項間 a(n+2)+p·a(n+1)+q·a(n)=0</a></li></ul>
+<h2>このノードを前提にするノード</h2>
+<ul class="links"><li><a href="mb-rec-type.html">漸化式の型別処理（等比型・特性方程式・分数型・連立）</a></li></ul>
+<h2>「漸化式」のノード</h2>
+<ul class="links"><li><a href="mb-p10-linear.html">⑩ 特性方程式型 a(n+1)=p·a(n)+q</a></li><li><a href="mb-p11-exp.html">⑪ 指数型 a(n+1)=p·a(n)+rⁿ（rⁿ⁺¹で割る）</a></li><li><a href="mb-p12-poly.html">⑫ nの多項式型 a(n+1)=p·a(n)+(An+B)</a></li><li><a href="mb-p13-recip.html">⑬ 分数型（逆数をとる） a(n+1)=a(n)/(p·a(n)+q)</a></li><li><a href="mb-p14-logtype.html">⑭ 積・累乗型（対数をとる） a(n+1)=q·a(n)^p</a></li><li><a href="mb-p15-3term.html">⑮ 隣接3項間 a(n+2)+p·a(n+1)+q·a(n)=0</a></li><li><span class="cur">⑯ 連立漸化式（和と差・消去）</span></li><li><a href="mb-p17-sn-rec.html">⑰ 和S(n)と一般項の混在型</a></li><li><a href="mb-p18-mobius.html">⑱ 一次分数変換型 a(n+1)=(p·a(n)+q)/(r·a(n)+s)</a></li><li><a href="mb-p19-trig.html">⑲ 三角関数置換型 a(n+1)=2a(n)²−1</a></li><li><a href="mb-p20-parity.html">⑳ 偶奇分け（(−1)ⁿ型・2つ飛び）</a></li><li><a href="mb-p21-mod.html">㉑ 周期・余り（mod）を書き出して見つける</a></li><li><a href="mb-rec-type.html">漸化式の型別処理（等比型・特性方程式・分数型・連立）</a></li><li><a href="mb-rec-hard.html">㉔ 推測＋数学的帰納法（誘導のない漸化式）</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

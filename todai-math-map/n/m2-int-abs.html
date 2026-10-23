@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>絶対値付き積分・区間の分割（微分積分）｜受験数学マップ</title>
+<meta name="description" content="絶対値は中身の符号によって式そのものが変わるため、積分記号の外にそのまま出すことはできない。符号が変わる区間をまたいで積分すると異なる式を同じ式として扱ってしまい正しく計算できない。だから符号が一定である区間ごとに分け…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/m2-int-abs.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="絶対値付き積分・区間の分割（微分積分）｜受験数学マップ">
+<meta property="og:description" content="絶対値は中身の符号によって式そのものが変わるため、積分記号の外にそのまま出すことはできない。符号が変わる区間をまたいで積分すると異なる式を同じ式として扱ってしまい正しく計算できない。だから符号が一定である区間ごとに分け…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/m2-int-abs.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "絶対値付き積分・区間の分割", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/m2-int-abs.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 絶対値付き積分・区間の分割</nav>
+<h1>絶対値付き積分・区間の分割</h1>
+<p class="meta">数学II ／ 微分積分 ／ 東大での重要度 ★★★★☆</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>絶対値は中身の符号によって式そのものが変わるため、積分記号の外にそのまま出すことはできない。符号が変わる区間をまたいで積分すると異なる式を同じ式として扱ってしまい正しく計算できない。だから符号が一定である区間ごとに分けて積分する、という手順が必要になる。</p>
+<h2>こんなときに使う</h2>
+<ul><li>絶対値付きの被積分関数を見たら、まず符号が変わる点で区間を分ける</li><li>符号の変わる点が積分区間の内側にあるか確認する</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 絶対値の中身が0になる点を求める</li><li>2. その点が積分区間内にあれば、そこで区間を分割する</li><li>3. 各区間で絶対値を外した式で積分する</li></ol>
+<h2>例題</h2>
+<div class="problem">∫[0→2]|x−1|dxを求めよ。</div><details><summary>解答</summary><ol class="steps"><li>x=1で場合分け。∫[0→1](1−x)dx+∫[1→2](x−1)dx=1/2+1/2=1</li></ol></details>
+<h2>落とし穴</h2>
+<ul><li>絶対値を外に出したまま積分してしまい面積が打ち消し合う</li><li>符号の変わる点が区間内にあるかの場合分けを落とす</li></ul>
+<h2>なぜ大事か</h2>
+<p>場合分けの網羅性が答案の質に直結する典型テーマ</p>
+<h2>東大での出方</h2>
+<p>場合分けの網羅性がそのまま答案の質に直結する典型テーマ。</p>
+<h2>確認問題</h2>
+<ul><li>∫[−1→2]|x|dxを求めよ</li></ul>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="m2-int-poly.html">多項式の定積分・面積</a></li><li><a href="m1-real.html">実数・絶対値・平方根の扱い</a></li></ul>
+<h2>このノードを前提にするノード</h2>
+<ul class="links"><li><a href="m2-int-param.html">定積分で表された関数・パラメータ入り積分の最小化</a></li><li><a href="td-argument.html">場合分けを漏らさない・同値性を保つ記述</a></li></ul>
+<h2>「微分積分」のノード</h2>
+<ul class="links"><li><a href="m2-diff-def.html">微分係数の定義・導関数</a></li><li><a href="m2-tangent.html">接線・法線</a></li><li><a href="m2-extremum.html">増減表・極値（3次関数）</a></li><li><a href="m2-root-count.html">3次方程式の実数解の個数（定数分離）</a></li><li><a href="m2-int-poly.html">多項式の定積分・面積</a></li><li><a href="m2-int-16.html">1/6公式・1/12公式と面積の等分</a></li><li><span class="cur">絶対値付き積分・区間の分割</span></li><li><a href="m2-int-param.html">定積分で表された関数・パラメータ入り積分の最小化</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

@@ -4,27 +4,28 @@
 終わった項目は `[x]` にしてコミットする（クラウド側がそれを見て次に進む）。
 
 ## 1. 公開（最初に1回）
-- [x] `claude/bold-brahmagupta-qeg5jp` ブランチを main に取り込んで push する
+- [ ] `claude/bold-brahmagupta-qeg5jp` ブランチを main に取り込んで push する
   ```
   git fetch origin
   git checkout main && git pull
   git merge origin/claude/bold-brahmagupta-qeg5jp
   git push origin main
   ```
-- [x] 1〜2分待って、次のページが開くことを確かめる
+- [ ] 1〜2分待って、次のページが開くことを確かめる
   - https://kaitoinoue0921.github.io/works/chem-notes/items/
   - https://kaitoinoue0921.github.io/works/chem-notes/items/ch-matter-pure.html（化学式が描画されているか）
   - https://kaitoinoue0921.github.io/works/math-notes/items/patterns.html（着眼点まとめ）
 
 ## 2. Google Search Console（公開した日に）
-- [x] 「サイトマップ」で `sitemap.xml` を送信し直す。状態が「成功」になり、検出された URL が 955 前後になることを確かめる
-- [x] 「URL 検査」で次の URL を1つずつ入れ、「インデックス登録をリクエスト」を押す（1日の上限があるので、この順で入るところまで）
+- [ ] 「サイトマップ」で `sitemap.xml` を送信し直す。状態が「成功」になり、検出された URL が 1131 前後になることを確かめる
+- [ ] 「URL 検査」で次の URL を1つずつ入れ、「インデックス登録をリクエスト」を押す（1日の上限があるので、この順で入るところまで）
   1. https://kaitoinoue0921.github.io/juken/
   2. https://kaitoinoue0921.github.io/works/math-notes/items/
   3. https://kaitoinoue0921.github.io/works/chem-notes/items/
   4. https://kaitoinoue0921.github.io/works/physics-notes/items/
   5. https://kaitoinoue0921.github.io/works/eng-grammar-notes/items/
   6. 各ノートの `items/patterns.html`（4つ）
+  7. https://kaitoinoue0921.github.io/todai-math-map/n/
 
 ## 3. Search Console（2〜3週間後）
 - [ ] 「ページ」レポートで、登録済みのページ数と「検出 - インデックス未登録」の数を下の記録欄に書く
@@ -33,7 +34,7 @@
   - クラウドの Claude がこれを読んで、表示はあるのにクリックされないページのタイトルと説明文を直す
 
 ## 4. そのほかの画面の確認
-- [x] AdSense: 審査の状態と、ads.txt に警告が出ていないかを見て、記録欄に書く
+- [ ] AdSense: 審査の状態と、ads.txt に警告が出ていないかを見て、記録欄に書く
 - [ ] GoatCounter（https://kaitoinoue.goatcounter.com）: `/items/` で始まるページの訪問数を週に1回、記録欄に書く
 
 ## 5. 人がやること（Claude には頼めない）
@@ -45,4 +46,3 @@
 | 日付 | 登録済みページ数 | 表示回数（28日） | クリック（28日） | AdSense | メモ |
 |---|---|---|---|---|---|
 | 2026-10-23 | （未確認） | 3か月で34 | 3か月で11 | 再審査待ち | 930ページ化の前 |
-| 2026-10-23 | （未確認） | — | — | 要確認（有用性の低いコンテンツ）・ads.txt承認済み | 930ページ化を公開、sitemap再送信済み・検出数と処理状況は数日後に確認、URL検査8件リクエスト |

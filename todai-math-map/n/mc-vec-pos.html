@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>位置ベクトル・分点・重心（ベクトル）｜受験数学マップ</title>
+<meta name="description" content="内分点の公式(nA+mB)/(m+n)で係数が『たすき掛け』になるのは、AP:PB=m:nのときOP=OA+(m/(m+n))(OB−OA)という式を展開して整理すると自然にその形が出るから。この導出を一度手でたどって…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/mc-vec-pos.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="位置ベクトル・分点・重心（ベクトル）｜受験数学マップ">
+<meta property="og:description" content="内分点の公式(nA+mB)/(m+n)で係数が『たすき掛け』になるのは、AP:PB=m:nのときOP=OA+(m/(m+n))(OB−OA)という式を展開して整理すると自然にその形が出るから。この導出を一度手でたどって…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/mc-vec-pos.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "位置ベクトル・分点・重心", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/mc-vec-pos.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 位置ベクトル・分点・重心</nav>
+<h1>位置ベクトル・分点・重心</h1>
+<p class="meta">数学C ／ ベクトル ／ 東大での重要度 ★★★☆☆</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>内分点の公式(nA+mB)/(m+n)で係数が『たすき掛け』になるのは、AP:PB=m:nのときOP=OA+(m/(m+n))(OB−OA)という式を展開して整理すると自然にその形が出るから。この導出を一度手でたどっておけば、比を取り違えるミスがなくなる。</p>
+<h2>こんなときに使う</h2>
+<ul><li>線分の内分点・外分点、三角形の重心を求める問題はこの公式を使う</li><li>始点を統一する（原点にOAやOBを揃える）ことを意識する</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. AP:PB=m:nならOP=(nOA+mOB)/(m+n)</li><li>2. 重心は(OA+OB+OC)/3</li></ol>
+<h2>例題</h2>
+<div class="problem">A(1,2),B(4,5)を1:2に内分する点を求めよ。</div><details><summary>解答</summary><ol class="steps"><li>(2A+1B)/3=((2+4)/3,(4+5)/3)=(2,3)</li></ol></details>
+<h2>落とし穴</h2>
+<ul><li>たすき掛けの係数（mとnの対応）を逆にする</li></ul>
+<h2>なぜ大事か</h2>
+<p>始点を揃える操作</p>
+<h2>東大での出方</h2>
+<p>始点を揃える操作。三角形の交点計算の基礎。</p>
+<h2>確認問題</h2>
+<ul><li>A(0,0),B(6,3)を2:1に内分する点を求めよ</li></ul>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="mc-vec-basic.html">ベクトルの演算・1次独立</a></li></ul>
+<h2>このノードを前提にするノード</h2>
+<ul class="links"><li><a href="mc-vec-line.html">共線条件・共面条件（係数の和=1）</a></li></ul>
+<h2>「ベクトル」のノード</h2>
+<ul class="links"><li><a href="mc-vec-basic.html">ベクトルの演算・1次独立</a></li><li><a href="mc-vec-dot.html">内積（成分・なす角・垂直条件）</a></li><li><span class="cur">位置ベクトル・分点・重心</span></li><li><a href="mc-vec-line.html">共線条件・共面条件（係数の和=1）</a></li><li><a href="mc-vec-space.html">空間ベクトル・座標設定</a></li><li><a href="mc-vec-foot.html">垂線の足・点と平面の距離・射影</a></li><li><a href="mc-vec-region.html">ベクトルの終点の存在範囲</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

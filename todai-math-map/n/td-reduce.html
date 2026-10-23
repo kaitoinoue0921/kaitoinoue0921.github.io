@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>未知を既知に帰着させる（言い換えの技術）（メタ技能）｜受験数学マップ</title>
+<meta name="description" content="東大は初見の設定を出してくる。しかしその中身は、ほぼ必ず既習の型である。だから問題文の言葉のまま処理しようとすると手が止まり、設定を剥がして『これは何の問題か』を見抜けば、すでに持っている道具で解ける。この翻訳作業こそ…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/td-reduce.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="未知を既知に帰着させる（言い換えの技術）（メタ技能）｜受験数学マップ">
+<meta property="og:description" content="東大は初見の設定を出してくる。しかしその中身は、ほぼ必ず既習の型である。だから問題文の言葉のまま処理しようとすると手が止まり、設定を剥がして『これは何の問題か』を見抜けば、すでに持っている道具で解ける。この翻訳作業こそ…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/td-reduce.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "未知を既知に帰着させる（言い換えの技術）", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/td-reduce.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 未知を既知に帰着させる（言い換えの技術）</nav>
+<h1>未知を既知に帰着させる（言い換えの技術）</h1>
+<p class="meta">東大レイヤー ／ メタ技能 ／ 東大での重要度 ★★★★★</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>東大は初見の設定を出してくる。しかしその中身は、ほぼ必ず既習の型である。だから問題文の言葉のまま処理しようとすると手が止まり、設定を剥がして『これは何の問題か』を見抜けば、すでに持っている道具で解ける。この翻訳作業こそが受験数学の最上位の技術であり、パターン暗記だけで来た人が最後に止まるのもここである。逆に言えば、翻訳の引き出しを増やすことが、そのまま得点力になる。</p>
+<h2>こんなときに使う</h2>
+<ul><li>見たことのない設定 → 装飾を剥がし、何を求めるのかだけを抜き出す</li><li>『〜が存在する』→ 方程式の解の存在条件（判別式・値域）に翻訳</li><li>『すべての〜で成り立つ』→ 最小値・最大値の問題に翻訳</li><li>図形の条件 → 座標・ベクトル・複素数・面積のどれかに翻訳</li><li>数えにくい → 1対1に対応する別のものを数える</li><li>規則が見えない → n = 1, 2, 3 で実験する</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 問題文から装飾（物語・ゲーム・実験の設定）を全部剥がす</li><li>2. 何が変数で、何が定数で、何を求めるのかを書き出す</li><li>3. 条件をすべて数式にする</li><li>4. 『これは何の型か』を判定する（解の存在条件／最大最小／数え上げ／漸化式）</li><li>5. 既知の型に落ちたら、その型の手順で処理する</li><li>6. 落ちなければ、小さい場合を実験して構造を探す</li></ol>
+<h2>例題</h2>
+<div class="problem">1辺の長さが 1 の正三角形 ABC の内部の点 P から、3辺に下ろした垂線の長さをそれぞれ p, q, r とする。p + q + r の値を求めよ。</div><details><summary>解答</summary><ol class="steps"><li>垂線の足の位置を求めようとすると、点 P の座標を置くことになり計算が重くなる。</li><li>しかしこの問題は、幾何の問題ではなく面積の問題に翻訳できる。</li><li></li><li>【翻訳】点 P と各頂点を結ぶと、三角形 ABC は3つの三角形に分割される。</li><li>　△PBC、△PCA、△PAB</li><li>この3つの面積の和が、元の三角形の面積に等しい。</li><li></li><li>各三角形について、底辺は正三角形の1辺（長さ 1）、高さがそれぞれ p, q, r。</li><li>　(1/2)·1·p + (1/2)·1·q + (1/2)·1·r = （正三角形 ABC の面積）</li><li></li><li>正三角形の面積は (√3/4)·1² = √3/4 なので</li><li>　(1/2)(p + q + r) = √3/4</li><li></li><li>∴ p + q + r = √3/2</li><li></li><li>【要点】P がどこにあっても値が変わらない（一定である）ことが結論。</li><li>座標を置いて計算しても出せるが、面積に翻訳すれば3行で終わる。</li><li>『長さの和』を『面積の和』に読み替えた、という一点がこの問題の全て。</li><li></li><li>検算：P が重心のとき、p = q = r = 内接円の半径 = √3/6。</li><li>3倍して √3/2 ○</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>図形 → 座標（計算で押し切る）／ベクトル（内積で角と長さ）／複素数（回転が絡むとき）／面積・体積（和が一定のとき）</li><li>数え上げ → 1対1対応（最短経路を『右と上の並べ方』に読み替える等）</li><li>『存在する』→ 判別式、値域、中間値の定理</li><li>『一定である』→ 具体的な位置で値を求めて予想し、一般に示す</li><li>整数 → 合同式・因数分解・評価のどれかに翻訳</li></ul>
+<h2>落とし穴</h2>
+<ul><li>問題文の言葉のまま処理しようとして、計算が膨張する</li><li>設定に引きずられ、本質でない部分を丁寧に計算してしまう</li><li>既知の型に落ちているのに気づかず、一から考え直す</li><li>翻訳した先の条件が、元の条件と同値でない（必要条件だけになっている）</li><li>実験を飛ばして、いきなり一般の議論を始める</li><li>問題文の言葉のまま処理しようとする</li></ul>
+<h2>なぜ大事か</h2>
+<p>東大は初見の設定を出すが、中身は必ず既習の型。設定を剥がして何の問題かを見抜く作業が本体</p>
+<h2>東大での出方</h2>
+<p>東大の問題は『初見の設定 × 既習の型』という設計で作られている。誘導が薄い年ほどこの力が要求され、逆に誘導が丁寧な年は、その誘導自体が翻訳の道筋を示している。過去問を解くときは、答えが合ったかよりも『何に翻訳したか』を記録していくと蓄積になる。</p>
+<h2>確認問題</h2>
+<ul><li>正四面体の内部の点から4つの面に下ろした垂線の長さの和は一定であることを示せ（体積で翻訳する）</li><li>n 個のさいころを同時に投げたとき、出た目の最大値が k である確率を求めよ（『最大値 ≦ k』から引く）</li><li>整数 x, y が x² + y² = z² を満たすとき、x, y の少なくとも一方は偶数であることを示せ（mod で翻訳する）</li></ul>
+<h2>発展</h2>
+<p>翻訳の候補が複数あるとき、どれが最も軽いかを事前に見積もる判断。座標・ベクトル・複素数のどれで書くかで計算量が数倍変わることがあり、書き始める前に30秒考える価値がある。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="td-experiment.html">実験する手癖（n=1,2,3 を書き出す）</a></li><li><a href="td-symmetry.html">対称性を利用して場合を減らす</a></li></ul>
+<h2>このノードを前提にするノード</h2>
+<ul class="links"><li><a href="td-t-cplx.html">【東大型】複素数平面と図形</a></li></ul>
+<h2>「メタ技能」のノード</h2>
+<ul class="links"><li><a href="td-experiment.html">実験する手癖（n=1,2,3 を書き出す）</a></li><li><a href="td-symmetry.html">対称性を利用して場合を減らす</a></li><li><a href="td-limit-tools.html">極限の3種の神器（はさみうち・区分求積・漸化式評価）</a></li><li><span class="cur">未知を既知に帰着させる（言い換えの技術）</span></li><li><a href="td-argument.html">場合分けを漏らさない・同値性を保つ記述</a></li><li><a href="td-writing.html">減点されない答案の書き方</a></li><li><a href="td-calc.html">計算の設計と検算（次数・単位・特殊値）</a></li><li><a href="td-time.html">150分の運用（大問の選択と撤退の判断）</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

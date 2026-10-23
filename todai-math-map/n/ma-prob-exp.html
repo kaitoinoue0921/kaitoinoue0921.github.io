@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>期待値（確率）｜受験数学マップ</title>
+<meta name="description" content="期待値の最大の武器は線形性である。E[X + Y] = E[X] + E[Y] は、X と Y が独立でなくても常に成り立つ。この事実を知っているかどうかで、解ける問題の範囲が大きく変わる。複雑な量を『起これば1、起こ…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/ma-prob-exp.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="期待値（確率）｜受験数学マップ">
+<meta property="og:description" content="期待値の最大の武器は線形性である。E[X + Y] = E[X] + E[Y] は、X と Y が独立でなくても常に成り立つ。この事実を知っているかどうかで、解ける問題の範囲が大きく変わる。複雑な量を『起これば1、起こ…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/ma-prob-exp.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "期待値", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/ma-prob-exp.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 期待値</nav>
+<h1>期待値</h1>
+<p class="meta">数学A ／ 確率 ／ 東大での重要度 ★★★★☆</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>期待値の最大の武器は線形性である。E[X + Y] = E[X] + E[Y] は、X と Y が独立でなくても常に成り立つ。この事実を知っているかどうかで、解ける問題の範囲が大きく変わる。複雑な量を『起これば1、起こらなければ0』という小さな変数の和に分解し、各々の期待値（＝その事象が起こる確率）を足すだけでよい。全体の分布を求める必要がまったくない。東大では、まともに分布を求めると手に負えないが線形性を使えば数行で終わる、という形で出題される。</p>
+<h2>こんなときに使う</h2>
+<ul><li>『平均していくつか』『期待値を求めよ』</li><li>分布を求めるのが大変そうだ、と感じた瞬間 → 線形性で分解する</li><li>『〜の個数の期待値』→ 各要素に『含まれるなら1』の変数を割り当てて和にする</li><li>反復試行の成功回数の期待値 → 線形性から即座に np</li><li>分解できないときだけ、定義通り Σ(値 × 確率) を計算する</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 求めたい量が『何かの個数』や『合計』なら、小さな部分に分解できないか考える</li><li>2. 各部分について、起これば 1・起こらなければ 0 をとる変数を置く</li><li>3. その変数の期待値を求める（＝その事象が起こる確率そのもの）</li><li>4. 全部足す（独立でなくてよい。ここが線形性の強さ）</li><li>5. 分解できないなら、定義通り Σ(値 × 確率) を計算する</li></ol>
+<h2>例題</h2>
+<div class="problem">1 から n までの番号がついた n 枚のカードを無作為に1列に並べる。左から k 番目に番号 k のカードが来ることを『的中』と呼ぶとき、的中する枚数の期待値を求めよ。</div><details><summary>解答</summary><ol class="steps"><li>的中枚数の分布そのものを求めようとすると、完全順列（1枚も的中しない場合の数）が必要になり、</li><li>包除原理を使う重い計算になる。しかし期待値だけなら線形性で一瞬で出る。</li><li></li><li>各 k (= 1, 2, …, n) に対して、変数 Xₖ を次のように定める。</li><li>　Xₖ = 1（k 番目に番号 k が来る）、Xₖ = 0（来ない）</li><li></li><li>求める的中枚数は X = X₁ + X₂ + … + Xₙ。</li><li></li><li>番号 k のカードが k 番目に来る確率は、どの位置も等確率だから 1/n。</li><li>よって E[Xₖ] = 1 × (1/n) + 0 × (1 − 1/n) = 1/n</li><li></li><li>線形性より</li><li>　E[X] = E[X₁] + … + E[Xₙ] = n × (1/n) = 1</li><li></li><li>∴ 的中枚数の期待値は、n によらず 1</li><li></li><li>【ここが要点】X₁, …, Xₙ は互いに独立ではない（1枚が的中すると他の確率が変わる）。</li><li>それでも線形性は成り立つので、独立性を気にせず足してよい。</li><li></li><li>検算：n = 2 のとき、並べ方は (1,2) と (2,1) の2通り。的中枚数は 2 と 0。</li><li>期待値は (2 + 0)/2 = 1 ○</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>定義通り Σ(値 × 確率) を計算する（分解できないときの基本形）</li><li>反復試行の成功回数は np（各回に 0/1 の変数を置いて足すだけ）</li><li>状態ごとの期待値を未知数にして、期待値の漸化式を立てる（『平均何回で終わるか』型）</li><li>最大値・最小値の期待値は分解できないので、P(X ≧ k) を使うか定義通り計算する</li></ul>
+<h2>落とし穴</h2>
+<ul><li>『独立でないから線形性は使えない』と誤解する（和については常に使える）</li><li>積の期待値を期待値の積にしてしまう（これは独立なときしか成り立たない）</li><li>期待値が実際に取りうる値である必要はないことに戸惑う（サイコロの目の期待値は 3.5）</li><li>分布を律儀に求めようとして、計算量に潰される</li><li>独立でないのに線形性が使えないと思い込む（実は常に使える）</li></ul>
+<h2>なぜ大事か</h2>
+<p>線形性を使えば場合分けを回避できる。差がつく道具</p>
+<h2>東大での出方</h2>
+<p>単独でも出題されるが、線形性を使えば一瞬・使えなければ手に負えない、という形で差をつけてくる。カードの並べ替え、玉の取り出し、格子上の移動など、設定を変えて繰り返し現れる。</p>
+<h2>確認問題</h2>
+<ul><li>サイコロを3回投げたとき、出た目の和の期待値を求めよ</li><li>5人が自分の帽子を持ち寄り、無作為に1つずつ取るとき、自分の帽子を取る人数の期待値を求めよ</li><li>2個のサイコロを投げたとき、出た目の最大値の期待値を求めよ（これは分解できないので定義通り計算する）</li></ul>
+<h2>発展</h2>
+<p>期待値の漸化式。『ある状態から終了までに平均何回かかるか』を状態ごとに未知数として立て、連立方程式を解く。確率漸化式と同じ状態設計の技術がそのまま使える。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="ma-prob-indep.html">独立試行・反復試行</a></li></ul>
+<h2>このノードを前提にするノード</h2>
+<ul class="links"><li><a href="mb-stat.html">統計的な推測</a></li></ul>
+<h2>「確率」のノード</h2>
+<ul class="links"><li><a href="ma-prob-def.html">確率の定義（同様に確からしい・根元事象の設定）</a></li><li><a href="ma-prob-indep.html">独立試行・反復試行</a></li><li><a href="ma-prob-cond.html">条件付き確率・原因の確率</a></li><li><a href="ma-prob-rec.html">確率漸化式</a></li><li><span class="cur">期待値</span></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

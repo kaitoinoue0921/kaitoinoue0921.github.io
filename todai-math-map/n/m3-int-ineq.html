@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>積分と不等式（面積比較・評価）（積分法）｜受験数学マップ</title>
+<meta name="description" content="求まらない量を、求まる量で挟む。これが理三で最も差がつく技術である。積分の値が初等関数で書けなくても、被積分関数の大小を評価すれば、面積の大小として不等式が作れる。特に重要なのが和と積分の比較で、Σ 1/k と log…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/m3-int-ineq.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="積分と不等式（面積比較・評価）（積分法）｜受験数学マップ">
+<meta property="og:description" content="求まらない量を、求まる量で挟む。これが理三で最も差がつく技術である。積分の値が初等関数で書けなくても、被積分関数の大小を評価すれば、面積の大小として不等式が作れる。特に重要なのが和と積分の比較で、Σ 1/k と log…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/m3-int-ineq.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "積分と不等式（面積比較・評価）", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/m3-int-ineq.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 積分と不等式（面積比較・評価）</nav>
+<h1>積分と不等式（面積比較・評価）</h1>
+<p class="meta">数学III ／ 積分法 ／ 東大での重要度 ★★★★★</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>求まらない量を、求まる量で挟む。これが理三で最も差がつく技術である。積分の値が初等関数で書けなくても、被積分関数の大小を評価すれば、面積の大小として不等式が作れる。特に重要なのが和と積分の比較で、Σ 1/k と log n の関係はその代表例になる。階段状の和と滑らかな曲線の下の面積を比べる、という図が頭にあるかどうかで見通しが変わる。ただし論証としては、被積分関数の単調性を先に示すことが必須で、これを抜かすと面積の大小を主張する根拠がなくなる。</p>
+<h2>こんなときに使う</h2>
+<ul><li>『〜を示せ』の対象に、直接計算できない積分や和が含まれている</li><li>Σ と ∫ が同じ問題に現れる → 面積比較を疑う</li><li>log n が評価の対象 → 1/x の積分と調和級数の比較</li><li>はさみうちの材料が要る → 積分で作れないか考える</li><li>『(1) 不等式を示せ → (2) 極限を求めよ』の誘導 → (1) が挟む道具</li><li>被積分関数が単調 → 区間の両端の値で挟める</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 被積分関数 f の単調性を調べる（微分するか、明らかなら理由を一言）</li><li>2. 区間 [k, k+1] 上で、f が減少なら f(k+1) ≦ f(x) ≦ f(k)</li><li>3. 各辺を [k, k+1] で積分する（幅が1なので、両端の値がそのまま不等式になる）</li><li>4. k について足し合わせ、Σ と ∫ の大小関係を作る</li><li>5. 求めたい量がその不等式の中央に来るよう整理する</li><li>6. 両端の極限を計算し、一致すればはさみうちで確定する</li></ol>
+<h2>例題</h2>
+<div class="problem">n を 2 以上の整数とするとき、次を示せ。
+　　1/2 + 1/3 + … + 1/n &lt; log n &lt; 1 + 1/2 + … + 1/(n−1)</div><details><summary>解答</summary><ol class="steps"><li>f(x) = 1/x は x &gt; 0 で単調減少（f′(x) = −1/x² &lt; 0）。</li><li></li><li>【区間ごとの評価】</li><li>k ≦ x ≦ k+1 のとき、単調減少性より 1/(k+1) ≦ 1/x ≦ 1/k（等号は端点のみ）。</li><li></li><li>各辺を x について k から k+1 まで積分する。区間の幅が 1 なので</li><li>　1/(k+1) &lt; ∫[k→k+1] dx/x &lt; 1/k</li><li>（f は定数でないので、狭義の不等号になる）</li><li></li><li>【足し合わせる】</li><li>k = 1, 2, …, n−1 について足すと、中央の積分は繋がって ∫[1→n] dx/x = log n。</li><li></li><li>左辺の和： 1/2 + 1/3 + … + 1/n</li><li>右辺の和： 1 + 1/2 + … + 1/(n−1)</li><li></li><li>∴ 1/2 + 1/3 + … + 1/n &lt; log n &lt; 1 + 1/2 + … + 1/(n−1)　（証明終）</li><li></li><li>【この不等式が効く場面】</li><li>右側から Σ[k=1..n] 1/k &gt; log n が言えるので、n → ∞ で調和級数が発散することが従う。</li><li>また両側から、Σ[k=1..n] 1/k と log n の差が有界であることも分かる。</li><li></li><li>検算：n = 2 のとき 1/2 &lt; log 2 &lt; 1。log 2 ≒ 0.693 なので成立 ○</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>向きを逆にする：積分を和で評価する（数値積分の誤差評価と同じ発想）</li><li>台形で近似すると、長方形より精密な評価が得られる</li><li>被積分関数が単調でないときは、増減表を書いて区間を分ける</li><li>積分区間を平行移動・対称移動して、既知の積分に帰着させる</li><li>定積分と漸化式（I_n を I_(n−2) で表す）と組み合わせて、極限のオーダーを出す</li></ul>
+<h2>落とし穴</h2>
+<ul><li>単調性を示さずに面積の大小を主張する（論証として成立しない）</li><li>区間の取り方（k から k+1 か、k−1 から k か）を誤り、和の範囲がずれる</li><li>等号の有無を検討せず、狭義／広義を取り違える</li><li>和の項数と積分区間の対応がずれる（n−1 項なのか n 項なのか）</li><li>評価が甘くて両端の極限が一致せず、挟めないまま進む</li><li>被積分関数の単調性を示さずに面積の大小を主張する</li></ul>
+<h2>なぜ大事か</h2>
+<p>log n と調和級数の比較など。数IIIの最高難度帯で、理三の合否はここに出る</p>
+<h2>東大での出方</h2>
+<p>理三の合否がここに出る、最上位帯のテーマ。単独で出るというより、(1) で不等式を作らせ、(2) でその不等式を使って極限や評価を求めさせる形で出る。誘導の意図を読めるかどうかが問われており、(1) を独立した小問だと思って解くと (2) で行き詰まる。</p>
+<h2>確認問題</h2>
+<ul><li>上の不等式を使って、Σ[k=1..n] 1/k が n → ∞ で発散することを示せ</li><li>0 &lt; ∫[0→1] xⁿ/(1+x) dx &lt; 1/(n+1) を示し、n → ∞ の極限を求めよ</li><li>Σ[k=1..n] 1/√k と 2√n の大小を、同じ方法で比較せよ</li></ul>
+<h2>発展</h2>
+<p>和と積分の差そのものを評価する（オイラー・マスケローニ定数に繋がる話）。高校範囲では定数の存在までは示せないが、差が単調で有界であることは示せる。東大の最難問はこの一歩手前まで踏み込んでくる。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="m3-int-riemann.html">区分求積法</a></li><li><a href="m3-ineq-diff.html">微分を用いた不等式の証明</a></li><li><a href="m3-lim-squeeze.html">はさみうちの原理</a></li></ul>
+<h2>このノードを前提にするノード</h2>
+<ul class="links"><li><a href="td-t-eval.html">【東大型】評価と極限の融合</a></li></ul>
+<h2>「積分法」のノード</h2>
+<ul class="links"><li><a href="m3-int-basic.html">不定積分の基本形（微分の逆）</a></li><li><a href="m3-int-sub.html">置換積分（型の判別）</a></li><li><a href="m3-int-parts.html">部分積分（何を微分側に置くか）</a></li><li><a href="m3-int-rational.html">有理関数の積分（部分分数分解）</a></li><li><a href="m3-int-trig.html">三角関数の積分（次数下げ・積和・t=tan(x/2)）</a></li><li><a href="m3-int-irrational.html">無理関数の積分（√(a²-x²) 型の三角置換）</a></li><li><a href="m3-int-def-prop.html">定積分の性質（偶奇・周期・区間の対称性）</a></li><li><a href="m3-int-recur.html">定積分と漸化式（I_n を n で結ぶ）</a></li><li><a href="m3-int-diff-func.html">積分で定義された関数の微分（微積分学の基本定理）</a></li><li><a href="m3-int-riemann.html">区分求積法</a></li><li><span class="cur">積分と不等式（面積比較・評価）</span></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

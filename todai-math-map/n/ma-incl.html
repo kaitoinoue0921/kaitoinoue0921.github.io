@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>包除原理・余事象で数える（場合の数）｜受験数学マップ</title>
+<meta name="description" content="数えにくいものを直接数えないという判断が、数え上げの実力を最も分ける。『少なくとも1つ』は余事象、『A または B』は包除原理。包除原理の本質は、重複して数えた分を引き、引きすぎた分を足す、という交互の補正である。集合…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/ma-incl.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="包除原理・余事象で数える（場合の数）｜受験数学マップ">
+<meta property="og:description" content="数えにくいものを直接数えないという判断が、数え上げの実力を最も分ける。『少なくとも1つ』は余事象、『A または B』は包除原理。包除原理の本質は、重複して数えた分を引き、引きすぎた分を足す、という交互の補正である。集合…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/ma-incl.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "包除原理・余事象で数える", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/ma-incl.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 包除原理・余事象で数える</nav>
+<h1>包除原理・余事象で数える</h1>
+<p class="meta">数学A ／ 場合の数 ／ 東大での重要度 ★★★★☆</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>数えにくいものを直接数えないという判断が、数え上げの実力を最も分ける。『少なくとも1つ』は余事象、『A または B』は包除原理。包除原理の本質は、重複して数えた分を引き、引きすぎた分を足す、という交互の補正である。集合が3つなら、単独の和 − 2つの共通部分の和 + 3つすべての共通部分、という形になる。符号を間違えないための最も確実な方法は、ベン図を描いて各領域が何回数えられているかを確認することである。</p>
+<h2>こんなときに使う</h2>
+<ul><li>『少なくとも1つ』『1つ以上』→ まず余事象を検討する</li><li>『A または B』『どちらかを満たす』→ 包除原理</li><li>『どれも満たさない』→ 全体から包除原理の結果を引く</li><li>条件が3つ以上 → 符号に注意（ベン図で確認）</li><li>『誰も自分のものを受け取らない』（完全順列）→ 包除原理の典型</li><li>直接数えると場合分けが爆発する → 包除に切り替える合図</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 直接数えるのと余事象を数えるのとで、どちらが楽か比べる</li><li>2. 余事象を使うなら、全体の個数を確定させてから引く</li><li>3. 包除原理は |A∪B| = |A| + |B| − |A∩B|</li><li>4. 3つなら |A∪B∪C| = (単独の和) − (2つの共通の和) + |A∩B∩C|</li><li>5. ベン図で、各領域がちょうど1回ずつ数えられているか確認する</li></ol>
+<h2>例題</h2>
+<div class="problem">1 から 100 までの整数のうち、2 でも 3 でも割り切れないものは何個か。</div><details><summary>解答</summary><ol class="steps"><li>A を 2 の倍数の集合、B を 3 の倍数の集合とする。</li><li></li><li>|A| = ⌊100/2⌋ = 50</li><li>|B| = ⌊100/3⌋ = 33</li><li>|A∩B| = 6 の倍数の個数 = ⌊100/6⌋ = 16</li><li></li><li>|A∪B| = 50 + 33 − 16 = 67　（2 または 3 で割り切れるもの）</li><li></li><li>求めるのはその余事象なので</li><li>100 − 67 = 33 個</li><li></li><li>【なぜ 16 を引くのか】</li><li>6 の倍数は A でも B でも数えられており、2回数えられている。</li><li>1回分を引いて、ちょうど1回になるように補正している。</li><li></li><li>検算：100以下で 2 でも 3 でも割り切れない数は、6 で割った余りが 1 または 5 のもの。</li><li>1〜96 に 16 周期ぶんで各2個 = 32 個、97〜100 では 97 と 100 のうち 97 のみ（97 = 6·16+1）。</li><li>32 + 1 = 33 ○</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>余事象を取る（『少なくとも1つ』は 1 − 『1つもない』）</li><li>3つ以上の集合への一般化（符号が交互に入れ替わる）</li><li>完全順列（撹乱順列）の個数を包除原理で求める</li><li>確率でも同じ形が成り立つ：P(A∪B) = P(A) + P(B) − P(A∩B)</li></ul>
+<h2>落とし穴</h2>
+<ul><li>3つ以上のとき符号を間違える（引きすぎ・足しすぎ）</li><li>余事象を取ったのに、元の条件のまま計算を続ける</li><li>『または』を排反だと思い込んで単純に足す</li><li>全体の個数を確定させないまま引き算を始める</li><li>3つ以上の集合で符号を間違える</li></ul>
+<h2>なぜ大事か</h2>
+<p>「直接数えない」判断。完全順列や東大の色分け問題の主武器</p>
+<h2>東大での出方</h2>
+<p>東大では、色の塗り分けや条件つきの数え上げで使う。直接数えると場合分けが爆発する設定をわざと作ってあり、包除原理や余事象に切り替えられるかどうかで所要時間が数倍変わる。</p>
+<h2>確認問題</h2>
+<ul><li>1 から 100 までで、2, 3, 5 のいずれでも割り切れない整数は何個か</li><li>4人が自分の帽子を1つずつ持ち寄り、ランダムに1つずつ取るとき、全員が自分以外の帽子を取る場合は何通りか</li><li>3種類の文字 a, b, c を使って長さ4の文字列を作るとき、3種類すべてが現れるものは何通りか</li></ul>
+<h2>発展</h2>
+<p>包除原理を確率で使う形（P(A∪B∪C) の展開）。さらに、条件が n 個ある場合の一般形と、そこから完全順列の個数が n!·Σ(−1)^k/k! と表せることを追ってみると、極限 1/e との関係まで見えてくる。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="ma-partition.html">組分け・重複組合せ（仕切り）</a></li></ul>
+<h2>「場合の数」のノード</h2>
+<ul class="links"><li><a href="ma-count-basic.html">数え上げの原則（和の法則・積の法則・辞書式）</a></li><li><a href="ma-perm.html">順列・組合せ</a></li><li><a href="ma-samekind.html">同じものを含む順列・円順列・じゅず順列</a></li><li><a href="ma-partition.html">組分け・重複組合せ（仕切り）</a></li><li><span class="cur">包除原理・余事象で数える</span></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

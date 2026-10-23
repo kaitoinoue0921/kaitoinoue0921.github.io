@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>対称性を利用して場合を減らす（メタ技能）｜受験数学マップ</title>
+<meta name="description" content="「a ≦ b ≦ c としてよい」「原点を中心に取ってよい」——この一言で計算量が数分の一になる。東大の問題は、対称性を使うことを前提に難易度が設定されていることが多く、気づかずに全場合を計算すると時間内に終わらないよ…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/td-symmetry.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="対称性を利用して場合を減らす（メタ技能）｜受験数学マップ">
+<meta property="og:description" content="「a ≦ b ≦ c としてよい」「原点を中心に取ってよい」——この一言で計算量が数分の一になる。東大の問題は、対称性を使うことを前提に難易度が設定されていることが多く、気づかずに全場合を計算すると時間内に終わらないよ…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/td-symmetry.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "対称性を利用して場合を減らす", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/td-symmetry.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 対称性を利用して場合を減らす</nav>
+<h1>対称性を利用して場合を減らす</h1>
+<p class="meta">東大レイヤー ／ メタ技能 ／ 東大での重要度 ★★★★★</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>「a ≦ b ≦ c としてよい」「原点を中心に取ってよい」——この一言で計算量が数分の一になる。東大の問題は、対称性を使うことを前提に難易度が設定されていることが多く、気づかずに全場合を計算すると時間内に終わらないよう作られている。ただし使えるのは対称性が実際に存在する場合だけで、根拠を書かずに「一般性を失わない」と宣言すると減点される。何を入れ替えても状況が変わらないのかを、書く前に一度確認する習慣をつけること。</p>
+<h2>こんなときに使う</h2>
+<ul><li>式が文字の入れ替えで変わらない（対称式）→ 大小関係を仮定してよい</li><li>図形に対称軸や対称中心がある → 座標をそこに合わせて取る</li><li>確率で複数の対象が対等 → 状態をまとめて数を減らせる</li><li>積分区間が原点対称 → 偶関数・奇関数で処理できないか見る</li><li>積分区間が [0, a] で被積分関数に a−x の構造がある → x → a−x の置換</li><li>回転対称な図形 → 複素数平面で回転として書ける</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 何を入れ替えても状況が変わらないかを確認する</li><li>2. 『〜としてよい』と書く根拠（対称性の所在）を明示する</li><li>3. 仮定を置いて調べる場合を減らす</li><li>4. 計算を進める</li><li>5. 最後に仮定を外し、対称な場合をすべて書き出す</li><li>6. 図形なら、対称性が最も活きる座標の取り方を選ぶ</li></ol>
+<h2>例題</h2>
+<div class="problem">定積分 ∫[0→π] x·sin x / (1 + cos²x) dx を求めよ。</div><details><summary>解答</summary><ol class="steps"><li>そのまま部分積分すると計算が重い。積分区間 [0, π] の対称性に注目する。</li><li></li><li>求める値を I とおく。x → π − x と置換する（dx は符号が変わるが区間も入れ替わる）。</li><li>sin(π − x) = sin x、cos(π − x) = −cos x なので cos²(π − x) = cos²x。</li><li>つまり被積分関数のうち、x 以外の部分は置換で変わらない。</li><li></li><li>I = ∫[0→π] (π − x)·sin x / (1 + cos²x) dx</li><li></li><li>元の式と足し合わせると x の項が消える。</li><li>2I = ∫[0→π] {x + (π − x)}·sin x / (1 + cos²x) dx = π ∫[0→π] sin x / (1 + cos²x) dx</li><li></li><li>残った積分は u = cos x と置換できる。du = −sin x dx、x: 0 → π のとき u: 1 → −1。</li><li>∫[0→π] sin x/(1 + cos²x) dx = ∫[−1→1] du/(1 + u²)</li><li></li><li>さらに u = tanθ と置換すると du = dθ/cos²θ、1 + u² = 1/cos²θ、u: −1 → 1 で θ: −π/4 → π/4。</li><li>= ∫[−π/4→π/4] dθ = π/2</li><li></li><li>よって 2I = π × (π/2) = π²/2</li><li></li><li>∴ I = π²/4</li><li></li><li>【要点】x → π − x で被積分関数の『x 以外の部分』が不変であることを見抜くのが全て。</li><li>この構造に気づけば3行、気づかなければ計算が終わらない。</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>整数問題：対称式なら a ≦ b ≦ c と仮定し、最後に並べ替えを戻す</li><li>図形：対称軸を座標軸に取る、対称中心を原点に取る</li><li>確率：対等な対象をまとめて1つの状態にする（正四面体の頂点など）</li><li>積分：偶関数・奇関数、x → a−x の置換、周期性の利用</li><li>複素数平面：回転対称な配置は 1 の n 乗根で表す</li></ul>
+<h2>落とし穴</h2>
+<ul><li>対称性が実際にはないのに『一般性を失わない』と書く</li><li>根拠を書かずに仮定だけ置く（東大は根拠の明示を見ている）</li><li>最後に仮定を外して並べ替えを書くのを忘れる</li><li>等号成立の場合（a = b など）を重複して数える</li><li>対称性に気づかず、力任せに計算して時間切れになる</li><li>「一般性を失わない」と書ける条件を確認せずに使う</li></ul>
+<h2>なぜ大事か</h2>
+<p>『a≦b≦c としてよい』『座標をこう取ってよい』の一言で計算量が1/6になる</p>
+<h2>東大での出方</h2>
+<p>単独のテーマではないが、整数・確率・図形・積分のすべてに顔を出す。特に東大の空間図形と積分では、対称性を使うことを前提に計算量が設定されていることが多い。使えば10分、使わなければ40分、という差が現実に生じる。</p>
+<h2>確認問題</h2>
+<ul><li>∫[0→π/2] sin x/(sin x + cos x) dx を、x → π/2 − x の置換で求めよ</li><li>∫[−1→1] x³/(1 + x²) dx を、被積分関数の偶奇から即答せよ</li><li>a + b + c = 3 を満たす正の実数について abc の最大値を求めよ（対称性から a = b = c を予想し、証明する）</li></ul>
+<h2>発展</h2>
+<p>対称性が『ほぼ』ある場合。完全に対称ではないが、片方を固定すればもう片方に対称性が現れる、という構造を見抜く。予選決勝法（一方を固定して最大最小を取る）はこの考え方の一種。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="ma-int-bound.html">範囲で絞る（不等式評価で有限化）</a></li><li><a href="mc-vec-space.html">空間ベクトル・座標設定</a></li></ul>
+<h2>このノードを前提にするノード</h2>
+<ul class="links"><li><a href="td-reduce.html">未知を既知に帰着させる（言い換えの技術）</a></li><li><a href="td-t-volume.html">【東大型】立体の体積</a></li><li><a href="td-t-space.html">【東大型】空間図形の最大最小</a></li></ul>
+<h2>「メタ技能」のノード</h2>
+<ul class="links"><li><a href="td-experiment.html">実験する手癖（n=1,2,3 を書き出す）</a></li><li><span class="cur">対称性を利用して場合を減らす</span></li><li><a href="td-limit-tools.html">極限の3種の神器（はさみうち・区分求積・漸化式評価）</a></li><li><a href="td-reduce.html">未知を既知に帰着させる（言い換えの技術）</a></li><li><a href="td-argument.html">場合分けを漏らさない・同値性を保つ記述</a></li><li><a href="td-writing.html">減点されない答案の書き方</a></li><li><a href="td-calc.html">計算の設計と検算（次数・単位・特殊値）</a></li><li><a href="td-time.html">150分の運用（大問の選択と撤退の判断）</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

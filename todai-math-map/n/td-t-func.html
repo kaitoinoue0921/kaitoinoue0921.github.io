@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>【東大型】関数の決定・不等式の成立条件（出題テーマ）｜受験数学マップ</title>
+<meta name="description" content="『すべての x で成り立つ』と『ある x で成り立つ』は、まったく違う条件である。前者（∀）は最小値・最大値の問題に翻訳され、後者（∃）は解の存在条件に翻訳される。この翻訳ができれば、条件つきの不等式は関数の値域を調べ…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/td-t-func.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="【東大型】関数の決定・不等式の成立条件（出題テーマ）｜受験数学マップ">
+<meta property="og:description" content="『すべての x で成り立つ』と『ある x で成り立つ』は、まったく違う条件である。前者（∀）は最小値・最大値の問題に翻訳され、後者（∃）は解の存在条件に翻訳される。この翻訳ができれば、条件つきの不等式は関数の値域を調べ…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/td-t-func.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "【東大型】関数の決定・不等式の成立条件", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/td-t-func.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 【東大型】関数の決定・不等式の成立条件</nav>
+<h1>【東大型】関数の決定・不等式の成立条件</h1>
+<p class="meta">東大レイヤー ／ 出題テーマ ／ 東大での重要度 ★★★★☆</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>『すべての x で成り立つ』と『ある x で成り立つ』は、まったく違う条件である。前者（∀）は最小値・最大値の問題に翻訳され、後者（∃）は解の存在条件に翻訳される。この翻訳ができれば、条件つきの不等式は関数の値域を調べる標準問題に落ちる。東大はこの読み分けを、文章の中に紛れ込ませる形で問うてくる。だから問題文を読んだら、まず ∀ か ∃ かを確定させてから式を書き始めること。</p>
+<h2>こんなときに使う</h2>
+<ul><li>『すべての x に対して f(x) ≧ 0』→ f の最小値 ≧ 0</li><li>『ある x に対して f(x) ≧ 0』→ f の最大値 ≧ 0</li><li>『すべての x で f(x) ≧ g(x)』→ 差 h = f − g の最小値 ≧ 0</li><li>定数 a が分離できる → a ≧（何かの最大値）または a ≦（何かの最小値）</li><li>変数が2つある → 片方を固定して、もう片方で処理する（予選決勝法）</li><li>『成り立つような a の最小値』→ 分離した関数の最大値がそのまま答え</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. ∀ か ∃ かを確定させる（ここを間違えると全部無駄になる）</li><li>2. 定数を分離できるか試す（a ≧ g(x) の形にする）</li><li>3. 分離できたら、g の最大値または最小値を求める</li><li>4. 分離できなければ、差を取って微分する</li><li>5. 定義域の端での挙動（極限）を必ず調べる</li><li>6. 等号が成立する点を確認する</li></ol>
+<h2>例題</h2>
+<div class="problem">すべての x &gt; 0 に対して log x ≦ ax が成り立つような正の定数 a の最小値を求めよ。</div><details><summary>解答</summary><ol class="steps"><li>【∀ であることを確認】『すべての x &gt; 0 に対して』なので ∀ の問題。</li><li>したがって最大値・最小値の問題に翻訳できる。</li><li></li><li>【定数を分離する】x &gt; 0 なので両辺を x で割ってよい。</li><li>　log x ≦ ax　⇔　(log x)/x ≦ a</li><li>これがすべての x &gt; 0 で成り立つ条件は</li><li>　a ≧ （関数 f(x) = (log x)/x の最大値）</li><li></li><li>【f の最大値を求める】</li><li>f(x) = (log x)/x　（x &gt; 0）</li><li>f′(x) = { (1/x)·x − (log x)·1 } / x² = (1 − log x)/x²</li><li></li><li>f′(x) = 0 　⇔ 　log x = 1 　⇔ 　x = e</li><li>　0 &lt; x &lt; e のとき log x &lt; 1 なので f′ &gt; 0（増加）</li><li>　x &gt; e のとき log x &gt; 1 なので f′ &lt; 0（減少）</li><li></li><li>よって x = e で最大となり、最大値は f(e) = (log e)/e = 1/e。</li><li></li><li>【端の挙動も確認しておく】</li><li>x → +0 のとき log x → −∞ なので f(x) → −∞。</li><li>x → ∞ のとき f(x) → 0（分母のほうが速く増える）。</li><li>したがって x = e での値が全体の最大値で間違いない。</li><li></li><li>【結論】a ≧ 1/e が条件。</li><li></li><li>∴ a の最小値は 1/e</li><li></li><li>【確認】a = 1/e のとき、x = e で log e = 1、ax = e/e = 1 となり等号が成立する。</li><li>つまり y = x/e は曲線 y = log x の接線になっている。図で見ると納得しやすい。</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>∃ の場合：『ある x で f(x) ≧ 0』は f の最大値 ≧ 0</li><li>定数分離できないときは、差を取って微分する</li><li>変数が2つあるときは予選決勝法（片方を固定 → もう片方を動かす）</li><li>接線条件として幾何的に解く（この問題は『y = ax が y = log x の接線になる a』と同じ）</li><li>グラフを描いて視覚的に確認する（東大は図的な理解を要求してくる）</li></ul>
+<h2>落とし穴</h2>
+<ul><li>∀ と ∃ を取り違える（答えが正反対になる）</li><li>定数分離するとき、割る量の符号を確認しない</li><li>定義域の端での極限を調べず、最大値の存在を見誤る</li><li>等号成立を確認しない（『最小値』を聞かれているのに到達可能か不明のまま）</li><li>2変数のとき、片方を固定した段階の結論をそのまま最終解答にする</li><li>∀と∃の翻訳を取り違える</li></ul>
+<h2>なぜ大事か</h2>
+<p>『すべてのxで成り立つ』『あるxで成り立つ』の違いを最小値・最大値に翻訳する</p>
+<h2>東大での出方</h2>
+<p>東大は ∀ と ∃ の読み分けを、問題文の日本語に埋め込んで問う。『任意の』『常に』は ∀、『存在する』『少なくとも1つ』は ∃。数III の関数と組み合わせると難易度が上がるが、翻訳さえできれば増減表を書く標準問題になる。</p>
+<h2>確認問題</h2>
+<ul><li>すべての実数 x に対して x² + 2ax + 3a &gt; 0 が成り立つ a の範囲を求めよ</li><li>すべての x &gt; 0 に対して eˣ ≧ ax が成り立つ a の最大値を求めよ</li><li>『ある x &gt; 0 で log x ≧ ax』となる a の範囲を求め、∀ の場合と比べよ</li></ul>
+<h2>発展</h2>
+<p>条件が2重になっている場合（『すべての x に対して、ある y が存在して〜』）。∀∃ の順序が入れ替わると意味が変わるので、どちらが外側かを厳密に読む必要がある。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="m3-ineq-diff.html">微分を用いた不等式の証明</a></li><li><a href="m2-int-param.html">定積分で表された関数・パラメータ入り積分の最小化</a></li><li><a href="td-argument.html">場合分けを漏らさない・同値性を保つ記述</a></li></ul>
+<h2>「出題テーマ」のノード</h2>
+<ul class="links"><li><a href="td-t-prob.html">【東大型】確率の状態設計</a></li><li><a href="td-t-integer.html">【東大型】整数の論証</a></li><li><a href="td-t-region.html">【東大型】通過領域・存在条件</a></li><li><a href="td-t-volume.html">【東大型】立体の体積</a></li><li><a href="td-t-cplx.html">【東大型】複素数平面と図形</a></li><li><a href="td-t-eval.html">【東大型】評価と極限の融合</a></li><li><a href="td-t-space.html">【東大型】空間図形の最大最小</a></li><li><span class="cur">【東大型】関数の決定・不等式の成立条件</span></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

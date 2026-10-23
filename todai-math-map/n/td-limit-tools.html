@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>極限の3種の神器（はさみうち・区分求積・漸化式評価）（メタ技能）｜受験数学マップ</title>
+<meta name="description" content="既知の公式に当てはまらない極限の答案は、ほぼ全て「はさみうち」「区分求積」「漸化式評価（I_nとI_{n+1}の関係から評価する）」のどれかに帰着する。大切なのは3つの公式を覚えることではなく、目の前の式を見て『どれを…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/td-limit-tools.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="極限の3種の神器（はさみうち・区分求積・漸化式評価）（メタ技能）｜受験数学マップ">
+<meta property="og:description" content="既知の公式に当てはまらない極限の答案は、ほぼ全て「はさみうち」「区分求積」「漸化式評価（I_nとI_{n+1}の関係から評価する）」のどれかに帰着する。大切なのは3つの公式を覚えることではなく、目の前の式を見て『どれを…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/td-limit-tools.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "極限の3種の神器（はさみうち・区分求積・漸化式評価）", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/td-limit-tools.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 極限の3種の神器（はさみうち・区分求積・漸化式評価）</nav>
+<h1>極限の3種の神器（はさみうち・区分求積・漸化式評価）</h1>
+<p class="meta">東大レイヤー ／ メタ技能 ／ 東大での重要度 ★★★★★</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>既知の公式に当てはまらない極限の答案は、ほぼ全て「はさみうち」「区分求積」「漸化式評価（I_nとI_{n+1}の関係から評価する）」のどれかに帰着する。大切なのは3つの公式を覚えることではなく、目の前の式を見て『どれを最初に試すか』を1秒で判断する目利き力。この判断力そのものが、東大の評価問題（積分と不等式・数列の極限）で差がつく部分。</p>
+<div class="diagram" role="img" aria-label="極限の3種の神器（はさみうち・区分求積・漸化式評価）の図"><svg viewBox='0 0 260 200' width='100%'>
+<rect x='75' y='12' width='110' height='34' rx='5' fill='none' stroke='var(--fg)' stroke-width='1.4'/>
+<text x='130' y='33' text-anchor='middle' font-size='12' fill='var(--fg)'>極限を求めよ</text>
+<line x1='130' y1='46' x2='48' y2='108' stroke='var(--dim)' stroke-width='1'/>
+<line x1='130' y1='46' x2='130' y2='108' stroke='var(--dim)' stroke-width='1'/>
+<line x1='130' y1='46' x2='212' y2='108' stroke='var(--dim)' stroke-width='1'/>
+<rect x='10' y='108' width='76' height='58' rx='5' fill='none' stroke='var(--accent)' stroke-width='1.3'/>
+<text x='48' y='128' text-anchor='middle' font-size='11' fill='var(--accent)'>はさみうち</text>
+<text x='48' y='144' text-anchor='middle' font-size='9.5' fill='var(--dim)'>不等式で</text>
+<text x='48' y='157' text-anchor='middle' font-size='9.5' fill='var(--dim)'>上下から挟める</text>
+<rect x='92' y='108' width='76' height='58' rx='5' fill='none' stroke='var(--ok)' stroke-width='1.3'/>
+<text x='130' y='128' text-anchor='middle' font-size='11' fill='var(--ok)'>区分求積</text>
+<text x='130' y='144' text-anchor='middle' font-size='9.5' fill='var(--dim)'>(1/n)Σf(k/n)</text>
+<text x='130' y='157' text-anchor='middle' font-size='9.5' fill='var(--dim)'>の形が作れる</text>
+<rect x='174' y='108' width='76' height='58' rx='5' fill='none' stroke='var(--warn)' stroke-width='1.3'/>
+<text x='212' y='128' text-anchor='middle' font-size='11' fill='var(--warn)'>漸化式評価</text>
+<text x='212' y='144' text-anchor='middle' font-size='9.5' fill='var(--dim)'>a[n+1]とa[n]の</text>
+<text x='212' y='157' text-anchor='middle' font-size='9.5' fill='var(--dim)'>関係が作れる</text>
+<text x='14' y='190' font-size='10.5' fill='var(--dim)'>公式が使えない → この3つを順に疑う</text>
+</svg></div>
+<h2>こんなときに使う</h2>
+<ul><li>不等式で上下から挟める形がすぐ作れる → はさみうち</li><li>Σと(1/n)がセットで、kがnと連動して動いている → 区分求積</li><li>I_n（積分やΣで定義された数列）について、I_{n+1}とI_nの大小関係や漸化式が作れる → 漸化式評価</li><li>1つの型で行き詰まったら、別の型に切り替えて試す（3つとも独立に試す価値がある）</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 式の形を観察する：不等式が作れるか／Σ(1/n)f(k/n)の形に整形できるか／I_nの漸化式が作れるか</li><li>2. 該当する型で評価式・変形を作る</li><li>3. n→∞の極限を取り、両端（または評価した値）が一致することを確認する</li><li>4. 型が複数組み合わさる問題（区分求積で挟んではさみうち、など）もあることを意識する</li></ol>
+<h2>例題</h2>
+<div class="problem">I_n = ∫[0→1] xⁿ/(1+x) dx とするとき、lim[n→∞] I_n を求めよ。</div><details><summary>解答</summary><ol class="steps"><li>0≦x≦1で0≦xⁿ/(1+x)≦xⁿなので、0≦I_n≦∫[0→1]xⁿdx=1/(n+1)。</li><li>n→∞で1/(n+1)→0なので、はさみうちよりI_n→0。</li><li>（この問題は漸化式でI_nとI_{n-1}の関係を作る解法もあるが、はさみうちが最速）</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>区分求積とはさみうちの組み合わせ：区分求積で厳密値が出せない和は、積分で上下から挟んで評価する（m3-int-ineqの核心）</li><li>漸化式評価：I_nの漸化式を作り、I_n&gt;I_{n+1}（単調減少）と下限（I_n&gt;0など）から収束を示す方法もある</li></ul>
+<h2>落とし穴</h2>
+<ul><li>公式を1つ覚えただけで満足し、他の2つの型を試さずに『解けない』と判断してしまう</li><li>はさみうちで下からの評価（0以上など）を書き忘れ、上からの評価だけで済ませてしまう</li><li>区分求積とみせかけて実際はΣの中にnが単独で残っている（区分求積が使えない）ことを見抜けない</li><li>3つとも試さず、覚えている公式が使えないだけで『分からない』と諦める</li></ul>
+<h2>なぜ大事か</h2>
+<p>『公式に当てはまらない極限』の答案はほぼ全てこの3つのどれかに帰着する。どれを最初に試すかの判断力が得点力そのもの</p>
+<h2>東大での出方</h2>
+<p>東大の数III最難問帯（数学の掌握が体系化したことで有名なテーマ）。単独でも出るが、たいていの年で「評価と極限の融合」（「【東大型】評価と極限の融合」）の中核として組み合わさって出る。</p>
+<h2>確認問題</h2>
+<ul><li>J_n = ∫[0→1] xⁿ e⁻ˣ dx について、lim[n→∞] n·J_n を求めよ（漸化式または評価のどちらが使えるか考える）</li><li>lim[n→∞] (1/n)Σ[k=1→n] 1/√(1+(k/n)²) を求めよ（どの型か判断してから計算する）</li></ul>
+<h2>発展</h2>
+<p>log を取ってから区分求積に持ち込む変形（積の極限）や、はさみうちの評価式を自分で微分を使って作る（既存の不等式が使えない場合）も、この3種の神器の応用形として押さえておく。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="m3-lim-squeeze.html">はさみうちの原理</a></li><li><a href="m3-int-riemann.html">区分求積法</a></li><li><a href="m3-int-recur.html">定積分と漸化式（I_n を n で結ぶ）</a></li></ul>
+<h2>このノードを前提にするノード</h2>
+<ul class="links"><li><a href="td-t-eval.html">【東大型】評価と極限の融合</a></li></ul>
+<h2>「メタ技能」のノード</h2>
+<ul class="links"><li><a href="td-experiment.html">実験する手癖（n=1,2,3 を書き出す）</a></li><li><a href="td-symmetry.html">対称性を利用して場合を減らす</a></li><li><span class="cur">極限の3種の神器（はさみうち・区分求積・漸化式評価）</span></li><li><a href="td-reduce.html">未知を既知に帰着させる（言い換えの技術）</a></li><li><a href="td-argument.html">場合分けを漏らさない・同値性を保つ記述</a></li><li><a href="td-writing.html">減点されない答案の書き方</a></li><li><a href="td-calc.html">計算の設計と検算（次数・単位・特殊値）</a></li><li><a href="td-time.html">150分の運用（大問の選択と撤退の判断）</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

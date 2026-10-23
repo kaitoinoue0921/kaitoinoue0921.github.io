@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>実数・絶対値・平方根の扱い（数と式）｜受験数学マップ</title>
+<meta name="description" content="絶対値の場合分けが雑になることは、全分野を通じて最も多い減点原因の一つ。|x|の定義（xが0以上ならx、負なら−x）に忠実に戻れば、どんなに複雑な式でも機械的に処理できる。√(x²)=|x|であってxではない、という一…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/m1-real.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="実数・絶対値・平方根の扱い（数と式）｜受験数学マップ">
+<meta property="og:description" content="絶対値の場合分けが雑になることは、全分野を通じて最も多い減点原因の一つ。|x|の定義（xが0以上ならx、負なら−x）に忠実に戻れば、どんなに複雑な式でも機械的に処理できる。√(x²)=|x|であってxではない、という一…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/m1-real.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "実数・絶対値・平方根の扱い", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/m1-real.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 実数・絶対値・平方根の扱い</nav>
+<h1>実数・絶対値・平方根の扱い</h1>
+<p class="meta">数学I ／ 数と式 ／ 東大での重要度 ★★☆☆☆</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>絶対値の場合分けが雑になることは、全分野を通じて最も多い減点原因の一つ。|x|の定義（xが0以上ならx、負なら−x）に忠実に戻れば、どんなに複雑な式でも機械的に処理できる。√(x²)=|x|であってxではない、という一点を体に染み込ませておくことが、後の軌跡・不等式・数IIIの計算すべての土台になる。</p>
+<h2>こんなときに使う</h2>
+<ul><li>√の中に文字の2乗があれば、絶対値をつけて外す（符号の場合分けを忘れない）</li><li>|x−a|&lt;bの形は−b&lt;x−a&lt;bに直す（距離のイメージで理解する）</li><li>絶対値を含む方程式・不等式は、中身の符号が変わる点で区間を分ける</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 絶対値の中身が0になる点を求める</li><li>2. その点で場合分けし、各区間で絶対値を外した式に直す</li><li>3. 各区間で計算し、最後に区間の条件と解を照合する</li></ol>
+<h2>例題</h2>
+<div class="problem">|x−2|+|x+1|=5 を解け。</div><details><summary>解答</summary><ol class="steps"><li>場合分けの境目はx=2とx=−1。</li><li>(i) x&lt;−1: −(x−2)−(x+1)=5 → −2x+1=5 → x=−2（x&lt;−1を満たす）</li><li>(ii) −1≦x&lt;2: (2−x)+(x+1)=3で5にならず解なし</li><li>(iii) x≧2: (x−2)+(x+1)=5 → 2x−1=5 → x=3（x≧2を満たす）</li><li>∴ x=−2, 3</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>図形的に『2点からの距離の和』とみなして考える方法もある（この問題なら2と−1からの距離の和が5）</li></ul>
+<h2>落とし穴</h2>
+<ul><li>場合分けの境界をどちらの区間に含めるか書かない</li><li>√(x²)=xと誤って符号を落とす</li><li>場合分けした各区間で、出た解がその区間の条件を満たすか確認しない</li><li>√(x^2)=|x| を書かずに符号ミス</li></ul>
+<h2>なぜ大事か</h2>
+<p>絶対値の場合分けは全分野に出る。ここの雑さが減点の常連</p>
+<h2>東大での出方</h2>
+<p>単独出題は少ないが、積分区間の分割（絶対値付き積分）や軌跡の除外点の議論など、あらゆる場面で正確さが要求される基礎技術。</p>
+<h2>確認問題</h2>
+<ul><li>|2x−1|≦3 を解け</li><li>|x|+|x−3|=3 を解け</li></ul>
+<h2>発展</h2>
+<p>3つ以上の絶対値が入った式、または絶対値の中に絶対値がある入れ子の式の処理。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="jh-sqrt.html">平方根</a></li></ul>
+<h2>このノードを前提にするノード</h2>
+<ul class="links"><li><a href="m1-ineq1.html">1次不等式・連立不等式</a></li><li><a href="m2-amgm.html">相加相乗平均</a></li><li><a href="m2-int-abs.html">絶対値付き積分・区間の分割</a></li></ul>
+<h2>「数と式」のノード</h2>
+<ul class="links"><li><a href="m1-expand.html">展開・因数分解の型</a></li><li><a href="m1-sym.html">対称式・交代式</a></li><li><span class="cur">実数・絶対値・平方根の扱い</span></li><li><a href="m1-ineq1.html">1次不等式・連立不等式</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

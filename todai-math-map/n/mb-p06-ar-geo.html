@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>⑥ (等差)×(等比)の和：S−rS（数列）｜受験数学マップ</title>
+<meta name="description" content="S = Σ(等差)×(等比) に公比 r を掛けると、各項が1つ右にずれる。元の S から引くと、等差部分の『差（公差）』だけが残り、それは等比数列の和になる。つまり『rを掛けてずらす』は、等差部分に階差を取らせる操作。">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/mb-p06-ar-geo.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="⑥ (等差)×(等比)の和：S−rS（数列）｜受験数学マップ">
+<meta property="og:description" content="S = Σ(等差)×(等比) に公比 r を掛けると、各項が1つ右にずれる。元の S から引くと、等差部分の『差（公差）』だけが残り、それは等比数列の和になる。つまり『rを掛けてずらす』は、等差部分に階差を取らせる操作。">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/mb-p06-ar-geo.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "⑥ (等差)×(等比)の和：S−rS", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/mb-p06-ar-geo.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › ⑥ (等差)×(等比)の和：S−rS</nav>
+<h1>⑥ (等差)×(等比)の和：S−rS</h1>
+<p class="meta">数学B ／ 数列 ／ 東大での重要度 ★★★☆☆</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>S = Σ(等差)×(等比) に公比 r を掛けると、各項が1つ右にずれる。元の S から引くと、等差部分の『差（公差）』だけが残り、それは等比数列の和になる。つまり『rを掛けてずらす』は、等差部分に階差を取らせる操作。</p>
+<h2>こんなときに使う</h2>
+<ul><li>Σ k·2ᵏ、Σ (2k−1)·3ᵏ⁻¹ のように、kの1次式と等比数列の積</li><li>期待値の計算で k·pᵏ⁻¹ の和が出てきた</li><li>数IIIで Σ k·xᵏ の極限を問われた</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. S を項を並べて書く（最初の2〜3項と最後の項）</li><li>2. rS を、1つ右にずらして S の下に書く</li><li>3. S − rS を計算する：真ん中は公差×等比の和、両端に初項と −(最後の項×r) が残る</li><li>4. 等比の和を計算し、(1 − r) で割る</li><li>5. n=1, 2 で検算する</li></ol>
+<h2>例題</h2>
+<div class="problem">S = Σ[k=1〜n] k·2ᵏ を求めよ。</div><details><summary>解答</summary><ol class="steps"><li>S = 1·2 + 2·2² + 3·2³ + … + n·2ⁿ</li><li>2S = 1·2² + 2·2³ + … + (n−1)·2ⁿ + n·2ⁿ⁺¹</li><li>S − 2S = 2 + 2² + 2³ + … + 2ⁿ − n·2ⁿ⁺¹</li><li>−S = (2ⁿ⁺¹ − 2) − n·2ⁿ⁺¹</li><li>∴ S = (n − 1)·2ⁿ⁺¹ + 2</li><li>検算：n=2 で 2 + 8 = 10、1·8 + 2 = 10 ○</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>微分を使う：Σ xᵏ = (xⁿ⁺¹ − x)/(x − 1) を x で微分して x を掛ける（数III）</li><li>k² · rᵏ の和は S − rS を2回行う</li><li>答えを (An + B)·2ⁿ + C と置いて n=1,2,3 から係数を決める方法もある</li></ul>
+<h2>落とし穴</h2>
+<ul><li>rS の最後の項 n·2ⁿ⁺¹ を引き忘れる</li><li>S − rS の真ん中の等比数列の項数を数え間違える</li><li>r = 1 のときは単なる Σk になることを書かない（rが文字のとき）</li><li>引いたあとの最後の項（−n·rⁿ⁺¹ など）を落とす／r=1 の場合分け</li></ul>
+<h2>なぜ大事か</h2>
+<p>Σ k·rᵏ 型は公式がない。ずらして引くことで等比の和に変える、という手の動きが答え</p>
+<h2>東大での出方</h2>
+<p>期待値や確率漸化式の解の和で出てくる。数IIIの極限 Σ k·rᵏ（|r|&lt;1）と組み合わさることもある。</p>
+<h2>確認問題</h2>
+<ul><li>Σ[k=1〜n] k·3ᵏ⁻¹ を求めよ（答：{(2n−1)·3ⁿ + 1}/4）</li><li>Σ[k=1〜n] k/2ᵏ を求め、n→∞ で 2 に近づくことを確かめよ</li></ul>
+<h2>発展</h2>
+<p>なぜ r を掛けるのか：Σ a(k)rᵏ で a(k) が d次多項式なら、(1−r)を掛けるたびに a の階差が取られ、d+1回で等比の和だけになる。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="mb-p05-sigma-formula.html">⑤ Σの基本公式（k, k², k³, 等比）</a></li></ul>
+<h2>このノードを前提にするノード</h2>
+<ul class="links"><li><a href="mb-sigma.html">Σ計算・部分分数分解による差の形（望遠鏡和）</a></li></ul>
+<h2>「数列」のノード</h2>
+<ul class="links"><li><a href="mb-seq-basic.html">①② 等差数列・等比数列</a></li><li><a href="mb-p03-kaisa.html">③ 階差数列 a(n+1)−a(n)=f(n)</a></li><li><a href="mb-p04-sn.html">④ 和S(n)から一般項を逆算</a></li><li><a href="mb-p05-sigma-formula.html">⑤ Σの基本公式（k, k², k³, 等比）</a></li><li><span class="cur">⑥ (等差)×(等比)の和：S−rS</span></li><li><a href="mb-p07-partial.html">⑦ 部分分数分解で隣同士を消す</a></li><li><a href="mb-p08-root.html">⑧ ルートの和は有理化して差の形</a></li><li><a href="mb-p09-log.html">⑨ 対数の和は log の差に分解して消す</a></li><li><a href="mb-p23-group.html">㉓ 群数列（項数と末項の通算番号）</a></li><li><a href="mb-sigma.html">Σ計算・部分分数分解による差の形（望遠鏡和）</a></li><li><a href="mb-diff-seq.html">階差数列・Sとaの関係</a></li><li><a href="mb-induction.html">数学的帰納法（通常・強化・二段仮定）</a></li><li><a href="mb-lattice.html">格子点の数え上げ</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

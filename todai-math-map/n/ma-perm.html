@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>順列・組合せ（場合の数）｜受験数学マップ</title>
+<meta name="description" content="P と C の違いは『並べるか、選ぶか』という言葉の違いではなく、順序の違いを別のものと数えるかどうかにある。C(n,r) = P(n,r)/r! という関係が示しているのは、組合せとは順列を r! 個ずつまとめて1つ…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/ma-perm.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="順列・組合せ（場合の数）｜受験数学マップ">
+<meta property="og:description" content="P と C の違いは『並べるか、選ぶか』という言葉の違いではなく、順序の違いを別のものと数えるかどうかにある。C(n,r) = P(n,r)/r! という関係が示しているのは、組合せとは順列を r! 個ずつまとめて1つ…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/ma-perm.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "順列・組合せ", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/ma-perm.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 順列・組合せ</nav>
+<h1>順列・組合せ</h1>
+<p class="meta">数学A ／ 場合の数 ／ 東大での重要度 ★★★☆☆</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>P と C の違いは『並べるか、選ぶか』という言葉の違いではなく、順序の違いを別のものと数えるかどうかにある。C(n,r) = P(n,r)/r! という関係が示しているのは、組合せとは順列を r! 個ずつまとめて1つと見たものだ、ということである。この『まとめて割る』という見方を持っておくと、円順列でもじゅず順列でも、何個ずつまとめているのかを考えるだけで処理できる。公式を覚える対象ではなく、導ける対象にしておくこと。</p>
+<h2>こんなときに使う</h2>
+<ul><li>並び順に意味がある（座席、桁、順位、役職）→ P</li><li>選ぶだけで順序に意味がない（メンバー、部分集合）→ C</li><li>迷ったら P で数えてから、何個ずつ重複しているかを考えて割る</li><li>『少なくとも1人』→ 余事象</li><li>C(n, r) = C(n, n−r) を使うと計算が軽くなることが多い</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 順序に意味があるかを判定する</li><li>2. あるなら P(n,r) = n!/(n−r)!、ないなら C(n,r) = n!/{r!(n−r)!}</li><li>3. 判断に迷ったら、まず順序つきで数える</li><li>4. そのあと、同じものが何個ずつ重複しているかを考えて割る</li><li>5. n を小さくして書き出し、検算する</li></ol>
+<h2>例題</h2>
+<div class="problem">8人の中から (1) 3人の委員を選ぶ方法 (2) 委員長・副委員長・書記を1人ずつ選ぶ方法 は、それぞれ何通りか。</div><details><summary>解答</summary><ol class="steps"><li>(1) 誰が選ばれるかだけが問題で、順序に意味はない。</li><li>　C(8,3) = 8·7·6 / (3·2·1) = 56 通り</li><li></li><li>(2) 同じ3人でも、誰が委員長かで別のものと数える。順序に意味がある。</li><li>　P(8,3) = 8·7·6 = 336 通り</li><li></li><li>【2つの関係】</li><li>336 = 56 × 6 = 56 × 3!</li><li>同じ3人組に対して、役職の割り当て方が 3! = 6 通りある。</li><li>つまり順列は、組合せを 3! 倍に細分したもの。逆に C = P / r! と書けるのはこのため。</li><li>この対応を理解していれば、公式を忘れても復元できる。</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>P で数えてから r! で割って C を得る（公式を忘れたときの復元法）</li><li>余事象を使う（『少なくとも1人は女子』は『全員男子』を引く）</li><li>パスカルの関係 C(n,r) = C(n−1,r−1) + C(n−1,r) を使う（着目した1人を含むか含まないかで分ける）</li><li>二項定理と結びつける（C(n,r) は (a+b)ⁿ の展開係数）</li></ul>
+<h2>落とし穴</h2>
+<ul><li>区別の有無が曖昧なまま公式を選ぶ</li><li>『少なくとも』を直接数えようとして場合分けが爆発する</li><li>C(n,r) の計算で約分を先にせず、大きな階乗を計算してミスする</li><li>選んだあとに並べる問題で、選ぶ段階と並べる段階を混ぜてしまう</li><li>区別する/しないの前提が曖昧</li></ul>
+<h2>なぜ大事か</h2>
+<p>道具。使い所を誤らないことが本体</p>
+<h2>東大での出方</h2>
+<p>道具として使う単元で、単独の出題はない。ただし東大の確率では『分母をどう数えるか』の選択が本体なので、P と C のどちらで数えるかを分母・分子で揃える判断が毎回必要になる。</p>
+<h2>確認問題</h2>
+<ul><li>男子5人、女子4人から4人を選ぶとき、女子が少なくとも1人含まれる選び方は何通りか</li><li>8人を A, B の2つの部屋に分ける（どちらも空でない）方法は何通りか</li><li>C(10,3) と C(10,7) が等しいことを、意味から説明せよ</li></ul>
+<h2>発展</h2>
+<p>二項係数の恒等式（C(n,0)+C(n,1)+…+C(n,n) = 2ⁿ など）を、数え方を変えて同じものを数えるという方法で証明する。組合せ論的証明の考え方は、東大の論証問題でも効く。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="ma-count-basic.html">数え上げの原則（和の法則・積の法則・辞書式）</a></li></ul>
+<h2>このノードを前提にするノード</h2>
+<ul class="links"><li><a href="ma-samekind.html">同じものを含む順列・円順列・じゅず順列</a></li><li><a href="m2-binom.html">二項定理・多項定理</a></li></ul>
+<h2>「場合の数」のノード</h2>
+<ul class="links"><li><a href="ma-count-basic.html">数え上げの原則（和の法則・積の法則・辞書式）</a></li><li><span class="cur">順列・組合せ</span></li><li><a href="ma-samekind.html">同じものを含む順列・円順列・じゅず順列</a></li><li><a href="ma-partition.html">組分け・重複組合せ（仕切り）</a></li><li><a href="ma-incl.html">包除原理・余事象で数える</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
