@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>不定形 ∞/∞・∞-∞ の崩し方（極限）｜高校数学ノート</title>
+<meta name="description" content="不定形 ∞/∞・∞-∞ の崩し方（極限）。まず代入して形を見る。∞/∞ なら分母の最高次で割る、∞-∞ で根号があれば有理化。">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/works/math-notes/items/limit-seq-basic.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="不定形 ∞/∞・∞-∞ の崩し方（極限）｜高校数学ノート">
+<meta property="og:description" content="不定形 ∞/∞・∞-∞ の崩し方（極限）。まず代入して形を見る。∞/∞ なら分母の最高次で割る、∞-∞ で根号があれば有理化。">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/works/math-notes/items/limit-seq-basic.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/ogp.png">
+<link rel="stylesheet" href="/assets/katex/katex.css">
+<link rel="stylesheet" href="note.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "高校数学ノート", "item": "https://kaitoinoue0921.github.io/works/math-notes/"}, {"@type": "ListItem", "position": 3, "name": "極限", "item": "https://kaitoinoue0921.github.io/works/math-notes/items/#limit"}, {"@type": "ListItem", "position": 4, "name": "不定形 ∞/∞・∞-∞ の崩し方", "item": "https://kaitoinoue0921.github.io/works/math-notes/items/limit-seq-basic.html"}]}</script>
+</head>
+<body data-site="math">
+<header class="top"><a class="brand" href="../">高校数学 公式・解法ノート</a></header>
+<main class="ip-main">
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">高校数学ノート</a> › <a href="./#limit">極限</a></nav>
+<article class="item" data-tier="must" id="limit-seq-basic" data-unit="limit"><header class="item-head"><span class="no" data-n="1"></span><span class="tier tier-must">必須</span><h1>不定形 <span class="tx" data-d="0">\frac{\infty}{\infty}</span>・<span class="tx" data-d="0">\infty-\infty</span> の崩し方</h1></header><p class="focus"><b>着眼点</b>まず代入して形を見る。<span class="tx" data-d="0">\frac{\infty}{\infty}</span> なら分母の最高次で割る、<span class="tx" data-d="0">\infty-\infty</span> で根号があれば有理化。</p><div class="body"><ul><li><span class="tx" data-d="0">\frac{\infty}{\infty}</span>：分母・分子を<b>分母の最高次の項</b>で割る（<span class="tx" data-d="0">\frac{1}{n}\to0</span> を作る）。</li><li><span class="tx" data-d="0">\infty-\infty</span>（根号あり）：<span class="tx" data-d="0">\sqrt{A}-B=\dfrac{A-B^2}{\sqrt{A}+B}</span> と有理化。</li><li><span class="tx" data-d="0">\infty-\infty</span>（多項式）：最高次でくくる。<span class="tx" data-d="0">n^3-n^2=n^3\left(1-\frac1n\right)\to\infty</span></li></ul></div><div class="exs"><div class="lab">例題</div><div class="ex"><div class="q"><span class="n">1</span><div><span class="tx" data-d="0">\displaystyle\lim_{n\to\infty}\frac{3n^2-n+1}{2n^2+5}</span> を求めよ。</div></div><details><summary>解答</summary><div class="a">分母・分子を <span class="tx" data-d="0">n^2</span> で割る。<span class="tx" data-d="1">\frac{3-\frac1n+\frac1{n^2}}{2+\frac5{n^2}}\to\frac{3}{2}</span>答え <span class="tx" data-d="0">\dfrac32</span></div></details></div><div class="ex"><div class="q"><span class="n">2</span><div><span class="tx" data-d="0">\displaystyle\lim_{n\to\infty}\left(\sqrt{n^2+3n}-n\right)</span> を求めよ。</div></div><details><summary>解答</summary><div class="a">有理化する。<span class="tx" data-d="1">\sqrt{n^2+3n}-n=\frac{(n^2+3n)-n^2}{\sqrt{n^2+3n}+n}=\frac{3n}{\sqrt{n^2+3n}+n}</span>分母・分子を <span class="tx" data-d="0">n</span> で割って <span class="tx" data-d="1">\frac{3}{\sqrt{1+\frac3n}+1}\to\frac{3}{2}</span>答え <span class="tx" data-d="0">\dfrac32</span></div></details></div></div><div class="box warn"><b>注意</b>「<span class="tx" data-d="0">\infty-\infty=0</span>」「<span class="tx" data-d="0">\frac{\infty}{\infty}=1</span>」としない。不定形は形を変えるまで値が決まらない。</div><div class="drill"><div class="lab">確認問題</div><div class="ex"><div class="q"><span class="n">1</span><div><span class="tx" data-d="0">\displaystyle\lim_{n\to\infty}\frac{2n+1}{n^2}</span></div></div><details><summary>答え</summary><div class="a"><span class="tx" data-d="0">0</span>（<span class="tx" data-d="0">n^2</span> で割ると <span class="tx" data-d="0">\frac{2/n+1/n^2}{1}\to0</span>）</div></details></div><div class="ex"><div class="q"><span class="n">2</span><div><span class="tx" data-d="0">\displaystyle\lim_{n\to\infty}\left(\sqrt{n+1}-\sqrt{n}\right)</span></div></div><details><summary>答え</summary><div class="a"><span class="tx" data-d="0">0</span>（有理化で <span class="tx" data-d="0">\frac{1}{\sqrt{n+1}+\sqrt n}\to0</span>）</div></details></div></div><footer class="item-foot"><a href="../#i=limit-seq-basic">ノートで開いて「理解した」をつける →</a></footer></article>
+<nav class="pn" aria-label="前後の項目"><a class="pv" href="curve-cycloid.html"><small>← 前の項目</small>サイクロイド</a><a class="nx" href="limit-geom.html"><small>次の項目 →</small>rⁿ の極限と場合分け</a></nav>
+<section class="sib"><h2>「極限」の項目</h2><ol><li class="cur">不定形 ∞/∞・∞-∞ の崩し方<span class="tier-mini must">必須</span></li><li><a href="limit-geom.html">rⁿ の極限と場合分け</a><span class="tier-mini must">必須</span></li><li><a href="limit-squeeze.html">はさみうちの原理</a><span class="tier-mini must">必須</span></li><li><a href="limit-recur.html">漸化式で決まる数列の極限</a><span class="tier-mini core">差がつく</span></li><li><a href="limit-geom-series.html">無限等比級数</a><span class="tier-mini must">必須</span></li><li><a href="limit-telescoping.html">部分和を求めてから極限（部分分数分解）</a><span class="tier-mini must">必須</span></li><li><a href="limit-paren.html">級数のかっこの付け外し・項の並べ替え</a><span class="tier-mini skip">不要</span></li><li><a href="limit-func-basic.html">関数の極限：0/0 と x→-∞</a><span class="tier-mini must">必須</span></li><li><a href="limit-coeff.html">極限値から係数を決める</a><span class="tier-mini core">差がつく</span></li><li><a href="limit-sinx.html">limₓ→₀(sin x)/x=1</a><span class="tier-mini must">必須</span></li><li><a href="limit-e.html">e に関する極限</a><span class="tier-mini must">必須</span></li><li><a href="limit-onesided.html">片側極限と「極限が存在しない」</a><span class="tier-mini core">差がつく</span></li><li><a href="limit-continuity.html">関数の連続性</a><span class="tier-mini core">差がつく</span></li><li><a href="limit-ivt.html">中間値の定理</a><span class="tier-mini core">差がつく</span></li><li><a href="limit-epsilon.html">ε-N 論法による極限の定義</a><span class="tier-mini skip">不要</span></li></ol></section>
+<p class="back"><a href="./">高校数学ノートの項目一覧</a> ・ <a href="../">ノート全体を開く</a>（「理解した」のチェックと進み具合はノートに保存されます）</p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script defer src="/assets/katex/katex.js"></script>
+<script defer src="/assets/katex/mhchem.js"></script>
+<script defer src="/assets/katex/render.js"></script>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

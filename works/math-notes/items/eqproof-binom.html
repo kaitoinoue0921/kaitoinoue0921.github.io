@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>二項定理と一般項（式と証明）｜高校数学ノート</title>
+<meta name="description" content="二項定理と一般項（式と証明）。展開しきらず「一般項」を書き、指数の条件から r を決める。">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/works/math-notes/items/eqproof-binom.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="二項定理と一般項（式と証明）｜高校数学ノート">
+<meta property="og:description" content="二項定理と一般項（式と証明）。展開しきらず「一般項」を書き、指数の条件から r を決める。">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/works/math-notes/items/eqproof-binom.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/ogp.png">
+<link rel="stylesheet" href="/assets/katex/katex.css">
+<link rel="stylesheet" href="note.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "高校数学ノート", "item": "https://kaitoinoue0921.github.io/works/math-notes/"}, {"@type": "ListItem", "position": 3, "name": "式と証明", "item": "https://kaitoinoue0921.github.io/works/math-notes/items/#eqproof"}, {"@type": "ListItem", "position": 4, "name": "二項定理と一般項", "item": "https://kaitoinoue0921.github.io/works/math-notes/items/eqproof-binom.html"}]}</script>
+</head>
+<body data-site="math">
+<header class="top"><a class="brand" href="../">高校数学 公式・解法ノート</a></header>
+<main class="ip-main">
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">高校数学ノート</a> › <a href="./#eqproof">式と証明</a></nav>
+<article class="item" data-tier="must" id="eqproof-binom" data-unit="eqproof"><header class="item-head"><span class="no" data-n="1"></span><span class="tier tier-must">必須</span><h1>二項定理と一般項</h1></header><p class="focus"><b>着眼点</b>展開しきらず「一般項」を書き、指数の条件から <span class="tx" data-d="0">r</span> を決める。</p><div class="body"><span class="tx" data-d="1">(a+b)^n=\sum_{r=0}^{n}{}_{n}\mathrm{C}_{r}\,a^{n-r}b^{r}</span><p>一般項（第 <span class="tx" data-d="0">r+1</span> 項）: <span class="tx" data-d="0">{}_{n}\mathrm{C}_{r}\,a^{n-r}b^{r}</span></p><ol><li>一般項を書く（係数・符号も <span class="tx" data-d="0">a,b</span> に含めたまま）</li><li><span class="tx" data-d="0">x</span> の指数を <span class="tx" data-d="0">r</span> の式にする</li><li>欲しい指数と等しいとおいて <span class="tx" data-d="0">r</span> を出し、係数を計算</li></ol></div><div class="exs"><div class="lab">例題</div><div class="ex"><div class="q"><span class="n">1</span><div><span class="tx" data-d="0">(2x-1)^5</span> の展開式における <span class="tx" data-d="0">x^3</span> の係数を求めよ。</div></div><details><summary>解答</summary><div class="a">一般項は <span class="tx" data-d="0">{}_{5}\mathrm{C}_{r}(2x)^{5-r}(-1)^r={}_{5}\mathrm{C}_{r}\,2^{5-r}(-1)^r x^{5-r}</span><br><span class="tx" data-d="0">5-r=3</span> より <span class="tx" data-d="0">r=2</span><br>係数 <span class="tx" data-d="0">={}_{5}\mathrm{C}_{2}\cdot 2^3\cdot(-1)^2=10\cdot 8=80</span><br><b>答 80</b></div></details></div><div class="ex"><div class="q"><span class="n">2</span><div><span class="tx" data-d="0">\left(x^2+\dfrac{1}{x}\right)^6</span> の展開式における定数項を求めよ。</div></div><details><summary>解答</summary><div class="a">一般項は <span class="tx" data-d="0">{}_{6}\mathrm{C}_{r}(x^2)^{6-r}\left(\dfrac{1}{x}\right)^r={}_{6}\mathrm{C}_{r}\,x^{12-2r-r}={}_{6}\mathrm{C}_{r}\,x^{12-3r}</span><br><span class="tx" data-d="0">12-3r=0</span> より <span class="tx" data-d="0">r=4</span><br>定数項 <span class="tx" data-d="0">={}_{6}\mathrm{C}_{4}=15</span><br><b>答 15</b></div></details></div></div><div class="box warn"><b>注意</b><span class="tx" data-d="0">(2x-1)^5</span> の <span class="tx" data-d="0">2</span> や <span class="tx" data-d="0">-1</span> を一般項から外し忘れて <span class="tx" data-d="0">{}_{5}\mathrm{C}_{2}=10</span> と答えるミスが最多。符号 <span class="tx" data-d="0">(-1)^r</span> も忘れない。</div><div class="drill"><div class="lab">確認問題</div><div class="ex"><div class="q"><span class="n">1</span><div><span class="tx" data-d="0">(x+2)^6</span> の <span class="tx" data-d="0">x^4</span> の係数</div></div><details><summary>答え</summary><div class="a"><span class="tx" data-d="0">60</span>（<span class="tx" data-d="0">r=2</span>: <span class="tx" data-d="0">{}_{6}\mathrm{C}_{2}\cdot 2^2=15\cdot4</span>）</div></details></div></div><footer class="item-foot"><a href="../#i=eqproof-binom">ノートで開いて「理解した」をつける →</a></footer></article>
+<nav class="pn" aria-label="前後の項目"><a class="pv" href="geom-construct.html"><small>← 前の項目</small>作図（長さ √a など）</a><a class="nx" href="eqproof-multinom.html"><small>次の項目 →</small>多項定理（3項の展開）</a></nav>
+<section class="sib"><h2>「式と証明」の項目</h2><ol><li class="cur">二項定理と一般項<span class="tier-mini must">必須</span></li><li><a href="eqproof-multinom.html">多項定理（3項の展開）</a><span class="tier-mini core">差がつく</span></li><li><a href="eqproof-binom-sum.html">二項係数の和・余りへの応用</a><span class="tier-mini core">差がつく</span></li><li><a href="eqproof-division.html">整式の割り算 A=BQ+R</a><span class="tier-mini must">必須</span></li><li><a href="eqproof-fraction.html">分数式の計算（通分・部分分数）</a><span class="tier-mini core">差がつく</span></li><li><a href="eqproof-remainder.html">剰余の定理</a><span class="tier-mini must">必須</span></li><li><a href="eqproof-factor-thm.html">因数定理と3次式の因数分解</a><span class="tier-mini must">必須</span></li><li><a href="eqproof-remainder-2nd.html">3次式・重解型で割った余り</a><span class="tier-mini core">差がつく</span></li><li><a href="eqproof-identity.html">恒等式の係数決定（係数比較・数値代入）</a><span class="tier-mini must">必須</span></li><li><a href="eqproof-eq-proof.html">条件つき等式の証明</a><span class="tier-mini must">必須</span></li><li><a href="eqproof-ineq-proof.html">不等式の証明（差をとる・平方完成・2乗して比較）</a><span class="tier-mini must">必須</span></li><li><a href="eqproof-amgm.html">相加平均と相乗平均の関係</a><span class="tier-mini must">必須</span></li><li><a href="eqproof-cauchy.html">コーシー・シュワルツの不等式</a><span class="tier-mini skip">不要</span></li></ol></section>
+<p class="back"><a href="./">高校数学ノートの項目一覧</a> ・ <a href="../">ノート全体を開く</a>（「理解した」のチェックと進み具合はノートに保存されます）</p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script defer src="/assets/katex/katex.js"></script>
+<script defer src="/assets/katex/mhchem.js"></script>
+<script defer src="/assets/katex/render.js"></script>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>同じものを含む順列（場合の数と確率）｜高校数学ノート</title>
+<meta name="description" content="同じものを含む順列（場合の数と確率）。全部を区別して n! 通り並べ、同じもの同士の入れ替え分で割る。">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/works/math-notes/items/prob-same.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="同じものを含む順列（場合の数と確率）｜高校数学ノート">
+<meta property="og:description" content="同じものを含む順列（場合の数と確率）。全部を区別して n! 通り並べ、同じもの同士の入れ替え分で割る。">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/works/math-notes/items/prob-same.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/ogp.png">
+<link rel="stylesheet" href="/assets/katex/katex.css">
+<link rel="stylesheet" href="note.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "高校数学ノート", "item": "https://kaitoinoue0921.github.io/works/math-notes/"}, {"@type": "ListItem", "position": 3, "name": "場合の数と確率", "item": "https://kaitoinoue0921.github.io/works/math-notes/items/#prob"}, {"@type": "ListItem", "position": 4, "name": "同じものを含む順列", "item": "https://kaitoinoue0921.github.io/works/math-notes/items/prob-same.html"}]}</script>
+</head>
+<body data-site="math">
+<header class="top"><a class="brand" href="../">高校数学 公式・解法ノート</a></header>
+<main class="ip-main">
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">高校数学ノート</a> › <a href="./#prob">場合の数と確率</a></nav>
+<article class="item" data-tier="must" id="prob-same" data-unit="prob"><header class="item-head"><span class="no" data-n="5"></span><span class="tier tier-must">必須</span><h1>同じものを含む順列</h1></header><p class="focus"><b>着眼点</b>全部を区別して <span class="tx" data-d="0">n!</span> 通り並べ、同じもの同士の入れ替え分で割る。</p><div class="body"><span class="tx" data-d="1">\frac{n!}{p!\,q!\,r!\cdots}\qquad(p+q+r+\cdots=n)</span>
+<p>最短経路の数 <span class="tx" data-d="0">{}_{a+b}\mathrm{C}_{a}=\dfrac{(a+b)!}{a!\,b!}</span> も「→ <span class="tx" data-d="0">a</span> 個と ↑ <span class="tx" data-d="0">b</span> 個の並べ方」としてこの公式の特別な場合。</p></div><div class="exs"><div class="lab">例題</div><div class="ex"><div class="q"><span class="n">1</span><div>BANANA の6文字を1列に並べる方法は何通りか。</div></div><details><summary>解答</summary><div class="a">A が3個、N が2個、B が1個。<span class="tx" data-d="0">\dfrac{6!}{3!\,2!\,1!}=\dfrac{720}{12}=60</span>。<br><b>答 60通り</b></div></details></div><div class="ex"><div class="q"><span class="n">2</span><div>BANANA の6文字の並べ方のうち、2つのNが隣り合わないものは何通りか。</div></div><details><summary>解答</summary><div class="a">Nが隣り合うもの：NN を1文字とみて B, A, A, A, NN の並べ方 <span class="tx" data-d="0">\dfrac{5!}{3!}=20</span>。<br>隣り合わないもの <span class="tx" data-d="0">60-20=40</span>。<br><b>答 40通り</b></div></details></div></div><footer class="item-foot"><a href="../#i=prob-same">ノートで開いて「理解した」をつける →</a></footer></article>
+<nav class="pn" aria-label="前後の項目"><a class="pv" href="prob-group.html"><small>← 前の項目</small>組分け（区別あり／なし）</a><a class="nx" href="prob-circle.html"><small>次の項目 →</small>円順列・じゅず順列</a></nav>
+<section class="sib"><h2>「場合の数と確率」の項目</h2><ol><li><a href="prob-sum-product.html">和の法則・積の法則</a><span class="tier-mini must">必須</span></li><li><a href="prob-perm.html">順列 ₙPᵣ（隣接・非隣接・数字の並び）</a><span class="tier-mini must">必須</span></li><li><a href="prob-comb.html">組合せ ₙCᵣ（選ぶだけ・図形・最短経路）</a><span class="tier-mini must">必須</span></li><li><a href="prob-group.html">組分け（区別あり／なし）</a><span class="tier-mini core">差がつく</span></li><li class="cur">同じものを含む順列<span class="tier-mini must">必須</span></li><li><a href="prob-circle.html">円順列・じゅず順列</a><span class="tier-mini core">差がつく</span></li><li><a href="prob-repeat.html">重複順列と部屋分け（空き部屋なし）</a><span class="tier-mini core">差がつく</span></li><li><a href="prob-dupcomb.html">重複組合せ（○と｜の並べ方）</a><span class="tier-mini core">差がつく</span></li><li><a href="prob-basic.html">確率の定義と「区別して数える」</a><span class="tier-mini must">必須</span></li><li><a href="prob-complement.html">余事象・「少なくとも」・最大値の確率</a><span class="tier-mini must">必須</span></li><li><a href="prob-binomial.html">独立試行・反復試行の確率</a><span class="tier-mini must">必須</span></li><li><a href="prob-cond.html">条件付き確率と乗法定理</a><span class="tier-mini must">必須</span></li><li><a href="prob-expect.html">期待値</a><span class="tier-mini must">必須</span></li><li><a href="prob-markov2.html">2状態の推移 pₙ₊₁=apₙ+b</a><span class="tier-mini must">必須</span></li><li><a href="prob-markov3.html">3状態以上の推移（対称性で1本の漸化式に）</a><span class="tier-mini core">差がつく</span></li><li><a href="prob-derangement.html">完全順列（全員が自分以外を受け取る）</a><span class="tier-mini skip">不要</span></li></ol></section>
+<p class="back"><a href="./">高校数学ノートの項目一覧</a> ・ <a href="../">ノート全体を開く</a>（「理解した」のチェックと進み具合はノートに保存されます）</p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script defer src="/assets/katex/katex.js"></script>
+<script defer src="/assets/katex/mhchem.js"></script>
+<script defer src="/assets/katex/render.js"></script>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

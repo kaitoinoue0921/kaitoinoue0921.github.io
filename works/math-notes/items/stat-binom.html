@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>二項分布 B(n, p)（統計的な推測）｜高校数学ノート</title>
+<meta name="description" content="二項分布 B(n, p)（統計的な推測）。「1回の確率が p の試行を n 回独立にくり返したときの回数」なら二項分布。平均・分散は公式で一発。">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/works/math-notes/items/stat-binom.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="二項分布 B(n, p)（統計的な推測）｜高校数学ノート">
+<meta property="og:description" content="二項分布 B(n, p)（統計的な推測）。「1回の確率が p の試行を n 回独立にくり返したときの回数」なら二項分布。平均・分散は公式で一発。">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/works/math-notes/items/stat-binom.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/ogp.png">
+<link rel="stylesheet" href="/assets/katex/katex.css">
+<link rel="stylesheet" href="note.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "高校数学ノート", "item": "https://kaitoinoue0921.github.io/works/math-notes/"}, {"@type": "ListItem", "position": 3, "name": "統計的な推測", "item": "https://kaitoinoue0921.github.io/works/math-notes/items/#stat"}, {"@type": "ListItem", "position": 4, "name": "二項分布 B(n, p)", "item": "https://kaitoinoue0921.github.io/works/math-notes/items/stat-binom.html"}]}</script>
+</head>
+<body data-site="math">
+<header class="top"><a class="brand" href="../">高校数学 公式・解法ノート</a></header>
+<main class="ip-main">
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">高校数学ノート</a> › <a href="./#stat">統計的な推測</a></nav>
+<article class="item" data-tier="must" id="stat-binom" data-unit="stat"><header class="item-head"><span class="no" data-n="5"></span><span class="tier tier-must">必須</span><h1>二項分布 <span class="tx" data-d="0">B(n,\,p)</span></h1></header><p class="focus"><b>着眼点</b>「1回の確率が <span class="tx" data-d="0">p</span> の試行を <span class="tx" data-d="0">n</span> 回独立にくり返したときの回数」なら二項分布。平均・分散は公式で一発。</p><div class="body"><span class="tx" data-d="1">P(X=r)={}_n\mathrm{C}_r\,p^r q^{n-r}\quad(q=1-p)</span><span class="tx" data-d="1">E(X)=np,\quad V(X)=npq,\quad \sigma(X)=\sqrt{npq}</span></div><div class="exs"><div class="lab">例題</div><div class="ex"><div class="q"><span class="n">1</span><div>1枚の硬貨を4回投げ、表の出る回数を <span class="tx" data-d="0">X</span> とする。<span class="tx" data-d="0">P(X=3)</span> と <span class="tx" data-d="0">E(X),\ V(X)</span> を求めよ。</div></div><details><summary>解答</summary><div class="a"><span class="tx" data-d="0">X</span> は <span class="tx" data-d="0">B\left(4,\,\frac12\right)</span> に従う。<span class="tx" data-d="1">P(X=3)={}_4\mathrm{C}_3\left(\frac12\right)^3\left(\frac12\right)^1=\frac{4}{16}=\frac14</span><span class="tx" data-d="1">E(X)=4\cdot\frac12=2,\quad V(X)=4\cdot\frac12\cdot\frac12=1</span></div></details></div><div class="ex"><div class="q"><span class="n">2</span><div>さいころを180回投げ、1の目が出る回数を <span class="tx" data-d="0">X</span> とする。<span class="tx" data-d="0">Y=2X-10</span> の期待値と標準偏差を求めよ。</div></div><details><summary>解答</summary><div class="a"><span class="tx" data-d="0">X</span> は <span class="tx" data-d="0">B\left(180,\,\frac16\right)</span> に従う。<span class="tx" data-d="1">E(X)=180\cdot\frac16=30,\quad V(X)=180\cdot\frac16\cdot\frac56=25,\quad \sigma(X)=5</span><span class="tx" data-d="1">E(Y)=2\cdot30-10=50,\quad \sigma(Y)=2\cdot5=10</span></div></details></div></div><div class="box tip"><b>ポイント</b><span class="tx" data-d="0">E=np</span> は、1回ごとに「起これば1・起こらなければ0」の確率変数を <span class="tx" data-d="0">n</span> 個足したもの、と説明すると納得しやすい。</div><footer class="item-foot"><a href="../#i=stat-binom">ノートで開いて「理解した」をつける →</a></footer></article>
+<nav class="pn" aria-label="前後の項目"><a class="pv" href="stat-sum.html"><small>← 前の項目</small>和の期待値・独立な確率変数の分散</a><a class="nx" href="stat-normal.html"><small>次の項目 →</small>正規分布と標準化（正規分布表の引き方）</a></nav>
+<section class="sib"><h2>「統計的な推測」の項目</h2><ol><li><a href="stat-rv.html">確率分布と期待値 E(X)</a><span class="tier-mini must">必須</span></li><li><a href="stat-var.html">分散 V(X) と標準偏差 σ(X)</a><span class="tier-mini must">必須</span></li><li><a href="stat-linear.html">aX+b の期待値・分散</a><span class="tier-mini must">必須</span></li><li><a href="stat-sum.html">和の期待値・独立な確率変数の分散</a><span class="tier-mini core">差がつく</span></li><li class="cur">二項分布 B(n, p)<span class="tier-mini must">必須</span></li><li><a href="stat-normal.html">正規分布と標準化（正規分布表の引き方）</a><span class="tier-mini must">必須</span></li><li><a href="stat-binom-normal.html">二項分布の正規分布による近似</a><span class="tier-mini must">必須</span></li><li><a href="stat-sample-mean.html">標本平均の分布</a><span class="tier-mini must">必須</span></li><li><a href="stat-estimate.html">母平均の推定（信頼度95%）</a><span class="tier-mini core">差がつく</span></li><li><a href="stat-test.html">仮説検定（二項分布の正規近似・両側検定）</a><span class="tier-mini core">差がつく</span></li><li><a href="stat-prop.html">母比率の推定・検定</a><span class="tier-mini skip">不要</span></li><li><a href="stat-continuous.html">連続型確率変数と確率密度関数</a><span class="tier-mini skip">不要</span></li><li><a href="stat-lln.html">大数の法則</a><span class="tier-mini skip">不要</span></li></ol></section>
+<p class="back"><a href="./">高校数学ノートの項目一覧</a> ・ <a href="../">ノート全体を開く</a>（「理解した」のチェックと進み具合はノートに保存されます）</p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script defer src="/assets/katex/katex.js"></script>
+<script defer src="/assets/katex/mhchem.js"></script>
+<script defer src="/assets/katex/render.js"></script>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

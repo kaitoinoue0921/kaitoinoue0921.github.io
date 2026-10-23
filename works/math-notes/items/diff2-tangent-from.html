@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>曲線外の点から引く接線（接点を t とおく）（微分法（数Ⅱ））｜高校数学ノート</title>
+<meta name="description" content="曲線外の点から引く接線（接点を t とおく）（微分法（数Ⅱ））。通る点しか分からないときは、接点を (t,f(t)) とおいて接線を作り、通る点を代入して t を決める。">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/works/math-notes/items/diff2-tangent-from.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="曲線外の点から引く接線（接点を t とおく）（微分法（数Ⅱ））｜高校数学ノート">
+<meta property="og:description" content="曲線外の点から引く接線（接点を t とおく）（微分法（数Ⅱ））。通る点しか分からないときは、接点を (t,f(t)) とおいて接線を作り、通る点を代入して t を決める。">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/works/math-notes/items/diff2-tangent-from.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/ogp.png">
+<link rel="stylesheet" href="/assets/katex/katex.css">
+<link rel="stylesheet" href="note.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "高校数学ノート", "item": "https://kaitoinoue0921.github.io/works/math-notes/"}, {"@type": "ListItem", "position": 3, "name": "微分法（数Ⅱ）", "item": "https://kaitoinoue0921.github.io/works/math-notes/items/#diff2"}, {"@type": "ListItem", "position": 4, "name": "曲線外の点から引く接線（接点を t とおく）", "item": "https://kaitoinoue0921.github.io/works/math-notes/items/diff2-tangent-from.html"}]}</script>
+</head>
+<body data-site="math">
+<header class="top"><a class="brand" href="../">高校数学 公式・解法ノート</a></header>
+<main class="ip-main">
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">高校数学ノート</a> › <a href="./#diff2">微分法（数Ⅱ）</a></nav>
+<article class="item" data-tier="must" id="diff2-tangent-from" data-unit="diff2"><header class="item-head"><span class="no" data-n="4"></span><span class="tier tier-must">必須</span><h1>曲線外の点から引く接線（接点を <span class="tx" data-d="0">t</span> とおく）</h1></header><p class="focus"><b>着眼点</b>通る点しか分からないときは、接点を <span class="tx" data-d="0">(t,f(t))</span> とおいて接線を作り、通る点を代入して <span class="tx" data-d="0">t</span> を決める。</p><div class="body"><ol><li>接点 <span class="tx" data-d="0">(t,f(t))</span> での接線 <span class="tx" data-d="0">y=f'(t)(x-t)+f(t)</span> を書く</li><li>通る点 <span class="tx" data-d="0">(p,q)</span> を代入して <span class="tx" data-d="0">t</span> の方程式を解く</li><li><span class="tx" data-d="0">t</span> を戻して接線を答える</li></ol></div><div class="exs"><div class="lab">例題</div><div class="ex"><div class="q"><span class="n">1</span><div>点 <span class="tx" data-d="0">(1,-3)</span> から放物線 <span class="tx" data-d="0">y=x^2</span> に引いた接線の方程式を求めよ。</div></div><details><summary>解答</summary><div class="a">接点を <span class="tx" data-d="0">(t,t^2)</span> とすると接線は <span class="tx" data-d="0">y=2t(x-t)+t^2=2tx-t^2</span>。<br><span class="tx" data-d="0">(1,-3)</span> を通るので <span class="tx" data-d="0">-3=2t-t^2</span>、<span class="tx" data-d="0">t^2-2t-3=0</span>、<span class="tx" data-d="0">(t-3)(t+1)=0</span>。<br><span class="tx" data-d="0">t=3</span> のとき <span class="tx" data-d="0">y=6x-9</span>、<span class="tx" data-d="0">t=-1</span> のとき <span class="tx" data-d="0">y=-2x-1</span>。<br>答 <span class="tx" data-d="0">y=6x-9,\ y=-2x-1</span></div></details></div><div class="ex"><div class="q"><span class="n">2</span><div>点 <span class="tx" data-d="0">(0,2)</span> から曲線 <span class="tx" data-d="0">y=x^3-x</span> に引いた接線の方程式を求めよ。</div></div><details><summary>解答</summary><div class="a">接点 <span class="tx" data-d="0">(t,t^3-t)</span> での接線は <span class="tx" data-d="0">y=(3t^2-1)(x-t)+t^3-t=(3t^2-1)x-2t^3</span>。<br><span class="tx" data-d="0">(0,2)</span> を通るので <span class="tx" data-d="0">-2t^3=2</span>、<span class="tx" data-d="0">t=-1</span>。<br>答 <span class="tx" data-d="0">y=2x+2</span></div></details></div></div><div class="box tip"><b>ポイント</b>3次関数では「接線の本数＝<span class="tx" data-d="0">t</span> の方程式の異なる実数解の個数」。これが実数解の個数の問題（増減表）につながる。</div><div class="box warn"><b>注意</b>点が曲線上にあっても、その点以外で接する接線がありうる。「点 <span class="tx" data-d="0">A</span> を通る接線」と「点 <span class="tx" data-d="0">A</span> における接線」は別物。</div><footer class="item-foot"><a href="../#i=diff2-tangent-from">ノートで開いて「理解した」をつける →</a></footer></article>
+<nav class="pn" aria-label="前後の項目"><a class="pv" href="diff2-tangent.html"><small>← 前の項目</small>接線・法線の方程式</a><a class="nx" href="diff2-common.html"><small>次の項目 →</small>共通接線</a></nav>
+<section class="sib"><h2>「微分法（数Ⅱ）」の項目</h2><ol><li><a href="diff2-deriv.html">導関数の公式と計算</a><span class="tier-mini must">必須</span></li><li><a href="diff2-def.html">微分係数の定義と極限の変形</a><span class="tier-mini core">差がつく</span></li><li><a href="diff2-tangent.html">接線・法線の方程式</a><span class="tier-mini must">必須</span></li><li class="cur">曲線外の点から引く接線（接点を t とおく）<span class="tier-mini must">必須</span></li><li><a href="diff2-common.html">共通接線</a><span class="tier-mini core">差がつく</span></li><li><a href="diff2-incdec.html">増減表の書き方と極値</a><span class="tier-mini must">必須</span></li><li><a href="diff2-extcond.html">極値をもつ条件・極値から係数を決める</a><span class="tier-mini must">必須</span></li><li><a href="diff2-cubic-graph.html">3次関数のグラフをかく</a><span class="tier-mini must">必須</span></li><li><a href="diff2-sym.html">極大値と極小値の差（3次関数の性質）</a><span class="tier-mini core">差がつく</span></li><li><a href="diff2-maxmin.html">閉区間での最大・最小（端と極値を比べる）</a><span class="tier-mini must">必須</span></li><li><a href="diff2-maxmin-app.html">図形・文章題の最大・最小</a><span class="tier-mini core">差がつく</span></li><li><a href="diff2-subst.html">置き換えて3次関数にする（三角関数・指数など）</a><span class="tier-mini core">差がつく</span></li><li><a href="diff2-roots.html">実数解の個数（定数を分離してグラフと直線の交点）</a><span class="tier-mini must">必須</span></li><li><a href="diff2-roots-param.html">文字が分離できないとき：極大値と極小値の符号</a><span class="tier-mini core">差がつく</span></li><li><a href="diff2-ineq.html">不等式の証明（差をとって最小値 ≧0）</a><span class="tier-mini must">必須</span></li><li><a href="diff2-tangent-region.html">接線が3本引ける点の領域を図示する</a><span class="tier-mini skip">不要</span></li></ol></section>
+<p class="back"><a href="./">高校数学ノートの項目一覧</a> ・ <a href="../">ノート全体を開く</a>（「理解した」のチェックと進み具合はノートに保存されます）</p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script defer src="/assets/katex/katex.js"></script>
+<script defer src="/assets/katex/mhchem.js"></script>
+<script defer src="/assets/katex/render.js"></script>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

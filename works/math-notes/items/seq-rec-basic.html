@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>aₙ₊₁=paₙ+q（特性方程式）（数列）｜高校数学ノート</title>
+<meta name="description" content="aₙ₊₁=paₙ+q（特性方程式）（数列）。α=pα+q を解いて aₙ₊₁-α=p(aₙ-α) と変形。\aₙ-α\ が等比数列になる。">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/works/math-notes/items/seq-rec-basic.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="aₙ₊₁=paₙ+q（特性方程式）（数列）｜高校数学ノート">
+<meta property="og:description" content="aₙ₊₁=paₙ+q（特性方程式）（数列）。α=pα+q を解いて aₙ₊₁-α=p(aₙ-α) と変形。\aₙ-α\ が等比数列になる。">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/works/math-notes/items/seq-rec-basic.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/ogp.png">
+<link rel="stylesheet" href="/assets/katex/katex.css">
+<link rel="stylesheet" href="note.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "高校数学ノート", "item": "https://kaitoinoue0921.github.io/works/math-notes/"}, {"@type": "ListItem", "position": 3, "name": "数列", "item": "https://kaitoinoue0921.github.io/works/math-notes/items/#seq"}, {"@type": "ListItem", "position": 4, "name": "aₙ₊₁=paₙ+q（特性方程式）", "item": "https://kaitoinoue0921.github.io/works/math-notes/items/seq-rec-basic.html"}]}</script>
+</head>
+<body data-site="math">
+<header class="top"><a class="brand" href="../">高校数学 公式・解法ノート</a></header>
+<main class="ip-main">
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">高校数学ノート</a> › <a href="./#seq">数列</a></nav>
+<article class="item" data-tier="must" id="seq-rec-basic" data-unit="seq"><header class="item-head"><span class="no" data-n="8"></span><span class="tier tier-must">必須</span><h1><span class="tx" data-d="0">a_{n+1}=pa_n+q</span>（特性方程式）</h1></header><p class="focus"><b>着眼点</b><span class="tx" data-d="0">\alpha=p\alpha+q</span> を解いて <span class="tx" data-d="0">a_{n+1}-\alpha=p(a_n-\alpha)</span> と変形。<span class="tx" data-d="0">\{a_n-\alpha\}</span> が等比数列になる。</p><div class="body"><ul><li><span class="tx" data-d="0">p=1</span>：等差数列（<span class="tx" data-d="0">a_{n+1}=a_n+q</span>）</li><li><span class="tx" data-d="0">q=0</span>：等比数列</li><li><span class="tx" data-d="0">a_{n+1}=a_n+f(n)</span>：階差数列（<span class="tx" data-d="0">a_n=a_1+\sum_{k=1}^{n-1}f(k)</span>）</li><li><span class="tx" data-d="0">a_{n+1}=pa_n+q\ (p\ne1)</span>：<span class="tx" data-d="0">a_n-\alpha=(a_1-\alpha)p^{n-1}</span></li></ul></div><div class="exs"><div class="lab">例題</div><div class="ex"><div class="q"><span class="n">1</span><div><span class="tx" data-d="0">a_1=1,\ a_{n+1}=3a_n-4</span> で定まる数列の一般項を求めよ。</div></div><details><summary>解答</summary><div class="a"><span class="tx" data-d="0">\alpha=3\alpha-4</span> より <span class="tx" data-d="0">\alpha=2</span>。<span class="tx" data-d="0">a_{n+1}-2=3(a_n-2)</span>。<br><span class="tx" data-d="0">\{a_n-2\}</span> は初項 <span class="tx" data-d="0">-1</span>、公比 <span class="tx" data-d="0">3</span> の等比数列：<span class="tx" data-d="0">a_n-2=-3^{n-1}</span>。<br>答 <span class="tx" data-d="0">a_n=2-3^{n-1}</span><br>（検算：<span class="tx" data-d="0">a_2=3-4=-1</span>、式で <span class="tx" data-d="0">2-3=-1</span>）</div></details></div><div class="ex"><div class="q"><span class="n">2</span><div><span class="tx" data-d="0">a_1=1,\ a_{n+1}=2a_n+3</span> で定まる数列の一般項を求めよ。</div></div><details><summary>解答</summary><div class="a"><span class="tx" data-d="0">\alpha=2\alpha+3</span> より <span class="tx" data-d="0">\alpha=-3</span>。<span class="tx" data-d="0">a_{n+1}+3=2(a_n+3)</span>。<br><span class="tx" data-d="0">a_n+3=4\cdot2^{n-1}=2^{n+1}</span>。<br>答 <span class="tx" data-d="0">a_n=2^{n+1}-3</span></div></details></div></div><div class="box warn"><b>注意</b>特性方程式は「変形のための計算メモ」。記述式では <span class="tx" data-d="0">a_{n+1}-\alpha=p(a_n-\alpha)</span> の変形の方を書く。</div><footer class="item-foot"><a href="../#i=seq-rec-basic">ノートで開いて「理解した」をつける →</a></footer></article>
+<nav class="pn" aria-label="前後の項目"><a class="pv" href="seq-diff.html"><small>← 前の項目</small>階差数列・和 Sₙ から一般項</a><a class="nx" href="seq-rec-n.html"><small>次の項目 →</small>aₙ₊₁=paₙ+(n の式)、aₙ₊₁=paₙ+rⁿ</a></nav>
+<section class="sib"><h2>「数列」の項目</h2><ol><li><a href="seq-arith.html">等差数列の一般項と和</a><span class="tier-mini must">必須</span></li><li><a href="seq-geo.html">等比数列の一般項と和</a><span class="tier-mini must">必須</span></li><li><a href="seq-mean.html">3数が等差・等比になる条件（等差中項・等比中項）</a><span class="tier-mini core">差がつく</span></li><li><a href="seq-sigma.html">Σの公式と計算</a><span class="tier-mini must">必須</span></li><li><a href="seq-telescope.html">分数の和は部分分数分解で消える（差の形）</a><span class="tier-mini must">必須</span></li><li><a href="seq-agp.html">（等差）×（等比）の和は S-rS</a><span class="tier-mini must">必須</span></li><li><a href="seq-diff.html">階差数列・和 Sₙ から一般項</a><span class="tier-mini must">必須</span></li><li class="cur">aₙ₊₁=paₙ+q（特性方程式）<span class="tier-mini must">必須</span></li><li><a href="seq-rec-n.html">aₙ₊₁=paₙ+(n の式)、aₙ₊₁=paₙ+rⁿ</a><span class="tier-mini core">差がつく</span></li><li><a href="seq-rec-recip.html">分数型は逆数をとる</a><span class="tier-mini core">差がつく</span></li><li><a href="seq-rec-3term.html">3項間漸化式 aₙ₊₂=paₙ₊₁+qaₙ</a><span class="tier-mini must">必須</span></li><li><a href="seq-rec-Sn.html">Sₙ と aₙ が混ざった漸化式</a><span class="tier-mini core">差がつく</span></li><li><a href="seq-group.html">群数列（区切りを入れた数列）</a><span class="tier-mini core">差がつく</span></li><li><a href="seq-induction.html">数学的帰納法</a><span class="tier-mini must">必須</span></li><li><a href="seq-rec-frac-general.html">一般の分数型 aₙ₊₁=(paₙ+q)/(raₙ+s)・連立漸化式</a><span class="tier-mini skip">不要</span></li><li><a href="seq-sigma-k4.html">Σ k⁴ などの高次の和の公式</a><span class="tier-mini skip">不要</span></li></ol></section>
+<p class="back"><a href="./">高校数学ノートの項目一覧</a> ・ <a href="../">ノート全体を開く</a>（「理解した」のチェックと進み具合はノートに保存されます）</p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script defer src="/assets/katex/katex.js"></script>
+<script defer src="/assets/katex/mhchem.js"></script>
+<script defer src="/assets/katex/render.js"></script>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

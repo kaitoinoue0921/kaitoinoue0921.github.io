@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>面積の証明問題（1/6公式を自分で示す・面積が一定を示す）（積分法（数Ⅱ））｜高校数学ノート</title>
+<meta name="description" content="面積の証明問題（1/6公式を自分で示す・面積が一定を示す）（積分法（数Ⅱ））。交点を α,β と文字のままおき、「上−下 =a(x-α)(x-β)」と因数分解した形で積分する。">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/works/math-notes/items/integ2-proof.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="面積の証明問題（1/6公式を自分で示す・面積が一定を示す）（積分法（数Ⅱ））｜高校数学ノート">
+<meta property="og:description" content="面積の証明問題（1/6公式を自分で示す・面積が一定を示す）（積分法（数Ⅱ））。交点を α,β と文字のままおき、「上−下 =a(x-α)(x-β)」と因数分解した形で積分する。">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/works/math-notes/items/integ2-proof.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/ogp.png">
+<link rel="stylesheet" href="/assets/katex/katex.css">
+<link rel="stylesheet" href="note.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "高校数学ノート", "item": "https://kaitoinoue0921.github.io/works/math-notes/"}, {"@type": "ListItem", "position": 3, "name": "積分法（数Ⅱ）", "item": "https://kaitoinoue0921.github.io/works/math-notes/items/#integ2"}, {"@type": "ListItem", "position": 4, "name": "面積の証明問題（1/6公式を自分で示す・面積が一定を示す）", "item": "https://kaitoinoue0921.github.io/works/math-notes/items/integ2-proof.html"}]}</script>
+</head>
+<body data-site="math">
+<header class="top"><a class="brand" href="../">高校数学 公式・解法ノート</a></header>
+<main class="ip-main">
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">高校数学ノート</a> › <a href="./#integ2">積分法（数Ⅱ）</a></nav>
+<article class="item" data-tier="must" id="integ2-proof" data-unit="integ2"><header class="item-head"><span class="no" data-n="14"></span><span class="tier tier-must">必須</span><h1>面積の証明問題（1/6公式を自分で示す・面積が一定を示す）</h1></header><p class="focus"><b>着眼点</b>交点を <span class="tx" data-d="0">\alpha,\beta</span> と文字のままおき、「上−下 <span class="tx" data-d="0">=a(x-\alpha)(x-\beta)</span>」と因数分解した形で積分する。</p><div class="body"><ol><li>交点の <span class="tx" data-d="0">x</span> 座標を <span class="tx" data-d="0">\alpha,\beta\ (\alpha&lt;\beta)</span> とおき、解と係数の関係を書く</li><li>上−下を <span class="tx" data-d="0">-a(x-\alpha)(x-\beta)</span> の形にする</li><li><span class="tx" data-d="0">\int_\alpha^\beta(x-\alpha)(x-\beta)dx=-\frac{(\beta-\alpha)^3}{6}</span> を証明つきで使う</li><li><span class="tx" data-d="0">(\beta-\alpha)^2=(\alpha+\beta)^2-4\alpha\beta</span> で係数の式に直す</li></ol></div><div class="exs"><div class="lab">例題</div><div class="ex"><div class="q"><span class="n">1</span><div>放物線 <span class="tx" data-d="0">y=x^2</span> 上の2点 <span class="tx" data-d="0">A(\alpha,\alpha^2),\ B(\beta,\beta^2)\ (\alpha&lt;\beta)</span> について、線分 <span class="tx" data-d="0">AB</span> と放物線で囲まれた部分の面積は <span class="tx" data-d="0">\frac{(\beta-\alpha)^3}{6}</span> であることを証明せよ。</div></div><details><summary>解答</summary><div class="a">直線 <span class="tx" data-d="0">AB</span> の傾きは <span class="tx" data-d="0">\frac{\beta^2-\alpha^2}{\beta-\alpha}=\alpha+\beta</span> なので <span class="tx" data-d="0">AB:\ y=(\alpha+\beta)x-\alpha\beta</span>。<br><span class="tx" data-d="0">\alpha&lt;x&lt;\beta</span> で直線が上にあり、差は <span class="tx" data-d="0">(\alpha+\beta)x-\alpha\beta-x^2=-(x-\alpha)(x-\beta)</span>。<br><span class="tx" data-d="0">(x-\alpha)(x-\beta)=(x-\alpha)^2-(\beta-\alpha)(x-\alpha)</span> より
+<span class="tx" data-d="1">\int_\alpha^\beta(x-\alpha)(x-\beta)dx=\Big[\frac{(x-\alpha)^3}{3}-(\beta-\alpha)\frac{(x-\alpha)^2}{2}\Big]_\alpha^\beta=-\frac{(\beta-\alpha)^3}{6}</span>
+よって面積は <span class="tx" data-d="0">\frac{(\beta-\alpha)^3}{6}</span>。（証明終）</div></details></div><div class="ex"><div class="q"><span class="n">2</span><div>点 <span class="tx" data-d="0">(0,1)</span> を通る直線 <span class="tx" data-d="0">y=mx+1</span> と放物線 <span class="tx" data-d="0">y=x^2</span> で囲まれた部分の面積 <span class="tx" data-d="0">S(m)</span> の最小値を求めよ。</div></div><details><summary>解答</summary><div class="a"><span class="tx" data-d="0">x^2-mx-1=0</span> の判別式 <span class="tx" data-d="0">m^2+4&gt;0</span> なので、常に2点で交わる。2解を <span class="tx" data-d="0">\alpha&lt;\beta</span> とすると、解と係数の関係より <span class="tx" data-d="0">\alpha+\beta=m,\ \alpha\beta=-1</span>。<br><span class="tx" data-d="0">(\beta-\alpha)^2=m^2+4</span>。<br>上の結果から <span class="tx" data-d="0">S(m)=\frac{(\beta-\alpha)^3}{6}=\frac{(m^2+4)^{\frac32}}{6}</span>。<br><span class="tx" data-d="0">m=0</span> で最小：<span class="tx" data-d="0">\frac{8}{6}</span>。<br>答 最小値 <span class="tx" data-d="0">\frac43</span>（<span class="tx" data-d="0">m=0</span>）</div></details></div></div><div class="box tip"><b>ポイント</b>「面積が <span class="tx" data-d="0">\beta-\alpha</span> だけで決まる」ことが見えると、「面積が一定 <span class="tx" data-d="0">\iff</span> 交点の間隔が一定」と言い換えられる。</div><footer class="item-foot"><a href="../#i=integ2-proof">ノートで開いて「理解した」をつける →</a></footer></article>
+<nav class="pn" aria-label="前後の項目"><a class="pv" href="integ2-varlimit-max.html"><small>← 前の項目</small>F(x)=∫ₐˣ f(t)dt の極値・最大最小</a><a class="nx" href="integ2-thirtieth.html"><small>次の項目 →</small>1/30公式（4次関数と2点で接する直線）</a></nav>
+<section class="sib"><h2>「積分法（数Ⅱ）」の項目</h2><ol><li><a href="integ2-indef.html">不定積分（f&#x27;(x) から f(x) を求める）</a><span class="tier-mini must">必須</span></li><li><a href="integ2-def.html">定積分の計算と偶関数・奇関数</a><span class="tier-mini must">必須</span></li><li><a href="integ2-abs.html">絶対値のついた定積分</a><span class="tier-mini must">必須</span></li><li><a href="integ2-minint.html">文字を含む定積分の最小値</a><span class="tier-mini core">差がつく</span></li><li><a href="integ2-area-basic.html">面積は「上の式−下の式」を積分</a><span class="tier-mini must">必須</span></li><li><a href="integ2-sixth.html">1/6公式（放物線と直線・放物線どうし）</a><span class="tier-mini must">必須</span></li><li><a href="integ2-tangent-area.html">放物線と接線（1/3公式）</a><span class="tier-mini core">差がつく</span></li><li><a href="integ2-cubic-area.html">3次関数と接線（1/12公式）</a><span class="tier-mini core">差がつく</span></li><li><a href="integ2-bisect.html">面積を2等分する直線</a><span class="tier-mini core">差がつく</span></li><li><a href="integ2-const.html">上端・下端が定数 → 定数 k とおく</a><span class="tier-mini must">必須</span></li><li><a href="integ2-varlimit.html">上端が x → 微分する・x=a を代入する</a><span class="tier-mini must">必須</span></li><li><a href="integ2-varlimit-x.html">積分の中に x がある ∫₀ˣ(x-t)f(t)dt</a><span class="tier-mini core">差がつく</span></li><li><a href="integ2-varlimit-max.html">F(x)=∫ₐˣ f(t)dt の極値・最大最小</a><span class="tier-mini core">差がつく</span></li><li class="cur">面積の証明問題（1/6公式を自分で示す・面積が一定を示す）<span class="tier-mini must">必須</span></li><li><a href="integ2-thirtieth.html">1/30公式（4次関数と2点で接する直線）</a><span class="tier-mini skip">不要</span></li></ol></section>
+<p class="back"><a href="./">高校数学ノートの項目一覧</a> ・ <a href="../">ノート全体を開く</a>（「理解した」のチェックと進み具合はノートに保存されます）</p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script defer src="/assets/katex/katex.js"></script>
+<script defer src="/assets/katex/mhchem.js"></script>
+<script defer src="/assets/katex/render.js"></script>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

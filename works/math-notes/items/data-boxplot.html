@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>箱ひげ図の読み取り（データの分析）｜高校数学ノート</title>
+<meta name="description" content="箱ひげ図の読み取り（データの分析）。箱ひげ図は5つの値（最小・Q₁・Q₂・Q₃・最大）だけの情報。「何番目の値か」に翻訳して人数を数える。">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/works/math-notes/items/data-boxplot.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="箱ひげ図の読み取り（データの分析）｜高校数学ノート">
+<meta property="og:description" content="箱ひげ図の読み取り（データの分析）。箱ひげ図は5つの値（最小・Q₁・Q₂・Q₃・最大）だけの情報。「何番目の値か」に翻訳して人数を数える。">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/works/math-notes/items/data-boxplot.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/ogp.png">
+<link rel="stylesheet" href="/assets/katex/katex.css">
+<link rel="stylesheet" href="note.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "高校数学ノート", "item": "https://kaitoinoue0921.github.io/works/math-notes/"}, {"@type": "ListItem", "position": 3, "name": "データの分析", "item": "https://kaitoinoue0921.github.io/works/math-notes/items/#data"}, {"@type": "ListItem", "position": 4, "name": "箱ひげ図の読み取り", "item": "https://kaitoinoue0921.github.io/works/math-notes/items/data-boxplot.html"}]}</script>
+</head>
+<body data-site="math">
+<header class="top"><a class="brand" href="../">高校数学 公式・解法ノート</a></header>
+<main class="ip-main">
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">高校数学ノート</a> › <a href="./#data">データの分析</a></nav>
+<article class="item" data-tier="must" id="data-boxplot" data-unit="data"><header class="item-head"><span class="no" data-n="3"></span><span class="tier tier-must">必須</span><h1>箱ひげ図の読み取り</h1></header><p class="focus"><b>着眼点</b>箱ひげ図は5つの値（最小・<span class="tx" data-d="0">Q_1</span>・<span class="tx" data-d="0">Q_2</span>・<span class="tx" data-d="0">Q_3</span>・最大）だけの情報。「何番目の値か」に翻訳して人数を数える。</p><div class="body"><p>左のひげの端＝最小値、箱の左端＝<span class="tx" data-d="0">Q_1</span>、箱の中の線＝中央値、箱の右端＝<span class="tx" data-d="0">Q_3</span>、右のひげの端＝最大値。</p>
+<p>データの個数が <span class="tx" data-d="0">4m</span> 個なら、<span class="tx" data-d="0">Q_1</span> は <span class="tx" data-d="0">m</span> 番目と <span class="tx" data-d="0">m+1</span> 番目の平均、<span class="tx" data-d="0">Q_2</span> は <span class="tx" data-d="0">2m</span> 番目と <span class="tx" data-d="0">2m+1</span> 番目の平均、<span class="tx" data-d="0">Q_3</span> は <span class="tx" data-d="0">3m</span> 番目と <span class="tx" data-d="0">3m+1</span> 番目の平均。</p>
+<p>ヒストグラムとの対応は「中央値の位置」と「山の偏り（ひげの長い側に裾が伸びる）」で判断する。</p></div><div class="exs"><div class="lab">例題</div><div class="ex"><div class="q"><span class="n">1</span><div>ある箱ひげ図で、最小値30、<span class="tx" data-d="0">Q_1=50</span>、中央値62、<span class="tx" data-d="0">Q_3=70</span>、最大値95であった。範囲と四分位範囲を求めよ。</div></div><details><summary>解答</summary><div class="a">範囲 <span class="tx" data-d="0">95-30=65</span>、四分位範囲 <span class="tx" data-d="0">70-50=20</span>。<br><b>答 範囲65、四分位範囲20</b></div></details></div><div class="ex"><div class="q"><span class="n">2</span><div>前問のデータが40人分の得点だとする。(1) 60点以上の人は少なくとも何人いるか。(2) 70点以上の人は少なくとも何人いるか。</div></div><details><summary>解答</summary><div class="a">40人なので中央値は20番目と21番目の平均。中央値が62だから21番目は62点以上で、21〜40番目の20人は62点以上。<br>（20番目は60点未満の可能性があるので、これ以上は言えない）<br><span class="tx" data-d="0">Q_3</span> は30番目と31番目の平均なので、31番目は70点以上。31〜40番目の10人は70点以上。<br><b>答 (1) 20人 (2) 10人</b></div></details></div></div><div class="box tip"><b>ポイント</b>「〜と言えるか」型の正誤問題は、反例になるデータ（真ん中2つをわざとずらす）を1つ考えると速い。</div><div class="box warn"><b>注意</b>箱ひげ図から平均値は読めない。「箱の幅が広い＝人数が多い」も誤り（各区間はほぼ同じ人数）。</div><div class="drill"><div class="lab">確認問題</div><div class="ex"><div class="q"><span class="n">1</span><div>箱ひげ図から「平均値は中央値より大きい」と断定できるか。</div></div><details><summary>答え</summary><div class="a">断定できない。箱ひげ図は5つの値しか持たず、平均値の情報がない。</div></details></div></div><footer class="item-foot"><a href="../#i=data-boxplot">ノートで開いて「理解した」をつける →</a></footer></article>
+<nav class="pn" aria-label="前後の項目"><a class="pv" href="data-quartile.html"><small>← 前の項目</small>四分位数と四分位範囲</a><a class="nx" href="data-outlier.html"><small>次の項目 →</small>外れ値の基準</a></nav>
+<section class="sib"><h2>「データの分析」の項目</h2><ol><li><a href="data-mean.html">平均値・中央値・最頻値</a><span class="tier-mini must">必須</span></li><li><a href="data-quartile.html">四分位数と四分位範囲</a><span class="tier-mini must">必須</span></li><li class="cur">箱ひげ図の読み取り<span class="tier-mini must">必須</span></li><li><a href="data-outlier.html">外れ値の基準</a><span class="tier-mini core">差がつく</span></li><li><a href="data-var.html">分散と標準偏差</a><span class="tier-mini must">必須</span></li><li><a href="data-transform.html">変量の変換 y=ax+b</a><span class="tier-mini must">必須</span></li><li><a href="data-merge.html">2つのグループを合わせた平均・分散</a><span class="tier-mini core">差がつく</span></li><li><a href="data-cov.html">共分散と相関係数</a><span class="tier-mini must">必須</span></li><li><a href="data-scatter.html">散布図と相関の読み取り</a><span class="tier-mini must">必須</span></li><li><a href="data-corr-transform.html">変換したときの共分散・相関係数</a><span class="tier-mini core">差がつく</span></li><li><a href="data-hypo.html">仮説検定の考え方</a><span class="tier-mini core">差がつく</span></li><li><a href="data-zscore.html">標準化と偏差値</a><span class="tier-mini skip">不要</span></li></ol></section>
+<p class="back"><a href="./">高校数学ノートの項目一覧</a> ・ <a href="../">ノート全体を開く</a>（「理解した」のチェックと進み具合はノートに保存されます）</p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script defer src="/assets/katex/katex.js"></script>
+<script defer src="/assets/katex/mhchem.js"></script>
+<script defer src="/assets/katex/render.js"></script>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

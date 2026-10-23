@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>曲線の長さ（積分法（数学Ⅲ））｜高校数学ノート</title>
+<meta name="description" content="曲線の長さ（積分法（数学Ⅲ））。根号の中が「何かの2乗」になるよう作られていることが多い。1-cos t=2sin²t/2 などを使って根号を外す。">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/works/math-notes/items/integ3-length.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="曲線の長さ（積分法（数学Ⅲ））｜高校数学ノート">
+<meta property="og:description" content="曲線の長さ（積分法（数学Ⅲ））。根号の中が「何かの2乗」になるよう作られていることが多い。1-cos t=2sin²t/2 などを使って根号を外す。">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/works/math-notes/items/integ3-length.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/ogp.png">
+<link rel="stylesheet" href="/assets/katex/katex.css">
+<link rel="stylesheet" href="note.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "高校数学ノート", "item": "https://kaitoinoue0921.github.io/works/math-notes/"}, {"@type": "ListItem", "position": 3, "name": "積分法（数学Ⅲ）", "item": "https://kaitoinoue0921.github.io/works/math-notes/items/#integ3"}, {"@type": "ListItem", "position": 4, "name": "曲線の長さ", "item": "https://kaitoinoue0921.github.io/works/math-notes/items/integ3-length.html"}]}</script>
+</head>
+<body data-site="math">
+<header class="top"><a class="brand" href="../">高校数学 公式・解法ノート</a></header>
+<main class="ip-main">
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">高校数学ノート</a> › <a href="./#integ3">積分法（数学Ⅲ）</a></nav>
+<article class="item" data-tier="core" id="integ3-length" data-unit="integ3"><header class="item-head"><span class="no" data-n="14"></span><span class="tier tier-core">差がつく</span><h1>曲線の長さ</h1></header><p class="focus"><b>着眼点</b>根号の中が「何かの2乗」になるよう作られていることが多い。<span class="tx" data-d="0">1-\cos t=2\sin^2\frac t2</span> などを使って根号を外す。</p><div class="body"><span class="tx" data-d="1">L=\int_\alpha^\beta\sqrt{\left(\frac{dx}{dt}\right)^2+\left(\frac{dy}{dt}\right)^2}\,dt,\qquad L=\int_a^b\sqrt{1+\{f'(x)\}^2}\,dx</span></div><div class="exs"><div class="lab">例題</div><div class="ex"><div class="q"><span class="n">1</span><div>曲線 <span class="tx" data-d="0">y=\dfrac23x^{\frac32}\ (0\le x\le3)</span> の長さを求めよ。</div></div><details><summary>解答</summary><div class="a"><span class="tx" data-d="0">y'=x^{\frac12}</span> より <span class="tx" data-d="0">\sqrt{1+y'^2}=\sqrt{1+x}</span>。<span class="tx" data-d="1">\int_0^3(1+x)^{\frac12}dx=\left[\frac23(1+x)^{\frac32}\right]_0^3=\frac23(8-1)=\frac{14}3</span></div></details></div><div class="ex"><div class="q"><span class="n">2</span><div>サイクロイド <span class="tx" data-d="0">x=t-\sin t,\ y=1-\cos t\ (0\le t\le2\pi)</span> の長さを求めよ。</div></div><details><summary>解答</summary><div class="a"><span class="tx" data-d="0">(1-\cos t)^2+\sin^2t=2-2\cos t=4\sin^2\frac t2</span>。<span class="tx" data-d="0">0\le t\le2\pi</span> で <span class="tx" data-d="0">\sin\frac t2\ge0</span> なので <span class="tx" data-d="1">L=\int_0^{2\pi}2\sin\frac t2\,dt=\left[-4\cos\frac t2\right]_0^{2\pi}=4+4=8</span>答え <span class="tx" data-d="0">8</span></div></details></div></div><div class="box warn"><b>注意</b><span class="tx" data-d="0">\sqrt{4\sin^2\frac t2}=2\left|\sin\frac t2\right|</span>。範囲で符号を確認してから絶対値を外す。</div><footer class="item-foot"><a href="../#i=integ3-length">ノートで開いて「理解した」をつける →</a></footer></article>
+<nav class="pn" aria-label="前後の項目"><a class="pv" href="integ3-param-area.html"><small>← 前の項目</small>媒介変数表示の曲線と面積</a><a class="nx" href="integ3-shell.html"><small>次の項目 →</small>バウムクーヘン型の体積公式</a></nav>
+<section class="sib"><h2>「積分法（数学Ⅲ）」の項目</h2><ol><li><a href="integ3-basic.html">基本の不定積分</a><span class="tier-mini must">必須</span></li><li><a href="integ3-linear.html">f(ax+b) の積分</a><span class="tier-mini must">必須</span></li><li><a href="integ3-fprime.html">f&#x27;/f 型・fⁿf&#x27; 型（置換を書かない置換）</a><span class="tier-mini must">必須</span></li><li><a href="integ3-subst.html">置換積分（定積分は範囲も置き換える）</a><span class="tier-mini must">必須</span></li><li><a href="integ3-parts.html">部分積分</a><span class="tier-mini must">必須</span></li><li><a href="integ3-trig.html">三角関数の積分（次数下げ・積和・奇関数）</a><span class="tier-mini must">必須</span></li><li><a href="integ3-rational.html">分数関数の積分（割り算・部分分数）</a><span class="tier-mini core">差がつく</span></li><li><a href="integ3-ftc.html">定積分で表された関数</a><span class="tier-mini must">必須</span></li><li><a href="integ3-riemann.html">区分求積法</a><span class="tier-mini must">必須</span></li><li><a href="integ3-ineq.html">定積分と不等式（和を積分で評価）</a><span class="tier-mini core">差がつく</span></li><li><a href="integ3-area.html">面積</a><span class="tier-mini must">必須</span></li><li><a href="integ3-volume.html">体積（断面積・回転体）</a><span class="tier-mini must">必須</span></li><li><a href="integ3-param-area.html">媒介変数表示の曲線と面積</a><span class="tier-mini core">差がつく</span></li><li class="cur">曲線の長さ<span class="tier-mini core">差がつく</span></li><li><a href="integ3-shell.html">バウムクーヘン型の体積公式</a><span class="tier-mini skip">不要</span></li><li><a href="integ3-oblique.html">斜めの軸（y=x など）のまわりの回転体</a><span class="tier-mini skip">不要</span></li></ol></section>
+<p class="back"><a href="./">高校数学ノートの項目一覧</a> ・ <a href="../">ノート全体を開く</a>（「理解した」のチェックと進み具合はノートに保存されます）</p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script defer src="/assets/katex/katex.js"></script>
+<script defer src="/assets/katex/mhchem.js"></script>
+<script defer src="/assets/katex/render.js"></script>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

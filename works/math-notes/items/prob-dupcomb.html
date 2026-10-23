@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>重複組合せ（○と｜の並べ方）（場合の数と確率）｜高校数学ノート</title>
+<meta name="description" content="重複組合せ（○と｜の並べ方）（場合の数と確率）。「n 種類から重複を許して r 個取る」＝「○ r 個と仕切り｜(n-1) 本の並べ方」。">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/works/math-notes/items/prob-dupcomb.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="重複組合せ（○と｜の並べ方）（場合の数と確率）｜高校数学ノート">
+<meta property="og:description" content="重複組合せ（○と｜の並べ方）（場合の数と確率）。「n 種類から重複を許して r 個取る」＝「○ r 個と仕切り｜(n-1) 本の並べ方」。">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/works/math-notes/items/prob-dupcomb.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/ogp.png">
+<link rel="stylesheet" href="/assets/katex/katex.css">
+<link rel="stylesheet" href="note.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "高校数学ノート", "item": "https://kaitoinoue0921.github.io/works/math-notes/"}, {"@type": "ListItem", "position": 3, "name": "場合の数と確率", "item": "https://kaitoinoue0921.github.io/works/math-notes/items/#prob"}, {"@type": "ListItem", "position": 4, "name": "重複組合せ（○と｜の並べ方）", "item": "https://kaitoinoue0921.github.io/works/math-notes/items/prob-dupcomb.html"}]}</script>
+</head>
+<body data-site="math">
+<header class="top"><a class="brand" href="../">高校数学 公式・解法ノート</a></header>
+<main class="ip-main">
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">高校数学ノート</a> › <a href="./#prob">場合の数と確率</a></nav>
+<article class="item" data-tier="core" id="prob-dupcomb" data-unit="prob"><header class="item-head"><span class="no" data-n="8"></span><span class="tier tier-core">差がつく</span><h1>重複組合せ（○と｜の並べ方）</h1></header><p class="focus"><b>着眼点</b>「<span class="tx" data-d="0">n</span> 種類から重複を許して <span class="tx" data-d="0">r</span> 個取る」＝「○ <span class="tx" data-d="0">r</span> 個と仕切り｜<span class="tx" data-d="0">(n-1)</span> 本の並べ方」。</p><div class="body"><span class="tx" data-d="1">{}_{n}\mathrm{H}_{r}={}_{n+r-1}\mathrm{C}_{r}</span>
+<p><span class="tx" data-d="0">x+y+z=r</span> の0以上の整数解の個数も同じ形：○ <span class="tx" data-d="0">r</span> 個と｜2本で <span class="tx" data-d="0">{}_{r+2}\mathrm{C}_{2}</span>。</p></div><div class="exs"><div class="lab">例題</div><div class="ex"><div class="q"><span class="n">1</span><div><span class="tx" data-d="0">x+y+z=8</span> を満たす0以上の整数の組 <span class="tx" data-d="0">(x,y,z)</span> は何組か。</div></div><details><summary>解答</summary><div class="a">○8個と｜2本の並べ方なので <span class="tx" data-d="0">{}_{10}\mathrm{C}_{2}=45</span>。<br><b>答 45組</b></div></details></div><div class="ex"><div class="q"><span class="n">2</span><div><span class="tx" data-d="0">x+y+z=8</span> を満たす<b>正の</b>整数の組は何組か。</div></div><details><summary>解答</summary><div class="a"><span class="tx" data-d="0">x=X+1,\ y=Y+1,\ z=Z+1</span>（<span class="tx" data-d="0">X,Y,Z\ge0</span>）とおくと <span class="tx" data-d="0">X+Y+Z=5</span>。<br>○5個と｜2本で <span class="tx" data-d="0">{}_{7}\mathrm{C}_{2}=21</span>。<br>（別解：8個の○の間7か所から仕切り2か所を選ぶ <span class="tx" data-d="0">{}_{7}\mathrm{C}_{2}=21</span>）<br><b>答 21組</b></div></details></div></div><div class="box tip"><b>ポイント</b>記号 <span class="tx" data-d="0">\mathrm{H}</span> は教科書によっては扱わない。答案では「○と｜の並べ方」で説明すれば十分。</div><div class="drill"><div class="lab">確認問題</div><div class="ex"><div class="q"><span class="n">1</span><div>4種類の果物から重複を許して6個選ぶ方法は？</div></div><details><summary>答え</summary><div class="a">○6個と｜3本で <span class="tx" data-d="0">{}_{9}\mathrm{C}_{3}=84</span> 通り</div></details></div></div><footer class="item-foot"><a href="../#i=prob-dupcomb">ノートで開いて「理解した」をつける →</a></footer></article>
+<nav class="pn" aria-label="前後の項目"><a class="pv" href="prob-repeat.html"><small>← 前の項目</small>重複順列と部屋分け（空き部屋なし）</a><a class="nx" href="prob-basic.html"><small>次の項目 →</small>確率の定義と「区別して数える」</a></nav>
+<section class="sib"><h2>「場合の数と確率」の項目</h2><ol><li><a href="prob-sum-product.html">和の法則・積の法則</a><span class="tier-mini must">必須</span></li><li><a href="prob-perm.html">順列 ₙPᵣ（隣接・非隣接・数字の並び）</a><span class="tier-mini must">必須</span></li><li><a href="prob-comb.html">組合せ ₙCᵣ（選ぶだけ・図形・最短経路）</a><span class="tier-mini must">必須</span></li><li><a href="prob-group.html">組分け（区別あり／なし）</a><span class="tier-mini core">差がつく</span></li><li><a href="prob-same.html">同じものを含む順列</a><span class="tier-mini must">必須</span></li><li><a href="prob-circle.html">円順列・じゅず順列</a><span class="tier-mini core">差がつく</span></li><li><a href="prob-repeat.html">重複順列と部屋分け（空き部屋なし）</a><span class="tier-mini core">差がつく</span></li><li class="cur">重複組合せ（○と｜の並べ方）<span class="tier-mini core">差がつく</span></li><li><a href="prob-basic.html">確率の定義と「区別して数える」</a><span class="tier-mini must">必須</span></li><li><a href="prob-complement.html">余事象・「少なくとも」・最大値の確率</a><span class="tier-mini must">必須</span></li><li><a href="prob-binomial.html">独立試行・反復試行の確率</a><span class="tier-mini must">必須</span></li><li><a href="prob-cond.html">条件付き確率と乗法定理</a><span class="tier-mini must">必須</span></li><li><a href="prob-expect.html">期待値</a><span class="tier-mini must">必須</span></li><li><a href="prob-markov2.html">2状態の推移 pₙ₊₁=apₙ+b</a><span class="tier-mini must">必須</span></li><li><a href="prob-markov3.html">3状態以上の推移（対称性で1本の漸化式に）</a><span class="tier-mini core">差がつく</span></li><li><a href="prob-derangement.html">完全順列（全員が自分以外を受け取る）</a><span class="tier-mini skip">不要</span></li></ol></section>
+<p class="back"><a href="./">高校数学ノートの項目一覧</a> ・ <a href="../">ノート全体を開く</a>（「理解した」のチェックと進み具合はノートに保存されます）</p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script defer src="/assets/katex/katex.js"></script>
+<script defer src="/assets/katex/mhchem.js"></script>
+<script defer src="/assets/katex/render.js"></script>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

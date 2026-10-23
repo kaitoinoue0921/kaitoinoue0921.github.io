@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>和の期待値・独立な確率変数の分散（統計的な推測）｜高校数学ノート</title>
+<meta name="description" content="和の期待値・独立な確率変数の分散（統計的な推測）。和の期待値はいつでも足せる。分散を足せるのは「独立」のときだけ。">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/works/math-notes/items/stat-sum.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="和の期待値・独立な確率変数の分散（統計的な推測）｜高校数学ノート">
+<meta property="og:description" content="和の期待値・独立な確率変数の分散（統計的な推測）。和の期待値はいつでも足せる。分散を足せるのは「独立」のときだけ。">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/works/math-notes/items/stat-sum.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/ogp.png">
+<link rel="stylesheet" href="/assets/katex/katex.css">
+<link rel="stylesheet" href="note.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "高校数学ノート", "item": "https://kaitoinoue0921.github.io/works/math-notes/"}, {"@type": "ListItem", "position": 3, "name": "統計的な推測", "item": "https://kaitoinoue0921.github.io/works/math-notes/items/#stat"}, {"@type": "ListItem", "position": 4, "name": "和の期待値・独立な確率変数の分散", "item": "https://kaitoinoue0921.github.io/works/math-notes/items/stat-sum.html"}]}</script>
+</head>
+<body data-site="math">
+<header class="top"><a class="brand" href="../">高校数学 公式・解法ノート</a></header>
+<main class="ip-main">
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">高校数学ノート</a> › <a href="./#stat">統計的な推測</a></nav>
+<article class="item" data-tier="core" id="stat-sum" data-unit="stat"><header class="item-head"><span class="no" data-n="4"></span><span class="tier tier-core">差がつく</span><h1>和の期待値・独立な確率変数の分散</h1></header><p class="focus"><b>着眼点</b>和の期待値はいつでも足せる。分散を足せるのは「独立」のときだけ。</p><div class="body"><span class="tx" data-d="1">E(X+Y)=E(X)+E(Y)\quad(\text{常に成り立つ})</span><p><span class="tx" data-d="0">X,\,Y</span> が独立なら</p><span class="tx" data-d="1">E(XY)=E(X)E(Y),\quad V(X+Y)=V(X)+V(Y)</span><p><span class="tx" data-d="0">aX+bY</span> なら <span class="tx" data-d="0">E=aE(X)+bE(Y)</span>、独立のとき <span class="tx" data-d="0">V=a^2V(X)+b^2V(Y)</span>。</p></div><div class="exs"><div class="lab">例題</div><div class="ex"><div class="q"><span class="n">1</span><div>1個のさいころの目 <span class="tx" data-d="0">X</span> について <span class="tx" data-d="0">E(X)=\frac72,\ V(X)=\frac{35}{12}</span> である。2個のさいころの目の和 <span class="tx" data-d="0">S</span> の期待値と分散を求めよ。</div></div><details><summary>解答</summary><div class="a">2個の目 <span class="tx" data-d="0">X_1,\,X_2</span> は独立。<span class="tx" data-d="1">E(S)=\frac72+\frac72=7,\quad V(S)=\frac{35}{12}+\frac{35}{12}=\frac{35}{6}</span></div></details></div><div class="ex"><div class="q"><span class="n">2</span><div>独立な <span class="tx" data-d="0">X,\,Y</span> について <span class="tx" data-d="0">E(X)=2,\ V(X)=1,\ E(Y)=-1,\ V(Y)=3</span>。<span class="tx" data-d="0">W=3X-2Y</span> の期待値と分散、および <span class="tx" data-d="0">E(XY)</span> を求めよ。</div></div><details><summary>解答</summary><div class="a"><span class="tx" data-d="1">E(W)=3\cdot2-2\cdot(-1)=8</span><span class="tx" data-d="1">V(W)=9\cdot1+4\cdot3=21</span>（<span class="tx" data-d="0">-2Y</span> の分散は <span class="tx" data-d="0">(-2)^2V(Y)</span> なので<b>足し算</b>になる）<span class="tx" data-d="1">E(XY)=2\cdot(-1)=-2</span></div></details></div></div><div class="box warn"><b>注意</b><span class="tx" data-d="0">V(X-Y)=V(X)-V(Y)</span> は誤り。独立なら <span class="tx" data-d="0">V(X-Y)=V(X)+V(Y)</span>。</div><footer class="item-foot"><a href="../#i=stat-sum">ノートで開いて「理解した」をつける →</a></footer></article>
+<nav class="pn" aria-label="前後の項目"><a class="pv" href="stat-linear.html"><small>← 前の項目</small>aX+b の期待値・分散</a><a class="nx" href="stat-binom.html"><small>次の項目 →</small>二項分布 B(n, p)</a></nav>
+<section class="sib"><h2>「統計的な推測」の項目</h2><ol><li><a href="stat-rv.html">確率分布と期待値 E(X)</a><span class="tier-mini must">必須</span></li><li><a href="stat-var.html">分散 V(X) と標準偏差 σ(X)</a><span class="tier-mini must">必須</span></li><li><a href="stat-linear.html">aX+b の期待値・分散</a><span class="tier-mini must">必須</span></li><li class="cur">和の期待値・独立な確率変数の分散<span class="tier-mini core">差がつく</span></li><li><a href="stat-binom.html">二項分布 B(n, p)</a><span class="tier-mini must">必須</span></li><li><a href="stat-normal.html">正規分布と標準化（正規分布表の引き方）</a><span class="tier-mini must">必須</span></li><li><a href="stat-binom-normal.html">二項分布の正規分布による近似</a><span class="tier-mini must">必須</span></li><li><a href="stat-sample-mean.html">標本平均の分布</a><span class="tier-mini must">必須</span></li><li><a href="stat-estimate.html">母平均の推定（信頼度95%）</a><span class="tier-mini core">差がつく</span></li><li><a href="stat-test.html">仮説検定（二項分布の正規近似・両側検定）</a><span class="tier-mini core">差がつく</span></li><li><a href="stat-prop.html">母比率の推定・検定</a><span class="tier-mini skip">不要</span></li><li><a href="stat-continuous.html">連続型確率変数と確率密度関数</a><span class="tier-mini skip">不要</span></li><li><a href="stat-lln.html">大数の法則</a><span class="tier-mini skip">不要</span></li></ol></section>
+<p class="back"><a href="./">高校数学ノートの項目一覧</a> ・ <a href="../">ノート全体を開く</a>（「理解した」のチェックと進み具合はノートに保存されます）</p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script defer src="/assets/katex/katex.js"></script>
+<script defer src="/assets/katex/mhchem.js"></script>
+<script defer src="/assets/katex/render.js"></script>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>仮説検定の考え方（データの分析）｜高校数学ノート</title>
+<meta name="description" content="仮説検定の考え方（データの分析）。「偶然だとしたら、こんな結果はどれくらい起こりにくいか」を確率で測り、基準（多くは5%）より小さければ偶然ではないと判断する。">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/works/math-notes/items/data-hypo.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="仮説検定の考え方（データの分析）｜高校数学ノート">
+<meta property="og:description" content="仮説検定の考え方（データの分析）。「偶然だとしたら、こんな結果はどれくらい起こりにくいか」を確率で測り、基準（多くは5%）より小さければ偶然ではないと判断する。">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/works/math-notes/items/data-hypo.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/ogp.png">
+<link rel="stylesheet" href="/assets/katex/katex.css">
+<link rel="stylesheet" href="note.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "高校数学ノート", "item": "https://kaitoinoue0921.github.io/works/math-notes/"}, {"@type": "ListItem", "position": 3, "name": "データの分析", "item": "https://kaitoinoue0921.github.io/works/math-notes/items/#data"}, {"@type": "ListItem", "position": 4, "name": "仮説検定の考え方", "item": "https://kaitoinoue0921.github.io/works/math-notes/items/data-hypo.html"}]}</script>
+</head>
+<body data-site="math">
+<header class="top"><a class="brand" href="../">高校数学 公式・解法ノート</a></header>
+<main class="ip-main">
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">高校数学ノート</a> › <a href="./#data">データの分析</a></nav>
+<article class="item" data-tier="core" id="data-hypo" data-unit="data"><header class="item-head"><span class="no" data-n="11"></span><span class="tier tier-core">差がつく</span><h1>仮説検定の考え方</h1></header><p class="focus"><b>着眼点</b>「偶然だとしたら、こんな結果はどれくらい起こりにくいか」を確率で測り、基準（多くは5%）より小さければ偶然ではないと判断する。</p><div class="body"><ol><li>否定したい仮説（例：コインは公正、<span class="tx" data-d="0">p=\frac12</span>）を立てる</li><li>その仮説のもとで、観測結果<b>以上に極端な</b>結果の起こる確率を求める（反復試行の確率やシミュレーション結果を使う）</li><li>基準より小さい → 仮説は正しくなかったと判断。基準以上 → 「仮説が誤りとは言えない」（正しいと証明したわけではない）</li></ol></div><div class="exs"><div class="lab">例題</div><div class="ex"><div class="q"><span class="n">1</span><div>コインを10回投げたら表が9回出た。「表と裏は同様に確からしい」という仮説を、基準5%で判断せよ（表が9回以上の確率で考える）。</div></div><details><summary>解答</summary><div class="a">表が9回以上の確率は <span class="tx" data-d="0">\dfrac{{}_{10}\mathrm{C}_9+{}_{10}\mathrm{C}_{10}}{2^{10}}=\dfrac{11}{1024}\approx0.011</span>。<br><span class="tx" data-d="0">0.05</span> より小さいので、仮説は誤りと判断する。<br><b>答 公正とは言えない（表が出やすいと判断）</b></div></details></div><div class="ex"><div class="q"><span class="n">2</span><div>同じく10回中8回表だった場合はどうか。</div></div><details><summary>解答</summary><div class="a">8回以上の確率 <span class="tx" data-d="0">\dfrac{45+10+1}{1024}=\dfrac{56}{1024}\approx0.055</span>。<br><span class="tx" data-d="0">0.05</span> 以上なので仮説を誤りとは判断できない。<br><b>答 公正でないとは言えない</b></div></details></div></div><div class="box warn"><b>注意</b>「基準以上だった＝仮説が正しいと示された」と書くのは誤り。結論は「誤りとは言えない」。</div><footer class="item-foot"><a href="../#i=data-hypo">ノートで開いて「理解した」をつける →</a></footer></article>
+<nav class="pn" aria-label="前後の項目"><a class="pv" href="data-corr-transform.html"><small>← 前の項目</small>変換したときの共分散・相関係数</a><a class="nx" href="data-zscore.html"><small>次の項目 →</small>標準化と偏差値</a></nav>
+<section class="sib"><h2>「データの分析」の項目</h2><ol><li><a href="data-mean.html">平均値・中央値・最頻値</a><span class="tier-mini must">必須</span></li><li><a href="data-quartile.html">四分位数と四分位範囲</a><span class="tier-mini must">必須</span></li><li><a href="data-boxplot.html">箱ひげ図の読み取り</a><span class="tier-mini must">必須</span></li><li><a href="data-outlier.html">外れ値の基準</a><span class="tier-mini core">差がつく</span></li><li><a href="data-var.html">分散と標準偏差</a><span class="tier-mini must">必須</span></li><li><a href="data-transform.html">変量の変換 y=ax+b</a><span class="tier-mini must">必須</span></li><li><a href="data-merge.html">2つのグループを合わせた平均・分散</a><span class="tier-mini core">差がつく</span></li><li><a href="data-cov.html">共分散と相関係数</a><span class="tier-mini must">必須</span></li><li><a href="data-scatter.html">散布図と相関の読み取り</a><span class="tier-mini must">必須</span></li><li><a href="data-corr-transform.html">変換したときの共分散・相関係数</a><span class="tier-mini core">差がつく</span></li><li class="cur">仮説検定の考え方<span class="tier-mini core">差がつく</span></li><li><a href="data-zscore.html">標準化と偏差値</a><span class="tier-mini skip">不要</span></li></ol></section>
+<p class="back"><a href="./">高校数学ノートの項目一覧</a> ・ <a href="../">ノート全体を開く</a>（「理解した」のチェックと進み具合はノートに保存されます）</p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script defer src="/assets/katex/katex.js"></script>
+<script defer src="/assets/katex/mhchem.js"></script>
+<script defer src="/assets/katex/render.js"></script>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

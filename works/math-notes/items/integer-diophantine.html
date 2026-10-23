@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>1次不定方程式 ax+by=c（整数の性質）｜高校数学ノート</title>
+<meta name="description" content="1次不定方程式 ax+by=c（整数の性質）。特殊解を1つ見つけて 引き算 し、「a(…)=b(…) で a,b が互いに素」から一般解を出す。">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/works/math-notes/items/integer-diophantine.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="1次不定方程式 ax+by=c（整数の性質）｜高校数学ノート">
+<meta property="og:description" content="1次不定方程式 ax+by=c（整数の性質）。特殊解を1つ見つけて 引き算 し、「a(…)=b(…) で a,b が互いに素」から一般解を出す。">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/works/math-notes/items/integer-diophantine.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/ogp.png">
+<link rel="stylesheet" href="/assets/katex/katex.css">
+<link rel="stylesheet" href="note.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "高校数学ノート", "item": "https://kaitoinoue0921.github.io/works/math-notes/"}, {"@type": "ListItem", "position": 3, "name": "整数の性質", "item": "https://kaitoinoue0921.github.io/works/math-notes/items/#integer"}, {"@type": "ListItem", "position": 4, "name": "1次不定方程式 ax+by=c", "item": "https://kaitoinoue0921.github.io/works/math-notes/items/integer-diophantine.html"}]}</script>
+</head>
+<body data-site="math">
+<header class="top"><a class="brand" href="../">高校数学 公式・解法ノート</a></header>
+<main class="ip-main">
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">高校数学ノート</a> › <a href="./#integer">整数の性質</a></nav>
+<article class="item" data-tier="must" id="integer-diophantine" data-unit="integer"><header class="item-head"><span class="no" data-n="4"></span><span class="tier tier-must">必須</span><h1>1次不定方程式 <span class="tx" data-d="0">ax+by=c</span></h1></header><p class="focus"><b>着眼点</b>特殊解を1つ見つけて<b>引き算</b>し、「<span class="tx" data-d="0">a(\cdots)=b(\cdots)</span> で <span class="tx" data-d="0">a,b</span> が互いに素」から一般解を出す。</p><div class="body"><ol><li>特殊解 <span class="tx" data-d="0">(x_0,y_0)</span> を見つける（代入 or 互除法）</li><li>元の式と引いて <span class="tx" data-d="0">a(x-x_0)=-b(y-y_0)</span></li><li><span class="tx" data-d="0">a,b</span> が互いに素なので <span class="tx" data-d="0">x-x_0</span> は <span class="tx" data-d="0">b</span> の倍数：<span class="tx" data-d="0">x=x_0+bk,\ y=y_0-ak</span>（<span class="tx" data-d="0">k</span> は整数）</li></ol>
+<p><span class="tx" data-d="0">c</span> が <span class="tx" data-d="0">\gcd(a,b)</span> の倍数でなければ整数解はない。</p></div><div class="exs"><div class="lab">例題</div><div class="ex"><div class="q"><span class="n">1</span><div><span class="tx" data-d="0">11x+7y=1</span> のすべての整数解を求めよ。</div></div><details><summary>解答</summary><div class="a"><span class="tx" data-d="0">11\cdot2+7\cdot(-3)=1</span> なので特殊解 <span class="tx" data-d="0">(2,-3)</span>。<br>引いて <span class="tx" data-d="0">11(x-2)=-7(y+3)</span>。11と7は互いに素なので <span class="tx" data-d="0">x-2=7k</span>。このとき <span class="tx" data-d="0">y+3=-11k</span>。<br><b>答 <span class="tx" data-d="0">x=7k+2,\ y=-11k-3</span>（<span class="tx" data-d="0">k</span> は整数）</b></div></details></div><div class="ex"><div class="q"><span class="n">2</span><div><span class="tx" data-d="0">3x+5y=40</span> を満たす正の整数の組 <span class="tx" data-d="0">(x,y)</span> をすべて求めよ。</div></div><details><summary>解答</summary><div class="a">特殊解 <span class="tx" data-d="0">(5,5)</span>。<span class="tx" data-d="0">3(x-5)=-5(y-5)</span> より <span class="tx" data-d="0">x=5k+5,\ y=-3k+5</span>。<br><span class="tx" data-d="0">x&gt;0</span> より <span class="tx" data-d="0">k&gt;-1</span>、<span class="tx" data-d="0">y&gt;0</span> より <span class="tx" data-d="0">k&lt;\dfrac53</span>。よって <span class="tx" data-d="0">k=0,1</span>。<br><b>答 <span class="tx" data-d="0">(x,y)=(5,5),(10,2)</span></b></div></details></div></div><div class="box warn"><b>注意</b>一般解の <span class="tx" data-d="0">x</span> と <span class="tx" data-d="0">y</span> で <span class="tx" data-d="0">k</span> の係数の符号を逆にし忘れるミス。最後に <span class="tx" data-d="0">k=1</span> を代入して元の式を満たすか確かめる。</div><div class="drill"><div class="lab">確認問題</div><div class="ex"><div class="q"><span class="n">1</span><div><span class="tx" data-d="0">11x+7y=5</span> の整数解は？</div></div><details><summary>答え</summary><div class="a">特殊解 <span class="tx" data-d="0">(3,-4)</span>（<span class="tx" data-d="0">33-28=5</span>）。<span class="tx" data-d="0">x=7k+3,\ y=-11k-4</span></div></details></div></div><footer class="item-foot"><a href="../#i=integer-diophantine">ノートで開いて「理解した」をつける →</a></footer></article>
+<nav class="pn" aria-label="前後の項目"><a class="pv" href="integer-euclid.html"><small>← 前の項目</small>ユークリッドの互除法</a><a class="nx" href="integer-remainder.html"><small>次の項目 →</small>余りで分類する（n=3k, 3k+1, 3k+2）</a></nav>
+<section class="sib"><h2>「整数の性質」の項目</h2><ol><li><a href="integer-divisor.html">素因数分解と約数の個数・総和</a><span class="tier-mini must">必須</span></li><li><a href="integer-gcd-lcm.html">最大公約数・最小公倍数と ab=GL</a><span class="tier-mini must">必須</span></li><li><a href="integer-euclid.html">ユークリッドの互除法</a><span class="tier-mini must">必須</span></li><li class="cur">1次不定方程式 ax+by=c<span class="tier-mini must">必須</span></li><li><a href="integer-remainder.html">余りで分類する（n=3k, 3k+1, 3k+2）</a><span class="tier-mini must">必須</span></li><li><a href="integer-congruence.html">合同式で余りを計算する</a><span class="tier-mini core">差がつく</span></li><li><a href="integer-gcd-trick.html">式の最大公約数 gcd(2n+1, n+3)</a><span class="tier-mini core">差がつく</span></li><li><a href="integer-product-form.html">積の形に直す (x-a)(y-b)=k</a><span class="tier-mini must">必須</span></li><li><a href="integer-bound.html">大小を仮定して範囲を絞る</a><span class="tier-mini core">差がつく</span></li><li><a href="integer-factorial.html">n! に含まれる素因数の個数</a><span class="tier-mini core">差がつく</span></li><li><a href="integer-base.html">n 進法（整数と小数）</a><span class="tier-mini must">必須</span></li><li><a href="integer-fermat.html">フェルマーの小定理</a><span class="tier-mini skip">不要</span></li></ol></section>
+<p class="back"><a href="./">高校数学ノートの項目一覧</a> ・ <a href="../">ノート全体を開く</a>（「理解した」のチェックと進み具合はノートに保存されます）</p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script defer src="/assets/katex/katex.js"></script>
+<script defer src="/assets/katex/mhchem.js"></script>
+<script defer src="/assets/katex/render.js"></script>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

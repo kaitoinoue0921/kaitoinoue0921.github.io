@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>n! に含まれる素因数の個数（整数の性質）｜高校数学ノート</title>
+<meta name="description" content="n! に含まれる素因数の個数（整数の性質）。p の倍数、p² の倍数、p³ の倍数…の個数を足す。末尾の0の個数は5の個数で決まる。">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/works/math-notes/items/integer-factorial.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="n! に含まれる素因数の個数（整数の性質）｜高校数学ノート">
+<meta property="og:description" content="n! に含まれる素因数の個数（整数の性質）。p の倍数、p² の倍数、p³ の倍数…の個数を足す。末尾の0の個数は5の個数で決まる。">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/works/math-notes/items/integer-factorial.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/ogp.png">
+<link rel="stylesheet" href="/assets/katex/katex.css">
+<link rel="stylesheet" href="note.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "高校数学ノート", "item": "https://kaitoinoue0921.github.io/works/math-notes/"}, {"@type": "ListItem", "position": 3, "name": "整数の性質", "item": "https://kaitoinoue0921.github.io/works/math-notes/items/#integer"}, {"@type": "ListItem", "position": 4, "name": "n! に含まれる素因数の個数", "item": "https://kaitoinoue0921.github.io/works/math-notes/items/integer-factorial.html"}]}</script>
+</head>
+<body data-site="math">
+<header class="top"><a class="brand" href="../">高校数学 公式・解法ノート</a></header>
+<main class="ip-main">
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">高校数学ノート</a> › <a href="./#integer">整数の性質</a></nav>
+<article class="item" data-tier="core" id="integer-factorial" data-unit="integer"><header class="item-head"><span class="no" data-n="10"></span><span class="tier tier-core">差がつく</span><h1><span class="tx" data-d="0">n!</span> に含まれる素因数の個数</h1></header><p class="focus"><b>着眼点</b><span class="tx" data-d="0">p</span> の倍数、<span class="tx" data-d="0">p^2</span> の倍数、<span class="tx" data-d="0">p^3</span> の倍数…の個数を足す。末尾の0の個数は5の個数で決まる。</p><div class="body"><span class="tx" data-d="1">n!\text{ に含まれる素因数 }p\text{ の個数}=\left\lfloor\frac{n}{p}\right\rfloor+\left\lfloor\frac{n}{p^2}\right\rfloor+\left\lfloor\frac{n}{p^3}\right\rfloor+\cdots</span>
+<p>（<span class="tx" data-d="0">\lfloor x\rfloor</span> は <span class="tx" data-d="0">x</span> を超えない最大の整数）</p></div><div class="exs"><div class="lab">例題</div><div class="ex"><div class="q"><span class="n">1</span><div><span class="tx" data-d="0">100!</span> を計算すると、末尾に0は何個並ぶか。</div></div><details><summary>解答</summary><div class="a"><span class="tx" data-d="0">10=2\cdot5</span> で、2は5より多く含まれるので5の個数を数える。<br><span class="tx" data-d="0">\left\lfloor\dfrac{100}{5}\right\rfloor+\left\lfloor\dfrac{100}{25}\right\rfloor=20+4=24</span>。<br><b>答 24個</b></div></details></div><div class="ex"><div class="q"><span class="n">2</span><div><span class="tx" data-d="0">50!</span> は <span class="tx" data-d="0">2</span> で最大何回割り切れるか。</div></div><details><summary>解答</summary><div class="a"><span class="tx" data-d="0">25+12+6+3+1=47</span>（<span class="tx" data-d="0">50\div2,\ 4,\ 8,\ 16,\ 32</span> の商の整数部分）。<br><b>答 47回</b></div></details></div></div><footer class="item-foot"><a href="../#i=integer-factorial">ノートで開いて「理解した」をつける →</a></footer></article>
+<nav class="pn" aria-label="前後の項目"><a class="pv" href="integer-bound.html"><small>← 前の項目</small>大小を仮定して範囲を絞る</a><a class="nx" href="integer-base.html"><small>次の項目 →</small>n 進法（整数と小数）</a></nav>
+<section class="sib"><h2>「整数の性質」の項目</h2><ol><li><a href="integer-divisor.html">素因数分解と約数の個数・総和</a><span class="tier-mini must">必須</span></li><li><a href="integer-gcd-lcm.html">最大公約数・最小公倍数と ab=GL</a><span class="tier-mini must">必須</span></li><li><a href="integer-euclid.html">ユークリッドの互除法</a><span class="tier-mini must">必須</span></li><li><a href="integer-diophantine.html">1次不定方程式 ax+by=c</a><span class="tier-mini must">必須</span></li><li><a href="integer-remainder.html">余りで分類する（n=3k, 3k+1, 3k+2）</a><span class="tier-mini must">必須</span></li><li><a href="integer-congruence.html">合同式で余りを計算する</a><span class="tier-mini core">差がつく</span></li><li><a href="integer-gcd-trick.html">式の最大公約数 gcd(2n+1, n+3)</a><span class="tier-mini core">差がつく</span></li><li><a href="integer-product-form.html">積の形に直す (x-a)(y-b)=k</a><span class="tier-mini must">必須</span></li><li><a href="integer-bound.html">大小を仮定して範囲を絞る</a><span class="tier-mini core">差がつく</span></li><li class="cur">n! に含まれる素因数の個数<span class="tier-mini core">差がつく</span></li><li><a href="integer-base.html">n 進法（整数と小数）</a><span class="tier-mini must">必須</span></li><li><a href="integer-fermat.html">フェルマーの小定理</a><span class="tier-mini skip">不要</span></li></ol></section>
+<p class="back"><a href="./">高校数学ノートの項目一覧</a> ・ <a href="../">ノート全体を開く</a>（「理解した」のチェックと進み具合はノートに保存されます）</p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script defer src="/assets/katex/katex.js"></script>
+<script defer src="/assets/katex/mhchem.js"></script>
+<script defer src="/assets/katex/render.js"></script>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>交点の位置ベクトル（2通りに表して係数比較）（ベクトル）｜高校数学ノート</title>
+<meta name="description" content="交点の位置ベクトル（2通りに表して係数比較）（ベクトル）。交点を「直線1の上」「直線2の上」の2通りで表し、 a, b の係数を比べる。最後に「 a, b は一次独立」と一言書く。">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/works/math-notes/items/vector-intersect.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="交点の位置ベクトル（2通りに表して係数比較）（ベクトル）｜高校数学ノート">
+<meta property="og:description" content="交点の位置ベクトル（2通りに表して係数比較）（ベクトル）。交点を「直線1の上」「直線2の上」の2通りで表し、 a, b の係数を比べる。最後に「 a, b は一次独立」と一言書く。">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/works/math-notes/items/vector-intersect.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/ogp.png">
+<link rel="stylesheet" href="/assets/katex/katex.css">
+<link rel="stylesheet" href="note.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "高校数学ノート", "item": "https://kaitoinoue0921.github.io/works/math-notes/"}, {"@type": "ListItem", "position": 3, "name": "ベクトル", "item": "https://kaitoinoue0921.github.io/works/math-notes/items/#vector"}, {"@type": "ListItem", "position": 4, "name": "交点の位置ベクトル（2通りに表して係数比較）", "item": "https://kaitoinoue0921.github.io/works/math-notes/items/vector-intersect.html"}]}</script>
+</head>
+<body data-site="math">
+<header class="top"><a class="brand" href="../">高校数学 公式・解法ノート</a></header>
+<main class="ip-main">
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">高校数学ノート</a> › <a href="./#vector">ベクトル</a></nav>
+<article class="item" data-tier="must" id="vector-intersect" data-unit="vector"><header class="item-head"><span class="no" data-n="6"></span><span class="tier tier-must">必須</span><h1>交点の位置ベクトル（2通りに表して係数比較）</h1></header><p class="focus"><b>着眼点</b>交点を「直線1の上」「直線2の上」の2通りで表し、<span class="tx" data-d="0">\vec a,\vec b</span> の係数を比べる。最後に「<span class="tx" data-d="0">\vec a,\vec b</span> は一次独立」と一言書く。</p><div class="body"><p>点Pが直線AB上 <span class="tx" data-d="0">\iff \overrightarrow{\mathrm{OP}}=(1-t)\vec a+t\vec b</span>（<b>係数の和が1</b>）</p><p><span class="tx" data-d="0">\vec a,\vec b</span> が <span class="tx" data-d="0">\vec0</span> でなく平行でない（一次独立）とき</p><span class="tx" data-d="1">s\vec a+t\vec b=s'\vec a+t'\vec b \implies s=s',\ t=t'</span></div><div class="exs"><div class="lab">例題</div><div class="ex"><div class="q"><span class="n">1</span><div><span class="tx" data-d="0">\triangle\mathrm{OAB}</span> で <span class="tx" data-d="0">\overrightarrow{\mathrm{OA}}=\vec a,\ \overrightarrow{\mathrm{OB}}=\vec b</span> とする。辺OAを <span class="tx" data-d="0">2:1</span> に内分する点をC、辺OBの中点をDとし、線分ADとBCの交点をPとする。<span class="tx" data-d="0">\overrightarrow{\mathrm{OP}}</span> を求めよ。</div></div><details><summary>解答</summary><div class="a"><span class="tx" data-d="0">\overrightarrow{\mathrm{OC}}=\frac23\vec a,\ \overrightarrow{\mathrm{OD}}=\frac12\vec b</span>。<br>PはAD上：<span class="tx" data-d="0">\overrightarrow{\mathrm{OP}}=(1-s)\vec a+\frac{s}{2}\vec b</span><br>PはBC上：<span class="tx" data-d="0">\overrightarrow{\mathrm{OP}}=\frac{2t}{3}\vec a+(1-t)\vec b</span><br><span class="tx" data-d="0">\vec a,\vec b</span> は一次独立なので <span class="tx" data-d="1">1-s=\frac{2t}{3},\quad \frac s2=1-t</span>第2式より <span class="tx" data-d="0">s=2-2t</span>。第1式に代入：<span class="tx" data-d="0">-1+2t=\frac{2t}{3}</span> より <span class="tx" data-d="0">t=\frac34,\ s=\frac12</span>。<span class="tx" data-d="1">\overrightarrow{\mathrm{OP}}=\frac12\vec a+\frac14\vec b</span>（検算：<span class="tx" data-d="0">t=\frac34</span> で <span class="tx" data-d="0">\frac{2t}{3}=\frac12,\ 1-t=\frac14</span> と一致）</div></details></div><div class="ex"><div class="q"><span class="n">2</span><div>上の点Pについて、直線OPと辺ABの交点をQとする。<span class="tx" data-d="0">\overrightarrow{\mathrm{OQ}}</span> と <span class="tx" data-d="0">\mathrm{AQ}:\mathrm{QB}</span> を求めよ。</div></div><details><summary>解答</summary><div class="a">QはOP上なので <span class="tx" data-d="0">\overrightarrow{\mathrm{OQ}}=k\overrightarrow{\mathrm{OP}}=\frac k2\vec a+\frac k4\vec b</span>。<br>QはAB上なので係数の和が1：<span class="tx" data-d="0">\frac k2+\frac k4=1</span> より <span class="tx" data-d="0">k=\frac43</span>。<span class="tx" data-d="1">\overrightarrow{\mathrm{OQ}}=\frac23\vec a+\frac13\vec b=\frac{2\vec a+1\cdot\vec b}{1+2}</span>答え <span class="tx" data-d="0">\mathrm{AQ}:\mathrm{QB}=1:2</span></div></details></div></div><div class="box tip"><b>ポイント</b>メネラウスの定理でも解けるが、ベクトルの問題として出たら係数比較で書くのが安全。</div><div class="box warn"><b>注意</b>一次独立の断り書きを忘れると記述で減点されやすい。</div><footer class="item-foot"><a href="../#i=vector-intersect">ノートで開いて「理解した」をつける →</a></footer></article>
+<nav class="pn" aria-label="前後の項目"><a class="pv" href="vector-division.html"><small>← 前の項目</small>内分点・外分点・重心</a><a class="nx" href="vector-dot-figure.html"><small>次の項目 →</small>内積で長さ・角を求める（| |² を展開）</a></nav>
+<section class="sib"><h2>「ベクトル」の項目</h2><ol><li><a href="vector-basic.html">成分・大きさ・平行条件</a><span class="tier-mini must">必須</span></li><li><a href="vector-dot.html">内積の定義と成分表示・なす角</a><span class="tier-mini must">必須</span></li><li><a href="vector-perp.html">垂直条件</a><span class="tier-mini must">必須</span></li><li><a href="vector-area.html">三角形の面積</a><span class="tier-mini must">必須</span></li><li><a href="vector-division.html">内分点・外分点・重心</a><span class="tier-mini must">必須</span></li><li class="cur">交点の位置ベクトル（2通りに表して係数比較）<span class="tier-mini must">必須</span></li><li><a href="vector-dot-figure.html">内積で長さ・角を求める（| |² を展開）</a><span class="tier-mini must">必須</span></li><li><a href="vector-foot.html">垂線の足の位置ベクトル</a><span class="tier-mini core">差がつく</span></li><li><a href="vector-region.html">終点の存在範囲（s a+t b の係数条件）</a><span class="tier-mini core">差がつく</span></li><li><a href="vector-eq.html">ベクトル方程式（直線・円）</a><span class="tier-mini core">差がつく</span></li><li><a href="vector-space-basic.html">空間ベクトルの成分・内積</a><span class="tier-mini must">必須</span></li><li><a href="vector-coplanar.html">4点が同一平面上・直線と平面の交点</a><span class="tier-mini core">差がつく</span></li><li><a href="vector-sphere.html">空間の直線・球面</a><span class="tier-mini core">差がつく</span></li><li><a href="vector-plane-eq.html">平面の方程式・点と平面の距離</a><span class="tier-mini skip">不要</span></li></ol></section>
+<p class="back"><a href="./">高校数学ノートの項目一覧</a> ・ <a href="../">ノート全体を開く</a>（「理解した」のチェックと進み具合はノートに保存されます）</p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script defer src="/assets/katex/katex.js"></script>
+<script defer src="/assets/katex/mhchem.js"></script>
+<script defer src="/assets/katex/render.js"></script>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

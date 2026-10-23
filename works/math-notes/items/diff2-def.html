@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
+<title>微分係数の定義と極限の変形（微分法（数Ⅱ））｜高校数学ノート</title>
+<meta name="description" content="微分係数の定義と極限の変形（微分法（数Ⅱ））。(f(a+)-f(a))/ の形（ がそろう形）を作れば f&#x27;(a) に置き換えられる。">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/works/math-notes/items/diff2-def.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="微分係数の定義と極限の変形（微分法（数Ⅱ））｜高校数学ノート">
+<meta property="og:description" content="微分係数の定義と極限の変形（微分法（数Ⅱ））。(f(a+)-f(a))/ の形（ がそろう形）を作れば f&#x27;(a) に置き換えられる。">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/works/math-notes/items/diff2-def.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/ogp.png">
+<link rel="stylesheet" href="/assets/katex/katex.css">
+<link rel="stylesheet" href="note.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "高校数学ノート", "item": "https://kaitoinoue0921.github.io/works/math-notes/"}, {"@type": "ListItem", "position": 3, "name": "微分法（数Ⅱ）", "item": "https://kaitoinoue0921.github.io/works/math-notes/items/#diff2"}, {"@type": "ListItem", "position": 4, "name": "微分係数の定義と極限の変形", "item": "https://kaitoinoue0921.github.io/works/math-notes/items/diff2-def.html"}]}</script>
+</head>
+<body data-site="math">
+<header class="top"><a class="brand" href="../">高校数学 公式・解法ノート</a></header>
+<main class="ip-main">
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">高校数学ノート</a> › <a href="./#diff2">微分法（数Ⅱ）</a></nav>
+<article class="item" data-tier="core" id="diff2-def" data-unit="diff2"><header class="item-head"><span class="no" data-n="2"></span><span class="tier tier-core">差がつく</span><h1>微分係数の定義と極限の変形</h1></header><p class="focus"><b>着眼点</b><span class="tx" data-d="0">\frac{f(a+\square)-f(a)}{\square}</span> の形（<span class="tx" data-d="0">\square</span> がそろう形）を作れば <span class="tx" data-d="0">f'(a)</span> に置き換えられる。</p><div class="body"><span class="tx" data-d="1">f'(a)=\lim_{h\to0}\frac{f(a+h)-f(a)}{h}=\lim_{x\to a}\frac{f(x)-f(a)}{x-a}</span></div><div class="exs"><div class="lab">例題</div><div class="ex"><div class="q"><span class="n">1</span><div>定義に従って、<span class="tx" data-d="0">f(x)=x^2</span> の導関数を求めよ。</div></div><details><summary>解答</summary><div class="a"><span class="tx" data-d="1">\lim_{h\to0}\frac{(x+h)^2-x^2}{h}=\lim_{h\to0}\frac{2xh+h^2}{h}=\lim_{h\to0}(2x+h)=2x</span>答 <span class="tx" data-d="0">f'(x)=2x</span></div></details></div><div class="ex"><div class="q"><span class="n">2</span><div><span class="tx" data-d="0">\displaystyle\lim_{h\to0}\frac{f(a+3h)-f(a-h)}{h}</span> を <span class="tx" data-d="0">f'(a)</span> で表せ。</div></div><details><summary>解答</summary><div class="a">間に <span class="tx" data-d="0">f(a)</span> を引いて足す。
+<span class="tx" data-d="1">\frac{f(a+3h)-f(a)}{3h}\cdot3+\frac{f(a-h)-f(a)}{-h}\cdot1\ \to\ 3f'(a)+f'(a)</span>
+答 <span class="tx" data-d="0">4f'(a)</span></div></details></div></div><div class="box warn"><b>注意</b>「定義に従って」と言われたら公式 <span class="tx" data-d="0">(x^n)'=nx^{n-1}</span> で答えると0点になりうる。極限の計算を書く。</div><footer class="item-foot"><a href="../#i=diff2-def">ノートで開いて「理解した」をつける →</a></footer></article>
+<nav class="pn" aria-label="前後の項目"><a class="pv" href="diff2-deriv.html"><small>← 前の項目</small>導関数の公式と計算</a><a class="nx" href="diff2-tangent.html"><small>次の項目 →</small>接線・法線の方程式</a></nav>
+<section class="sib"><h2>「微分法（数Ⅱ）」の項目</h2><ol><li><a href="diff2-deriv.html">導関数の公式と計算</a><span class="tier-mini must">必須</span></li><li class="cur">微分係数の定義と極限の変形<span class="tier-mini core">差がつく</span></li><li><a href="diff2-tangent.html">接線・法線の方程式</a><span class="tier-mini must">必須</span></li><li><a href="diff2-tangent-from.html">曲線外の点から引く接線（接点を t とおく）</a><span class="tier-mini must">必須</span></li><li><a href="diff2-common.html">共通接線</a><span class="tier-mini core">差がつく</span></li><li><a href="diff2-incdec.html">増減表の書き方と極値</a><span class="tier-mini must">必須</span></li><li><a href="diff2-extcond.html">極値をもつ条件・極値から係数を決める</a><span class="tier-mini must">必須</span></li><li><a href="diff2-cubic-graph.html">3次関数のグラフをかく</a><span class="tier-mini must">必須</span></li><li><a href="diff2-sym.html">極大値と極小値の差（3次関数の性質）</a><span class="tier-mini core">差がつく</span></li><li><a href="diff2-maxmin.html">閉区間での最大・最小（端と極値を比べる）</a><span class="tier-mini must">必須</span></li><li><a href="diff2-maxmin-app.html">図形・文章題の最大・最小</a><span class="tier-mini core">差がつく</span></li><li><a href="diff2-subst.html">置き換えて3次関数にする（三角関数・指数など）</a><span class="tier-mini core">差がつく</span></li><li><a href="diff2-roots.html">実数解の個数（定数を分離してグラフと直線の交点）</a><span class="tier-mini must">必須</span></li><li><a href="diff2-roots-param.html">文字が分離できないとき：極大値と極小値の符号</a><span class="tier-mini core">差がつく</span></li><li><a href="diff2-ineq.html">不等式の証明（差をとって最小値 ≧0）</a><span class="tier-mini must">必須</span></li><li><a href="diff2-tangent-region.html">接線が3本引ける点の領域を図示する</a><span class="tier-mini skip">不要</span></li></ol></section>
+<p class="back"><a href="./">高校数学ノートの項目一覧</a> ・ <a href="../">ノート全体を開く</a>（「理解した」のチェックと進み具合はノートに保存されます）</p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script defer src="/assets/katex/katex.js"></script>
+<script defer src="/assets/katex/mhchem.js"></script>
+<script defer src="/assets/katex/render.js"></script>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
