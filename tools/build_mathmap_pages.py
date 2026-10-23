@@ -41,7 +41,7 @@ FOOTER = """<footer class="site-footer">
     <li><a href="/about/">運営者情報</a></li>
     <li><a href="/contact/">お問い合わせ</a></li>
   </ul>
-  <p>運営：井上凱斗（個人） ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+  <p>広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
 </footer>"""
 NOTE_LINE = ('<p class="own">解説は自作です。誤りに気づいたら '
              '<a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>')
