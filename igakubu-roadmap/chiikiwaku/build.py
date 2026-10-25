@@ -33,6 +33,7 @@ def badge(p):
 def page(path, title, desc, body, depth):
     up = "../" * depth
     url = f"{BASE_URL}/{path}"
+    robots = '<meta name="robots" content="noindex">\n' if path.startswith("pref/") else ""
     ld = json.dumps({"@context": "https://schema.org", "@type": "WebPage", "name": title, "url": url,
                      "inLanguage": "ja", "isPartOf": {"@type": "WebSite", "name": SITE, "url": BASE_URL + "/"}},
                     ensure_ascii=False)
@@ -44,7 +45,7 @@ def page(path, title, desc, body, depth):
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(desc)}">
 <link rel="canonical" href="{url}">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@600;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+{robots}<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@600;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
 <link rel="stylesheet" href="{up}assets/style.css">
 <style>.st{{display:inline-block;font-size:.78rem;padding:1px 8px;border-radius:999px}}.st.ok{{background:var(--ok-soft);color:var(--ok)}}.st.warn{{background:var(--gold-soft);color:var(--gold)}}.pl{{display:grid;grid-template-columns:8em 1fr;gap:4px 14px;margin:12px 0}}.pl dt{{font-weight:700;color:var(--ink-soft)}}.pl dd{{margin:0}}@media(max-width:520px){{.pl{{grid-template-columns:1fr}}}}</style>
 <script type="application/ld+json">{ld}</script>
