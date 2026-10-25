@@ -9,6 +9,8 @@ var HEIGAN_YEAR = '2027年度入試';
 // {q}=検索語 {checkin}=チェックイン日(YYYY-MM-DD) {checkout}=チェックアウト日。空のうちは Google 検索へのふつうのリンクになり、広告表示も出ない。
 // ※ 使いはじめるときは about/index.html の「収益について」にある「特定の商品やサービスを推奨して対価を受け取ることもしていません」を直すこと。
 var HOTEL_LINK_TEMPLATE = '';
+// 楽天アフィリエイトのID（楽天アフィリエイトの「リンク作成」で出る https://hb.afl.rakuten.co.jp/hgc/ここの部分/ ）。入れると楽天トラベルへの紹介リンクになる。
+var RAKUTEN_AFFILIATE_ID = '';
 
 var REGIONS = ['北海道・東北', '関東', '中部・北陸', '関西', '中国・四国', '九州・沖縄'];
 

@@ -116,7 +116,7 @@
   document.getElementById('checked').textContent = HEIGAN_CHECKED;
   var srcUl = document.getElementById('src');
   HEIGAN_SOURCES.forEach(function(x){ srcUl.appendChild(el('li', {}, esc(x[0]) + ' <a href="' + x[1] + '" rel="noopener" target="_blank">' + esc(x[1]) + '</a>')); });
-  if (HOTEL_LINK_TEMPLATE) document.getElementById('adnote').hidden = false;
+  if (HOTEL_LINK_TEMPLATE || RAKUTEN_AFFILIATE_ID) document.getElementById('adnote').hidden = false;
 
   function renderList(){
     var box = document.getElementById('list'); box.innerHTML = '';
@@ -145,6 +145,7 @@
 
   function hotelHref(s, night){
     var q = s.city + ' ' + s.name.replace(/（.*?）/g,'') + ' 周辺 ホテル';
+    if (RAKUTEN_AFFILIATE_ID){ var t = encodeURIComponent('https://travel.rakuten.co.jp/'); return 'https://hb.afl.rakuten.co.jp/hgc/' + RAKUTEN_AFFILIATE_ID + '/?pc=' + t + '&m=' + t; }
     if (HOTEL_LINK_TEMPLATE) return HOTEL_LINK_TEMPLATE.replace('{q}', encodeURIComponent(q)).replace('{checkin}', night).replace('{checkout}', addDays(night, 1));
     return 'https://www.google.com/search?q=' + encodeURIComponent(q + ' ' + fmt(night).replace(/（.*）/,'') + '泊');
   }
@@ -189,7 +190,7 @@
     else {
       h += '<p class="note">試験の前日の夜です。連続する日の同じ地域の試験は、同じ宿にまとめられることが多いです。</p><ul class="nights" style="list-style:none;padding:0;margin:6px 0">';
       nights.forEach(function(n){
-        h += '<li><b>' + esc(fmt(n.night)) + 'の夜</b>　' + esc(n.s.city) + '付近（' + esc(fmt(n.date)) + ' ' + esc(n.s.name) + ' の前日）　<a href="' + hotelHref(n.s, n.night) + '" rel="noopener nofollow sponsored" target="_blank">宿を探す</a></li>';
+        h += '<li><b>' + esc(fmt(n.night)) + 'の夜</b>　' + esc(n.s.city) + '付近（' + esc(fmt(n.date)) + ' ' + esc(n.s.name) + ' の前日）　<a href="' + hotelHref(n.s, n.night) + '" rel="noopener nofollow sponsored" target="_blank">' + (RAKUTEN_AFFILIATE_ID ? '楽天トラベルで探す（広告）' : '宿を探す') + '</a></li>';
       });
       h += '</ul><p class="note">泊数の目安：' + nights.length + '泊。あわせて、試験日の当日朝に着ける距離かどうかは、新幹線や飛行機の時刻表で確かめてください。</p>';
     }
