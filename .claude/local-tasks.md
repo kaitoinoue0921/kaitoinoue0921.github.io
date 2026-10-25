@@ -34,8 +34,8 @@
   - クラウドの Claude がこれを読んで、表示はあるのにクリックされないページのタイトルと説明文を直す
 
 ## 4. そのほかの画面の確認
-- [ ] AdSense: 審査の状態と、ads.txt に警告が出ていないかを見て、記録欄に書く
-- [ ] GoatCounter（https://kaitoinoue.goatcounter.com）: `/items/` で始まるページの訪問数を週に1回、記録欄に書く
+- [x] AdSense: 審査の状態と、ads.txt に警告が出ていないかを見て、記録欄に書く
+- [x] GoatCounter（https://kaitoinoue.goatcounter.com）: `/items/` で始まるページの訪問数を週に1回、記録欄に書く
 
 ## 5. 人がやること（Claude には頼めない）
 - [ ] コミルの土曜の質問を記録する。名前は書かず、1行に「日付・学年・科目・単元・質問の要旨・どこでつまずいたか」。たまったら、クラウドの Claude に貼って「パターン集を作って」と頼む
@@ -48,3 +48,4 @@
 | 2026-10-23 | （未確認） | 3か月で34 | 3か月で11 | 再審査待ち | 930ページ化の前 |
 | 2026-10-23（夕） | （未確認） | — | — | — | 1131ページ化をmainに取り込み公開（sitemap.xml は1131件を配信中）、サイトマップ再送信済み（送信直後で検出数は数日後に確認。画面上は直前の読み込みが「取得できませんでした」のまま）、URL検査は /juken/ を再リクエスト、残り7件は同日に8件リクエスト済みのため省略 |
 | 2026-10-23（確認） | — | — | — | — | 公開確認: chem-notes/items/・ch-matter-pure.html・math-notes/items/patterns.html が200、化学式の描画エラーなし（.katex 10個、エラー0）。マージ済みで origin/main と一致 |
+| 2026-10-25（確認） | — | — | — | 要確認（有用性の低いコンテンツ）、ads.txt は承認済み、最終更新10/22 | GoatCounter 直近1週間は45訪問。/items/ 系は ch-matter-pure.html 2、prob-basic.html 1、math-notes/items 1 で、まだ少ない。Google経由3、bing 2。GoatCounter のメール未認証の案内が出ている |
