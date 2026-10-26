@@ -54,12 +54,28 @@
   .rank{padding-left:1.6em;font-size:14px;columns:2}
   .rank li{break-inside:avoid}
   a{color:var(--accent)}
+  .prose p{font-size:16px;line-height:2;margin:0 0 1.1em;color:var(--ink)}
+  .note{font-size:13px}
+  .tier span{font-size:14.5px}
+  #cards{display:none;margin-top:12px}
+  .card{display:block;width:100%;text-align:left;border:1px solid rgba(0,0,0,.2);border-radius:6px;padding:9px 12px;margin:0 0 6px;color:#1b1b1b;font:inherit;line-height:1.5}
+  .card b{font-size:16px}
+  .card .dv{float:right;font-size:14px;font-weight:600}
+  .card small{display:block;font-size:13px;color:#444}
+  @media (max-width:600px){.mapwrap{display:none}#cards{display:block}.rank{columns:1}}
 </style>
 </head>
 <body>
 <main>
   <h1>学歴厨の遊び場</h1>
   <p class="lead">学歴の話が好きな人向けの、ただの遊びページです。序列は受験界隈での俗称・目安で、入学後の価値や人の優劣を決めるものではありません。</p>
+
+  <div class="prose">
+  <h2>学歴の序列はどこから来たのか</h2>
+  <p>日本の大学の序列の土台は、明治に作られた帝国大学にあります。1886年の帝国大学（のちの東京帝国大学）を皮切りに、京都（1897年）、東北（1907年）、九州（1911年）、北海道（1918年）、大阪（1931年）、名古屋（1939年）と増えていきました。この七つが「旧帝大」です。いまも東大・京大の次に国立の一群として扱われるのは、この歴史が続いているからです。</p>
+  <p>私立では、早稲田と慶應が明治のうちから政治家や経済人を送り出し、「早慶」とひとまとめに呼ばれてきました。戦後に進学する人が増えて大学の数も増えると、グループに名前をつけて整理する習慣が広がります。</p>
+  <p>偏差値が使われ始めたのも、この流れの中です。点数を、受けた集団の中での位置に直す仕組みで、1950年代に東京の中学教師だった桑田昭が進路指導のために持ち込んだとされています。模試で偏差値が配られるようになり、大学を一本の物差しで並べて語れるようになりました。下の序列表は、その物差しにグループ名を貼ったものです。</p>
+  </div>
 
   <h2>1. 学歴ヒエラルキー（俗称の目安）</h2>
   <div class="tier"><b>最上位　東大・京大</b><span>「学歴」と言われてまず思い浮かぶ二大巨頭。</span></div>
@@ -68,6 +84,10 @@
   <div class="tier"><b>地方上位国立・GMARCH・関関同立</b><span>東の「GMARCH」、西の「関関同立」。</span></div>
   <div class="tier"><b>日東駒専・産近甲龍・その他国公立</b><span>受験界隈でのグループ名。</span></div>
   <div class="tier"><b>大東亜帝国・その他</b><span>どの大学にも、その先に積み上げる四年間がある。</span><small>※序列は難易度の目安。学部や入試方式で大きく変わります。</small></div>
+
+  <div class="prose">
+  <p>グループ名は、頭文字を並べて作るのが基本です。GMARCHは学習院・明治・青山学院・立教・中央・法政、関関同立は関西・関西学院・同志社・立命館、日東駒専は日本・東洋・駒澤・専修、産近甲龍は京都産業・近畿・甲南・龍谷、大東亜帝国は大東文化・東海・亜細亜・帝京・国士舘のことです。どれも公式の区分ではなく、予備校や受験の掲示板で広まった呼び方です。誰かが決めたわけではないので、入る大学は人によって少し違います。</p>
+  </div>
 
   <h2>2. 学歴厨度診断</h2>
   <p class="note">8問。直感でどうぞ。</p>
@@ -81,16 +101,23 @@
   <div class="out" id="uniOut"></div>
 
   <h2>4. 都道府県別　いちばん賢いとされる高校マップ</h2>
+  <div class="prose">
+  <p>県ごとの公立トップ校を見ると、多くは県庁所在地にあった旧制中学の流れをくむ学校です。日比谷は東京府立第一中学校、浦和は埼玉県の旧制浦和中学がもとで、前橋・宇都宮・水戸第一なども同じ系統です。いまは中高一貫の私立や国立が上位を占める県も多く、東京・神奈川・関西などでは公立だけを「トップ」とは言いにくくなっています。そのため、この地図は公立トップ校に絞り、私立・国立の難関校は別に添えました。</p>
+  </div>
   <p class="note">各県の「公立トップ校」を地図の形に並べました（位置はおおよその配置）。マスをタップすると、私立・国立の難関校も出ます。年や指標で変わるので、あくまで目安です。</p>
   <div class="modes"><button class="mode on" data-m="region">地方別に色分け</button><button class="mode" data-m="dev">偏差値別に色分け</button></div>
   <div class="legend" id="legend"></div>
   <div class="mapwrap"><div class="map" id="map"></div></div>
+  <div id="cards"></div>
   <div class="out detail" id="prefOut">マスをタップしてください。</div>
   <h3 class="h3">2県を比べる</h3>
   <div class="cmp"><select id="cmpA"></select><span>vs</span><select id="cmpB"></select></div>
   <div class="out detail" id="cmpOut">2つ選ぶと比べます。</div>
   <h3 class="h3">偏差値ランキング（公立トップ校の目安）</h3>
   <ol id="rank" class="rank"></ol>
+  <div class="prose">
+  <p>偏差値は、その模試を受けた集団の中での位置です。同じ学校でも模試によって数ポイント違い、県によっては受験する人の層や人口も違うので、県どうしの数字の差をそのまま賢さの差とは読めません。順位を見て楽しむぶんにはおもしろいのですが、進路を決める材料にするなら、志望校の最新の合格実績と入試の中身を見てください。</p>
+  </div>
   <p class="note">偏差値は模試や年で数ポイント動きます。ここの数字は私の大まかな目安で、公式な値ではありません。同じ県の中の差や、県どうしの数ポイントの差は気にしすぎないでください。</p>
   <details><summary>一覧表で見る</summary>
   <table id="prefTable"><thead><tr><th>都道府県</th><th>公立トップ校</th><th>私立・国立の難関</th></tr></thead><tbody></tbody></table></details>
@@ -237,7 +264,7 @@
   var DB = [[73,"73以上","#e8a7a0"],[71,"71〜72","#f4c9a0"],[69,"69〜70","#f7e3a6"],[67,"67〜68","#d6ecd2"],[0,"66以下","#cfe3f7"]];
   function band(v){ for (var k=0;k<DB.length;k++) if (v >= DB[k][0]) return DB[k]; }
   var po = document.getElementById("prefOut"), tb = document.querySelector("#prefTable tbody"), mp = document.getElementById("map"), lg = document.getElementById("legend"), cur = null;
-  var mode = "region", tiles = [];
+  var mode = "region", tiles = [], cardEls = [], cd = document.getElementById("cards");
   function legend(){
     lg.innerHTML = "";
     (mode === "region" ? RG : DB.map(function(b){ return [b[1], b[2]]; })).forEach(function(r){
@@ -245,6 +272,10 @@
       i.style.background = r[1]; d.appendChild(i); d.appendChild(document.createTextNode(r[0])); lg.appendChild(d); });
   }
   function paint(){
+    cardEls.forEach(function(x){
+      x.t.style.background = mode === "region" ? RG[G[x.r[0]][2]][1] : band(D[x.r[0]])[2];
+      x.d.textContent = "偏差値" + D[x.r[0]];
+    });
     tiles.forEach(function(x){
       x.t.style.background = mode === "region" ? RG[G[x.r[0]][2]][1] : band(D[x.r[0]])[2];
       x.d.textContent = mode === "dev" ? "偏差値" + D[x.r[0]] : "";
@@ -273,6 +304,14 @@
     t.appendChild(n); t.appendChild(sc); t.appendChild(dv); tiles.push({r:r, t:t, d:dv});
     t.onclick = function(){ pick(r, t); };
     mp.appendChild(t);
+  });
+  P.forEach(function(r){
+    var c = document.createElement("div"); c.className = "card";
+    var dv = document.createElement("span"); dv.className = "dv";
+    var n = document.createElement("b"); n.textContent = r[0];
+    c.appendChild(dv); c.appendChild(n); c.appendChild(document.createTextNode("　" + r[1]));
+    if (r[2] !== "—") { var s = document.createElement("small"); s.textContent = "私立・国立の難関：" + r[2]; c.appendChild(s); }
+    cardEls.push({r:r, t:c, d:dv}); cd.appendChild(c);
   });
   paint();
   function fit(){
