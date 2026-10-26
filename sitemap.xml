@@ -39,10 +39,6 @@
     <lastmod>2026-10-26</lastmod>
   </url>
   <url>
-    <loc>https://kaitoinoue0921.github.io/works/swing/</loc>
-    <lastmod>2026-10-26</lastmod>
-  </url>
-  <url>
     <loc>https://kaitoinoue0921.github.io/contact/</loc>
     <lastmod>2026-10-08</lastmod>
   </url>
@@ -65,6 +61,18 @@
   <url>
     <loc>https://kaitoinoue0921.github.io/igakubu-roadmap/kyutei.html</loc>
     <lastmod>2026-10-08</lastmod>
+  </url>
+  <url>
+    <loc>https://kaitoinoue0921.github.io/works/swing/</loc>
+    <lastmod>2026-10-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://kaitoinoue0921.github.io/works/groove/</loc>
+    <lastmod>2026-10-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://kaitoinoue0921.github.io/works/math-notes/</loc>
