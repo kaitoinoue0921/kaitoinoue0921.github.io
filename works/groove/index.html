@@ -168,6 +168,14 @@
   .era-t{font-family:var(--serif);font-size:18px;color:var(--ink);margin:0 0 6px}
   .era-t span{display:block;font-family:var(--mono);font-size:12.5px;color:var(--accent);letter-spacing:.06em}
   .era-block p{font-size:15.5px}
+
+  .roles{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  @media (max-width:640px){.roles{grid-template-columns:1fr}}
+  .role{background:var(--paper);border:1px solid var(--line-faint);border-radius:14px;padding:16px 18px 8px;box-shadow:0 10px 24px -18px rgba(60,40,20,.35)}
+  .role:last-child{grid-column:1/-1}
+  .role-n{font-family:var(--serif);font-size:19px;color:var(--ink);margin:0 0 2px}
+  .role-r{font-size:14px;color:var(--accent);margin:0 0 8px}
+  .role-t{font-size:15px;margin:0 0 6px;line-height:1.8}
 </style>
 <link rel="stylesheet" href="/assets/jazz/theme.css">
 </head>
@@ -191,8 +199,9 @@
     <div class="points">
       <div class="point"><span class="pn">1</span><p>グルーヴは<b>「体が勝手に動きだす感じ」</b>のこと。</p></div>
       <div class="point"><span class="pn">2</span><p>大事なのは<b>みんなのタイミングがピタッと合うこと</b>。わざとずらすと、むしろノリは悪くなる。</p></div>
-      <div class="point"><span class="pn">3</span><p>ずれは<b>誰か1人のせいではなく、バンド全体の問題</b>。演奏中はみんながお互いに合わせ合っているので、1人のずれは全員に広がる。</p></div>
-      <div class="point"><span class="pn">4</span><p>先輩のアドバイスは<b>だいたい合っている</b>。ただし条件つき。</p></div>
+      <div class="point"><span class="pn">3</span><p>リズムだけでなく<b>音の質</b>も効く。しっかりした低音と、はっきりした音の頭。</p></div>
+      <div class="point"><span class="pn">4</span><p>ずれは<b>誰か1人のせいではなく、バンド全体の問題</b>。演奏中はみんながお互いに合わせ合っているので、1人のずれは全員に広がる。</p></div>
+      <div class="point"><span class="pn">5</span><p>先輩のアドバイスは<b>だいたい合っている</b>。ただし条件つき。</p></div>
     </div>
   </section>
 
@@ -277,6 +286,44 @@
     </figure>
   </section>
 
+  <!-- ===== 楽器ごとの役割 ===== -->
+  <section id="roles" aria-labelledby="roles-title">
+    <h2 id="roles-title">楽器ごとの役割</h2>
+    <p>グルーヴはバンド全体で作るもの。それぞれの楽器が何を受け持っているかを知っておくと、ずれたときに話がしやすくなる。</p>
+    <div class="roles">
+      <div class="role">
+        <p class="role-n">ドラム</p>
+        <p class="role-r">テンポを決めて、ノリの形を作る</p>
+        <p class="role-t">ライド・シンバルで流れを刻み、ハイハットで2・4拍。バンドの時計役なので、走りだしたら全員が引っ張られる</p>
+        <details class="why"><summary>根拠</summary><ul><li>ジャズ・トリオでテンポを決めていたのはドラマーで、全員が2・4拍でいちばん正確だった<a class="cite" href="#ref-22">[22]</a></li><li>ジョー・ジョーンズは刻む役をバスドラムからハイハットへ、ケニー・クラークはさらにライドへ移した<a class="cite" href="#ref-37">[37]</a><a class="cite" href="#ref-38">[38]</a></li></ul></details>
+      </div>
+      <div class="role">
+        <p class="role-n">ベース</p>
+        <p class="role-r">4拍を刻み、和音の土台を示す</p>
+        <p class="role-t">ドラムのライドと4分音符をそろえる。音の頭ははっきり、低音はしっかり。やわらかい音は遅れて聞こえやすい</p>
+        <details class="why"><summary>根拠</summary><ul><li>ウォーキング・ベースは4拍を均等に刻み、和音と旋律の両方を支える<a class="cite" href="#ref-27">[27]</a></li><li>低い音ほどノリの評価が高かった<a class="cite" href="#ref-34">[34]</a>。やわらかい音は遅れて聞こえる<a class="cite" href="#ref-23">[23]</a></li></ul></details>
+      </div>
+      <div class="role">
+        <p class="role-n">ギター</p>
+        <p class="role-r">4拍をコードで刻み、ベースとドラムをつなぐ</p>
+        <p class="role-t">短く歯切れのいいコードで、音量は控えめに。シャキッとした音は前に聞こえやすいので、前に出すぎない</p>
+        <details class="why"><summary>根拠</summary><ul><li>ベイシー楽団のフレディ・グリーンは、小さなコードで4拍を刻むスタイルで知られる<a class="cite" href="#ref-39">[39]</a></li><li>立ち上がりの速い音ほど早く聞こえる<a class="cite" href="#ref-23">[23]</a>（ギターへの当てはめは書き手の考え）</li></ul></details>
+      </div>
+      <div class="role">
+        <p class="role-n">ピアノ</p>
+        <p class="role-r">和音を入れ、リズム隊とソロの間をつなぐ</p>
+        <p class="role-t">弾きすぎない。音数を絞ると、リズム隊の4拍が聞こえやすくなる。低い音域でベースとぶつからないように</p>
+        <details class="why"><summary>根拠</summary><ul><li>ドラム・ベース・ピアノのやりとりは、ソロと同じくらい即興的で創造的だ、と奏者への聞き取りから描かれている<a class="cite" href="#ref-29">[29]</a></li><li>「弾きすぎない」などのコツは書き手の考え</li></ul></details>
+      </div>
+      <div class="role">
+        <p class="role-n">管楽器（サックス・トランペット・トロンボーン）</p>
+        <p class="role-r">メロディーと、セクションどうしの掛け合い</p>
+        <p class="role-t">セクションで出だしと音の長さをそろえる。リズム隊の上に「乗る」。ソロは、表拍を少し遅らせて裏拍でドラムにそろえる形が測定で見られた</p>
+        <details class="why"><summary>根拠</summary><ul><li>サックスと金管の掛け合いは、1930年代のスイングの楽団の特徴になった<a class="cite" href="#ref-40">[40]</a></li><li>ソロの奏者は、表拍でドラムより少し遅れ、裏拍でそろっていた<a class="cite" href="#ref-11">[11]</a></li></ul></details>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== よくある疑問 ===== -->
   <section id="faq" aria-labelledby="faq-title">
     <h2 id="faq-title">よくある疑問</h2>
@@ -308,6 +355,23 @@
         <li>合奏では、奏者はずれを一度に全部直さず、少しずつ直していた。その直し方は、ずれのばらつきが一番小さくなる値に近かった<a class="cite" href="#ref-18">[18]</a></li>
         <li>ジャズ・トリオでは、テンポを決めていたのはドラマーだった<a class="cite" href="#ref-22">[22]</a>。ベースだけで止めようとすると、割れやすい（ここは書き手の考え）</li>
         <li>ビッグバンドでドラムが走ったときの対処を直接調べた研究は見つからなかった。上の「やること」は書き手の考え</li>
+      </ul></details>
+    </article>
+    <article class="card">
+      <p class="card-q">Q. ノリのいい音にするには？（きれいな音、奥深いベース、心地いいギターやピアノ）</p>
+      <p class="card-a"><span class="mark mid">書き手の考え</span>低音はしっかり、音の頭ははっきり、強弱は残す</p>
+      <ul class="tips">
+        <li><b>ゲインを上げすぎない</b>：歪むと音の頭がつぶれ、強弱の差も小さくなる。研究では、音の強弱の変化がノリの評価と関係していた</li>
+        <li><b>低音を出しすぎない</b>：低音を盛りすぎると音の頭がぼやけ、遅れて聞こえやすい。太さと、はっきりさの両立</li>
+        <li><b>弾き方</b>：弾く位置（ブリッジ寄りははっきり、ネック寄りは太い）、指の当て方、音の長さ（次の拍の直前まで伸ばす）、鳴らさない弦のミュート</li>
+        <li><b>ギター</b>：短く歯切れよく、音量は控えめに。もともと前に聞こえやすい音なので、ベースとドラムの間に収める</li>
+        <li><b>ピアノ</b>：音数を絞ると、リズム隊の4拍が聞こえやすくなる。低い音域でベースとぶつからないようにする</li>
+      </ul>
+      <p class="small">部室のアンプのつまみの意味は<a href="https://kaitoinoue0921.github.io/bass-amp-guide/">ベースアンプ道場</a>へ。</p>
+      <details class="why"><summary>根拠</summary><ul>
+        <li>低いベースの音ほどノリの評価が高く、音の強弱の変化（とくに低音域）が評価を左右した<a class="cite" href="#ref-34">[34]</a></li>
+        <li>立ち上がりがゆっくりな音ほど、拍が遅く聞こえる<a class="cite" href="#ref-23">[23]</a></li>
+        <li>ゲインや弾き方について、グルーヴとの関係を直接調べた研究は見つからなかった。上の5つは、研究から考えた書き手の考えと、一般的なコツ</li>
       </ul></details>
     </article>
   </section>
@@ -350,7 +414,7 @@
 
   <!-- ===== 6つ ===== -->
   <section id="factors" aria-labelledby="factors-title">
-    <h2 id="factors-title">グルーヴを生む6つのこと</h2>
+    <h2 id="factors-title">グルーヴを生む7つのこと</h2>
     <ol class="factors">
       <li>
         <p class="f-t">タイミングがピタッと合う</p>
@@ -394,6 +458,18 @@
         <p class="f-d">体を揺らすと、拍の感じ方そのものが変わる。</p>
         <details class="why"><summary>根拠</summary><ul>
           <li>膝の曲げ方を変えるだけで、同じリズムが2拍子にも3拍子にも聞こえた<a class="cite" href="#ref-15">[15]</a></li>
+      <li>
+        <p class="f-t">音の質</p>
+        <p class="f-d">しっかりした低音があると、体が動きやすい。音の頭がはっきりしていると、拍の位置が伝わりやすい。</p>
+        <details class="why"><summary>根拠</summary><ul>
+          <li>合成した音の実験で、ベースの音が低いほど「ノリがいい」と評価され、叩くテンポも速く安定した<a class="cite" href="#ref-34">[34]</a></li>
+          <li>ノリの評価を左右したのは音量そのものではなく、音の強弱の変化（とくに低音域）だった<a class="cite" href="#ref-34">[34]</a></li>
+          <li>ライブで、聞こえないほど低い音を流した時間は、客が約12%多く踊った（1回のライブでの結果）<a class="cite" href="#ref-33">[33]</a></li>
+          <li>低い音ほど、タイミングのずれに脳が敏感だった<a class="cite" href="#ref-32">[32]</a>。ただし、これを否定する結果もある<a class="cite" href="#ref-35">[35]</a></li>
+          <li>はっきりした拍は全身の動きに、打楽器のような音の変化は頭や手の動きにつながった<a class="cite" href="#ref-36">[36]</a></li>
+          <li>ギターやピアノの「心地いい音」がグルーヴにどう効くかを直接調べた研究は見つからなかった</li>
+        </ul></details>
+      </li>
           <li>リズムに合わせて叩きながら聴くと、ずれに気づきやすくなった<a class="cite" href="#ref-17">[17]</a></li>
         </ul></details>
       </li>
@@ -451,7 +527,7 @@
   <!-- ===== 出典 ===== -->
   <section id="refs" aria-labelledby="refs-title">
         <h2 id="refs-title">出典</h2>
-    <details class="why"><summary>出典（31件）を見る</summary>
+    <details class="why"><summary>出典（40件）を見る</summary>
     <p class="small">全文を読めなかったものは、要旨や他の論文での紹介をもとにしています。</p>
     <ol class="refs">
       <li id="ref-1">Madison, G. (2006). Experiencing groove induced by music: Consistency and phenomenology. <i>Music Perception</i>, 24(2), 201–208. <a href="https://doi.org/10.1525/mp.2006.24.2.201">doi.org/10.1525/mp.2006.24.2.201</a></li>
@@ -485,6 +561,15 @@
       <li id="ref-29">Monson, I. (1996). <i>Saying Something: Jazz Improvisation and Interaction</i>. University of Chicago Press.</li>
       <li id="ref-30">Iyer, V. (2002). Embodied mind, situated cognition, and expressive microtiming in African-American music. <i>Music Perception</i>, 19(3), 387–414. <a href="https://vijayiyer.scholars.harvard.edu/publications/embodied-mind-situated-cognition-and-expressive-microtiming-african-american">vijayiyer.scholars.harvard.edu</a></li>
       <li id="ref-31">Doffman, M. (2009). <i>Feeling the Groove: Shared Time and its Meanings for Three Jazz Trios</i>（博士論文, The Open University）. <a href="https://oro.open.ac.uk/60200">oro.open.ac.uk</a></li>
+      <li id="ref-32">Hove, M. J., Marie, C., Bruce, I. C., &amp; Trainor, L. J. (2014). Superior time perception for lower musical pitch explains why bass-ranged instruments lay down musical rhythms. <i>PNAS</i>, 111(28), 10383–10388. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4104866">pmc.ncbi.nlm.nih.gov/articles/PMC4104866</a></li>
+      <li id="ref-33">Cameron, D. J., Dotov, D., Flaten, E., Bosnyak, D., Hove, M. J., &amp; Trainor, L. J. (2022). Undetectable very-low frequency sound increases dancing at a live concert. <i>Current Biology</i>, 32(21), R1222–R1223. <a href="https://doi.org/10.1016/j.cub.2022.09.035">doi.org/10.1016/j.cub.2022.09.035</a></li>
+      <li id="ref-34">Stupacher, J., Hove, M. J., &amp; Janata, P. (2016). Audio features underlying perceived groove and sensorimotor synchronization in music. <i>Music Perception</i>, 33(5). <a href="https://escholarship.org/uc/item/2sw3r2dw">escholarship.org</a></li>
+      <li id="ref-35">Wojtczak, M., Mehta, A. H., &amp; Oxenham, A. J. (2017). Rhythm judgments reveal a frequency asymmetry in the perception and neural coding of sound synchrony. <i>PNAS</i>, 114.（Hove ら 2014 の説明を否定する結果）</li>
+      <li id="ref-36">Burger, B., Thompson, M. R., Luck, G., Saarikallio, S., &amp; Toiviainen, P. (2013). Influences of rhythm- and timbre-related musical features on characteristics of music-induced movement. <i>Frontiers in Psychology</i>, 4. <a href="https://doi.org/10.3389/fpsyg.2013.00183">doi.org/10.3389/fpsyg.2013.00183</a></li>
+      <li id="ref-37">Wikipedia, “Jo Jones”. <a href="https://en.wikipedia.org/wiki/Jo_Jones">en.wikipedia.org/wiki/Jo_Jones</a></li>
+      <li id="ref-38">NPR, “The Drummer Who Invented Jazz’s Basic Beat” (2014). <a href="https://www.npr.org/sections/ablogsupreme/2014/01/08/260769892/the-drummer-who-invented-jazzs-basic-beat">npr.org</a></li>
+      <li id="ref-39">Wikipedia, “Freddie Green”. <a href="https://en.wikipedia.org/wiki/Freddie_Green">en.wikipedia.org/wiki/Freddie_Green</a></li>
+      <li id="ref-40">Wikipedia, “Fletcher Henderson”. <a href="https://en.wikipedia.org/wiki/Fletcher_Henderson">en.wikipedia.org/wiki/Fletcher_Henderson</a></li>
     </ol>
     </details>
     <p class="small">誤りに気づいたら、<a href="/contact/">お問い合わせ</a>から教えてください。</p>
