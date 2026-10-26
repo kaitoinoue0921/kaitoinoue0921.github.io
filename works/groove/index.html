@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>グルーヴはどこから生まれる？</title>
+<meta name="description" content="グルーヴ（体を動かしたくなる感じ）が何から生まれるのかを、1960年代からの研究と論文でたどるページ。タイミングのそろい方、跳ね方とテンポ、音の立ち上がり、奏者どうしの合わせ直し、聴く側の体の動き。ビッグバンドで言われる「ベースは少し前」「裏練」が、その仕組みのどこに効くのかも検討します。">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/works/groove/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="グルーヴはどこから生まれる？">
+<meta property="og:description" content="グルーヴが何から生まれるのかを、研究と論文でたどる。「ベースは少し前」「裏練」は効くのか。">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/works/groove/">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/ogp.png">
+<meta property="og:locale" content="ja_JP">
+<link rel="icon" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Zen+Kaku+Gothic+New:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff; --ink:#121212; --ink-soft:#3a3a3a; --ink-faint:#707070;
+    --line-faint:rgba(18,18,18,.14); --line-ghost:rgba(18,18,18,.06);
+    --accent:#a2541c; --accent-soft:rgba(162,84,28,.12);
+    --ok:#2f6b3a; --ok-soft:rgba(47,107,58,.10); --mid:#8a6a12; --mid-soft:rgba(138,106,18,.12);
+    --serif:'Shippori Mincho',serif; --sans:'Zen Kaku Gothic New',sans-serif; --mono:'JetBrains Mono',monospace;
+    --gap:clamp(48px,9vh,88px); --side:clamp(16px,6vw,56px); --measure:720px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink-soft);font-family:var(--sans);font-weight:300;-webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.9}
+  ::selection{background:var(--ink);color:#fff}
+  a{color:var(--ink)}
+  .container{max-width:var(--measure);margin:0 auto;padding:0 var(--side)}
+  .backlink{display:inline-flex;align-items:center;gap:9px;margin-top:clamp(36px,7vh,64px);font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint);text-decoration:none}
+  .backlink:hover{color:var(--ink)}
+  .backlink svg{width:13px;height:13px}
+  .backlink path{stroke:currentColor;fill:none}
+  .hero{padding:clamp(28px,5vh,48px) 0 var(--gap)}
+  .eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-faint);margin:0 0 14px}
+  h1{font-family:var(--serif);font-weight:500;font-size:clamp(32px,6.6vw,50px);line-height:1.3;color:var(--ink);margin:0 0 22px;letter-spacing:.02em}
+  .lead{font-size:16px;line-height:2.05;margin:0 0 14px}
+  .meta{font-size:12.5px;color:var(--ink-faint);margin:18px 0 0}
+  section{margin-bottom:var(--gap)}
+  .section-label{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-faint);margin:0 0 10px}
+  h2{font-family:var(--serif);font-weight:500;font-size:clamp(23px,4.4vw,30px);line-height:1.5;color:var(--ink);margin:0 0 20px}
+  h3{font-family:var(--serif);font-weight:500;font-size:19px;color:var(--ink);margin:34px 0 10px;line-height:1.6}
+  p{margin:0 0 14px;font-size:15.5px}
+  .small{font-size:13px;color:var(--ink-faint)}
+  .cite{font-size:12px;color:var(--ink-faint);vertical-align:super;line-height:0;margin-left:1px;text-decoration:none;font-family:var(--mono)}
+  .cite:hover{color:var(--accent)}
+  b.k{font-weight:500;color:var(--ink)}
+
+  .key{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:13px;margin:8px 0 0;color:var(--ink-faint)}
+  .lv{display:inline-block;font-size:11px;padding:1px 8px;border-radius:999px;margin-right:6px;vertical-align:1px;font-weight:400;white-space:nowrap}
+  .lv-a{background:var(--ok-soft);color:var(--ok);border:1px solid rgba(47,107,58,.3)}
+  .lv-b{background:var(--mid-soft);color:var(--mid);border:1px solid rgba(138,106,18,.3)}
+  .lv-c{background:var(--accent-soft);color:var(--accent);border:1px solid rgba(162,84,28,.3)}
+
+  .answer{border:1px solid var(--line-faint);border-radius:12px;padding:20px 22px 8px;margin:10px 0 0}
+  .answer ol{margin:0 0 12px;padding-left:1.3em}
+  .answer li{margin-bottom:10px;font-size:15px}
+
+  .factor{border-top:1px solid var(--line-faint);padding-top:24px;margin-top:30px}
+  .factor .no{font-family:var(--mono);font-size:12px;color:var(--accent);letter-spacing:.1em}
+  .factor h3{margin:2px 0 12px}
+  .factor .say{background:var(--line-ghost);border-radius:8px;padding:10px 14px;font-size:14.5px;color:var(--ink);margin:0 0 14px}
+
+  .table-wrap{overflow-x:auto;margin:10px 0 14px}
+  table{border-collapse:collapse;font-size:13.5px;min-width:520px;width:100%}
+  th,td{border-bottom:1px solid var(--line-faint);padding:7px 8px;text-align:left;vertical-align:top}
+  th{font-weight:400;color:var(--ink-faint);font-size:12.5px}
+  td.num{font-family:var(--mono);font-size:13px;white-space:nowrap}
+  td:first-child{white-space:nowrap}
+
+  .verdict{border:1px solid var(--line-faint);border-radius:12px;padding:18px 20px 6px;margin:18px 0}
+  .verdict h3{margin:0 0 8px}
+  .verdict .q{font-size:13px;color:var(--ink-faint);margin:0 0 10px}
+
+  .lab{border:1px solid var(--line-faint);border-radius:12px;padding:20px;margin:22px 0}
+  .lab-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;margin-bottom:14px}
+  .lab label{font-size:13.5px;color:var(--ink)}
+  .lab input[type=range]{flex:1 1 200px;accent-color:var(--accent)}
+  .lab output{font-family:var(--mono);font-size:13px;min-width:8em;color:var(--ink)}
+  .btn{font-family:var(--sans);font-size:14px;border:1px solid var(--ink);background:var(--ink);color:#fff;border-radius:999px;padding:8px 20px;cursor:pointer}
+  .btn:hover{opacity:.85}
+  .btn.ghost{background:transparent;color:var(--ink);border-color:var(--line-faint);font-size:13.5px;padding:6px 14px}
+  .btn.ghost[aria-pressed=true]{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+  .btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .readout{font-size:13px;color:var(--ink-soft);background:var(--line-ghost);border-radius:8px;padding:8px 12px;margin:0 0 12px}
+
+  .timeline{list-style:none;margin:0;padding:0;border-left:2px solid var(--line-faint)}
+  .timeline li{position:relative;padding:0 0 18px 20px}
+  .timeline li::before{content:"";position:absolute;left:-6px;top:9px;width:10px;height:10px;border-radius:50%;background:#fff;border:2px solid var(--accent)}
+  .timeline .yr{font-family:var(--mono);font-size:13px;color:var(--accent);margin-right:8px}
+  .timeline p{font-size:14.5px;margin:2px 0 0}
+
+  ul.plain{padding-left:1.3em;font-size:15px;margin:0 0 14px}
+  ul.plain li{margin-bottom:8px}
+  ol.refs{padding-left:1.6em;font-size:13px;line-height:1.85;color:var(--ink-soft)}
+  ol.refs li{margin-bottom:5px;scroll-margin-top:16px}
+  ol.refs a{color:var(--ink-soft);word-break:break-all}
+  .related{display:block;border:1px solid var(--line-faint);border-radius:10px;padding:14px 18px;text-decoration:none;margin:14px 0}
+  .related:hover{border-color:var(--ink)}
+  .related b{font-weight:500;color:var(--ink)}
+</style>
+</head>
+<body>
+<div class="container">
+  <a class="backlink" href="/works/">
+    <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13 8 H3 M7 4 L3 8 L7 12" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span>Works</span>
+  </a>
+
+  <header class="hero">
+    <p class="eyebrow">Route4 の後輩へ ／ リズム隊の話</p>
+    <h1>グルーヴはどこから生まれる？</h1>
+    <p class="lead">部活で「ベースはドラムに被さるように、若干前で」「ベースが遅いからギターが前に出る」「3連の3つ目にクリックを置いて、それより少し後ろで弾く（裏練）」と言われました。言われたとおりにすればグルーヴが出るのか。そもそもグルーヴは何から生まれるのか。1960年代からの研究と論文で分かっていることを並べて、考えてみました。</p>
+    <div class="key">
+      <span><span class="lv lv-a">確かめられている</span>実験や測定で直接示されている</span>
+      <span><span class="lv lv-b">研究から推せる</span>関係する研究はあるが、この問いを直接は確かめていない</span>
+      <span><span class="lv lv-c">書き手の考え</span>研究が見つからず、筋道から考えたこと</span>
+    </div>
+    <p class="meta">最終更新 2026年10月26日 ／ 出典は番号で示し、ページの最後にまとめています。<br>関連：<a href="/works/swing/">スイングってなに？</a>（スイングの意味と歴史、跳ね方の実験）</p>
+  </header>
+
+  <!-- ===== 01 先に答え ===== -->
+  <section id="answer" aria-labelledby="answer-title">
+    <p class="section-label">01 — Short answer</p>
+    <h2 id="answer-title">先に答え</h2>
+    <div class="answer">
+      <ol>
+        <li><b class="k">グルーヴは「体を動かしたくなる感じ」</b>として測れるものになっていて、聴く人どうしでかなり一致します<a class="cite" href="#ref-1">[1]</a><a class="cite" href="#ref-2">[2]</a>。</li>
+        <li>研究で効くと分かっているのは、<b class="k">タイミングがよく噛み合っていること</b>（ずれが小さく、聴いて分からないくらい）<a class="cite" href="#ref-20">[20]</a><a class="cite" href="#ref-21">[21]</a><a class="cite" href="#ref-22">[22]</a>、<b class="k">テンポに合った跳ね方</b><a class="cite" href="#ref-10">[10]</a><a class="cite" href="#ref-11">[11]</a>、<b class="k">ほどよいシンコペーション</b><a class="cite" href="#ref-19">[19]</a>。音の立ち上がりは、タイミングの聞こえ方を変えます<a class="cite" href="#ref-23">[23]</a>。</li>
+        <li><b class="k">わざとずらせばグルーヴが出る、という考えは支持されていません。</b>ずれを大きくするとグルーヴの評価は下がりました<a class="cite" href="#ref-21">[21]</a>。一方で、機械のように完全にそろえた演奏がいちばん良いわけでもありません<a class="cite" href="#ref-20">[20]</a><a class="cite" href="#ref-22">[22]</a>。</li>
+        <li>先輩の3つの話は、<b class="k">どれも当たっている面があるが、条件つき</b>です。とくに裏練の「3連より後ろ」は、遅め〜中くらいのテンポのドラムの測定とは合い、速いテンポや管楽器のソロの測定とは逆向きです（<a href="#senpai">05</a>）。</li>
+        <li>クリック練習で鍛えられるのは、グルーヴの材料のうち「テンポを保ち、毎回同じ位置に置く」部分です。<b class="k">クリック練習でバンドのグルーヴが上がることを直接確かめた研究は、探した範囲では見つかりませんでした。</b></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ===== 02 グルーヴとは ===== -->
+  <section id="what" aria-labelledby="what-title">
+    <p class="section-label">02 — What groove is</p>
+    <h2 id="what-title">グルーヴとは何か（測れるものとして）</h2>
+    <p><span class="lv lv-a">確かめられている</span>Madison（2006）は、グルーヴを「音のパターンのどこかに合わせて、体のどこかを動かしたくなる経験」と定義し、64曲の市販の録音を聴かせたところ、聴き手どうしの評価がかなりそろうことを示しました<a class="cite" href="#ref-1">[1]</a>。Janata ら（2012）が多くの人に言葉を集めて作った定義も「音楽に合わせて動きたくなる、心地よい感じ」で、ほぼ同じです<a class="cite" href="#ref-2">[2]</a>。</p>
+    <p>つまりグルーヴは、演奏者の気分ではなく、<b class="k">聴く人の体が動きたくなるかどうか</b>で確かめられるもの、と研究ではみなされています。以下は、それを上げたり下げたりするものの一覧です。</p>
+  </section>
+
+  <!-- ===== 03 歴史 ===== -->
+  <section id="history" aria-labelledby="history-title">
+    <p class="section-label">03 — How we got here</p>
+    <h2 id="history-title">歴史と経緯：「ずれがグルーヴを生む」説と、その検証</h2>
+    <ul class="timeline">
+      <li><span class="yr">1814–1817</span><b class="k">メトロノーム</b>
+        <p>ヴィンケルがアムステルダムで作った仕組みを、メルツェルが自分の名前で特許にしました（1815年ごろ）。ベートーヴェンが早くから速度の数字を楽譜に書き込んだことで広まりました<a class="cite" href="#ref-3">[3]</a><a class="cite" href="#ref-4">[4]</a>。「機械の拍に合わせる」練習の始まりです。</p></li>
+      <li><span class="yr">1930年代</span><b class="k">スイング時代のリズム隊</b>
+        <p>ベースが4拍を均等に弾き、ドラムはハイハットで2・4拍を鳴らす形が広まりました（<a href="/works/swing/#rhythm">スイングってなに？</a>）。</p></li>
+      <li><span class="yr">1966</span><b class="k">Keil「Motion and Feeling through Music」</b>
+        <p>レナード・マイヤーの『音楽の情動と意味』への応答として、拍や体の動き、グルーヴこそが音楽の中心だと論じました<a class="cite" href="#ref-5">[5]</a>。</p></li>
+      <li><span class="yr">1987</span><b class="k">Keil「参加のずれ（participatory discrepancies）」説</b>
+        <p>音楽の力は奏者どうしの小さな「ずれ」から生まれる、という説。タイミングのずれと音程・音色のずれの2種類を挙げ、音楽は少し「拍から外れ、音程から外れ」ていないと人を巻き込まない、と書きました<a class="cite" href="#ref-6">[6]</a>。「ベースはドラムより少し前」のような言い方は、この説と相性がよい考え方です。</p></li>
+      <li><span class="yr">1991–1995</span><b class="k">実際の演奏を測る</b>
+        <p>Ellis（1991）はサックス奏者3人を測り、ずれは主に「遅れて入る」方向で、テンポが上がると遅れが大きくなる傾向を報告しました<a class="cite" href="#ref-7">[7]</a>。Keil の説を受けて、ジャズのリズム隊（ベースとライド・シンバル）のずれを測る研究も出ました<a class="cite" href="#ref-9">[9]</a>。</p></li>
+      <li><span class="yr">1994</span><b class="k">Berliner『Thinking in Jazz』</b>
+        <p>50人を超えるジャズ奏者への聞き取りから、多くの奏者が学校ではなく、ジャム・セッションや先輩、仲間との勉強会で学んできたことを描きました<a class="cite" href="#ref-8">[8]</a>。</p></li>
+      <li><span class="yr">1997–2002</span><b class="k">跳ね方はテンポで変わる</b>
+        <p>Friberg と Sundström は、聴き手が好む跳ね方の比がテンポで変わること（遅いほど強く、速いほど弱く）、実際のドラマーのライドも同じ傾向であることを示しました<a class="cite" href="#ref-10">[10]</a><a class="cite" href="#ref-11">[11]</a>。「スイングは3連符」という通説は、そのままでは確かめられませんでした。</p></li>
+      <li><span class="yr">2005</span><b class="k">人はクリックより少し前を叩く</b>
+        <p>指で拍を叩く研究をまとめた Repp の総説。人はクリックよりわずかに早く叩く傾向（負の平均ずれ）があり、音楽経験のある人ではその幅が小さいとされます<a class="cite" href="#ref-13">[13]</a>。</p></li>
+      <li><span class="yr">2006–2012</span><b class="k">グルーヴを測る</b>
+        <p>Madison の定義（2006）<a class="cite" href="#ref-1">[1]</a>、Janata らの大規模な調査（2012）<a class="cite" href="#ref-2">[2]</a>で、グルーヴは心理学の実験で扱えるものになりました。</p></li>
+      <li><span class="yr">2010</span><b class="k">Butterfield：そのずれは聞こえるのか</b>
+        <p>ベースとドラムのずれを変えた音を聴かせると、30ミリ秒くらいまでのずれは、どちらが前かをほとんど当てられませんでした。「ずれがグルーヴを生む」説の中心の主張は支持されにくい、と結論しています<a class="cite" href="#ref-16">[16]</a>。</p></li>
+      <li><span class="yr">2015–2017</span><b class="k">ずれを縮めたり広げたりして確かめる</b>
+        <p>プロのベースとドラムの録音で、ずれの大きさを0%から200%まで変えた実験。ずれを広げるとグルーヴの評価が下がり、完全にそろえた版と元の演奏は同じくらいでした<a class="cite" href="#ref-21">[21]</a>。体の動きでは、ずれを小さく残した版がいちばん大きな反応を起こしました<a class="cite" href="#ref-20">[20]</a>。ジャズ・トリオでも、19ミリ秒未満のずれの版が、元の演奏よりも完全にそろえた版よりも好まれました<a class="cite" href="#ref-22">[22]</a>。</p></li>
+      <li><span class="yr">2019</span><b class="k">音の「拍の位置」は立ち上がりで動く</b>
+        <p>立ち上がりがゆっくりな音ほど、拍の位置が遅く、幅広く感じられることが示されました<a class="cite" href="#ref-23">[23]</a>。</p></li>
+    </ul>
+    <p><span class="lv lv-c">書き手の考え</span>流れをまとめると、「わざとずらすとグルーヴが出る」という説から始まり、測ってみると「ずれは小さく、そろっている方が良い。ただし機械のような完全一致が最良とは限らない」というところに落ち着いてきています。</p>
+  </section>
+
+  <!-- ===== 04 生み出すもの ===== -->
+  <section id="factors" aria-labelledby="factors-title">
+    <p class="section-label">04 — What creates groove</p>
+    <h2 id="factors-title">グルーヴを生むもの</h2>
+
+    <div class="factor" id="f-timing">
+      <span class="no">要因 1</span>
+      <h3>タイミングが噛み合っていること</h3>
+      <p class="say">ずれは「聴いて分からないくらい小さく」「いつも同じ」。わざと広げると逆効果。</p>
+      <p><span class="lv lv-a">確かめられている</span>ずれを元の演奏より大きくすると、グルーヴの評価は、音楽経験の有無にかかわらず、スイングでもファンクでも下がりました。元の演奏と完全にそろえた版は、同じくらい高い評価でした<a class="cite" href="#ref-21">[21]</a>。</p>
+      <p><span class="lv lv-a">確かめられている</span>体の動き（頭の動き）を測ると、音楽経験のある人は、ずれを元の40%に縮めた版でいちばん大きく動き、完全にそろえた版ではそれほど動きませんでした<a class="cite" href="#ref-20">[20]</a>。ジャズ・トリオの研究でも、19ミリ秒未満のずれの版がいちばん好まれました<a class="cite" href="#ref-22">[22]</a>。</p>
+      <p><span class="lv lv-a">確かめられている</span>30ミリ秒くらいまでのずれは、どちらが前かを聴き分けられません<a class="cite" href="#ref-16">[16]</a>。</p>
+      <p><span class="lv lv-b">研究から推せる</span>ですから「ベースを何ミリ秒前に」と順番を作ることより、ずれが小さく、毎回ぶれないことの方が効く、と考えられます。</p>
+    </div>
+
+    <div class="factor" id="f-swing">
+      <span class="no">要因 2</span>
+      <h3>テンポに合った跳ね方（と、楽器ごとの役割）</h3>
+      <p class="say">跳ね方は「いつも3連符」ではない。遅いほど強く、速いほど均等に近い。ドラムとソロでも違う。</p>
+      <p><span class="lv lv-a">確かめられている</span>聴き手に跳ね方を調整してもらうと、遅いテンポでは強い跳ね方を、速いテンポでは弱い跳ね方を好み、「2 : 1（3連符）」という通説はそのままでは確かめられませんでした<a class="cite" href="#ref-10">[10]</a>。ドラマーのライドを測っても、テンポが速いほど比が小さくなりました<a class="cite" href="#ref-11">[11]</a>。中〜速いテンポでは、短い方の音がおよそ100ミリ秒でほとんど変わらなかったとされます<a class="cite" href="#ref-12">[12]</a>。</p>
+      <p><span class="lv lv-a">確かめられている</span>中くらいのテンポでは、ドラムの比は 2 : 1 より大きく、ソロの奏者の比は 2 : 1 より小さく、ソロの奏者は表拍でドラムより遅れ、裏拍でドラムとそろっていました<a class="cite" href="#ref-11">[11]</a>。</p>
+      <p>短い音を100ミリ秒として計算すると、裏の8分音符の位置はテンポでこう変わります（<span class="lv lv-c">書き手の計算</span>この仮定が当てはまるのは中〜速いテンポです）。</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>テンポ</th><th>1拍</th><th>3連の3つ目</th><th>裏の8分（短い音100ms）</th><th>3連の3つ目との差</th><th>長 : 短</th></tr></thead>
+          <tbody id="ratioTable"></tbody>
+        </table>
+      </div>
+      <p class="small">♩ = 200 前後で、ちょうど3連符（2 : 1）になります。それより遅いと3連より後ろ、速いと3連より前に来ます。</p>
+    </div>
+
+    <div class="factor" id="f-sync">
+      <span class="no">要因 3</span>
+      <h3>ほどよいシンコペーション</h3>
+      <p class="say">リズムの中身も効く。シンコペーションは少なすぎても多すぎても下がる。</p>
+      <p><span class="lv lv-a">確かめられている</span>ファンクのドラム・パターンでシンコペーションの量を変えると、中くらいのときに「動きたい」と「心地よい」がいちばん高くなりました（逆U字）<a class="cite" href="#ref-19">[19]</a>。</p>
+      <p><span class="lv lv-b">研究から推せる</span>ビッグバンドでは、ここは主に編曲とソロ、ドラムのフィルの領分です。ベースのウォーキングは4分音符が中心なので、シンコペーションよりも要因1・4・5が効くところです。</p>
+    </div>
+
+    <div class="factor" id="f-attack">
+      <span class="no">要因 4</span>
+      <h3>音の立ち上がり（どこに拍が聞こえるか）</h3>
+      <p class="say">立ち上がりがゆっくりな音は、遅れて聞こえる。同時に弾いても「ベースが遅い」と聞こえることがある。</p>
+      <p><span class="lv lv-a">確かめられている</span>本物の楽器の音と人工の音で調べると、拍の位置の感じ方をいちばん左右したのは立ち上がりの速さと音の長さで、立ち上がりがゆっくりな音ほど拍が遅く、幅広く感じられました<a class="cite" href="#ref-23">[23]</a>。</p>
+      <p><span class="lv lv-b">研究から推せる</span>低くて柔らかい立ち上がりのベースは、弾いた瞬間より遅れて聞こえやすく、短く鋭いギターのコードは前に聞こえやすいはずです。ただ、この研究では音の高さ（低音かどうか）の影響ははっきりしていません。</p>
+    </div>
+
+    <div class="factor" id="f-adapt">
+      <span class="no">要因 5</span>
+      <h3>奏者どうしが合わせ直し続けること</h3>
+      <p class="say">合奏のタイミングは、1音ごとに互いのずれを聴いて直すことで保たれている。</p>
+      <p><span class="lv lv-a">確かめられている</span>弦楽四重奏を測ると、奏者は1音ごとに他の奏者とのずれを聴き、次の音のタイミングを少しずつ直していました。直す量は、ずれのばらつきが最も小さくなる値に近いものでした<a class="cite" href="#ref-18">[18]</a>。ジャズ・トリオでは、全体のテンポを決めていたのはドラマーで、全員が2・4拍でいちばん正確でした<a class="cite" href="#ref-22">[22]</a>。</p>
+      <p><span class="lv lv-b">研究から推せる</span>クリックはこちらに合わせ直してくれません。クリック練習で鍛えるのは「動かない基準についていく力」で、合奏で要る「互いに寄せ合う力」とは別のものです。</p>
+    </div>
+
+    <div class="factor" id="f-body">
+      <span class="no">要因 6</span>
+      <h3>体の動き（聴く側も弾く側も）</h3>
+      <p class="say">体を動かすと、拍の感じ方そのものが変わる。</p>
+      <p><span class="lv lv-a">確かめられている</span>同じリズムを聴きながら、2拍ごとに膝を曲げるか3拍ごとに曲げるかで、そのリズムが行進曲（2拍子）に聞こえるかワルツ（3拍子）に聞こえるかが変わりました。目で見るだけでは変わらず、体の動きが必要でした<a class="cite" href="#ref-15">[15]</a>。拍に合わせて叩きながら聴くと、タイミングのずれを見分ける成績が上がりました<a class="cite" href="#ref-17">[17]</a>。</p>
+      <p><span class="lv lv-a">確かめられている</span>音楽経験のある人ほど、タイミングの違いに体が反応しました<a class="cite" href="#ref-20">[20]</a><a class="cite" href="#ref-21">[21]</a>。</p>
+    </div>
+  </section>
+
+  <!-- ===== 05 先輩の話 ===== -->
+  <section id="senpai" aria-labelledby="senpai-title">
+    <p class="section-label">05 — Checking the advice</p>
+    <h2 id="senpai-title">先輩の3つの話を、この仕組みで読む</h2>
+
+    <div class="verdict">
+      <h3>①「ベースはドラムに被さるように、若干前で」</h3>
+      <p class="q">関わる要因：1（タイミング）・4（立ち上がり）</p>
+      <p><span class="lv lv-a">確かめられている</span>ベースとライドの数十ミリ秒の前後は、聴いてどちらが前か分からない大きさです<a class="cite" href="#ref-16">[16]</a>。ずれを大きくするとグルーヴは下がります<a class="cite" href="#ref-21">[21]</a>。</p>
+      <p><span class="lv lv-b">研究から推せる</span>「前」を意識しすぎてずれを広げると逆効果になりえます。一方で、ベースは立ち上がりの関係で遅れて聞こえやすいので<a class="cite" href="#ref-23">[23]</a>、「弾く位置をほんの少し早める」ことで、聞こえ方としてドラムとそろう可能性はあります。</p>
+      <p><b class="k">役に立つ条件</b>：狙いが「聞こえ方をそろえること」で、テンポは上げず、ずれが聴いて分からない範囲に収まっているとき。<b class="k">役に立たない場合</b>：「前に出ること」自体が目的になり、テンポが上がったり、ずれが大きくなったりするとき。</p>
+    </div>
+
+    <div class="verdict">
+      <h3>②「ベースが若干遅いせいで、ギターが前に出てしまう」</h3>
+      <p class="q">関わる要因：1（タイミング）・4（立ち上がり）・5（合わせ直し）</p>
+      <p><span class="lv lv-b">研究から推せる</span>筋は通っています。立ち上がりの柔らかいベースは遅れて、鋭いギターは前に聞こえやすいので<a class="cite" href="#ref-23">[23]</a>、同じタイミングで弾いても「ギターが前」に聞こえることがあります。また、合奏では互いにずれを直し合うので<a class="cite" href="#ref-18">[18]</a>、ベースの遅れに引っ張られて全体の位置関係が崩れることもありえます。</p>
+      <p><span class="lv lv-c">書き手の考え</span>ただ、本当にベースが遅いのか、ギターが走っているのかは、耳だけでは判断できません（30ミリ秒以下の差は聴き分けられないため<a class="cite" href="#ref-16">[16]</a>）。3人で録音して、波形で比べるのが確実です。直し方は「早く弾く」だけでなく、「立ち上がりをはっきりさせる」（弾く位置、アンプの低音の出しすぎを抑える）でもよいはずです。</p>
+    </div>
+
+    <div class="verdict" id="uraren">
+      <h3>③ 裏練：「3連の3つ目にクリックを置き、少し後ろで弾く」</h3>
+      <p class="q">関わる要因：2（跳ね方）・5（合わせ直し）。「少し後ろで弾く」は、裏の8分を3連符より遅く置く、つまり長 : 短を 2 : 1 より大きくすることにあたります。</p>
+      <p><span class="lv lv-a">確かめられている</span><b class="k">合う場合</b>：中くらいのテンポのドラマーのライドは 2 : 1 より大きい比、つまり裏が3連より後ろでした<a class="cite" href="#ref-11">[11]</a>。遅いテンポほど強い跳ね方が好まれます<a class="cite" href="#ref-10">[10]</a>。この範囲では、裏練の「後ろ」は実際の演奏と一致します。</p>
+      <p><span class="lv lv-a">確かめられている</span><b class="k">逆になる場合</b>：テンポが速くなると比は小さくなり、♩ = 200 あたりを超えると裏は3連より前に来ます（<a href="#f-swing">要因2の表</a>）<a class="cite" href="#ref-11">[11]</a><a class="cite" href="#ref-12">[12]</a>。また、中くらいのテンポでもソロの奏者の比は 2 : 1 より小さく、裏は3連より前でした。ソロの奏者は「裏をドラムに合わせ、表を少し遅らせる」形でした<a class="cite" href="#ref-11">[11]</a>。</p>
+      <p><span class="lv lv-a">確かめられている</span><b class="k">裏にクリックを置くこと自体</b>：拍と拍の間（裏）に合わせて叩く動きは、拍の上で叩く動きより不安定で、テンポを上げると自然に拍の上へ移ってしまいます<a class="cite" href="#ref-14">[14]</a>。裏のクリックに合わせ続けるのは、それだけ難しい課題です。</p>
+      <p><span class="lv lv-c">書き手の考え</span>裏練が役に立つのは、(1) 遅め〜中くらいのテンポで、(2) ドラムのライドやそれに合わせるリズム隊として、(3) 裏の位置を自分の中に持ち続ける力をつける場合。役に立たない、または逆効果になりうるのは、(1) 速いテンポでも同じだけ「後ろ」に置く、(2) 管楽器のソロのフレーズに当てはめる、(3) クリックと完全に一致させることを目標にする場合です。<b class="k">ベースのウォーキングは4分音符が中心なので、裏練の効果が直接出るのは、ライドの「チ・チキ」の裏を聴き取って、4分音符をそこに噛み合わせる部分</b>だと思います。裏練をすることでバンドのグルーヴが上がることを直接確かめた研究は見つかりませんでした。</p>
+    </div>
+
+    <h3>聴いて確かめる</h3>
+    <p>テンポ、跳ね方、ベースの位置、ベースの立ち上がりを変えて鳴らせます。裏練のクリック（3連の3つ目）も鳴らせます。音はブラウザで合成しています。</p>
+    <div class="lab" id="lab">
+      <div class="lab-row"><button class="btn" id="play" type="button">▶ 鳴らす</button></div>
+      <div class="lab-row">
+        <label for="tempo">テンポ</label>
+        <input type="range" id="tempo" min="80" max="300" step="2" value="160">
+        <output id="tempoOut" for="tempo">♩ = 160</output>
+      </div>
+      <div class="lab-row">
+        <span class="small" style="color:var(--ink)">跳ね方</span>
+        <button class="btn ghost" type="button" data-sw="triplet" aria-pressed="false">いつも3連（2 : 1）</button>
+        <button class="btn ghost" type="button" data-sw="research" aria-pressed="true">研究の傾向（短い音100ms）</button>
+        <button class="btn ghost" type="button" data-sw="behind" aria-pressed="false">裏練（3連より30ms後ろ）</button>
+      </div>
+      <p class="readout" id="readout"></p>
+      <div class="lab-row">
+        <label for="off">ベースの位置</label>
+        <input type="range" id="off" min="-40" max="40" step="5" value="0">
+        <output id="offOut" for="off">ライドと同時</output>
+      </div>
+      <div class="lab-row">
+        <span class="small" style="color:var(--ink)">ベースの立ち上がり</span>
+        <button class="btn ghost" type="button" data-atk="0.004" aria-pressed="true">はっきり</button>
+        <button class="btn ghost" type="button" data-atk="0.045" aria-pressed="false">柔らかい</button>
+      </div>
+      <div class="lab-row">
+        <span class="small" style="color:var(--ink)">クリック</span>
+        <button class="btn ghost" type="button" data-click="none" aria-pressed="true">なし</button>
+        <button class="btn ghost" type="button" data-click="24" aria-pressed="false">2・4拍</button>
+        <button class="btn ghost" type="button" data-click="ura" aria-pressed="false">3連の3つ目（裏練）</button>
+      </div>
+      <p class="small" style="margin:0">「柔らかい」にすると、同じタイミングでもベースが少し遅れて聞こえるかを確かめられます（要因4）。</p>
+    </div>
+  </section>
+
+  <!-- ===== 06 クリック ===== -->
+  <section id="click" aria-labelledby="click-title">
+    <p class="section-label">06 — Where click practice fits</p>
+    <h2 id="click-title">クリック練習は、どこに効くのか</h2>
+    <ul class="plain">
+      <li><span class="lv lv-b">研究から推せる</span><b class="k">効くところ</b>：要因1の「毎回同じ位置に置く」「テンポを保つ」。人はクリックより少し前を叩きやすいことも知られています<a class="cite" href="#ref-13">[13]</a>。プロのドラマーでも、クリックに対して手足ごとにずれ方が違いました（ハイハットはほぼ同時、スネアとバスドラムは約10ミリ秒前）<a class="cite" href="#ref-24">[24]</a>。</li>
+      <li><span class="lv lv-b">研究から推せる</span><b class="k">効かないところ</b>：要因4（立ち上がり）と要因5（互いの合わせ直し）。クリックは音色を持たず、こちらに合わせ直しもしません<a class="cite" href="#ref-18">[18]</a>。</li>
+      <li><span class="lv lv-b">研究から推せる</span><b class="k">頼りすぎの心配</b>：運動の学習では、毎回の手がかりは練習中の出来を上げる一方、手がかりがないときの力を育てにくい、という説（ガイダンス仮説）があります。ただし再現しない研究もあり、確定した話ではありません<a class="cite" href="#ref-25">[25]</a><a class="cite" href="#ref-26">[26]</a>。クリックを2・4拍だけ、小節に1回、と減らしていくやり方は、この考え方とは合っています。</li>
+      <li><span class="lv lv-c">書き手の考え</span><b class="k">グルーヴそのものが生まれる場所</b>は、要因1〜6が同時に起きる合奏の中です。クリック練習はその準備で、グルーヴを作るのはリズム隊で合わせて、録って、聴き直すことだと考えます。</li>
+    </ul>
+  </section>
+
+  <!-- ===== 07 分かっていないこと ===== -->
+  <section id="unknown" aria-labelledby="unknown-title">
+    <p class="section-label">07 — Still unknown</p>
+    <h2 id="unknown-title">まだ分かっていないこと</h2>
+    <ul class="plain">
+      <li>クリック練習や裏練を続けると、バンドのグルーヴ（聴き手の評価や体の動き）が上がるのか。練習の効果をグルーヴで測った研究は見つかりませんでした。</li>
+      <li>ビッグバンドの大きな編成で、ベース・ギター・ドラムの「正しい順番」があるのか。測定は主にトリオや2人の録音で、ビッグバンドのリズム隊を測ったものは見つかりませんでした。</li>
+      <li>研究の多くは数十人規模で、特定の奏者・録音を材料にしています。どの奏者にも当てはまるとは限りません。</li>
+    </ul>
+  </section>
+
+  <a class="related" href="/works/swing/"><b>スイングってなに？</b><br><span class="small">スイングの2つの意味、ラグタイムからスイング時代までのつながりの地図、跳ね方の実験。</span></a>
+
+  <!-- ===== 出典 ===== -->
+  <section id="refs" aria-labelledby="refs-title">
+    <p class="section-label">References</p>
+    <h2 id="refs-title">出典</h2>
+    <p class="small">2026年10月26日に確認。全文を読めなかったものは、要旨や他の論文での紹介にもとづいています。その場合は書き添えました。</p>
+    <ol class="refs">
+      <li id="ref-1">Madison, G. (2006). Experiencing groove induced by music: Consistency and phenomenology. <i>Music Perception</i>, 24(2), 201–208. <a href="https://doi.org/10.1525/mp.2006.24.2.201">doi.org/10.1525/mp.2006.24.2.201</a></li>
+      <li id="ref-2">Janata, P., Tomic, S. T., &amp; Haberman, J. M. (2012). Sensorimotor coupling in music and the psychology of the groove. <i>Journal of Experimental Psychology: General</i>, 141(1), 54–75. <a href="https://doi.org/10.1037/a0024208">doi.org/10.1037/a0024208</a></li>
+      <li id="ref-3">Wikipedia, “Metronome”. <a href="https://en.wikipedia.org/wiki/Metronome">en.wikipedia.org/wiki/Metronome</a></li>
+      <li id="ref-4">Linda Hall Library, “Scientist of the Day: Johann Nepomuk Maelzel”. <a href="https://www.lindahall.org/about/news/scientist-of-the-day/johann-nepomuk-maelzel/">lindahall.org</a></li>
+      <li id="ref-5">Keil, C. (1966). Motion and feeling through music. <i>The Journal of Aesthetics and Art Criticism</i>, 24(3), 337–349. <a href="https://jazztheory.ssac.carleton.ca/view.php?id=278">jazztheory.ssac.carleton.ca</a></li>
+      <li id="ref-6">Keil, C. (1987). Participatory discrepancies and the power of music. <i>Cultural Anthropology</i>, 2(3), 275–283. <a href="https://scienceopen.com/document/vid/f0a83d2d-746e-4d0f-8e8d-32607a093f43">scienceopen.com</a></li>
+      <li id="ref-7">Ellis, M. C. (1991). An analysis of “swing” subdivision and asynchronization in three jazz saxophonists. <i>Perceptual and Motor Skills</i>, 73(3)（要旨による）. <a href="https://journals.sagepub.com/toc/pmsb/73/3">journals.sagepub.com</a></li>
+      <li id="ref-8">Berliner, P. F. (1994). <i>Thinking in Jazz: The Infinite Art of Improvisation</i>. University of Chicago Press. <a href="https://www.degruyterbrill.com/document/doi/10.7208/9780226044521/html">degruyterbrill.com</a></li>
+      <li id="ref-9">Prögler, J. A. (1995). Searching for swing: Participatory discrepancies in the jazz rhythm section. <i>Ethnomusicology</i>, 39(1)（他の文献での紹介による）. <a href="https://labs.sonicfield.org/library/the-theory-of-participatory-discrepancies-a-progress-report-searching-for-swing-">sonicfield.org</a></li>
+      <li id="ref-10">Friberg, A. &amp; Sundström, A. (1997). Preferred swing ratio in jazz as a function of tempo. <i>TMH-QPSR</i>, 38(4)（米国音響学会の一般向け要約による）. <a href="https://acoustics.org/pressroom/httpdocs/137th/friberg.html">acoustics.org</a></li>
+      <li id="ref-11">Friberg, A. &amp; Sundström, A. (2002). Swing ratios and ensemble timing in jazz performance: Evidence for a common rhythmic pattern. <i>Music Perception</i>, 19(3), 333–349. <a href="https://doi.org/10.1525/mp.2002.19.3.333">doi.org/10.1525/mp.2002.19.3.333</a></li>
+      <li id="ref-12">Honing, H. &amp; de Haas, W. B. (2008). Swing once more: Relating timing and tempo in expert jazz drumming. <i>Music Perception</i>, 25(5)（Friberg &amp; Sundström の結果の紹介を含む）. <a href="https://mcg.uva.nl/mcg-2023/papers/honing-haas-2008.pdf">mcg.uva.nl（PDF）</a></li>
+      <li id="ref-13">Repp, B. H. (2005). Sensorimotor synchronization: A review of the tapping literature. <i>Psychonomic Bulletin &amp; Review</i>, 12(6), 969–992. <a href="https://doi.org/10.3758/BF03206433">doi.org/10.3758/BF03206433</a></li>
+      <li id="ref-14">Mayville, J. M., Fuchs, A., Ding, M., Cheyne, D., Deecke, L., &amp; Kelso, J. A. S. (2001). Event-related changes in neuromagnetic activity associated with syncopation and synchronization timing tasks. <i>Human Brain Mapping</i>. <a href="https://www.fau.edu/science/psychology/documents/mayvillefuchsetal2001.pdf">fau.edu（PDF）</a></li>
+      <li id="ref-15">Phillips-Silver, J. &amp; Trainor, L. J. (2007). Hearing what the body feels: Auditory encoding of rhythmic movement. <i>Cognition</i>, 105(3), 533–546. <a href="https://doi.org/10.1016/j.cognition.2006.11.006">doi.org/10.1016/j.cognition.2006.11.006</a></li>
+      <li id="ref-16">Butterfield, M. W. (2010). Participatory discrepancies and the perception of beats in jazz. <i>Music Perception</i>, 27(3), 157–176. <a href="https://doi.org/10.1525/mp.2010.27.3.157">doi.org/10.1525/mp.2010.27.3.157</a></li>
+      <li id="ref-17">Manning, F. &amp; Schutz, M. (2013). “Moving to the beat” improves timing perception. <i>Psychonomic Bulletin &amp; Review</i>, 20(6), 1133–1139. <a href="https://doi.org/10.3758/s13423-013-0439-7">doi.org/10.3758/s13423-013-0439-7</a></li>
+      <li id="ref-18">Wing, A. M., Endo, S., Bradbury, A., &amp; Vorberg, D. (2014). Optimal feedback correction in string quartet synchronization. <i>Journal of the Royal Society Interface</i>, 11. <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3928944/">ncbi.nlm.nih.gov/pmc/articles/PMC3928944</a></li>
+      <li id="ref-19">Witek, M. A. G., Clarke, E. F., Wallentin, M., Kringelbach, M. L., &amp; Vuust, P. (2014). Syncopation, body-movement and pleasure in groove music. <i>PLoS ONE</i>, 9(4), e94446. <a href="https://doi.org/10.1371/journal.pone.0094446">doi.org/10.1371/journal.pone.0094446</a></li>
+      <li id="ref-20">Kilchenmann, L. &amp; Senn, O. (2015). Microtiming in swing and funk affects the body movement behavior of music expert listeners. <i>Frontiers in Psychology</i>, 6, 1232. <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4542135/">ncbi.nlm.nih.gov/pmc/articles/PMC4542135</a></li>
+      <li id="ref-21">Senn, O., Kilchenmann, L., von Georgi, R., &amp; Bullerjahn, C. (2016). The effect of expert performance microtiming on listeners' experience of groove in swing or funk music. <i>Frontiers in Psychology</i>, 7, 1487. <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5050221/">ncbi.nlm.nih.gov/pmc/articles/PMC5050221</a></li>
+      <li id="ref-22">Hofmann, A., Wesolowski, B. C., &amp; Goebl, W. (2017). The tight-interlocked rhythm section: Production and perception of synchronisation in jazz trio performance. <i>Journal of New Music Research</i>, 46(4), 329–341. <a href="https://doi.org/10.1080/09298215.2017.1355394">doi.org/10.1080/09298215.2017.1355394</a></li>
+      <li id="ref-23">Danielsen, A., Nymoen, K., Anderson, E., Câmara, G. S., Langerød, M. T., Thompson, M. R., &amp; London, J. (2019). Where is the beat in that note? Effects of attack, duration, and frequency on the perceived timing of musical and quasi-musical sounds. <i>Journal of Experimental Psychology: Human Perception and Performance</i>, 45(3), 402–418. <a href="https://jyx.jyu.fi/handle/123456789/63979">jyx.jyu.fi</a></li>
+      <li id="ref-24">Fujii, S. ほか (2011). Synchronization error of drum kit playing with a metronome at different tempi by professional drummers. <i>Music Perception</i>. <a href="https://sonicfield.org/library/synchronization-error-of-drum-kit-playing-with-a-metronome-at-different-tempi-by">sonicfield.org</a></li>
+      <li id="ref-25">Salmoni, A. W., Schmidt, R. A., &amp; Walter, C. B. (1984). Knowledge of results and motor learning: A review and critical reappraisal. <i>Psychological Bulletin</i>, 95(3), 355–386（ガイダンス仮説。紹介：<a href="https://www.frontiersin.org/articles/10.3389/fpsyg.2010.00190/full">Frontiers in Psychology, 2010</a>）.</li>
+      <li id="ref-26">Marschall, F., Bund, A., &amp; Wiemeyer, J. (2007). Does frequent augmented feedback really degrade learning? A meta-analysis. <i>E-Journal Bewegung und Training</i>. <a href="https://orbilu.uni.lu/bitstream/10993/4589/1/Publikation_Marschall_Bund_Wiemeyer_2007_EJournal%20Bewegung%20und%20Training.PDF">orbilu.uni.lu（PDF）</a></li>
+    </ol>
+    <p class="small">誤りに気づいたら、<a href="/contact/">お問い合わせ</a>から教えてください。</p>
+  </section>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  /* ---------- 要因2の表 ---------- */
+  var tb = document.getElementById('ratioTable');
+  [120,140,160,180,200,220,260].forEach(function(t){
+    var beat = 60000/t, tri = beat*2/3, off = beat - 100, diff = off - tri, r = (beat-100)/100;
+    var tr = document.createElement('tr');
+    var d = Math.round(diff);
+    [ '♩ = ' + t, Math.round(beat) + ' ms', Math.round(tri) + ' ms', Math.round(off) + ' ms',
+      (d === 0 ? 'ほぼ同じ' : (Math.abs(d) + ' ms ' + (d > 0 ? '後ろ' : '前'))), r.toFixed(1) + ' : 1'
+    ].forEach(function(v, i){ var td = document.createElement('td'); if (i) td.className = 'num'; td.textContent = v; tr.appendChild(td); });
+    tb.appendChild(tr);
+  });
+
+  /* ---------- 音の実験 ---------- */
+  var ctx = null, noiseBuf = null, timer = null, playing = false, nextTime = 0, step = 0;
+  var tempo = 160, sw = 'research', off = 0, atk = 0.004, click = 'none';
+  var BASS = [87.31,110.00,130.81,146.83, 116.54,110.00,103.83,98.00, 87.31,110.00,130.81,155.56, 174.61,155.56,146.83,130.81];
+  var $ = function(id){ return document.getElementById(id); };
+  function offbeatFrac(){
+    var beat = 60/tempo;
+    if (sw === 'triplet') return 2/3;
+    if (sw === 'behind') return Math.min(0.92, 2/3 + 0.030/beat);
+    return Math.max(0.5, Math.min(0.85, (beat - 0.100)/beat));
+  }
+  function readout(){
+    var beat = 60000/tempo, f = offbeatFrac(), pos = beat*f, tri = beat*2/3, d = Math.round(pos - tri);
+    var r = f/(1-f);
+    $('readout').textContent = '1拍 ' + Math.round(beat) + ' ms ／ 裏の8分は拍頭から ' + Math.round(pos) + ' ms（3連の3つ目より ' +
+      (d === 0 ? '同じ位置' : Math.abs(d) + ' ms ' + (d > 0 ? '後ろ' : '前')) + '）／ 長 : 短 = ' + r.toFixed(2) + ' : 1';
+  }
+  function group(attr, cb){
+    var bs = document.querySelectorAll('[' + attr + ']');
+    Array.prototype.forEach.call(bs, function(b){
+      b.addEventListener('click', function(){
+        Array.prototype.forEach.call(bs, function(x){ x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+        cb(b.getAttribute(attr)); readout();
+      });
+    });
+  }
+  group('data-sw', function(v){ sw = v; });
+  group('data-atk', function(v){ atk = parseFloat(v); });
+  group('data-click', function(v){ click = v; });
+  $('tempo').addEventListener('input', function(){ tempo = parseInt(this.value,10); $('tempoOut').textContent = '♩ = ' + tempo; readout(); });
+  $('off').addEventListener('input', function(){
+    off = parseInt(this.value,10);
+    $('offOut').textContent = off === 0 ? 'ライドと同時' : Math.abs(off) + ' ミリ秒 ' + (off < 0 ? '前' : '後ろ');
+  });
+  readout();
+
+  function ensure(){
+    if (ctx) return true;
+    var AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC){ $('readout').textContent = 'このブラウザでは音を鳴らせません。'; return false; }
+    ctx = new AC();
+    noiseBuf = ctx.createBuffer(1, ctx.sampleRate, ctx.sampleRate);
+    var d = noiseBuf.getChannelData(0); for (var i=0;i<d.length;i++) d[i] = Math.random()*2-1;
+    return true;
+  }
+  function noise(t, dur, freq, type, gain){
+    var s = ctx.createBufferSource(); s.buffer = noiseBuf;
+    var f = ctx.createBiquadFilter(); f.type = type; f.frequency.value = freq; f.Q.value = 0.8;
+    var g = ctx.createGain(); g.gain.setValueAtTime(gain, t); g.gain.exponentialRampToValueAtTime(0.0008, t+dur);
+    s.connect(f); f.connect(g); g.connect(ctx.destination); s.start(t); s.stop(t+dur+0.02);
+  }
+  function tone(t, freq, dur, gain){
+    var o = ctx.createOscillator(); o.type = 'sine'; o.frequency.value = freq;
+    var g = ctx.createGain(); g.gain.setValueAtTime(gain, t); g.gain.exponentialRampToValueAtTime(0.0008, t+dur);
+    o.connect(g); g.connect(ctx.destination); o.start(t); o.stop(t+dur+0.02);
+  }
+  function bass(t, freq, dur){
+    var o = ctx.createOscillator(); o.type = 'triangle'; o.frequency.value = freq;
+    var f = ctx.createBiquadFilter(); f.type = 'lowpass'; f.frequency.value = 700;
+    var g = ctx.createGain();
+    g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.55, t + atk);
+    g.gain.exponentialRampToValueAtTime(0.0008, t + dur);
+    o.connect(f); f.connect(g); g.connect(ctx.destination); o.start(t); o.stop(t+dur+0.02);
+  }
+  function beatAt(t, i){
+    var beat = 60/tempo, b = i % 4, f = offbeatFrac();
+    noise(t, (b===1||b===3) ? 0.42 : 0.28, 7600, 'highpass', (b===1||b===3) ? 0.2 : 0.11);
+    if (b===1 || b===3){ noise(t + beat*f, 0.24, 7600, 'highpass', 0.1); noise(t, 0.05, 2600, 'bandpass', 0.3); }
+    bass(Math.max(ctx.currentTime, t + off/1000), BASS[i % BASS.length], beat*0.9);
+    if (click === '24' && (b===1 || b===3)) tone(t, 1900, 0.03, 0.35);
+    if (click === 'ura') tone(t + beat*2/3, 1900, 0.03, 0.3);
+  }
+  function tick(){ while (nextTime < ctx.currentTime + 0.12){ beatAt(nextTime, step); nextTime += 60/tempo; step++; } }
+  $('play').addEventListener('click', function(){
+    if (!ensure()) return;
+    if (playing){ playing = false; clearInterval(timer); this.textContent = '▶ 鳴らす'; return; }
+    if (ctx.state === 'suspended') ctx.resume();
+    playing = true; step = 0; nextTime = ctx.currentTime + 0.06; timer = setInterval(tick, 25); tick();
+    this.textContent = '■ 止める';
+  });
+})();
+</script>
+
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+<!-- site-footer: 運営者情報・お問い合わせ（共通） -->
+<style>
+  .site-footer{max-width:700px;margin:0 auto;padding:8px 24px 72px;text-align:center;font-size:12.5px;line-height:1.9;color:var(--ink-faint,#707070);font-family:inherit}
+  .site-footer ul{list-style:none;margin:0 0 10px;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:6px 22px}
+  .site-footer a{color:var(--ink-faint,#707070);text-decoration:none;border-bottom:1px solid var(--line-faint,rgba(18,18,18,.14));padding-bottom:2px}
+  .site-footer a:hover{color:var(--ink,#121212);border-color:var(--ink,#121212)}
+  .site-footer p{margin:0}
+</style>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：個人 ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+</body>
+</html>
