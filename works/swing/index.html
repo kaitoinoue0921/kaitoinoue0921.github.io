@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>スイングってなんだっけ | 小さな実験室</title>
+<meta name="description" content="「三連符よりちょっと重く」で終わらないスイングの話。長短の比率はテンポで変わること、ソロとリズム隊の関係で生まれること、もとは踊るための音楽だったことを、録音の研究と歴史からまとめ、耳で確かめられる実験を付けました。">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/works/swing/">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="スイングってなんだっけ">
+<meta property="og:description" content="長短の比率はテンポで変わり、ソロとリズム隊の関係で生まれる。録音の研究と歴史から、スイングをまとめ直しました。">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/works/swing/">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/ogp.png">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600&family=Zen+Kaku+Gothic+New:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#fff; --ink:#121212; --ink-soft:#3a3a3a; --ink-faint:#6b6b6b;
+    --line:rgba(18,18,18,0.9); --line-faint:rgba(18,18,18,0.14); --line-ghost:rgba(18,18,18,0.05);
+    --serif:"Shippori Mincho",serif; --sans:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",sans-serif; --mono:"JetBrains Mono",monospace;
+    --ride:#121212; --solo:#b4532a; --trip:#8a8a8a;
+  }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--bg); color:var(--ink-soft); font-family:var(--sans); line-height:1.95; -webkit-font-smoothing:antialiased; }
+  .wrap{ max-width:720px; margin:0 auto; padding:clamp(56px,10vh,110px) clamp(16px,6vw,56px) 40px; }
+  .back{ display:inline-block; margin-bottom:28px; font-size:13px; color:var(--ink-faint); text-decoration:none; }
+  .kicker{ font-family:var(--mono); font-size:11px; letter-spacing:.22em; color:var(--ink-faint); margin:0 0 10px; }
+  h1{ font-family:var(--serif); font-weight:600; color:var(--ink); font-size:clamp(28px,6vw,42px); line-height:1.35; margin:0 0 28px; letter-spacing:.04em; }
+  h2{ font-family:var(--serif); font-weight:600; color:var(--ink); font-size:clamp(20px,4vw,24px); line-height:1.5; margin:64px 0 14px; padding-top:22px; border-top:1px solid var(--line); }
+  h2 .no{ display:block; font-family:var(--mono); font-weight:400; font-size:11px; letter-spacing:.2em; color:var(--ink-faint); margin-bottom:4px; }
+  h3{ font-family:var(--serif); font-weight:600; color:var(--ink); font-size:17px; margin:30px 0 6px; }
+  p{ margin:0 0 1em; }
+  a{ color:var(--ink); }
+  .lead{ font-size:16px; color:var(--ink); }
+  .note{ font-size:13px; color:var(--ink-faint); }
+  .points{ list-style:none; padding:0; margin:22px 0 0; counter-reset:pt; }
+  .points li{ position:relative; padding:14px 0 14px 44px; border-top:1px solid var(--line-faint); counter-increment:pt; }
+  .points li:last-child{ border-bottom:1px solid var(--line-faint); }
+  .points li::before{ content:counter(pt,decimal-leading-zero); position:absolute; left:0; top:15px; font-family:var(--mono); font-size:12px; color:var(--ink-faint); }
+  .points b{ color:var(--ink); font-weight:500; }
+  .tl{ list-style:none; padding:0; margin:18px 0 0; }
+  .tl li{ display:grid; grid-template-columns:7.5em 1fr; gap:4px 16px; padding:12px 0; border-top:1px solid var(--line-faint); }
+  .tl li:last-child{ border-bottom:1px solid var(--line-faint); }
+  .tl .y{ font-family:var(--mono); font-size:12.5px; color:var(--ink); padding-top:3px; }
+  @media (max-width:520px){ .tl li{ grid-template-columns:1fr; } }
+  .cite{ font-size:12px; color:var(--ink-faint); white-space:nowrap; }
+  .box{ border:1px solid var(--line-faint); padding:16px 18px; margin:20px 0; background:var(--line-ghost); }
+  .box p:last-child{ margin-bottom:0; }
+  .fig{ margin:20px 0 6px; }
+  .fig svg{ width:100%; height:auto; display:block; }
+  .figcap{ font-size:12.5px; color:var(--ink-faint); margin:4px 0 0; }
+
+  /* ---- 実験 ---- */
+  .lab{ border:1px solid var(--line); padding:20px clamp(14px,4vw,24px) 22px; margin:22px 0; }
+  .lab-row{ display:grid; grid-template-columns:9.5em 1fr 4.6em; align-items:center; gap:10px; margin:12px 0; }
+  .lab-row label{ font-size:13.5px; color:var(--ink); }
+  .lab-row output{ font-family:var(--mono); font-size:13px; text-align:right; color:var(--ink); }
+  .lab-row input[type=range]{ width:100%; accent-color:var(--ink); }
+  @media (max-width:520px){ .lab-row{ grid-template-columns:1fr 4.6em; } .lab-row label{ grid-column:1 / -1; margin-bottom:-6px; } }
+  .lab-btns{ display:flex; flex-wrap:wrap; gap:8px; margin:6px 0 14px; }
+  .lab button{ font:inherit; font-size:13px; padding:7px 14px; background:#fff; color:var(--ink); border:1px solid var(--line); cursor:pointer; }
+  .lab button:hover{ background:var(--line-ghost); }
+  .lab button.play{ background:var(--ink); color:#fff; min-width:7.5em; }
+  .lab button.play.on{ background:#fff; color:var(--ink); }
+  .lab .chk{ display:flex; align-items:center; gap:8px; font-size:13.5px; color:var(--ink); margin:10px 0 0; }
+  .lanes{ margin:22px 0 4px; }
+  .lane{ display:grid; grid-template-columns:4.2em 1fr; align-items:center; gap:10px; height:30px; }
+  .lane-name{ font-size:12px; color:var(--ink-soft); text-align:right; }
+  .track{ position:relative; height:100%; border-left:1px solid var(--line-faint); border-right:1px solid var(--line-faint); }
+  .track::before{ content:""; position:absolute; left:0; right:0; top:50%; border-top:1px solid var(--line-faint); }
+  .dot{ position:absolute; top:50%; width:12px; height:12px; margin:-6px 0 0 -6px; border-radius:50%; background:currentColor; }
+  .dot.off{ width:9px; height:9px; margin:-4.5px 0 0 -4.5px; }
+  .lane-scale{ display:grid; grid-template-columns:4.2em 1fr; gap:10px; font-family:var(--mono); font-size:10.5px; color:var(--ink-faint); }
+  .lane-scale div{ display:flex; justify-content:space-between; }
+  .lab-read{ font-size:13px; color:var(--ink-soft); margin:14px 0 0; }
+
+  .rec{ list-style:none; padding:0; margin:14px 0 0; }
+  .rec li{ padding:12px 0; border-top:1px solid var(--line-faint); }
+  .rec li:last-child{ border-bottom:1px solid var(--line-faint); }
+  .rec .t{ color:var(--ink); font-weight:500; }
+  .rec .why{ display:block; font-size:13.5px; }
+  .refs{ font-size:13px; line-height:1.8; padding-left:1.2em; }
+  .refs li{ margin:0 0 .7em; }
+  .updated{ margin-top:48px; font-size:13px; color:var(--ink-faint); }
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/">← トップ</a>
+
+<p class="kicker">SWING · NOTES</p>
+<h1>スイングって<br>なんだっけ</h1>
+
+<p class="lead">部活で「スイングは三連符より少し重く」と教わって、そのリズムで拍を打つ練習を何度もしました。それ自体は間違いではありません。でも、それだけを繰り返していると、何のためにやっているのか分からなくなりました。</p>
+<p>スイングは、もともと人と一緒に演奏して、人を踊らせるための音楽の言葉です。そこから考え直そうと思い、録音を測った研究、聴き手の実験、歴史の本をたどって、一つにまとめ直しました。最後に、ページの中で音を鳴らして確かめられる実験を付けています。</p>
+<p class="note">ビッグバンドで演奏している学生が、自分の練習のために調べてまとめたものです。研究の数字は各論文の要約によるもので、気づいた誤りは直します。</p>
+
+<h2><span class="no">00</span>先に、分かったこと</h2>
+<ol class="points">
+  <li><b>長短の比率は決まった数ではない。</b>テンポが速いほどまっすぐに近づき、ドラムとソロでも違います。三連符（2:1）は、その途中の一点です。</li>
+  <li><b>スイングは一人の比率より、人と人の関係で生まれる。</b>録音を測ると、ソロはリズム隊より表拍で少し遅れ、裏拍ではそろう傾向があります。</li>
+  <li><b>ずれていれば何でもいいわけではない。</b>でたらめな揺れを大きくすると、聴き手が感じるスイングはむしろ減りました。</li>
+  <li><b>もとはダンスの音楽だった。</b>体が動くかどうかが、いちばん古い物差しです。</li>
+</ol>
+
+<h2><span class="no">01</span>言葉と時代</h2>
+<p>「スイング」は、ある時代の音楽の名前でもあり、演奏の乗り方を指す言葉でもあります。ジャズ史の研究者ガンサー・シュラーは、スイングを言葉で定義しようとすると、楽譜と実際の演奏くらいの距離ができてしまう、という断りから説明を始めています。<span class="cite">（Schuller 1968）</span></p>
+<ul class="tl">
+  <li><span class="y">1931–32年</span><span>デューク・エリントンが「It Don't Mean a Thing (If It Ain't Got That Swing)」を書き、1932年2月に録音。歌はアイヴィ・アンダーソン。<b>「スイングがなければ意味がない」</b>という言い方は、スイングが「時代の名前」になる前から、演奏の良し悪しの物差しとして使われていたことを示しています。<span class="cite">（Wikipedia: It Don't Mean a Thing）</span></span></li>
+  <li><span class="y">1930年代</span><span>ニューヨーク・ハーレムのサヴォイ・ボールルームでは、チック・ウェッブの楽団が専属で演奏し、客はリンディホップを踊りました。楽団どうしの「バトル」もここで開かれています。演奏の評価は、まず踊る人がしていました。<span class="cite">（Wikipedia: Savoy Ballroom）</span></span></li>
+  <li><span class="y">1935年8月</span><span>ベニー・グッドマン楽団がロサンゼルスのパロマー・ボールルームで大成功し、これが「スイング時代の始まり」としてよく語られます。演奏した編曲の多くはフレッチャー・ヘンダーソンによるものでした。<span class="cite">（Wikipedia: Palomar Ballroom）</span></span></li>
+  <li><span class="y">1930年代半ば</span><span>カンザスシティから出てきたカウント・ベイシー楽団。ベースのウォルター・ペイジは1小節に4つ均等に刻む弾き方を広め、ドラムのジョー・ジョーンズは拍の中心をバスドラムからハイハットへ移し、1937年にギターのフレディ・グリーンが加わりました。重く2拍を刻むのではなく、<b>軽く4つを並べる</b>リズム隊が、ビッグバンドの標準になっていきます。<span class="cite">（Encyclopedia.com: Count Basie）</span></span></li>
+  <li><span class="y">1940年代半ば以降</span><span>踊るためのビッグバンドの時代は下火になりますが、スイングの乗り方そのものは、その後のジャズに受け継がれていきます。</span></li>
+</ul>
+
+<h2><span class="no">02</span>長短の比率は、決まっていない</h2>
+<p>8分音符2つのうち、前の音が後ろの音の何倍長いかを「スイング比」と呼びます。まっすぐなら1:1、三連符の「タータ」なら2:1、付点8分と16分なら3:1です。</p>
+
+<div class="fig" aria-hidden="true">
+<svg viewBox="0 0 640 150">
+  <g font-family="JetBrains Mono, monospace" font-size="12" fill="#6b6b6b">
+    <text x="0" y="22">1 : 1</text><text x="0" y="72">2 : 1</text><text x="0" y="122">3 : 1</text>
+  </g>
+  <g fill="none" stroke="#121212" stroke-width="1">
+    <line x1="70" y1="18" x2="630" y2="18"/><line x1="70" y1="68" x2="630" y2="68"/><line x1="70" y1="118" x2="630" y2="118"/>
+  </g>
+  <g fill="#121212">
+    <rect x="70" y="8" width="276" height="20"/><rect x="354" y="8" width="276" height="20" fill="#b4532a"/>
+    <rect x="70" y="58" width="369" height="20"/><rect x="447" y="58" width="183" height="20" fill="#b4532a"/>
+    <rect x="70" y="108" width="416" height="20"/><rect x="494" y="108" width="136" height="20" fill="#b4532a"/>
+  </g>
+</svg>
+<p class="figcap">1拍の中での、前の8分（黒）と後ろの8分（赤）の長さ。</p>
+</div>
+
+<p>スウェーデン王立工科大学のフリーベリとスンドストレムは、名の知れたジャズドラマー4人のライドシンバルを録音から測りました。テンポはおよそ110〜330 bpm です。その結果、<b>テンポが上がるほどスイング比は小さくなる</b>（まっすぐに近づく）ことが分かりました。さらに中くらいのテンポでは、ドラマーの比率はいつも2より大きく、ソロ奏者の比率はいつも2より小さかったと報告しています。<span class="cite">（Friberg &amp; Sundström 2002）</span></p>
+<p>アムステルダム大学のホーニングとデ・ハースは、ドラマーに同じパターンをいろいろなテンポで叩いてもらいました。プロのドラマーは時間をとても正確にコントロールしていましたが、比率はテンポに合わせて変わっていました。ただし、変わり方はドラマーによって違いました。<span class="cite">（Honing &amp; de Haas 2008）</span></p>
+<p>1曲の中でも比率は動きます。エアランゲンの研究チームが録音を解析した例では、フレディ・ハバードのソロ（約146 bpm）がおよそ3.5の前後で揺れていました。また、カーティス・フラーの「Blue Train」のソロ（約132 bpm）は、3.0くらいから始まって、途中で2.0まで下がっていました。<span class="cite">（Audiolabs Erlangen, Swingogram）</span></p>
+
+<div class="box">
+<p><b>「三連符より少し重く」はどこまで当たっているか。</b>中くらいのテンポのドラムの刻みには、よく当てはまります。けれども管楽器のソロにそのまま当てはめると、録音で測られた多くのソロより重くなりやすい、ということになります。速い曲ではもっとまっすぐに近づきます。正しい比率が一つあるのではなく、<b>テンポと役割で変わる</b>と考えるほうが、録音に近いです。</p>
+</div>
+
+<h2><span class="no">03</span>スイングは、関係の中にある</h2>
+<p>比率と同じくらい大事なのが、<b>誰と誰が、どこでそろい、どこでずれているか</b>です。</p>
+<h3>ソロは表拍で遅れ、裏拍でそろう</h3>
+<p>フリーベリとスンドストレムは、中くらいのテンポでは、ソロ奏者がみな表拍でドラムより遅れていて、裏拍ではドラムとそろっていることを見つけました。<span class="cite">（Friberg &amp; Sundström 2002）</span></p>
+<p>ゲッティンゲンのマックス・プランク研究所のチームは、これを聴き手の実験で確かめています。ソロの<b>表拍だけ</b>をわずかに（約30ミリ秒）遅らせ、裏拍はリズム隊とそろえたままにすると、プロとセミプロの演奏家たちは「スイングしている」と答えやすくなりました。表拍も裏拍も一緒に遅らせた場合は、はっきりした差は出ませんでした。450を超える有名なソロの録音を調べても、ほとんどで表拍の遅れが見つかっています。<span class="cite">（Nelias ほか 2022）</span></p>
+<h3>でたらめな揺れは、スイングを生まない</h3>
+<p>同じグループの前の研究では、ピアノの演奏から自然な時間の揺れを取り除いたり、逆に大きくしたりして、160人に聴いてもらいました。揺れを取り除いた版はわずかに高く評価され、揺れを大きくした版は低く評価されました。自然に生じる細かい揺れそのものは、スイングに欠かせないものではなかったということです。<span class="cite">（Datseris ほか 2019）</span></p>
+<h3>「ずれ」が人を引き込む、という考え方</h3>
+<p>民族音楽学者のチャールズ・カイルは、音楽の力は、演奏する人どうしの小さな食い違い（参加の食い違い）にあると論じました。<span class="cite">（Keil 1987）</span>上の二つの研究を合わせて読むと、ずれていれば何でもいいわけではありません。<b>土台がそろっていて、そのうえで決まった場所だけがずれている</b>ことが効いているようです。</p>
+
+<div class="box">
+<p><b>練習への置きかえ。</b>一人でメトロノームに対して比率を正確に出すことは、スイングの一部でしかありません。リズム隊の刻みを聴いて、裏拍で合わせ、表拍で少し後ろに座る。相手がいて初めて、何に対してずれているのかが決まります。</p>
+</div>
+
+<h2><span class="no">04</span>体が動くかどうか</h2>
+<p>音楽心理学では、音楽を聴いて「体を動かしたくなる気持ち」と、それにともなう心地よさを「グルーヴ」と呼んで研究しています。グルーヴを強く感じる曲ほど、聴き手は自然に体を動かし、リズムに合わせて叩くのも楽に感じていました。<span class="cite">（Janata ほか 2012）</span></p>
+<p>ファンクのドラムパターンを使った実験では、シンコペーションが少なすぎても多すぎても体は動かず、<b>中くらいのとき</b>にいちばん体を動かしたくなり、心地よく感じられました。<span class="cite">（Witek ほか 2014）</span>スイングとは別のジャンルの実験ですが、「適度なずれ」が人を動かすという点は、03 の話と重なります。</p>
+<p>スイング時代の楽団は、ダンスホールで踊る人のために演奏していました。比率が何対何かより、<b>フロアの人が踊れたかどうか</b>が、当時のいちばん分かりやすい答えでした。</p>
+
+<h2><span class="no">05</span>耳で確かめる実験</h2>
+<p>ここまでの話を、ページの中で鳴らして確かめられるようにしました。ドラムのライドシンバルとハイハット、ウォーキングベース、ソロ（赤）が鳴ります。研究の結果をかなり単純にしたモデルで、本物の演奏の代わりにはなりません。</p>
+
+<div class="lab" id="lab">
+  <div class="lab-btns">
+    <button type="button" class="play" id="playBtn">▶ 鳴らす</button>
+    <button type="button" data-preset="triplet">全員が三連符どおり</button>
+    <button type="button" data-preset="record">録音に近い形</button>
+    <button type="button" data-preset="straight">まっすぐ</button>
+  </div>
+  <div class="lab-row"><label for="tempo">テンポ</label><input type="range" id="tempo" min="80" max="300" step="2" value="160"><output id="tempoOut"></output></div>
+  <div class="lab-row"><label for="rideR">ドラムの比率</label><input type="range" id="rideR" min="1" max="3.5" step="0.05" value="2.3"><output id="rideOut"></output></div>
+  <div class="lab-row"><label for="soloR">ソロの比率</label><input type="range" id="soloR" min="1" max="3.5" step="0.05" value="1.6"><output id="soloOut"></output></div>
+  <div class="lab-row"><label for="delay">ソロの表拍の遅れ</label><input type="range" id="delay" min="0" max="80" step="2" value="30"><output id="delayOut"></output></div>
+  <label class="chk"><input type="checkbox" id="delayAll"> 裏拍も同じだけ遅らせる（全体を後ろにずらす）</label>
+  <label class="chk"><input type="checkbox" id="soloOn" checked> ソロを鳴らす</label>
+
+  <div class="lanes" aria-hidden="true">
+    <div class="lane"><span class="lane-name">三連符</span><div class="track" style="color:var(--trip)"><i class="dot" style="left:0"></i><i class="dot off" style="left:66.667%"></i></div></div>
+    <div class="lane"><span class="lane-name">ドラム</span><div class="track" style="color:var(--ride)"><i class="dot" style="left:0"></i><i class="dot off" id="dRideOff"></i></div></div>
+    <div class="lane" id="laneSolo"><span class="lane-name">ソロ</span><div class="track" style="color:var(--solo)"><i class="dot" id="dSoloOn"></i><i class="dot off" id="dSoloOff"></i></div></div>
+    <div class="lane-scale"><span></span><div><span>拍</span><span>1拍の中の位置</span><span>次の拍</span></div></div>
+  </div>
+  <p class="lab-read" id="labRead"></p>
+  <p class="note" style="margin:6px 0 0">大きい点が表拍、小さい点が裏拍。</p>
+</div>
+<p class="note">試し方の例: 「全員が三連符どおり」と「録音に近い形」を交互に聴く。テンポを240以上にして、ドラムの比率を2.3のままにした場合と1.5くらいに下げた場合を比べる。「裏拍も同じだけ遅らせる」を入れたり外したりする。イヤホンだと違いが分かりやすいです。</p>
+
+<h2><span class="no">06</span>意味のある練習にするには</h2>
+<p class="note">ここからは研究の結果ではなく、上の話をもとにした提案です。</p>
+<ol class="points">
+  <li><b>録音に合わせて弾く。</b>比率を数えるより先に、ライドシンバルとベースだけを聴きながら、上に乗って弾いてみる。スイングの長短は楽譜に書かれていないので、録音を聴いて身につけるよう勧められてきました。<span class="cite">（Friberg &amp; Sundström 1999）</span></li>
+  <li><b>メトロノームを2拍目と4拍目に置く。</b>ハイハットの位置です。1拍目と3拍目を自分で感じることになり、4つが均等に並びやすくなります。</li>
+  <li><b>二人一組でやる。</b>一人がウォーキングベースか4分の刻みを出し、もう一人が8分のフレーズを乗せる。「裏拍はぴったり、表拍は少しだけ後ろ」を試し、録音して聴き比べる。相手がいると、何に対してずらしているのかがはっきりします。</li>
+  <li><b>テンポを変えて同じフレーズを弾く。</b>遅い曲と速い曲で、気持ちよく聞こえる長短がどう変わるかを、自分の体で確かめる。</li>
+  <li><b>自分の録音を測ってみる。</b>録音アプリやAudacityなどで波形を拡大すると、8分の長さが目で見えます。好きなソロと自分のソロを並べると、どこが違うかが分かります。</li>
+  <li><b>踊れるかどうかで聴く。</b>リンディホップの映像に合わせて演奏してみる。足が動くかどうかは、メトロノームより厳しい先生です。</li>
+</ol>
+
+<h2><span class="no">07</span>聴いてみる録音</h2>
+<p class="note">リンク先はYouTubeの検索結果です（特定の動画は、消えることがあるので指していません）。</p>
+<ul class="rec">
+  <li><a class="t" href="https://www.youtube.com/results?search_query=Duke+Ellington+It+Don%27t+Mean+a+Thing+1932" target="_blank" rel="noopener">Duke Ellington「It Don't Mean a Thing」（1932）</a><span class="why">「スイングがなければ意味がない」の元の録音。</span></li>
+  <li><a class="t" href="https://www.youtube.com/results?search_query=Chick+Webb+Stompin%27+at+the+Savoy+1934" target="_blank" rel="noopener">Chick Webb「Stompin' at the Savoy」（1934）</a><span class="why">サヴォイ・ボールルームの専属楽団。踊る人のための演奏。</span></li>
+  <li><a class="t" href="https://www.youtube.com/results?search_query=Count+Basie+One+O%27Clock+Jump+1937" target="_blank" rel="noopener">Count Basie「One O'Clock Jump」（1937）</a><span class="why">ベースとギターが4つを均等に並べ、ドラムがハイハットで軽く支える形。</span></li>
+  <li><a class="t" href="https://www.youtube.com/results?search_query=Count+Basie+Jumpin%27+at+the+Woodside+1938" target="_blank" rel="noopener">Count Basie「Jumpin' at the Woodside」（1938）</a><span class="why">速いテンポで、長短がまっすぐに近づいていくのを聴く。</span></li>
+  <li><a class="t" href="https://www.youtube.com/results?search_query=Benny+Goodman+Sing+Sing+Sing+1937" target="_blank" rel="noopener">Benny Goodman「Sing, Sing, Sing」（1937）</a><span class="why">スイング時代を代表する一曲。ドラムはジーン・クルーパ。</span></li>
+  <li><a class="t" href="https://www.youtube.com/results?search_query=Hellzapoppin+1941+Lindy+Hop" target="_blank" rel="noopener">映画『Hellzapoppin'』のリンディホップ（1941）</a><span class="why">演奏が踊りとどう結びついていたかを見る。</span></li>
+</ul>
+
+<h2><span class="no">08</span>参考にしたもの</h2>
+<ol class="refs">
+  <li>Friberg, A., &amp; Sundström, A. (2002). Swing ratios and ensemble timing in jazz performance: Evidence for a common rhythmic pattern. <i>Music Perception</i>, 19(3), 333–349. <a href="https://doi.org/10.1525/mp.2002.19.3.333" target="_blank" rel="noopener">doi</a></li>
+  <li>Friberg, A., &amp; Sundström, A. (1999). 米国音響学会 第137回大会での発表の、一般向けの解説. <a href="https://acoustics.org/pressroom/httpdocs/137th/friberg.html" target="_blank" rel="noopener">ページ</a></li>
+  <li>Honing, H., &amp; de Haas, W. B. (2008). Swing once more: Relating timing and tempo in expert jazz drumming. <i>Music Perception</i>, 25(5), 471–476. <a href="https://dare.uva.nl/id/08363b38-6766-4e8e-a0e7-3cb1e840fa06" target="_blank" rel="noopener">全文</a></li>
+  <li>Nelias, C., Sturm, E. M., Albrecht, T., Hagmayer, Y., &amp; Geisel, T. (2022). Downbeat delays are a key component of swing in jazz. <i>Communications Physics</i>, 5, 237. <a href="https://www.nature.com/articles/s42005-022-00995-z" target="_blank" rel="noopener">全文</a></li>
+  <li>Datseris, G., Ziereis, A., Albrecht, T., Hagmayer, Y., Priesemann, V., &amp; Geisel, T. (2019). Microtiming deviations and swing feel in jazz. <i>Scientific Reports</i>, 9, 19824. <a href="https://doi.org/10.1038/s41598-019-55981-3" target="_blank" rel="noopener">全文</a></li>
+  <li>Keil, C. (1987). Participatory discrepancies and the power of music. <i>Cultural Anthropology</i>, 2(3), 275–283.</li>
+  <li>Janata, P., Tomic, S. T., &amp; Haberman, J. M. (2012). Sensorimotor coupling in music and the psychology of the groove. <i>Journal of Experimental Psychology: General</i>, 141(1), 54–75. <a href="https://doi.org/10.1037/a0024208" target="_blank" rel="noopener">doi</a></li>
+  <li>Witek, M. A. G., Clarke, E. F., Wallentin, M., Kringelbach, M. L., &amp; Vuust, P. (2014). Syncopation, body-movement and pleasure in groove music. <i>PLoS ONE</i>, 9(4), e94446. <a href="https://doi.org/10.1371/journal.pone.0094446" target="_blank" rel="noopener">全文</a></li>
+  <li>Audiolabs Erlangen. A Swingogram representation for tracking microrhythmic variations in jazz performances（録音ごとの解析例）. <a href="https://audiolabs-erlangen.de/resources/MIR/2017-JNMR-SwingRatio/FreddieHubbard_DownUnder_Solo" target="_blank" rel="noopener">ページ</a></li>
+  <li>Schuller, G. (1968). <i>Early Jazz: Its Roots and Musical Development</i>. Oxford University Press. ／ Schuller, G. (1989). <i>The Swing Era: The Development of Jazz, 1930–1945</i>. Oxford University Press.</li>
+  <li>Encyclopedia.com: <a href="https://www.encyclopedia.com/topic/Count_Basie.aspx" target="_blank" rel="noopener">Count Basie</a></li>
+  <li>Wikipedia（英語版）: <a href="https://en.wikipedia.org/wiki/It_Don%27t_Mean_a_Thing_(If_It_Ain%27t_Got_That_Swing)" target="_blank" rel="noopener">It Don't Mean a Thing</a>, <a href="https://en.wikipedia.org/wiki/Savoy_Ballroom" target="_blank" rel="noopener">Savoy Ballroom</a>, <a href="https://en.wikipedia.org/wiki/Palomar_Ballroom" target="_blank" rel="noopener">Palomar Ballroom</a></li>
+</ol>
+<h3>さらに読むなら（このページではまだ中身を確かめていないもの）</h3>
+<ol class="refs">
+  <li>Prögler, J. A. (1995). Searching for swing: Participatory discrepancies in the jazz rhythm section. <i>Ethnomusicology</i>, 39(1).</li>
+  <li>Benadon, F. (2006). Slicing the beat: Jazz eighth-notes as expressive microrhythm. <i>Ethnomusicology</i>, 50(1), 73–98.</li>
+  <li>Butterfield, M. W. (2011). Why do jazz musicians swing their eighth notes? <i>Music Theory Spectrum</i>, 33(1), 3–26.</li>
+</ol>
+
+<p class="updated">2026年10月26日 公開</p>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var $ = function(id){ return document.getElementById(id); };
+  var tempo=$('tempo'), rideR=$('rideR'), soloR=$('soloR'), delay=$('delay'), delayAll=$('delayAll'), soloOn=$('soloOn');
+
+  /* ---- 表示 ---- */
+  function pct(r){ return r/(1+r); }               // 前の8分が拍の何割か
+  function update(){
+    var t=+tempo.value, rr=+rideR.value, sr=+soloR.value, d=+delay.value, beatMs=60000/t;
+    $('tempoOut').textContent=t+' bpm';
+    $('rideOut').textContent=rr.toFixed(2);
+    $('soloOut').textContent=sr.toFixed(2);
+    $('delayOut').textContent=d+' ms';
+    var dFrac=d/beatMs;
+    $('dRideOff').style.left=(pct(rr)*100)+'%';
+    $('dSoloOn').style.left=Math.min(dFrac*100,95)+'%';
+    $('dSoloOff').style.left=Math.min((pct(sr)+(delayAll.checked?dFrac:0))*100,100)+'%';
+    $('laneSolo').style.opacity=soloOn.checked?1:0.25;
+    $('labRead').textContent='1拍は '+Math.round(beatMs)+' ミリ秒。ドラムの裏拍は拍の '+Math.round(pct(rr)*100)+'% の位置、ソロの表拍の遅れは拍の '+Math.round(dFrac*100)+'% にあたります（三連符の裏は 67%）。';
+  }
+  [tempo,rideR,soloR,delay,delayAll,soloOn].forEach(function(el){ el.addEventListener('input',update); el.addEventListener('change',update); });
+
+  var presets={
+    triplet:{tempo:160,ride:2,solo:2,delay:0,all:false},
+    record:{tempo:160,ride:2.3,solo:1.6,delay:30,all:false},
+    straight:{tempo:160,ride:1,solo:1,delay:0,all:false}
+  };
+  Array.prototype.forEach.call(document.querySelectorAll('[data-preset]'),function(b){
+    b.addEventListener('click',function(){
+      var p=presets[b.getAttribute('data-preset')];
+      tempo.value=p.tempo; rideR.value=p.ride; soloR.value=p.solo; delay.value=p.delay; delayAll.checked=p.all;
+      update();
+    });
+  });
+
+  /* ---- 音 ---- */
+  var ctx=null, noise=null, master=null, timer=null, nextTime=0, beat=0;
+  function midi(n){ return 440*Math.pow(2,(n-69)/12); }
+  // B♭ブルースの最初の4小節
+  var bass=[46,50,53,56, 51,55,58,49, 46,50,53,55, 58,56,53,50];
+  var solo=[70,73,75,76,77,76,75,73, 70,null,70,73,75,73,70,68, 70,73,75,77,80,77,75,73, 75,73,70,null,null,null,null,null];
+
+  function setup(){
+    var AC=window.AudioContext||window.webkitAudioContext;
+    ctx=new AC();
+    master=ctx.createGain(); master.gain.value=0.8; master.connect(ctx.destination);
+    noise=ctx.createBuffer(1,ctx.sampleRate,ctx.sampleRate);
+    var ch=noise.getChannelData(0); for(var i=0;i<ch.length;i++) ch[i]=Math.random()*2-1;
+  }
+  function env(g,t,peak,len){ g.gain.setValueAtTime(0.0001,t); g.gain.exponentialRampToValueAtTime(peak,t+0.004); g.gain.exponentialRampToValueAtTime(0.0001,t+len); }
+  function hit(t,freq,peak,len){
+    var s=ctx.createBufferSource(); s.buffer=noise;
+    var f=ctx.createBiquadFilter(); f.type='highpass'; f.frequency.value=freq;
+    var g=ctx.createGain(); env(g,t,peak,len);
+    s.connect(f); f.connect(g); g.connect(master); s.start(t); s.stop(t+len+0.02);
+  }
+  function tone(t,n,type,peak,len,cut){
+    var o=ctx.createOscillator(); o.type=type; o.frequency.value=midi(n);
+    var f=ctx.createBiquadFilter(); f.type='lowpass'; f.frequency.value=cut;
+    var g=ctx.createGain(); env(g,t,peak,len);
+    o.connect(f); f.connect(g); g.connect(master); o.start(t); o.stop(t+len+0.02);
+  }
+  function schedule(i,t){
+    var T=60/(+tempo.value), b=i%4, rr=+rideR.value, sr=+soloR.value, d=(+delay.value)/1000;
+    tone(t,bass[i%16],'triangle',0.5,Math.min(T*0.9,0.5),700);           // ベース: 4分
+    hit(t,6500,b%2===0?0.22:0.17,0.32);                                  // ライド: 毎拍
+    if(b===1||b===3){
+      hit(t+T*pct(rr),6500,0.13,0.22);                                   // ライド: 2・4拍目の裏
+      hit(t,9000,0.09,0.05);                                             // ハイハット: 2・4拍目
+    }
+    if(soloOn.checked){
+      var n1=solo[(i*2)%32], n2=solo[(i*2+1)%32];
+      var off=T*pct(sr)+(delayAll.checked?d:0);
+      if(n1!==null) tone(t+d,n1,'sawtooth',0.10,Math.min(T*pct(sr),0.3),2200);
+      if(n2!==null) tone(t+off,n2,'sawtooth',0.13,Math.min(T/(1+sr),0.25),2200);   // 裏拍を少し強く
+    }
+  }
+  function loop(){
+    while(nextTime<ctx.currentTime+0.12){
+      schedule(beat,nextTime);
+      nextTime+=60/(+tempo.value); beat++;
+    }
+  }
+  $('playBtn').addEventListener('click',function(){
+    var btn=this;
+    if(timer){ clearInterval(timer); timer=null; btn.textContent='▶ 鳴らす'; btn.classList.remove('on'); if(ctx) ctx.suspend(); return; }
+    if(!ctx) setup();
+    ctx.resume();
+    nextTime=ctx.currentTime+0.08; beat=0;
+    timer=setInterval(loop,25); loop();
+    btn.textContent='■ 止める'; btn.classList.add('on');
+  });
+  update();
+})();
+</script>
+
+<!-- site-footer: 運営者情報・お問い合わせ（共通） -->
+<style>
+  .site-footer{max-width:700px;margin:0 auto;padding:8px 24px 72px;text-align:center;font-size:12.5px;line-height:1.9;color:var(--ink-faint,#707070);font-family:inherit}
+  .site-footer ul{list-style:none;margin:0 0 10px;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:6px 22px}
+  .site-footer a{color:var(--ink-faint,#707070);text-decoration:none;border-bottom:1px solid var(--line-faint,rgba(18,18,18,.14));padding-bottom:2px}
+  .site-footer a:hover{color:var(--ink,#121212);border-color:var(--ink,#121212)}
+  .site-footer p{margin:0}
+</style>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：個人 ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
