@@ -161,7 +161,15 @@
   .band b{font-weight:500;color:var(--ink)}
   ul.kuse{list-style:none;margin:4px 0 12px;padding:0}
   ul.kuse li{font-size:15px;padding:7px 0;border-bottom:1px solid var(--line-ghost);display:grid;grid-template-columns:4.2em 1fr;gap:0 8px;line-height:1.7}
+
+  .tips{margin:4px 0 10px;padding-left:1.2em;font-size:15px}
+  .tips li{margin-bottom:5px;line-height:1.75}
+  .era-block{border-left:3px solid var(--accent);padding:2px 0 2px 16px;margin:0 0 20px}
+  .era-t{font-family:var(--serif);font-size:18px;color:var(--ink);margin:0 0 6px}
+  .era-t span{display:block;font-family:var(--mono);font-size:12.5px;color:var(--accent);letter-spacing:.06em}
+  .era-block p{font-size:15.5px}
 </style>
+<link rel="stylesheet" href="/assets/jazz/theme.css">
 </head>
 <body>
 <div class="container">
@@ -269,6 +277,41 @@
     </figure>
   </section>
 
+  <!-- ===== よくある疑問 ===== -->
+  <section id="faq" aria-labelledby="faq-title">
+    <h2 id="faq-title">よくある疑問</h2>
+
+    <article class="card">
+      <p class="card-q">Q. ベースの目的は「リズムキープ」？ それとも「ドラムより前」で出すノリ？</p>
+      <p class="card-a"><span class="mark ok">リズムキープ</span>「前」は目的ではなく、調整の手段</p>
+      <p>ベースの仕事は、<b>4拍を安定して刻み、和音の土台を示すこと</b>。ドラムと一緒に、バンド全体のテンポとノリの床になる。</p>
+      <p>「ドラムより少し前」は、それ自体がノリを生むわけではない。<b>やわらかいベースの音を、ドラムとそろって聞こえさせるための調整</b>と考えるのがよい。</p>
+      <details class="why"><summary>根拠</summary><ul>
+        <li>ウォーキング・ベースは4拍を均等に刻み、和音と旋律の両方を支える<a class="cite" href="#ref-27">[27]</a></li>
+        <li>ノリが良いのは「ずれが小さく、毎回同じ」とき。前後の順番そのものがノリを生む、という説は支持されにくい<a class="cite" href="#ref-16">[16]</a><a class="cite" href="#ref-21">[21]</a></li>
+        <li>やわらかい音は遅れて聞こえる<a class="cite" href="#ref-23">[23]</a></li>
+      </ul></details>
+    </article>
+
+    <article class="card">
+      <p class="card-q">Q. ドラムが前に行きだした（走りだした）ら、どうする？</p>
+      <p class="card-a"><span class="mark mid">割れないこと優先</span>少しずつ寄せて、終わってから話す</p>
+      <p>演奏中に一番まずいのは、<b>バンドが2つのテンポに割れること</b>。すぐに全部ついていくのでも、意地でも元のテンポを守るのでもなく、<b>少しずつ寄せながら、全体をそろえる</b>。</p>
+      <ul class="tips">
+        <li>ライドの音をよく聴いて、離れすぎない</li>
+        <li>音の頭をはっきり弾いて、拍の位置をドラムに伝える</li>
+        <li>目や体の動きで合図する</li>
+        <li>前もって「テンポを誰が持つか」をバンドで決めておく</li>
+        <li>終わったら録音で「いつ・どれだけ速くなったか」を確かめて、ドラマーと話す（誰が悪いかではなく）</li>
+      </ul>
+      <details class="why"><summary>根拠</summary><ul>
+        <li>合奏では、奏者はずれを一度に全部直さず、少しずつ直していた。その直し方は、ずれのばらつきが一番小さくなる値に近かった<a class="cite" href="#ref-18">[18]</a></li>
+        <li>ジャズ・トリオでは、テンポを決めていたのはドラマーだった<a class="cite" href="#ref-22">[22]</a>。ベースだけで止めようとすると、割れやすい（ここは書き手の考え）</li>
+        <li>ビッグバンドでドラムが走ったときの対処を直接調べた研究は見つからなかった。上の「やること」は書き手の考え</li>
+      </ul></details>
+    </article>
+  </section>
+
   <!-- ===== 音で確かめる ===== -->
   <section id="lab-sec" aria-labelledby="lab-title">
     <h2 id="lab-title">音で確かめる</h2>
@@ -372,33 +415,43 @@
 
   <!-- ===== 歴史 ===== -->
   <section id="history" aria-labelledby="history-title">
-    <h2 id="history-title">研究の流れ</h2>
-    <p>昔は「わざとずれるとノリが出る」と言われていた。<br>実際に測ってみたら「ずれは小さい方がいい」と分かってきた。</p>
-    <details class="why">
-      <summary>年表を見る</summary>
-      <ul class="timeline">
-        <li><span class="yr">1815ごろ</span>メトロノームが生まれる<a class="cite" href="#ref-3">[3]</a><a class="cite" href="#ref-4">[4]</a></li>
-        <li><span class="yr">1930年代</span>スイング時代。ベースが4拍、ハイハットが2・4拍の形が広まる（<a href="/works/swing/#rhythm">スイングってなに？</a>）</li>
-        <li><span class="yr">1966</span>Keil「音楽の中心はノリと体の動きだ」<a class="cite" href="#ref-5">[5]</a></li>
-        <li><span class="yr">1987</span>Keil「奏者どうしの小さなずれがノリを生む」<a class="cite" href="#ref-6">[6]</a></li>
-        <li><span class="yr">1991–95</span>本物の演奏を測る研究が始まる<a class="cite" href="#ref-7">[7]</a><a class="cite" href="#ref-9">[9]</a></li>
-        <li><span class="yr">1994</span>ジャズ奏者の多くは、学校でなくセッションや先輩から学んでいた<a class="cite" href="#ref-8">[8]</a></li>
-        <li><span class="yr">1997–2002</span>跳ね方はテンポで変わる。「いつも3連」ではなかった<a class="cite" href="#ref-10">[10]</a><a class="cite" href="#ref-11">[11]</a></li>
-        <li><span class="yr">2006–12</span>グルーヴを「体が動きだす感じ」として測れるようになる<a class="cite" href="#ref-1">[1]</a><a class="cite" href="#ref-2">[2]</a></li>
-        <li><span class="yr">2010</span>小さなずれは、そもそも聴き分けられない<a class="cite" href="#ref-16">[16]</a></li>
-        <li><span class="yr">2015–17</span>ずれは小さい方がノリが良い<a class="cite" href="#ref-20">[20]</a><a class="cite" href="#ref-21">[21]</a><a class="cite" href="#ref-22">[22]</a></li>
-        <li><span class="yr">2019</span>音の立ち上がりで、拍の聞こえ方が変わる<a class="cite" href="#ref-23">[23]</a></li>
-      </ul>
-    </details>
-  </section>
+    <h2 id="history-title">研究の歴史</h2>
+    <p>はじめは「わざとずれるとノリが出る」と考えられていた。実際に測ってみると「ずれは小さく、そろっている方がいい。でも機械のような完全一致が一番でもない」と分かってきた。その流れを、時代ごとに。</p>
 
+    <div class="era-block">
+      <p class="era-t"><span>〜1930年代</span>機械の拍と、スイングのリズム隊</p>
+      <p>1815年ごろにメトロノームが特許になり、「機械の拍に合わせる」練習が始まる<a class="cite" href="#ref-3">[3]</a><a class="cite" href="#ref-4">[4]</a>。1930年代のスイング時代には、ベースが4拍を刻み、ハイハットが2・4拍を鳴らす形が広まった（<a href="/works/swing/#rhythm-history">スイングってなに？</a>）。</p>
+    </div>
+
+    <div class="era-block">
+      <p class="era-t"><span>1960〜80年代</span>ノリを言葉にする</p>
+      <p>民族音楽学者のチャールズ・カイルが1966年、「音楽の中心は拍と体の動き、グルーヴだ」と論じた<a class="cite" href="#ref-5">[5]</a>。1987年には「奏者どうしの小さなずれ（参加のずれ）が音楽の力になる」という説を出す<a class="cite" href="#ref-6">[6]</a>。「ベースはドラムより少し前」のような言い方は、この説と相性がいい。</p>
+    </div>
+
+    <div class="era-block">
+      <p class="era-t"><span>1990年代</span>測る、聞き取る</p>
+      <p>サックス奏者のタイミングを測る研究（1991）<a class="cite" href="#ref-7">[7]</a>や、リズム隊のベースとシンバルのずれを測る研究（1995）<a class="cite" href="#ref-9">[9]</a>が出る。カイルと人類学者フェルドの対話集『Music Grooves』（1994）<a class="cite" href="#ref-28">[28]</a>、50人を超える奏者への聞き取り『Thinking in Jazz』（1994）<a class="cite" href="#ref-8">[8]</a>、ベース・ドラム・ピアノのやりとりを奏者の言葉と譜例で描いたモンソンの『Saying Something』（1996）<a class="cite" href="#ref-29">[29]</a>も、この時期。</p>
+    </div>
+
+    <div class="era-block">
+      <p class="era-t"><span>2000年代</span>体と文化、テンポと跳ね方</p>
+      <p>ピアニストで研究者のヴィジェイ・アイヤーは、細かいタイミングの「くせ」を、体の経験と文化の両方から説明した（2002）<a class="cite" href="#ref-30">[30]</a>。跳ね方はテンポで変わり「いつも3連」ではないことが、測定で示される（2002）<a class="cite" href="#ref-11">[11]</a><a class="cite" href="#ref-12">[12]</a>。グルーヴが「体を動かしたくなる感じ」として定義され、測れるものになる（2006）<a class="cite" href="#ref-1">[1]</a>。3つのジャズ・トリオでベースとドラムのタイミングを調べた研究（2009）<a class="cite" href="#ref-31">[31]</a>も出た。</p>
+    </div>
+
+    <div class="era-block">
+      <p class="era-t"><span>2010年代</span>実験で確かめる</p>
+      <p>グルーヴの定義は、多くの人に言葉を集めた大規模な調査でも裏づけられた（2012）<a class="cite" href="#ref-2">[2]</a>。30ミリ秒くらいまでのずれは聴き分けられない、という結果で「ずれ説」の中心は揺らぐ（2010）<a class="cite" href="#ref-16">[16]</a>。その後、ずれを縮めたり広げたりする実験で、<b>広げるとノリの評価が下がり、少しだけ残すと体が一番動く</b>ことが分かる（2015〜17）<a class="cite" href="#ref-20">[20]</a><a class="cite" href="#ref-21">[21]</a><a class="cite" href="#ref-22">[22]</a>。合奏では互いにずれを直し合っていること（2014）<a class="cite" href="#ref-18">[18]</a>、音の立ち上がりで拍の聞こえ方が変わること（2019）<a class="cite" href="#ref-23">[23]</a>も示された。</p>
+    </div>
+
+    <p class="small">今の考え方：「わざとずらす」でも「機械のように完全にそろえる」でもなく、「小さく、安定して、互いに合わせ合う」。</p>
+  </section>
 
   <a class="related" href="/works/swing/"><b>スイングってなに？</b><br><span class="small">スイングの2つの意味、ラグタイムからスイング時代までのつながりの地図、跳ね方の実験。</span></a>
 
   <!-- ===== 出典 ===== -->
   <section id="refs" aria-labelledby="refs-title">
         <h2 id="refs-title">出典</h2>
-    <details class="why"><summary>出典（26件）を見る</summary>
+    <details class="why"><summary>出典（31件）を見る</summary>
     <p class="small">全文を読めなかったものは、要旨や他の論文での紹介をもとにしています。</p>
     <ol class="refs">
       <li id="ref-1">Madison, G. (2006). Experiencing groove induced by music: Consistency and phenomenology. <i>Music Perception</i>, 24(2), 201–208. <a href="https://doi.org/10.1525/mp.2006.24.2.201">doi.org/10.1525/mp.2006.24.2.201</a></li>
@@ -427,6 +480,11 @@
       <li id="ref-24">Fujii, S. ほか (2011). Synchronization error of drum kit playing with a metronome at different tempi by professional drummers. <i>Music Perception</i>. <a href="https://sonicfield.org/library/synchronization-error-of-drum-kit-playing-with-a-metronome-at-different-tempi-by">sonicfield.org</a></li>
       <li id="ref-25">Salmoni, A. W., Schmidt, R. A., &amp; Walter, C. B. (1984). Knowledge of results and motor learning: A review and critical reappraisal. <i>Psychological Bulletin</i>, 95(3), 355–386（ガイダンス仮説。紹介：<a href="https://www.frontiersin.org/articles/10.3389/fpsyg.2010.00190/full">Frontiers in Psychology, 2010</a>）.</li>
       <li id="ref-26">Marschall, F., Bund, A., &amp; Wiemeyer, J. (2007). Does frequent augmented feedback really degrade learning? A meta-analysis. <i>E-Journal Bewegung und Training</i>. <a href="https://orbilu.uni.lu/bitstream/10993/4589/1/Publikation_Marschall_Bund_Wiemeyer_2007_EJournal%20Bewegung%20und%20Training.PDF">orbilu.uni.lu（PDF）</a></li>
+      <li id="ref-27">Wikipedia, “Walter Page”. <a href="https://en.wikipedia.org/wiki/Walter_Page">en.wikipedia.org/wiki/Walter_Page</a></li>
+      <li id="ref-28">Keil, C. &amp; Feld, S. (1994). <i>Music Grooves: Essays and Dialogues</i>. University of Chicago Press.</li>
+      <li id="ref-29">Monson, I. (1996). <i>Saying Something: Jazz Improvisation and Interaction</i>. University of Chicago Press.</li>
+      <li id="ref-30">Iyer, V. (2002). Embodied mind, situated cognition, and expressive microtiming in African-American music. <i>Music Perception</i>, 19(3), 387–414. <a href="https://vijayiyer.scholars.harvard.edu/publications/embodied-mind-situated-cognition-and-expressive-microtiming-african-american">vijayiyer.scholars.harvard.edu</a></li>
+      <li id="ref-31">Doffman, M. (2009). <i>Feeling the Groove: Shared Time and its Meanings for Three Jazz Trios</i>（博士論文, The Open University）. <a href="https://oro.open.ac.uk/60200">oro.open.ac.uk</a></li>
     </ol>
     </details>
     <p class="small">誤りに気づいたら、<a href="/contact/">お問い合わせ</a>から教えてください。</p>

@@ -1,0 +1,103 @@
+/* スイング／グルーヴのページ共通の見た目（夜の紺＋真鍮色＋クリーム色の紙） */
+:root{
+  --bg:#f6f1e8;
+  --paper:#fffdf8;
+  --ink:#1f1c18;
+  --ink-soft:#3b3731;
+  --ink-faint:#766e64;
+  --line-faint:rgba(31,28,24,.13);
+  --line-ghost:rgba(31,28,24,.055);
+  --accent:#9e531b;
+  --accent-soft:rgba(158,83,27,.10);
+  --night:#14233a;
+  --night-2:#1c3150;
+  --brass:#d6a866;
+  --cream:#f3e9d8;
+}
+html{background:var(--bg)}
+body{background:var(--bg);color:var(--ink-soft)}
+
+.container,.wide,section,footer{position:relative;z-index:1}
+
+/* 戻るリンク */
+.backlink{color:var(--ink-faint)}
+
+/* ヒーロー：夜のステージ */
+.hero{
+  position:relative;overflow:hidden;
+  margin:22px calc(50% - 50vw) var(--gap);
+  padding:clamp(48px,9vh,92px) calc(50vw - 50%) clamp(44px,8vh,80px);
+  background:radial-gradient(120% 90% at 85% 10%, var(--night-2) 0%, var(--night) 60%);
+  color:var(--cream);
+}
+.hero::after{
+  content:"";position:absolute;pointer-events:none;
+  right:max(-40px, calc(50vw - 50% - 420px));bottom:-6%;
+  width:min(560px,62vw);aspect-ratio:600/560;
+  background:url(/assets/jazz/hero-art.svg) no-repeat center/contain;
+}
+@media (max-width:900px){ .hero::after{opacity:.30;width:120vw;right:-38vw;bottom:-8%} }
+.hero > *{position:relative;z-index:1;max-width:540px}
+.hero h1{color:#fff7ea;font-size:clamp(34px,6.4vw,54px);letter-spacing:.03em;margin:0 0 20px;word-break:keep-all;overflow-wrap:anywhere}
+.hero .eyebrow{color:var(--brass);letter-spacing:.24em}
+.hero .lead{color:var(--cream);font-size:17px}
+.hero .meta{color:rgba(243,233,216,.72)}
+.hero a{color:var(--brass)}
+.hero .quotes li{color:#fff7ea;border-left-color:var(--brass)}
+
+/* 見出し */
+.section-label{display:flex;align-items:center;gap:12px;color:var(--accent);font-family:var(--mono);letter-spacing:.24em}
+.section-label::after{content:"";flex:0 0 48px;height:1px;background:var(--accent);opacity:.5}
+h2{font-family:var(--serif);color:var(--ink);letter-spacing:.02em}
+h2::after{content:"";display:block;width:36px;height:2px;background:var(--brass);margin:14px 0 0;border-radius:2px}
+
+/* 紙のカード */
+.two > div,.card,.pt-card,.point,.rh-col,.lab,.band,.verdict,.answer,.note,.map-wrap,.chart-box,.peek,.empty{
+  background:var(--paper);
+  border:1px solid var(--line-faint);
+  border-radius:14px;
+  box-shadow:0 1px 0 rgba(60,40,20,.04),0 10px 24px -18px rgba(60,40,20,.35);
+}
+.pt-card{padding:16px 18px 6px;margin:0 0 14px}
+.pt-t{font-family:var(--serif);font-size:18px;color:var(--ink);margin:0 0 6px;display:flex;align-items:center;gap:10px}
+.pt-t span{flex:0 0 28px;height:28px;border-radius:50%;background:var(--night);color:var(--brass);font-family:var(--mono);font-size:13px;display:flex;align-items:center;justify-content:center}
+.pt-card p,.note p{font-size:15.5px}
+.pt-card b,.note b,.two b{font-weight:500;color:var(--ink)}
+.note{padding:16px 18px 6px;margin:18px 0 10px;border-left:4px solid var(--brass)}
+.note-t{font-family:var(--serif);font-size:17px;color:var(--ink);margin:0 0 6px}
+.lab-lead{font-size:14px;color:var(--ink-faint);margin:6px 0 -6px}
+.pn{background:var(--night);color:var(--brass)}
+
+/* 年代順のカード */
+ol.cards{display:grid;gap:14px}
+ol.cards .card{border-top:1px solid var(--line-faint);padding:18px 18px 8px}
+.card .to-swing{display:block;background:none;padding:0;margin:4px 0 6px;font-size:15.5px;color:var(--ink)}
+.card .to-swing::before{content:"→ ";color:var(--accent)}
+.card-year{background:var(--night);color:var(--brass);border-radius:6px;padding:1px 8px;font-size:12px}
+details.more-card{margin:4px 0 6px}
+details.more-card > summary,details.why > summary,details.more > summary{
+  display:inline-flex;align-items:center;gap:6px;cursor:pointer;list-style:none;
+  font-size:13px;color:var(--accent);border:1px solid rgba(158,83,27,.35);border-radius:999px;padding:3px 12px;background:var(--accent-soft)
+}
+details > summary::-webkit-details-marker{display:none}
+details.why > summary::before{content:none}
+details.more-card > summary::after,details.why > summary::after,details.more > summary::after{content:"＋";font-size:12px}
+details[open].more-card > summary::after,details[open].why > summary::after,details[open].more > summary::after{content:"−"}
+details.more-card[open] > *:not(summary){animation:fadein .25s ease}
+@keyframes fadein{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:none}}
+
+/* ボタン */
+.btn{background:var(--night);border-color:var(--night);color:var(--cream)}
+.btn.ghost{background:var(--paper)}
+.chip{background:var(--paper)}
+
+/* 表 */
+table.songs tbody tr:nth-child(odd){background:rgba(255,253,248,.7)}
+table.songs td.yr{color:var(--accent)}
+
+/* 関連リンク */
+.related{background:var(--night);color:var(--cream);border:none}
+.related b{color:#fff7ea}
+.related .small{color:rgba(243,233,216,.75)}
+
+@media (prefers-reduced-motion:reduce){ details.more-card[open] > *:not(summary){animation:none} }
