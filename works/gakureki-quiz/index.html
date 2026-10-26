@@ -68,7 +68,8 @@
 
   <h2>県別　トップ校マップ</h2>
   <p class="note">各県の「公立トップ校」を地図の形に並べました（位置はおおよその配置）。マスをタップすると、私立・国立の難関校も出ます。年や指標で変わるので、あくまで目安です。</p>
-  <div class="modes"><button class="mode on" data-m="region">地方別に色分け</button><button class="mode" data-m="dev">偏差値別に色分け</button></div>
+  <div class="modes"><button class="mode kind on" data-k="pub">公立トップ校</button><button class="mode kind" data-k="pri">私立・国立トップ校</button></div>
+  <div class="modes"><button class="mode col on" data-m="region">地方別に色分け</button><button class="mode col" data-m="dev">偏差値別に色分け</button></div>
   <div class="legend" id="legend"></div>
   <div class="mapwrap"><div class="map" id="map"></div></div>
   <div class="out detail" id="prefOut">マスをタップしてください。</div>
@@ -77,6 +78,8 @@
   <div class="out detail" id="cmpOut">2つ選ぶと比べます。</div>
   <h3 class="h3">偏差値ランキング（公立トップ校の目安）</h3>
   <ol id="rank" class="rank"></ol>
+  <h3 class="h3">偏差値ランキング（私立・国立の難関校の目安）</h3>
+  <ol id="rank2" class="rank"></ol>
   <p class="note">偏差値は模試や年で数ポイント動きます。ここの数字は私の大まかな目安で、公式な値ではありません。同じ県の中の差や、県どうしの数ポイントの差は気にしすぎないでください。</p>
   <details><summary>一覧表で見る</summary>
   <table id="prefTable"><thead><tr><th>都道府県</th><th>公立トップ校</th><th>私立・国立の難関</th></tr></thead><tbody></tbody></table></details>
@@ -140,10 +143,16 @@
     "福井":68,"岐阜":67,"長野":68,"群馬":69,"栃木":70,"島根":67,"鳥取":67,"兵庫":69,"京都":70,"滋賀":72,"愛知":71,"山梨":67,"埼玉":72,"東京":73,"千葉":72,
     "福岡":71,"山口":67,"広島":68,"岡山":71,"大阪":73,"奈良":69,"三重":68,"静岡":69,"神奈川":73,"佐賀":67,"熊本":68,"大分":67,"愛媛":68,"香川":67,"徳島":66,"和歌山":68,
     "長崎":67,"鹿児島":68,"宮崎":66,"高知":66,"沖縄":65};
+  // 私立・国立の難関校の目安 [校名, 偏差値の目安]。目立つ学校がない県は載せない
+  var V = {"北海道":["北嶺",70],"宮城":["聖ウルスラ学院英智",65],"茨城":["江戸川学園取手",66],"埼玉":["栄東",70],"千葉":["渋谷教育学園幕張",76],
+    "東京":["開成",78],"神奈川":["聖光学院",75],"愛知":["東海",74],"京都":["洛南",73],"大阪":["大阪星光学院",71],"兵庫":["灘",77],
+    "奈良":["西大和学園",74],"和歌山":["智辯和歌山",67],"岡山":["岡山白陵",66],"広島":["広島学院",70],"愛媛":["愛光",68],"高知":["土佐",66],
+    "福岡":["久留米大附設",73],"佐賀":["弘学館",62],"鹿児島":["ラ・サール",73]};
   var DB = [[73,"73以上","#e8a7a0"],[71,"71〜72","#f4c9a0"],[69,"69〜70","#f7e3a6"],[67,"67〜68","#d6ecd2"],[0,"66以下","#cfe3f7"]];
   function band(v){ for (var k=0;k<DB.length;k++) if (v >= DB[k][0]) return DB[k]; }
   var po = document.getElementById("prefOut"), tb = document.querySelector("#prefTable tbody"), mp = document.getElementById("map"), lg = document.getElementById("legend"), cur = null;
-  var mode = "region", tiles = [];
+  var mode = "region", kind = "pub", tiles = [];
+  function sch(r){ return kind === "pub" ? [r[1], D[r[0]]] : (V[r[0]] || null); }
   function legend(){
     lg.innerHTML = "";
     (mode === "region" ? RG : DB.map(function(b){ return [b[1], b[2]]; })).forEach(function(r){
@@ -152,14 +161,19 @@
   }
   function paint(){
     tiles.forEach(function(x){
-      x.t.style.background = mode === "region" ? RG[G[x.r[0]][2]][1] : band(D[x.r[0]])[2];
-      x.d.textContent = mode === "dev" ? "偏差値" + D[x.r[0]] : "";
+      var v = sch(x.r);
+      x.t.style.background = !v ? "#eee" : (mode === "region" ? RG[G[x.r[0]][2]][1] : band(v[1])[2]);
+      x.s.textContent = v ? v[0] : "—";
+      x.d.textContent = v && mode === "dev" ? "偏差値" + v[1] : "";
     });
     legend();
   }
   Array.prototype.forEach.call(document.querySelectorAll(".mode"), function(b){
-    b.onclick = function(){ mode = b.getAttribute("data-m");
-      Array.prototype.forEach.call(document.querySelectorAll(".mode"), function(o){ o.classList.toggle("on", o === b); }); paint(); };
+    b.onclick = function(){
+      var k = b.classList.contains("kind");
+      if (k) kind = b.getAttribute("data-k"); else mode = b.getAttribute("data-m");
+      Array.prototype.forEach.call(document.querySelectorAll(k ? ".mode.kind" : ".mode.col"), function(o){ o.classList.toggle("on", o === b); });
+      paint(); };
   });
   function pick(r, el){
     if (cur) cur.classList.remove("on");
@@ -169,7 +183,8 @@
     po.appendChild(t);
     po.appendChild(document.createTextNode("：公立のトップ校は "));
     var b = document.createElement("b"); b.textContent = r[1]; po.appendChild(b);
-    if (r[2] !== "—") po.appendChild(document.createTextNode("。私立・国立の難関は " + r[2]));
+    if (r[2] !== "—") po.appendChild(document.createTextNode("。私立・国立の難関は " + r[2] + (V[r[0]] ? "（目安：" + V[r[0]][0] + " 偏差値" + V[r[0]][1] + "）" : "")));
+    else po.appendChild(document.createTextNode("。目立つ私立・国立の難関校は載せていません"));
     var j = document.createElement("div"); j.style.cssText = "margin-top:6px;font-size:13px;color:#4a4a4a";
     j.textContent = "自治医大の" + r[0] + "枠は例年2〜3名ほど。同期の出身校は、この県のトップ校とは限らず、いろいろです。";
     po.appendChild(j);
@@ -179,7 +194,7 @@
     t.className = "tile"; t.style.left = (g[0]*49) + "px"; t.style.top = (g[1]*55) + "px"; var n = document.createElement("b"); n.textContent = r[0];
     var sc = document.createElement("span"); sc.textContent = r[1];
     var dv = document.createElement("span"); dv.style.fontWeight = "600";
-    t.appendChild(n); t.appendChild(sc); t.appendChild(dv); tiles.push({r:r, t:t, d:dv});
+    t.appendChild(n); t.appendChild(sc); t.appendChild(dv); tiles.push({r:r, t:t, s:sc, d:dv});
     t.onclick = function(){ pick(r, t); };
     mp.appendChild(t);
   });
@@ -194,6 +209,9 @@
   var rk = document.getElementById("rank");
   P.slice().sort(function(a,b){ return D[b[0]] - D[a[0]]; }).forEach(function(r){
     var li = document.createElement("li"); li.textContent = r[0] + "　" + r[1] + "（" + D[r[0]] + "）"; rk.appendChild(li); });
+  var rk2 = document.getElementById("rank2");
+  Object.keys(V).sort(function(a,b){ return V[b][1] - V[a][1]; }).forEach(function(k){
+    var li = document.createElement("li"); li.textContent = k + "　" + V[k][0] + "（" + V[k][1] + "）"; rk2.appendChild(li); });
   // 2県比較
   var ca = document.getElementById("cmpA"), cb = document.getElementById("cmpB"), co = document.getElementById("cmpOut");
   fill(ca, P, "県A"); fill(cb, P, "県B");
