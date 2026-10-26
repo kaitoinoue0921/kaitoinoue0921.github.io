@@ -154,6 +154,13 @@
   #chart .cross{stroke:var(--ink-faint);stroke-width:1}
   #chart .dot{fill:var(--accent);stroke:#fff;stroke-width:2}
   .tip{position:absolute;pointer-events:none;background:var(--ink);color:#fff;font-size:12.5px;border-radius:6px;padding:4px 9px;white-space:nowrap;transform:translate(-50%,-110%)}
+
+  .band{background:#fcfbf9;border:1px solid var(--line-faint);border-left:4px solid var(--accent);border-radius:12px;padding:18px 18px 8px;margin:0 0 22px}
+  .band-t{font-family:var(--serif);font-size:18px;color:var(--ink);margin:0 0 8px}
+  .band p{font-size:15.5px;margin:0 0 10px}
+  .band b{font-weight:500;color:var(--ink)}
+  ul.kuse{list-style:none;margin:4px 0 12px;padding:0}
+  ul.kuse li{font-size:15px;padding:7px 0;border-bottom:1px solid var(--line-ghost);display:grid;grid-template-columns:4.2em 1fr;gap:0 8px;line-height:1.7}
 </style>
 </head>
 <body>
@@ -176,7 +183,8 @@
     <div class="points">
       <div class="point"><span class="pn">1</span><p>グルーヴは<b>「体が勝手に動きだす感じ」</b>のこと。</p></div>
       <div class="point"><span class="pn">2</span><p>大事なのは<b>みんなのタイミングがピタッと合うこと</b>。わざとずらすと、むしろノリは悪くなる。</p></div>
-      <div class="point"><span class="pn">3</span><p>先輩のアドバイスは<b>だいたい合っている</b>。ただし条件つき。</p></div>
+      <div class="point"><span class="pn">3</span><p>ずれは<b>誰か1人のせいではなく、バンド全体の問題</b>。演奏中はみんながお互いに合わせ合っているので、1人のずれは全員に広がる。</p></div>
+      <div class="point"><span class="pn">4</span><p>先輩のアドバイスは<b>だいたい合っている</b>。ただし条件つき。</p></div>
     </div>
   </section>
 
@@ -184,11 +192,32 @@
   <section id="senpai" aria-labelledby="senpai-title">
     <h2 id="senpai-title">先輩のアドバイスは正しい？</h2>
 
+    <div class="band">
+      <p class="band-t">先に：ずれはバンド全体の問題</p>
+      <p>楽器にはそれぞれ<b>聞こえ方のくせ</b>がある。同じタイミングで弾いても、そろって聞こえるとは限らない。</p>
+      <ul class="kuse">
+        <li><b>ベース</b>やわらかい音 → 遅れて聞こえやすい</li>
+        <li><b>ギター</b>シャキッとした音 → 前に聞こえやすい</li>
+        <li><b>ドラム</b>テンポを決めている。シンバルは鋭い音 → 前に聞こえやすい</li>
+        <li><b>管楽器</b>吹き方しだい</li>
+      </ul>
+      <p>しかも演奏中は、全員がお互いの音を聴いて合わせ直している。だから<b>1人のくせやずれは、バンド全体に広がる</b>。直すときは「誰が悪いか」ではなく、全員で録音を聴いて「全体がそろって聞こえるか」を確かめよう。</p>
+      <details class="why">
+        <summary>根拠</summary>
+        <ul>
+          <li>音の立ち上がりで、拍の聞こえる位置が変わる<a class="cite" href="#ref-23">[23]</a></li>
+          <li>合奏では、一音ごとにお互いのずれを直し合っている<a class="cite" href="#ref-18">[18]</a></li>
+          <li>ジャズ・トリオでは、テンポを決めていたのはドラマーだった<a class="cite" href="#ref-22">[22]</a></li>
+          <li>楽器ごとの「くせ」は、立ち上がりの研究から考えた目安。楽器ごとに測った研究ではない</li>
+        </ul>
+      </details>
+    </div>
+
     <article class="card">
       <p class="card-q">①「ベースは少し前で」</p>
       <p class="card-a"><span class="mark ok">合っている</span>やりすぎは逆効果</p>
       <p>ベースの音はやわらかいので、同じタイミングで弾いても<b>遅れて聞こえやすい</b>。少し早めに弾くと、ちょうどそろって聞こえる。</p>
-      <p>ただ、前に出しすぎると、かえってノリが悪くなる。</p>
+      <p>ただ、前に出しすぎると、かえってノリが悪くなる。それに、これはベースの「くせ」を補う調整のひとつ。ほかの楽器にもそれぞれのくせがある。</p>
       <details class="why">
         <summary>根拠</summary>
         <ul>
@@ -201,14 +230,17 @@
 
     <article class="card">
       <p class="card-q">②「ベースが遅いから、ギターが前に出る」</p>
-      <p class="card-a"><span class="mark mid">ありえる</span>録音で確かめよう</p>
-      <p>ギターはシャキッとした音なので<b>前に聞こえやすい</b>。ベースとは逆。</p>
-      <p>でも、どっちがずれているかは耳だけでは分からない。3人で録音して聴き比べるのが確実。</p>
+      <p class="card-a"><span class="mark mid">ありえる</span>でも、ベースだけのせいとは限らない</p>
+      <p>ギターはシャキッとした音なので、もともと<b>前に聞こえやすい</b>。ベースとは逆。</p>
+      <p>だから、ベースと一緒にギターもクリックより前で弾くと、<b>ギターだけ前に出すぎる</b>ことがある。「ベースが遅い」のではなく「ギターが前すぎる」のかもしれない。</p>
+      <p>ドラムとの関係でも変わる。録音を聴くときは、ギターをクリックぴったりで弾いた回とも比べて、<b>3人全体</b>がそろって聞こえるかを確かめよう。</p>
+      <p class="small">※ やわらかい音は、波形の始まりより遅れて聞こえる。波形だけでなく、耳でも「そろって聞こえるか」を確かめよう。</p>
       <details class="why">
         <summary>根拠</summary>
         <ul>
-          <li>音の立ち上がりで、拍の聞こえる位置が変わる<a class="cite" href="#ref-23">[23]</a></li>
+          <li>音の立ち上がりで、拍の聞こえる位置が変わる。立ち上がりが速い音ほど早く聞こえる<a class="cite" href="#ref-23">[23]</a></li>
           <li>30ミリ秒くらいまでの差は聴き分けられない<a class="cite" href="#ref-16">[16]</a></li>
+          <li>「ギターも前で弾くと出すぎる」は、上の2つから考えたこと。直接確かめた研究はない</li>
         </ul>
       </details>
     </article>
