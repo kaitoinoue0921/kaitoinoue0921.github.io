@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>スイングってなに？</title>
+<meta name="description" content="ビッグバンド部Route4の後輩向けに、「スイング」がリズムの感じと時代の名前の2つを指すことを、音の実験と、ラグタイムからスイング時代までの人と楽団のつながりの地図で説明するページ。年号と録音日には出典をつけています。">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/works/swing/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="スイングってなに？">
+<meta property="og:description" content="スイングの2つの意味を、音の実験と、ラグタイムからスイング時代までのつながりの地図で。">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/works/swing/">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/ogp.png">
+<meta property="og:locale" content="ja_JP">
+<link rel="icon" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Zen+Kaku+Gothic+New:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff; --ink:#121212; --ink-soft:#3a3a3a; --ink-faint:#707070;
+    --line-faint:rgba(18,18,18,.14); --line-ghost:rgba(18,18,18,.06);
+    --accent:#a2541c; --accent-soft:rgba(162,84,28,.12);
+    --serif:'Shippori Mincho',serif; --sans:'Zen Kaku Gothic New',sans-serif; --mono:'JetBrains Mono',monospace;
+    --gap:clamp(48px,9vh,88px); --side:clamp(16px,6vw,56px); --measure:720px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink-soft);font-family:var(--sans);font-weight:300;-webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.9}
+  ::selection{background:var(--ink);color:#fff}
+  a{color:var(--ink)}
+  .container{max-width:var(--measure);margin:0 auto;padding:0 var(--side)}
+  .wide{max-width:1180px;margin:0 auto;padding:0 var(--side)}
+
+  .backlink{display:inline-flex;align-items:center;gap:9px;margin-top:clamp(36px,7vh,64px);font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint);text-decoration:none}
+  .backlink:hover{color:var(--ink)}
+  .backlink svg{width:13px;height:13px}
+  .backlink path{stroke:currentColor;fill:none}
+
+  .hero{padding:clamp(28px,5vh,48px) 0 var(--gap)}
+  .eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-faint);margin:0 0 14px}
+  h1{font-family:var(--serif);font-weight:500;font-size:clamp(34px,7vw,52px);line-height:1.3;color:var(--ink);margin:0 0 22px;letter-spacing:.02em}
+  .lead{font-size:16px;line-height:2.05;margin:0 0 14px}
+  .meta{font-size:12.5px;color:var(--ink-faint);margin:18px 0 0}
+
+  section{margin-bottom:var(--gap)}
+  .section-label{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-faint);margin:0 0 10px}
+  h2{font-family:var(--serif);font-weight:500;font-size:clamp(23px,4.4vw,30px);line-height:1.5;color:var(--ink);margin:0 0 20px}
+  h3{font-family:var(--serif);font-weight:500;font-size:19px;color:var(--ink);margin:36px 0 10px;line-height:1.6}
+  p{margin:0 0 14px;font-size:15.5px}
+  .small{font-size:13px;color:var(--ink-faint)}
+  .cite{font-size:12px;color:var(--ink-faint);vertical-align:super;line-height:0;margin-left:1px;text-decoration:none;font-family:var(--mono)}
+  .cite:hover{color:var(--accent)}
+
+  /* 2つの意味 */
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0 8px}
+  .two > div{border:1px solid var(--line-faint);border-radius:10px;padding:18px 18px 8px}
+  .two .num{font-family:var(--mono);font-size:12px;color:var(--accent);letter-spacing:.1em}
+  .two h3{margin:4px 0 8px;font-size:18px}
+  .two p{font-size:14.5px}
+  @media (max-width:620px){.two{grid-template-columns:1fr}}
+
+  /* 事実と見立て */
+  .fact-key{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:13px;margin:6px 0 0;color:var(--ink-faint)}
+  .tag-fact,.tag-view{display:inline-block;font-size:11px;padding:1px 8px;border-radius:999px;margin-right:6px;vertical-align:1px;font-weight:400}
+  .tag-fact{background:var(--line-ghost);color:var(--ink);border:1px solid var(--line-faint)}
+  .tag-view{background:var(--accent-soft);color:var(--accent);border:1px solid rgba(162,84,28,.3)}
+
+  /* 音の実験 */
+  .lab{border:1px solid var(--line-faint);border-radius:12px;padding:20px;margin:22px 0}
+  .lab-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;margin-bottom:14px}
+  .lab label{font-size:13.5px;color:var(--ink)}
+  .lab input[type=range]{flex:1 1 200px;accent-color:var(--accent)}
+  .lab output{font-family:var(--mono);font-size:13px;min-width:7.5em;color:var(--ink)}
+  .btn{font-family:var(--sans);font-size:14px;border:1px solid var(--ink);background:var(--ink);color:#fff;border-radius:999px;padding:8px 20px;cursor:pointer}
+  .btn:hover{opacity:.85}
+  .btn.ghost{background:transparent;color:var(--ink);border-color:var(--line-faint)}
+  .btn.ghost[aria-pressed=true]{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+  .btn:focus-visible,.chip:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .bar{display:flex;height:34px;border-radius:6px;overflow:hidden;border:1px solid var(--line-faint);margin:6px 0 6px}
+  .bar span{display:flex;align-items:center;justify-content:center;font-size:12px;font-family:var(--mono);transition:flex-grow .15s}
+  .bar .L{background:var(--ink);color:#fff}
+  .bar .S{background:var(--accent-soft);color:var(--accent)}
+  .beats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:12px}
+  .beats div{height:10px;border-radius:3px;background:var(--line-ghost);transition:background .05s}
+  .beats div.on{background:var(--accent)}
+  .presets{display:flex;flex-wrap:wrap;gap:8px}
+
+  /* 地図 */
+  .map-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line-faint);border-radius:12px;background:#fcfbf9}
+  .map-wrap svg{display:block}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+  .chip{font-family:var(--sans);font-size:13px;border:1px solid var(--line-faint);background:#fff;color:var(--ink-soft);border-radius:999px;padding:5px 13px;cursor:pointer}
+  .chip[aria-pressed=true]{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+  .lane-bg{fill:#fff}
+  .lane-bg.alt{fill:#f6f3ee}
+  .lane-label{font-family:var(--sans);font-size:12px;fill:var(--ink-faint)}
+  .tick{stroke:var(--line-faint);stroke-width:1}
+  .tick-label{font-family:var(--mono);font-size:11px;fill:var(--ink-faint)}
+  .era{fill:var(--accent-soft)}
+  .era-label{font-family:var(--sans);font-size:11.5px;fill:var(--accent)}
+  .edge{fill:none;stroke:#b9b2a8;stroke-width:1.4;transition:opacity .2s}
+  .edge.hl{stroke:var(--accent);stroke-width:2.2}
+  .node{cursor:pointer;transition:opacity .2s}
+  .node circle{fill:#fff;stroke:var(--ink);stroke-width:1.6}
+  .node .hit{stroke:none}
+  .node text{font-family:var(--sans);font-size:12.5px;fill:var(--ink);paint-order:stroke;stroke:#fcfbf9;stroke-width:4px;stroke-linejoin:round}
+  .node:hover circle,.node.sel circle{fill:var(--accent);stroke:var(--accent)}
+  .node:focus{outline:none}
+  .node:focus-visible circle{stroke:var(--accent);stroke-width:3}
+  .dim{opacity:.15}
+  .map-hint{font-size:12.5px;color:var(--ink-faint);margin:8px 0 0}
+  .peek{border-left:3px solid var(--accent);padding:10px 16px;margin:16px 0 0;background:#fcfbf9;min-height:3.4em}
+  .peek b{color:var(--ink);font-weight:500}
+
+  /* カード */
+  .cards{list-style:none;margin:0;padding:0}
+  .card{border-top:1px solid var(--line-faint);padding:26px 0 10px;scroll-margin-top:16px}
+  .card.target{background:linear-gradient(90deg,var(--accent-soft),transparent 70%)}
+  .card[hidden]{display:none}
+  .card-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px;margin-bottom:8px}
+  .card-year{font-family:var(--mono);font-size:13px;color:var(--accent)}
+  .card h3{margin:0;font-size:19px}
+  .card .where{font-size:12.5px;color:var(--ink-faint)}
+  .card p{font-size:15px}
+  .card .to-swing{font-size:14px;color:var(--ink);background:var(--line-ghost);border-radius:6px;padding:6px 12px;display:inline-block;margin:0 0 12px}
+  .card .src{font-size:12.5px;color:var(--ink-faint);margin:6px 0 12px;line-height:1.8}
+  .card .src a{color:var(--ink-faint)}
+  .card .actions{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13px;margin-bottom:8px}
+  .card .actions a{color:var(--ink-soft)}
+  .ttags{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
+  .ttags span{font-size:11.5px;border:1px solid var(--line-faint);border-radius:999px;padding:0 9px;color:var(--ink-faint)}
+
+  /* Route4 */
+  .r4-table{width:100%;border-collapse:collapse;font-size:14px;margin:10px 0}
+  .r4-table th,.r4-table td{border-bottom:1px solid var(--line-faint);padding:8px 6px;text-align:left;vertical-align:top}
+  .r4-table th{font-weight:400;color:var(--ink-faint);font-size:12.5px}
+  .empty{border:1px dashed var(--line-faint);border-radius:10px;padding:16px 18px;font-size:14.5px}
+
+  ol.refs{padding-left:1.6em;font-size:13px;line-height:1.85;color:var(--ink-soft)}
+  ol.refs li{margin-bottom:4px;scroll-margin-top:16px}
+  ol.refs a{color:var(--ink-soft);word-break:break-all}
+  ul.plain{padding-left:1.3em;font-size:15px}
+  ul.plain li{margin-bottom:6px}
+</style>
+</head>
+<body>
+<div class="container">
+  <a class="backlink" href="/works/">
+    <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13 8 H3 M7 4 L3 8 L7 12" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span>Works</span>
+  </a>
+
+  <header class="hero">
+    <p class="eyebrow">Route4 の後輩へ ／ ジャズの地図</p>
+    <h1>スイングってなに？</h1>
+    <p class="lead">練習で「もっとスイングして」と言われても、何をどう変えればいいのか分かりにくい。このページは、その「スイング」が何を指しているのかを、音の実験と、ラグタイムからスイング時代までのつながりの地図でたどります。</p>
+    <p class="lead">自治医大のビッグバンド部 Route4 の後輩向けに書いていますが、部員でなくても読めるようにしています。</p>
+    <div class="fact-key">
+      <span><span class="tag-fact">事実</span>年号・録音日・人名。出典の番号をつけています</span>
+      <span><span class="tag-view">見立て</span>聴くときの目のつけどころ。書き手の解釈です</span>
+      <span><span style="background:var(--line-ghost);border-radius:4px;padding:0 6px;color:var(--ink)">スイングへの線</span>その点がスイングのどの部品につながるかを、書き手が整理したもの</span>
+    </div>
+    <p class="meta">最終更新 2026年10月26日 ／ 音源と楽譜は載せていません。「聴く」は外部の検索ページへのリンクです。</p>
+  </header>
+
+  <!-- ================= 1 ================= -->
+  <section id="meaning" aria-labelledby="meaning-title">
+    <p class="section-label">01 — Two meanings</p>
+    <h2 id="meaning-title">「スイング」には2つの意味がある</h2>
+    <p>ブリタニカ百科事典は、スイングを「ジャズの音楽が前へ進んでいくリズムの勢い」と「1935年ごろから1940年代半ばに盛んだったジャズの一つの様式」の両方だと説明しています<a class="cite" href="#ref-1">[1]</a>。部活で言う「スイングして」はふつう前者、「スイングの曲」「スイング時代」は後者です。</p>
+    <div class="two">
+      <div>
+        <span class="num">意味 1</span>
+        <h3>リズムの感じ</h3>
+        <p>決まった拍に対して、音をどこで出し、どこを強くするか。その積み重ねで生まれる「前へ進む感じ」<a class="cite" href="#ref-1">[1]</a>。ジャンルが変わっても使われる言葉です。</p>
+        <p class="small">→ 下の「02」で音を出して確かめます</p>
+      </div>
+      <div>
+        <span class="num">意味 2</span>
+        <h3>時代と様式の名前</h3>
+        <p>12〜16人ほどの大きな編成で、書かれた編曲を使い、踊るために演奏されたジャズ。ジャズの様式として初めて商業的に大きく成功したものとされます<a class="cite" href="#ref-1">[1]</a>。</p>
+        <p class="small">→ 「03」の地図でルーツからたどります</p>
+      </div>
+    </div>
+    <p>2つは別々のものではなく、意味1のリズムの感じが、1920年代から30年代にかけて楽団の形（意味2）にまとまっていった、という関係です。どの部品がどこから来たかを地図にしたのが「03」です。</p>
+  </section>
+
+  <!-- ================= 2 ================= -->
+  <section id="rhythm" aria-labelledby="rhythm-title">
+    <p class="section-label">02 — What happens in the rhythm</p>
+    <h2 id="rhythm-title">リズムの中で何が起きているか</h2>
+
+    <h3>① 8分音符が「長・短」になる</h3>
+    <p>譜面では同じ長さの8分音符が並んでいても、スイングの曲では1つ目を長く、2つ目を短く弾くのがふつうです。よく「3連符の1つ目と3つ目」と説明されます。長・短の比でいうと 2 : 1 です。</p>
+    <p><span class="tag-fact">事実</span>ただし、実際の録音を測ると、比はいつも 2 : 1 ではありません。Friberg と Sundström（2002）は有名なジャズ・ドラマーのライド・シンバルを測り、<b>テンポが速くなるほど長・短の比が小さくなる（均等に近づく）</b>ことを示しました<a class="cite" href="#ref-2">[2]</a><a class="cite" href="#ref-3">[3]</a>。中くらいのテンポでは、ドラムの比は 2 : 1 より大きく、ソロを吹く人の比は 2 : 1 より小さかったこと、ソロの人は表拍でドラムより少し遅れて裏拍でそろっていたことも報告しています<a class="cite" href="#ref-2">[2]</a>。また、中くらいから速いテンポでは、短いほうの音がおよそ100ミリ秒でほとんど変わらなかったとされます<a class="cite" href="#ref-3">[3]</a>。</p>
+    <p><span class="tag-view">見立て</span>つまり「スイング＝3連符で弾く」と覚えると、速い曲で跳ねすぎ、遅い曲で跳ね足りなくなりやすい。テンポを変えて、下の実験で比をいじってみると分かります。</p>
+
+    <div class="lab" id="lab" aria-label="スイングの音の実験">
+      <div class="lab-row">
+        <button class="btn" id="labPlay" type="button">▶ 鳴らす</button>
+        <span class="small">ライド・シンバル、ハイハット、ベースをブラウザで合成して鳴らします（録音ではありません）。</span>
+      </div>
+      <div class="lab-row">
+        <label for="ratio">長 : 短</label>
+        <input type="range" id="ratio" min="1" max="3.5" step="0.05" value="2">
+        <output id="ratioOut" for="ratio">2.00 : 1</output>
+      </div>
+      <div class="bar" aria-hidden="true"><span class="L" id="barL" style="flex-grow:2">長</span><span class="S" id="barS" style="flex-grow:1">短</span></div>
+      <p class="small" id="ratioNote" style="margin:0 0 12px">2 : 1 は3連符と同じ長さです。</p>
+      <div class="lab-row">
+        <label for="tempo">テンポ</label>
+        <input type="range" id="tempo" min="60" max="300" step="2" value="140">
+        <output id="tempoOut" for="tempo">♩ = 140</output>
+      </div>
+      <div class="lab-row presets">
+        <button class="btn ghost" type="button" data-ratio="1">均等（ストレート）</button>
+        <button class="btn ghost" type="button" data-ratio="2">3連符（2 : 1）</button>
+        <button class="btn ghost" type="button" data-ratio="3">付点8分＋16分（3 : 1）</button>
+      </div>
+      <div class="lab-row">
+        <span class="small" style="color:var(--ink)">ベース</span>
+        <button class="btn ghost" type="button" id="beat4" aria-pressed="true">4拍とも弾く（4ビート）</button>
+        <button class="btn ghost" type="button" id="beat2" aria-pressed="false">1・3拍だけ（2ビート）</button>
+        <button class="btn ghost" type="button" id="hhToggle" aria-pressed="true">ハイハット 2・4拍</button>
+      </div>
+      <div class="beats" aria-hidden="true"><div></div><div></div><div></div><div></div></div>
+    </div>
+
+    <h3>② 4つの拍をそろえて刻む（4ビート）</h3>
+    <p><span class="tag-fact">事実</span>1920年代のジャズでは、低音をチューバ（スーザフォン）が受け持ち、1拍目と3拍目を吹く「2ビート」がよく使われました。低音がコントラバスに替わっていくにつれて、4拍すべてを同じ重さで刻む「4ビート」が広まったとされます<a class="cite" href="#ref-4">[4]</a><a class="cite" href="#ref-5">[5]</a>。ただ、いつ・どの順で替わったかは録音からははっきりしない部分があり、資料によって時期が違います<a class="cite" href="#ref-5">[5]</a>。</p>
+    <p><span class="tag-fact">事実</span>ベーシストのウォルター・ペイジは、4拍を均等に弾く「ウォーキング・ベース」を早くからコントラバスで弾いた一人とされます<a class="cite" href="#ref-6">[6]</a>。上の実験で「2ビート」と「4ビート」を切り替えると、同じテンポでも進む感じが変わります。</p>
+
+    <h3>③ 2拍目と4拍目</h3>
+    <p><span class="tag-fact">事実</span>カウント・ベイシー楽団のドラマー、ジョー・ジョーンズは、拍を刻む役目をバスドラムからハイハットへ移したとされます<a class="cite" href="#ref-7">[7]</a>。ベースが4拍を支えるので、ドラムはシンバルで軽く流れを作れるようになりました。実験の「ハイハット 2・4拍」は、足でハイハットを閉じる音を2拍目と4拍目に入れています。</p>
+
+    <h3>④ セクションどうしの掛け合いと、リフ</h3>
+    <p><span class="tag-fact">事実</span>フレッチャー・ヘンダーソン楽団の編曲者ドン・レッドマンは、サックスのセクションと金管のセクションを交互に掛け合わせる書き方を使い、これが1930年代のスイングの楽団の特徴になったとされます<a class="cite" href="#ref-8">[8]</a>。カンザスシティのベイシー楽団は、長いソロの後ろで、短いフレーズ（リフ）を繰り返して重ねる演奏で知られました<a class="cite" href="#ref-9">[9]</a>。</p>
+    <p><span class="tag-view">見立て</span>ビッグバンドで「スイングしていない」と言われるときは、①の跳ね方だけでなく、②〜④のどれかがずれていることも多い。たとえばベースとドラムの4拍がそろっていない、セクションの掛け合いで後から入る側が遅れる、など。</p>
+  </section>
+</div>
+
+<!-- ================= 3 地図 ================= -->
+<section id="map" aria-labelledby="map-title">
+  <div class="container">
+    <p class="section-label">03 — Map</p>
+    <h2 id="map-title">地図：スイングの部品はどこから来たか</h2>
+    <p>横が年（1895〜1945年。1920年より前は詰めています）、縦が流れです。点を押すと説明が出て、線でつながった相手が光ります。上の「部品」を押すと、その部品に関わる点だけが残ります。</p>
+    <div class="chips" id="chips" role="group" aria-label="部品で絞り込む">
+      <button class="chip" type="button" data-tag="all" aria-pressed="true">すべて</button>
+      <button class="chip" type="button" data-tag="sync" aria-pressed="false">シンコペーション</button>
+      <button class="chip" type="button" data-tag="blues" aria-pressed="false">ブルース</button>
+      <button class="chip" type="button" data-tag="solo" aria-pressed="false">ソロ</button>
+      <button class="chip" type="button" data-tag="section" aria-pressed="false">掛け合い・リフ</button>
+      <button class="chip" type="button" data-tag="rhythm" aria-pressed="false">4ビートのリズム隊</button>
+      <button class="chip" type="button" data-tag="spread" aria-pressed="false">広まり方（レコード・ラジオ・ダンスホール）</button>
+      <button class="chip" type="button" data-tag="word" aria-pressed="false">「スイング」という言葉</button>
+      <button class="chip" type="button" data-tag="next" aria-pressed="false">次の時代へ</button>
+    </div>
+  </div>
+  <div class="wide">
+    <div class="map-wrap" id="mapWrap"><svg id="mapSvg" role="img" aria-label="ラグタイムからスイング時代までの人と楽団のつながりの地図。同じ内容を下の一覧に年代順で載せています。"></svg></div>
+    <p class="map-hint">1920年より前は詰めて描いています。スマートフォンでは地図を横にスクロールできます。同じ内容を下に年代順で載せています。</p>
+  </div>
+  <div class="container">
+    <div class="peek" id="peek" aria-live="polite"><span class="small">点を押すと、ここに短い説明が出ます。</span></div>
+  </div>
+</section>
+
+<div class="container">
+  <!-- ================= 4 一覧 ================= -->
+  <section id="list" aria-labelledby="list-title">
+    <p class="section-label">04 — In order</p>
+    <h2 id="list-title">年代順に読む</h2>
+    <p class="small" id="listCount">21件</p>
+    <ol class="cards" id="cards">
+
+      <li class="card" id="joplin" data-year="1899" data-lane="0" data-short="ジョプリン" data-pos="down" data-tags="sync" data-links="oliver odjb" data-q="Scott Joplin Maple Leaf Rag">
+        <div class="card-head"><span class="card-year">1899</span><h3>スコット・ジョプリン「メイプル・リーフ・ラグ」</h3><span class="where">ミズーリ州セダリア</span></div>
+        <div class="ttags"><span>シンコペーション</span></div>
+        <p><span class="tag-fact">事実</span>セダリアの出版社ジョン・スタークが1899年に楽譜を出版し、同年9月18日に著作権が登録されました<a class="cite" href="#ref-10">[10]</a><a class="cite" href="#ref-11">[11]</a>。ラグタイムはピアノのために書かれた音楽で、左手が拍を規則正しく刻み、右手が拍からずれたところにアクセントを置きます（シンコペーション）。</p>
+        <p class="to-swing">スイングへの線：拍の上でアクセントをずらす考え方</p>
+        <p><span class="tag-view">見立て</span>左手の規則正しい刻みと、右手のずれを分けて聴くと、「土台はそのまま、上でずらす」という仕組みがつかみやすい。</p>
+        <p class="src">出典：[10] [11]</p>
+      </li>
+
+      <li class="card" id="handy" data-year="1912" data-lane="0" data-short="W・C・ハンディ" data-pos="up" data-tags="blues" data-links="oliver odjb" data-q="W. C. Handy St. Louis Blues">
+        <div class="card-head"><span class="card-year">1912 / 1914</span><h3>W・C・ハンディ「メンフィス・ブルース」「セントルイス・ブルース」</h3><span class="where">メンフィス</span></div>
+        <div class="ttags"><span>ブルース</span></div>
+        <p><span class="tag-fact">事実</span>ハンディは1912年に「メンフィス・ブルース」、1914年に「セントルイス・ブルース」を出版し、「ブルースの父」と呼ばれます。「セントルイス・ブルース」は1925年にベッシー・スミスがルイ・アームストロングと録音しています<a class="cite" href="#ref-12">[12]</a>。</p>
+        <p class="to-swing">スイングへの線：12小節の形と、ブルースの音づかい</p>
+        <p><span class="tag-view">見立て</span>ビッグバンドの曲にもブルースの形でできたものが多い（下の「ワン・オクロック・ジャンプ」など）。12小節で一回りする感覚は、ここから来ている。</p>
+        <p class="src">出典：[12]</p>
+      </li>
+
+      <li class="card" id="odjb" data-year="1917" data-lane="1" data-short="ODJB 初録音" data-pos="down" data-tags="spread" data-links="" data-q="Original Dixieland Jass Band Livery Stable Blues 1917">
+        <div class="card-head"><span class="card-year">1917年2月26日</span><h3>オリジナル・ディキシーランド・ジャス・バンドの録音</h3><span class="where">ニューヨーク（ビクター）</span></div>
+        <div class="ttags"><span>広まり方</span></div>
+        <p><span class="tag-fact">事実</span>ニューオーリンズ出身の白人5人のバンドが、ニューヨークのビクターで「リヴァリー・ステイブル・ブルース」などを録音しました。最初に発売されたジャズのレコードとされますが、何を「最初のジャズ録音」とするかには議論があります<a class="cite" href="#ref-13">[13]</a><a class="cite" href="#ref-14">[14]</a>。</p>
+        <p class="to-swing">スイングへの線：レコードで、ニューオーリンズの音楽が遠くまで届き始める</p>
+        <p class="src">出典：[13] [14]</p>
+      </li>
+
+      <li class="card" id="oliver" data-year="1923" data-lane="1" data-short="キング・オリヴァー" data-pos="up" data-tags="solo" data-links="armstrong" data-q="King Oliver Creole Jazz Band Dipper Mouth Blues 1923">
+        <div class="card-head"><span class="card-year">1923年4月</span><h3>キング・オリヴァーのクレオール・ジャズ・バンド「ディッパーマウス・ブルース」</h3><span class="where">シカゴの楽団／録音はインディアナ州リッチモンド</span></div>
+        <div class="ttags"><span>ソロ</span></div>
+        <p><span class="tag-fact">事実</span>シカゴで人気だったオリヴァーの楽団は、1923年4月にジェネット社で録音しました。「ディッパーマウス・ブルース」（4月6日）では、21歳のルイ・アームストロングが2番目のコルネットを吹いています<a class="cite" href="#ref-15">[15]</a><a class="cite" href="#ref-16">[16]</a>。アームストロングは前年の1922年に、オリヴァーに呼ばれてニューオーリンズからシカゴへ移っていました<a class="cite" href="#ref-17">[17]</a>。</p>
+        <p class="to-swing">スイングへの線：複数の管楽器が同時に即興で絡む、ニューオーリンズの合奏</p>
+        <p><span class="tag-view">見立て</span>メロディーを1人が吹き、ほかの管が周りで別の線を吹く。ビッグバンドのように「セクションで同じ動き」をする前の形として聴くと、後の変化が分かりやすい。</p>
+        <p class="src">出典：[15] [16] [17]</p>
+      </li>
+
+      <li class="card" id="henderson" data-year="1924.8" data-lane="2" data-short="ヘンダーソン楽団" data-pos="up" data-tags="section solo" data-links="armstrong goodman hawkins" data-q="Fletcher Henderson Orchestra 1925 Louis Armstrong">
+        <div class="card-head"><span class="card-year">1924〜</span><h3>フレッチャー・ヘンダーソン楽団と編曲者ドン・レッドマン</h3><span class="where">ニューヨーク、ローズランド・ボールルーム</span></div>
+        <div class="ttags"><span>掛け合い・リフ</span><span>ソロ</span></div>
+        <p><span class="tag-fact">事実</span>ローズランド・ボールルームを本拠にしたダンス楽団です。アームストロングが1924年の秋から1925年まで在籍しました<a class="cite" href="#ref-8">[8]</a><a class="cite" href="#ref-18">[18]</a>。編曲者のドン・レッドマンはサックスと金管のセクションを掛け合わせる書き方を使い、アームストロングの吹き方を楽団の譜面に取り入れたとされます<a class="cite" href="#ref-18">[18]</a>。テナー・サックスのコールマン・ホーキンスもこの楽団にいました<a class="cite" href="#ref-19">[19]</a>。のちにヘンダーソン自身の編曲を、ベニー・グッドマンの楽団が使います<a class="cite" href="#ref-20">[20]</a>。</p>
+        <p class="to-swing">スイングへの線：セクションどうしの掛け合い、ダンス楽団とソロの合流</p>
+        <p class="src">出典：[8] [18] [19] [20]</p>
+      </li>
+
+      <li class="card" id="bluedevils" data-year="1925" data-lane="3" data-short="ブルー・デヴィルズ" data-pos="up" data-tags="rhythm" data-links="moten" data-q="Walter Page Blue Devils 1929">
+        <div class="card-head"><span class="card-year">1925〜1931</span><h3>ウォルター・ペイジのブルー・デヴィルズ</h3><span class="where">オクラホマシティ</span></div>
+        <div class="ttags"><span>4ビートのリズム隊</span></div>
+        <p><span class="tag-fact">事実</span>ベーシストのウォルター・ペイジが1925年から1931年まで率いた楽団で、のちのカウント・ベイシー（当時はビル・ベイシー）や歌手のジミー・ラッシングが在籍しました。ペイジは、4拍を均等に刻むウォーキング・ベースを早くからコントラバスで弾いた一人とされます<a class="cite" href="#ref-6">[6]</a><a class="cite" href="#ref-21">[21]</a>。</p>
+        <p class="to-swing">スイングへの線：4拍を均等に歩くベース</p>
+        <p class="src">出典：[6] [21]</p>
+      </li>
+
+      <li class="card" id="armstrong" data-year="1926.5" data-lane="1" data-short="アームストロング" data-pos="down" data-tags="solo" data-links="henderson" data-q="Louis Armstrong West End Blues 1928">
+        <div class="card-head"><span class="card-year">1925〜1928</span><h3>ルイ・アームストロングのホット・ファイヴ「ウェスト・エンド・ブルース」</h3><span class="where">シカゴ（OKeh）</span></div>
+        <div class="ttags"><span>ソロ</span></div>
+        <p><span class="tag-fact">事実</span>アームストロングは自分の名前の小編成ホット・ファイヴで、1925年から1928年にかけてシカゴで録音しました。「ウェスト・エンド・ブルース」は1928年6月28日の録音で、ピアノはアール・ハインズです<a class="cite" href="#ref-22">[22]</a><a class="cite" href="#ref-23">[23]</a>。曲はオリヴァーの作曲で、オリヴァー自身も同じ年の6月11日に録音しています<a class="cite" href="#ref-23">[23]</a>。</p>
+        <p class="to-swing">スイングへの線：合奏の中から、1人のソロが前に出る</p>
+        <p><span class="tag-view">見立て</span>冒頭の無伴奏のトランペットは拍から自由に吹く部分。そのあと楽団が入って拍に乗ってからの8分音符の跳ね方を、上の実験の比と比べながら聴くとおもしろい。</p>
+        <p class="src">出典：[22] [23]</p>
+      </li>
+
+      <li class="card" id="ellington" data-year="1927.9" data-lane="2" data-short="エリントン" data-pos="down" data-tags="section spread" data-links="itdont atrain" data-q="Duke Ellington Cotton Club 1920s">
+        <div class="card-head"><span class="card-year">1927年12月4日〜</span><h3>デューク・エリントン楽団、コットン・クラブの専属に</h3><span class="where">ニューヨーク、ハーレム</span></div>
+        <div class="ttags"><span>掛け合い・リフ</span><span>広まり方</span></div>
+        <p><span class="tag-fact">事実</span>エリントン楽団は1927年12月4日からハーレムのコットン・クラブの専属楽団になり、1931年まで務めました（終わりの時期は資料によって違います）。クラブからのラジオ中継（1929年9月からはNBC）で全国に名前が知られました<a class="cite" href="#ref-24">[24]</a>。</p>
+        <p class="to-swing">スイングへの線：ラジオで楽団の音が全国に届く</p>
+        <p class="src">出典：[24]</p>
+      </li>
+
+      <li class="card" id="itdont" data-year="1932.1" data-lane="2" data-short="スイングしなけりゃ" data-pos="up" data-tags="word" data-links="ellington" data-q="Duke Ellington It Don't Mean a Thing 1932 Ivie Anderson">
+        <div class="card-head"><span class="card-year">1932年2月2日</span><h3>エリントン楽団「スイングしなけりゃ意味がない」</h3><span class="where">ニューヨーク（ブランズウィック）</span></div>
+        <div class="ttags"><span>「スイング」という言葉</span></div>
+        <p><span class="tag-fact">事実</span>原題は “It Don't Mean a Thing (If It Ain't Got That Swing)”。歌はアイヴィ・アンダーソン、ソロはトロンボーンのジョー・ナントンとアルト・サックスのジョニー・ホッジスです<a class="cite" href="#ref-25">[25]</a><a class="cite" href="#ref-26">[26]</a>。「スイング時代」の始まりとよく言われる1935年より前に、「スイング」という言葉が曲名に入っています。</p>
+        <p class="to-swing">スイングへの線：リズムの感じ（意味1）を指す言葉として、すでに使われていた</p>
+        <p class="src">出典：[25] [26]</p>
+      </li>
+
+      <li class="card" id="moten" data-year="1932.9" data-lane="3" data-short="モーテン・スイング" data-pos="down" data-tags="section rhythm word" data-links="bluedevils basie" data-q="Bennie Moten Moten Swing 1932">
+        <div class="card-head"><span class="card-year">1932年12月13日</span><h3>ベニー・モーテンのカンザスシティ楽団「モーテン・スイング」</h3><span class="where">楽団はカンザスシティ／録音はニュージャージー州カムデン（ビクター）</span></div>
+        <div class="ttags"><span>掛け合い・リフ</span><span>4ビートのリズム隊</span><span>「スイング」という言葉</span></div>
+        <p><span class="tag-fact">事実</span>お金に困っていた時期に、ビクターのカムデンのスタジオで1日に10曲を録音したうちの1曲です。モーテン本人は演奏しておらず、ピアノはベイシー、ベースはペイジです<a class="cite" href="#ref-27">[27]</a><a class="cite" href="#ref-28">[28]</a>。作曲者はモーテン兄弟と記されていますが、ベイシーは自分とエディ・ダーラムが書いたと述べています<a class="cite" href="#ref-27">[27]</a>。モーテンは1935年に亡くなり、ベイシーが独立します<a class="cite" href="#ref-29">[29]</a>。</p>
+        <p class="to-swing">スイングへの線：ブルー・デヴィルズの人たちが合流し、ベイシー楽団の原型になる</p>
+        <p class="src">出典：[27] [28] [29]</p>
+      </li>
+
+      <li class="card" id="goodman" data-year="1935.6" data-lane="4" data-short="グッドマン" data-pos="up" data-tags="spread section" data-links="henderson webb carnegie minton" data-q="Benny Goodman King Porter Stomp 1935">
+        <div class="card-head"><span class="card-year">1935年8月21日</span><h3>ベニー・グッドマン楽団、パロマー・ボールルーム</h3><span class="where">ロサンゼルス</span></div>
+        <div class="ttags"><span>広まり方</span><span>掛け合い・リフ</span></div>
+        <p><span class="tag-fact">事実</span>グッドマン楽団は1935年7月1日、ヘンダーソンの編曲で「キング・ポーター・ストンプ」を録音しました（トランペットのソロはバニー・ベリガン）<a class="cite" href="#ref-20">[20]</a>。同じ年の夏の巡業は客の入りが悪かったものの、8月21日のロサンゼルスのパロマー・ボールルームで、ヘンダーソンらの編曲を演奏すると客席がわきました。この日がスイング時代の始まりとよく言われます<a class="cite" href="#ref-30">[30]</a><a class="cite" href="#ref-31">[31]</a>。ただ、これはあとから付けた区切りでもあり、流れはそれ以前からできていました<a class="cite" href="#ref-30">[30]</a>。</p>
+        <p class="to-swing">スイングへの線：ヘンダーソンの譜面が、ラジオとダンスホールで全国のヒットになる</p>
+        <p class="src">出典：[20] [30] [31]</p>
+      </li>
+
+      <li class="card" id="basie" data-year="1936.2" data-lane="3" data-short="ベイシー楽団" data-pos="up" data-tags="section spread blues" data-links="moten rhythm-section lester" data-q="Count Basie One O'Clock Jump 1937">
+        <div class="card-head"><span class="card-year">1936〜1937</span><h3>カウント・ベイシー楽団、リノ・クラブから東部へ。「ワン・オクロック・ジャンプ」</h3><span class="where">カンザスシティ → ニューヨーク（デッカ）</span></div>
+        <div class="ttags"><span>掛け合い・リフ</span><span>広まり方</span><span>ブルース</span></div>
+        <p><span class="tag-fact">事実</span>ベイシーの楽団はカンザスシティのリノ・クラブから、実験放送局 W9XBY で中継されていました。1936年にこの放送をシカゴで聞いたプロデューサーのジョン・ハモンドが楽団を東部へ呼び、13人ほどの編成に広げさせました<a class="cite" href="#ref-9">[9]</a><a class="cite" href="#ref-32">[32]</a>。曲名「ワン・オクロック・ジャンプ」はリノ・クラブの放送から来ているとされます。録音は1937年7月7日、ニューヨークのデッカ（Decca 1363）<a class="cite" href="#ref-33">[33]</a><a class="cite" href="#ref-34">[34]</a>。12小節のブルースで、サックス、トランペット、トロンボーンの順に短いリフが受け渡されていきます。各セクションがほかのセクションの音を聴いて自分のパートを決める「ヘッド・アレンジ」でできたとされます<a class="cite" href="#ref-33">[33]</a><a class="cite" href="#ref-52">[52]</a>。</p>
+        <p class="to-swing">スイングへの線：リフを重ねる演奏、ブルースの形、4ビートのリズム隊が1つの楽団にそろう</p>
+        <p><span class="tag-view">見立て</span>リフが受け渡されていく所が聴きどころ。どのリフも短く、覚えて吹ける長さなのが分かる。④の「掛け合いとリフ」がそのまま曲の形になっている。</p>
+        <p class="src">出典：[9] [32] [33] [34] [52]</p>
+      </li>
+
+      <li class="card" id="rhythm-section" data-year="1937.2" data-lane="3" data-short="リズム・セクション" data-pos="down" data-tags="rhythm" data-links="basie bluedevils" data-q="Count Basie All American Rhythm Section Walter Page Jo Jones Freddie Green">
+        <div class="card-head"><span class="card-year">1937〜</span><h3>オール・アメリカン・リズム・セクション</h3><span class="where">ベイシー楽団</span></div>
+        <div class="ttags"><span>4ビートのリズム隊</span></div>
+        <p><span class="tag-fact">事実</span>ピアノのベイシー、ギターのフレディ・グリーン、ベースのウォルター・ペイジ、ドラムのジョー・ジョーンズの4人がこう呼ばれました<a class="cite" href="#ref-7">[7]</a>。ペイジが4拍を均等に支え、ジョーンズは拍を刻む役目をバスドラムからハイハットに移したとされます<a class="cite" href="#ref-7">[7]</a><a class="cite" href="#ref-35">[35]</a>。グリーンは1937年に加わり、4拍をギターのコードで刻みました<a class="cite" href="#ref-36">[36]</a>。</p>
+        <p class="to-swing">スイングへの線：②③の「4ビート」「ハイハット」の完成形のひとつ</p>
+        <p><span class="tag-view">見立て</span>ベースの人へ。ペイジの音は録音では小さいけれど、ギターと同じ4拍の上に乗っているのが聴こえると、自分の役割が見えてくる。ベイシー本人のピアノは音数が少なく、その分リズム隊の4拍がよく聴こえる。</p>
+        <p class="src">出典：[7] [35] [36]</p>
+      </li>
+
+      <li class="card" id="webb" data-year="1937.4" data-lane="2" data-short="チック・ウェッブ" data-pos="up" data-tags="rhythm spread" data-links="goodman" data-q="Chick Webb Ella Fitzgerald A-Tisket A-Tasket 1938">
+        <div class="card-head"><span class="card-year">1937年5月11日 ／ 1938年5月2日</span><h3>チック・ウェッブ楽団、サヴォイ・ボールルームの「バンド合戦」とエラ・フィッツジェラルド</h3><span class="where">ニューヨーク、ハーレム</span></div>
+        <div class="ttags"><span>4ビートのリズム隊</span><span>広まり方</span></div>
+        <p><span class="tag-fact">事実</span>ドラマーのチック・ウェッブが率いる楽団は、ハーレムのサヴォイ・ボールルームの看板でした。1937年5月11日、サヴォイでグッドマン楽団と演奏を競い、雑誌 Metronome は翌月「チック・ウェッブがベニー・グッドマンを破る」と書きました。集まった人数は資料によって大きく違います<a class="cite" href="#ref-37">[37]</a><a class="cite" href="#ref-38">[38]</a>。1938年5月2日には、歌手エラ・フィッツジェラルドと「ア・ティスケット・ア・タスケット」を録音しています（Decca 1840）<a class="cite" href="#ref-39">[39]</a>。</p>
+        <p class="to-swing">スイングへの線：踊る人の前で、楽団どうしが競い合う場</p>
+        <p class="src">出典：[37] [38] [39]</p>
+      </li>
+
+      <li class="card" id="carnegie" data-year="1938.0" data-lane="4" data-short="シング・シング・シング" data-pos="down" data-tags="rhythm spread" data-links="goodman" data-q="Benny Goodman Sing Sing Sing 1937 Gene Krupa">
+        <div class="card-head"><span class="card-year">1937年7月6日 ／ 1938年1月16日</span><h3>グッドマン楽団「シング・シング・シング」とカーネギー・ホール</h3><span class="where">録音はハリウッド（ビクター）／演奏会はニューヨーク</span></div>
+        <div class="ttags"><span>4ビートのリズム隊</span><span>広まり方</span></div>
+        <p><span class="tag-fact">事実</span>「シング・シング・シング」は1937年7月6日にハリウッドで録音され、12インチ盤の両面を使う8分43秒の演奏でした。ドラムはジーン・クルーパ、編曲はジミー・マンディです<a class="cite" href="#ref-40">[40]</a><a class="cite" href="#ref-41">[41]</a>。クルーパのタムの間奏は、商業録音された最初の長いドラム・ソロとされます<a class="cite" href="#ref-53">[53]</a>。1938年1月16日、グッドマン楽団はカーネギー・ホールで演奏会を開き、この曲を最後に演奏しました<a class="cite" href="#ref-42">[42]</a>。</p>
+        <p class="to-swing">スイングへの線：ダンスの音楽が、演奏会場でも聴かれるものになる</p>
+        <p><span class="tag-view">見立て</span>ドラムのタムの繰り返しが曲の土台になり、その上に管のリフやソロが乗っていく。リズム隊が伴奏の役から前に出てくる曲として聴ける。</p>
+        <p class="src">出典：[40] [41] [42] [53]</p>
+      </li>
+
+      <li class="card" id="miller" data-year="1939.6" data-lane="4" data-short="イン・ザ・ムード" data-pos="up" data-tags="section spread" data-links="carnegie" data-q="Glenn Miller In the Mood 1939">
+        <div class="card-head"><span class="card-year">1939年8月1日</span><h3>グレン・ミラー楽団「イン・ザ・ムード」</h3><span class="where">ニューヨーク（ブルーバード）</span></div>
+        <div class="ttags"><span>掛け合い・リフ</span><span>広まり方</span></div>
+        <p><span class="tag-fact">事実</span>1939年8月1日に録音され、9月15日に Bluebird B-10416 として発売されました。レーベルにはジョー・ガーランドが作曲者として載っています。ガーランドの編曲は、前の年にエドガー・ヘイズ楽団が先に録音していました<a class="cite" href="#ref-43">[43]</a><a class="cite" href="#ref-44">[44]</a>。</p>
+        <p class="to-swing">スイングへの線：短いリフの繰り返しでできた曲が、大きなヒットになる</p>
+        <p><span class="tag-view">見立て</span>サックスのリフが何度も繰り返され、セクションの掛け合いで進む。④の「掛け合いとリフ」を一番分かりやすく聴ける曲のひとつ。</p>
+        <p class="src">出典：[43] [44]</p>
+      </li>
+
+      <li class="card" id="lester" data-year="1939.7" data-lane="3" data-short="レスター・ヤング" data-pos="up" data-tags="solo" data-links="basie minton" data-q="Count Basie Kansas City Seven Lester Leaps In 1939">
+        <div class="card-head"><span class="card-year">1939年9月5日</span><h3>レスター・ヤング「レスター・リープス・イン」</h3><span class="where">ニューヨーク（ベイシーの小編成カンザスシティ・セブン）</span></div>
+        <div class="ttags"><span>ソロ</span></div>
+        <p><span class="tag-fact">事実</span>ベイシー楽団のテナー・サックス奏者レスター・ヤングの曲で、ベイシーの小編成カンザスシティ・セブンが録音しました（Vocalion 5118）。「アイ・ガット・リズム」と同じコード進行でできています<a class="cite" href="#ref-45">[45]</a>。</p>
+        <p class="to-swing">スイングへの線：ビッグバンドのソロイストが、小編成で長く前に出る</p>
+        <p class="src">出典：[45]</p>
+      </li>
+
+      <li class="card" id="hawkins" data-year="1939.8" data-lane="2" data-short="ホーキンス" data-pos="down" data-tags="solo next" data-links="henderson minton" data-q="Coleman Hawkins Body and Soul 1939">
+        <div class="card-head"><span class="card-year">1939年10月11日</span><h3>コールマン・ホーキンス「ボディ・アンド・ソウル」</h3><span class="where">ニューヨーク（ブルーバード）</span></div>
+        <div class="ttags"><span>ソロ</span><span>次の時代へ</span></div>
+        <p><span class="tag-fact">事実</span>2コーラスのテナー・サックスのソロで、元のメロディーがはっきり分かるのは最初の4小節ほどです。のちのビバップの先触れと言われることがあります<a class="cite" href="#ref-19">[19]</a><a class="cite" href="#ref-46">[46]</a>。</p>
+        <p class="to-swing">スイングへの線：メロディーよりコード進行の上で組み立てるソロへ</p>
+        <p class="src">出典：[19] [46]</p>
+      </li>
+
+      <li class="card" id="minton" data-year="1941.0" data-lane="5" data-short="ミントンズ" data-pos="up" data-tags="next" data-links="goodman hawkins lester" data-q="Minton's Playhouse 1941 Charlie Christian">
+        <div class="card-head"><span class="card-year">1940年代はじめ</span><h3>ミントンズ・プレイハウスのジャム・セッション</h3><span class="where">ニューヨーク、ハーレム</span></div>
+        <div class="ttags"><span>次の時代へ</span></div>
+        <p><span class="tag-fact">事実</span>1938年に開いたこの店で、1940年代のはじめにセロニアス・モンク、ケニー・クラーク、チャーリー・クリスチャン（当時グッドマン楽団のギタリスト）、チャーリー・パーカー、ディジー・ガレスピーらがジャム・セッションをし、ビバップが形になっていきました<a class="cite" href="#ref-47">[47]</a>。</p>
+        <p class="to-swing">次の時代へ：大編成で踊る音楽から、小編成で聴く音楽へ</p>
+        <p class="src">出典：[47]</p>
+      </li>
+
+      <li class="card" id="atrain" data-year="1941.1" data-lane="2" data-short="Aトレイン" data-pos="up" data-tags="section" data-links="ellington" data-q="Duke Ellington Take the A Train 1941">
+        <div class="card-head"><span class="card-year">1941年2月15日</span><h3>エリントン楽団「A列車で行こう」</h3><span class="where">ハリウッド（ビクター）</span></div>
+        <div class="ttags"><span>掛け合い・リフ</span></div>
+        <p><span class="tag-fact">事実</span>ビリー・ストレイホーンの作曲で、エリントン楽団が1941年2月15日に録音しました（Victor 27380）。トランペットのソロはレイ・ナンスです<a class="cite" href="#ref-48">[48]</a><a class="cite" href="#ref-49">[49]</a>。</p>
+        <p class="to-swing">スイングへの線：楽団のテーマ曲として、いまも演奏され続けている</p>
+        <p class="src">出典：[48] [49]</p>
+      </li>
+
+      <li class="card" id="strike" data-year="1942.6" data-lane="5" data-short="録音の中止" data-pos="down" data-tags="next spread" data-links="minton" data-q="1942 recording ban Petrillo">
+        <div class="card-head"><span class="card-year">1942年8月1日〜1944年11月</span><h3>音楽家組合によるレコード録音の中止</h3><span class="where">アメリカ全土</span></div>
+        <div class="ttags"><span>次の時代へ</span><span>広まり方</span></div>
+        <p><span class="tag-fact">事実</span>アメリカ音楽家連盟が1942年8月1日から組合員の録音を止めました。デッカは1943年9月に、ビクターとコロンビアは1944年11月に組合と合意しています<a class="cite" href="#ref-50">[50]</a>。この間、パーカーとガレスピーがいたアール・ハインズ楽団の演奏は、レコードとしては残りませんでした<a class="cite" href="#ref-51">[51]</a>。</p>
+        <p class="to-swing">次の時代へ：ビバップの始まりの時期が、レコードに残りにくかった</p>
+        <p class="src">出典：[50] [51]</p>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ================= 5 Route4 ================= -->
+  <section id="route4" aria-labelledby="route4-title">
+    <p class="section-label">05 — Route4</p>
+    <h2 id="route4-title">Route4 で演奏した曲とつなぐ</h2>
+    <p>部の演奏会で取り上げた曲を、この地図のどの点につながるかで並べる予定です。演奏会の曲目を集めているところなので、まだ載せていません。</p>
+    <div id="r4"></div>
+    <p class="small">載せる曲は、作曲者・編曲者・元の録音の年を確かめてから足します。部の曲目に心当たりのある人は、部内で教えてください。</p>
+  </section>
+
+  <!-- ================= 6 その後 ================= -->
+  <section id="after" aria-labelledby="after-title">
+    <p class="section-label">06 — After</p>
+    <h2 id="after-title">その後（短く）</h2>
+    <p><span class="tag-fact">事実</span>ブリタニカは、様式としてのスイングの時代を1940年代半ばまでとしています<a class="cite" href="#ref-1">[1]</a>。そのころジャズの新しい動きは、ミントンズのような小さな店での小編成の演奏（ビバップ）に移っていきました<a class="cite" href="#ref-47">[47]</a>。</p>
+    <p><span class="tag-view">見立て</span>ただ、意味1の「リズムの感じ」としてのスイングは、そこで終わったわけではない。ビバップも、戦後のビッグバンドも、部で演奏する曲の多くも、②の4ビートと③の2・4拍の上に乗っている。このページの範囲はスイング時代までにしているので、その先は別のページで扱うつもりです。</p>
+  </section>
+
+  <!-- ================= 出典 ================= -->
+  <section id="refs" aria-labelledby="refs-title">
+    <p class="section-label">References</p>
+    <h2 id="refs-title">出典</h2>
+    <p class="small">2026年10月26日に確認。録音日は、できるだけカリフォルニア大学サンタバーバラ校の録音目録（DAHR）で確かめました。資料によって日付が違うものは本文に書いています。</p>
+    <ol class="refs">
+      <li id="ref-1">Encyclopaedia Britannica, “swing (music)”. <a href="https://www.britannica.com/art/swing-music">britannica.com/art/swing-music</a></li>
+      <li id="ref-2">Friberg, A. &amp; Sundström, A. (2002). Swing ratios and ensemble timing in jazz performance: Evidence for a common rhythmic pattern. <i>Music Perception</i>, 19(3), 333–349. <a href="https://doi.org/10.1525/mp.2002.19.3.333">doi.org/10.1525/mp.2002.19.3.333</a></li>
+      <li id="ref-3">Honing, H. &amp; Haas, W. B. de (2008). Swing once more: Relating timing and tempo in expert jazz drumming. <i>Music Perception</i>, 25(5)（Friberg &amp; Sundström の結果の要約を含む）. <a href="https://mcg.uva.nl/mcg-2023/papers/honing-haas-2008.pdf">mcg.uva.nl（PDF）</a></li>
+      <li id="ref-4">Wikipedia, “Swing music”. <a href="https://en.wikipedia.org/wiki/Swing_music">en.wikipedia.org/wiki/Swing_music</a></li>
+      <li id="ref-5">The Syncopated Times, “Bassists of the 1920s”. <a href="https://syncopatedtimes.com/bassists-of-the-1920s/">syncopatedtimes.com</a></li>
+      <li id="ref-6">Wikipedia, “Walter Page”. <a href="https://en.wikipedia.org/wiki/Walter_Page">en.wikipedia.org/wiki/Walter_Page</a></li>
+      <li id="ref-7">Wikipedia, “Jo Jones”. <a href="https://en.wikipedia.org/wiki/Jo_Jones">en.wikipedia.org/wiki/Jo_Jones</a></li>
+      <li id="ref-8">Wikipedia, “Fletcher Henderson”. <a href="https://en.wikipedia.org/wiki/Fletcher_Henderson">en.wikipedia.org/wiki/Fletcher_Henderson</a></li>
+      <li id="ref-9">KC Studio, “How Jazz and the People Who Played It Put Kansas City on the National Map”. <a href="https://kcstudio.org/how-jazz-and-the-people-who-played-it-put-kansas-city-on-the-national-map/">kcstudio.org</a></li>
+      <li id="ref-10">Wikipedia, “Maple Leaf Rag”. <a href="https://en.wikipedia.org/wiki/Maple_Leaf_Rag">en.wikipedia.org/wiki/Maple_Leaf_Rag</a></li>
+      <li id="ref-11">Library of Congress Blog, “Scott Joplin &amp; the Magical ‘Maple Leaf Rag’” (2024). <a href="https://blogs.loc.gov/loc/2024/11/scott-joplin-the-magical-maple-leaf-rag/">blogs.loc.gov</a></li>
+      <li id="ref-12">Encyclopedia of Alabama, “William ‘W. C.’ Handy”. <a href="https://encyclopediaofalabama.org/article/william-w-c-handy/">encyclopediaofalabama.org</a></li>
+      <li id="ref-13">Wikipedia, “Original Dixieland Jass Band”. <a href="https://en.wikipedia.org/wiki/Original_Dixieland_Jass_Band">en.wikipedia.org</a></li>
+      <li id="ref-14">Smithsonian Magazine, “Was the First Jazz Recording Made by a Group of White Guys?”. <a href="https://www.smithsonianmag.com/smithsonian-institution/was-first-jazz-recording-made-group-white-guys-180962246/">smithsonianmag.com</a></li>
+      <li id="ref-15">Wikipedia, “Dippermouth Blues”. <a href="https://en.wikipedia.org/wiki/Dippermouth_Blues">en.wikipedia.org/wiki/Dippermouth_Blues</a></li>
+      <li id="ref-16">Purdue University, “King Oliver’s Creole Jazz Band recording of ‘Dippermouth Blues’ celebrates 100th anniversary”. <a href="https://convocations.purdue.edu/king-olivers-creole-jazz-band-recording-of-dippermouth-blues-celebrates-100th-anniversary/">convocations.purdue.edu</a></li>
+      <li id="ref-17">Wikipedia, “Louis Armstrong”. <a href="https://en.wikipedia.org/wiki/Louis_Armstrong">en.wikipedia.org/wiki/Louis_Armstrong</a></li>
+      <li id="ref-18">Jazz88, “Don Redman”. <a href="https://www.jazz88.org/articles/Don_Redman">jazz88.org</a></li>
+      <li id="ref-19">Wikipedia, “Coleman Hawkins”. <a href="https://en.wikipedia.org/wiki/Coleman_Hawkins">en.wikipedia.org/wiki/Coleman_Hawkins</a></li>
+      <li id="ref-20">Wikipedia, “King Porter Stomp”. <a href="https://en.wikipedia.org/wiki/King_Porter_Stomp">en.wikipedia.org/wiki/King_Porter_Stomp</a></li>
+      <li id="ref-21">WBGO, “Venture Beyond a Walking Bass Line with the All-American Walter Page” (2018). <a href="https://www.wbgo.org/music/2018-04-04/venture-beyond-a-walking-bass-line-with-the-all-american-walter-page-in-deep-dive">wbgo.org</a></li>
+      <li id="ref-22">Wikipedia, “West End Blues”. <a href="https://en.wikipedia.org/wiki/West_End_Blues">en.wikipedia.org/wiki/West_End_Blues</a></li>
+      <li id="ref-23">Discography of American Historical Recordings, OKeh matrix W400967 “West End blues”. <a href="https://adp.library.ucsb.edu/index.php/matrix/refer/2000209787">adp.library.ucsb.edu</a></li>
+      <li id="ref-24">Wikipedia, “Cotton Club”. <a href="https://en.wikipedia.org/wiki/Cotton_Club">en.wikipedia.org/wiki/Cotton_Club</a></li>
+      <li id="ref-25">Wikipedia, “It Don't Mean a Thing (If It Ain't Got That Swing)”. <a href="https://en.wikipedia.org/wiki/It_Don%27t_Mean_a_Thing_(If_It_Ain%27t_Got_That_Swing)">en.wikipedia.org</a></li>
+      <li id="ref-26">JazzStandards.com, “It Don't Mean a Thing”. <a href="https://jazzstandards.com/compositions-0/itdontmeanathing.htm">jazzstandards.com</a></li>
+      <li id="ref-27">Wikipedia, “Moten Swing”. <a href="https://en.wikipedia.org/wiki/Moten_Swing">en.wikipedia.org/wiki/Moten_Swing</a></li>
+      <li id="ref-28">Discography of American Historical Recordings, Victor matrix BS-74847 “Moten's swing”. <a href="https://adp.library.ucsb.edu/index.php/matrix/refer/800040141">adp.library.ucsb.edu</a></li>
+      <li id="ref-29">Wikipedia, “Bennie Moten”. <a href="https://en.wikipedia.org/wiki/Bennie_Moten">en.wikipedia.org/wiki/Bennie_Moten</a></li>
+      <li id="ref-30">Wikipedia, “Palomar Ballroom”. <a href="https://en.wikipedia.org/wiki/Palomar_Ballroom">en.wikipedia.org/wiki/Palomar_Ballroom</a></li>
+      <li id="ref-31">Encyclopaedia Britannica, “Benny Goodman”. <a href="https://www.britannica.com/biography/Benny-Goodman">britannica.com</a></li>
+      <li id="ref-32">Wikipedia, “Count Basie Orchestra”. <a href="https://en.wikipedia.org/wiki/Count_Basie_Orchestra">en.wikipedia.org/wiki/Count_Basie_Orchestra</a></li>
+      <li id="ref-33">Wikipedia, “One O'Clock Jump”（録音日を6月とするが、DAHR の記録は7月7日）. <a href="https://en.wikipedia.org/wiki/One_O%27Clock_Jump">en.wikipedia.org</a></li>
+      <li id="ref-34">Discography of American Historical Recordings, Decca matrix 62332 “One o'clock jump”. <a href="https://adp.library.ucsb.edu/index.php/matrix/refer/2000290445">adp.library.ucsb.edu</a></li>
+      <li id="ref-35">Jazz.com, “Walter Page”. <a href="https://jazz.com/encyclopedia/page-walter-sylvester">jazz.com</a></li>
+      <li id="ref-36">Wikipedia, “Freddie Green”. <a href="https://en.wikipedia.org/wiki/Freddie_Green">en.wikipedia.org/wiki/Freddie_Green</a></li>
+      <li id="ref-37">Wikipedia, “Chick Webb”. <a href="https://en.wikipedia.org/wiki/Chick_Webb">en.wikipedia.org/wiki/Chick_Webb</a></li>
+      <li id="ref-38">Percussive Arts Society Hall of Fame, “William ‘Chick’ Webb”. <a href="https://pas.org/william-chick-webb/">pas.org</a></li>
+      <li id="ref-39">Wikipedia, “A-Tisket, A-Tasket”. <a href="https://en.wikipedia.org/wiki/A-Tisket,_A-Tasket">en.wikipedia.org</a></li>
+      <li id="ref-40">Discography of American Historical Recordings, Victor matrix PCS-09571 “Sing, sing, sing”. <a href="https://adp.library.ucsb.edu/index.php/matrix/refer/200027577">adp.library.ucsb.edu</a></li>
+      <li id="ref-41">Wikipedia, “Sing, Sing, Sing (With a Swing)”. <a href="https://en.wikipedia.org/wiki/Sing,_Sing,_Sing_(with_a_Swing)">en.wikipedia.org</a></li>
+      <li id="ref-42">Interlude, “Benny Goodman Invaded Carnegie Hall (16 January 1938)”. <a href="https://interlude.hk/benny-goodman-invaded-carnegie-hall-16-january-1938/">interlude.hk</a></li>
+      <li id="ref-43">Discography of American Historical Recordings, Victor matrix BS-038170 “In the mood”. <a href="https://adp.library.ucsb.edu/index.php/matrix/refer/200038061">adp.library.ucsb.edu</a></li>
+      <li id="ref-44">Wikipedia, “In the Mood”. <a href="https://en.wikipedia.org/wiki/In_the_Mood">en.wikipedia.org/wiki/In_the_Mood</a></li>
+      <li id="ref-45">Wikipedia, “Lester Leaps In”. <a href="https://en.wikipedia.org/wiki/Lester_Leaps_In">en.wikipedia.org/wiki/Lester_Leaps_In</a></li>
+      <li id="ref-46">Encyclopaedia Britannica, “Coleman Hawkins”. <a href="https://www.britannica.com/biography/Coleman-Hawkins">britannica.com</a></li>
+      <li id="ref-47">Wikipedia, “Minton's Playhouse”. <a href="https://en.wikipedia.org/wiki/Minton%27s_Playhouse">en.wikipedia.org</a></li>
+      <li id="ref-48">Wikipedia, “Take the ‘A’ Train”. <a href="https://en.wikipedia.org/wiki/Take_the_%22A%22_Train">en.wikipedia.org</a></li>
+      <li id="ref-49">JazzStandards.com, “Take the ‘A’ Train”. <a href="https://www.jazzstandards.com/compositions-0/taketheatrain.htm">jazzstandards.com</a></li>
+      <li id="ref-50">Wikipedia, “1942–1944 musicians' strike”. <a href="https://en.wikipedia.org/wiki/1942%E2%80%931944_musicians%27_strike">en.wikipedia.org</a></li>
+      <li id="ref-51">Lewis Porter, “Earl Hines: his unrecorded band with Bird and Diz”. <a href="https://lewisporter.substack.com/p/earl-hines-his-unrecorded-band-with">lewisporter.substack.com</a></li>
+      <li id="ref-52">JazzStandards.com, “One O'Clock Jump”. <a href="https://jazzstandards.com/compositions-1/oneoclockjump.htm">jazzstandards.com</a></li>
+      <li id="ref-53">Wikipedia, “Gene Krupa”. <a href="https://en.wikipedia.org/wiki/Gene_Krupa">en.wikipedia.org/wiki/Gene_Krupa</a></li>
+    </ol>
+    <p class="small">誤りに気づいたら、<a href="/contact/">お問い合わせ</a>から教えてください。</p>
+  </section>
+</div>
+
+<script>
+/* ---------- Route4 の演奏曲（集まったらここに足す） ----------
+   例: { title:"曲名", concert:"2025年 定期演奏会", node:"basie", note:"作曲・編曲・元の録音年" }
+   node は上の一覧の id（joplin, basie, goodman など） */
+var ROUTE4_SONGS = [];
+</script>
+<script>
+(function(){
+  "use strict";
+
+  /* ================= 音の実験 ================= */
+  var ctx = null, playing = false, timer = null, nextTime = 0, step = 0;
+  var ratio = 2, tempo = 140, bass4 = true, hh = true;
+  var ratioEl = document.getElementById('ratio'), tempoEl = document.getElementById('tempo');
+  var ratioOut = document.getElementById('ratioOut'), tempoOut = document.getElementById('tempoOut');
+  var barL = document.getElementById('barL'), barS = document.getElementById('barS');
+  var noteEl = document.getElementById('ratioNote');
+  var playBtn = document.getElementById('labPlay');
+  var beatEls = document.querySelectorAll('.beats div');
+  var noiseBuf = null;
+  // F のブルースの最初の4小節を歩くベース（F2〜）
+  var BASS = [87.31,110.00,130.81,146.83, 116.54,110.00,103.83,98.00, 87.31,110.00,130.81,155.56, 174.61,155.56,146.83,130.81];
+
+  function setRatio(v){
+    ratio = Math.round(parseFloat(v)*100)/100;
+    ratioEl.value = ratio;
+    ratioOut.textContent = ratio.toFixed(2) + ' : 1';
+    barL.style.flexGrow = ratio; barS.style.flexGrow = 1;
+    var msg;
+    if (ratio < 1.08) msg = '1 : 1 は均等な8分音符（ストレート）です。';
+    else if (Math.abs(ratio-2) < 0.08) msg = '2 : 1 は3連符と同じ長さです。';
+    else if (Math.abs(ratio-3) < 0.08) msg = '3 : 1 は付点8分音符＋16分音符と同じ長さです。';
+    else if (ratio < 2) msg = '3連符より均等に近い跳ね方です。速いテンポの録音で多い範囲です。';
+    else msg = '3連符より強く跳ねる形です。';
+    var shortMs = 60000/tempo/(ratio+1);
+    noteEl.textContent = msg + ' いまの短い音の長さ：およそ ' + Math.round(shortMs) + ' ミリ秒。';
+  }
+  function setTempo(v){ tempo = parseInt(v,10); tempoOut.textContent = '♩ = ' + tempo; setRatio(ratio); }
+  ratioEl.addEventListener('input', function(){ setRatio(this.value); });
+  tempoEl.addEventListener('input', function(){ setTempo(this.value); });
+  Array.prototype.forEach.call(document.querySelectorAll('[data-ratio]'), function(b){
+    b.addEventListener('click', function(){ setRatio(b.getAttribute('data-ratio')); });
+  });
+  var b4 = document.getElementById('beat4'), b2 = document.getElementById('beat2'), hhBtn = document.getElementById('hhToggle');
+  b4.addEventListener('click', function(){ bass4 = true; b4.setAttribute('aria-pressed','true'); b2.setAttribute('aria-pressed','false'); });
+  b2.addEventListener('click', function(){ bass4 = false; b2.setAttribute('aria-pressed','true'); b4.setAttribute('aria-pressed','false'); });
+  hhBtn.addEventListener('click', function(){ hh = !hh; hhBtn.setAttribute('aria-pressed', hh ? 'true' : 'false'); });
+
+  function ensureCtx(){
+    if (ctx) return;
+    var AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) { noteEl.textContent = 'このブラウザでは音を鳴らせません。'; return; }
+    ctx = new AC();
+    noiseBuf = ctx.createBuffer(1, ctx.sampleRate, ctx.sampleRate);
+    var d = noiseBuf.getChannelData(0);
+    for (var i=0;i<d.length;i++) d[i] = Math.random()*2-1;
+  }
+  function noise(t, dur, freq, type, gain){
+    var src = ctx.createBufferSource(); src.buffer = noiseBuf;
+    var f = ctx.createBiquadFilter(); f.type = type; f.frequency.value = freq; f.Q.value = 0.8;
+    var g = ctx.createGain();
+    g.gain.setValueAtTime(gain, t); g.gain.exponentialRampToValueAtTime(0.0008, t+dur);
+    src.connect(f); f.connect(g); g.connect(ctx.destination);
+    src.start(t); src.stop(t+dur+0.02);
+  }
+  function ride(t, accent){ noise(t, accent ? 0.42 : 0.26, 7600, 'highpass', accent ? 0.22 : 0.12); }
+  function chick(t){ noise(t, 0.05, 2600, 'bandpass', 0.35); }
+  function bass(t, freq, dur){
+    var o = ctx.createOscillator(); o.type = 'triangle'; o.frequency.value = freq;
+    var f = ctx.createBiquadFilter(); f.type = 'lowpass'; f.frequency.value = 700;
+    var g = ctx.createGain();
+    g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.55, t+0.012);
+    g.gain.exponentialRampToValueAtTime(0.0008, t+dur);
+    o.connect(f); f.connect(g); g.connect(ctx.destination);
+    o.start(t); o.stop(t+dur+0.02);
+  }
+  function scheduleBeat(t, i){
+    var beat = 60/tempo, b = i % 4;
+    // ライド: 4拍すべて＋2拍目と4拍目の裏（跳ねた位置）
+    ride(t, b===1 || b===3);
+    if (b===1 || b===3){
+      ride(t + beat*ratio/(ratio+1), false);
+      if (hh) chick(t);
+    }
+    if (bass4 || b===0 || b===2){
+      bass(t, BASS[i % BASS.length], bass4 ? beat*0.9 : beat*1.8);
+    }
+    var delay = Math.max(0, (t - ctx.currentTime)*1000);
+    setTimeout(function(){
+      Array.prototype.forEach.call(beatEls, function(el, k){ el.classList.toggle('on', k===b); });
+    }, delay);
+  }
+  function tick(){
+    while (nextTime < ctx.currentTime + 0.12){
+      scheduleBeat(nextTime, step);
+      nextTime += 60/tempo; step++;
+    }
+  }
+  playBtn.addEventListener('click', function(){
+    ensureCtx(); if (!ctx) return;
+    if (playing){
+      playing = false; clearInterval(timer); playBtn.textContent = '▶ 鳴らす';
+      Array.prototype.forEach.call(beatEls, function(el){ el.classList.remove('on'); });
+      return;
+    }
+    if (ctx.state === 'suspended') ctx.resume();
+    playing = true; step = 0; nextTime = ctx.currentTime + 0.06;
+    timer = setInterval(tick, 25); tick();
+    playBtn.textContent = '■ 止める';
+  });
+  setRatio(2);
+
+  /* ================= 地図 ================= */
+  var NS = 'http://www.w3.org/2000/svg';
+  var svg = document.getElementById('mapSvg');
+  var cards = Array.prototype.slice.call(document.querySelectorAll('.card'));
+  var LANES = ['ラグタイムとブルース','ニューオーリンズ→シカゴ','ニューヨークの楽団','カンザスシティと南西部','全国へ広がる','次の時代へ'];
+  var LEFT = 185, RIGHT = 30, TOP = 40, LANE_H = 86;
+  var W = 1060, H = TOP + LANES.length*LANE_H + 10;
+  // 1920年より前は詰め、スイング時代を広げる（区切りごとに1年あたりの幅を変える）
+  var SEG = [[1895,0],[1920,150],[1932,450],[1945,W-LEFT-RIGHT]];
+  svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+  svg.setAttribute('width', W); svg.setAttribute('height', H);
+  function el(name, attrs, parent){
+    var e = document.createElementNS(NS, name);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    (parent || svg).appendChild(e); return e;
+  }
+  function xOf(y){
+    for (var i = 1; i < SEG.length; i++){
+      if (y <= SEG[i][0] || i === SEG.length-1){
+        var a = SEG[i-1], b = SEG[i];
+        return LEFT + a[1] + (y - a[0])*(b[1]-a[1])/(b[0]-a[0]);
+      }
+    }
+  }
+  function yOf(l){ return TOP + l*LANE_H + LANE_H/2; }
+
+  LANES.forEach(function(name, i){
+    el('rect', {x:0, y:TOP + i*LANE_H, width:W, height:LANE_H, 'class':'lane-bg' + (i%2 ? ' alt' : '')});
+    var t = el('text', {x:14, y:yOf(i)+4, 'class':'lane-label'}); t.textContent = name;
+  });
+  // スイング時代（およそ1935〜1945）の帯
+  el('rect', {x:xOf(1935), y:TOP-22, width:xOf(1945)-xOf(1935), height:10, rx:3, 'class':'era'});
+  var et = el('text', {x:xOf(1935), y:TOP-28, 'class':'era-label'}); et.textContent = 'スイング時代（およそ1935年〜1940年代半ば）';
+  [1900,1910,1920,1925,1930,1935,1940,1945].forEach(function(y){
+    el('line', {x1:xOf(y), y1:TOP, x2:xOf(y), y2:H-10, 'class':'tick'});
+    var tl = el('text', {x:xOf(y)+3, y:H-1, 'class':'tick-label'}); tl.textContent = y;
+  });
+
+  var pos = {}, edgesG = el('g', {}), nodesG = el('g', {});
+  cards.forEach(function(c){
+    pos[c.id] = { x:xOf(parseFloat(c.dataset.year)), y:yOf(parseInt(c.dataset.lane,10)) };
+  });
+  var edges = [], seenEdge = {};
+  cards.forEach(function(c){
+    (c.dataset.links || '').split(/\s+/).filter(Boolean).forEach(function(to){
+      if (!pos[to]) return;
+      var key = [c.id, to].sort().join('|');
+      if (seenEdge[key]) return; seenEdge[key] = true;
+      var a = pos[c.id], b = pos[to];
+      var mx = (a.x + b.x)/2;
+      var p = el('path', {d:'M'+a.x+','+a.y+' C'+mx+','+a.y+' '+mx+','+b.y+' '+b.x+','+b.y, 'class':'edge'}, edgesG);
+      edges.push({a:c.id, b:to, el:p});
+    });
+  });
+  var nodeEls = {};
+  cards.forEach(function(c){
+    var p = pos[c.id];
+    var g = el('g', {'class':'node', tabindex:'0', role:'button', 'aria-label': c.querySelector('h3').textContent}, nodesG);
+    var up = c.dataset.pos !== 'down';
+    // 点と名前の間も押せるよう、透明な当たり判定を置く
+    el('rect', {x:p.x-11, y: up ? p.y-30 : p.y-12, width:22, height:42, fill:'transparent', 'class':'hit'}, g);
+    el('circle', {cx:p.x, cy:p.y, r:7}, g);
+    var t = el('text', {x:p.x, y: up ? p.y-14 : p.y+24, 'text-anchor':'middle'}, g);
+    t.textContent = c.dataset.short;
+    g.addEventListener('click', function(){ select(c.id); });
+    g.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); select(c.id); } });
+    nodeEls[c.id] = g;
+  });
+  // 左右の端で文字がはみ出さないよう調整
+  Array.prototype.forEach.call(svg.querySelectorAll('.node text'), function(t){
+    try{
+      var bb = t.getBBox();
+      if (bb.x < LEFT - 6) t.setAttribute('x', parseFloat(t.getAttribute('x')) + (LEFT - 6 - bb.x));
+      if (bb.x + bb.width > W - 6) t.setAttribute('x', parseFloat(t.getAttribute('x')) - (bb.x + bb.width - W + 6));
+    }catch(e){}
+  });
+
+  var peek = document.getElementById('peek');
+  var current = null;
+  function select(id){
+    current = id;
+    Object.keys(nodeEls).forEach(function(k){ nodeEls[k].classList.toggle('sel', k === id); });
+    edges.forEach(function(e){ e.el.classList.toggle('hl', e.a === id || e.b === id); });
+    var c = document.getElementById(id);
+    var year = c.querySelector('.card-year').textContent;
+    var title = c.querySelector('h3').textContent;
+    var line = c.querySelector('.to-swing').textContent;
+    var linked = edges.filter(function(e){ return e.a === id || e.b === id; })
+      .map(function(e){ var o = e.a === id ? e.b : e.a; return document.getElementById(o).dataset.short; });
+    peek.innerHTML = '';
+    var b = document.createElement('b'); b.textContent = year + '　' + title; peek.appendChild(b);
+    var p1 = document.createElement('div'); p1.textContent = line; peek.appendChild(p1);
+    if (linked.length){ var p2 = document.createElement('div'); p2.className = 'small'; p2.textContent = 'つながり：' + linked.join('、'); peek.appendChild(p2); }
+    var a = document.createElement('a'); a.href = '#' + id; a.textContent = 'くわしく読む ↓'; a.className = 'small';
+    a.addEventListener('click', function(){
+      cards.forEach(function(x){ x.classList.remove('target'); }); c.classList.add('target');
+    });
+    peek.appendChild(a);
+  }
+
+  // 部品で絞り込む
+  var chips = Array.prototype.slice.call(document.querySelectorAll('.chip'));
+  var countEl = document.getElementById('listCount');
+  function filter(tag){
+    chips.forEach(function(ch){ ch.setAttribute('aria-pressed', ch.dataset.tag === tag ? 'true' : 'false'); });
+    var on = {}, n = 0;
+    cards.forEach(function(c){
+      var ok = tag === 'all' || (' ' + c.dataset.tags + ' ').indexOf(' ' + tag + ' ') >= 0;
+      on[c.id] = ok; c.hidden = !ok; if (ok) n++;
+      nodeEls[c.id].classList.toggle('dim', !ok);
+    });
+    edges.forEach(function(e){ e.el.classList.toggle('dim', !(on[e.a] && on[e.b])); });
+    countEl.textContent = tag === 'all' ? cards.length + '件' : n + '件（絞り込み中）';
+  }
+  chips.forEach(function(ch){ ch.addEventListener('click', function(){ filter(ch.dataset.tag); }); });
+  countEl.textContent = cards.length + '件';
+
+  // 各カードに「地図で見る」「聴く（外部）」を足す
+  cards.forEach(function(c){
+    var box = document.createElement('div'); box.className = 'actions';
+    var m = document.createElement('a'); m.href = '#map'; m.textContent = '地図で見る';
+    m.addEventListener('click', function(){ select(c.id); });
+    box.appendChild(m);
+    if (c.dataset.q){
+      var l = document.createElement('a');
+      l.href = 'https://www.youtube.com/results?search_query=' + encodeURIComponent(c.dataset.q);
+      l.target = '_blank'; l.rel = 'noopener noreferrer'; l.textContent = '聴く（YouTubeで検索・外部）';
+      box.appendChild(l);
+    }
+    c.appendChild(box);
+  });
+
+  /* ================= Route4 ================= */
+  var r4 = document.getElementById('r4');
+  if (!ROUTE4_SONGS.length){
+    r4.innerHTML = '<div class="empty">まだ曲は載っていません。曲目が集まったら、曲名・演奏した演奏会・つながる点を表にします。</div>';
+  } else {
+    var tb = document.createElement('table'); tb.className = 'r4-table';
+    tb.innerHTML = '<thead><tr><th>曲</th><th>演奏会</th><th>地図のどこ</th></tr></thead>';
+    var body = document.createElement('tbody');
+    ROUTE4_SONGS.forEach(function(s){
+      var tr = document.createElement('tr');
+      var td1 = document.createElement('td'); td1.textContent = s.title + (s.note ? '（' + s.note + '）' : '');
+      var td2 = document.createElement('td'); td2.textContent = s.concert || '';
+      var td3 = document.createElement('td');
+      var target = s.node && document.getElementById(s.node);
+      if (target){ var a = document.createElement('a'); a.href = '#' + s.node; a.textContent = target.dataset.short; td3.appendChild(a); }
+      tr.appendChild(td1); tr.appendChild(td2); tr.appendChild(td3); body.appendChild(tr);
+    });
+    tb.appendChild(body); r4.appendChild(tb);
+  }
+})();
+</script>
+
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+<!-- site-footer: 運営者情報・お問い合わせ（共通） -->
+<style>
+  .site-footer{max-width:700px;margin:0 auto;padding:8px 24px 72px;text-align:center;font-size:12.5px;line-height:1.9;color:var(--ink-faint,#707070);font-family:inherit}
+  .site-footer ul{list-style:none;margin:0 0 10px;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:6px 22px}
+  .site-footer a{color:var(--ink-faint,#707070);text-decoration:none;border-bottom:1px solid var(--line-faint,rgba(18,18,18,.14));padding-bottom:2px}
+  .site-footer a:hover{color:var(--ink,#121212);border-color:var(--ink,#121212)}
+  .site-footer p{margin:0}
+</style>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
+    <li><a href="/juken/">受験・学習</a></li>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：個人 ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+</body>
+</html>
