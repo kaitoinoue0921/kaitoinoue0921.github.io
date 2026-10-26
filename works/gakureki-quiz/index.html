@@ -6,8 +6,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex">
-<title>学歴厨の遊び場</title>
-<meta name="description" content="学歴ネタが好きな人向けの遊びページ。大学の俗称ランク表、学歴厨度診断、大学ひとこと判定、都道府県別の最難関校。">
+<title>自治医大生の県別トップ校マップ</title>
+<meta name="description" content="自治医大生向けの遊びページ。都道府県ごとのトップ校を地図で見て、偏差値の目安で比べられる。">
 <style>
   :root{--bg:#fbfaf6;--ink:#1b1b1b;--soft:#4a4a4a;--faint:#767676;--line:rgba(0,0,0,.14);--accent:#8c1c13;--card:#fff}
   *{box-sizing:border-box}
@@ -58,29 +58,15 @@
 </head>
 <body>
 <main>
-  <h1>学歴厨の遊び場</h1>
-  <p class="lead">学歴の話が好きな人向けの、ただの遊びページです。序列は受験界隈での俗称・目安で、入学後の価値や人の優劣を決めるものではありません。</p>
+  <h1>自治医大生のための県別トップ校マップ</h1>
+  <p class="lead">全国の都道府県から学生が集まる自治医大の人向けに、県ごとの「トップ校」を地図にした遊びページです。数字は目安で、人や学校の優劣を決めるものではありません。</p>
 
-  <h2>1. 学歴ヒエラルキー（俗称の目安）</h2>
-  <div class="tier"><b>最上位　東大・京大</b><span>「学歴」と言われてまず思い浮かぶ二大巨頭。</span></div>
-  <div class="tier"><b>旧帝大・難関国立　東北大／名古屋大／阪大／九大／北大／一橋／東京科学大(旧東工大)／神戸大</b><span>「旧帝一工」「旧帝一工神」などと呼ばれる層。</span></div>
-  <div class="tier"><b>早慶上理・医学部医学科</b><span>私立最上位は「早慶」、国公立医学部は別枠扱いされがち。</span></div>
-  <div class="tier"><b>地方上位国立・GMARCH・関関同立</b><span>東の「GMARCH」、西の「関関同立」。</span></div>
-  <div class="tier"><b>日東駒専・産近甲龍・その他国公立</b><span>受験界隈でのグループ名。</span></div>
-  <div class="tier"><b>大東亜帝国・その他</b><span>どの大学にも、その先に積み上げる四年間がある。</span><small>※序列は難易度の目安。学部や入試方式で大きく変わります。</small></div>
+  <h2>自治医大の豆知識</h2>
+  <div class="tier"><b>各都道府県から2〜3名ずつ入学</b><span>入試は都道府県ごとの枠（「◯◯県枠」）で行われるので、全国47都道府県の出身者が同期にいます。</span></div>
+  <div class="tier"><b>卒業後は出身の県で働く</b><span>修学資金の貸与を受け、卒業後は出身都道府県で一定期間（義務年限）、医師として勤務する仕組みです。</span></div>
+  <div class="tier"><b>キャンパスは栃木県下野市</b><span>全国から来た同期が、栃木で一緒に学びます。</span><small>※制度の細かい条件は年度で変わります。正確なことは大学の公式案内で確認してください。</small></div>
 
-  <h2>2. 学歴厨度診断</h2>
-  <p class="note">8問。直感でどうぞ。</p>
-  <div class="bar"><i id="bar"></i></div>
-  <div id="quiz"></div>
-  <div id="result" hidden></div>
-
-  <h2>3. 大学ひとこと判定</h2>
-  <p class="note">大学を選ぶと、受験界隈でのよくある呼ばれ方を表示します。</p>
-  <select id="uni"></select>
-  <div class="out" id="uniOut"></div>
-
-  <h2>4. 都道府県別　いちばん賢いとされる高校マップ</h2>
+  <h2>県別　トップ校マップ</h2>
   <p class="note">各県の「公立トップ校」を地図の形に並べました（位置はおおよその配置）。マスをタップすると、私立・国立の難関校も出ます。年や指標で変わるので、あくまで目安です。</p>
   <div class="modes"><button class="mode on" data-m="region">地方別に色分け</button><button class="mode" data-m="dev">偏差値別に色分け</button></div>
   <div class="legend" id="legend"></div>
@@ -95,7 +81,7 @@
   <details><summary>一覧表で見る</summary>
   <table id="prefTable"><thead><tr><th>都道府県</th><th>公立トップ校</th><th>私立・国立の難関</th></tr></thead><tbody></tbody></table></details>
 
-  <p class="note" style="margin-top:48px">個人のお遊びページです。検索には出しません。</p>
+  <p class="note" style="margin-top:48px">個人のお遊びページです。自治医科大学の公式ページではありません。検索には出しません。</p>
 </main>
 
 <footer class="site-footer">
@@ -117,90 +103,10 @@
 <script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <script>
 (function(){
-  var Q = [
-    ["初対面で最初に気になることは？", ["名前","趣味","出身大学","出身地"], [0,1,3,0]],
-    ["「MARCH」と聞いて浮かぶのは？", ["ただの月の並び","大学グループ","Gが付くのが正しい","特に何も"], [0,2,3,0]],
-    ["大学のランキング記事を見つけたら？", ["スルー","タイトルだけ見る","全部読んでコメントも見る","保存して自分の順位表を作る"], [0,1,2,3]],
-    ["偏差値は？", ["気にしない","受験のときだけ","学部別も言える","河合・駿台・東進の違いも語れる"], [0,1,2,3]],
-    ["「旧帝一工」の読み方は？", ["知らない","きゅうていいっこう","旧帝大＋一橋＋東工大","神戸も入れて「一工神」まで言う"], [0,1,2,3]],
-    ["友達の第一志望が自分より上だったら？", ["おめでとう","まあがんばれ","ちょっと悔しい","順位表を更新する"], [0,1,2,3]],
-    ["大学名のあとに学部を聞く？", ["聞かない","たまに","けっこう聞く","学部でさらに序列がある"], [0,1,2,3]],
-    ["学歴の話をするのは？", ["正直あまり","話の流れで","けっこう楽しい","いつでもウェルカム"], [0,1,2,3]]
-  ];
-  var R = [
-    [0,"学歴ニュートラル","学歴の話にはあまり興味がなさそう。人柄で見るタイプ。"],
-    [8,"ライト学歴ファン","話題としては楽しめる。ほどよい距離感。"],
-    [14,"学歴ウォッチャー","序列もグループ名もだいたい頭に入っている。"],
-    [19,"学歴ハカセ","学部別の難易度まで語れる。情報量がすごい。"],
-    [22,"学歴マスター","もはや大学案内。入試の歴史も語れそう。"]
-  ];
-  var i = 0, score = 0, quiz = document.getElementById("quiz"), bar = document.getElementById("bar"), res = document.getElementById("result");
-  function show(){
-    bar.style.width = (i / Q.length * 100) + "%";
-    if (i >= Q.length) return done();
-    var q = Q[i];
-    quiz.innerHTML = "";
-    var p = document.createElement("p"); p.className = "q"; p.textContent = (i+1) + ". " + q[0]; quiz.appendChild(p);
-    q[1].forEach(function(t,k){
-      var b = document.createElement("button"); b.className = "btn"; b.textContent = t;
-      b.onclick = function(){ score += q[2][k]; i++; show(); };
-      quiz.appendChild(b);
-    });
-  }
-  function done(){
-    quiz.innerHTML = "";
-    var r = R[0];
-    R.forEach(function(x){ if (score >= x[0]) r = x; });
-    res.hidden = false; res.innerHTML = "";
-    var a = document.createElement("p"); a.textContent = "あなたは…（" + score + "/" + (Q.length*3) + "点）";
-    var b = document.createElement("p"); b.className = "rank"; b.textContent = r[1];
-    var c = document.createElement("p"); c.textContent = r[2];
-    var d = document.createElement("button"); d.className = "btn primary"; d.textContent = "もう一度";
-    d.onclick = function(){ i = 0; score = 0; res.hidden = true; show(); };
-    [a,b,c,d].forEach(function(e){ res.appendChild(e); });
-  }
-  show();
-
   function fill(sel, rows, first){
     var o0 = document.createElement("option"); o0.textContent = first; o0.value = ""; sel.appendChild(o0);
     rows.forEach(function(u,k){ var o = document.createElement("option"); o.value = k; o.textContent = u[0]; sel.appendChild(o); });
   }
-  var U = [
-    ["東京大学","最上位。「学歴」の話でまず出てくる名前。"],
-    ["京都大学","東大と並ぶ最上位。自由な校風で知られる。"],
-    ["一橋大学","文系の最難関のひとつ。「旧帝一工」の「一」。"],
-    ["東京科学大学（旧・東京工業大学）","理系の難関。「旧帝一工」の「工」。2024年に東京医科歯科大と統合。"],
-    ["大阪大学","旧帝大。関西で東大・京大に次ぐ印象を持たれることが多い。"],
-    ["東北大学","旧帝大。研究力でも知られる。"],
-    ["名古屋大学","旧帝大。東海地方の最難関。"],
-    ["九州大学","旧帝大。九州の最難関。"],
-    ["北海道大学","旧帝大。広いキャンパスでも有名。"],
-    ["神戸大学","「旧帝一工神」の「神」。西の難関国立。"],
-    ["早稲田大学","「早慶」の一角。私立最上位グループ。"],
-    ["慶應義塾大学","「早慶」の一角。私立最上位グループ。"],
-    ["上智大学","「早慶上理」の「上」。"],
-    ["東京理科大学","「早慶上理」の「理」。理系私立の難関。"],
-    ["明治大学","GMARCHの「M」。"],
-    ["青山学院大学","GMARCHの「A」。"],
-    ["立教大学","GMARCHの「R」。"],
-    ["中央大学","GMARCHの「C」。法学部で有名。"],
-    ["法政大学","GMARCHの「H」。"],
-    ["学習院大学","GMARCHの「G」。"],
-    ["関西大学","「関関同立」の「関」。"],
-    ["関西学院大学","「関関同立」の「関」。"],
-    ["同志社大学","「関関同立」の「同」。"],
-    ["立命館大学","「関関同立」の「立」。"],
-    ["日本大学","「日東駒専」の「日」。学生数が非常に多い。"],
-    ["東洋大学","「日東駒専」の「東」。"],
-    ["駒澤大学","「日東駒専」の「駒」。"],
-    ["専修大学","「日東駒専」の「専」。"],
-    ["近畿大学","「産近甲龍」の「近」。志願者数の多さで有名。"],
-    ["その他","どこの大学でも、そこで何をするかのほうが大事。"]
-  ];
-  var sel = document.getElementById("uni"), out = document.getElementById("uniOut");
-  fill(sel, U, "大学を選ぶ");
-  sel.onchange = function(){ out.textContent = sel.value === "" ? "" : U[sel.value][0] + "：" + U[sel.value][1]; };
-
   // [県, 公立トップ校, 私立・国立の難関]
   var P = [
     ["北海道","札幌南","函館ラ・サール"],["青森","青森","八戸（公立）／青森山田"],["岩手","盛岡第一","—"],
@@ -264,6 +170,9 @@
     po.appendChild(document.createTextNode("：公立のトップ校は "));
     var b = document.createElement("b"); b.textContent = r[1]; po.appendChild(b);
     if (r[2] !== "—") po.appendChild(document.createTextNode("。私立・国立の難関は " + r[2]));
+    var j = document.createElement("div"); j.style.cssText = "margin-top:6px;font-size:13px;color:#4a4a4a";
+    j.textContent = "自治医大の" + r[0] + "枠は例年2〜3名ほど。同期の出身校は、この県のトップ校とは限らず、いろいろです。";
+    po.appendChild(j);
   }
   P.forEach(function(r){
     var g = G[r[0]], t = document.createElement("button");
