@@ -191,24 +191,11 @@
     .block-action + .block-action{ margin-left: 0; margin-top: 10px; }
   }
 
-  /* ---------- support ----------
-     応援セクション本体の見た目は /support/support.js が持っている。
-     ここに残しているのは、各作品の注記に使う .support-note だけ。 */
+  /* ---------- 各作品の注記 ---------- */
   .support-note{
     font-size: 13px; line-height: 1.95; color: var(--ink-faint);
     max-width: 54ch; margin: 18px 0 0;
   }
-  /* 作品カードの中に置く応援リンク（フルセクションは #support 側） */
-  .support-inline{
-    display: inline-flex; align-items: center; gap: 8px;
-    margin-top: 14px; font-family: var(--mono); font-size: 11px;
-    letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--ink-faint); text-decoration: none;
-    border-bottom: 1px solid var(--line-faint);
-    padding-bottom: 3px; transition: color 0.3s ease, border-color 0.3s ease;
-  }
-  .support-inline:hover{ color: var(--ink); border-color: var(--ink); }
-  .support-inline:focus-visible{ outline: 2px solid var(--ink); outline-offset: 3px; }
 
   /* ---------- footer ---------- */
   .footer{ padding-bottom: clamp(64px, 12vh, 120px); }
@@ -672,7 +659,6 @@
               <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </a>
-          <div><a class="support-inline" href="#support" data-ksup-open="todai-math-map">この作品を応援する</a></div>
         </article>
 
         <!-- 19 埼玉大数学 過去問マップ -->
@@ -841,7 +827,6 @@
               <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </a>
-          <div><a class="support-inline" href="#support" data-ksup-open="study-map">この作品を応援する</a></div>
         </article>
 
         <section class="works-group">
@@ -894,7 +879,6 @@
               </svg>
             </a>
           </div>
-          <div><a class="support-inline" href="focusroom/donate/">開発を寄付で支える</a></div>
         </article>
 
         <!-- 07 Focus（知識版、開発中） -->
@@ -932,7 +916,6 @@
               <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </a>
-          <div><a class="support-inline" href="focusroom/donate/">開発を寄付で支える</a></div>
         </article>
 
         <!-- 10 InkVault -->
@@ -1186,7 +1169,6 @@
               <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </a>
-          <div><a class="support-inline" href="#support" data-ksup-open="machinokoe">この作品を応援する</a></div>
         </article>
 
         <section class="works-group">
@@ -1220,7 +1202,6 @@
               <path d="M4 12 L12 4 M6 4 H12 V10" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </a>
-          <div><a class="support-inline" href="#support" data-ksup-open="gadget-log">この作品を応援する</a></div>
         </article>
 
         <!-- 03 このサイト -->
@@ -1597,20 +1578,6 @@
           </ul>
         </article>
 
-        <!-- 応援 -->
-        <article class="block" id="support">
-          <div class="divider">
-            <span class="divider-line"></span>
-            <svg class="fhole" viewBox="0 0 24 56" aria-hidden="true">
-              <path d="M14 4 C8 10 18 16 12 22 C6 28 18 34 12 40 C8 44 10 48 8 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-              <circle cx="15" cy="10" r="1.6" fill="currentColor"/>
-              <circle cx="9" cy="38" r="1.6" fill="currentColor"/>
-            </svg>
-            <span class="divider-line"></span>
-          </div>
-          <!-- 中身は /support/support.js が描画する（文面・金額はそこで一括管理） -->
-          <div data-ksup="works" data-skin="paper"></div>
-        </article>
 
       </main>
     </div>
@@ -1629,9 +1596,6 @@
       </div>
     </footer>
   </div>
-
-<!-- 応援セクション（金額・文面は /support/support.js の設定ブロックで一括管理） -->
-<script src="/support/support.js" defer></script>
 
 <script data-goatcounter="https://kaitoinoue.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
