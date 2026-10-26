@@ -16,11 +16,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 ROSTER = ROOT / "jichi-faculty" / "roster.csv"
 OUT = ROOT / "jichi-faculty" / "data" / "faculty.json"
-API = "https://api.researchmap.jp/{pl}/{kind}?limit=1000"
+API = "https://api.researchmap.jp/{pl}/{kind}?limit={limit}&start={start}"
+PAGE = 100
 
 
-def get(pl, kind):
-    req = urllib.request.Request(API.format(pl=pl, kind=kind),
+def get(pl, kind, start=1):
+    req = urllib.request.Request(API.format(pl=pl, kind=kind, limit=PAGE, start=start),
                                  headers={"Accept": "application/json", "User-Agent": "jichi-faculty-fetch"})
     try:
         with urllib.request.urlopen(req, timeout=30) as r:
@@ -36,6 +37,18 @@ def items(data):
     for g in data.get("@graph", []):
         out += g.get("items", [])
     return out
+
+
+def get_all(pl, kind):
+    """PAGE 件ずつ start を進めて全件集める。"""
+    out, start = [], 1
+    while True:
+        got = items(get(pl, kind, start))
+        out += got
+        if len(got) < PAGE:
+            return out
+        start += PAGE
+        time.sleep(0.5)
 
 
 def ja_en(v):
@@ -91,10 +104,10 @@ def main():
             p["papers"], p["careers"] = [], []
             if pl:
                 try:
-                    p["papers"] = sorted((paper(x) for x in items(get(pl, "published_papers"))),
+                    p["papers"] = sorted((paper(x) for x in get_all(pl, "published_papers")),
                                          key=lambda x: x["date"], reverse=True)
                     for kind in ("education", "research_experience"):
-                        p["careers"] += [career(x, kind) for x in items(get(pl, kind))]
+                        p["careers"] += [career(x, kind) for x in get_all(pl, kind)]
                     p["careers"].sort(key=lambda c: c["from"])
                 except Exception as e:  # 1人の失敗で全体を止めない
                     print(f"[警告] {p['name']} ({pl}): {e}", file=sys.stderr)
