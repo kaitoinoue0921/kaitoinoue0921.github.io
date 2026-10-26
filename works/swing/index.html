@@ -224,12 +224,25 @@
         <button class="btn ghost" type="button" id="beat2" aria-pressed="false">1・3拍だけ（2ビート）</button>
         <button class="btn ghost" type="button" id="hhToggle" aria-pressed="true">ハイハット 2・4拍</button>
       </div>
+      <div class="lab-row">
+        <label for="bassOff">ベースの位置</label>
+        <input type="range" id="bassOff" min="-40" max="40" step="5" value="0">
+        <output id="bassOffOut" for="bassOff">ライドと同時</output>
+      </div>
+      <div class="lab-row presets">
+        <button class="btn ghost" type="button" data-off="-20">20ミリ秒 前</button>
+        <button class="btn ghost" type="button" data-off="0">同時</button>
+        <button class="btn ghost" type="button" data-off="20">20ミリ秒 後ろ</button>
+      </div>
       <div class="beats" aria-hidden="true"><div></div><div></div><div></div><div></div></div>
     </div>
 
     <h3>② 4つの拍をそろえて刻む（4ビート）</h3>
     <p><span class="tag-fact">事実</span>1920年代のジャズでは、低音をチューバ（スーザフォン）が受け持ち、1拍目と3拍目を吹く「2ビート」がよく使われました。低音がコントラバスに替わっていくにつれて、4拍すべてを同じ重さで刻む「4ビート」が広まったとされます<a class="cite" href="#ref-4">[4]</a><a class="cite" href="#ref-5">[5]</a>。ただ、いつ・どの順で替わったかは録音からははっきりしない部分があり、資料によって時期が違います<a class="cite" href="#ref-5">[5]</a>。</p>
     <p><span class="tag-fact">事実</span>ベーシストのウォルター・ペイジは、4拍を均等に弾く「ウォーキング・ベース」を早くからコントラバスで弾いた一人とされます<a class="cite" href="#ref-6">[6]</a>。上の実験で「2ビート」と「4ビート」を切り替えると、同じテンポでも進む感じが変わります。</p>
+    <p><b style="font-weight:500;color:var(--ink)">ベースは拍の「ちょっと前」？</b>　部で「ベースはドラムに被せるように」「若干前で」と言われることがあります。</p>
+    <p><span class="tag-fact">事実</span>ベースの音の出だしとライド・シンバルの打点の数十ミリ秒のずれがグルーヴを生む、という考え方があります（Charles Keil）。Butterfield（2010）の実験では、30ミリ秒くらいまでのずれだと、聴き手はベースとドラムのどちらが前かをほとんど当てられませんでした<a class="cite" href="#ref-54">[54]</a>。一方で、ずれの大きさによって聴き手の体の動き方が変わったという研究もあります<a class="cite" href="#ref-55">[55]</a>。</p>
+    <p><span class="tag-view">見立て</span>「前」といっても、テンポを上げることではなく、テンポはそのままで出だしをほんの少し早く置くこと。聴いてはっきり分かる差ではないので、上の実験の「ベースの位置」を前・同時・後ろと切り替えて、進む感じが変わるかを確かめてみてください。</p>
 
     <h3>③ 2拍目と4拍目</h3>
     <p><span class="tag-fact">事実</span>カウント・ベイシー楽団のドラマー、ジョー・ジョーンズは、拍を刻む役目をバスドラムからハイハットへ移したとされます<a class="cite" href="#ref-7">[7]</a>。ベースが4拍を支えるので、ドラムはシンバルで軽く流れを作れるようになりました。実験の「ハイハット 2・4拍」は、足でハイハットを閉じる音を2拍目と4拍目に入れています。</p>
@@ -529,6 +542,8 @@
       <li id="ref-51">Lewis Porter, “Earl Hines: his unrecorded band with Bird and Diz”. <a href="https://lewisporter.substack.com/p/earl-hines-his-unrecorded-band-with">lewisporter.substack.com</a></li>
       <li id="ref-52">JazzStandards.com, “One O'Clock Jump”. <a href="https://jazzstandards.com/compositions-1/oneoclockjump.htm">jazzstandards.com</a></li>
       <li id="ref-53">Wikipedia, “Gene Krupa”. <a href="https://en.wikipedia.org/wiki/Gene_Krupa">en.wikipedia.org/wiki/Gene_Krupa</a></li>
+      <li id="ref-54">Butterfield, M. W. (2010). Participatory discrepancies and the perception of beats in jazz. <i>Music Perception</i>, 27(3), 157–176. <a href="https://doi.org/10.1525/mp.2010.27.3.157">doi.org/10.1525/mp.2010.27.3.157</a></li>
+      <li id="ref-55">Kilchenmann, L. &amp; Senn, O. (2015). Microtiming in swing and funk affects the body movement behavior of music expert listeners. <i>Frontiers in Psychology</i>, 6, 1232. <a href="https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2015.01232/full">frontiersin.org</a></li>
     </ol>
     <p class="small">誤りに気づいたら、<a href="/contact/">お問い合わせ</a>から教えてください。</p>
   </section>
@@ -546,7 +561,7 @@ var ROUTE4_SONGS = [];
 
   /* ================= 音の実験 ================= */
   var ctx = null, playing = false, timer = null, nextTime = 0, step = 0;
-  var ratio = 2, tempo = 140, bass4 = true, hh = true;
+  var ratio = 2, tempo = 140, bass4 = true, hh = true, bassOff = 0;
   var ratioEl = document.getElementById('ratio'), tempoEl = document.getElementById('tempo');
   var ratioOut = document.getElementById('ratioOut'), tempoOut = document.getElementById('tempoOut');
   var barL = document.getElementById('barL'), barS = document.getElementById('barS');
@@ -581,6 +596,16 @@ var ROUTE4_SONGS = [];
   b4.addEventListener('click', function(){ bass4 = true; b4.setAttribute('aria-pressed','true'); b2.setAttribute('aria-pressed','false'); });
   b2.addEventListener('click', function(){ bass4 = false; b2.setAttribute('aria-pressed','true'); b4.setAttribute('aria-pressed','false'); });
   hhBtn.addEventListener('click', function(){ hh = !hh; hhBtn.setAttribute('aria-pressed', hh ? 'true' : 'false'); });
+  // ベースの位置（マイナスがライドより前）
+  var offEl = document.getElementById('bassOff'), offOut = document.getElementById('bassOffOut');
+  function setOff(v){
+    bassOff = parseInt(v, 10); offEl.value = bassOff;
+    offOut.textContent = bassOff === 0 ? 'ライドと同時' : (Math.abs(bassOff) + ' ミリ秒 ' + (bassOff < 0 ? '前' : '後ろ'));
+  }
+  offEl.addEventListener('input', function(){ setOff(this.value); });
+  Array.prototype.forEach.call(document.querySelectorAll('[data-off]'), function(b){
+    b.addEventListener('click', function(){ setOff(b.getAttribute('data-off')); });
+  });
 
   function ensureCtx(){
     if (ctx) return;
@@ -619,7 +644,7 @@ var ROUTE4_SONGS = [];
       if (hh) chick(t);
     }
     if (bass4 || b===0 || b===2){
-      bass(t, BASS[i % BASS.length], bass4 ? beat*0.9 : beat*1.8);
+      bass(Math.max(ctx.currentTime, t + bassOff/1000), BASS[i % BASS.length], bass4 ? beat*0.9 : beat*1.8);
     }
     var delay = Math.max(0, (t - ctx.currentTime)*1000);
     setTimeout(function(){
