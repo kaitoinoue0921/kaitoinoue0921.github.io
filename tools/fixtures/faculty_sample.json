@@ -1,0 +1,7 @@
+{"updated":"2000-01-01","people":[
+{"id":"p0001","name":"見本 太郎","name_en":"Sample Taro","department":"（架空）内科学","position":"教授","researchmap":"","orcid":"",
+ "careers":[{"kind":"学歴","from":"1990-04","to":"1996-03","text":"架空大学 医学部 卒業"},{"kind":"職歴","from":"2005-04","to":"","text":"架空医科大学 内科学 教授"}],
+ "papers":[{"date":"2024-05-01","title":"架空の論文タイトル A","authors":"見本 太郎, 例 花子","journal":"Journal of Examples","doi":"10.0000/example","pmid":"","type":"scientific_journal","peer":true},
+           {"date":"2019-01-01","title":"架空の論文タイトル B","authors":"見本 太郎","journal":"Example Letters","doi":"","pmid":"","type":"scientific_journal","peer":true}]},
+{"id":"p0002","name":"例 花子","name_en":"Rei Hanako","department":"（架空）外科学","position":"講師","researchmap":"","orcid":"","careers":[],"papers":[]}
+]}
