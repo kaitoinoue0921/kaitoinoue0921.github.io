@@ -66,7 +66,7 @@
   .factor .say{background:var(--line-ghost);border-radius:8px;padding:10px 14px;font-size:14.5px;color:var(--ink);margin:0 0 14px}
 
   .table-wrap{overflow-x:auto;margin:10px 0 14px}
-  table{border-collapse:collapse;font-size:13.5px;min-width:520px;width:100%}
+  table{border-collapse:collapse;font-size:14px;width:100%}
   th,td{border-bottom:1px solid var(--line-faint);padding:7px 8px;text-align:left;vertical-align:top}
   th{font-weight:400;color:var(--ink-faint);font-size:12.5px}
   td.num{font-family:var(--mono);font-size:13px;white-space:nowrap}
@@ -102,6 +102,42 @@
   .related{display:block;border:1px solid var(--line-faint);border-radius:10px;padding:14px 18px;text-decoration:none;margin:14px 0}
   .related:hover{border-color:var(--ink)}
   .related b{font-weight:500;color:var(--ink)}
+
+  /* ---- 読みやすさ ---- */
+  body{line-height:1.95}
+  p{font-size:16px}
+  .lead{font-size:17px;line-height:2}
+  .quotes{list-style:none;margin:18px 0 0;padding:0}
+  .quotes li{border-left:3px solid var(--accent);padding:6px 0 6px 14px;margin:0 0 10px;font-size:15.5px;color:var(--ink)}
+  .points{display:grid;gap:12px}
+  .point{display:flex;gap:14px;align-items:flex-start;border:1px solid var(--line-faint);border-radius:12px;padding:14px 16px}
+  .point p{margin:0;font-size:15.5px;line-height:1.85}
+  .point b,.card b,.pc b{font-weight:500;color:var(--ink)}
+  .pn{flex:0 0 28px;height:28px;border-radius:50%;background:var(--ink);color:#fff;font-family:var(--mono);font-size:13px;display:flex;align-items:center;justify-content:center;margin-top:2px}
+  .card{border:1px solid var(--line-faint);border-radius:14px;padding:20px 20px 10px;margin:0 0 18px}
+  .card-q{font-family:var(--serif);font-size:18px;color:var(--ink);margin:0 0 10px;line-height:1.6}
+  .card-a{font-size:16px;color:var(--ink);margin:0 0 14px;font-weight:400}
+  .mark{display:inline-block;font-size:12.5px;border-radius:6px;padding:1px 9px;margin-right:10px;vertical-align:1px}
+  .mark.mid{background:var(--mid-soft);color:var(--mid);border:1px solid rgba(138,106,18,.35)}
+  dl.pc{margin:0 0 6px}
+  dl.pc dt{font-size:12.5px;color:var(--ink-faint);margin:12px 0 2px;letter-spacing:.04em}
+  dl.pc dd{margin:0;font-size:15.5px;line-height:1.85}
+  details.why{margin:10px 0 8px;font-size:14px}
+  details.why summary{cursor:pointer;color:var(--accent);font-size:13.5px;list-style:none;display:inline-block;padding:3px 0}
+  details.why summary::-webkit-details-marker{display:none}
+  details.why summary::before{content:"＋ "}
+  details.why[open] summary::before{content:"− "}
+  details.why ul{margin:8px 0 6px;padding-left:1.1em}
+  details.why li{margin-bottom:8px;line-height:1.8}
+  ol.factors{list-style:none;counter-reset:f;margin:0;padding:0}
+  ol.factors > li{counter-increment:f;position:relative;padding:16px 0 6px 44px;border-top:1px solid var(--line-faint)}
+  ol.factors > li::before{content:counter(f);position:absolute;left:0;top:18px;width:28px;height:28px;border-radius:50%;border:1px solid var(--ink);font-family:var(--mono);font-size:13px;display:flex;align-items:center;justify-content:center;color:var(--ink)}
+  .f-t{font-family:var(--serif);font-size:18px;color:var(--ink);margin:0 0 4px}
+  .f-d{margin:0;font-size:15.5px;line-height:1.85}
+  .lab-name{font-size:13.5px;color:var(--ink)}
+  ul.timeline li{font-size:15px;line-height:1.8}
+  ul.timeline .yr{display:block;margin:0}
+  @media (max-width:520px){ .card{padding:16px 14px 8px} .card-q{font-size:16.5px} }
 </style>
 </head>
 <body>
@@ -114,166 +150,116 @@
   <header class="hero">
     <p class="eyebrow">Route4 の後輩へ ／ リズム隊の話</p>
     <h1>グルーヴはどこから生まれる？</h1>
-    <p class="lead">部活で「ベースはドラムに被さるように、若干前で」「ベースが遅いからギターが前に出る」「3連の3つ目にクリックを置いて、それより少し後ろで弾く（裏練）」と言われました。言われたとおりにすればグルーヴが出るのか。そもそもグルーヴは何から生まれるのか。1960年代からの研究と論文で分かっていることを並べて、考えてみました。</p>
-    <div class="key">
-      <span><span class="lv lv-a">確かめられている</span>実験や測定で直接示されている</span>
-      <span><span class="lv lv-b">研究から推せる</span>関係する研究はあるが、この問いを直接は確かめていない</span>
-      <span><span class="lv lv-c">書き手の考え</span>研究が見つからず、筋道から考えたこと</span>
-    </div>
-    <p class="meta">最終更新 2026年10月26日 ／ 出典は番号で示し、ページの最後にまとめています。<br>関連：<a href="/works/swing/">スイングってなに？</a>（スイングの意味と歴史、跳ね方の実験）</p>
+    <p class="lead">部活で言われた3つのアドバイスが、本当にグルーヴにつながるのか。<br>研究と論文で分かっていることから考えました。</p>
+    <ul class="quotes">
+      <li>「ベースはドラムに被さるように、若干前で」</li>
+      <li>「ベースが遅いから、ギターが前に出てしまう」</li>
+      <li>「裏練：3連の3つ目にクリックを置いて、それより少し後ろで弾く」</li>
+    </ul>
+    <p class="meta">最終更新 2026年10月26日 ／ 根拠と出典は「根拠を見る」を押すと開きます。<br>関連：<a href="/works/swing/">スイングってなに？</a></p>
   </header>
 
-  <!-- ===== 01 先に答え ===== -->
+  <!-- ===== 01 結論 ===== -->
   <section id="answer" aria-labelledby="answer-title">
-    <p class="section-label">01 — Short answer</p>
-    <h2 id="answer-title">先に答え</h2>
-    <div class="answer">
-      <ol>
-        <li><b class="k">グルーヴは「体を動かしたくなる感じ」</b>として測れるものになっていて、聴く人どうしでかなり一致します<a class="cite" href="#ref-1">[1]</a><a class="cite" href="#ref-2">[2]</a>。</li>
-        <li>研究で効くと分かっているのは、<b class="k">タイミングがよく噛み合っていること</b>（ずれが小さく、聴いて分からないくらい）<a class="cite" href="#ref-20">[20]</a><a class="cite" href="#ref-21">[21]</a><a class="cite" href="#ref-22">[22]</a>、<b class="k">テンポに合った跳ね方</b><a class="cite" href="#ref-10">[10]</a><a class="cite" href="#ref-11">[11]</a>、<b class="k">ほどよいシンコペーション</b><a class="cite" href="#ref-19">[19]</a>。音の立ち上がりは、タイミングの聞こえ方を変えます<a class="cite" href="#ref-23">[23]</a>。</li>
-        <li><b class="k">わざとずらせばグルーヴが出る、という考えは支持されていません。</b>ずれを大きくするとグルーヴの評価は下がりました<a class="cite" href="#ref-21">[21]</a>。一方で、機械のように完全にそろえた演奏がいちばん良いわけでもありません<a class="cite" href="#ref-20">[20]</a><a class="cite" href="#ref-22">[22]</a>。</li>
-        <li>先輩の3つの話は、<b class="k">どれも当たっている面があるが、条件つき</b>です。とくに裏練の「3連より後ろ」は、遅め〜中くらいのテンポのドラムの測定とは合い、速いテンポや管楽器のソロの測定とは逆向きです（<a href="#senpai">05</a>）。</li>
-        <li>クリック練習で鍛えられるのは、グルーヴの材料のうち「テンポを保ち、毎回同じ位置に置く」部分です。<b class="k">クリック練習でバンドのグルーヴが上がることを直接確かめた研究は、探した範囲では見つかりませんでした。</b></li>
-      </ol>
+    <p class="section-label">01</p>
+    <h2 id="answer-title">結論</h2>
+    <div class="points">
+      <div class="point"><span class="pn">1</span><p><b>グルーヴは「聴く人が体を動かしたくなる感じ」。</b><br>研究では、この感じは測れて、聴く人どうしでかなり一致します。</p></div>
+      <div class="point"><span class="pn">2</span><p><b>効くのは「ずれが小さく、毎回同じ」こと。</b><br>わざとずらすと、グルーヴは下がります。ただ、機械のように完全にそろえるのが一番、というわけでもありません。</p></div>
+      <div class="point"><span class="pn">3</span><p><b>先輩の3つのアドバイスは、条件つきで当たっています。</b><br>どんなときに役立ち、どんなときに逆効果かを下にまとめました。</p></div>
+      <div class="point"><span class="pn">4</span><p><b>クリック練習でグルーヴが上がるかは、まだ確かめられていません。</b><br>そういう研究は、探した範囲では見つかりませんでした。</p></div>
     </div>
+    <details class="why">
+      <summary>根拠を見る</summary>
+      <ul>
+        <li>グルーヴの定義と、聴く人どうしの一致<a class="cite" href="#ref-1">[1]</a><a class="cite" href="#ref-2">[2]</a></li>
+        <li>ずれを大きくすると評価が下がる。完全にそろえた版と元の演奏は同じくらい<a class="cite" href="#ref-21">[21]</a></li>
+        <li>ずれを小さく残した版で、体がいちばん動いた<a class="cite" href="#ref-20">[20]</a>。19ミリ秒未満のずれの版がいちばん好まれた<a class="cite" href="#ref-22">[22]</a></li>
+      </ul>
+    </details>
   </section>
 
-  <!-- ===== 02 グルーヴとは ===== -->
-  <section id="what" aria-labelledby="what-title">
-    <p class="section-label">02 — What groove is</p>
-    <h2 id="what-title">グルーヴとは何か（測れるものとして）</h2>
-    <p><span class="lv lv-a">確かめられている</span>Madison（2006）は、グルーヴを「音のパターンのどこかに合わせて、体のどこかを動かしたくなる経験」と定義し、64曲の市販の録音を聴かせたところ、聴き手どうしの評価がかなりそろうことを示しました<a class="cite" href="#ref-1">[1]</a>。Janata ら（2012）が多くの人に言葉を集めて作った定義も「音楽に合わせて動きたくなる、心地よい感じ」で、ほぼ同じです<a class="cite" href="#ref-2">[2]</a>。</p>
-    <p>つまりグルーヴは、演奏者の気分ではなく、<b class="k">聴く人の体が動きたくなるかどうか</b>で確かめられるもの、と研究ではみなされています。以下は、それを上げたり下げたりするものの一覧です。</p>
-  </section>
-
-  <!-- ===== 03 歴史 ===== -->
-  <section id="history" aria-labelledby="history-title">
-    <p class="section-label">03 — How we got here</p>
-    <h2 id="history-title">歴史と経緯：「ずれがグルーヴを生む」説と、その検証</h2>
-    <ul class="timeline">
-      <li><span class="yr">1814–1817</span><b class="k">メトロノーム</b>
-        <p>ヴィンケルがアムステルダムで作った仕組みを、メルツェルが自分の名前で特許にしました（1815年ごろ）。ベートーヴェンが早くから速度の数字を楽譜に書き込んだことで広まりました<a class="cite" href="#ref-3">[3]</a><a class="cite" href="#ref-4">[4]</a>。「機械の拍に合わせる」練習の始まりです。</p></li>
-      <li><span class="yr">1930年代</span><b class="k">スイング時代のリズム隊</b>
-        <p>ベースが4拍を均等に弾き、ドラムはハイハットで2・4拍を鳴らす形が広まりました（<a href="/works/swing/#rhythm">スイングってなに？</a>）。</p></li>
-      <li><span class="yr">1966</span><b class="k">Keil「Motion and Feeling through Music」</b>
-        <p>レナード・マイヤーの『音楽の情動と意味』への応答として、拍や体の動き、グルーヴこそが音楽の中心だと論じました<a class="cite" href="#ref-5">[5]</a>。</p></li>
-      <li><span class="yr">1987</span><b class="k">Keil「参加のずれ（participatory discrepancies）」説</b>
-        <p>音楽の力は奏者どうしの小さな「ずれ」から生まれる、という説。タイミングのずれと音程・音色のずれの2種類を挙げ、音楽は少し「拍から外れ、音程から外れ」ていないと人を巻き込まない、と書きました<a class="cite" href="#ref-6">[6]</a>。「ベースはドラムより少し前」のような言い方は、この説と相性がよい考え方です。</p></li>
-      <li><span class="yr">1991–1995</span><b class="k">実際の演奏を測る</b>
-        <p>Ellis（1991）はサックス奏者3人を測り、ずれは主に「遅れて入る」方向で、テンポが上がると遅れが大きくなる傾向を報告しました<a class="cite" href="#ref-7">[7]</a>。Keil の説を受けて、ジャズのリズム隊（ベースとライド・シンバル）のずれを測る研究も出ました<a class="cite" href="#ref-9">[9]</a>。</p></li>
-      <li><span class="yr">1994</span><b class="k">Berliner『Thinking in Jazz』</b>
-        <p>50人を超えるジャズ奏者への聞き取りから、多くの奏者が学校ではなく、ジャム・セッションや先輩、仲間との勉強会で学んできたことを描きました<a class="cite" href="#ref-8">[8]</a>。</p></li>
-      <li><span class="yr">1997–2002</span><b class="k">跳ね方はテンポで変わる</b>
-        <p>Friberg と Sundström は、聴き手が好む跳ね方の比がテンポで変わること（遅いほど強く、速いほど弱く）、実際のドラマーのライドも同じ傾向であることを示しました<a class="cite" href="#ref-10">[10]</a><a class="cite" href="#ref-11">[11]</a>。「スイングは3連符」という通説は、そのままでは確かめられませんでした。</p></li>
-      <li><span class="yr">2005</span><b class="k">人はクリックより少し前を叩く</b>
-        <p>指で拍を叩く研究をまとめた Repp の総説。人はクリックよりわずかに早く叩く傾向（負の平均ずれ）があり、音楽経験のある人ではその幅が小さいとされます<a class="cite" href="#ref-13">[13]</a>。</p></li>
-      <li><span class="yr">2006–2012</span><b class="k">グルーヴを測る</b>
-        <p>Madison の定義（2006）<a class="cite" href="#ref-1">[1]</a>、Janata らの大規模な調査（2012）<a class="cite" href="#ref-2">[2]</a>で、グルーヴは心理学の実験で扱えるものになりました。</p></li>
-      <li><span class="yr">2010</span><b class="k">Butterfield：そのずれは聞こえるのか</b>
-        <p>ベースとドラムのずれを変えた音を聴かせると、30ミリ秒くらいまでのずれは、どちらが前かをほとんど当てられませんでした。「ずれがグルーヴを生む」説の中心の主張は支持されにくい、と結論しています<a class="cite" href="#ref-16">[16]</a>。</p></li>
-      <li><span class="yr">2015–2017</span><b class="k">ずれを縮めたり広げたりして確かめる</b>
-        <p>プロのベースとドラムの録音で、ずれの大きさを0%から200%まで変えた実験。ずれを広げるとグルーヴの評価が下がり、完全にそろえた版と元の演奏は同じくらいでした<a class="cite" href="#ref-21">[21]</a>。体の動きでは、ずれを小さく残した版がいちばん大きな反応を起こしました<a class="cite" href="#ref-20">[20]</a>。ジャズ・トリオでも、19ミリ秒未満のずれの版が、元の演奏よりも完全にそろえた版よりも好まれました<a class="cite" href="#ref-22">[22]</a>。</p></li>
-      <li><span class="yr">2019</span><b class="k">音の「拍の位置」は立ち上がりで動く</b>
-        <p>立ち上がりがゆっくりな音ほど、拍の位置が遅く、幅広く感じられることが示されました<a class="cite" href="#ref-23">[23]</a>。</p></li>
-    </ul>
-    <p><span class="lv lv-c">書き手の考え</span>流れをまとめると、「わざとずらすとグルーヴが出る」という説から始まり、測ってみると「ずれは小さく、そろっている方が良い。ただし機械のような完全一致が最良とは限らない」というところに落ち着いてきています。</p>
-  </section>
-
-  <!-- ===== 04 生み出すもの ===== -->
-  <section id="factors" aria-labelledby="factors-title">
-    <p class="section-label">04 — What creates groove</p>
-    <h2 id="factors-title">グルーヴを生むもの</h2>
-
-    <div class="factor" id="f-timing">
-      <span class="no">要因 1</span>
-      <h3>タイミングが噛み合っていること</h3>
-      <p class="say">ずれは「聴いて分からないくらい小さく」「いつも同じ」。わざと広げると逆効果。</p>
-      <p><span class="lv lv-a">確かめられている</span>ずれを元の演奏より大きくすると、グルーヴの評価は、音楽経験の有無にかかわらず、スイングでもファンクでも下がりました。元の演奏と完全にそろえた版は、同じくらい高い評価でした<a class="cite" href="#ref-21">[21]</a>。</p>
-      <p><span class="lv lv-a">確かめられている</span>体の動き（頭の動き）を測ると、音楽経験のある人は、ずれを元の40%に縮めた版でいちばん大きく動き、完全にそろえた版ではそれほど動きませんでした<a class="cite" href="#ref-20">[20]</a>。ジャズ・トリオの研究でも、19ミリ秒未満のずれの版がいちばん好まれました<a class="cite" href="#ref-22">[22]</a>。</p>
-      <p><span class="lv lv-a">確かめられている</span>30ミリ秒くらいまでのずれは、どちらが前かを聴き分けられません<a class="cite" href="#ref-16">[16]</a>。</p>
-      <p><span class="lv lv-b">研究から推せる</span>ですから「ベースを何ミリ秒前に」と順番を作ることより、ずれが小さく、毎回ぶれないことの方が効く、と考えられます。</p>
-    </div>
-
-    <div class="factor" id="f-swing">
-      <span class="no">要因 2</span>
-      <h3>テンポに合った跳ね方（と、楽器ごとの役割）</h3>
-      <p class="say">跳ね方は「いつも3連符」ではない。遅いほど強く、速いほど均等に近い。ドラムとソロでも違う。</p>
-      <p><span class="lv lv-a">確かめられている</span>聴き手に跳ね方を調整してもらうと、遅いテンポでは強い跳ね方を、速いテンポでは弱い跳ね方を好み、「2 : 1（3連符）」という通説はそのままでは確かめられませんでした<a class="cite" href="#ref-10">[10]</a>。ドラマーのライドを測っても、テンポが速いほど比が小さくなりました<a class="cite" href="#ref-11">[11]</a>。中〜速いテンポでは、短い方の音がおよそ100ミリ秒でほとんど変わらなかったとされます<a class="cite" href="#ref-12">[12]</a>。</p>
-      <p><span class="lv lv-a">確かめられている</span>中くらいのテンポでは、ドラムの比は 2 : 1 より大きく、ソロの奏者の比は 2 : 1 より小さく、ソロの奏者は表拍でドラムより遅れ、裏拍でドラムとそろっていました<a class="cite" href="#ref-11">[11]</a>。</p>
-      <p>短い音を100ミリ秒として計算すると、裏の8分音符の位置はテンポでこう変わります（<span class="lv lv-c">書き手の計算</span>この仮定が当てはまるのは中〜速いテンポです）。</p>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>テンポ</th><th>1拍</th><th>3連の3つ目</th><th>裏の8分（短い音100ms）</th><th>3連の3つ目との差</th><th>長 : 短</th></tr></thead>
-          <tbody id="ratioTable"></tbody>
-        </table>
-      </div>
-      <p class="small">♩ = 200 前後で、ちょうど3連符（2 : 1）になります。それより遅いと3連より後ろ、速いと3連より前に来ます。</p>
-    </div>
-
-    <div class="factor" id="f-sync">
-      <span class="no">要因 3</span>
-      <h3>ほどよいシンコペーション</h3>
-      <p class="say">リズムの中身も効く。シンコペーションは少なすぎても多すぎても下がる。</p>
-      <p><span class="lv lv-a">確かめられている</span>ファンクのドラム・パターンでシンコペーションの量を変えると、中くらいのときに「動きたい」と「心地よい」がいちばん高くなりました（逆U字）<a class="cite" href="#ref-19">[19]</a>。</p>
-      <p><span class="lv lv-b">研究から推せる</span>ビッグバンドでは、ここは主に編曲とソロ、ドラムのフィルの領分です。ベースのウォーキングは4分音符が中心なので、シンコペーションよりも要因1・4・5が効くところです。</p>
-    </div>
-
-    <div class="factor" id="f-attack">
-      <span class="no">要因 4</span>
-      <h3>音の立ち上がり（どこに拍が聞こえるか）</h3>
-      <p class="say">立ち上がりがゆっくりな音は、遅れて聞こえる。同時に弾いても「ベースが遅い」と聞こえることがある。</p>
-      <p><span class="lv lv-a">確かめられている</span>本物の楽器の音と人工の音で調べると、拍の位置の感じ方をいちばん左右したのは立ち上がりの速さと音の長さで、立ち上がりがゆっくりな音ほど拍が遅く、幅広く感じられました<a class="cite" href="#ref-23">[23]</a>。</p>
-      <p><span class="lv lv-b">研究から推せる</span>低くて柔らかい立ち上がりのベースは、弾いた瞬間より遅れて聞こえやすく、短く鋭いギターのコードは前に聞こえやすいはずです。ただ、この研究では音の高さ（低音かどうか）の影響ははっきりしていません。</p>
-    </div>
-
-    <div class="factor" id="f-adapt">
-      <span class="no">要因 5</span>
-      <h3>奏者どうしが合わせ直し続けること</h3>
-      <p class="say">合奏のタイミングは、1音ごとに互いのずれを聴いて直すことで保たれている。</p>
-      <p><span class="lv lv-a">確かめられている</span>弦楽四重奏を測ると、奏者は1音ごとに他の奏者とのずれを聴き、次の音のタイミングを少しずつ直していました。直す量は、ずれのばらつきが最も小さくなる値に近いものでした<a class="cite" href="#ref-18">[18]</a>。ジャズ・トリオでは、全体のテンポを決めていたのはドラマーで、全員が2・4拍でいちばん正確でした<a class="cite" href="#ref-22">[22]</a>。</p>
-      <p><span class="lv lv-b">研究から推せる</span>クリックはこちらに合わせ直してくれません。クリック練習で鍛えるのは「動かない基準についていく力」で、合奏で要る「互いに寄せ合う力」とは別のものです。</p>
-    </div>
-
-    <div class="factor" id="f-body">
-      <span class="no">要因 6</span>
-      <h3>体の動き（聴く側も弾く側も）</h3>
-      <p class="say">体を動かすと、拍の感じ方そのものが変わる。</p>
-      <p><span class="lv lv-a">確かめられている</span>同じリズムを聴きながら、2拍ごとに膝を曲げるか3拍ごとに曲げるかで、そのリズムが行進曲（2拍子）に聞こえるかワルツ（3拍子）に聞こえるかが変わりました。目で見るだけでは変わらず、体の動きが必要でした<a class="cite" href="#ref-15">[15]</a>。拍に合わせて叩きながら聴くと、タイミングのずれを見分ける成績が上がりました<a class="cite" href="#ref-17">[17]</a>。</p>
-      <p><span class="lv lv-a">確かめられている</span>音楽経験のある人ほど、タイミングの違いに体が反応しました<a class="cite" href="#ref-20">[20]</a><a class="cite" href="#ref-21">[21]</a>。</p>
-    </div>
-  </section>
-
-  <!-- ===== 05 先輩の話 ===== -->
+  <!-- ===== 02 先輩のアドバイス ===== -->
   <section id="senpai" aria-labelledby="senpai-title">
-    <p class="section-label">05 — Checking the advice</p>
-    <h2 id="senpai-title">先輩の3つの話を、この仕組みで読む</h2>
+    <p class="section-label">02</p>
+    <h2 id="senpai-title">先輩の3つのアドバイスは正しい？</h2>
 
-    <div class="verdict">
-      <h3>①「ベースはドラムに被さるように、若干前で」</h3>
-      <p class="q">関わる要因：1（タイミング）・4（立ち上がり）</p>
-      <p><span class="lv lv-a">確かめられている</span>ベースとライドの数十ミリ秒の前後は、聴いてどちらが前か分からない大きさです<a class="cite" href="#ref-16">[16]</a>。ずれを大きくするとグルーヴは下がります<a class="cite" href="#ref-21">[21]</a>。</p>
-      <p><span class="lv lv-b">研究から推せる</span>「前」を意識しすぎてずれを広げると逆効果になりえます。一方で、ベースは立ち上がりの関係で遅れて聞こえやすいので<a class="cite" href="#ref-23">[23]</a>、「弾く位置をほんの少し早める」ことで、聞こえ方としてドラムとそろう可能性はあります。</p>
-      <p><b class="k">役に立つ条件</b>：狙いが「聞こえ方をそろえること」で、テンポは上げず、ずれが聴いて分からない範囲に収まっているとき。<b class="k">役に立たない場合</b>：「前に出ること」自体が目的になり、テンポが上がったり、ずれが大きくなったりするとき。</p>
+    <article class="card">
+      <p class="card-q">「ベースはドラムに被さるように、若干前で」</p>
+      <p class="card-a"><span class="mark mid">条件つき</span>聞こえ方をそろえるためなら意味がある</p>
+      <dl class="pc">
+        <dt>当たっているところ</dt>
+        <dd>ベースは音の立ち上がりが柔らかく、弾いた瞬間より遅れて聞こえやすい。ほんの少し早く弾くと、ドラムとそろって聞こえる可能性がある。</dd>
+        <dt>気をつけるところ</dt>
+        <dd>「前に出ること」自体を目指してずれを広げると、グルーヴは下がる。テンポを上げることでもない。</dd>
+      </dl>
+      <details class="why">
+        <summary>根拠を見る</summary>
+        <ul>
+          <li><span class="lv lv-a">確かめられている</span>立ち上がりがゆっくりな音ほど、拍が遅く聞こえる<a class="cite" href="#ref-23">[23]</a></li>
+          <li><span class="lv lv-a">確かめられている</span>ベースとドラムの30ミリ秒くらいまでの前後は、聴いても分からない<a class="cite" href="#ref-16">[16]</a></li>
+          <li><span class="lv lv-a">確かめられている</span>ずれを大きくするとグルーヴの評価が下がる<a class="cite" href="#ref-21">[21]</a></li>
+        </ul>
+      </details>
+    </article>
+
+    <article class="card">
+      <p class="card-q">「ベースが遅いから、ギターが前に出てしまう」</p>
+      <p class="card-a"><span class="mark mid">ありうる</span>ただし本当にベースが遅いのかは、録音しないと分からない</p>
+      <dl class="pc">
+        <dt>当たっているところ</dt>
+        <dd>ベースは遅れて、短く鋭いギターは前に聞こえやすい。同じタイミングで弾いても「ギターが前」に聞こえることがある。</dd>
+        <dt>気をつけるところ</dt>
+        <dd>耳だけでは、ベースが遅いのかギターが走っているのか判断できない。3人で録音して確かめる。直し方は「早く弾く」だけでなく「立ち上がりをはっきりさせる」（弾く位置、アンプの低音を出しすぎない）でもよい。</dd>
+      </dl>
+      <details class="why">
+        <summary>根拠を見る</summary>
+        <ul>
+          <li><span class="lv lv-a">確かめられている</span>立ち上がりで拍の位置の感じ方が変わる<a class="cite" href="#ref-23">[23]</a></li>
+          <li><span class="lv lv-a">確かめられている</span>30ミリ秒くらいまでの差は聴き分けられない<a class="cite" href="#ref-16">[16]</a></li>
+          <li><span class="lv lv-b">研究から推せる</span>合奏では1音ごとに互いのずれを直し合うので、1人の遅れが全体に影響しうる<a class="cite" href="#ref-18">[18]</a></li>
+        </ul>
+      </details>
+    </article>
+
+    <article class="card" id="uraren">
+      <p class="card-q">「裏練：3連の3つ目にクリックを置いて、それより少し後ろで弾く」</p>
+      <p class="card-a"><span class="mark mid">テンポ次第</span>遅め〜中くらいのテンポなら合っている。速いテンポでは逆</p>
+      <dl class="pc">
+        <dt>当たっているところ</dt>
+        <dd>実際のドラマーのライドは、中くらいのテンポで裏が3連より後ろだった。遅い曲ほど強く跳ねる方が好まれる。</dd>
+        <dt>気をつけるところ</dt>
+        <dd>テンポが速くなるほど跳ね方は弱くなり、♩ = 200 あたりを超えると裏は3連より<b>前</b>に来る。管楽器のソロは、中くらいのテンポでも裏が3連より前だった。どのテンポでも同じだけ「後ろ」に置くと、速い曲で重くなりうる。</dd>
+        <dt>ベースにとって</dt>
+        <dd>ウォーキングは4分音符が中心なので、裏練が直接効くのは「ライドの裏を聴き取って、自分の4分音符をそこに噛み合わせる」ところ。</dd>
+      </dl>
+      <details class="why">
+        <summary>根拠を見る</summary>
+        <ul>
+          <li><span class="lv lv-a">確かめられている</span>好まれる跳ね方は、遅いほど強く、速いほど弱い。「いつも3連」は確かめられなかった<a class="cite" href="#ref-10">[10]</a></li>
+          <li><span class="lv lv-a">確かめられている</span>ドラマーのライドも、テンポが速いほど跳ね方が弱い。中くらいのテンポでは、ドラムは3連より強く、ソロは3連より弱く跳ねていた<a class="cite" href="#ref-11">[11]</a></li>
+          <li><span class="lv lv-a">確かめられている</span>中〜速いテンポでは、短い方の音はおよそ100ミリ秒でほぼ一定<a class="cite" href="#ref-12">[12]</a></li>
+          <li><span class="lv lv-a">確かめられている</span>拍と拍の間（裏）に合わせて叩くのは、拍の上で叩くより不安定で、速くすると拍の上に移ってしまう<a class="cite" href="#ref-14">[14]</a></li>
+          <li><span class="lv lv-c">書き手の考え</span>裏練でバンドのグルーヴが上がることを直接確かめた研究は見つからなかった</li>
+        </ul>
+      </details>
+    </article>
+
+    <h3>テンポごとの「裏」の位置</h3>
+    <p>短い方の音を100ミリ秒とした計算です（中〜速いテンポで当てはまる目安）。</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>テンポ</th><th>3連の3つ目と比べて、裏は</th><th>長 : 短</th></tr></thead>
+        <tbody id="ratioTable"></tbody>
+      </table>
     </div>
+  </section>
 
-    <div class="verdict">
-      <h3>②「ベースが若干遅いせいで、ギターが前に出てしまう」</h3>
-      <p class="q">関わる要因：1（タイミング）・4（立ち上がり）・5（合わせ直し）</p>
-      <p><span class="lv lv-b">研究から推せる</span>筋は通っています。立ち上がりの柔らかいベースは遅れて、鋭いギターは前に聞こえやすいので<a class="cite" href="#ref-23">[23]</a>、同じタイミングで弾いても「ギターが前」に聞こえることがあります。また、合奏では互いにずれを直し合うので<a class="cite" href="#ref-18">[18]</a>、ベースの遅れに引っ張られて全体の位置関係が崩れることもありえます。</p>
-      <p><span class="lv lv-c">書き手の考え</span>ただ、本当にベースが遅いのか、ギターが走っているのかは、耳だけでは判断できません（30ミリ秒以下の差は聴き分けられないため<a class="cite" href="#ref-16">[16]</a>）。3人で録音して、波形で比べるのが確実です。直し方は「早く弾く」だけでなく、「立ち上がりをはっきりさせる」（弾く位置、アンプの低音の出しすぎを抑える）でもよいはずです。</p>
-    </div>
-
-    <div class="verdict" id="uraren">
-      <h3>③ 裏練：「3連の3つ目にクリックを置き、少し後ろで弾く」</h3>
-      <p class="q">関わる要因：2（跳ね方）・5（合わせ直し）。「少し後ろで弾く」は、裏の8分を3連符より遅く置く、つまり長 : 短を 2 : 1 より大きくすることにあたります。</p>
-      <p><span class="lv lv-a">確かめられている</span><b class="k">合う場合</b>：中くらいのテンポのドラマーのライドは 2 : 1 より大きい比、つまり裏が3連より後ろでした<a class="cite" href="#ref-11">[11]</a>。遅いテンポほど強い跳ね方が好まれます<a class="cite" href="#ref-10">[10]</a>。この範囲では、裏練の「後ろ」は実際の演奏と一致します。</p>
-      <p><span class="lv lv-a">確かめられている</span><b class="k">逆になる場合</b>：テンポが速くなると比は小さくなり、♩ = 200 あたりを超えると裏は3連より前に来ます（<a href="#f-swing">要因2の表</a>）<a class="cite" href="#ref-11">[11]</a><a class="cite" href="#ref-12">[12]</a>。また、中くらいのテンポでもソロの奏者の比は 2 : 1 より小さく、裏は3連より前でした。ソロの奏者は「裏をドラムに合わせ、表を少し遅らせる」形でした<a class="cite" href="#ref-11">[11]</a>。</p>
-      <p><span class="lv lv-a">確かめられている</span><b class="k">裏にクリックを置くこと自体</b>：拍と拍の間（裏）に合わせて叩く動きは、拍の上で叩く動きより不安定で、テンポを上げると自然に拍の上へ移ってしまいます<a class="cite" href="#ref-14">[14]</a>。裏のクリックに合わせ続けるのは、それだけ難しい課題です。</p>
-      <p><span class="lv lv-c">書き手の考え</span>裏練が役に立つのは、(1) 遅め〜中くらいのテンポで、(2) ドラムのライドやそれに合わせるリズム隊として、(3) 裏の位置を自分の中に持ち続ける力をつける場合。役に立たない、または逆効果になりうるのは、(1) 速いテンポでも同じだけ「後ろ」に置く、(2) 管楽器のソロのフレーズに当てはめる、(3) クリックと完全に一致させることを目標にする場合です。<b class="k">ベースのウォーキングは4分音符が中心なので、裏練の効果が直接出るのは、ライドの「チ・チキ」の裏を聴き取って、4分音符をそこに噛み合わせる部分</b>だと思います。裏練をすることでバンドのグルーヴが上がることを直接確かめた研究は見つかりませんでした。</p>
-    </div>
-
-    <h3>聴いて確かめる</h3>
-    <p>テンポ、跳ね方、ベースの位置、ベースの立ち上がりを変えて鳴らせます。裏練のクリック（3連の3つ目）も鳴らせます。音はブラウザで合成しています。</p>
+  <!-- ===== 03 聴いて確かめる ===== -->
+  <section id="lab-sec" aria-labelledby="lab-title">
+    <p class="section-label">03</p>
+    <h2 id="lab-title">聴いて確かめる</h2>
+    <p>ブラウザで合成した音です。テンポ、跳ね方、ベースの位置と立ち上がりを変えられます。</p>
     <div class="lab" id="lab">
       <div class="lab-row"><button class="btn" id="play" type="button">▶ 鳴らす</button></div>
       <div class="lab-row">
@@ -282,10 +268,10 @@
         <output id="tempoOut" for="tempo">♩ = 160</output>
       </div>
       <div class="lab-row">
-        <span class="small" style="color:var(--ink)">跳ね方</span>
-        <button class="btn ghost" type="button" data-sw="triplet" aria-pressed="false">いつも3連（2 : 1）</button>
-        <button class="btn ghost" type="button" data-sw="research" aria-pressed="true">研究の傾向（短い音100ms）</button>
-        <button class="btn ghost" type="button" data-sw="behind" aria-pressed="false">裏練（3連より30ms後ろ）</button>
+        <span class="lab-name">跳ね方</span>
+        <button class="btn ghost" type="button" data-sw="triplet" aria-pressed="false">いつも3連</button>
+        <button class="btn ghost" type="button" data-sw="research" aria-pressed="true">研究の傾向</button>
+        <button class="btn ghost" type="button" data-sw="behind" aria-pressed="false">裏練（3連より後ろ）</button>
       </div>
       <p class="readout" id="readout"></p>
       <div class="lab-row">
@@ -294,42 +280,125 @@
         <output id="offOut" for="off">ライドと同時</output>
       </div>
       <div class="lab-row">
-        <span class="small" style="color:var(--ink)">ベースの立ち上がり</span>
+        <span class="lab-name">ベースの立ち上がり</span>
         <button class="btn ghost" type="button" data-atk="0.004" aria-pressed="true">はっきり</button>
         <button class="btn ghost" type="button" data-atk="0.045" aria-pressed="false">柔らかい</button>
       </div>
       <div class="lab-row">
-        <span class="small" style="color:var(--ink)">クリック</span>
+        <span class="lab-name">クリック</span>
         <button class="btn ghost" type="button" data-click="none" aria-pressed="true">なし</button>
         <button class="btn ghost" type="button" data-click="24" aria-pressed="false">2・4拍</button>
         <button class="btn ghost" type="button" data-click="ura" aria-pressed="false">3連の3つ目（裏練）</button>
       </div>
-      <p class="small" style="margin:0">「柔らかい」にすると、同じタイミングでもベースが少し遅れて聞こえるかを確かめられます（要因4）。</p>
     </div>
   </section>
 
-  <!-- ===== 06 クリック ===== -->
+  <!-- ===== 04 6つの要因 ===== -->
+  <section id="factors" aria-labelledby="factors-title">
+    <p class="section-label">04</p>
+    <h2 id="factors-title">グルーヴを生む6つのもの</h2>
+    <ol class="factors">
+      <li>
+        <p class="f-t">タイミングが噛み合っている</p>
+        <p class="f-d">ずれは聴いて分からないくらい小さく、毎回同じ。わざと広げると逆効果。</p>
+        <details class="why"><summary>根拠を見る</summary><ul>
+          <li><span class="lv lv-a">確かめられている</span>ずれを大きくするとグルーヴの評価が下がる。完全にそろえた版と元の演奏は同じくらい<a class="cite" href="#ref-21">[21]</a></li>
+          <li><span class="lv lv-a">確かめられている</span>ずれを元の4割に縮めた版で体がいちばん動いた<a class="cite" href="#ref-20">[20]</a>。19ミリ秒未満のずれが好まれた<a class="cite" href="#ref-22">[22]</a></li>
+        </ul></details>
+      </li>
+      <li>
+        <p class="f-t">テンポに合った跳ね方</p>
+        <p class="f-d">遅い曲ほど強く、速い曲ほど均等に近く跳ねる。「いつも3連」ではない。</p>
+        <details class="why"><summary>根拠を見る</summary><ul>
+          <li><span class="lv lv-a">確かめられている</span>聴き手の好みもドラマーの演奏も、テンポで跳ね方が変わる<a class="cite" href="#ref-10">[10]</a><a class="cite" href="#ref-11">[11]</a><a class="cite" href="#ref-12">[12]</a></li>
+        </ul></details>
+      </li>
+      <li>
+        <p class="f-t">ほどよいシンコペーション</p>
+        <p class="f-d">リズムの食い込みは、少なすぎても多すぎても「動きたい感じ」が下がる。主に編曲やソロ、ドラムの領分。</p>
+        <details class="why"><summary>根拠を見る</summary><ul>
+          <li><span class="lv lv-a">確かめられている</span>シンコペーションが中くらいのときに、動きたい感じと心地よさがいちばん高い<a class="cite" href="#ref-19">[19]</a></li>
+        </ul></details>
+      </li>
+      <li>
+        <p class="f-t">音の立ち上がり</p>
+        <p class="f-d">立ち上がりが柔らかい音は、遅れて聞こえる。上の実験で「柔らかい」に切り替えると確かめられる。</p>
+        <details class="why"><summary>根拠を見る</summary><ul>
+          <li><span class="lv lv-a">確かめられている</span>立ち上がりと音の長さが、拍の位置の感じ方をいちばん左右した<a class="cite" href="#ref-23">[23]</a></li>
+        </ul></details>
+      </li>
+      <li>
+        <p class="f-t">奏者どうしが合わせ直し続ける</p>
+        <p class="f-d">合奏のタイミングは、1音ごとに互いのずれを聴いて直すことで保たれている。クリックはこちらに合わせ直してくれない。</p>
+        <details class="why"><summary>根拠を見る</summary><ul>
+          <li><span class="lv lv-a">確かめられている</span>弦楽四重奏で、奏者は1音ごとに互いのずれを直していた<a class="cite" href="#ref-18">[18]</a></li>
+          <li><span class="lv lv-a">確かめられている</span>ジャズ・トリオでテンポを決めていたのはドラマーで、全員が2・4拍でいちばん正確だった<a class="cite" href="#ref-22">[22]</a></li>
+        </ul></details>
+      </li>
+      <li>
+        <p class="f-t">体の動き</p>
+        <p class="f-d">体を動かすと、拍の感じ方そのものが変わる。音楽経験がある人ほど、タイミングの違いに体が反応する。</p>
+        <details class="why"><summary>根拠を見る</summary><ul>
+          <li><span class="lv lv-a">確かめられている</span>膝を2拍ごと／3拍ごとに曲げると、同じリズムが2拍子にも3拍子にも聞こえた<a class="cite" href="#ref-15">[15]</a></li>
+          <li><span class="lv lv-a">確かめられている</span>拍に合わせて叩きながら聴くと、ずれを見分ける成績が上がった<a class="cite" href="#ref-17">[17]</a></li>
+          <li><span class="lv lv-a">確かめられている</span>音楽経験のある人ほど反応した<a class="cite" href="#ref-20">[20]</a></li>
+        </ul></details>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ===== 05 クリック ===== -->
   <section id="click" aria-labelledby="click-title">
-    <p class="section-label">06 — Where click practice fits</p>
-    <h2 id="click-title">クリック練習は、どこに効くのか</h2>
-    <ul class="plain">
-      <li><span class="lv lv-b">研究から推せる</span><b class="k">効くところ</b>：要因1の「毎回同じ位置に置く」「テンポを保つ」。人はクリックより少し前を叩きやすいことも知られています<a class="cite" href="#ref-13">[13]</a>。プロのドラマーでも、クリックに対して手足ごとにずれ方が違いました（ハイハットはほぼ同時、スネアとバスドラムは約10ミリ秒前）<a class="cite" href="#ref-24">[24]</a>。</li>
-      <li><span class="lv lv-b">研究から推せる</span><b class="k">効かないところ</b>：要因4（立ち上がり）と要因5（互いの合わせ直し）。クリックは音色を持たず、こちらに合わせ直しもしません<a class="cite" href="#ref-18">[18]</a>。</li>
-      <li><span class="lv lv-b">研究から推せる</span><b class="k">頼りすぎの心配</b>：運動の学習では、毎回の手がかりは練習中の出来を上げる一方、手がかりがないときの力を育てにくい、という説（ガイダンス仮説）があります。ただし再現しない研究もあり、確定した話ではありません<a class="cite" href="#ref-25">[25]</a><a class="cite" href="#ref-26">[26]</a>。クリックを2・4拍だけ、小節に1回、と減らしていくやり方は、この考え方とは合っています。</li>
-      <li><span class="lv lv-c">書き手の考え</span><b class="k">グルーヴそのものが生まれる場所</b>は、要因1〜6が同時に起きる合奏の中です。クリック練習はその準備で、グルーヴを作るのはリズム隊で合わせて、録って、聴き直すことだと考えます。</li>
+    <p class="section-label">05</p>
+    <h2 id="click-title">クリック練習はどこに効く？</h2>
+    <dl class="pc wide">
+      <dt>効くところ</dt>
+      <dd>テンポを保つこと、毎回同じ位置に置くこと（上の「1」の土台）。</dd>
+      <dt>効かないところ</dt>
+      <dd>音の立ち上がり（4）と、互いに合わせ直すこと（5）。クリックには音色がなく、合わせ直してもくれない。</dd>
+      <dt>使い方の目安</dt>
+      <dd>毎拍鳴らすより、2・4拍だけ、小節に1回、と減らしていく方が、自分の中にテンポを持つ練習になると考えられる（確定した話ではない）。</dd>
+    </dl>
+    <p>グルーヴそのものは、1〜6が同時に起きる合奏の中で生まれます。クリックはその準備で、仕上げはリズム隊で合わせて、録って、聴き直すことだと考えます。</p>
+    <details class="why"><summary>根拠を見る</summary><ul>
+      <li><span class="lv lv-a">確かめられている</span>人はクリックより少し前を叩きやすい。音楽経験のある人ではその幅が小さい<a class="cite" href="#ref-13">[13]</a></li>
+      <li><span class="lv lv-a">確かめられている</span>プロのドラマーでも、クリックに対するずれ方は手足で違った（ハイハットはほぼ同時、スネアとバスドラムは約10ミリ秒前）<a class="cite" href="#ref-24">[24]</a></li>
+      <li><span class="lv lv-b">研究から推せる</span>毎回の手がかりは練習中の出来を上げるが、手がかりなしの力を育てにくい、という説がある。ただし再現しない研究もある<a class="cite" href="#ref-25">[25]</a><a class="cite" href="#ref-26">[26]</a></li>
+    </ul></details>
+  </section>
+
+  <!-- ===== 06 歴史 ===== -->
+  <section id="history" aria-labelledby="history-title">
+    <p class="section-label">06</p>
+    <h2 id="history-title">研究の歴史：「ずれがグルーヴを生む」説はどうなったか</h2>
+    <p>はじめは「わざとずれるとグルーヴが出る」という説がありました。測ってみると「ずれは小さく、噛み合っている方がいい。ただし機械のような完全一致が最良とは限らない」というところに落ち着いてきています。</p>
+    <ul class="timeline">
+      <li><span class="yr">1815ごろ</span>メトロノームが特許になり、ベートーヴェンが速度の数字を楽譜に書く<a class="cite" href="#ref-3">[3]</a><a class="cite" href="#ref-4">[4]</a></li>
+      <li><span class="yr">1930年代</span>スイング時代。ベースが4拍を刻み、ハイハットが2・4拍を鳴らす形が広まる（<a href="/works/swing/#rhythm">スイングってなに？</a>）</li>
+      <li><span class="yr">1966</span>Keil が「音楽の中心は拍と体の動き、グルーヴだ」と論じる<a class="cite" href="#ref-5">[5]</a></li>
+      <li><span class="yr">1987</span>Keil の説：「奏者どうしの小さなずれが音楽の力になる」<a class="cite" href="#ref-6">[6]</a></li>
+      <li><span class="yr">1991–95</span>実際の演奏を測る研究が始まる。サックス奏者は遅れて入る傾向があった<a class="cite" href="#ref-7">[7]</a><a class="cite" href="#ref-9">[9]</a></li>
+      <li><span class="yr">1994</span>ジャズ奏者の多くが、学校ではなくセッションや先輩から学んできたことが聞き取りでまとめられる<a class="cite" href="#ref-8">[8]</a></li>
+      <li><span class="yr">1997–2002</span>跳ね方はテンポで変わる。「いつも3連」は確かめられない<a class="cite" href="#ref-10">[10]</a><a class="cite" href="#ref-11">[11]</a></li>
+      <li><span class="yr">2006–12</span>グルーヴが「体を動かしたくなる感じ」として測れるようになる<a class="cite" href="#ref-1">[1]</a><a class="cite" href="#ref-2">[2]</a></li>
+      <li><span class="yr">2010</span>30ミリ秒くらいまでのずれは聴き分けられない。「ずれ」説の中心は支持されにくい<a class="cite" href="#ref-16">[16]</a></li>
+      <li><span class="yr">2015–17</span>ずれを縮めたり広げたりする実験。広げると下がり、小さく残すのが好まれる<a class="cite" href="#ref-20">[20]</a><a class="cite" href="#ref-21">[21]</a><a class="cite" href="#ref-22">[22]</a></li>
+      <li><span class="yr">2019</span>音の立ち上がりで、拍が聞こえる位置が変わる<a class="cite" href="#ref-23">[23]</a></li>
     </ul>
   </section>
 
   <!-- ===== 07 分かっていないこと ===== -->
   <section id="unknown" aria-labelledby="unknown-title">
-    <p class="section-label">07 — Still unknown</p>
+    <p class="section-label">07</p>
     <h2 id="unknown-title">まだ分かっていないこと</h2>
     <ul class="plain">
-      <li>クリック練習や裏練を続けると、バンドのグルーヴ（聴き手の評価や体の動き）が上がるのか。練習の効果をグルーヴで測った研究は見つかりませんでした。</li>
-      <li>ビッグバンドの大きな編成で、ベース・ギター・ドラムの「正しい順番」があるのか。測定は主にトリオや2人の録音で、ビッグバンドのリズム隊を測ったものは見つかりませんでした。</li>
-      <li>研究の多くは数十人規模で、特定の奏者・録音を材料にしています。どの奏者にも当てはまるとは限りません。</li>
+      <li>クリック練習や裏練を続けると、バンドのグルーヴが上がるのか。</li>
+      <li>ビッグバンドで、ベース・ギター・ドラムに「正しい順番」があるのか。測定は主にトリオや2人の録音。</li>
+      <li>研究の多くは数十人規模で、特定の奏者や録音を材料にしている。誰にでも当てはまるとは限らない。</li>
     </ul>
+    <p class="small">根拠の印：<span class="lv lv-a">確かめられている</span>実験や測定で直接示されている ／ <span class="lv lv-b">研究から推せる</span>関係する研究はあるが直接は確かめていない ／ <span class="lv lv-c">書き手の考え</span>研究が見つからず、筋道から考えたこと</p>
   </section>
+
 
   <a class="related" href="/works/swing/"><b>スイングってなに？</b><br><span class="small">スイングの2つの意味、ラグタイムからスイング時代までのつながりの地図、跳ね方の実験。</span></a>
 
@@ -376,12 +445,10 @@
   /* ---------- 要因2の表 ---------- */
   var tb = document.getElementById('ratioTable');
   [120,140,160,180,200,220,260].forEach(function(t){
-    var beat = 60000/t, tri = beat*2/3, off = beat - 100, diff = off - tri, r = (beat-100)/100;
+    var beat = 60000/t, d = Math.round((beat - 100) - beat*2/3), r = (beat-100)/100;
     var tr = document.createElement('tr');
-    var d = Math.round(diff);
-    [ '♩ = ' + t, Math.round(beat) + ' ms', Math.round(tri) + ' ms', Math.round(off) + ' ms',
-      (d === 0 ? 'ほぼ同じ' : (Math.abs(d) + ' ms ' + (d > 0 ? '後ろ' : '前'))), r.toFixed(1) + ' : 1'
-    ].forEach(function(v, i){ var td = document.createElement('td'); if (i) td.className = 'num'; td.textContent = v; tr.appendChild(td); });
+    [ '♩ = ' + t, d === 0 ? 'ほぼ同じ' : (Math.abs(d) + ' ミリ秒 ' + (d > 0 ? '後ろ' : '前')), r.toFixed(1) + ' : 1' ]
+      .forEach(function(v, i){ var td = document.createElement('td'); if (i) td.className = 'num'; td.textContent = v; tr.appendChild(td); });
     tb.appendChild(tr);
   });
 
