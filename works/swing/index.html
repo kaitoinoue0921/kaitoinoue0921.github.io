@@ -175,6 +175,7 @@
   ul.vids li{margin-bottom:10px}
 </style>
 <link rel="stylesheet" href="/assets/jazz/theme.css">
+<script src="/assets/jazz/toc.js" defer></script>
 </head>
 <body>
 <div class="container">
@@ -189,6 +190,22 @@
     <p class="lead">「もっとスイングして」と言われても、何を変えればいいのか分かりにくい。<br>スイングの正体を、音の実験と、ジャズの歴史の地図でたどります。</p>
     <p class="meta">2026年10月26日 ／ 音源と楽譜は載せていません。「聴く」は外部サイトへのリンクです。<br>関連：<a href="/works/groove/">グルーヴはどこから生まれる？</a></p>
   </header>
+
+  <nav class="toc" aria-label="このページの内容">
+    <p class="toc-t">CONTENTS</p>
+    <ol>
+      <li><a href="#meaning" data-short="2つの意味">「スイング」の2つの意味</a></li>
+      <li><a href="#rhythm" data-short="リズム">リズムで起きている4つのこと</a></li>
+      <li><a href="#rhythm-history" data-short="リズム隊">リズム隊の歴史</a></li>
+      <li><a href="#background" data-short="時代の背景">時代の背景</a></li>
+      <li><a href="#map" data-short="地図">地図：部品はどこから来たか</a></li>
+      <li><a href="#list" data-short="年代順">年代順に読む（34の出来事）</a></li>
+      <li><a href="#songs" data-short="代表曲">代表曲を聴く（22曲）</a></li>
+      <li><a href="#route4" data-short="Route4">Route4 で演奏した曲</a></li>
+      <li><a href="#after" data-short="その後">スイング時代の後</a></li>
+      <li><a href="#refs" data-short="出典">出典</a></li>
+    </ol>
+  </nav>
 
   <!-- ================= 1 ================= -->
   <section id="meaning" aria-labelledby="meaning-title">
@@ -296,9 +313,9 @@
 
     <div class="note">
       <p class="note-t">ベースは拍の「ちょっと前」？</p>
-      <p>部で「ベースはドラムに被せるように、若干前で」と言われることがある。ただ、数十ミリ秒の前後は聴いても分からない大きさ。上の「ベースの位置」で、前・同時・後ろを聴き比べてみよう。くわしくは<a href="/works/groove/">グルーヴはどこから生まれる？</a>へ。</p>
+      <p>部で「ベースはドラムに被せるように、若干前で」と言われることがある。ただ、数十ミリ秒の前後は、聴いてもはっきりとは分からない大きさ。上の「ベースの位置」で、前・同時・後ろを聴き比べてみよう。くわしくは<a href="/works/groove/">グルーヴはどこから生まれる？</a>へ。</p>
       <details class="why"><summary>根拠</summary><ul>
-        <li>30ミリ秒くらいまでの差は、どちらが前か聴き分けられない<a class="cite" href="#ref-54">[54]</a></li>
+        <li>30ミリ秒くらいまでの差は、多くの人がどちらが前かを安定しては聴き分けられなかった<a class="cite" href="#ref-54">[54]</a></li>
         <li>それでも、ずれの大きさで聴く人の体の動き方は変わった<a class="cite" href="#ref-55">[55]</a></li>
       </ul></details>
     </div>
@@ -1124,6 +1141,24 @@ var ROUTE4_SONGS = [];
     }catch(e){}
   });
 
+  // スマホでは地図を最初は閉じておき、年代順のカードを先に読めるようにする
+  var mapWrap = document.getElementById('mapWrap'), mapBtn = null;
+  function openMap(){
+    if (!mapWrap.hidden) return;
+    mapWrap.hidden = false;
+    if (mapBtn) mapBtn.remove();
+    mapWrap.scrollLeft = Math.max(0, xOf(1922) - 20);
+  }
+  if (window.matchMedia && window.matchMedia('(max-width: 700px)').matches){
+    mapWrap.hidden = true;
+    mapBtn = document.createElement('button');
+    mapBtn.type = 'button'; mapBtn.className = 'btn ghost map-open';
+    mapBtn.textContent = '地図を開く（横にスクロールして見ます）';
+    mapBtn.addEventListener('click', openMap);
+    mapWrap.parentNode.insertBefore(mapBtn, mapWrap);
+    var hint = document.querySelector('.map-hint');
+    if (hint) hint.textContent = '同じ内容を、下の「年代順に読む」でも読めます。上の部品を押すと、カードも絞り込まれます。';
+  }
   var peek = document.getElementById('peek');
   var current = null;
   function select(id){
@@ -1169,7 +1204,7 @@ var ROUTE4_SONGS = [];
   cards.forEach(function(c){
     var box = document.createElement('div'); box.className = 'actions';
     var m = document.createElement('a'); m.href = '#map'; m.textContent = '地図で見る';
-    m.addEventListener('click', function(){ select(c.id); });
+    m.addEventListener('click', function(){ openMap(); select(c.id); var w = document.getElementById('mapWrap'); w.scrollLeft = Math.max(0, pos[c.id].x - w.clientWidth/2); });
     box.appendChild(m);
     if (c.dataset.q){
       var l = document.createElement('a');
