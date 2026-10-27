@@ -236,6 +236,12 @@
   .unlock-list li{ margin: 14px 0; line-height: 1.8; }
   .unlock-list a{ color: var(--ink); }
   .unlock-list span{ display: block; font-size: 13px; color: var(--ink-faint); }
+  .wip-grid{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin: 28px 0 0; padding: 0; list-style: none; }
+  .wip-grid figure{ margin: 0; }
+  .wip-grid img{ width: 100%; height: auto; display: block; border: 1px solid var(--line-faint); border-radius: 14px; }
+  .wip-grid figcaption{ margin-top: 10px; font-size: 13px; line-height: 1.7; color: var(--ink-faint); }
+  .wip-grid figcaption b{ display: block; color: var(--ink); font-weight: 500; }
+  @media (max-width: 720px){ .wip-grid{ grid-template-columns: repeat(2, 1fr); } }
 </style>
 <script type="application/ld+json">
 {
@@ -1189,6 +1195,17 @@
           <div><a class="support-inline" href="#support" data-ksup-open="machinokoe">この作品を応援する</a></div>
         </article>
 
+        <section class="works-group" id="wip-apps">
+          <h2 class="works-group-title">制作途中のアプリ</h2>
+          <p class="works-group-lead">まだ公開していないものの、いまの画面です。見た目も中身も、使いながら直している途中です。</p>
+          <ul class="wip-grid">
+            <li><figure><img src="wip/focus-michinori.webp" alt="Focusの「道のり」画面。自分を中心にトピックが放射状に並ぶ" loading="lazy"><figcaption><b>Focus（道のり）</b>勉強したトピックが「自分」のまわりに育っていく画面</figcaption></figure></li>
+            <li><figure><img src="wip/metronome.webp" alt="メトロノームの画面。円の上に拍の位置を置く" loading="lazy"><figcaption><b>メトロノーム</b>円の上に拍の位置を置いて、鳴らし方を決める</figcaption></figure></li>
+            <li><figure><img src="wip/pitch-tuner.webp" alt="ピッチチューナーの画面。入力レベルと基準音" loading="lazy"><figcaption><b>ピッチチューナー</b>マイクの音程を検出して、基準音も鳴らせる</figcaption></figure></li>
+            <li><figure><img src="wip/silent-camera.webp" alt="無音カメラの撮影画面" loading="lazy"><figcaption><b>無音カメラ</b>シャッター音を鳴らさずに撮る</figcaption></figure></li>
+          </ul>
+        </section>
+
         <section class="works-group">
           <h2 class="works-group-title">そのほかの試作</h2>
           <p class="works-group-lead">受験や学習とは別に、気になって作ってみたものです。</p>
@@ -1720,6 +1737,7 @@
 </style>
 <footer class="site-footer">
   <ul>
+    <li><a href="/">トップ</a></li>
     <li><a href="/works/">作ったもの</a></li>
     <li><a href="/about/">運営者情報</a></li>
     <li><a href="/contact/">お問い合わせ</a></li>
