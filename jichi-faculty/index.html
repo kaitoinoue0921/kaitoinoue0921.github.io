@@ -22,22 +22,33 @@
   .ctl{ display:flex; flex-wrap:wrap; gap:10px; margin:0 0 8px; }
   .ctl input,.ctl select{ font:inherit; font-size:14px; padding:8px 10px; border:1px solid var(--line-faint); border-radius:6px; background:#fff; color:var(--ink); }
   .ctl input{ flex:1 1 200px; min-width:0; }
+  .ctl select{ max-width:100%; min-width:0; }
   #count{ font-size:13px; color:var(--ink-faint); margin:0 0 14px; }
-  details.p{ background:var(--card); border-radius:8px; margin:0 0 8px; }
-  details.p>summary{ list-style:none; cursor:pointer; padding:12px 14px; display:grid; grid-template-columns:1fr auto; gap:2px 12px; align-items:baseline; }
-  details.p>summary::-webkit-details-marker{ display:none; }
-  .nm{ color:var(--ink); font-weight:500; font-size:16px; }
-  .sub{ font-size:12.5px; color:var(--ink-faint); grid-column:1; }
-  .st{ grid-column:2; grid-row:1/3; text-align:right; font-size:12.5px; color:var(--ink-soft); white-space:nowrap; }
-  .st b{ font-size:18px; color:var(--ink); }
-  .body{ padding:2px 14px 14px; font-size:14px; }
+  table.ls{ width:100%; border-collapse:collapse; font-size:14px; }
+  table.ls th{ text-align:left; font-weight:500; font-size:12px; color:var(--ink-faint); padding:6px 8px; border-bottom:1px solid var(--line-faint); white-space:nowrap; }
+  table.ls th.n,table.ls td.n{ text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap; }
+  table.ls tr.r{ cursor:pointer; }
+  table.ls tr.r:hover td,table.ls tr.r:focus td{ background:var(--card); outline:none; }
+  table.ls td{ padding:8px; border-bottom:1px solid var(--line-faint); vertical-align:top; }
+  table.ls tr.r[aria-expanded="true"] td{ background:var(--card); border-bottom-color:transparent; }
+  table.ls tr.d td{ background:var(--card); padding:0 8px 14px; }
+  .nm{ color:var(--ink); font-weight:500; }
+  .sub{ font-size:12px; color:var(--ink-faint); display:block; line-height:1.5; }
+  @media(max-width:560px){ table.ls .hm{ display:none; } }
+  .body{ padding:2px 6px 6px; font-size:14px; }
   .body h3{ font-size:13px; margin:14px 0 6px; color:var(--ink); }
   .body ul{ margin:0; padding-left:1.2em; }
   .body li{ margin:0 0 6px; }
   .jr{ color:var(--ink-faint); font-size:12.5px; }
+  .rd{ margin:6px 0 4px; } .rd p{ margin:0; max-width:520px; }
+  .sm{ margin:3px 0 0; font-size:13px; color:var(--ink-soft); }
+  .srt{ font-size:12px; font-weight:400; color:var(--ink-faint); cursor:pointer; border-bottom:1px solid var(--line-faint); margin-left:6px; }
+  .srt:hover{ color:var(--ink); }
+  .jr.hi{ color:#8a5a00; font-weight:500; }
   .yr{ color:var(--ink-faint); font-variant-numeric:tabular-nums; }
   table.kv{ border-collapse:collapse; font-size:13px; margin:8px 0 4px; }
-  table.kv td{ padding:2px 16px 2px 0; } table.kv td:first-child{ color:var(--ink-faint); }
+  table.kv td{ padding:2px 16px 2px 0; }
+  table.ls table.kv td{ border:0; padding:2px 16px 2px 0; background:none; } table.kv td:first-child{ color:var(--ink-faint); }
   .note{ font-size:12.5px; color:var(--ink-faint); margin-top:28px; }
   .empty{ padding:24px 0; color:var(--ink-faint); }
 </style>
@@ -46,13 +57,15 @@
 <div class="wrap">
 <a class="back" href="/">← トップ</a>
 <h1>自治医科大学 教員の経歴と論文</h1>
-<p class="lead">教員が researchmap に公開している経歴と論文を、一覧にして見られるようにしたものです。教員の名前を押すと、経歴と論文のリストが開きます。</p>
+<p class="lead">教員が researchmap に公開している経歴と論文を、一覧にして見られるようにしたものです。表の行を押すと、その先生の経歴と論文のリストが開きます。</p>
 
 <div class="ctl">
-  <input id="q" type="search" placeholder="名前・講座・論文タイトルで検索" aria-label="検索">
+  <input id="q" type="search" placeholder="名前（かなも可）・講座・論文タイトルで検索" aria-label="検索">
   <select id="dept" aria-label="講座で絞る"><option value="">すべての講座</option></select>
   <select id="sort" aria-label="並べ方">
     <option value="papers">論文数が多い順</option>
+    <option value="cit">被引用数が多い順</option>
+    <option value="h">h指数が高い順</option>
     <option value="recent">直近5年の論文数が多い順</option>
     <option value="name">名前順</option>
   </select>
@@ -60,7 +73,7 @@
 <p id="count"></p>
 <div id="list"></div>
 
-<p class="note">データの出どころは researchmap（教員本人が登録した公開情報）です。登録されていない論文や経歴は数えていません。論文数・順位は「登録された件数」を比べたもので、研究の質や価値を測るものではありません（被引用数と、査読の有無が未登録の論文は反映されません）。専門や職位で論文の出方は大きく違います。誤りや掲載の取り下げのご希望は <a href="/contact/">お問い合わせ</a> からお知らせください。このサイトは自治医科大学の公式サイトではありません。<span id="upd"></span></p>
+<p class="note">データの出どころは researchmap（教員本人が登録した公開情報）です。登録されていない論文や経歴は数えていません。論文数・順位は「登録された件数」を比べたもので、研究の質や価値を測るものではありません。被引用数は Crossref（DOI を登録している論文の引用の記録）で調べた値で、DOI のない論文や Crossref に載らない引用は数えていません。そのため Scopus や Google Scholar の値より少なく出ます。h指数も、この数字から計算した目安です。被引用数の上位の論文には、要旨（PubMed）をもとに AI が書いた要約を付けています。要旨に書かれている内容だけをまとめたもので、誤りがあるかもしれません。正確な内容は、各論文のリンク先で確かめてください。論文ごとの「同年の論文の中で上位○%」は、この表にある論文（約1.3万件）の中で、同じ年に出たものと被引用数を比べた位置で、世界全体や同じ分野の中での位置ではありません（出版から2年以内の論文と0回の論文は出しません）。新しい論文は、まだ引用されていないだけのことが多く、分野によっても引用の多さは大きく違います（被引用数の取得日: <span id="cdt"></span>）。査読の有無が未登録の論文も、反映されません。専門や職位で論文の出方は大きく違います。誤りや掲載の取り下げのご希望は <a href="/contact/">お問い合わせ</a> からお知らせください。このサイトは自治医科大学の公式サイトではありません。<span id="upd"></span></p>
 </div>
 
 <script>
@@ -77,26 +90,103 @@
     var more=people.filter(function(o){return o.papers.length>x.papers.length}).length;
     return Math.max(1,Math.ceil((more+1)/people.length*100));
   }
+  var byYear={}; // 年 → 被引用数（大きい順）。同じ年の論文どうしで比べるため
+  function buildYears(){
+    byYear={};
+    people.forEach(function(x){x.papers.forEach(function(p){
+      if(p.c==null) return; var y=yr(p); if(!y) return; (byYear[y]=byYear[y]||[]).push(p.c);
+    })});
+    Object.keys(byYear).forEach(function(y){byYear[y].sort(function(a,b){return b-a})});
+  }
+  function pRank(p){ // 同じ年の登録論文の中での位置（上位○%）。新しすぎる年・件数の少ない年・0回は出さない
+    var y=yr(p),a=byYear[y];
+    if(p.c==null||!p.c||!a||a.length<30||+y>thisYear-2) return 0;
+    var more=0; while(more<a.length&&a[more]>p.c) more++;
+    return Math.max(1,Math.ceil((more+1)/a.length*100));
+  }
+  function pBadge(p){
+    var r=pRank(p); if(!r) return "";
+    return ' <span class="jr'+(r<=10?' hi':'')+'">同年の論文の中で上位 '+r+'%</span>';
+  }
+  // ---- レーダーチャート: 測れる6つの軸を、全教員の中での位置（0〜100）で描く ----
+  function topShare(x){ // 引用の多い論文（同年の上位10%）の割合。被引用数の分かる論文が10本以上の人だけ
+    if(x._ts!==undefined) return x._ts;
+    var n=0,k=0; x.papers.forEach(function(p){ if(p.c==null) return; n++; var r=pRank(p); if(r&&r<=10) k++; });
+    return x._ts=(x.cn>=10&&n?k/n:null);
+  }
+  var AXES=[
+    {l:"論文数",g:function(x){return x.papers.length?x.papers.length:null}},
+    {l:"直近5年の論文",g:function(x){return x.papers.length?recent(x):null}},
+    {l:"被引用数",g:function(x){return x.cn?x.cit:null}},
+    {l:"h指数",g:function(x){return x.cn?x.h:null}},
+    {l:"引用の多い論文の割合",g:topShare},
+    {l:"研究費・研究課題",g:function(x){return x.gr!=null?x.gr:null}}
+  ];
+  function buildAxes(){
+    AXES.forEach(function(a){a.v=people.map(a.g).filter(function(v){return v!==null}).sort(function(p,q){return p-q})});
+  }
+  function axPct(a,x){ // 位置（0〜100）。同じ値の人は半分ずつ数える
+    var v=a.g(x); if(v===null||!a.v.length) return null;
+    var lo=0,eq=0; a.v.forEach(function(w){if(w<v)lo++;else if(w===v)eq++});
+    return (lo+eq/2)/a.v.length*100;
+  }
+  function radar(x){
+    var cx=170,cy=128,R=78,n=AXES.length,pts=[],lab="",grid="",ax="";
+    function pt(i,r){var t=-Math.PI/2+i*2*Math.PI/n;return [cx+r*Math.cos(t),cy+r*Math.sin(t),t]}
+    [25,50,75,100].forEach(function(q){
+      grid+='<polygon points="'+AXES.map(function(_,i){var P=pt(i,R*q/100);return P[0].toFixed(1)+","+P[1].toFixed(1)}).join(" ")+'" fill="none" stroke="#8884" stroke-width="1"/>';
+    });
+    AXES.forEach(function(a,i){
+      var v=axPct(a,x),E=pt(i,R),L=pt(i,R+14),P=v===null?[cx,cy]:pt(i,R*v/100);
+      pts.push(P[0].toFixed(1)+","+P[1].toFixed(1));
+      ax+='<line x1="'+cx+'" y1="'+cy+'" x2="'+E[0].toFixed(1)+'" y2="'+E[1].toFixed(1)+'" stroke="#8884"/>';
+      var anc=Math.abs(Math.cos(L[2]))<0.2?"middle":(Math.cos(L[2])>0?"start":"end");
+      lab+='<text x="'+L[0].toFixed(1)+'" y="'+(L[1]+(Math.sin(L[2])>0.2?8:(Math.sin(L[2])<-0.2?-2:4))).toFixed(1)+'" text-anchor="'+anc+'" font-size="11" fill="'+(v===null?'#999':'currentColor')+'">'+esc(a.l)+
+        '<tspan x="'+L[0].toFixed(1)+'" dy="12" font-size="10" fill="#888">'+(v===null?'データなし':'上位 '+Math.max(1,Math.round(100-v))+'%')+'</tspan></text>';
+    });
+    return '<svg viewBox="0 0 340 260" role="img" aria-label="全教員の中での位置を6つの軸で示したレーダーチャート" style="max-width:360px;width:100%;color:inherit">'+grid+ax+
+      '<polygon points="'+pts.join(" ")+'" fill="#3b82f6" fill-opacity=".22" stroke="#3b82f6" stroke-width="1.6"/>'+lab+'</svg>';
+  }
+  function citRank(x){ // 被引用数の合計が自分より多い教員の割合から「上位○%」を出す（被引用数が分かる人の中で）
+    if(!x.cn) return "";
+    var all=people.filter(function(o){return o.cn}), more=all.filter(function(o){return o.cit>x.cit}).length;
+    return {n:all.length,p:Math.max(1,Math.ceil((more+1)/all.length*100))};
+  }
+  function top(x){var t=null;x.papers.forEach(function(p){if(p.c!=null&&(!t||p.c>t.c))t=p});return t}
   function recent(x){return x.papers.filter(function(p){return +yr(p)>=thisYear-4}).length}
   function link(p){
     if(p.doi) return ' <a href="https://doi.org/'+encodeURI(p.doi)+'" rel="noopener">DOI</a>';
     if(p.pmid) return ' <a href="https://pubmed.ncbi.nlm.nih.gov/'+encodeURIComponent(p.pmid)+'/" rel="noopener">PubMed</a>';
     return "";
   }
-  function card(x){
-    return cardHead(x)+'</summary><div class="body" data-id="'+esc(x.id)+'"></div></details>';
+  function row(x){
+    var n=x.papers.length;
+    return '<tr class="r" tabindex="0" role="button" aria-expanded="false" data-id="'+esc(x.id)+'">'+
+      '<td><span class="nm">'+esc(x.name)+'</span><span class="sub">'+esc(dk(x))+'</span></td>'+
+      '<td class="hm">'+esc(x.position)+'</td>'+
+      '<td class="n">'+(n?'<b>'+n+'</b>':'<span class="jr">0</span>')+'</td>'+
+      '<td class="n">'+(x.cn?x.cit:'<span class="jr">-</span>')+'</td>'+
+      '<td class="n hm">'+(x.cn?x.h:'<span class="jr">-</span>')+'</td>'+
+      '<td class="n hm">'+(n?recent(x):'')+'</td>'+
+      '<td class="n hm">'+(n?'上位 '+rank(x)+'%':'')+'</td></tr>';
   }
-  function cardHead(x){
-    var first=x.papers.length?yr(x.papers[x.papers.length-1]):"";
-    var h='<details class="p" data-id="'+esc(x.id)+'"><summary><span class="nm">'+esc(x.name)+'</span><span class="st"><b>'+x.papers.length+'</b> 件</span>'+
-      '<span class="sub">'+esc([dk(x),x.position].filter(Boolean).join(" ・ "))+
-      (x.papers.length?'　全教員中 上位 '+rank(x)+'%':'')+'</span>';
-    return h;
+  var SUM={}; // DOI → 要旨をもとにした AI の要約（被引用数の上位の論文だけ）
+  function smr(p){var t=p.doi&&SUM[p.doi.toLowerCase()];return t?'<div class="sm"><span class="jr">AIによる要約:</span> '+esc(t)+'</div>':""}
+  function paperList(x,mode){
+    var ps=x.papers.slice();
+    if(mode==="cit") ps.sort(function(a,b){return (b.c==null?-1:b.c)-(a.c==null?-1:a.c)});
+    return ps.length?'<ul>'+ps.map(function(p){
+      return '<li><span class="yr">'+esc(yr(p))+'</span>　'+esc(p.title)+'<br><span class="jr">'+esc(p.authors)+'　'+esc(p.journal)+'</span>'+(p.c!=null?' <span class="jr">被引用 '+p.c+'</span>':'')+pBadge(p)+link(p)+smr(p)+'</li>'}).join("")+'</ul>':'<div class="jr">登録なし</div>';
   }
   function bodyHtml(x){
     var first=x.papers.length?yr(x.papers[x.papers.length-1]):"";
     var h='';
+    if(x.papers.length) h+='<div class="rd">'+radar(x)+'<p class="jr">外側ほど、全教員の中で上位です。論文を通して測れる6つの軸だけを描いています。論文の新しさ、社会や医療への影響、臨床と教育の力は、測れないので含みません。</p></div>';
     if(x.papers.length) h+='<table class="kv"><tr><td>論文（登録件数）</td><td>'+x.papers.length+' 件</td></tr>'+
+      (x.cn?'<tr><td>被引用数（合計）</td><td>'+x.cit+' 回（'+x.cn+' 件の論文から）</td></tr>'+
+      '<tr><td>h指数</td><td>'+x.h+'</td></tr>'+
+      '<tr><td>被引用数の位置</td><td>上位 '+citRank(x).p+'%（'+citRank(x).n+' 人中）</td></tr>'+
+      (top(x)&&top(x).c?'<tr><td>最も引用された論文</td><td>'+top(x).c+' 回'+pBadge(top(x))+': '+esc(top(x).title.slice(0,70))+(top(x).title.length>70?'…':'')+'</td></tr>':''):'')+
       '<tr><td>うち査読ありと登録</td><td>'+peer(x)+' 件</td></tr>'+
       '<tr><td>直近5年</td><td>'+recent(x)+' 件</td></tr>'+
       '<tr><td>登録論文の期間</td><td>'+esc(first)+' 年〜（'+span(x)+' 年間）</td></tr>'+
@@ -105,42 +195,79 @@
     var cs=x.careers.filter(function(c){return /[\u3040-\u30ff\u4e00-\u9fff]/.test(c.text)&&(c.from||c.to)});
     h+=cs.length?'<ul>'+cs.map(function(c){
       return '<li><span class="yr">'+esc(c.from)+(c.from&&c.to&&c.from!==c.to?' 〜 '+esc(c.to):(c.from?'':'〜 '+esc(c.to)))+'</span>　'+esc(c.text)+'</li>'}).join("")+'</ul>':'<div class="jr">登録なし</div>';
-    h+='<h3>論文（'+x.papers.length+'件）</h3>';
-    h+=x.papers.length?'<ul>'+x.papers.map(function(p){
-      return '<li><span class="yr">'+esc(yr(p))+'</span>　'+esc(p.title)+'<br><span class="jr">'+esc(p.authors)+'　'+esc(p.journal)+'</span>'+link(p)+'</li>'}).join("")+'</ul>':'<div class="jr">登録なし</div>';
+    h+='<h3>論文（'+x.papers.length+'件）'+(x.cn?'　<span class="srt" data-m="date">新しい順</span> <span class="srt" data-m="cit">被引用数順</span>':'')+'</h3>';
+    h+='<div class="pl">'+paperList(x,"date")+'</div>';
     if(x.researchmap) h+='<p class="jr"><a href="https://researchmap.jp/'+encodeURIComponent(x.researchmap)+'" rel="noopener">researchmap のページ</a></p>';
     return h;
   }
+  var KANA={"あ":"a","い":"i","う":"u","え":"e","お":"o","か":"ka","き":"ki","く":"ku","け":"ke","こ":"ko","さ":"sa","し":"shi","す":"su","せ":"se","そ":"so","た":"ta","ち":"chi","つ":"tsu","て":"te","と":"to","な":"na","に":"ni","ぬ":"nu","ね":"ne","の":"no","は":"ha","ひ":"hi","ふ":"fu","へ":"he","ほ":"ho","ま":"ma","み":"mi","む":"mu","め":"me","も":"mo","や":"ya","ゆ":"yu","よ":"yo","ら":"ra","り":"ri","る":"ru","れ":"re","ろ":"ro","わ":"wa","を":"o","ん":"n","が":"ga","ぎ":"gi","ぐ":"gu","げ":"ge","ご":"go","ざ":"za","じ":"ji","ず":"zu","ぜ":"ze","ぞ":"zo","だ":"da","ぢ":"ji","づ":"zu","で":"de","ど":"do","ば":"ba","び":"bi","ぶ":"bu","べ":"be","ぼ":"bo","ぱ":"pa","ぴ":"pi","ぷ":"pu","ぺ":"pe","ぽ":"po","ー":""};
+  var YOON={"ゃ":"a","ゅ":"u","ょ":"o"};
+  function toRomaji(t){ // ひらがな・カタカナ → ローマ字（検索用のざっくり変換）
+    t=t.replace(/[\u30a1-\u30f6]/g,function(c){return String.fromCharCode(c.charCodeAt(0)-96)});
+    var o="";
+    for(var i=0;i<t.length;i++){
+      var c=t[i];
+      if(c==="っ"){var nx=KANA[t[i+1]]||"";o+=nx?nx[0]:"";continue}
+      if(YOON[t[i+1]]&&KANA[c]){var k=KANA[c];o+=(/(shi|chi|ji)$/.test(k)?k.slice(0,-1):k.slice(0,-1)+"y")+YOON[t[i+1]];i++;continue}
+      o+=KANA[c]!==undefined?KANA[c]:c;
+    }
+    return o;
+  }
+  function lax(t){return t.toLowerCase().replace(/ou/g,"o").replace(/oo/g,"o").replace(/uu/g,"u").replace(/h/g,"").replace(/[^a-z]/g,"")}
+  function romajiHit(x,rq){ // 英語名の「姓」「名」のどれかが、入力のローマ字で始まるか
+    var toks=(x.name_en||"").split(/\s+/);
+    for(var i=0;i<toks.length;i++) if(lax(toks[i]).indexOf(rq)===0) return true;
+    return false;
+  }
   function render(){
     var q=$("q").value.trim().toLowerCase(), d=$("dept").value, s=$("sort").value;
+    var KANAONLY=/^[\u3040-\u30ff\s]+$/.test(q), rq=KANAONLY?lax(toRomaji(q)):"";
     var r=people.filter(function(x){
       if(d&&dk(x)!==d) return false;
       if(!q) return true;
+      if(KANAONLY){ // かなだけの入力は、名前（漢字）とローマ字の名前だけを見る
+        return x.name.replace(/\s/g,"").indexOf(q.replace(/\s/g,""))>=0||romajiHit(x,rq);
+      }
       var hay=(x.name+" "+x.name_en+" "+x.department+" "+x.papers.map(function(p){return p.title}).join(" ")).toLowerCase();
       return hay.indexOf(q)>=0;
     });
     r.sort(function(a,b){
       if(s==="name") return a.name.localeCompare(b.name,"ja");
+      if(s==="cit") return (b.cit||0)-(a.cit||0)||b.papers.length-a.papers.length;
+      if(s==="h") return (b.h||0)-(a.h||0)||(b.cit||0)-(a.cit||0);
       if(s==="recent") return recent(b)-recent(a)||b.papers.length-a.papers.length;
       return b.papers.length-a.papers.length;
     });
     $("count").textContent=people.length?r.length+" 人を表示（全 "+people.length+" 人）":"";
-    $("list").innerHTML=r.length?r.map(card).join(""):'<div class="empty">'+(people.length?'条件に合う教員がいません。':'データはまだ入っていません。')+'</div>';
+    $("list").innerHTML=r.length?'<table class="ls"><thead><tr><th>名前・講座</th><th class="hm">職位</th><th class="n">論文</th><th class="n" title="Crossref で分かる被引用数の合計">被引用</th><th class="n hm" title="h指数（Crossref の被引用数から計算）">h指数</th><th class="n hm">直近5年</th><th class="n hm">順位</th></tr></thead><tbody>'+r.map(row).join("")+'</tbody></table>':'<div class="empty">'+(people.length?'条件に合う教員がいません。':'データはまだ入っていません。')+'</div>';
   }
+  fetch("data/summaries.json").then(function(r){return r.ok?r.json():{}}).then(function(j){SUM=j||{}}).catch(function(){});
   fetch("data/faculty.json").then(function(r){return r.json()}).then(function(j){
-    people=j.people||[];
+    people=j.people||[]; buildYears(); buildAxes();
+    if(j.cited) $("cdt").textContent=j.cited;
     if(j.updated) $("upd").textContent=" データの取得日: "+j.updated+"。";
     var ds={}; people.forEach(function(x){if(dk(x)) ds[dk(x)]=1});
     Object.keys(ds).sort(function(a,b){return a.localeCompare(b,"ja")}).forEach(function(k){
       var o=document.createElement("option"); o.value=o.textContent=k; $("dept").appendChild(o)});
     render();
   }).catch(function(){$("list").innerHTML='<div class="empty">データを読み込めませんでした。</div>'});
-  $("list").addEventListener("toggle",function(e){
-    var d=e.target,b=d.querySelector(".body");
-    if(!d.open||!b||b.firstChild) return;
-    var id=d.getAttribute("data-id");
-    for(var i=0;i<people.length;i++) if(people[i].id===id){ b.innerHTML=bodyHtml(people[i]); break; }
-  },true);
+  function toggle(tr){
+    var nx=tr.nextElementSibling;
+    if(nx&&nx.className==="d"){nx.parentNode.removeChild(nx);tr.setAttribute("aria-expanded","false");return}
+    var id=tr.getAttribute("data-id");
+    for(var i=0;i<people.length;i++) if(people[i].id===id){
+      var d=document.createElement("tr");d.className="d";
+      d.innerHTML='<td colspan="7"><div class="body">'+bodyHtml(people[i])+'</div></td>';
+      tr.parentNode.insertBefore(d,tr.nextSibling);tr.setAttribute("aria-expanded","true");break;
+    }
+  }
+  $("list").addEventListener("click",function(e){
+    var sr=e.target.closest&&e.target.closest(".srt");
+    if(sr){var tr0=sr.closest("tr.d").previousElementSibling,id=tr0.getAttribute("data-id");
+      for(var i=0;i<people.length;i++) if(people[i].id===id){sr.closest(".body").querySelector(".pl").innerHTML=paperList(people[i],sr.getAttribute("data-m"));break}
+      return;}
+    var tr=e.target.closest&&e.target.closest("tr.r");if(tr&&!e.target.closest("a"))toggle(tr)});
+  $("list").addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){var tr=e.target.closest&&e.target.closest("tr.r");if(tr&&e.target===tr){e.preventDefault();toggle(tr)}}});
   ["q","dept","sort"].forEach(function(id){$(id).addEventListener("input",render)});
 })();
 </script>
