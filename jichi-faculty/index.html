@@ -59,6 +59,8 @@
   <select id="dept" aria-label="講座で絞る"><option value="">すべての講座</option></select>
   <select id="sort" aria-label="並べ方">
     <option value="papers">論文数が多い順</option>
+    <option value="cit">被引用数が多い順</option>
+    <option value="h">h指数が高い順</option>
     <option value="recent">直近5年の論文数が多い順</option>
     <option value="name">名前順</option>
   </select>
@@ -66,7 +68,7 @@
 <p id="count"></p>
 <div id="list"></div>
 
-<p class="note">データの出どころは researchmap（教員本人が登録した公開情報）です。登録されていない論文や経歴は数えていません。論文数・順位は「登録された件数」を比べたもので、研究の質や価値を測るものではありません（被引用数と、査読の有無が未登録の論文は反映されません）。専門や職位で論文の出方は大きく違います。誤りや掲載の取り下げのご希望は <a href="/contact/">お問い合わせ</a> からお知らせください。このサイトは自治医科大学の公式サイトではありません。<span id="upd"></span></p>
+<p class="note">データの出どころは researchmap（教員本人が登録した公開情報）です。登録されていない論文や経歴は数えていません。論文数・順位は「登録された件数」を比べたもので、研究の質や価値を測るものではありません。被引用数は Crossref（DOI を登録している論文の引用の記録）で調べた値で、DOI のない論文や Crossref に載らない引用は数えていません。そのため Scopus や Google Scholar の値より少なく出ます。h指数も、この数字から計算した目安です。新しい論文は、まだ引用されていないだけのことが多く、分野によっても引用の多さは大きく違います（被引用数の取得日: <span id="cdt"></span>）。査読の有無が未登録の論文も、反映されません。専門や職位で論文の出方は大きく違います。誤りや掲載の取り下げのご希望は <a href="/contact/">お問い合わせ</a> からお知らせください。このサイトは自治医科大学の公式サイトではありません。<span id="upd"></span></p>
 </div>
 
 <script>
@@ -83,6 +85,12 @@
     var more=people.filter(function(o){return o.papers.length>x.papers.length}).length;
     return Math.max(1,Math.ceil((more+1)/people.length*100));
   }
+  function citRank(x){ // 被引用数の合計が自分より多い教員の割合から「上位○%」を出す（被引用数が分かる人の中で）
+    if(!x.cn) return "";
+    var all=people.filter(function(o){return o.cn}), more=all.filter(function(o){return o.cit>x.cit}).length;
+    return {n:all.length,p:Math.max(1,Math.ceil((more+1)/all.length*100))};
+  }
+  function top(x){var t=null;x.papers.forEach(function(p){if(p.c!=null&&(!t||p.c>t.c))t=p});return t}
   function recent(x){return x.papers.filter(function(p){return +yr(p)>=thisYear-4}).length}
   function link(p){
     if(p.doi) return ' <a href="https://doi.org/'+encodeURI(p.doi)+'" rel="noopener">DOI</a>';
@@ -95,6 +103,8 @@
       '<td><span class="nm">'+esc(x.name)+'</span><span class="sub">'+esc(dk(x))+'</span></td>'+
       '<td class="hm">'+esc(x.position)+'</td>'+
       '<td class="n">'+(n?'<b>'+n+'</b>':'<span class="jr">0</span>')+'</td>'+
+      '<td class="n">'+(x.cn?x.cit:'<span class="jr">-</span>')+'</td>'+
+      '<td class="n hm">'+(x.cn?x.h:'<span class="jr">-</span>')+'</td>'+
       '<td class="n hm">'+(n?recent(x):'')+'</td>'+
       '<td class="n hm">'+(n?'上位 '+rank(x)+'%':'')+'</td></tr>';
   }
@@ -102,6 +112,10 @@
     var first=x.papers.length?yr(x.papers[x.papers.length-1]):"";
     var h='';
     if(x.papers.length) h+='<table class="kv"><tr><td>論文（登録件数）</td><td>'+x.papers.length+' 件</td></tr>'+
+      (x.cn?'<tr><td>被引用数（合計）</td><td>'+x.cit+' 回（'+x.cn+' 件の論文から）</td></tr>'+
+      '<tr><td>h指数</td><td>'+x.h+'</td></tr>'+
+      '<tr><td>被引用数の位置</td><td>上位 '+citRank(x).p+'%（'+citRank(x).n+' 人中）</td></tr>'+
+      (top(x)&&top(x).c?'<tr><td>最も引用された論文</td><td>'+top(x).c+' 回: '+esc(top(x).title.slice(0,70))+(top(x).title.length>70?'…':'')+'</td></tr>':''):'')+
       '<tr><td>うち査読ありと登録</td><td>'+peer(x)+' 件</td></tr>'+
       '<tr><td>直近5年</td><td>'+recent(x)+' 件</td></tr>'+
       '<tr><td>登録論文の期間</td><td>'+esc(first)+' 年〜（'+span(x)+' 年間）</td></tr>'+
@@ -112,7 +126,7 @@
       return '<li><span class="yr">'+esc(c.from)+(c.from&&c.to&&c.from!==c.to?' 〜 '+esc(c.to):(c.from?'':'〜 '+esc(c.to)))+'</span>　'+esc(c.text)+'</li>'}).join("")+'</ul>':'<div class="jr">登録なし</div>';
     h+='<h3>論文（'+x.papers.length+'件）</h3>';
     h+=x.papers.length?'<ul>'+x.papers.map(function(p){
-      return '<li><span class="yr">'+esc(yr(p))+'</span>　'+esc(p.title)+'<br><span class="jr">'+esc(p.authors)+'　'+esc(p.journal)+'</span>'+link(p)+'</li>'}).join("")+'</ul>':'<div class="jr">登録なし</div>';
+      return '<li><span class="yr">'+esc(yr(p))+'</span>　'+esc(p.title)+'<br><span class="jr">'+esc(p.authors)+'　'+esc(p.journal)+'</span>'+(p.c!=null?' <span class="jr">被引用 '+p.c+'</span>':'')+link(p)+'</li>'}).join("")+'</ul>':'<div class="jr">登録なし</div>';
     if(x.researchmap) h+='<p class="jr"><a href="https://researchmap.jp/'+encodeURIComponent(x.researchmap)+'" rel="noopener">researchmap のページ</a></p>';
     return h;
   }
@@ -149,14 +163,17 @@
     });
     r.sort(function(a,b){
       if(s==="name") return a.name.localeCompare(b.name,"ja");
+      if(s==="cit") return (b.cit||0)-(a.cit||0)||b.papers.length-a.papers.length;
+      if(s==="h") return (b.h||0)-(a.h||0)||(b.cit||0)-(a.cit||0);
       if(s==="recent") return recent(b)-recent(a)||b.papers.length-a.papers.length;
       return b.papers.length-a.papers.length;
     });
     $("count").textContent=people.length?r.length+" 人を表示（全 "+people.length+" 人）":"";
-    $("list").innerHTML=r.length?'<table class="ls"><thead><tr><th>名前・講座</th><th class="hm">職位</th><th class="n">論文</th><th class="n hm">直近5年</th><th class="n hm">順位</th></tr></thead><tbody>'+r.map(row).join("")+'</tbody></table>':'<div class="empty">'+(people.length?'条件に合う教員がいません。':'データはまだ入っていません。')+'</div>';
+    $("list").innerHTML=r.length?'<table class="ls"><thead><tr><th>名前・講座</th><th class="hm">職位</th><th class="n">論文</th><th class="n" title="Crossref で分かる被引用数の合計">被引用</th><th class="n hm" title="h指数（Crossref の被引用数から計算）">h指数</th><th class="n hm">直近5年</th><th class="n hm">順位</th></tr></thead><tbody>'+r.map(row).join("")+'</tbody></table>':'<div class="empty">'+(people.length?'条件に合う教員がいません。':'データはまだ入っていません。')+'</div>';
   }
   fetch("data/faculty.json").then(function(r){return r.json()}).then(function(j){
     people=j.people||[];
+    if(j.cited) $("cdt").textContent=j.cited;
     if(j.updated) $("upd").textContent=" データの取得日: "+j.updated+"。";
     var ds={}; people.forEach(function(x){if(dk(x)) ds[dk(x)]=1});
     Object.keys(ds).sort(function(a,b){return a.localeCompare(b,"ja")}).forEach(function(k){
@@ -169,7 +186,7 @@
     var id=tr.getAttribute("data-id");
     for(var i=0;i<people.length;i++) if(people[i].id===id){
       var d=document.createElement("tr");d.className="d";
-      d.innerHTML='<td colspan="5"><div class="body">'+bodyHtml(people[i])+'</div></td>';
+      d.innerHTML='<td colspan="7"><div class="body">'+bodyHtml(people[i])+'</div></td>';
       tr.parentNode.insertBefore(d,tr.nextSibling);tr.setAttribute("aria-expanded","true");break;
     }
   }
