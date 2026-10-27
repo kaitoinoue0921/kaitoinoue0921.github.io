@@ -54,6 +54,14 @@
   .rank{padding-left:1.6em;font-size:14px;columns:2}
   .rank li{break-inside:avoid}
   a{color:var(--accent)}
+  .prose p{font-size:16px;line-height:2;margin:0 0 1.1em;color:var(--ink)}
+  .note{font-size:13px}
+  #cards{display:none;margin-top:12px}
+  .card{display:block;width:100%;text-align:left;border:1px solid rgba(0,0,0,.2);border-radius:6px;padding:9px 12px;margin:0 0 6px;color:#1b1b1b;font:inherit;line-height:1.5}
+  .card b{font-size:16px}
+  .card .dv{float:right;font-size:14px;font-weight:600}
+  .card small{display:block;font-size:13px;color:#444}
+  @media (max-width:600px){.mapwrap{display:none}#cards{display:block}.rank{columns:1}}
 </style>
 </head>
 <body>
@@ -67,11 +75,15 @@
   <div class="tier"><b>キャンパスは栃木県下野市</b><span>全国から来た同期が、栃木で一緒に学びます。</span><small>※制度の細かい条件は年度で変わります。正確なことは大学の公式案内で確認してください。</small></div>
 
   <h2>県別　トップ校マップ</h2>
+  <div class="prose">
+  <p>県ごとの公立トップ校を見ると、多くは県庁所在地にあった旧制中学の流れをくむ学校です。日比谷は東京府立第一中学校、浦和は埼玉県の旧制浦和中学がもとで、前橋・宇都宮・水戸第一なども同じ系統です。いまは中高一貫の私立や国立が上位を占める県も多く、東京・神奈川・関西などでは公立だけを「トップ」とは言いにくくなっています。そのため、公立トップ校と私立・国立のトップ校を切り替えて見られるようにしています。</p>
+  </div>
   <p class="note">各県の「公立トップ校」を地図の形に並べました（位置はおおよその配置）。マスをタップすると、私立・国立の難関校も出ます。年や指標で変わるので、あくまで目安です。</p>
   <div class="modes"><button class="mode kind on" data-k="pub">公立トップ校</button><button class="mode kind" data-k="pri">私立・国立トップ校</button></div>
   <div class="modes"><button class="mode col on" data-m="region">地方別に色分け</button><button class="mode col" data-m="dev">偏差値別に色分け</button></div>
   <div class="legend" id="legend"></div>
   <div class="mapwrap"><div class="map" id="map"></div></div>
+  <div id="cards"></div>
   <div class="out detail" id="prefOut">マスをタップしてください。</div>
   <h3 class="h3">2県を比べる</h3>
   <div class="cmp"><select id="cmpA"></select><span>vs</span><select id="cmpB"></select></div>
@@ -177,7 +189,7 @@
   var DB = [[75,"75以上","#e8a7a0"],[73,"73〜74","#f1bda0"],[70,"70〜72","#f7e3a6"],[67,"67〜69","#d6ecd2"],[0,"66以下","#cfe3f7"]];
   function band(v){ for (var k=0;k<DB.length;k++) if (v >= DB[k][0]) return DB[k]; }
   var po = document.getElementById("prefOut"), tb = document.querySelector("#prefTable tbody"), mp = document.getElementById("map"), lg = document.getElementById("legend"), cur = null;
-  var mode = "region", kind = "pub", tiles = [];
+  var mode = "region", kind = "pub", tiles = [], cardEls = [], cd = document.getElementById("cards");
   function legend(){
     lg.innerHTML = "";
     (mode === "region" ? RG : DB.map(function(b){ return [b[1], b[2]]; })).forEach(function(r){
@@ -185,6 +197,15 @@
       i.style.background = r[1]; d.appendChild(i); d.appendChild(document.createTextNode(r[0])); lg.appendChild(d); });
   }
   function paint(){
+    cardEls.forEach(function(x){
+      var v = sch(x.r), o = kind === "pub" ? pri(x.r) : pub(x.r), c = x.t;
+      c.style.background = !v ? "#eee" : (mode === "region" ? RG[G[x.r[0]][2]][1] : band(v[2])[2]);
+      c.innerHTML = "";
+      var dv = document.createElement("span"); dv.className = "dv"; dv.textContent = v ? "偏差値" + disp(v[1], v[2], v[3]) : "—";
+      var n = document.createElement("b"); n.textContent = x.r[0];
+      c.appendChild(dv); c.appendChild(n); c.appendChild(document.createTextNode("　" + (v ? v[0] : "確認できていません")));
+      if (o) { var s = document.createElement("small"); s.textContent = (kind === "pub" ? "私立・国立：" : "公立：") + o[0] + "（" + disp(o[1], o[2], o[3]) + "）"; c.appendChild(s); }
+    });
     tiles.forEach(function(x){
       var v = sch(x.r);
       x.t.style.background = !v ? "#eee" : (mode === "region" ? RG[G[x.r[0]][2]][1] : band(v[2])[2]);
@@ -229,6 +250,10 @@
     t.appendChild(n); t.appendChild(sc); t.appendChild(dv); tiles.push({r:r, t:t, s:sc, d:dv});
     t.onclick = function(){ pick(r, t); };
     mp.appendChild(t);
+  });
+  P.forEach(function(r){
+    var c = document.createElement("div"); c.className = "card";
+    cardEls.push({r:r, t:c}); cd.appendChild(c);
   });
   paint();
   function fit(){
