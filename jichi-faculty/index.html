@@ -22,22 +22,28 @@
   .ctl{ display:flex; flex-wrap:wrap; gap:10px; margin:0 0 8px; }
   .ctl input,.ctl select{ font:inherit; font-size:14px; padding:8px 10px; border:1px solid var(--line-faint); border-radius:6px; background:#fff; color:var(--ink); }
   .ctl input{ flex:1 1 200px; min-width:0; }
+  .ctl select{ max-width:100%; min-width:0; }
   #count{ font-size:13px; color:var(--ink-faint); margin:0 0 14px; }
-  details.p{ background:var(--card); border-radius:8px; margin:0 0 8px; }
-  details.p>summary{ list-style:none; cursor:pointer; padding:12px 14px; display:grid; grid-template-columns:1fr auto; gap:2px 12px; align-items:baseline; }
-  details.p>summary::-webkit-details-marker{ display:none; }
-  .nm{ color:var(--ink); font-weight:500; font-size:16px; }
-  .sub{ font-size:12.5px; color:var(--ink-faint); grid-column:1; }
-  .st{ grid-column:2; grid-row:1/3; text-align:right; font-size:12.5px; color:var(--ink-soft); white-space:nowrap; }
-  .st b{ font-size:18px; color:var(--ink); }
-  .body{ padding:2px 14px 14px; font-size:14px; }
+  table.ls{ width:100%; border-collapse:collapse; font-size:14px; }
+  table.ls th{ text-align:left; font-weight:500; font-size:12px; color:var(--ink-faint); padding:6px 8px; border-bottom:1px solid var(--line-faint); white-space:nowrap; }
+  table.ls th.n,table.ls td.n{ text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap; }
+  table.ls tr.r{ cursor:pointer; }
+  table.ls tr.r:hover td,table.ls tr.r:focus td{ background:var(--card); outline:none; }
+  table.ls td{ padding:8px; border-bottom:1px solid var(--line-faint); vertical-align:top; }
+  table.ls tr.r[aria-expanded="true"] td{ background:var(--card); border-bottom-color:transparent; }
+  table.ls tr.d td{ background:var(--card); padding:0 8px 14px; }
+  .nm{ color:var(--ink); font-weight:500; }
+  .sub{ font-size:12px; color:var(--ink-faint); display:block; line-height:1.5; }
+  @media(max-width:560px){ table.ls .hm{ display:none; } }
+  .body{ padding:2px 6px 6px; font-size:14px; }
   .body h3{ font-size:13px; margin:14px 0 6px; color:var(--ink); }
   .body ul{ margin:0; padding-left:1.2em; }
   .body li{ margin:0 0 6px; }
   .jr{ color:var(--ink-faint); font-size:12.5px; }
   .yr{ color:var(--ink-faint); font-variant-numeric:tabular-nums; }
   table.kv{ border-collapse:collapse; font-size:13px; margin:8px 0 4px; }
-  table.kv td{ padding:2px 16px 2px 0; } table.kv td:first-child{ color:var(--ink-faint); }
+  table.kv td{ padding:2px 16px 2px 0; }
+  table.ls table.kv td{ border:0; padding:2px 16px 2px 0; background:none; } table.kv td:first-child{ color:var(--ink-faint); }
   .note{ font-size:12.5px; color:var(--ink-faint); margin-top:28px; }
   .empty{ padding:24px 0; color:var(--ink-faint); }
 </style>
@@ -46,10 +52,10 @@
 <div class="wrap">
 <a class="back" href="/">← トップ</a>
 <h1>自治医科大学 教員の経歴と論文</h1>
-<p class="lead">教員が researchmap に公開している経歴と論文を、一覧にして見られるようにしたものです。教員の名前を押すと、経歴と論文のリストが開きます。</p>
+<p class="lead">教員が researchmap に公開している経歴と論文を、一覧にして見られるようにしたものです。表の行を押すと、その先生の経歴と論文のリストが開きます。</p>
 
 <div class="ctl">
-  <input id="q" type="search" placeholder="名前・講座・論文タイトルで検索" aria-label="検索">
+  <input id="q" type="search" placeholder="名前（かなも可）・講座・論文タイトルで検索" aria-label="検索">
   <select id="dept" aria-label="講座で絞る"><option value="">すべての講座</option></select>
   <select id="sort" aria-label="並べ方">
     <option value="papers">論文数が多い順</option>
@@ -83,15 +89,14 @@
     if(p.pmid) return ' <a href="https://pubmed.ncbi.nlm.nih.gov/'+encodeURIComponent(p.pmid)+'/" rel="noopener">PubMed</a>';
     return "";
   }
-  function card(x){
-    return cardHead(x)+'</summary><div class="body" data-id="'+esc(x.id)+'"></div></details>';
-  }
-  function cardHead(x){
-    var first=x.papers.length?yr(x.papers[x.papers.length-1]):"";
-    var h='<details class="p" data-id="'+esc(x.id)+'"><summary><span class="nm">'+esc(x.name)+'</span><span class="st"><b>'+x.papers.length+'</b> 件</span>'+
-      '<span class="sub">'+esc([dk(x),x.position].filter(Boolean).join(" ・ "))+
-      (x.papers.length?'　全教員中 上位 '+rank(x)+'%':'')+'</span>';
-    return h;
+  function row(x){
+    var n=x.papers.length;
+    return '<tr class="r" tabindex="0" role="button" aria-expanded="false" data-id="'+esc(x.id)+'">'+
+      '<td><span class="nm">'+esc(x.name)+'</span><span class="sub">'+esc(dk(x))+'</span></td>'+
+      '<td class="hm">'+esc(x.position)+'</td>'+
+      '<td class="n">'+(n?'<b>'+n+'</b>':'<span class="jr">0</span>')+'</td>'+
+      '<td class="n hm">'+(n?recent(x):'')+'</td>'+
+      '<td class="n hm">'+(n?'上位 '+rank(x)+'%':'')+'</td></tr>';
   }
   function bodyHtml(x){
     var first=x.papers.length?yr(x.papers[x.papers.length-1]):"";
@@ -111,11 +116,34 @@
     if(x.researchmap) h+='<p class="jr"><a href="https://researchmap.jp/'+encodeURIComponent(x.researchmap)+'" rel="noopener">researchmap のページ</a></p>';
     return h;
   }
+  var KANA={"あ":"a","い":"i","う":"u","え":"e","お":"o","か":"ka","き":"ki","く":"ku","け":"ke","こ":"ko","さ":"sa","し":"shi","す":"su","せ":"se","そ":"so","た":"ta","ち":"chi","つ":"tsu","て":"te","と":"to","な":"na","に":"ni","ぬ":"nu","ね":"ne","の":"no","は":"ha","ひ":"hi","ふ":"fu","へ":"he","ほ":"ho","ま":"ma","み":"mi","む":"mu","め":"me","も":"mo","や":"ya","ゆ":"yu","よ":"yo","ら":"ra","り":"ri","る":"ru","れ":"re","ろ":"ro","わ":"wa","を":"o","ん":"n","が":"ga","ぎ":"gi","ぐ":"gu","げ":"ge","ご":"go","ざ":"za","じ":"ji","ず":"zu","ぜ":"ze","ぞ":"zo","だ":"da","ぢ":"ji","づ":"zu","で":"de","ど":"do","ば":"ba","び":"bi","ぶ":"bu","べ":"be","ぼ":"bo","ぱ":"pa","ぴ":"pi","ぷ":"pu","ぺ":"pe","ぽ":"po","ー":""};
+  var YOON={"ゃ":"a","ゅ":"u","ょ":"o"};
+  function toRomaji(t){ // ひらがな・カタカナ → ローマ字（検索用のざっくり変換）
+    t=t.replace(/[\u30a1-\u30f6]/g,function(c){return String.fromCharCode(c.charCodeAt(0)-96)});
+    var o="";
+    for(var i=0;i<t.length;i++){
+      var c=t[i];
+      if(c==="っ"){var nx=KANA[t[i+1]]||"";o+=nx?nx[0]:"";continue}
+      if(YOON[t[i+1]]&&KANA[c]){var k=KANA[c];o+=(/(shi|chi|ji)$/.test(k)?k.slice(0,-1):k.slice(0,-1)+"y")+YOON[t[i+1]];i++;continue}
+      o+=KANA[c]!==undefined?KANA[c]:c;
+    }
+    return o;
+  }
+  function lax(t){return t.toLowerCase().replace(/ou/g,"o").replace(/oo/g,"o").replace(/uu/g,"u").replace(/h/g,"").replace(/[^a-z]/g,"")}
+  function romajiHit(x,rq){ // 英語名の「姓」「名」のどれかが、入力のローマ字で始まるか
+    var toks=(x.name_en||"").split(/\s+/);
+    for(var i=0;i<toks.length;i++) if(lax(toks[i]).indexOf(rq)===0) return true;
+    return false;
+  }
   function render(){
     var q=$("q").value.trim().toLowerCase(), d=$("dept").value, s=$("sort").value;
+    var KANAONLY=/^[\u3040-\u30ff\s]+$/.test(q), rq=KANAONLY?lax(toRomaji(q)):"";
     var r=people.filter(function(x){
       if(d&&dk(x)!==d) return false;
       if(!q) return true;
+      if(KANAONLY){ // かなだけの入力は、名前（漢字）とローマ字の名前だけを見る
+        return x.name.replace(/\s/g,"").indexOf(q.replace(/\s/g,""))>=0||romajiHit(x,rq);
+      }
       var hay=(x.name+" "+x.name_en+" "+x.department+" "+x.papers.map(function(p){return p.title}).join(" ")).toLowerCase();
       return hay.indexOf(q)>=0;
     });
@@ -125,7 +153,7 @@
       return b.papers.length-a.papers.length;
     });
     $("count").textContent=people.length?r.length+" 人を表示（全 "+people.length+" 人）":"";
-    $("list").innerHTML=r.length?r.map(card).join(""):'<div class="empty">'+(people.length?'条件に合う教員がいません。':'データはまだ入っていません。')+'</div>';
+    $("list").innerHTML=r.length?'<table class="ls"><thead><tr><th>名前・講座</th><th class="hm">職位</th><th class="n">論文</th><th class="n hm">直近5年</th><th class="n hm">順位</th></tr></thead><tbody>'+r.map(row).join("")+'</tbody></table>':'<div class="empty">'+(people.length?'条件に合う教員がいません。':'データはまだ入っていません。')+'</div>';
   }
   fetch("data/faculty.json").then(function(r){return r.json()}).then(function(j){
     people=j.people||[];
@@ -135,12 +163,18 @@
       var o=document.createElement("option"); o.value=o.textContent=k; $("dept").appendChild(o)});
     render();
   }).catch(function(){$("list").innerHTML='<div class="empty">データを読み込めませんでした。</div>'});
-  $("list").addEventListener("toggle",function(e){
-    var d=e.target,b=d.querySelector(".body");
-    if(!d.open||!b||b.firstChild) return;
-    var id=d.getAttribute("data-id");
-    for(var i=0;i<people.length;i++) if(people[i].id===id){ b.innerHTML=bodyHtml(people[i]); break; }
-  },true);
+  function toggle(tr){
+    var nx=tr.nextElementSibling;
+    if(nx&&nx.className==="d"){nx.parentNode.removeChild(nx);tr.setAttribute("aria-expanded","false");return}
+    var id=tr.getAttribute("data-id");
+    for(var i=0;i<people.length;i++) if(people[i].id===id){
+      var d=document.createElement("tr");d.className="d";
+      d.innerHTML='<td colspan="5"><div class="body">'+bodyHtml(people[i])+'</div></td>';
+      tr.parentNode.insertBefore(d,tr.nextSibling);tr.setAttribute("aria-expanded","true");break;
+    }
+  }
+  $("list").addEventListener("click",function(e){var tr=e.target.closest&&e.target.closest("tr.r");if(tr&&!e.target.closest("a"))toggle(tr)});
+  $("list").addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){var tr=e.target.closest&&e.target.closest("tr.r");if(tr&&e.target===tr){e.preventDefault();toggle(tr)}}});
   ["q","dept","sort"].forEach(function(id){$(id).addEventListener("input",render)});
 })();
 </script>
