@@ -40,6 +40,9 @@
   .body ul{ margin:0; padding-left:1.2em; }
   .body li{ margin:0 0 6px; }
   .jr{ color:var(--ink-faint); font-size:12.5px; }
+  .srt{ font-size:12px; font-weight:400; color:var(--ink-faint); cursor:pointer; border-bottom:1px solid var(--line-faint); margin-left:6px; }
+  .srt:hover{ color:var(--ink); }
+  .jr.hi{ color:#8a5a00; font-weight:500; }
   .yr{ color:var(--ink-faint); font-variant-numeric:tabular-nums; }
   table.kv{ border-collapse:collapse; font-size:13px; margin:8px 0 4px; }
   table.kv td{ padding:2px 16px 2px 0; }
@@ -68,7 +71,7 @@
 <p id="count"></p>
 <div id="list"></div>
 
-<p class="note">データの出どころは researchmap（教員本人が登録した公開情報）です。登録されていない論文や経歴は数えていません。論文数・順位は「登録された件数」を比べたもので、研究の質や価値を測るものではありません。被引用数は Crossref（DOI を登録している論文の引用の記録）で調べた値で、DOI のない論文や Crossref に載らない引用は数えていません。そのため Scopus や Google Scholar の値より少なく出ます。h指数も、この数字から計算した目安です。新しい論文は、まだ引用されていないだけのことが多く、分野によっても引用の多さは大きく違います（被引用数の取得日: <span id="cdt"></span>）。査読の有無が未登録の論文も、反映されません。専門や職位で論文の出方は大きく違います。誤りや掲載の取り下げのご希望は <a href="/contact/">お問い合わせ</a> からお知らせください。このサイトは自治医科大学の公式サイトではありません。<span id="upd"></span></p>
+<p class="note">データの出どころは researchmap（教員本人が登録した公開情報）です。登録されていない論文や経歴は数えていません。論文数・順位は「登録された件数」を比べたもので、研究の質や価値を測るものではありません。被引用数は Crossref（DOI を登録している論文の引用の記録）で調べた値で、DOI のない論文や Crossref に載らない引用は数えていません。そのため Scopus や Google Scholar の値より少なく出ます。h指数も、この数字から計算した目安です。論文ごとの「同年の論文の中で上位○%」は、この表にある論文（約1.3万件）の中で、同じ年に出たものと被引用数を比べた位置で、世界全体や同じ分野の中での位置ではありません（出版から2年以内の論文と0回の論文は出しません）。新しい論文は、まだ引用されていないだけのことが多く、分野によっても引用の多さは大きく違います（被引用数の取得日: <span id="cdt"></span>）。査読の有無が未登録の論文も、反映されません。専門や職位で論文の出方は大きく違います。誤りや掲載の取り下げのご希望は <a href="/contact/">お問い合わせ</a> からお知らせください。このサイトは自治医科大学の公式サイトではありません。<span id="upd"></span></p>
 </div>
 
 <script>
@@ -84,6 +87,24 @@
     if(!x.papers.length) return "";
     var more=people.filter(function(o){return o.papers.length>x.papers.length}).length;
     return Math.max(1,Math.ceil((more+1)/people.length*100));
+  }
+  var byYear={}; // 年 → 被引用数（大きい順）。同じ年の論文どうしで比べるため
+  function buildYears(){
+    byYear={};
+    people.forEach(function(x){x.papers.forEach(function(p){
+      if(p.c==null) return; var y=yr(p); if(!y) return; (byYear[y]=byYear[y]||[]).push(p.c);
+    })});
+    Object.keys(byYear).forEach(function(y){byYear[y].sort(function(a,b){return b-a})});
+  }
+  function pRank(p){ // 同じ年の登録論文の中での位置（上位○%）。新しすぎる年・件数の少ない年・0回は出さない
+    var y=yr(p),a=byYear[y];
+    if(p.c==null||!p.c||!a||a.length<30||+y>thisYear-2) return 0;
+    var more=0; while(more<a.length&&a[more]>p.c) more++;
+    return Math.max(1,Math.ceil((more+1)/a.length*100));
+  }
+  function pBadge(p){
+    var r=pRank(p); if(!r) return "";
+    return ' <span class="jr'+(r<=10?' hi':'')+'">同年の論文の中で上位 '+r+'%</span>';
   }
   function citRank(x){ // 被引用数の合計が自分より多い教員の割合から「上位○%」を出す（被引用数が分かる人の中で）
     if(!x.cn) return "";
@@ -108,6 +129,12 @@
       '<td class="n hm">'+(n?recent(x):'')+'</td>'+
       '<td class="n hm">'+(n?'上位 '+rank(x)+'%':'')+'</td></tr>';
   }
+  function paperList(x,mode){
+    var ps=x.papers.slice();
+    if(mode==="cit") ps.sort(function(a,b){return (b.c==null?-1:b.c)-(a.c==null?-1:a.c)});
+    return ps.length?'<ul>'+ps.map(function(p){
+      return '<li><span class="yr">'+esc(yr(p))+'</span>　'+esc(p.title)+'<br><span class="jr">'+esc(p.authors)+'　'+esc(p.journal)+'</span>'+(p.c!=null?' <span class="jr">被引用 '+p.c+'</span>':'')+pBadge(p)+link(p)+'</li>'}).join("")+'</ul>':'<div class="jr">登録なし</div>';
+  }
   function bodyHtml(x){
     var first=x.papers.length?yr(x.papers[x.papers.length-1]):"";
     var h='';
@@ -115,7 +142,7 @@
       (x.cn?'<tr><td>被引用数（合計）</td><td>'+x.cit+' 回（'+x.cn+' 件の論文から）</td></tr>'+
       '<tr><td>h指数</td><td>'+x.h+'</td></tr>'+
       '<tr><td>被引用数の位置</td><td>上位 '+citRank(x).p+'%（'+citRank(x).n+' 人中）</td></tr>'+
-      (top(x)&&top(x).c?'<tr><td>最も引用された論文</td><td>'+top(x).c+' 回: '+esc(top(x).title.slice(0,70))+(top(x).title.length>70?'…':'')+'</td></tr>':''):'')+
+      (top(x)&&top(x).c?'<tr><td>最も引用された論文</td><td>'+top(x).c+' 回'+pBadge(top(x))+': '+esc(top(x).title.slice(0,70))+(top(x).title.length>70?'…':'')+'</td></tr>':''):'')+
       '<tr><td>うち査読ありと登録</td><td>'+peer(x)+' 件</td></tr>'+
       '<tr><td>直近5年</td><td>'+recent(x)+' 件</td></tr>'+
       '<tr><td>登録論文の期間</td><td>'+esc(first)+' 年〜（'+span(x)+' 年間）</td></tr>'+
@@ -124,9 +151,8 @@
     var cs=x.careers.filter(function(c){return /[\u3040-\u30ff\u4e00-\u9fff]/.test(c.text)&&(c.from||c.to)});
     h+=cs.length?'<ul>'+cs.map(function(c){
       return '<li><span class="yr">'+esc(c.from)+(c.from&&c.to&&c.from!==c.to?' 〜 '+esc(c.to):(c.from?'':'〜 '+esc(c.to)))+'</span>　'+esc(c.text)+'</li>'}).join("")+'</ul>':'<div class="jr">登録なし</div>';
-    h+='<h3>論文（'+x.papers.length+'件）</h3>';
-    h+=x.papers.length?'<ul>'+x.papers.map(function(p){
-      return '<li><span class="yr">'+esc(yr(p))+'</span>　'+esc(p.title)+'<br><span class="jr">'+esc(p.authors)+'　'+esc(p.journal)+'</span>'+(p.c!=null?' <span class="jr">被引用 '+p.c+'</span>':'')+link(p)+'</li>'}).join("")+'</ul>':'<div class="jr">登録なし</div>';
+    h+='<h3>論文（'+x.papers.length+'件）'+(x.cn?'　<span class="srt" data-m="date">新しい順</span> <span class="srt" data-m="cit">被引用数順</span>':'')+'</h3>';
+    h+='<div class="pl">'+paperList(x,"date")+'</div>';
     if(x.researchmap) h+='<p class="jr"><a href="https://researchmap.jp/'+encodeURIComponent(x.researchmap)+'" rel="noopener">researchmap のページ</a></p>';
     return h;
   }
@@ -172,7 +198,7 @@
     $("list").innerHTML=r.length?'<table class="ls"><thead><tr><th>名前・講座</th><th class="hm">職位</th><th class="n">論文</th><th class="n" title="Crossref で分かる被引用数の合計">被引用</th><th class="n hm" title="h指数（Crossref の被引用数から計算）">h指数</th><th class="n hm">直近5年</th><th class="n hm">順位</th></tr></thead><tbody>'+r.map(row).join("")+'</tbody></table>':'<div class="empty">'+(people.length?'条件に合う教員がいません。':'データはまだ入っていません。')+'</div>';
   }
   fetch("data/faculty.json").then(function(r){return r.json()}).then(function(j){
-    people=j.people||[];
+    people=j.people||[]; buildYears();
     if(j.cited) $("cdt").textContent=j.cited;
     if(j.updated) $("upd").textContent=" データの取得日: "+j.updated+"。";
     var ds={}; people.forEach(function(x){if(dk(x)) ds[dk(x)]=1});
@@ -190,7 +216,12 @@
       tr.parentNode.insertBefore(d,tr.nextSibling);tr.setAttribute("aria-expanded","true");break;
     }
   }
-  $("list").addEventListener("click",function(e){var tr=e.target.closest&&e.target.closest("tr.r");if(tr&&!e.target.closest("a"))toggle(tr)});
+  $("list").addEventListener("click",function(e){
+    var sr=e.target.closest&&e.target.closest(".srt");
+    if(sr){var tr0=sr.closest("tr.d").previousElementSibling,id=tr0.getAttribute("data-id");
+      for(var i=0;i<people.length;i++) if(people[i].id===id){sr.closest(".body").querySelector(".pl").innerHTML=paperList(people[i],sr.getAttribute("data-m"));break}
+      return;}
+    var tr=e.target.closest&&e.target.closest("tr.r");if(tr&&!e.target.closest("a"))toggle(tr)});
   $("list").addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){var tr=e.target.closest&&e.target.closest("tr.r");if(tr&&e.target===tr){e.preventDefault();toggle(tr)}}});
   ["q","dept","sort"].forEach(function(id){$(id).addEventListener("input",render)});
 })();
