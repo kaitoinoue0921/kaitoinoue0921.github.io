@@ -80,9 +80,9 @@
   <ol id="rank" class="rank"></ol>
   <h3 class="h3">偏差値ランキング（私立・国立の難関校の目安）</h3>
   <ol id="rank2" class="rank"></ol>
-  <p class="note">偏差値は模試や年で数ポイント動きます。ここの数字は私の大まかな目安で、公式な値ではありません。同じ県の中の差や、県どうしの数ポイントの差は気にしすぎないでください。</p>
+  <p class="note">偏差値は、<a href="https://www.minkou.jp/hischool/">みんなの高校情報</a>の2026年度版（2026年4月入学者向けの模試結果から算出）を中心に、検索で確認した値です。「※」は、みんなの高校情報ではなく<a href="https://studychain.jp/koukoudb/">スタディチェーン</a>などの値です。模試や年・コースで数ポイント動き、幅がある学校（例 59〜71）は学科やコースの差です。色分け・並べ替えは幅の上の数字を使っています。公式な値ではなく、学校の優劣を示すものでもありません。</p>
   <details><summary>一覧表で見る</summary>
-  <table id="prefTable"><thead><tr><th>都道府県</th><th>公立トップ校</th><th>私立・国立の難関</th></tr></thead><tbody></tbody></table></details>
+  <table id="prefTable"><thead><tr><th>都道府県</th><th>公立トップ校（偏差値）</th><th>私立・国立の難関（偏差値）</th></tr></thead><tbody></tbody></table></details>
 
   <p class="note" style="margin-top:48px">個人のお遊びページです。自治医科大学の公式ページではありません。検索には出しません。</p>
 </main>
@@ -110,25 +110,6 @@
     var o0 = document.createElement("option"); o0.textContent = first; o0.value = ""; sel.appendChild(o0);
     rows.forEach(function(u,k){ var o = document.createElement("option"); o.value = k; o.textContent = u[0]; sel.appendChild(o); });
   }
-  // [県, 公立トップ校, 私立・国立の難関]
-  var P = [
-    ["北海道","札幌南","函館ラ・サール"],["青森","青森","八戸（公立）／青森山田"],["岩手","盛岡第一","—"],
-    ["宮城","仙台第二","仙台二華（公立）／東北学院"],["秋田","秋田","—"],["山形","山形東","—"],
-    ["福島","福島","—"],["茨城","水戸第一","江戸川学園取手"],["栃木","宇都宮","—"],
-    ["群馬","前橋","—"],["埼玉","浦和","開智／栄東／淑徳与野"],["千葉","千葉","渋谷教育学園幕張／市川"],
-    ["東京","日比谷","開成／筑波大附属駒場／麻布／桜蔭"],["神奈川","横浜翠嵐","栄光学園／聖光学院／浅野"],
-    ["新潟","新潟","—"],["富山","富山中部","—"],["石川","金沢泉丘","—"],
-    ["福井","藤島","—"],["山梨","甲府第一","—"],["長野","長野","—"],
-    ["岐阜","岐阜","—"],["静岡","静岡","—"],["愛知","旭丘","東海／滝／南山女子部"],
-    ["三重","津","—"],["滋賀","膳所","—"],["京都","堀川","洛南／洛星／灘"],
-    ["大阪","北野","大阪星光学院／四天王寺"],["兵庫","神戸","灘／甲陽学院"],["奈良","奈良","東大寺学園／西大和学園"],
-    ["和歌山","桐蔭","智辯和歌山"],["鳥取","鳥取西","—"],["島根","松江北","—"],
-    ["岡山","岡山朝日","岡山白陵／ノートルダム清心"],["広島","広島国泰寺","広島学院／修道／ノートルダム清心"],["山口","山口","—"],
-    ["徳島","城南","—"],["香川","高松","—"],["愛媛","松山東","愛光"],
-    ["高知","高知追手前","土佐"],["福岡","修猷館","久留米大附設／西南学院"],["佐賀","佐賀西","弘学館"],
-    ["長崎","長崎西","青雲"],["熊本","熊本","済々黌（公立）／熊本マリスト"],["大分","大分上野丘","—"],
-    ["宮崎","宮崎西","—"],["鹿児島","鶴丸","ラ・サール"],["沖縄","開邦","—"]
-  ];
   // 県名 -> [列, 行, 地方]
   var G = {"北海道":[12,0,0],"青森":[12,1,1],"秋田":[11,2,1],"岩手":[12,2,1],"山形":[11,3,1],"宮城":[12,3,1],
     "石川":[8,4,3],"富山":[9,4,3],"新潟":[10,4,3],"福島":[11,4,1],"茨城":[12,4,2],
@@ -138,21 +119,65 @@
     "佐賀":[0,8,7],"熊本":[1,8,7],"大分":[2,8,7],"愛媛":[3,8,6],"香川":[4,8,6],"徳島":[5,8,6],"和歌山":[6,8,4],
     "長崎":[0,9,7],"鹿児島":[1,9,7],"宮崎":[2,9,7],"高知":[4,9,6],"沖縄":[0,10,7]};
   var RG = [["北海道","#cfe3f7"],["東北","#d6ecd2"],["関東","#fbe3b5"],["中部","#f3d3e4"],["近畿","#f6c9c4"],["中国","#e0d6f0"],["四国","#cdeee8"],["九州・沖縄","#ece5b8"]];
-  // 公立トップ校の偏差値の目安（概算）
-  var D = {"北海道":71,"青森":67,"秋田":67,"岩手":68,"山形":67,"宮城":70,"石川":69,"富山":68,"新潟":68,"福島":67,"茨城":69,
-    "福井":68,"岐阜":67,"長野":68,"群馬":69,"栃木":70,"島根":67,"鳥取":67,"兵庫":69,"京都":70,"滋賀":72,"愛知":71,"山梨":67,"埼玉":72,"東京":73,"千葉":72,
-    "福岡":71,"山口":67,"広島":68,"岡山":71,"大阪":73,"奈良":69,"三重":68,"静岡":69,"神奈川":73,"佐賀":67,"熊本":68,"大分":67,"愛媛":68,"香川":67,"徳島":66,"和歌山":68,
-    "長崎":67,"鹿児島":68,"宮崎":66,"高知":66,"沖縄":65};
-  // 私立・国立の難関校の目安 [校名, 偏差値の目安]。目立つ学校がない県は載せない
-  var V = {"北海道":["北嶺",70],"宮城":["聖ウルスラ学院英智",65],"茨城":["江戸川学園取手",66],"埼玉":["栄東",70],"千葉":["渋谷教育学園幕張",76],
-    "東京":["開成",78],"神奈川":["聖光学院",75],"愛知":["東海",74],"京都":["洛南",73],"大阪":["大阪星光学院",71],"兵庫":["灘",77],
-    "奈良":["西大和学園",74],"和歌山":["智辯和歌山",67],"岡山":["岡山白陵",66],"広島":["広島学院",70],"愛媛":["愛光",68],"高知":["土佐",66],
-    "福岡":["久留米大附設",73],"佐賀":["弘学館",62],"鹿児島":["ラ・サール",73]};
-  var DB = [[73,"73以上","#e8a7a0"],[71,"71〜72","#f4c9a0"],[69,"69〜70","#f7e3a6"],[67,"67〜68","#d6ecd2"],[0,"66以下","#cfe3f7"]];
+  // [県, 公立校, 下限, 上限, 公立の出典印, 私立・国立校, 下限, 上限, 出典印, 補足]
+  // 出典印 1 = スタディチェーンなど、みんなの高校情報以外の値
+  var P = [
+    ["北海道","札幌南",72,72,0,"北嶺",67,67,1,"函館ラ・サール 64（他サイト）"],
+    ["青森","青森",71,71,0,"青森山田",56,56,1,""],
+    ["岩手","盛岡第一",67,67,0,"盛岡中央",67,67,1,""],
+    ["宮城","仙台第二",71,71,0,"東北学院",62,65,0,""],
+    ["秋田","秋田",70,70,0,"ノースアジア大明桜",60,62,1,""],
+    ["山形","山形東",68,68,0,"日本大学山形",68,68,1,"特進コースの値"],
+    ["福島","安積",69,69,0,"日本大学東北",58,63,0,"福島 68、磐城 67"],
+    ["茨城","水戸第一",73,73,0,"江戸川学園取手",69,71,0,"土浦第一 72"],
+    ["栃木","宇都宮",72,72,0,"作新学院",40,71,0,"コースによる差が大きい"],
+    ["群馬","前橋",71,71,0,"樹徳",40,68,0,"コースによる差が大きい"],
+    ["埼玉","浦和",73,73,0,"慶應義塾志木",75,75,0,"早大本庄 75、公立の大宮 71〜74"],
+    ["千葉","千葉",73,73,0,"渋谷教育学園幕張",74,74,0,"市川 73"],
+    ["東京","日比谷",74,74,0,"開成",77,77,0,"筑波大附属駒場 77（国立）"],
+    ["神奈川","横浜翠嵐",74,74,0,"聖光学院",73,73,1,"みんなの高校情報は空欄のため他サイトの値"],
+    ["新潟","新潟",72,73,0,"新潟清心女子",55,55,0,""],
+    ["富山","富山中部",70,70,0,"富山第一",56,56,1,""],
+    ["石川","金沢泉丘",70,72,0,"金沢大学附属",72,72,0,"国立。私立の最高は星稜 66"],
+    ["福井","藤島",70,70,0,"北陸",62,62,1,""],
+    ["山梨","甲府第一",66,68,1,"山梨学院",59,59,1,""],
+    ["長野","長野",69,69,0,"佐久長聖",65,65,1,"松本深志 67"],
+    ["岐阜","岐阜",71,71,0,"鶯谷",63,65,0,""],
+    ["静岡","静岡",70,70,0,"静岡サレジオ",58,65,0,"浜松北 67〜70"],
+    ["愛知","旭丘",59,71,0,"東海",72,72,0,"滝 71"],
+    ["三重","四日市",72,72,1,null,0,0,0,"目立つ私立の値は確認できず"],
+    ["滋賀","膳所",72,76,0,"立命館守山",70,71,0,""],
+    ["京都","堀川",67,72,0,"洛南",70,73,0,"西京 70"],
+    ["大阪","北野",75,75,0,"大阪星光学院",75,75,0,"天王寺 74"],
+    ["兵庫","神戸",70,75,0,"灘",78,78,0,"長田 72〜73"],
+    ["奈良","奈良",70,70,0,"西大和学園",68,75,0,"東大寺学園は高校募集停止との情報あり"],
+    ["和歌山","桐蔭",68,68,1,"智辯和歌山",73,73,0,""],
+    ["鳥取","米子東",68,68,1,"鳥取城北",61,61,1,"鳥取西 63"],
+    ["島根","松江北",57,67,0,"開星",52,52,1,"理数科は 67"],
+    ["岡山","岡山朝日",67,67,0,"岡山白陵",72,72,0,""],
+    ["広島","広島市立基町",60,69,0,"広島大学附属",74,74,0,"国立。修道 69、広大附属福山 75"],
+    ["山口","徳山",69,69,1,"高水",64,64,1,"文理探究理数科の値"],
+    ["徳島","徳島市立",72,72,1,"徳島文理",67,67,1,"城南 64"],
+    ["香川","高松",71,71,0,"大手前高松",51,67,0,""],
+    ["愛媛","松山東",69,69,0,"愛光",74,74,0,""],
+    ["高知","高知追手前",63,63,0,"土佐",68,68,1,""],
+    ["福岡","修猷館",73,73,0,"久留米大学附設",75,75,0,"福岡 72"],
+    ["佐賀","佐賀西",69,69,0,"早稲田佐賀",68,68,0,"弘学館 67"],
+    ["長崎","長崎西",68,72,0,"青雲",75,75,0,""],
+    ["熊本","熊本",74,74,0,"真和",68,68,0,"済々黌 73"],
+    ["大分","大分上野丘",71,71,0,"岩田",60,60,0,""],
+    ["宮崎","宮崎西",61,70,0,"宮崎日本大学",60,60,1,"理数科は 72（他サイト）"],
+    ["鹿児島","鶴丸",73,73,0,"ラ・サール",77,77,0,""],
+    ["沖縄","開邦",49,66,0,"沖縄尚学",48,66,0,"球陽 56〜62"]
+  ];
+  function disp(lo, hi, st){ return (lo === hi ? "" + hi : lo + "〜" + hi) + (st ? "※" : ""); }
+  function pub(r){ return [r[1], r[2], r[3], r[4]]; }
+  function pri(r){ return r[5] ? [r[5], r[6], r[7], r[8]] : null; }
+  function sch(r){ return kind === "pub" ? pub(r) : pri(r); }
+  var DB = [[75,"75以上","#e8a7a0"],[73,"73〜74","#f1bda0"],[70,"70〜72","#f7e3a6"],[67,"67〜69","#d6ecd2"],[0,"66以下","#cfe3f7"]];
   function band(v){ for (var k=0;k<DB.length;k++) if (v >= DB[k][0]) return DB[k]; }
   var po = document.getElementById("prefOut"), tb = document.querySelector("#prefTable tbody"), mp = document.getElementById("map"), lg = document.getElementById("legend"), cur = null;
   var mode = "region", kind = "pub", tiles = [];
-  function sch(r){ return kind === "pub" ? [r[1], D[r[0]]] : (V[r[0]] || null); }
   function legend(){
     lg.innerHTML = "";
     (mode === "region" ? RG : DB.map(function(b){ return [b[1], b[2]]; })).forEach(function(r){
@@ -162,9 +187,9 @@
   function paint(){
     tiles.forEach(function(x){
       var v = sch(x.r);
-      x.t.style.background = !v ? "#eee" : (mode === "region" ? RG[G[x.r[0]][2]][1] : band(v[1])[2]);
+      x.t.style.background = !v ? "#eee" : (mode === "region" ? RG[G[x.r[0]][2]][1] : band(v[2])[2]);
       x.s.textContent = v ? v[0] : "—";
-      x.d.textContent = v && mode === "dev" ? "偏差値" + v[1] : "";
+      x.d.textContent = v && mode === "dev" ? disp(v[1], v[2], v[3]) : "";
     });
     legend();
   }
@@ -175,24 +200,31 @@
       Array.prototype.forEach.call(document.querySelectorAll(k ? ".mode.kind" : ".mode.col"), function(o){ o.classList.toggle("on", o === b); });
       paint(); };
   });
+  function line(label, v){
+    var d = document.createElement("div");
+    d.appendChild(document.createTextNode(label + "："));
+    if (!v) { d.appendChild(document.createTextNode("目立つ学校の値を確認できていません")); return d; }
+    var b = document.createElement("b"); b.textContent = v[0]; d.appendChild(b);
+    d.appendChild(document.createTextNode("　偏差値 " + disp(v[1], v[2], v[3])));
+    return d;
+  }
   function pick(r, el){
     if (cur) cur.classList.remove("on");
     cur = el; el.classList.add("on");
     po.innerHTML = "";
-    var t = document.createElement("b"); t.textContent = r[0];
-    po.appendChild(t);
-    po.appendChild(document.createTextNode("：公立のトップ校は "));
-    var b = document.createElement("b"); b.textContent = r[1]; po.appendChild(b);
-    if (r[2] !== "—") po.appendChild(document.createTextNode("。私立・国立の難関は " + r[2] + (V[r[0]] ? "（目安：" + V[r[0]][0] + " 偏差値" + V[r[0]][1] + "）" : "")));
-    else po.appendChild(document.createTextNode("。目立つ私立・国立の難関校は載せていません"));
+    var t = document.createElement("b"); t.textContent = r[0]; t.style.fontSize = "17px"; po.appendChild(t);
+    po.appendChild(line("公立", pub(r)));
+    po.appendChild(line("私立・国立", pri(r)));
+    if (r[9]) { var m = document.createElement("div"); m.style.cssText = "font-size:13px;color:#4a4a4a"; m.textContent = "補足：" + r[9]; po.appendChild(m); }
     var j = document.createElement("div"); j.style.cssText = "margin-top:6px;font-size:13px;color:#4a4a4a";
     j.textContent = "自治医大の" + r[0] + "枠は例年2〜3名ほど。同期の出身校は、この県のトップ校とは限らず、いろいろです。";
     po.appendChild(j);
   }
   P.forEach(function(r){
     var g = G[r[0]], t = document.createElement("button");
-    t.className = "tile"; t.style.left = (g[0]*49) + "px"; t.style.top = (g[1]*55) + "px"; var n = document.createElement("b"); n.textContent = r[0];
-    var sc = document.createElement("span"); sc.textContent = r[1];
+    t.className = "tile"; t.style.left = (g[0]*49) + "px"; t.style.top = (g[1]*55) + "px";
+    var n = document.createElement("b"); n.textContent = r[0];
+    var sc = document.createElement("span");
     var dv = document.createElement("span"); dv.style.fontWeight = "600";
     t.appendChild(n); t.appendChild(sc); t.appendChild(dv); tiles.push({r:r, t:t, s:sc, d:dv});
     t.onclick = function(){ pick(r, t); };
@@ -205,28 +237,32 @@
     mp.parentNode.style.height = (610 * k + 8) + "px";
   }
   fit(); window.addEventListener("resize", fit);
-  // 偏差値ランキング
-  var rk = document.getElementById("rank");
-  P.slice().sort(function(a,b){ return D[b[0]] - D[a[0]]; }).forEach(function(r){
-    var li = document.createElement("li"); li.textContent = r[0] + "　" + r[1] + "（" + D[r[0]] + "）"; rk.appendChild(li); });
-  var rk2 = document.getElementById("rank2");
-  Object.keys(V).sort(function(a,b){ return V[b][1] - V[a][1]; }).forEach(function(k){
-    var li = document.createElement("li"); li.textContent = k + "　" + V[k][0] + "（" + V[k][1] + "）"; rk2.appendChild(li); });
+  // 偏差値ランキング（上限の高い順）
+  function rank(id, get){
+    var ol = document.getElementById(id);
+    P.filter(function(r){ return get(r); }).sort(function(a,b){ var x = get(a), y = get(b); return (y[2] - x[2]) || (y[1] - x[1]); })
+      .forEach(function(r){ var v = get(r), li = document.createElement("li"); li.textContent = r[0] + "　" + v[0] + "（" + disp(v[1], v[2], v[3]) + "）"; ol.appendChild(li); });
+  }
+  rank("rank", pub); rank("rank2", pri);
   // 2県比較
   var ca = document.getElementById("cmpA"), cb = document.getElementById("cmpB"), co = document.getElementById("cmpOut");
   fill(ca, P, "県A"); fill(cb, P, "県B");
+  function cmpLine(label, a, b, va, vb){
+    if (!va || !vb) return label + "：どちらかの値がないので比べられません。";
+    var d = va[2] - vb[2], m = d === 0 ? "並んでいます" : (d > 0 ? a[0] : b[0]) + "が上（差 " + Math.abs(d) + "）";
+    return label + "：" + a[0] + " " + va[0] + "（" + disp(va[1], va[2], 0) + "）　vs　" + b[0] + " " + vb[0] + "（" + disp(vb[1], vb[2], 0) + "）→ " + m;
+  }
   function cmp(){
     if (ca.value === "" || cb.value === "") return;
-    var a = P[ca.value], b = P[cb.value], d = D[a[0]] - D[b[0]], m;
-    if (a === b) m = "同じ県です。";
-    else if (d === 0) m = "目安では並んでいます。引き分け。";
-    else m = (d > 0 ? a[0] : b[0]) + "の方が目安で約" + Math.abs(d) + "ポイント上です。";
-    co.textContent = a[0] + "（" + a[1] + " " + D[a[0]] + "）　vs　" + b[0] + "（" + b[1] + " " + D[b[0]] + "）　→　" + m + "ただし数ポイントの差は誤差の範囲です。";
+    var a = P[ca.value], b = P[cb.value];
+    co.innerHTML = "";
+    [cmpLine("公立", a, b, pub(a), pub(b)), cmpLine("私立・国立", a, b, pri(a), pri(b)), "幅がある学校は上の数字で比べています。数ポイントの差は誤差の範囲です。"].forEach(function(t, i){
+      var d = document.createElement("div"); d.textContent = t; if (i === 2) d.style.cssText = "font-size:12.5px;color:#767676;margin-top:4px"; co.appendChild(d); });
   }
   ca.onchange = cmp; cb.onchange = cmp;
   P.forEach(function(r){
     var tr = document.createElement("tr");
-    r.forEach(function(c){ var td = document.createElement("td"); td.textContent = c; tr.appendChild(td); });
+    [r[0], r[1] + "（" + disp(r[2], r[3], r[4]) + "）", r[5] ? r[5] + "（" + disp(r[6], r[7], r[8]) + "）" : "—"].forEach(function(c){ var td = document.createElement("td"); td.textContent = c; tr.appendChild(td); });
     tb.appendChild(tr);
   });
 })();
