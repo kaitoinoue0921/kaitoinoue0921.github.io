@@ -60,7 +60,7 @@
 <p id="count"></p>
 <div id="list"></div>
 
-<p class="note">データの出どころは researchmap（教員本人が登録した公開情報）です。登録されていない論文や経歴は数えていません。論文数・順位は「登録された件数」を比べたもので、研究の質や価値を測るものではありません（被引用数は researchmap にないため入れていません）。専門や職位で論文の出方は大きく違います。誤りや掲載の取り下げのご希望は <a href="/contact/">お問い合わせ</a> からお知らせください。このサイトは自治医科大学の公式サイトではありません。<span id="upd"></span></p>
+<p class="note">データの出どころは researchmap（教員本人が登録した公開情報）です。登録されていない論文や経歴は数えていません。論文数・順位は「登録された件数」を比べたもので、研究の質や価値を測るものではありません（被引用数と、査読の有無が未登録の論文は反映されません）。専門や職位で論文の出方は大きく違います。誤りや掲載の取り下げのご希望は <a href="/contact/">お問い合わせ</a> からお知らせください。このサイトは自治医科大学の公式サイトではありません。<span id="upd"></span></p>
 </div>
 
 <script>
@@ -88,7 +88,7 @@
       '<span class="sub">'+esc([x.department,x.position].filter(Boolean).join(" ・ "))+
       (x.papers.length?'　全教員中 上位 '+rank(x)+'%':'')+'</span></summary><div class="body">';
     if(x.papers.length) h+='<table class="kv"><tr><td>論文（登録件数）</td><td>'+x.papers.length+' 件</td></tr>'+
-      '<tr><td>うち査読あり</td><td>'+peer(x)+' 件</td></tr>'+
+      '<tr><td>うち査読ありと登録</td><td>'+peer(x)+' 件</td></tr>'+
       '<tr><td>直近5年</td><td>'+recent(x)+' 件</td></tr>'+
       '<tr><td>登録論文の期間</td><td>'+esc(first)+' 年〜（'+span(x)+' 年間）</td></tr>'+
       '<tr><td>全教員中の位置</td><td>論文数で上位 '+rank(x)+'%（'+people.length+' 人中）</td></tr></table>';

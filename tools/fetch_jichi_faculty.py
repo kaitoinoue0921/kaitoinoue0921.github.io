@@ -33,8 +33,8 @@ def get(pl, kind, start=1):
 
 
 def items(data):
-    out = []
-    for g in data.get("@graph", []):
+    out = list(data.get("items", []))
+    for g in data.get("@graph", []):  # 古い形式の返事にも備える
         out += g.get("items", [])
     return out
 
@@ -82,7 +82,7 @@ def career(it, kind):
     aff = ja_en(it.get("affiliation"))
     job = ja_en(it.get("job"))
     dept = ja_en(it.get("section")) if kind == "research_experience" else ja_en(it.get("department"))
-    deg = ja_en(it.get("degree")) if kind == "education" else ""
+    deg = " ".join([ja_en(it.get("course")), ja_en(it.get("degree"))]).strip() if kind == "education" else ""
     return {
         "kind": "学歴" if kind == "education" else "職歴",
         "from": (it.get("from_date") or "")[:7],
