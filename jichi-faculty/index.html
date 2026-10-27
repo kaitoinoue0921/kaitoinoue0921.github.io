@@ -66,6 +66,7 @@
   var $=function(id){return document.getElementById(id)};
   var esc=function(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})};
   var thisYear=new Date().getFullYear(), people=[];
+  function dk(x){var m=/^(?:医学部)?(.*?講座)/.exec(x.department||"");return m?m[1]:(x.department||"").replace(/^医学部/,"")}
   function yr(p){return p.date?p.date.slice(0,4):""}
   function recent(x){return x.papers.filter(function(p){return +yr(p)>=thisYear-4}).length}
   function link(p){
@@ -74,23 +75,30 @@
     return "";
   }
   function card(x){
+    return cardHead(x)+'</summary><div class="body" data-id="'+esc(x.id)+'"></div></details>';
+  }
+  function cardHead(x){
     var first=x.papers.length?yr(x.papers[x.papers.length-1]):"";
-    var h='<details class="p"><summary><span class="nm">'+esc(x.name)+'</span><span class="st"><b>'+x.papers.length+'</b> 件</span>'+
-      '<span class="sub">'+esc([x.department,x.position].filter(Boolean).join(" ・ "))+
-      (x.papers.length?'　直近5年 '+recent(x)+' 件'+(first?'・最初の登録論文 '+esc(first)+' 年':''):'')+'</span></summary><div class="body">';
-    h+='<h3>経歴</h3>';
-    h+=x.careers.length?'<ul>'+x.careers.map(function(c){
-      return '<li><span class="yr">'+esc(c.from)+' 〜 '+esc(c.to)+'</span>　'+esc(c.text)+'</li>'}).join("")+'</ul>':'<div class="jr">登録なし</div>';
+    var h='<details class="p" data-id="'+esc(x.id)+'"><summary><span class="nm">'+esc(x.name)+'</span><span class="st"><b>'+x.papers.length+'</b> 件</span>'+
+      '<span class="sub">'+esc([dk(x),x.position].filter(Boolean).join(" ・ "))+
+      (x.papers.length?'　直近5年 '+recent(x)+' 件'+(first?'・最初の登録論文 '+esc(first)+' 年':''):'')+'</span>';
+    return h;
+  }
+  function bodyHtml(x){
+    var h='<h3>経歴</h3>';
+    var cs=x.careers.filter(function(c){return /[\u3040-\u30ff\u4e00-\u9fff]/.test(c.text)&&(c.from||c.to)});
+    h+=cs.length?'<ul>'+cs.map(function(c){
+      return '<li><span class="yr">'+esc(c.from)+(c.from&&c.to&&c.from!==c.to?' 〜 '+esc(c.to):(c.from?'':'〜 '+esc(c.to)))+'</span>　'+esc(c.text)+'</li>'}).join("")+'</ul>':'<div class="jr">登録なし</div>';
     h+='<h3>論文（'+x.papers.length+'件）</h3>';
     h+=x.papers.length?'<ul>'+x.papers.map(function(p){
       return '<li><span class="yr">'+esc(yr(p))+'</span>　'+esc(p.title)+'<br><span class="jr">'+esc(p.authors)+'　'+esc(p.journal)+'</span>'+link(p)+'</li>'}).join("")+'</ul>':'<div class="jr">登録なし</div>';
     if(x.researchmap) h+='<p class="jr"><a href="https://researchmap.jp/'+encodeURIComponent(x.researchmap)+'" rel="noopener">researchmap のページ</a></p>';
-    return h+'</div></details>';
+    return h;
   }
   function render(){
     var q=$("q").value.trim().toLowerCase(), d=$("dept").value, s=$("sort").value;
     var r=people.filter(function(x){
-      if(d&&x.department!==d) return false;
+      if(d&&dk(x)!==d) return false;
       if(!q) return true;
       var hay=(x.name+" "+x.name_en+" "+x.department+" "+x.papers.map(function(p){return p.title}).join(" ")).toLowerCase();
       return hay.indexOf(q)>=0;
@@ -106,11 +114,17 @@
   fetch("data/faculty.json").then(function(r){return r.json()}).then(function(j){
     people=j.people||[];
     if(j.updated) $("upd").textContent=" データの取得日: "+j.updated+"。";
-    var ds={}; people.forEach(function(x){if(x.department) ds[x.department]=1});
+    var ds={}; people.forEach(function(x){if(dk(x)) ds[dk(x)]=1});
     Object.keys(ds).sort(function(a,b){return a.localeCompare(b,"ja")}).forEach(function(k){
       var o=document.createElement("option"); o.value=o.textContent=k; $("dept").appendChild(o)});
     render();
   }).catch(function(){$("list").innerHTML='<div class="empty">データを読み込めませんでした。</div>'});
+  $("list").addEventListener("toggle",function(e){
+    var d=e.target,b=d.querySelector(".body");
+    if(!d.open||!b||b.firstChild) return;
+    var id=d.getAttribute("data-id");
+    for(var i=0;i<people.length;i++) if(people[i].id===id){ b.innerHTML=bodyHtml(people[i]); break; }
+  },true);
   ["q","dept","sort"].forEach(function(id){$(id).addEventListener("input",render)});
 })();
 </script>

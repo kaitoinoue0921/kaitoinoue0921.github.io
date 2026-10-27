@@ -9,33 +9,46 @@
   本人が公開している情報だけを使う。researchmap で公開されていない項目は取らない。
 出力: jichi-faculty/data/faculty.json
 """
-import csv, json, sys, time, urllib.request, urllib.error
+import csv, json, subprocess, sys, time
 from datetime import date
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 ROSTER = ROOT / "jichi-faculty" / "roster.csv"
 OUT = ROOT / "jichi-faculty" / "data" / "faculty.json"
-API = "https://api.researchmap.jp/{pl}/{kind}?limit=1000"
+API = "https://api.researchmap.jp/{pl}/{kind}?limit=100"
 
 
-def get(pl, kind):
-    req = urllib.request.Request(API.format(pl=pl, kind=kind),
-                                 headers={"Accept": "application/json", "User-Agent": "jichi-faculty-fetch"})
-    try:
-        with urllib.request.urlopen(req, timeout=30) as r:
-            return json.load(r)
-    except urllib.error.HTTPError as e:
-        if e.code == 404:
-            return {}
-        raise
+def get(pl, kind, start=1):
+    # python の証明書設定に依存しないよう curl を使う
+    r = subprocess.run(["curl", "-sL", "-m", "30", "-H", "Accept: application/json", "-A", "jichi-faculty-fetch",
+                        "-w", "\n%{http_code}", API.format(pl=pl, kind=kind) + f"&start={start}"], capture_output=True)
+    body, _, code = r.stdout.decode("utf-8", "replace").rpartition("\n")
+    if code == "404":
+        return {}
+    if code != "200":
+        raise RuntimeError(f"HTTP {code}")
+    return json.loads(body)
 
 
 def items(data):
-    out = []
+    out = list(data.get("items", []))
     for g in data.get("@graph", []):
         out += g.get("items", [])
     return out
+
+
+def all_items(pl, kind):
+    """researchmap は1回に返す件数に上限があるので、next リンクが無くなるまで続ける。"""
+    out, start = [], 1
+    while True:
+        d = get(pl, kind, start)
+        got = items(d)
+        out += got
+        total = d.get("total_items", len(out))
+        if not got or len(out) >= total:
+            return out
+        start += len(got)
 
 
 def ja_en(v):
@@ -48,7 +61,9 @@ def authors(v):
     if not isinstance(v, dict):
         return ""
     lst = v.get("ja") or v.get("en") or []
-    return ", ".join(a.get("name", "") for a in lst if isinstance(a, dict))
+    names = [a.get("name", "") for a in lst if isinstance(a, dict)]
+    # ファイルが大きくなりすぎるので先頭3人まで
+    return ", ".join(names[:3]) + (" ほか" if len(names) > 3 else "")
 
 
 def paper(it):
@@ -73,7 +88,7 @@ def career(it, kind):
     return {
         "kind": "学歴" if kind == "education" else "職歴",
         "from": (it.get("from_date") or "")[:7],
-        "to": (it.get("to_date") or "")[:7],
+        "to": "現在" if (it.get("to_date") or "").startswith("9999") else (it.get("to_date") or "")[:7],
         "text": " ".join(x for x in [aff, dept, job, deg] if x),
     }
 
@@ -91,10 +106,10 @@ def main():
             p["papers"], p["careers"] = [], []
             if pl:
                 try:
-                    p["papers"] = sorted((paper(x) for x in items(get(pl, "published_papers"))),
+                    p["papers"] = sorted((paper(x) for x in all_items(pl, "published_papers")),
                                          key=lambda x: x["date"], reverse=True)
                     for kind in ("education", "research_experience"):
-                        p["careers"] += [career(x, kind) for x in items(get(pl, kind))]
+                        p["careers"] += [career(x, kind) for x in all_items(pl, kind)]
                     p["careers"].sort(key=lambda c: c["from"])
                 except Exception as e:  # 1人の失敗で全体を止めない
                     print(f"[警告] {p['name']} ({pl}): {e}", file=sys.stderr)
@@ -103,7 +118,7 @@ def main():
             print(f"{p['name']}: 論文 {len(p['papers'])} 件, 経歴 {len(p['careers'])} 件")
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps({"updated": date.today().isoformat(), "people": people},
-                              ensure_ascii=False, indent=1), encoding="utf-8")
+                              ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
     print("->", OUT)
 
 
