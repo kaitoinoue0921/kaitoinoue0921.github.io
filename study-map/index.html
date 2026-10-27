@@ -83,9 +83,6 @@ button{cursor:pointer}
 #dbstat{font-size:10.5px;padding:4px 9px;border-radius:999px;white-space:nowrap;
   border:1px solid var(--line);background:var(--panel2);color:var(--tx3);cursor:pointer}
 #dbstat.cloud{border-color:var(--accent);color:var(--accent);background:rgba(63,191,143,.12)}
-#topsupport{font-size:10.5px;padding:4px 9px;border-radius:999px;white-space:nowrap;
-  border:1px solid var(--line);background:var(--panel2);color:var(--tx2);cursor:pointer;font-family:inherit}
-#topsupport:hover{border-color:var(--accent);color:var(--accent)}
 #topabout{font-size:10.5px;padding:4px 9px;border-radius:999px;white-space:nowrap;
   border:1px solid var(--line);background:var(--panel2);color:var(--tx2);cursor:pointer;font-family:inherit}
 #topabout:hover{border-color:var(--accent);color:var(--accent)}
@@ -321,7 +318,6 @@ button{cursor:pointer}
   /* 1行目 = ロゴ + 保存先バッジ、2行目 = 地域、3行目 = 検索。
      order を振らないとバッジが最終行に落ちて1行ぶん無駄になる */
   #dbstat{order:1;margin-left:auto}
-  #topsupport{order:1}
   #topabout{order:1}
   #topthanks{order:1}
   .region{order:2}
@@ -419,8 +415,6 @@ button{cursor:pointer}
   <div id="topcount"></div>
   <button id="topabout" title="このサイトを作った理由">💡 このサイトについて</button>
   <button id="topthanks" title="口コミ・報告を書いてくれた人への感謝">🙏 情報提供者への感謝</button>
-  <button id="topsupport" data-ksup-open="study-map" data-skin="dark"
-          title="応援・感想・気になる点を送る">♡ 応援・感想</button>
   <div id="dbstat" title="データの保存先">…</div>
 </div>
 
@@ -488,7 +482,6 @@ button{cursor:pointer}
       <button id="btnImport">⬆ データ読み込み</button>
       <button id="btnReset">↺ サンプルに戻す</button>
       <button id="btnAdmin">🔒 管理者モード</button>
-      <button data-ksup-open="study-map" data-skin="dark">♡ 作者を応援する</button>
     </div>
     <div class="mapui" id="banner"></div>
     <button class="mapui" id="addbtn">＋ スポットを追加</button>
@@ -4451,9 +4444,6 @@ async function fetchGooglePlace(sp){
   syncPageMeta();
 })();
 </script>
-<!-- 応援ダイアログ。⚙ メニューの「♡ 作者を応援する」から開く。
-     文面と金額は /support/support.js の設定ブロックで管理している。 -->
-<script src="/support/support.js" defer></script>
 <script data-goatcounter="https://kaitoinoue.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
 </body>
