@@ -68,23 +68,27 @@ def authors(v):
 
 def paper(it):
     ids = it.get("identifiers") or {}
-    return {
+    p = {
         "date": (it.get("publication_date") or "")[:10],
         "title": ja_en(it.get("paper_title")),
         "authors": authors(it.get("authors")),
         "journal": ja_en(it.get("publication_name")),
-        "doi": (ids.get("doi") or [""])[0],
-        "pmid": (ids.get("pm_id") or [""])[0],
-        "type": it.get("published_paper_type", ""),
-        "peer": it.get("referee"),
     }
+    # 空の項目は省いてファイルを軽くする
+    if (ids.get("doi") or [""])[0]:
+        p["doi"] = ids["doi"][0]
+    if (ids.get("pm_id") or [""])[0]:
+        p["pmid"] = ids["pm_id"][0]
+    if it.get("referee"):
+        p["peer"] = 1
+    return p
 
 
 def career(it, kind):
     aff = ja_en(it.get("affiliation"))
     job = ja_en(it.get("job"))
     dept = ja_en(it.get("section")) if kind == "research_experience" else ja_en(it.get("department"))
-    deg = ja_en(it.get("degree")) if kind == "education" else ""
+    deg = " ".join([ja_en(it.get("course")), ja_en(it.get("degree"))]).strip() if kind == "education" else ""
     return {
         "kind": "学歴" if kind == "education" else "職歴",
         "from": (it.get("from_date") or "")[:7],
