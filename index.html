@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>小さな実験室 — 医学部受験ロードマップ・FocusRoom・国試ノート</title>
+<title>小さな実験室 — 医学部受験ロードマップ・受験数学マップ・国試ノート</title>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241"
      crossorigin="anonymous"></script>
 <meta name="description" content="「小さな実験室」。地方の受験生に届ける医学部受験ロードマップ、勉強を続けるためのアプリFocusRoom、国試対策ノートなど、自分がつまずいたところから作って試しているものを置いています。">
@@ -13,7 +13,7 @@
 <!-- share cards (LINE / X / Facebook) -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="小さな実験室">
-<meta property="og:title" content="小さな実験室 — 医学部受験ロードマップ・FocusRoom・国試ノート">
+<meta property="og:title" content="小さな実験室 — 医学部受験ロードマップ・受験数学マップ・国試ノート">
 <meta property="og:description" content="自分がつまずいたところから、小さく作って試しているもの。">
 <meta property="og:url" content="https://kaitoinoue0921.github.io/">
 <meta property="og:image" content="https://kaitoinoue0921.github.io/ogp.png">
@@ -271,6 +271,16 @@
   }
 
   /* experiments: question first, then what was made and where it stands */
+  .apps{ list-style: none; margin: 28px 0 0; padding: 0; border-top: 1px solid var(--line); }
+  .apps li{ border-bottom: 1px solid var(--line-faint); }
+  .app{ display: flex; gap: 18px; align-items: center; padding: 22px 0; color: inherit; text-decoration: none; }
+  .app-icon{ width: 72px; height: 72px; border-radius: 16px; flex: none; border: 1px solid var(--line-faint); background: #fff; }
+  .app-body{ display: block; min-width: 0; }
+  .app-name{ display: block; font-family: var(--serif); font-size: 20px; line-height: 1.4; }
+  .app-desc{ display: block; font-size: 13.5px; line-height: 1.8; color: var(--ink-soft); margin-top: 4px; }
+  .app-meta{ display: block; font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em; color: var(--ink-faint); margin-top: 6px; }
+  @media (hover: hover){ a.app:hover .app-name{ text-decoration: underline; text-underline-offset: 4px; } }
+  .apps-next{ font-size: 12.5px; line-height: 1.8; color: var(--ink-faint); margin: 16px 0 0; }
   .exps{
     list-style: none;
     margin: 28px 0 0;
@@ -493,6 +503,26 @@
       </div>
 
       <main class="stack">
+
+        <section class="section" id="apps" aria-labelledby="apps-title">
+          <p class="section-label">APPS</p>
+          <h2 class="section-title" id="apps-title">App Storeで配信しているアプリ</h2>
+          <ul class="apps">
+            <li><a class="app" href="https://apps.apple.com/jp/app/focus-game/id6806285855" target="_blank" rel="noopener noreferrer">
+              <img class="app-icon" src="./assets/apps/focusgame.png" alt="" width="72" height="72" loading="lazy">
+              <span class="app-body"><span class="app-name">Focus Game</span><span class="app-desc">友達や知らない人と同じ自習室にこもって集中する。合言葉を共有するだけで入れます。</span><span class="app-meta">iPhone ・ 無料 ・ App Storeで見る</span></span>
+            </a></li>
+            <li><a class="app" href="https://apps.apple.com/jp/app/%E3%82%B5%E3%82%AF%E3%83%83%E3%81%A8%E8%8B%B1%E5%92%8C/id6820036752" target="_blank" rel="noopener noreferrer">
+              <img class="app-icon" src="./assets/apps/sakutto.png" alt="" width="72" height="72" loading="lazy">
+              <span class="app-body"><span class="app-name">サクッと英和</span><span class="app-desc">ネットにつながなくても使える英和辞書。英単語・カタカナ・日本語のどれからでも引けます。</span><span class="app-meta">iPhone ・ 無料 ・ App Storeで見る</span></span>
+            </a></li>
+            <li><a class="app" href="https://apps.apple.com/jp/app/%E3%83%9E%E3%83%9E%E3%81%AE%E5%81%A5%E5%BA%B7%E3%83%8E%E3%83%BC%E3%83%88/id6800277275" target="_blank" rel="noopener noreferrer">
+              <img class="app-icon" src="./assets/apps/habitto.png" alt="" width="72" height="72" loading="lazy">
+              <span class="app-body"><span class="app-name">ママの健康ノート</span><span class="app-desc">薬やサプリを、食前・食後・外出前などのタイミングごとに管理して、飲み忘れを防ぎます。</span><span class="app-meta">iPhone ・ 無料 ・ App Storeで見る</span></span>
+            </a></li>
+          </ul>
+          <p class="apps-next">ほかに、SilentCam Pro（審査待ち）、5分でブロック・QuietTab（提出準備中）を作っています。</p>
+        </section>
 
         <section class="section" id="experiments" aria-labelledby="experiments-title">
           <p class="section-label">EXPERIMENTS</p>
