@@ -100,6 +100,11 @@ def career(it, kind):
 def main():
     if not ROSTER.exists():
         sys.exit("roster.csv がありません")
+    # --reuse: faculty.json にいる人（名前・英語名・researchmap が同じ）は取り直さず、新しい人だけ取る
+    reuse = {}
+    if "--reuse" in sys.argv and OUT.exists():
+        for q in json.loads(OUT.read_text(encoding="utf-8"))["people"]:
+            reuse[(q["name"], q["name_en"], q["researchmap"])] = q
     people = []
     with open(ROSTER, encoding="utf-8") as f:
         for i, row in enumerate(csv.DictReader(f), 1):
@@ -108,6 +113,11 @@ def main():
             p["id"] = f"p{i:04d}"
             p["researchmap"] = pl
             p["papers"], p["careers"] = [], []
+            old = reuse.get((p["name"], p["name_en"], pl))
+            if old:
+                p["papers"], p["careers"] = old["papers"], old["careers"]
+                people.append(p)
+                continue
             if pl:
                 try:
                     p["papers"] = sorted((paper(x) for x in all_items(pl, "published_papers")),

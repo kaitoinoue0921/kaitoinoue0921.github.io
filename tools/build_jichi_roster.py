@@ -4,7 +4,8 @@ jichi-faculty/roster.csv（name,name_en,department,position,researchmap,orcid）
 
 大学の公開ページに載っている名前・所属・職名と、各人のページにある researchmap の
 パーマリンクだけを使う。robots.txt の Crawl-delay に合わせて1秒空ける。
-使い方: python3 tools/build_jichi_roster.py
+使い方: python3 tools/build_jichi_roster.py          （名簿を作り直す）
+        python3 tools/build_jichi_roster.py --add    （EXTRA_ROOTS の人だけ、今の名簿に足す）
 """
 import csv, html, re, subprocess, sys, time, urllib.parse
 from pathlib import Path
@@ -12,6 +13,8 @@ from pathlib import Path
 BASE = "https://kyouingyousekidb.jichi.ac.jp"
 OUT = Path(__file__).resolve().parent.parent / "jichi-faculty" / "roster.csv"
 UA = "jichi-faculty-roster (personal study project)"
+# 医学部の下にない組織。そのページと、その下の部門ページを読む。
+EXTRA_ROOTS = ["/地域医療学センター"]
 
 
 def get(path):
@@ -58,6 +61,17 @@ def dept_pages():
     return res
 
 
+def with_children(root):
+    h = get(root)
+    kids, seen = [], set()
+    for u in re.findall(r'<a[^>]*href="(' + re.escape(urllib.parse.quote(root, safe="/")) + r'/[^"]+)"', h):
+        u = urllib.parse.unquote(html.unescape(u))
+        if u not in seen:
+            seen.add(u)
+            kids.append(u)
+    return [root] + kids
+
+
 def collect(page):
     h = get(page)
     people = cards(h)
@@ -84,8 +98,16 @@ def permalink(slug):
 
 
 def main():
+    add = "--add" in sys.argv
     rows, seen = [], {}
-    for page in dept_pages():
+    old = []
+    if add:
+        with open(OUT, encoding="utf-8") as f:
+            old = list(csv.DictReader(f))
+    pages = [q for r in EXTRA_ROOTS for q in with_children(r)]
+    if not add:
+        pages = dept_pages() + pages
+    for page in pages:
         people, total = collect(page)
         print(page, total, len(people))
         for p in people:
@@ -93,15 +115,19 @@ def main():
                 continue
             seen[p["slug"]] = p
             rows.append(p)
+    if add:  # 今の名簿にいる人（名前と英語名が同じ）は足さない
+        have = {(r["name"], r["name_en"]) for r in old}
+        rows = [p for p in rows if (p["name"], p["name_en"]) not in have]
     print("人数", len(rows))
     for i, p in enumerate(rows, 1):
         p["researchmap"] = permalink(p["slug"])
         if i % 25 == 0:
             print(i, "/", len(rows), flush=True)
     OUT.parent.mkdir(parents=True, exist_ok=True)
-    with open(OUT, "w", encoding="utf-8", newline="") as f:
+    with open(OUT, "a" if add else "w", encoding="utf-8", newline="") as f:
         w = csv.writer(f)
-        w.writerow(["name", "name_en", "department", "position", "researchmap", "orcid"])
+        if not add:
+            w.writerow(["name", "name_en", "department", "position", "researchmap", "orcid"])
         for p in rows:
             w.writerow([p["name"], p["name_en"], p["department"], p["position"], p["researchmap"], ""])
     print("->", OUT)
