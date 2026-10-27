@@ -40,6 +40,8 @@
   .body ul{ margin:0; padding-left:1.2em; }
   .body li{ margin:0 0 6px; }
   .jr{ color:var(--ink-faint); font-size:12.5px; }
+  .rd{ margin:6px 0 4px; } .rd p{ margin:0; max-width:520px; }
+  .sm{ margin:3px 0 0; font-size:13px; color:var(--ink-soft); }
   .srt{ font-size:12px; font-weight:400; color:var(--ink-faint); cursor:pointer; border-bottom:1px solid var(--line-faint); margin-left:6px; }
   .srt:hover{ color:var(--ink); }
   .jr.hi{ color:#8a5a00; font-weight:500; }
@@ -71,7 +73,7 @@
 <p id="count"></p>
 <div id="list"></div>
 
-<p class="note">データの出どころは researchmap（教員本人が登録した公開情報）です。登録されていない論文や経歴は数えていません。論文数・順位は「登録された件数」を比べたもので、研究の質や価値を測るものではありません。被引用数は Crossref（DOI を登録している論文の引用の記録）で調べた値で、DOI のない論文や Crossref に載らない引用は数えていません。そのため Scopus や Google Scholar の値より少なく出ます。h指数も、この数字から計算した目安です。論文ごとの「同年の論文の中で上位○%」は、この表にある論文（約1.3万件）の中で、同じ年に出たものと被引用数を比べた位置で、世界全体や同じ分野の中での位置ではありません（出版から2年以内の論文と0回の論文は出しません）。新しい論文は、まだ引用されていないだけのことが多く、分野によっても引用の多さは大きく違います（被引用数の取得日: <span id="cdt"></span>）。査読の有無が未登録の論文も、反映されません。専門や職位で論文の出方は大きく違います。誤りや掲載の取り下げのご希望は <a href="/contact/">お問い合わせ</a> からお知らせください。このサイトは自治医科大学の公式サイトではありません。<span id="upd"></span></p>
+<p class="note">データの出どころは researchmap（教員本人が登録した公開情報）です。登録されていない論文や経歴は数えていません。論文数・順位は「登録された件数」を比べたもので、研究の質や価値を測るものではありません。被引用数は Crossref（DOI を登録している論文の引用の記録）で調べた値で、DOI のない論文や Crossref に載らない引用は数えていません。そのため Scopus や Google Scholar の値より少なく出ます。h指数も、この数字から計算した目安です。被引用数の上位の論文には、要旨（PubMed）をもとに AI が書いた要約を付けています。要旨に書かれている内容だけをまとめたもので、誤りがあるかもしれません。正確な内容は、各論文のリンク先で確かめてください。論文ごとの「同年の論文の中で上位○%」は、この表にある論文（約1.3万件）の中で、同じ年に出たものと被引用数を比べた位置で、世界全体や同じ分野の中での位置ではありません（出版から2年以内の論文と0回の論文は出しません）。新しい論文は、まだ引用されていないだけのことが多く、分野によっても引用の多さは大きく違います（被引用数の取得日: <span id="cdt"></span>）。査読の有無が未登録の論文も、反映されません。専門や職位で論文の出方は大きく違います。誤りや掲載の取り下げのご希望は <a href="/contact/">お問い合わせ</a> からお知らせください。このサイトは自治医科大学の公式サイトではありません。<span id="upd"></span></p>
 </div>
 
 <script>
@@ -106,6 +108,45 @@
     var r=pRank(p); if(!r) return "";
     return ' <span class="jr'+(r<=10?' hi':'')+'">同年の論文の中で上位 '+r+'%</span>';
   }
+  // ---- レーダーチャート: 測れる6つの軸を、全教員の中での位置（0〜100）で描く ----
+  function topShare(x){ // 引用の多い論文（同年の上位10%）の割合。被引用数の分かる論文が10本以上の人だけ
+    if(x._ts!==undefined) return x._ts;
+    var n=0,k=0; x.papers.forEach(function(p){ if(p.c==null) return; n++; var r=pRank(p); if(r&&r<=10) k++; });
+    return x._ts=(x.cn>=10&&n?k/n:null);
+  }
+  var AXES=[
+    {l:"論文数",g:function(x){return x.papers.length?x.papers.length:null}},
+    {l:"直近5年の論文",g:function(x){return x.papers.length?recent(x):null}},
+    {l:"被引用数",g:function(x){return x.cn?x.cit:null}},
+    {l:"h指数",g:function(x){return x.cn?x.h:null}},
+    {l:"引用の多い論文の割合",g:topShare},
+    {l:"研究費・研究課題",g:function(x){return x.gr!=null?x.gr:null}}
+  ];
+  function buildAxes(){
+    AXES.forEach(function(a){a.v=people.map(a.g).filter(function(v){return v!==null}).sort(function(p,q){return p-q})});
+  }
+  function axPct(a,x){ // 位置（0〜100）。同じ値の人は半分ずつ数える
+    var v=a.g(x); if(v===null||!a.v.length) return null;
+    var lo=0,eq=0; a.v.forEach(function(w){if(w<v)lo++;else if(w===v)eq++});
+    return (lo+eq/2)/a.v.length*100;
+  }
+  function radar(x){
+    var cx=170,cy=128,R=78,n=AXES.length,pts=[],lab="",grid="",ax="";
+    function pt(i,r){var t=-Math.PI/2+i*2*Math.PI/n;return [cx+r*Math.cos(t),cy+r*Math.sin(t),t]}
+    [25,50,75,100].forEach(function(q){
+      grid+='<polygon points="'+AXES.map(function(_,i){var P=pt(i,R*q/100);return P[0].toFixed(1)+","+P[1].toFixed(1)}).join(" ")+'" fill="none" stroke="#8884" stroke-width="1"/>';
+    });
+    AXES.forEach(function(a,i){
+      var v=axPct(a,x),E=pt(i,R),L=pt(i,R+14),P=v===null?[cx,cy]:pt(i,R*v/100);
+      pts.push(P[0].toFixed(1)+","+P[1].toFixed(1));
+      ax+='<line x1="'+cx+'" y1="'+cy+'" x2="'+E[0].toFixed(1)+'" y2="'+E[1].toFixed(1)+'" stroke="#8884"/>';
+      var anc=Math.abs(Math.cos(L[2]))<0.2?"middle":(Math.cos(L[2])>0?"start":"end");
+      lab+='<text x="'+L[0].toFixed(1)+'" y="'+(L[1]+(Math.sin(L[2])>0.2?8:(Math.sin(L[2])<-0.2?-2:4))).toFixed(1)+'" text-anchor="'+anc+'" font-size="11" fill="'+(v===null?'#999':'currentColor')+'">'+esc(a.l)+
+        '<tspan x="'+L[0].toFixed(1)+'" dy="12" font-size="10" fill="#888">'+(v===null?'データなし':'上位 '+Math.max(1,Math.round(100-v))+'%')+'</tspan></text>';
+    });
+    return '<svg viewBox="0 0 340 260" role="img" aria-label="全教員の中での位置を6つの軸で示したレーダーチャート" style="max-width:360px;width:100%;color:inherit">'+grid+ax+
+      '<polygon points="'+pts.join(" ")+'" fill="#3b82f6" fill-opacity=".22" stroke="#3b82f6" stroke-width="1.6"/>'+lab+'</svg>';
+  }
   function citRank(x){ // 被引用数の合計が自分より多い教員の割合から「上位○%」を出す（被引用数が分かる人の中で）
     if(!x.cn) return "";
     var all=people.filter(function(o){return o.cn}), more=all.filter(function(o){return o.cit>x.cit}).length;
@@ -129,15 +170,18 @@
       '<td class="n hm">'+(n?recent(x):'')+'</td>'+
       '<td class="n hm">'+(n?'上位 '+rank(x)+'%':'')+'</td></tr>';
   }
+  var SUM={}; // DOI → 要旨をもとにした AI の要約（被引用数の上位の論文だけ）
+  function smr(p){var t=p.doi&&SUM[p.doi.toLowerCase()];return t?'<div class="sm"><span class="jr">AIによる要約:</span> '+esc(t)+'</div>':""}
   function paperList(x,mode){
     var ps=x.papers.slice();
     if(mode==="cit") ps.sort(function(a,b){return (b.c==null?-1:b.c)-(a.c==null?-1:a.c)});
     return ps.length?'<ul>'+ps.map(function(p){
-      return '<li><span class="yr">'+esc(yr(p))+'</span>　'+esc(p.title)+'<br><span class="jr">'+esc(p.authors)+'　'+esc(p.journal)+'</span>'+(p.c!=null?' <span class="jr">被引用 '+p.c+'</span>':'')+pBadge(p)+link(p)+'</li>'}).join("")+'</ul>':'<div class="jr">登録なし</div>';
+      return '<li><span class="yr">'+esc(yr(p))+'</span>　'+esc(p.title)+'<br><span class="jr">'+esc(p.authors)+'　'+esc(p.journal)+'</span>'+(p.c!=null?' <span class="jr">被引用 '+p.c+'</span>':'')+pBadge(p)+link(p)+smr(p)+'</li>'}).join("")+'</ul>':'<div class="jr">登録なし</div>';
   }
   function bodyHtml(x){
     var first=x.papers.length?yr(x.papers[x.papers.length-1]):"";
     var h='';
+    if(x.papers.length) h+='<div class="rd">'+radar(x)+'<p class="jr">外側ほど、全教員の中で上位です。論文を通して測れる6つの軸だけを描いています。論文の新しさ、社会や医療への影響、臨床と教育の力は、測れないので含みません。</p></div>';
     if(x.papers.length) h+='<table class="kv"><tr><td>論文（登録件数）</td><td>'+x.papers.length+' 件</td></tr>'+
       (x.cn?'<tr><td>被引用数（合計）</td><td>'+x.cit+' 回（'+x.cn+' 件の論文から）</td></tr>'+
       '<tr><td>h指数</td><td>'+x.h+'</td></tr>'+
@@ -197,8 +241,9 @@
     $("count").textContent=people.length?r.length+" 人を表示（全 "+people.length+" 人）":"";
     $("list").innerHTML=r.length?'<table class="ls"><thead><tr><th>名前・講座</th><th class="hm">職位</th><th class="n">論文</th><th class="n" title="Crossref で分かる被引用数の合計">被引用</th><th class="n hm" title="h指数（Crossref の被引用数から計算）">h指数</th><th class="n hm">直近5年</th><th class="n hm">順位</th></tr></thead><tbody>'+r.map(row).join("")+'</tbody></table>':'<div class="empty">'+(people.length?'条件に合う教員がいません。':'データはまだ入っていません。')+'</div>';
   }
+  fetch("data/summaries.json").then(function(r){return r.ok?r.json():{}}).then(function(j){SUM=j||{}}).catch(function(){});
   fetch("data/faculty.json").then(function(r){return r.json()}).then(function(j){
-    people=j.people||[]; buildYears();
+    people=j.people||[]; buildYears(); buildAxes();
     if(j.cited) $("cdt").textContent=j.cited;
     if(j.updated) $("upd").textContent=" データの取得日: "+j.updated+"。";
     var ds={}; people.forEach(function(x){if(dk(x)) ds[dk(x)]=1});
