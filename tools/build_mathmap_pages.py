@@ -34,9 +34,6 @@ GOAT = ('<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" '
         'async src="//gc.zgo.at/count.js"></script>')
 FOOTER = """<footer class="site-footer">
   <ul>
-    <li><a href="/">トップ</a></li>
-    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
-    <li><a href="/juken/">受験・学習</a></li>
     <li><a href="/works/">作ったもの</a></li>
     <li><a href="/about/">運営者情報</a></li>
     <li><a href="/contact/">お問い合わせ</a></li>

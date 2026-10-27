@@ -24,6 +24,8 @@
   .ctl input{ flex:1 1 200px; min-width:0; }
   #count{ font-size:13px; color:var(--ink-faint); margin:0 0 14px; }
   details.p{ background:var(--card); border-radius:8px; margin:0 0 8px; }
+  details.p[open]>summary{ position:sticky; top:0; z-index:2; background:var(--card); border-radius:8px; box-shadow:0 1px 0 var(--line-faint); }
+  .btn{ font:inherit; font-size:13px; padding:8px 14px; border:1px solid var(--line-faint); border-radius:6px; background:#fff; color:var(--ink); cursor:pointer; margin:10px 8px 0 0; }
   details.p>summary{ list-style:none; cursor:pointer; padding:12px 14px; display:grid; grid-template-columns:1fr auto; gap:2px 12px; align-items:baseline; }
   details.p>summary::-webkit-details-marker{ display:none; }
   .nm{ color:var(--ink); font-weight:500; font-size:16px; }
@@ -93,6 +95,10 @@
       (x.papers.length?'　全教員中 上位 '+rank(x)+'%':'')+'</span>';
     return h;
   }
+  var PAGE=10;
+  function paperLi(p){
+    return '<li><span class="yr">'+esc(yr(p))+'</span>　'+esc(p.title)+'<br><span class="jr">'+esc(p.authors)+'　'+esc(p.journal)+'</span>'+link(p)+'</li>';
+  }
   function bodyHtml(x){
     var first=x.papers.length?yr(x.papers[x.papers.length-1]):"";
     var h='';
@@ -106,9 +112,10 @@
     h+=cs.length?'<ul>'+cs.map(function(c){
       return '<li><span class="yr">'+esc(c.from)+(c.from&&c.to&&c.from!==c.to?' 〜 '+esc(c.to):(c.from?'':'〜 '+esc(c.to)))+'</span>　'+esc(c.text)+'</li>'}).join("")+'</ul>':'<div class="jr">登録なし</div>';
     h+='<h3>論文（'+x.papers.length+'件）</h3>';
-    h+=x.papers.length?'<ul>'+x.papers.map(function(p){
-      return '<li><span class="yr">'+esc(yr(p))+'</span>　'+esc(p.title)+'<br><span class="jr">'+esc(p.authors)+'　'+esc(p.journal)+'</span>'+link(p)+'</li>'}).join("")+'</ul>':'<div class="jr">登録なし</div>';
+    h+=x.papers.length?'<ul class="pl">'+x.papers.slice(0,PAGE).map(paperLi).join("")+'</ul>'+
+      (x.papers.length>PAGE?'<div class="jr">新しい順に '+PAGE+' 件を表示しています（登録は全部で '+x.papers.length+' 件）。</div>':''):'<div class="jr">登録なし</div>';
     if(x.researchmap) h+='<p class="jr"><a href="https://researchmap.jp/'+encodeURIComponent(x.researchmap)+'" rel="noopener">researchmap のページ</a></p>';
+    h+='<button type="button" class="btn" data-act="close">この教員を閉じる</button>';
     return h;
   }
   function render(){
@@ -141,6 +148,12 @@
     var id=d.getAttribute("data-id");
     for(var i=0;i<people.length;i++) if(people[i].id===id){ b.innerHTML=bodyHtml(people[i]); break; }
   },true);
+  $("list").addEventListener("click",function(e){
+    var b=e.target.closest&&e.target.closest("button[data-act]");
+    if(!b) return;
+    var d=b.closest("details.p"); if(!d) return;
+    if(b.getAttribute("data-act")==="close"){ d.open=false; d.scrollIntoView({block:"start"}); return; }
+  });
   ["q","dept","sort"].forEach(function(id){$(id).addEventListener("input",render)});
 })();
 </script>
@@ -154,9 +167,6 @@
 </style>
 <footer class="site-footer">
   <ul>
-    <li><a href="/">トップ</a></li>
-    <li><a href="/igakubu-roadmap/">医学部受験ロードマップ</a></li>
-    <li><a href="/juken/">受験・学習</a></li>
     <li><a href="/works/">作ったもの</a></li>
     <li><a href="/about/">運営者情報</a></li>
     <li><a href="/contact/">お問い合わせ</a></li>
