@@ -24,6 +24,7 @@ h1{font-size:22px;margin:0 0 4px}
 .review{margin:12px 0 0;padding:0;list-style:none}
 .review li{margin:6px 0}
 .review a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--accent)}
+.ans{margin-top:12px}.ans summary{cursor:pointer;font-size:14px;color:var(--ink-soft)}.ans .problem{margin-top:8px}
 .lbl{font-size:13px;color:var(--ink-soft);margin-top:12px}
 </style>
 </head>
@@ -45,6 +46,7 @@ function show(data){
           <h3>${esc(it.title)}</h3>
           ${it.problem ? `<div class="problem">${esc(it.problem)}</div>` : ""}
           ${it.problem_url ? `<p style="white-space:pre-wrap">${esc(it.problem_note || "")}<br><a href="${esc(it.problem_url)}" target="_blank" rel="noopener">問題を開く（大学公式PDF）</a></p>` : ""}
+          ${it.answer ? `<details class="ans"><summary>解答（解いてから開く）</summary><div class="problem">${esc(it.answer)}</div></details>` : ""}
           <div class="lbl">解き終わったら、ここで復習</div>
           <ul class="review">${it.review.map(r => `<li><a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.label)}</a></li>`).join("")}</ul>
         </div>`).join("")}
