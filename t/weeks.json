@@ -2,6 +2,49 @@
  "name": "つばさ",
  "weeks": [
   {
+   "date": "2026-10-29",
+   "label": "10月29日(木)",
+   "items": [
+    {
+     "subject": "数学",
+     "title": "弘前大学 2025年度前期 数学② 第4問（定積分）",
+     "time": "15分",
+     "problem": "次の定積分を求めよ。ただし，e は自然対数の底とする。\n(1) ∫[0→π/3] sin x / { cos x (1 + cos x) } dx\n(2) ∫[1→e] x (log x)² dx",
+     "problem_url": "https://nyushi.hirosaki-u.ac.jp/wp-content/uploads/2025/06/03-R7ze-su2.pdf",
+     "review": [
+      {
+       "label": "置換積分（数学ノート）",
+       "url": "https://kaitoinoue0921.github.io/works/math-notes/#i=integ3-subst"
+      },
+      {
+       "label": "部分積分（数学ノート）",
+       "url": "https://kaitoinoue0921.github.io/works/math-notes/#i=integ3-parts"
+      },
+      {
+       "label": "分数関数の積分（数学ノート）",
+       "url": "https://kaitoinoue0921.github.io/works/math-notes/#i=integ3-rational"
+      }
+     ]
+    },
+    {
+     "subject": "化学",
+     "title": "中和滴定：NaOHとNa₂CO₃の混合物（二段階滴定）",
+     "time": "15分",
+     "problem": "水酸化ナトリウムと炭酸ナトリウムの混合物を水に溶かして 100 mL とした水溶液がある。この水溶液 20.0 mL をホールピペットでとり，フェノールフタレインを加えて 0.100 mol/L 塩酸で滴定したところ，30.0 mL 加えたところで溶液の赤色が消えた。続いてこの溶液にメチルオレンジを加え，さらに同じ塩酸で滴定を続けたところ，10.0 mL 加えたところで溶液が黄色から赤色に変わった。原子量は H = 1.0，C = 12，O = 16，Na = 23 とする。\n(1) 第1段階（フェノールフタレインの変色まで）と第2段階（メチルオレンジの変色まで）で起こる反応を，それぞれ化学反応式で書け。\n(2) この水溶液中の炭酸ナトリウムと水酸化ナトリウムのモル濃度をそれぞれ求めよ。\n(3) もとの混合物に含まれていた水酸化ナトリウムと炭酸ナトリウムの質量をそれぞれ求めよ。",
+     "review": [
+      {
+       "label": "二段階滴定（化学ノート）",
+       "url": "https://kaitoinoue0921.github.io/works/chem-notes/#i=ch-acidbase-twostep"
+      },
+      {
+       "label": "中和滴定（化学ノート）",
+       "url": "https://kaitoinoue0921.github.io/works/chem-notes/#i=ch-acidbase-neut"
+      }
+     ]
+    }
+   ]
+  },
+  {
    "date": "2026-10-22",
    "label": "10月22日(木)",
    "items": [
