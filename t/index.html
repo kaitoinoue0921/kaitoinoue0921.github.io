@@ -27,6 +27,7 @@ h1{font-size:22px;margin:0 0 4px}
 .review a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--accent)}
 .ans{margin-top:12px}.ans summary{cursor:pointer;font-size:14px;color:var(--ink-soft)}.ans .problem{margin-top:8px}
 .pdf,.note{margin:10px 0 0;font-size:14px;white-space:pre-wrap}.pdf a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent)}
+.pimg{width:100%;height:auto;display:block;background:#fff;border-radius:8px;padding:6px}
 .lbl{font-size:13px;color:var(--ink-soft);margin-top:12px}
 </style>
 </head>
@@ -48,7 +49,7 @@ function show(data){
         <div class="item">
           <span class="tag">${esc(it.subject)}</span><span class="tag">目安${esc(it.time)}</span>
           <h3>${esc(it.title)}</h3>
-          ${it.problem ? `<div class="problem">${esc(it.problem).replace(/__(.+?)__/g,"<u>$1</u>")}</div>` : ""}${it.problem_svg || ""}
+          ${it.problem_img ? `<img class="pimg" src="${esc(it.problem_img)}" alt="問題">` : ""}${it.problem ? (it.problem_img ? `<details class="ans"><summary>文字で読む</summary><div class="problem">${esc(it.problem).replace(/__(.+?)__/g,"<u>$1</u>")}</div></details>` : `<div class="problem">${esc(it.problem).replace(/__(.+?)__/g,"<u>$1</u>")}</div>`) : ""}${it.problem_svg || ""}
           ${it.problem_url ? `${it.problem_note ? `<p class="note">${esc(it.problem_note)}</p>` : ""}<p class="pdf"><a href="${esc(it.problem_url)}" target="_blank" rel="noopener">問題を開く（大学公式PDF）</a></p>` : ""}
           ${it.answer ? `<details class="ans"><summary>解答（解いてから開く）</summary><div class="problem">${esc(it.answer)}</div>${it.answer_svg || ""}</details>` : ""}
           <div class="lbl">解き終わったら、ここで復習</div>
