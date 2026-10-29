@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <title>今週の問題</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
 <style>
 :root{--bg:#f2f3ee;--card:#fff;--ink:#20281f;--ink-soft:#57604f;--line:#dcdfd3;--accent:#a6392a;--accent-soft:#f4ded9;}
@@ -35,6 +36,8 @@ h1{font-size:22px;margin:0 0 4px}
 <p class="sub">毎週木曜に更新します</p>
 <div id="app"></div>
 </main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
 <script>
 function esc(s){return String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
 function show(data){
@@ -45,13 +48,14 @@ function show(data){
         <div class="item">
           <span class="tag">${esc(it.subject)}</span><span class="tag">目安${esc(it.time)}</span>
           <h3>${esc(it.title)}</h3>
-          ${it.problem ? `<div class="problem">${esc(it.problem)}</div>` : ""}
+          ${it.problem ? `<div class="problem">${esc(it.problem)}</div>` : ""}${it.problem_svg || ""}
           ${it.problem_url ? `${it.problem_note ? `<p class="note">${esc(it.problem_note)}</p>` : ""}<p class="pdf"><a href="${esc(it.problem_url)}" target="_blank" rel="noopener">問題を開く（大学公式PDF）</a></p>` : ""}
           ${it.answer ? `<details class="ans"><summary>解答（解いてから開く）</summary><div class="problem">${esc(it.answer)}</div>${it.answer_svg || ""}</details>` : ""}
           <div class="lbl">解き終わったら、ここで復習</div>
           <ul class="review">${it.review.map(r => `<li><a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.label)}</a></li>`).join("")}</ul>
         </div>`).join("")}
     </section>`).join("");
+  try{ renderMathInElement(document.getElementById("app"),{delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],throwOnError:false}); }catch(e){}
 }
 fetch("weeks.json", {cache:"no-store"}).then(r => r.json()).then(show)
   .catch(() => { document.getElementById("app").textContent = "読み込めませんでした。少し待ってから開き直してください。"; });
