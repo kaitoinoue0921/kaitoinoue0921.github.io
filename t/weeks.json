@@ -7,22 +7,22 @@
    "items": [
     {
      "subject": "数学",
-     "title": "弘前大学 2025年度前期 数学② 第4問（定積分）",
-     "time": "15分",
-     "problem": "次の定積分を求めよ。ただし，e は自然対数の底とする。\n(1) ∫[0→π/3] sin x / { cos x (1 + cos x) } dx\n(2) ∫[1→e] x (log x)² dx",
-     "problem_url": "https://nyushi.hirosaki-u.ac.jp/wp-content/uploads/2025/06/03-R7ze-su2.pdf",
+     "title": "新潟大学 2025年度前期 数学 第4問（放物線と直線で囲む面積）",
+     "time": "20分",
+     "problem": "a は 0 < a < 3 を満たす実数とする。放物線 y = −x² + 9 と直線 y = a(x + 3) で囲まれる部分の面積を S、放物線 y = −x² + 9 と2つの直線 y = a(x + 3)，x = 3 で囲まれる部分の面積を T とする。\n(1) S を a を用いて表せ。必要ならば ∫_α^β (x − α)(x − β) dx = −(1/6)(β − α)³ を用いてよい。\n(2) S + T を a を用いて表せ。\n(3) S + T の最小値とそのときの a の値を求めよ。",
+     "problem_url": "https://www.niigata-u.ac.jp/wp-content/uploads/2025/08/5_r7mondai.pdf",
      "review": [
       {
-       "label": "置換積分（数学ノート）",
-       "url": "https://kaitoinoue0921.github.io/works/math-notes/#i=integ3-subst"
+       "label": "1/6公式（数学ノート）",
+       "url": "https://kaitoinoue0921.github.io/works/math-notes/#i=integ2-sixth"
       },
       {
-       "label": "部分積分（数学ノート）",
-       "url": "https://kaitoinoue0921.github.io/works/math-notes/#i=integ3-parts"
+       "label": "放物線と直線の面積（数学ノート）",
+       "url": "https://kaitoinoue0921.github.io/works/math-notes/#i=integ2-area-basic"
       },
       {
-       "label": "分数関数の積分（数学ノート）",
-       "url": "https://kaitoinoue0921.github.io/works/math-notes/#i=integ3-rational"
+       "label": "埼玉大数学チェックリスト：微分積分",
+       "url": "https://kaitoinoue0921.github.io/works/saitama-math/"
       }
      ]
     },
