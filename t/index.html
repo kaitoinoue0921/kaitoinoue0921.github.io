@@ -48,7 +48,7 @@ function show(data){
         <div class="item">
           <span class="tag">${esc(it.subject)}</span><span class="tag">目安${esc(it.time)}</span>
           <h3>${esc(it.title)}</h3>
-          ${it.problem ? `<div class="problem">${esc(it.problem)}</div>` : ""}${it.problem_svg || ""}
+          ${it.problem ? `<div class="problem">${esc(it.problem).replace(/__(.+?)__/g,"<u>$1</u>")}</div>` : ""}${it.problem_svg || ""}
           ${it.problem_url ? `${it.problem_note ? `<p class="note">${esc(it.problem_note)}</p>` : ""}<p class="pdf"><a href="${esc(it.problem_url)}" target="_blank" rel="noopener">問題を開く（大学公式PDF）</a></p>` : ""}
           ${it.answer ? `<details class="ans"><summary>解答（解いてから開く）</summary><div class="problem">${esc(it.answer)}</div>${it.answer_svg || ""}</details>` : ""}
           <div class="lbl">解き終わったら、ここで復習</div>
