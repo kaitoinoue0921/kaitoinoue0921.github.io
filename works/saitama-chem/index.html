@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta name="robots" content="noindex,follow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>埼玉大 化学 攻略ノート</title>
+<meta name="description" content="埼玉大学(教育学部・理科)の化学を2017〜2025年度の18大問から分析。出題分野の頻度、対策、電池・電気分解の過去問を解説つきで掲載。">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/works/saitama-chem/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>%E2%9A%97%EF%B8%8F</text></svg>">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@600;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<style>
+:root{--bg:#f2f3ee;--surface:#fff;--surface-2:#eceee6;--ink:#20281f;--ink-soft:#57604f;--rule:#d7d9cd;--accent:#a6392a;--accent-soft:#f4ded9;--gold:#a17a2e;--ok:#3a7a4e;--ok-soft:#dcebe0}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#181c16;--surface:#20251d;--surface-2:#262b21;--ink:#e9ece2;--ink-soft:#a7ad9c;--rule:#343a2d;--accent:#e08464;--accent-soft:#3a251d;--gold:#d9b465;--ok:#6fbf8a;--ok-soft:#1e3025}}
+:root[data-theme="dark"]{--bg:#181c16;--surface:#20251d;--surface-2:#262b21;--ink:#e9ece2;--ink-soft:#a7ad9c;--rule:#343a2d;--accent:#e08464;--accent-soft:#3a251d;--gold:#d9b465;--ok:#6fbf8a;--ok-soft:#1e3025}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Zen Kaku Gothic New","Hiragino Sans",system-ui,sans-serif;line-height:1.85;font-size:15px;padding-bottom:60px}
+sup,sub{font-size:.72em;line-height:0}
+.backlink{display:inline-block;margin:14px 0 0 20px;color:var(--ink-soft);font-size:13px;text-decoration:none}
+header{background:#20281f;color:#f2f3ee;padding:18px 20px;margin-top:10px}
+header>div{max-width:820px;margin:0 auto}
+h1{font-family:"Shippori Mincho",serif;font-size:22px;margin:0;font-weight:800}
+.sub{font-size:12px;color:rgba(242,243,238,.65);margin-top:4px}
+nav{max-width:820px;margin:0 auto;padding:12px 20px 0;display:flex;flex-wrap:wrap;gap:8px;font-size:13px}
+nav a{color:var(--accent);text-decoration:none;border:1px solid var(--rule);background:var(--surface);padding:3px 10px;border-radius:14px}
+main{max-width:820px;margin:0 auto;padding:0 20px}
+h2{font-family:"Shippori Mincho",serif;font-size:19px;margin:40px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--ink)}
+h3{font-size:15px;margin:22px 0 6px;color:var(--accent)}
+p{margin:0 0 10px}
+.note{background:var(--surface);border:1px solid var(--rule);border-left:3px solid var(--accent);padding:10px 14px;font-size:13px;color:var(--ink-soft)}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:13px;background:var(--surface)}
+th,td{border:1px solid var(--rule);padding:6px 9px;text-align:left;vertical-align:top}
+th{background:var(--surface-2);white-space:nowrap}
+td.hit{background:var(--accent-soft);font-weight:700}
+.bars .r{display:grid;grid-template-columns:8.5em 1fr 3em;gap:8px;align-items:center;font-size:13px;margin:4px 0}
+.bars .b{height:12px;background:var(--surface-2);border-radius:3px;overflow:hidden}
+.bars .b i{display:block;height:100%;background:var(--gold)}
+.bars .r.hl .b i{background:var(--accent)}
+.bars .n{font-variant-numeric:tabular-nums;color:var(--ink-soft);text-align:right}
+.q{background:var(--surface);border:1px solid var(--rule);padding:14px 16px;margin:10px 0}
+.q .t{font-weight:700;margin-bottom:6px}
+.q ol{margin:6px 0 0;padding-left:0;list-style:none}
+.q li{margin:0 0 6px}
+details{margin:10px 0;border:1px solid var(--rule);background:var(--surface)}
+summary{cursor:pointer;padding:9px 14px;font-weight:700;font-size:13.5px;color:var(--ok)}
+details .in{padding:2px 16px 12px;font-size:14px;border-top:1px dashed var(--rule)}
+.trap{color:var(--accent);font-size:13.5px}
+.eq{font-family:ui-monospace,Menlo,monospace;font-size:13.5px}
+footer{max-width:820px;margin:40px auto 0;padding:14px 20px 0;border-top:1px solid var(--rule);font-size:12px;color:var(--ink-soft)}
+footer a,main a{color:var(--accent)}
+@media (max-width:600px){h1{font-size:19px}.bars .r{grid-template-columns:7em 1fr 2.4em}}
+</style>
+</head>
+<body>
+<a class="backlink" href="/works/">← 作ったもの一覧へ</a>
+<header><div>
+<h1>埼玉大 化学 攻略ノート</h1>
+<div class="sub">教育学部・理科専修の前期化学を、2017〜2025年度の18大問から分析</div>
+</div></header>
+<nav><a href="#sum">出題の全体像</a><a href="#table">年度別一覧</a><a href="#freq">分野別の頻度</a><a href="#plan">対策</a><a href="#past">電池・電気分解の過去問</a><a href="/works/saitama-science/">知識チェックリスト(生物・化学)</a></nav>
+<main>
+
+<h2 id="sum">出題の全体像</h2>
+<p>埼玉大の化学は、各年度2大問です。18大問のうち理論化学が15本で、残りは無機・有機・高分子が1本ずつしかありません。つまり、有機を厚く対策するよりも、理論化学(気体・溶液、結晶・化学結合、化学平衡・反応速度)を固めるほうが点に直結します。</p>
+<p>もうひとつの特徴は、1つの大問が小問の寄せ集めになっていることです。たとえば2018年の大問1は、分子の極性、銅と硝酸の反応、モル濃度、溶解度が1題に入っています。深い1分野より、広く浅くの基本事項を落とさないことが大切です。</p>
+<p class="note">分野の分類は、東進の過去問データベースにある解答画像を見て筆者が判定したものです。混合問題は主なものに寄せています。2026年度は集計に含めていません。</p>
+
+<h2 id="table">年度別の出題一覧</h2>
+<div class="tbl"><table>
+<tr><th>年度</th><th>大問1</th><th>大問2</th></tr>
+<tr><td>2017</td><td>気体・溶液: 蒸発と飽和蒸気圧</td><td>気体・溶液: 凝固点降下、冷却曲線</td></tr>
+<tr><td>2018</td><td>溶液(混合): 分子の極性、Cuと硝酸、モル濃度、溶解度</td><td>反応速度: 速度式と多段階反応</td></tr>
+<tr><td>2019</td><td>結晶・化学結合: イオン半径、イオン化エネルギー、共有結合の結晶</td><td class="hit">電池: 鉛蓄電池</td></tr>
+<tr><td>2020</td><td class="hit">電池・電気分解: 電解質とNaCl電気分解</td><td>気体: 分圧、CH<sub>4</sub>の燃焼</td></tr>
+<tr><td>2021</td><td>溶液・その他: ステアリン酸の単分子膜とアボガドロ定数</td><td>結晶: NaCl型の格子と密度</td></tr>
+<tr><td>2022</td><td>酸塩基・溶液(混合): AlとHCl・NaOH、混合溶液の体積</td><td>有機: サリチル酸、アセチルサリチル酸、サリチル酸メチル</td></tr>
+<tr><td>2023</td><td>無機: 製鉄(Fe<sub>2</sub>O<sub>3</sub>のCO還元)</td><td>高分子: ナイロン66の合成</td></tr>
+<tr><td>2024</td><td>原子構造(混合): 最外殻電子、電子式、CH<sub>3</sub>COO<sup>−</sup>の加水分解</td><td>化学平衡＋無機: SO<sub>2</sub>→SO<sub>3</sub>、接触法、濃硫酸</td></tr>
+<tr><td>2025</td><td>結合・酸化還元(混合): 燃焼、イオン半径、MnO<sub>4</sub><sup>−</sup>の酸化還元、分子の極性</td><td>化学平衡・反応速度: HI生成の反応速度、活性化エネルギー</td></tr>
+</table></div>
+
+<h2 id="freq">分野別の出題数(18大問)</h2>
+<div class="bars">
+<div class="r"><span>気体・溶液</span><span class="b"><i style="width:100%"></i></span><span class="n">5</span></div>
+<div class="r"><span>結晶・化学結合</span><span class="b"><i style="width:60%"></i></span><span class="n">3</span></div>
+<div class="r"><span>化学平衡・反応速度</span><span class="b"><i style="width:60%"></i></span><span class="n">3</span></div>
+<div class="r hl"><span>電池・電気分解</span><span class="b"><i style="width:40%"></i></span><span class="n">2</span></div>
+<div class="r"><span>酸塩基・中和</span><span class="b"><i style="width:20%"></i></span><span class="n">1</span></div>
+<div class="r"><span>原子構造・イオン</span><span class="b"><i style="width:20%"></i></span><span class="n">1</span></div>
+<div class="r"><span>無機</span><span class="b"><i style="width:20%"></i></span><span class="n">1</span></div>
+<div class="r"><span>有機</span><span class="b"><i style="width:20%"></i></span><span class="n">1</span></div>
+<div class="r"><span>高分子</span><span class="b"><i style="width:20%"></i></span><span class="n">1</span></div>
+</div>
+<p style="margin-top:10px">混合問題を細かく数えると、無機の要素(銅と硝酸、接触法、濃硫酸など)は最大で4本ほどに入っています。酸化還元も、2019〜2025年に電池、製鉄、過マンガン酸と形を変えて繰り返し出ています。</p>
+
+<h2 id="plan">対策の優先順位</h2>
+<h3>1. 気体・溶液(5本で最多)</h3>
+<p>蒸気圧、分圧、凝固点降下、モル濃度、溶解度。計算を落とさないことが最優先です。気体の状態方程式と混合気体の分圧は、燃焼などの反応計算と組み合わさって出ます。</p>
+<h3>2. 結晶・化学結合と原子構造(4本)</h3>
+<p>結晶格子の密度計算(単位格子中の原子数、アボガドロ定数)、イオン半径の大小、イオン化エネルギー、分子の極性。暗記と短い計算の組み合わせで、準備した分だけ点になります。</p>
+<h3>3. 化学平衡・反応速度(3本、直近2年は連続)</h3>
+<p>平衡定数、ルシャトリエの原理、速度式、活性化エネルギー。2024・2025年と続けて出ているので、直近の傾向としては要注意です。</p>
+<h3>4. 電池・電気分解と酸化還元</h3>
+<p>大問として出たのは2019・2020年の2回ですが、その後も酸化還元は形を変えて出ています。半反応式が書けて、電気量から物質量に直せれば、ほぼ取れる分野です。次の節の2題で練習できます。</p>
+<h3>5. 有機・無機・高分子</h3>
+<p>各1本ずつで、どれも標準的な反応式と構造式の問題でした。理論を固めたうえで、反応式を押さえる程度で十分です。</p>
+
+<h2 id="past">過去問: 電池・電気分解</h2>
+<p>9年間で電池・電気分解が大問になったのは2題だけです。電池の練習に向く素材として、2題を問題・解答・解説つきで載せます。問題文は過去問データベースから書き起こしたもので、図は省略しています。</p>
+
+<h3>問題A 2019年度 前期 大問2(鉛蓄電池)</h3>
+<div class="q">
+<p>鉛蓄電池は正極に酸化鉛(IV) PbO<sub>2</sub>、負極に鉛 Pb、電解液に希硫酸 H<sub>2</sub>SO<sub>4</sub> を用いた電池である。その鉛蓄電池中の硫酸は質量パーセント濃度で30.0%、0.5 kg とする。必要ならば原子量として H = 1.0、O = 16.0、S = 32.1、Pb = 207.2、ファラデー定数 F = 9.65×10<sup>4</sup> C/mol を使用しなさい。計算問題に関しては有効数字2桁で答えなさい。</p>
+<ol>
+<li>問1 放電時の正極と負極の反応を、電子 e<sup>−</sup> を含むイオン反応式で書きなさい。</li>
+<li>問2 鉛蓄電池の放電時の全体の化学反応式を書きなさい。</li>
+<li>問3 鉛蓄電池の放電を電流5Aの条件下で1930秒間行った。正極で増加した質量を求めなさい。また、その放電後の硫酸の質量パーセント濃度を求めなさい。</li>
+<li>問4 「外部電源」「正極」「負極」という語を用いて、鉛蓄電池の充電方法を書きなさい。</li>
+</ol></div>
+<details><summary>解答と解説を見る</summary><div class="in">
+<p><b>問1</b><br><span class="eq">正極: PbO<sub>2</sub> + 4H<sup>+</sup> + SO<sub>4</sub><sup>2−</sup> + 2e<sup>−</sup> → PbSO<sub>4</sub> + 2H<sub>2</sub>O<br>負極: Pb + SO<sub>4</sub><sup>2−</sup> → PbSO<sub>4</sub> + 2e<sup>−</sup></span><br>どちらも電極の表面に PbSO<sub>4</sub> が付きます。正極ではPbの酸化数が+4から+2に、負極では0から+2に変わります。</p>
+<p><b>問2</b><br><span class="eq">Pb + PbO<sub>2</sub> + 2H<sub>2</sub>SO<sub>4</sub> → 2PbSO<sub>4</sub> + 2H<sub>2</sub>O</span><br>問1の2式を足して e<sup>−</sup> を消せばよいです。</p>
+<p><b>問3</b><br>流れた電気量は 5 × 1930 = 9650 C、電子の物質量は 9650 ÷ 9.65×10<sup>4</sup> = 0.10 mol です。<br>正極ではPbO<sub>2</sub>(式量239.2)がPbSO<sub>4</sub>(式量303.3)に変わり、電子2 molあたりSO<sub>2</sub>の分(64.1 g)だけ重くなります。0.10 molなら 64.1 × 0.10 ÷ 2 = 3.2 g の増加です。<br>硫酸は、全体の式から電子2 molでH<sub>2</sub>SO<sub>4</sub>が2 mol減り、水が2 mol増えます。電子0.10 molなら、H<sub>2</sub>SO<sub>4</sub>が0.10 mol(9.8 g)減り、水が0.10 mol(1.8 g)増えます。<br>最初の溶液は500 gで、H<sub>2</sub>SO<sub>4</sub>は 500 × 0.300 = 150 g です。放電後のH<sub>2</sub>SO<sub>4</sub>は約140.2 g、溶液は 500 − 9.8 + 1.8 = 492 g なので、濃度は 140.2 ÷ 492 ≒ 0.285 で約28%です。<br><b>答え: 正極は3.2 g増加、硫酸濃度は28%。</b></p>
+<p class="trap">つまずきやすい点: 溶液の質量が「硫酸が減った分」だけでなく「水が増えた分」も入ることです。水の増加を忘れると 140.2 ÷ 490.2 ≒ 28.6% になり、29%と答えてしまいます。</p>
+<p><b>問4</b><br>外部電源の正極を鉛蓄電池の正極に、外部電源の負極を鉛蓄電池の負極につなぎ、放電と逆向きに電流を流して電気分解を行います(模範解答は「外部電源と鉛蓄電池の正極どうし、負極どうしを接続して電気分解を行う」)。</p>
+</div></details>
+
+<h3>問題B 2020年度 前期 大問1(電解質とNaCl水溶液の電気分解)</h3>
+<div class="q">
+<p>純水を用いてつくったグルコース、塩化ナトリウム、エタノール、塩酸の4種類の水溶液を用意した。その4種類の水溶液について、図1のような実験装置(豆電球、電源装置、電流計、2本の電極を水溶液に入れたもの)で電流が流れるかどうか調べた。ただし、電極自身は反応しないものとする。</p>
+<ol>
+<li>問1 4種類の水溶液から、電流が流れたものを全て選びなさい。</li>
+<li>問2 水溶液にする前に、結晶の塩化ナトリウムに電流が流れるかどうか調べたところ、電流は流れなかった。この結果と問1の結果を比較して、どんなことがわかるか書きなさい。</li>
+<li>問3 この実験では、純水の代わりに水道水を用いてはいけない。その理由を説明しなさい。</li>
+<li>問4 塩化ナトリウム水溶液の場合、実験中に図1の電極付近に変化が見られた。その変化を化学反応式で書きなさい。</li>
+<li>問5 この実験装置を用いて、雨水を調べたところ、わずかに電流が流れた。その理由を説明しなさい。</li>
+</ol></div>
+<details><summary>解答と解説を見る</summary><div class="in">
+<p><b>問1</b> 塩化ナトリウム、塩酸。<br>水に溶けて電離する物質(電解質)の水溶液だけが電流を流します。NaCl → Na<sup>+</sup> + Cl<sup>−</sup>、HCl → H<sup>+</sup> + Cl<sup>−</sup>。グルコースとエタノールは電離しない非電解質です。</p>
+<p><b>問2</b> 結晶のままではイオンが動けないので電気を通さないが、水溶液にすると電離してイオンが自由に動けるようになり、電気を通すこと。</p>
+<p><b>問3</b> 水道水にはNa<sup>+</sup>、Ca<sup>2+</sup>、Mg<sup>2+</sup>、Cl<sup>−</sup>などのイオンが含まれているので、グルコースやエタノールの水溶液でも電流が流れてしまい、電解質かどうかを正しく判定できないから。</p>
+<p><b>問4</b> 電極自身は反応しないので、水溶液中の物質が反応します。<br><span class="eq">陽極: 2Cl<sup>−</sup> → Cl<sub>2</sub> + 2e<sup>−</sup><br>陰極: 2H<sub>2</sub>O + 2e<sup>−</sup> → H<sub>2</sub> + 2OH<sup>−</sup></span><br>全体にまとめると <span class="eq">2NaCl + 2H<sub>2</sub>O → Cl<sub>2</sub> + H<sub>2</sub> + 2NaOH</span> です。問題が「化学反応式で」と言っているので、全体の式で答えるのが無難です。電子を含む2式のどちらかで答えても、実際の採点では認められる可能性が高いです。</p>
+<p><b>問5</b> 雨水には大気中の二酸化炭素が溶け込み、その一部が電離してイオンができているから(CO<sub>2</sub> + H<sub>2</sub>O → H<sup>+</sup> + HCO<sub>3</sub><sup>−</sup>、pHは5.6程度で弱い酸性)。</p>
+</div></details>
+<p class="note">問題Bは電池そのものではなく、電解質と電気分解の入り口の問題です。問題Aの前に基礎確認として使い、余裕があれば飛ばして構いません。</p>
+
+</main>
+<footer>
+<p>出典: 東進 過去問データベース(問題文は書き起こし、解答・解説は筆者作成)。分野の分類は筆者の判定で、公式のものではありません。</p>
+<p><a href="/works/saitama-science/">埼玉大理科 知識チェックリスト(生物・化学)</a>も合わせてどうぞ。</p>
+</footer>
+</body>
+</html>
