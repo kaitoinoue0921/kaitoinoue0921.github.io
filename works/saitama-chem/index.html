@@ -49,6 +49,36 @@ details .in{padding:2px 16px 12px;font-size:14px;border-top:1px dashed var(--rul
 .eq{font-family:ui-monospace,Menlo,monospace;font-size:13.5px}
 footer{max-width:820px;margin:40px auto 0;padding:14px 20px 0;border-top:1px solid var(--rule);font-size:12px;color:var(--ink-soft)}
 footer a,main a{color:var(--accent)}
+html{scroll-behavior:smooth}
+h2[id]{scroll-margin-top:60px}
+nav{position:sticky;top:0;z-index:5;background:var(--bg);padding-bottom:10px;border-bottom:1px solid var(--rule);flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch}
+nav a{white-space:nowrap;flex:none}
+nav a:focus-visible,summary:focus-visible,.tools button:focus-visible,.totop:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.legend{font-size:12px;color:var(--ink-soft);margin:6px 0 0}
+.legend span{background:var(--accent-soft);padding:1px 8px;font-weight:700;color:var(--ink)}
+td:first-child{white-space:nowrap;font-weight:700}
+tr:nth-child(even) td:not(.hit){background:var(--surface-2)}
+tr.part td{color:var(--ink-soft)}
+.tools{margin:6px 0 10px}
+.tools button{font:inherit;font-size:13px;border:1px solid var(--rule);background:var(--surface);color:var(--ink);padding:5px 12px;border-radius:14px;cursor:pointer;margin-right:6px}
+.totop{position:fixed;right:14px;bottom:16px;background:var(--accent);color:#fff!important;text-decoration:none;font-size:13px;padding:8px 12px;border-radius:20px;opacity:0;pointer-events:none;transition:opacity .2s}
+.totop.on{opacity:.92;pointer-events:auto}
+details[open]>summary{border-bottom:0}
+.pr{background:var(--surface);border:1px solid var(--rule);padding:14px 16px;margin:12px 0}
+.pr .src{font-size:12px;color:var(--ink-soft);margin-bottom:4px}
+.pr .qt{margin:0 0 8px}
+.pr textarea{width:100%;min-height:64px;font:inherit;font-size:14px;color:var(--ink);background:var(--bg);border:1px solid var(--rule);padding:8px;border-radius:4px}
+.pr label{display:inline-block;margin:0 10px 6px 0;font-size:13px}
+.pr input[type=text]{font:inherit;width:6.5em;padding:4px 6px;color:var(--ink);background:var(--bg);border:1px solid var(--rule);border-radius:4px}
+.pr button{font:inherit;font-size:13px;border:1px solid var(--rule);background:var(--surface-2);color:var(--ink);padding:5px 12px;border-radius:14px;cursor:pointer;margin:2px 6px 2px 0}
+.pr button.pri{background:var(--accent);color:#fff;border-color:var(--accent)}
+.pr .ans{margin-top:8px;padding:8px 12px;border-top:1px dashed var(--rule);font-size:14px}
+.pr .res{font-weight:700;margin-top:6px}
+.pr.ok{border-left:4px solid var(--ok)}.pr.ng{border-left:4px solid var(--accent)}
+.pr.ok .res{color:var(--ok)}.pr.ng .res{color:var(--accent)}
+.score{position:sticky;top:48px;z-index:4;background:var(--surface);border:1px solid var(--rule);padding:6px 12px;font-size:13px;display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.score b{font-variant-numeric:tabular-nums}
+@media print{nav,.totop,.tools,.backlink{display:none}details:not([open]) .in{display:block}body{font-size:12px}}
 @media (max-width:600px){h1{font-size:19px}.bars .r{grid-template-columns:7em 1fr 2.4em}}
 </style>
 </head>
@@ -58,7 +88,7 @@ footer a,main a{color:var(--accent)}
 <h1>埼玉大 化学 攻略ノート</h1>
 <div class="sub">教育学部・理科専修の前期化学を、2017〜2025年度の18大問から分析</div>
 </div></header>
-<nav><a href="#sum">出題の全体像</a><a href="#table">年度別一覧</a><a href="#freq">分野別の頻度</a><a href="#plan">対策</a><a href="#past">電池・電気分解の過去問</a><a href="/works/saitama-science/">知識チェックリスト(生物・化学)</a></nav>
+<nav><a href="#sum">出題の全体像</a><a href="#table">年度別一覧</a><a href="#freq">分野別の頻度</a><a href="#plan">対策</a><a href="#practice">問題演習</a><a href="#past">電池・電気分解の過去問</a><a href="/works/saitama-science/">知識チェックリスト(生物・化学)</a></nav>
 <main>
 
 <h2 id="sum">出題の全体像</h2>
@@ -67,6 +97,7 @@ footer a,main a{color:var(--accent)}
 <p class="note">分野の分類は、東進の過去問データベースにある解答画像を見て筆者が判定したものです。混合問題は主なものに寄せています。2026年度は東進に大問1の解答しか載っておらず、大問2が不明なため、下の分野別の集計(18大問)には含めていません。2026年の大問1は、溶液・酸塩基、周期律・結合、有機が小問で並ぶ寄せ集めで、これまでの傾向と同じ形でした。電池・電気分解は出ていません。</p>
 
 <h2 id="table">年度別の出題一覧</h2>
+<p class="legend"><span>色つき</span> = 電池・電気分解が大問で出た年。2026年は大問1のみ掲載。</p>
 <div class="tbl"><table>
 <tr><th>年度</th><th>大問1</th><th>大問2</th></tr>
 <tr><td>2017</td><td>気体・溶液: 蒸発と飽和蒸気圧</td><td>気体・溶液: 凝固点降下、冷却曲線</td></tr>
@@ -78,7 +109,7 @@ footer a,main a{color:var(--accent)}
 <tr><td>2023</td><td>無機: 製鉄(Fe<sub>2</sub>O<sub>3</sub>のCO還元)</td><td>高分子: ナイロン66の合成</td></tr>
 <tr><td>2024</td><td>原子構造(混合): 最外殻電子、電子式、CH<sub>3</sub>COO<sup>−</sup>の加水分解</td><td>化学平衡＋無機: SO<sub>2</sub>→SO<sub>3</sub>、接触法、濃硫酸</td></tr>
 <tr><td>2025</td><td>結合・酸化還元(混合): 燃焼、イオン半径、MnO<sub>4</sub><sup>−</sup>の酸化還元、分子の極性</td><td>化学平衡・反応速度: HI生成の反応速度、活性化エネルギー</td></tr>
-<tr><td>2026</td><td>小問集合(混合): 硫酸のモル濃度、中和滴定、Cs とLiの違い、黒鉛の導電性、He、酢酸とアセチレンの付加、C<sub>3</sub>H<sub>8</sub>Oの異性体</td><td>未掲載(東進に大問1の解答しかなし)</td></tr>
+<tr class="part"><td>2026</td><td>小問集合(混合): 硫酸のモル濃度、中和滴定、Cs とLiの違い、黒鉛の導電性、He、酢酸とアセチレンの付加、C<sub>3</sub>H<sub>8</sub>Oの異性体</td><td>未掲載(東進に大問1の解答しかなし)</td></tr>
 </table></div>
 
 <h2 id="freq">分野別の出題数(18大問)</h2>
@@ -107,9 +138,15 @@ footer a,main a{color:var(--accent)}
 <h3>5. 有機・無機・高分子</h3>
 <p>各1本ずつで、どれも標準的な反応式と構造式の問題でした。理論を固めたうえで、反応式を押さえる程度で十分です。</p>
 
+<h2 id="practice">問題演習</h2>
+<p>埼玉大の実際の小問から選んだ演習です。計算問題は数字を入れて「判定」を押すと自動で答え合わせをします。記述問題は自分の答えを書いてから「模範解答を見る」を押し、自分で○×をつけてください。結果はこのブラウザに保存されます。</p>
+<div class="score" id="score"><span>正解 <b id="sOk">0</b></span><span>不正解 <b id="sNg">0</b></span><span>未回答 <b id="sRest">0</b></span><button type="button" id="onlyRest" style="font:inherit;font-size:12px;border:1px solid var(--rule);background:var(--surface-2);color:var(--ink);padding:3px 10px;border-radius:12px;cursor:pointer">未回答・不正解だけ表示</button><button type="button" id="resetAll" style="font:inherit;font-size:12px;border:1px solid var(--rule);background:var(--surface-2);color:var(--ink);padding:3px 10px;border-radius:12px;cursor:pointer">記録を消す</button></div>
+<div id="drill"></div>
+
 <h2 id="past">過去問: 電池・電気分解</h2>
 <p>9年間で電池・電気分解が大問になったのは2題だけです。電池の練習に向く素材として、2題を問題・解答・解説つきで載せます。問題文は過去問データベースから書き起こしたもので、図は省略しています。</p>
 
+<div class="tools"><button type="button" id="openAll">解答をすべて開く</button><button type="button" id="closeAll">すべて閉じる</button></div>
 <h3>問題A 2019年度 前期 大問2(鉛蓄電池)</h3>
 <div class="q">
 <p>鉛蓄電池は正極に酸化鉛(IV) PbO<sub>2</sub>、負極に鉛 Pb、電解液に希硫酸 H<sub>2</sub>SO<sub>4</sub> を用いた電池である。その鉛蓄電池中の硫酸は質量パーセント濃度で30.0%、0.5 kg とする。必要ならば原子量として H = 1.0、O = 16.0、S = 32.1、Pb = 207.2、ファラデー定数 F = 9.65×10<sup>4</sup> C/mol を使用しなさい。計算問題に関しては有効数字2桁で答えなさい。</p>
@@ -151,5 +188,78 @@ footer a,main a{color:var(--accent)}
 <p>出典: 東進 過去問データベース(問題文は書き起こし、解答・解説は筆者作成)。分野の分類は筆者の判定で、公式のものではありません。</p>
 <p><a href="/works/saitama-science/">埼玉大理科 知識チェックリスト(生物・化学)</a>も合わせてどうぞ。</p>
 </footer>
+<a class="totop" href="#" id="totop">↑ 先頭へ</a>
+<script>
+(function(){
+
+var Q=[
+{id:"26-1-1",src:"2026年度 大問1 問1(溶液の濃度)",q:"密度1.40 g/cm<sup>3</sup>、質量パーセント濃度50.0%の硫酸水溶液のモル濃度(mol/L)を求めなさい。H = 1.0, O = 16, S = 32。小数第二位まで。",f:[{l:"答え",u:"mol/L",a:7.14,t:0.006}],e:"1 Lの溶液は1400 g、そのうち硫酸は 1400 × 0.500 = 700 g。H<sub>2</sub>SO<sub>4</sub> = 98 なので 700 ÷ 98 = 7.14 mol/L。"},
+{id:"26-1-2",src:"2026年度 大問1 問2(中和滴定)",q:"濃度未知の塩酸と0.20 mol/Lのシュウ酸水溶液がそれぞれ20 mLある。ある濃度の水酸化ナトリウム水溶液で滴定したところ、中和に要した体積はそれぞれ30 mLと16 mLだった。この塩酸のモル濃度(mol/L)を求めなさい。小数第二位まで。",f:[{l:"答え",u:"mol/L",a:0.75,t:0.006}],e:"シュウ酸は2価。H<sup>+</sup>は 0.20 × 2 × 20 = 8.0 mmol。これに16 mLのNaOHが要るので、NaOHは 8.0 ÷ 16 = 0.50 mol/L。塩酸20 mLに30 mLが要るので、HClは 0.50 × 30 = 15 mmol、15 ÷ 20 = 0.75 mol/L。"},
+{id:"26-1-3",src:"2026年度 大問1 問3(周期律)",q:"アルカリ金属のセシウムは、同じアルカリ金属のリチウムより水と激しく反応する。この理由を書きなさい。",r:"セシウムはリチウムより原子半径が大きく、原子核と最外殻電子との相互作用が小さいため、第一イオン化エネルギーが小さく、イオンになりやすいから。"},
+{id:"26-1-4",src:"2026年度 大問1 問4(結合)",q:"黒鉛(グラファイト)が電気伝導性をもつ理由を説明しなさい。",r:"炭素原子の4個の価電子のうち3個のみが結合に関与し、結合に関与しない1個の電子が、自由電子として平面内を自由に移動できるから。"},
+{id:"26-1-5",src:"2026年度 大問1 問5(貴ガス)",q:"ヘリウムの物理的及び化学的性質を書きなさい。",r:"無色・無臭の気体で、沸点が全元素で最も低い(物理的性質)。価電子が0の貴ガスであるため、反応性が乏しい単原子分子である(化学的性質)。"},
+{id:"26-1-6",src:"2026年度 大問1 問6(有機)",q:"酢酸がアセチレンに等しい物質量で付加して生じる化合物の構造式を書きなさい。",r:"CH<sub>3</sub>COOCH=CH<sub>2</sub>(酢酸ビニル)。CH<sub>3</sub>−C(=O)−O−CH=CH<sub>2</sub>。"},
+{id:"26-1-7",src:"2026年度 大問1 問7(異性体)",q:"C<sub>3</sub>H<sub>8</sub>Oの分子式をもつ化合物の構造異性体の構造式を全て書きなさい。",r:"3種類。1-プロパノール CH<sub>3</sub>CH<sub>2</sub>CH<sub>2</sub>OH、2-プロパノール CH<sub>3</sub>CH(OH)CH<sub>3</sub>、エチルメチルエーテル CH<sub>3</sub>CH<sub>2</sub>OCH<sub>3</sub>。"},
+{id:"19-2-1",src:"2019年度 大問2 問1(鉛蓄電池)",q:"鉛蓄電池の放電時の正極と負極の反応を、電子e<sup>−</sup>を含むイオン反応式で書きなさい。",r:"正極: PbO<sub>2</sub> + 4H<sup>+</sup> + SO<sub>4</sub><sup>2−</sup> + 2e<sup>−</sup> → PbSO<sub>4</sub> + 2H<sub>2</sub>O<br>負極: Pb + SO<sub>4</sub><sup>2−</sup> → PbSO<sub>4</sub> + 2e<sup>−</sup>"},
+{id:"19-2-3",src:"2019年度 大問2 問3(鉛蓄電池)",q:"鉛蓄電池(硫酸30.0%、0.5 kg)を電流5 Aで1930秒間放電した。正極で増加した質量と、放電後の硫酸の質量パーセント濃度を求めなさい。H = 1.0, O = 16.0, S = 32.1, Pb = 207.2、F = 9.65×10<sup>4</sup> C/mol。有効数字2桁。",f:[{l:"正極の増加",u:"g",a:3.2,t:0.06},{l:"硫酸の濃度",u:"%",a:28,t:0.6}],e:"電気量 5 × 1930 = 9650 C、電子 0.10 mol。正極はPbO<sub>2</sub>→PbSO<sub>4</sub>でSO<sub>2</sub>分(64.1 g)が電子2 molあたり増えるので 64.1 × 0.10 ÷ 2 = 3.2 g。硫酸は0.10 mol(9.8 g)減り水が0.10 mol(1.8 g)増える。(150 − 9.8) ÷ (500 − 9.8 + 1.8) ≒ 0.285 で約28%。水の増加を忘れると29%になるので注意。"},
+{id:"20-1-4",src:"2020年度 大問1 問4(電気分解)",q:"電極自身は反応しないものとして、塩化ナトリウム水溶液を電気分解したときの電極付近の変化を化学反応式で書きなさい。",r:"陽極: 2Cl<sup>−</sup> → Cl<sub>2</sub> + 2e<sup>−</sup><br>陰極: 2H<sub>2</sub>O + 2e<sup>−</sup> → H<sub>2</sub> + 2OH<sup>−</sup><br>全体: 2NaCl + 2H<sub>2</sub>O → Cl<sub>2</sub> + H<sub>2</sub> + 2NaOH"}
+];
+var K="saitamaChemDrill1",st={};
+try{st=JSON.parse(localStorage.getItem(K)||"{}")}catch(e){}
+function save(){try{localStorage.setItem(K,JSON.stringify(st))}catch(e){}}
+var box=document.getElementById("drill"),onlyRest=false;
+function num(v){v=String(v).replace(/[０-９．]/g,function(c){return c==="．"?".":String.fromCharCode(c.charCodeAt(0)-65248)}).replace(/[^0-9.\-]/g,"");return parseFloat(v)}
+function mk(q){
+ var d=document.createElement("div");d.className="pr";d.id="q"+q.id;
+ var h='<div class="src">'+q.src+'</div><p class="qt">'+q.q+'</p>';
+ if(q.f){q.f.forEach(function(f,i){h+='<label>'+f.l+' <input type="text" inputmode="decimal" data-i="'+i+'" autocomplete="off"> '+f.u+'</label>'});h+='<br><button type="button" class="pri chk">判定</button>'}
+ else{h+='<textarea placeholder="自分の答えを書いてから、下のボタンを押します"></textarea><br><button type="button" class="pri show">模範解答を見る</button>'}
+ h+='<div class="out"></div>';d.innerHTML=h;
+ var out=d.querySelector(".out"),r=st[q.id]||{};
+ function paint(res){d.classList.remove("ok","ng");if(res)d.classList.add(res)}
+ function ans(){if(q.f){out.innerHTML='<div class="ans">'+q.e+'</div>'}}
+ function done(res){st[q.id]={r:res,v:r.v};save();paint(res);count()}
+ if(q.f){
+  var ins=d.querySelectorAll("input");
+  if(r.v)ins.forEach(function(x,i){x.value=r.v[i]||""});
+  function run(){var vs=[].map.call(ins,function(x){return x.value}),ok=true,any=true;
+   q.f.forEach(function(f,i){var n=num(vs[i]);if(isNaN(n)){any=false;ok=false}else if(Math.abs(n-f.a)>f.t)ok=false});
+   if(!any){out.innerHTML='<div class="res">すべての欄に数字を入れてください。</div>';return}
+   var m=q.f.map(function(f){return f.l+': '+f.a+' '+f.u}).join(' / ');
+   out.innerHTML='<div class="res">'+(ok?'正解':'不正解')+'(正答: '+m+')</div><div class="ans">'+q.e+'</div>';
+   r={r:ok?"ok":"ng",v:vs};st[q.id]=r;save();paint(r.r);count()}
+  d.querySelector(".chk").onclick=run;
+  if(r.r)run();
+ }else{
+  var ta=d.querySelector("textarea");if(r.v)ta.value=r.v;
+  function reveal(){
+   out.innerHTML='<div class="ans"><b>模範解答</b><br>'+q.r+'</div><div><span style="font-size:13px">自分の答えは合っていましたか?</span> <button type="button" class="y">○ 合っていた</button><button type="button" class="n">× 違っていた</button></div>';
+   out.querySelector(".y").onclick=function(){st[q.id]={r:"ok",v:ta.value};save();paint("ok");count()};
+   out.querySelector(".n").onclick=function(){st[q.id]={r:"ng",v:ta.value};save();paint("ng");count()};
+  }
+  d.querySelector(".show").onclick=reveal;
+  ta.oninput=function(){var c=st[q.id]||{};c.v=ta.value;st[q.id]=c;save()};
+  if(r.r){reveal();paint(r.r)}
+ }
+ return d;
+}
+function build(){box.innerHTML="";Q.forEach(function(q){box.appendChild(mk(q))});count()}
+function count(){var o=0,n=0;Q.forEach(function(q){var c=st[q.id];if(c&&c.r==="ok")o++;else if(c&&c.r==="ng")n++});
+ document.getElementById("sOk").textContent=o;document.getElementById("sNg").textContent=n;document.getElementById("sRest").textContent=Q.length-o-n;
+ Q.forEach(function(q){var e=document.getElementById("q"+q.id);if(e)e.style.display=(onlyRest&&st[q.id]&&st[q.id].r==="ok")?"none":""})}
+document.getElementById("onlyRest").onclick=function(){onlyRest=!onlyRest;this.textContent=onlyRest?"すべて表示":"未回答・不正解だけ表示";count()};
+document.getElementById("resetAll").onclick=function(){if(confirm("演習の記録と書いた答えをすべて消しますか?")){st={};save();build()}};
+build();
+
+var d=document.querySelectorAll('details');
+document.getElementById('openAll').onclick=function(){d.forEach(function(x){x.open=true})};
+document.getElementById('closeAll').onclick=function(){d.forEach(function(x){x.open=false})};
+var t=document.getElementById('totop');
+addEventListener('scroll',function(){t.classList.toggle('on',scrollY>600)},{passive:true});
+t.onclick=function(e){e.preventDefault();scrollTo({top:0})};
+var links=[].slice.call(document.querySelectorAll('nav a[href^="#"]'));
+if('IntersectionObserver' in window){var o=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(a){a.style.background=a.getAttribute('href')==='#'+e.target.id?'var(--accent-soft)':''})}})},{rootMargin:'-20% 0px -70% 0px'});links.forEach(function(a){var h=document.querySelector(a.getAttribute('href'));if(h)o.observe(h)})}
+})();
+</script>
 </body>
 </html>
