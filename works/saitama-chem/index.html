@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>埼玉大 化学 攻略ノート</title>
-<meta name="description" content="埼玉大学(教育学部・理科)の化学を2017〜2025年度の18大問から分析。出題分野の頻度、対策、電池・電気分解の過去問を解説つきで掲載。">
+<meta name="description" content="埼玉大学(教育学部・理科)の化学を2017〜2025年度の18大問から分析する攻略サイト。出題分野の頻度、分野別の対策、問題演習と過去問の解説を掲載。">
 <link rel="canonical" href="https://kaitoinoue0921.github.io/works/saitama-chem/">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>%E2%9A%97%EF%B8%8F</text></svg>">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@600;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
@@ -76,6 +76,8 @@ details[open]>summary{border-bottom:0}
 .pr .res{font-weight:700;margin-top:6px}
 .pr.ok{border-left:4px solid var(--ok)}.pr.ng{border-left:4px solid var(--accent)}
 .pr.ok .res{color:var(--ok)}.pr.ng .res{color:var(--accent)}
+.go{font:inherit;font-size:13px;border:1px solid var(--accent);background:var(--surface);color:var(--accent);padding:4px 12px;border-radius:14px;cursor:pointer}
+.cats{margin:10px 0 0;display:flex;flex-wrap:wrap;gap:6px}.cats button{font:inherit;font-size:13px;border:1px solid var(--rule);background:var(--surface);color:var(--ink);padding:4px 12px;border-radius:14px;cursor:pointer}.cats button.on{background:var(--accent);color:#fff;border-color:var(--accent)}.pr .cat{display:inline-block;font-size:11px;background:var(--accent-soft);color:var(--ink);padding:0 8px;border-radius:8px;margin-left:6px}
 .score{position:sticky;top:48px;z-index:4;background:var(--surface);border:1px solid var(--rule);padding:6px 12px;font-size:13px;display:flex;gap:12px;flex-wrap:wrap;align-items:center}
 .score b{font-variant-numeric:tabular-nums}
 @media print{nav,.totop,.tools,.backlink{display:none}details:not([open]) .in{display:block}body{font-size:12px}}
@@ -88,7 +90,7 @@ details[open]>summary{border-bottom:0}
 <h1>埼玉大 化学 攻略ノート</h1>
 <div class="sub">教育学部・理科専修の前期化学を、2017〜2025年度の18大問から分析</div>
 </div></header>
-<nav><a href="#sum">出題の全体像</a><a href="#table">年度別一覧</a><a href="#freq">分野別の頻度</a><a href="#plan">対策</a><a href="#practice">問題演習</a><a href="#past">電池・電気分解の過去問</a><a href="/works/saitama-science/">知識チェックリスト(生物・化学)</a></nav>
+<nav><a href="#sum">出題の全体像</a><a href="#table">年度別一覧</a><a href="#freq">分野別の頻度</a><a href="#plan">分野別の対策</a><a href="#practice">問題演習</a><a href="#past">過去問と解説</a><a href="/works/saitama-science/">知識チェックリスト(生物・化学)</a></nav>
 <main>
 
 <h2 id="sum">出題の全体像</h2>
@@ -97,19 +99,19 @@ details[open]>summary{border-bottom:0}
 <p class="note">分野の分類は、東進の過去問データベースにある解答画像を見て筆者が判定したものです。混合問題は主なものに寄せています。2026年度は東進に大問1の解答しか載っておらず、大問2が不明なため、下の分野別の集計(18大問)には含めていません。2026年の大問1は、溶液・酸塩基、周期律・結合、有機が小問で並ぶ寄せ集めで、これまでの傾向と同じ形でした。電池・電気分解は出ていません。</p>
 
 <h2 id="table">年度別の出題一覧</h2>
-<p class="legend"><span>色つき</span> = 電池・電気分解が大問で出た年。2026年は大問1のみ掲載。</p>
+<p class="legend">問題PDFは東進の過去問データベースへのリンクです(東進にログインしていると開けます)。 2026年は大問1のみ掲載。</p>
 <div class="tbl"><table>
-<tr><th>年度</th><th>大問1</th><th>大問2</th></tr>
-<tr><td>2017</td><td>気体・溶液: 蒸発と飽和蒸気圧</td><td>気体・溶液: 凝固点降下、冷却曲線</td></tr>
-<tr><td>2018</td><td>溶液(混合): 分子の極性、Cuと硝酸、モル濃度、溶解度</td><td>反応速度: 速度式と多段階反応</td></tr>
-<tr><td>2019</td><td>結晶・化学結合: イオン半径、イオン化エネルギー、共有結合の結晶</td><td class="hit">電池: 鉛蓄電池</td></tr>
-<tr><td>2020</td><td class="hit">電池・電気分解: 電解質とNaCl電気分解</td><td>気体: 分圧、CH<sub>4</sub>の燃焼</td></tr>
-<tr><td>2021</td><td>溶液・その他: ステアリン酸の単分子膜とアボガドロ定数</td><td>結晶: NaCl型の格子と密度</td></tr>
-<tr><td>2022</td><td>酸塩基・溶液(混合): AlとHCl・NaOH、混合溶液の体積</td><td>有機: サリチル酸、アセチルサリチル酸、サリチル酸メチル</td></tr>
-<tr><td>2023</td><td>無機: 製鉄(Fe<sub>2</sub>O<sub>3</sub>のCO還元)</td><td>高分子: ナイロン66の合成</td></tr>
-<tr><td>2024</td><td>原子構造(混合): 最外殻電子、電子式、CH<sub>3</sub>COO<sup>−</sup>の加水分解</td><td>化学平衡＋無機: SO<sub>2</sub>→SO<sub>3</sub>、接触法、濃硫酸</td></tr>
-<tr><td>2025</td><td>結合・酸化還元(混合): 燃焼、イオン半径、MnO<sub>4</sub><sup>−</sup>の酸化還元、分子の極性</td><td>化学平衡・反応速度: HI生成の反応速度、活性化エネルギー</td></tr>
-<tr class="part"><td>2026</td><td>小問集合(混合): 硫酸のモル濃度、中和滴定、Cs とLiの違い、黒鉛の導電性、He、酢酸とアセチレンの付加、C<sub>3</sub>H<sub>8</sub>Oの異性体</td><td>未掲載(東進に大問1の解答しかなし)</td></tr>
+<tr><th>年度</th><th>大問1</th><th>大問2</th><th>問題PDF</th></tr>
+<tr><td>2017</td><td>気体・溶液: 蒸発と飽和蒸気圧</td><td>気体・溶液: 凝固点降下、冷却曲線</td><td><a href="https://www.toshin-kakomon.com/new_kakomon_db/university/0j/2017/c0j171/question/" target="_blank" rel="noopener">開く</a></td></tr>
+<tr><td>2018</td><td>溶液(混合): 分子の極性、Cuと硝酸、モル濃度、溶解度</td><td>反応速度: 速度式と多段階反応</td><td><a href="https://www.toshin-kakomon.com/new_kakomon_db/university/0j/2018/c0j181/question/" target="_blank" rel="noopener">開く</a></td></tr>
+<tr><td>2019</td><td>結晶・化学結合: イオン半径、イオン化エネルギー、共有結合の結晶</td><td>電池: 鉛蓄電池</td><td><a href="https://www.toshin-kakomon.com/new_kakomon_db/university/0j/2019/c0j191/question/" target="_blank" rel="noopener">開く</a></td></tr>
+<tr><td>2020</td><td>電池・電気分解: 電解質とNaCl電気分解</td><td>気体: 分圧、CH<sub>4</sub>の燃焼</td><td><a href="https://www.toshin-kakomon.com/new_kakomon_db/university/0j/2020/c0j201/question/" target="_blank" rel="noopener">開く</a></td></tr>
+<tr><td>2021</td><td>溶液・その他: ステアリン酸の単分子膜とアボガドロ定数</td><td>結晶: NaCl型の格子と密度</td><td><a href="https://www.toshin-kakomon.com/new_kakomon_db/university/0j/2021/c0j211/question/" target="_blank" rel="noopener">開く</a></td></tr>
+<tr><td>2022</td><td>酸塩基・溶液(混合): AlとHCl・NaOH、混合溶液の体積</td><td>有機: サリチル酸、アセチルサリチル酸、サリチル酸メチル</td><td><a href="https://www.toshin-kakomon.com/new_kakomon_db/university/0j/2022/c0j221/question/" target="_blank" rel="noopener">開く</a></td></tr>
+<tr><td>2023</td><td>無機: 製鉄(Fe<sub>2</sub>O<sub>3</sub>のCO還元)</td><td>高分子: ナイロン66の合成</td><td><a href="https://www.toshin-kakomon.com/new_kakomon_db/university/0j/2023/c0j231/question/" target="_blank" rel="noopener">開く</a></td></tr>
+<tr><td>2024</td><td>原子構造(混合): 最外殻電子、電子式、CH<sub>3</sub>COO<sup>−</sup>の加水分解</td><td>化学平衡＋無機: SO<sub>2</sub>→SO<sub>3</sub>、接触法、濃硫酸</td><td><a href="https://www.toshin-kakomon.com/new_kakomon_db/university/0j/2024/c0j241/question/" target="_blank" rel="noopener">開く</a></td></tr>
+<tr><td>2025</td><td>結合・酸化還元(混合): 燃焼、イオン半径、MnO<sub>4</sub><sup>−</sup>の酸化還元、分子の極性</td><td>化学平衡・反応速度: HI生成の反応速度、活性化エネルギー</td><td><a href="https://www.toshin-kakomon.com/new_kakomon_db/university/0j/2025/c0j251/question/" target="_blank" rel="noopener">開く</a></td></tr>
+<tr class="part"><td>2026</td><td>小問集合(混合): 硫酸のモル濃度、中和滴定、Cs とLiの違い、黒鉛の導電性、He、酢酸とアセチレンの付加、C<sub>3</sub>H<sub>8</sub>Oの異性体</td><td>未掲載(東進に大問1の解答しかなし)</td><td><a href="https://www.toshin-kakomon.com/new_kakomon_db/university/0j/2026/c0j261/question/" target="_blank" rel="noopener">開く</a></td></tr>
 </table></div>
 
 <h2 id="freq">分野別の出題数(18大問)</h2>
@@ -117,7 +119,7 @@ details[open]>summary{border-bottom:0}
 <div class="r"><span>気体・溶液</span><span class="b"><i style="width:100%"></i></span><span class="n">5</span></div>
 <div class="r"><span>結晶・化学結合</span><span class="b"><i style="width:60%"></i></span><span class="n">3</span></div>
 <div class="r"><span>化学平衡・反応速度</span><span class="b"><i style="width:60%"></i></span><span class="n">3</span></div>
-<div class="r hl"><span>電池・電気分解</span><span class="b"><i style="width:40%"></i></span><span class="n">2</span></div>
+<div class="r"><span>電池・電気分解</span><span class="b"><i style="width:40%"></i></span><span class="n">2</span></div>
 <div class="r"><span>酸塩基・中和</span><span class="b"><i style="width:20%"></i></span><span class="n">1</span></div>
 <div class="r"><span>原子構造・イオン</span><span class="b"><i style="width:20%"></i></span><span class="n">1</span></div>
 <div class="r"><span>無機</span><span class="b"><i style="width:20%"></i></span><span class="n">1</span></div>
@@ -126,25 +128,31 @@ details[open]>summary{border-bottom:0}
 </div>
 <p style="margin-top:10px">混合問題を細かく数えると、無機の要素(銅と硝酸、接触法、濃硫酸など)は最大で4本ほどに入っています。酸化還元も、2019〜2025年に電池、製鉄、過マンガン酸と形を変えて繰り返し出ています。</p>
 
-<h2 id="plan">対策の優先順位</h2>
+<h2 id="plan">分野別の対策</h2>
+<p>優先度の高い順です。各分野の「この分野を演習する」を押すと、問題演習がその分野に絞られます。</p>
 <h3>1. 気体・溶液(5本で最多)</h3>
 <p>蒸気圧、分圧、凝固点降下、モル濃度、溶解度。計算を落とさないことが最優先です。気体の状態方程式と混合気体の分圧は、燃焼などの反応計算と組み合わさって出ます。</p>
+<p><button type="button" class="go" data-c="溶液・濃度">この分野を演習する</button></p>
 <h3>2. 結晶・化学結合と原子構造(4本)</h3>
 <p>結晶格子の密度計算(単位格子中の原子数、アボガドロ定数)、イオン半径の大小、イオン化エネルギー、分子の極性。暗記と短い計算の組み合わせで、準備した分だけ点になります。</p>
+<p><button type="button" class="go" data-c="周期律・結合">この分野を演習する</button></p>
 <h3>3. 化学平衡・反応速度(3本、直近2年は連続)</h3>
 <p>平衡定数、ルシャトリエの原理、速度式、活性化エネルギー。2024・2025年と続けて出ているので、直近の傾向としては要注意です。</p>
-<h3>4. 電池・電気分解と酸化還元</h3>
+<h3>4. 酸化還元・電池・電気分解</h3>
 <p>大問として出たのは2019・2020年の2回ですが、その後も酸化還元は形を変えて出ています。半反応式が書けて、電気量から物質量に直せれば、ほぼ取れる分野です。次の節の2題で練習できます。</p>
+<p><button type="button" class="go" data-c="電池・電気分解">この分野を演習する</button></p>
 <h3>5. 有機・無機・高分子</h3>
 <p>各1本ずつで、どれも標準的な反応式と構造式の問題でした。理論を固めたうえで、反応式を押さえる程度で十分です。</p>
+<p><button type="button" class="go" data-c="有機">この分野を演習する</button></p>
 
 <h2 id="practice">問題演習</h2>
 <p>埼玉大の実際の小問から選んだ演習です。計算問題は数字を入れて「判定」を押すと自動で答え合わせをします。記述問題は自分の答えを書いてから「模範解答を見る」を押し、自分で○×をつけてください。結果はこのブラウザに保存されます。</p>
 <div class="score" id="score"><span>正解 <b id="sOk">0</b></span><span>不正解 <b id="sNg">0</b></span><span>未回答 <b id="sRest">0</b></span><button type="button" id="onlyRest" style="font:inherit;font-size:12px;border:1px solid var(--rule);background:var(--surface-2);color:var(--ink);padding:3px 10px;border-radius:12px;cursor:pointer">未回答・不正解だけ表示</button><button type="button" id="resetAll" style="font:inherit;font-size:12px;border:1px solid var(--rule);background:var(--surface-2);color:var(--ink);padding:3px 10px;border-radius:12px;cursor:pointer">記録を消す</button></div>
+<div class="cats" id="cats"></div>
 <div id="drill"></div>
 
-<h2 id="past">過去問: 電池・電気分解</h2>
-<p>9年間で電池・電気分解が大問になったのは2題だけです。電池の練習に向く素材として、2題を問題・解答・解説つきで載せます。問題文は過去問データベースから書き起こしたもので、図は省略しています。</p>
+<h2 id="past">過去問の詳しい解説</h2>
+<p>記述も計算も多い2題(鉛蓄電池、電解質とNaCl電気分解)を、問題・解答・解説つきで載せます。問題文は過去問データベースから書き起こしたもので、図は省略しています。</p>
 
 <div class="tools"><button type="button" id="openAll">解答をすべて開く</button><button type="button" id="closeAll">すべて閉じる</button></div>
 <h3>問題A 2019年度 前期 大問2(鉛蓄電池)</h3>
@@ -193,25 +201,25 @@ details[open]>summary{border-bottom:0}
 (function(){
 
 var Q=[
-{id:"26-1-1",src:"2026年度 大問1 問1(溶液の濃度)",q:"密度1.40 g/cm<sup>3</sup>、質量パーセント濃度50.0%の硫酸水溶液のモル濃度(mol/L)を求めなさい。H = 1.0, O = 16, S = 32。小数第二位まで。",f:[{l:"答え",u:"mol/L",a:7.14,t:0.006}],e:"1 Lの溶液は1400 g、そのうち硫酸は 1400 × 0.500 = 700 g。H<sub>2</sub>SO<sub>4</sub> = 98 なので 700 ÷ 98 = 7.14 mol/L。"},
-{id:"26-1-2",src:"2026年度 大問1 問2(中和滴定)",q:"濃度未知の塩酸と0.20 mol/Lのシュウ酸水溶液がそれぞれ20 mLある。ある濃度の水酸化ナトリウム水溶液で滴定したところ、中和に要した体積はそれぞれ30 mLと16 mLだった。この塩酸のモル濃度(mol/L)を求めなさい。小数第二位まで。",f:[{l:"答え",u:"mol/L",a:0.75,t:0.006}],e:"シュウ酸は2価。H<sup>+</sup>は 0.20 × 2 × 20 = 8.0 mmol。これに16 mLのNaOHが要るので、NaOHは 8.0 ÷ 16 = 0.50 mol/L。塩酸20 mLに30 mLが要るので、HClは 0.50 × 30 = 15 mmol、15 ÷ 20 = 0.75 mol/L。"},
-{id:"26-1-3",src:"2026年度 大問1 問3(周期律)",q:"アルカリ金属のセシウムは、同じアルカリ金属のリチウムより水と激しく反応する。この理由を書きなさい。",r:"セシウムはリチウムより原子半径が大きく、原子核と最外殻電子との相互作用が小さいため、第一イオン化エネルギーが小さく、イオンになりやすいから。"},
-{id:"26-1-4",src:"2026年度 大問1 問4(結合)",q:"黒鉛(グラファイト)が電気伝導性をもつ理由を説明しなさい。",r:"炭素原子の4個の価電子のうち3個のみが結合に関与し、結合に関与しない1個の電子が、自由電子として平面内を自由に移動できるから。"},
-{id:"26-1-5",src:"2026年度 大問1 問5(貴ガス)",q:"ヘリウムの物理的及び化学的性質を書きなさい。",r:"無色・無臭の気体で、沸点が全元素で最も低い(物理的性質)。価電子が0の貴ガスであるため、反応性が乏しい単原子分子である(化学的性質)。"},
-{id:"26-1-6",src:"2026年度 大問1 問6(有機)",q:"酢酸がアセチレンに等しい物質量で付加して生じる化合物の構造式を書きなさい。",r:"CH<sub>3</sub>COOCH=CH<sub>2</sub>(酢酸ビニル)。CH<sub>3</sub>−C(=O)−O−CH=CH<sub>2</sub>。"},
-{id:"26-1-7",src:"2026年度 大問1 問7(異性体)",q:"C<sub>3</sub>H<sub>8</sub>Oの分子式をもつ化合物の構造異性体の構造式を全て書きなさい。",r:"3種類。1-プロパノール CH<sub>3</sub>CH<sub>2</sub>CH<sub>2</sub>OH、2-プロパノール CH<sub>3</sub>CH(OH)CH<sub>3</sub>、エチルメチルエーテル CH<sub>3</sub>CH<sub>2</sub>OCH<sub>3</sub>。"},
-{id:"19-2-1",src:"2019年度 大問2 問1(鉛蓄電池)",q:"鉛蓄電池の放電時の正極と負極の反応を、電子e<sup>−</sup>を含むイオン反応式で書きなさい。",r:"正極: PbO<sub>2</sub> + 4H<sup>+</sup> + SO<sub>4</sub><sup>2−</sup> + 2e<sup>−</sup> → PbSO<sub>4</sub> + 2H<sub>2</sub>O<br>負極: Pb + SO<sub>4</sub><sup>2−</sup> → PbSO<sub>4</sub> + 2e<sup>−</sup>"},
-{id:"19-2-3",src:"2019年度 大問2 問3(鉛蓄電池)",q:"鉛蓄電池(硫酸30.0%、0.5 kg)を電流5 Aで1930秒間放電した。正極で増加した質量と、放電後の硫酸の質量パーセント濃度を求めなさい。H = 1.0, O = 16.0, S = 32.1, Pb = 207.2、F = 9.65×10<sup>4</sup> C/mol。有効数字2桁。",f:[{l:"正極の増加",u:"g",a:3.2,t:0.06},{l:"硫酸の濃度",u:"%",a:28,t:0.6}],e:"電気量 5 × 1930 = 9650 C、電子 0.10 mol。正極はPbO<sub>2</sub>→PbSO<sub>4</sub>でSO<sub>2</sub>分(64.1 g)が電子2 molあたり増えるので 64.1 × 0.10 ÷ 2 = 3.2 g。硫酸は0.10 mol(9.8 g)減り水が0.10 mol(1.8 g)増える。(150 − 9.8) ÷ (500 − 9.8 + 1.8) ≒ 0.285 で約28%。水の増加を忘れると29%になるので注意。"},
-{id:"20-1-4",src:"2020年度 大問1 問4(電気分解)",q:"電極自身は反応しないものとして、塩化ナトリウム水溶液を電気分解したときの電極付近の変化を化学反応式で書きなさい。",r:"陽極: 2Cl<sup>−</sup> → Cl<sub>2</sub> + 2e<sup>−</sup><br>陰極: 2H<sub>2</sub>O + 2e<sup>−</sup> → H<sub>2</sub> + 2OH<sup>−</sup><br>全体: 2NaCl + 2H<sub>2</sub>O → Cl<sub>2</sub> + H<sub>2</sub> + 2NaOH"}
+{id:"26-1-1",c:"溶液・濃度",src:"2026年度 大問1 問1(溶液の濃度)",q:"密度1.40 g/cm<sup>3</sup>、質量パーセント濃度50.0%の硫酸水溶液のモル濃度(mol/L)を求めなさい。H = 1.0, O = 16, S = 32。小数第二位まで。",f:[{l:"答え",u:"mol/L",a:7.14,t:0.006}],e:"1 Lの溶液は1400 g、そのうち硫酸は 1400 × 0.500 = 700 g。H<sub>2</sub>SO<sub>4</sub> = 98 なので 700 ÷ 98 = 7.14 mol/L。"},
+{id:"26-1-2",c:"酸塩基・中和",src:"2026年度 大問1 問2(中和滴定)",q:"濃度未知の塩酸と0.20 mol/Lのシュウ酸水溶液がそれぞれ20 mLある。ある濃度の水酸化ナトリウム水溶液で滴定したところ、中和に要した体積はそれぞれ30 mLと16 mLだった。この塩酸のモル濃度(mol/L)を求めなさい。小数第二位まで。",f:[{l:"答え",u:"mol/L",a:0.75,t:0.006}],e:"シュウ酸は2価。H<sup>+</sup>は 0.20 × 2 × 20 = 8.0 mmol。これに16 mLのNaOHが要るので、NaOHは 8.0 ÷ 16 = 0.50 mol/L。塩酸20 mLに30 mLが要るので、HClは 0.50 × 30 = 15 mmol、15 ÷ 20 = 0.75 mol/L。"},
+{id:"26-1-3",c:"周期律・結合",src:"2026年度 大問1 問3(周期律)",q:"アルカリ金属のセシウムは、同じアルカリ金属のリチウムより水と激しく反応する。この理由を書きなさい。",r:"セシウムはリチウムより原子半径が大きく、原子核と最外殻電子との相互作用が小さいため、第一イオン化エネルギーが小さく、イオンになりやすいから。"},
+{id:"26-1-4",c:"周期律・結合",src:"2026年度 大問1 問4(結合)",q:"黒鉛(グラファイト)が電気伝導性をもつ理由を説明しなさい。",r:"炭素原子の4個の価電子のうち3個のみが結合に関与し、結合に関与しない1個の電子が、自由電子として平面内を自由に移動できるから。"},
+{id:"26-1-5",c:"周期律・結合",src:"2026年度 大問1 問5(貴ガス)",q:"ヘリウムの物理的及び化学的性質を書きなさい。",r:"無色・無臭の気体で、沸点が全元素で最も低い(物理的性質)。価電子が0の貴ガスであるため、反応性が乏しい単原子分子である(化学的性質)。"},
+{id:"26-1-6",c:"有機",src:"2026年度 大問1 問6(有機)",q:"酢酸がアセチレンに等しい物質量で付加して生じる化合物の構造式を書きなさい。",r:"CH<sub>3</sub>COOCH=CH<sub>2</sub>(酢酸ビニル)。CH<sub>3</sub>−C(=O)−O−CH=CH<sub>2</sub>。"},
+{id:"26-1-7",c:"有機",src:"2026年度 大問1 問7(異性体)",q:"C<sub>3</sub>H<sub>8</sub>Oの分子式をもつ化合物の構造異性体の構造式を全て書きなさい。",r:"3種類。1-プロパノール CH<sub>3</sub>CH<sub>2</sub>CH<sub>2</sub>OH、2-プロパノール CH<sub>3</sub>CH(OH)CH<sub>3</sub>、エチルメチルエーテル CH<sub>3</sub>CH<sub>2</sub>OCH<sub>3</sub>。"},
+{id:"19-2-1",c:"電池・電気分解",src:"2019年度 大問2 問1(鉛蓄電池)",q:"鉛蓄電池の放電時の正極と負極の反応を、電子e<sup>−</sup>を含むイオン反応式で書きなさい。",r:"正極: PbO<sub>2</sub> + 4H<sup>+</sup> + SO<sub>4</sub><sup>2−</sup> + 2e<sup>−</sup> → PbSO<sub>4</sub> + 2H<sub>2</sub>O<br>負極: Pb + SO<sub>4</sub><sup>2−</sup> → PbSO<sub>4</sub> + 2e<sup>−</sup>"},
+{id:"19-2-3",c:"電池・電気分解",src:"2019年度 大問2 問3(鉛蓄電池)",q:"鉛蓄電池(硫酸30.0%、0.5 kg)を電流5 Aで1930秒間放電した。正極で増加した質量と、放電後の硫酸の質量パーセント濃度を求めなさい。H = 1.0, O = 16.0, S = 32.1, Pb = 207.2、F = 9.65×10<sup>4</sup> C/mol。有効数字2桁。",f:[{l:"正極の増加",u:"g",a:3.2,t:0.06},{l:"硫酸の濃度",u:"%",a:28,t:0.6}],e:"電気量 5 × 1930 = 9650 C、電子 0.10 mol。正極はPbO<sub>2</sub>→PbSO<sub>4</sub>でSO<sub>2</sub>分(64.1 g)が電子2 molあたり増えるので 64.1 × 0.10 ÷ 2 = 3.2 g。硫酸は0.10 mol(9.8 g)減り水が0.10 mol(1.8 g)増える。(150 − 9.8) ÷ (500 − 9.8 + 1.8) ≒ 0.285 で約28%。水の増加を忘れると29%になるので注意。"},
+{id:"20-1-4",c:"電池・電気分解",src:"2020年度 大問1 問4(電気分解)",q:"電極自身は反応しないものとして、塩化ナトリウム水溶液を電気分解したときの電極付近の変化を化学反応式で書きなさい。",r:"陽極: 2Cl<sup>−</sup> → Cl<sub>2</sub> + 2e<sup>−</sup><br>陰極: 2H<sub>2</sub>O + 2e<sup>−</sup> → H<sub>2</sub> + 2OH<sup>−</sup><br>全体: 2NaCl + 2H<sub>2</sub>O → Cl<sub>2</sub> + H<sub>2</sub> + 2NaOH"}
 ];
-var K="saitamaChemDrill1",st={};
+var cat="すべて",K="saitamaChemDrill1",st={};
 try{st=JSON.parse(localStorage.getItem(K)||"{}")}catch(e){}
 function save(){try{localStorage.setItem(K,JSON.stringify(st))}catch(e){}}
 var box=document.getElementById("drill"),onlyRest=false;
 function num(v){v=String(v).replace(/[０-９．]/g,function(c){return c==="．"?".":String.fromCharCode(c.charCodeAt(0)-65248)}).replace(/[^0-9.\-]/g,"");return parseFloat(v)}
 function mk(q){
  var d=document.createElement("div");d.className="pr";d.id="q"+q.id;
- var h='<div class="src">'+q.src+'</div><p class="qt">'+q.q+'</p>';
+ var h='<div class="src">'+q.src+'<span class="cat">'+q.c+'</span> <a href="https://www.toshin-kakomon.com/new_kakomon_db/university/0j/20'+q.id.slice(0,2)+'/c0j'+q.id.slice(0,2)+'1/question/" target="_blank" rel="noopener">問題PDF</a></div><p class="qt">'+q.q+'</p>';
  if(q.f){q.f.forEach(function(f,i){h+='<label>'+f.l+' <input type="text" inputmode="decimal" data-i="'+i+'" autocomplete="off"> '+f.u+'</label>'});h+='<br><button type="button" class="pri chk">判定</button>'}
  else{h+='<textarea placeholder="自分の答えを書いてから、下のボタンを押します"></textarea><br><button type="button" class="pri show">模範解答を見る</button>'}
  h+='<div class="out"></div>';d.innerHTML=h;
@@ -243,13 +251,16 @@ function mk(q){
  }
  return d;
 }
+function drawCats(){var cs=["すべて"];Q.forEach(function(q){if(cs.indexOf(q.c)<0)cs.push(q.c)});var el=document.getElementById("cats");el.innerHTML="";
+ cs.forEach(function(c){var t=0,o=0;Q.forEach(function(q){if(c==="すべて"||q.c===c){t++;if(st[q.id]&&st[q.id].r==="ok")o++}});var b=document.createElement("button");b.type="button";b.textContent=c+" "+o+"/"+t;if(c===cat)b.className="on";b.onclick=function(){cat=c;count()};el.appendChild(b)})}
 function build(){box.innerHTML="";Q.forEach(function(q){box.appendChild(mk(q))});count()}
 function count(){var o=0,n=0;Q.forEach(function(q){var c=st[q.id];if(c&&c.r==="ok")o++;else if(c&&c.r==="ng")n++});
  document.getElementById("sOk").textContent=o;document.getElementById("sNg").textContent=n;document.getElementById("sRest").textContent=Q.length-o-n;
- Q.forEach(function(q){var e=document.getElementById("q"+q.id);if(e)e.style.display=(onlyRest&&st[q.id]&&st[q.id].r==="ok")?"none":""})}
+ Q.forEach(function(q){var e=document.getElementById("q"+q.id);if(e)e.style.display=((onlyRest&&st[q.id]&&st[q.id].r==="ok")||(cat!=="すべて"&&q.c!==cat))?"none":""});drawCats()}
 document.getElementById("onlyRest").onclick=function(){onlyRest=!onlyRest;this.textContent=onlyRest?"すべて表示":"未回答・不正解だけ表示";count()};
 document.getElementById("resetAll").onclick=function(){if(confirm("演習の記録と書いた答えをすべて消しますか?")){st={};save();build()}};
 build();
+document.querySelectorAll(".go").forEach(function(b){b.onclick=function(){cat=b.dataset.c;count();document.getElementById("practice").scrollIntoView({behavior:"smooth"})}});
 
 var d=document.querySelectorAll('details');
 document.getElementById('openAll').onclick=function(){d.forEach(function(x){x.open=true})};
