@@ -296,6 +296,8 @@
   .r3{color:var(--dim)}
   .boxlist{margin-top:16px;font-size:12.5px}
   .boxlist div{padding:5px 0;border-bottom:1px solid var(--line)}
+  .tk{display:inline-block;background:var(--panel2);border:1px solid var(--line);border-radius:5px;padding:2px 8px;font-size:12px;margin:2px 4px 2px 0;cursor:pointer;color:var(--fg)}
+  .tk.on{border-color:var(--accent);color:var(--accent)}
 </style>
   <meta property="og:title" content="受験数学マップ">
   <meta property="og:description" content="何を、どの順で、なぜやるか。数学の全範囲を構造化した学習マップ。">
@@ -328,6 +330,7 @@
     <button data-v="prob">合格可能性</button>
     <button data-v="eye">着眼点</button>
     <button data-v="search">検索</button>
+    <button data-v="target">志望大学</button>
     <button data-v="past">過去問</button>
     <button data-v="mon">モンスター</button>
     <button data-v="gacha">ガチャ</button>
@@ -2998,7 +3001,7 @@ function filtered(){
 function render(){
   header();
   const v = $('#view');
-  $('#filters').style.display = ['doc','mon','gacha','prob','past','today','mock','units','search','eye'].includes(view) ? 'none' : 'flex';
+  $('#filters').style.display = ['doc','mon','gacha','prob','past','today','mock','units','search','eye','target'].includes(view) ? 'none' : 'flex';
 
   if (view === 'units'){
     v.innerHTML = unitsHTML();
@@ -3050,6 +3053,7 @@ function render(){
   else if (view === 'map')   { mapMode === 'unit' ? drawUnitMap() : drawMap(); }
   else if (view === 'prob')  v.innerHTML = probHTML();
   else if (view === 'eye') { v.innerHTML = eyeHTML(); bindEye(); }
+  else if (view === 'target') { v.innerHTML = targetHTML(); bindTarget(); }
   else if (view === 'search') { v.innerHTML = searchHTML(); bindSearch(); }
   else if (view === 'past')  { v.innerHTML = pastHTML(); bindPast(); }
   else if (view === 'mon')   v.innerHTML = monHTML();
@@ -3637,6 +3641,49 @@ function bindSearch(){
   bind('ssub','subject'); bind('suniv','univ'); bind('syear','year'); bind('sunit','unit'); bind('smark','mark');
   $('#sq').oninput = e => { srQ.q = e.target.value; srQ.n = 60; srList(); };
   srList();
+}
+
+/* ---- 志望大学ビュー: 選んだ大学の過去問から頻出の型を数える ---- */
+let tgU = (() => { try { const a = JSON.parse(localStorage.getItem('targetUnivs') || '[]'); return Array.isArray(a) ? a : []; } catch (e) { return []; } })();
+function saveTg(){ try { localStorage.setItem('targetUnivs', JSON.stringify(tgU)); } catch (e) {} }
+/* 得点 = 選んだ大学の問題のうち、その型を含む問題の数。同点は全大学合計の出題数→型番号順 */
+function topKata(univs){
+  const all = new Map(), mine = new Map();
+  let n = 0;
+  SR.forEach(r => {
+    const hit = univs.includes(r.univ);
+    if (hit) n++;
+    r.kata.forEach(k => {
+      const a = all.get(k.id) || {id:k.id, t:k.title, all:0, sc:0};
+      a.all++; if (hit) a.sc++;
+      all.set(k.id, a);
+    });
+  });
+  const cmp = (a, b) => b.sc - a.sc || b.all - a.all || a.t.localeCompare(b.t, 'ja', {numeric:true});
+  return { n, list: [...all.values()].filter(x => x.sc > 0).sort(cmp),
+           overall: [...all.values()].sort((a, b) => b.all - a.all || a.t.localeCompare(b.t, 'ja', {numeric:true})) };
+}
+function targetHTML(){
+  const cnt = new Map(); SR.forEach(r => cnt.set(r.univ, (cnt.get(r.univ) || 0) + 1));
+  const us = [...cnt.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], 'ja'));
+  const chip = k => `<span class="tk" data-go="${esc(k.id)}">${esc(k.t)} ×${k.sc !== undefined && k.sc ? k.sc : k.all}</span>`;
+  let h = `<div class="doc"><h3>志望大学ビュー</h3>
+    <p style="color:var(--dim)">大学を選ぶと、その大学の過去問に多く出ている型が上に並びます（複数選択で合算）。過去問が結びついている型（数列・漸化式・帰納法・確率漸化式）だけが対象です。データは谷口氏のサイト由来で、私大・関西に偏ります。</p>
+    <p><select id="tgAdd"><option value="">大学を追加…</option>${us.filter(u => !tgU.includes(u[0])).map(u => `<option value="${esc(u[0])}">${esc(u[0])}（${u[1]}問）</option>`).join('')}</select></p>
+    <p>${tgU.map(u => `<span class="tk on" data-rm="${esc(u)}">${esc(u)}（${cnt.get(u) || 0}問） ✕</span>`).join('') || '<span style="color:var(--dim)">未選択</span>'}</p>`;
+  if (!tgU.length) return h + '</div>';
+  const t = topKata(tgU);
+  const small = tgU.filter(u => (cnt.get(u) || 0) < 3);
+  h += `<h3>頻出の型（${tgU.map(esc).join('・')} ${t.n}問中）</h3>`;
+  if (small.length) h += `<p class="warnbox">${small.map(esc).join('・')}は${'3問未満'}でデータが少なく、順位は偶然に近いです。下の全体の頻出順も参考にしてください。</p>`;
+  h += t.list.length ? `<p>${t.list.slice(0, 15).map(chip).join('')}</p>` : '<p style="color:var(--dim)">結びついた型がありません。</p>';
+  if (small.length) h += `<h3>全体の頻出順（全大学 ${SR.length}問）</h3><p>${t.overall.slice(0, 15).map(k => chip({id:k.id, t:k.t, sc:0, all:k.all})).join('')}</p>`;
+  return h + '</div>';
+}
+function bindTarget(){
+  const a = $('#tgAdd'); if (a) a.onchange = () => { if (a.value && !tgU.includes(a.value)) tgU.push(a.value); saveTg(); render(); };
+  document.querySelectorAll('[data-rm]').forEach(c => c.onclick = () => { tgU = tgU.filter(u => u !== c.dataset.rm); saveTg(); render(); });
+  document.querySelectorAll('.tk[data-go]').forEach(c => c.onclick = () => { if (byId.has(c.dataset.go)) open(c.dataset.go); });
 }
 
 function kmHtml(id){
