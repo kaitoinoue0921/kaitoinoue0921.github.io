@@ -299,6 +299,7 @@
     <button data-v="map">全体マップ</button>
     <button data-v="prob">合格可能性</button>
     <button data-v="past">過去問</button>
+    <button data-v="eye">着眼点</button>
     <button data-v="mon">モンスター</button>
     <button data-v="gacha">ガチャ</button>
     <button data-v="doc">設計方針</button>
@@ -371,7 +372,7 @@ function depth(id){
 /* ---- 永続状態 ---- */
 const KEY = 'todai-math-v2';
 const DEF = { rec:{}, exp:0, gems:20, streak:{last:'', days:0}, charms:{}, box:[],
-              placed:false, today:{ d:'', exp:0, n:0 }, exams:[],
+              placed:false, rcg:{}, today:{ d:'', exp:0, n:0 }, exams:[],
               dailyMinutes:60, examDate:'', notify:false, lastNotified:'', log:[] };
 // localStorage が使えない環境（プライベートブラウズ、file:// の一部、data: URL）でも
 // アプリ自体は動くようにする。保存できないだけで、その場での利用は妨げない。
@@ -896,10 +897,95 @@ function filtered(){
     (!f.q || (n.title + n.why + n.unit).includes(f.q)));
 }
 
+/* ---- 着眼点トレーニング：問題を見て「どの型を引き出すか」を当てる。
+   データは lessons の worked.problem / trigger をそのまま使う。成績は S.rcg = {nodeId:{ok,ng,t}} */
+let eye = { unit:'', cur:null };
+function eyePool(){
+  return [...LES.values()].filter(l => l.worked && l.worked.problem && byId.get(l.nodeId) && (!eye.unit || byId.get(l.nodeId).unit === eye.unit));
+}
+/* 出題文：典型例の問題文に加え、確認問題のうち単独で読めるものを「型を引き出す」問題として使う。
+   末尾の（答：…）や（ヒント）は型を漏らすので落とし、「上の問題」など前提のある文は除く。 */
+function eyeQs(l){
+  const qs = [l.worked.problem];
+  for (const c of (l.check || [])){
+    if (/上の|前の|先ほど|この問題|例題|でも解|別解|同じ答え|同じ方法|答案|書き比べ|書き直|読み返|即答|答えがどう|2通りの方法/.test(c)) continue;
+    const t = c.replace(/[。.]?\s*（答.*$/, '').replace(/（[^（）]*）\s*$/, '').replace(/[。.]\s*$/, '').trim();
+    if (t.length >= 12 && !qs.includes(t)) qs.push(t);
+  }
+  return qs;
+}
+function eyePick(){
+  const pool = eyePool(); if (!pool.length) return null;
+  // 未挑戦と間違いが多い型ほど出やすくする
+  const w = l => { const r = S.rcg[l.nodeId]; return r ? 1 + 3 * (r.ng + 1) / (r.ok + r.ng + 2) : 3; };
+  let tot = pool.reduce((a, l) => a + w(l), 0), x = Math.random() * tot, l = pool[0];
+  for (const c of pool){ x -= w(c); if (x <= 0){ l = c; break; } }
+  const n = byId.get(l.nodeId);
+  const same = [...LES.values()].filter(o => o.nodeId !== l.nodeId && byId.get(o.nodeId) && byId.get(o.nodeId).unit === n.unit);
+  const other = [...LES.values()].filter(o => o.nodeId !== l.nodeId && byId.get(o.nodeId) && byId.get(o.nodeId).field === n.field && !same.includes(o));
+  const shuf = a => a.map(v => [Math.random(), v]).sort((p, q) => p[0] - q[0]).map(p => p[1]);
+  const ds = shuf(same).concat(shuf(other)).slice(0, 3);
+  const opts = shuf([l, ...ds]).map(o => o.nodeId);
+  const qs = eyeQs(l), prev = eye.cur && eye.cur.id === l.nodeId ? eye.cur.q : null;
+  const cand = qs.length > 1 ? qs.filter(q => q !== prev) : qs;
+  return { id: l.nodeId, opts, ans: null, q: cand[Math.floor(Math.random() * cand.length)] };
+}
+/* 弱点集計：着眼点の正答率を単元別に出し、間違いの多い型から項目画面へ飛べる */
+function eyeWeakHTML(){
+  const U = {}, W = [];
+  for (const [id, r] of Object.entries(S.rcg)){
+    const n = byId.get(id); if (!n || r.ok + r.ng === 0) continue;
+    const u = U[n.unit] = U[n.unit] || { ok: 0, ng: 0 };
+    u.ok += r.ok; u.ng += r.ng;
+    if (r.ng > 0) W.push({ id, ng: r.ng, tot: r.ok + r.ng, t: n.title });
+  }
+  const us = Object.entries(U).sort((a, b) => a[1].ok / (a[1].ok + a[1].ng) - b[1].ok / (b[1].ok + b[1].ng));
+  if (!us.length) return '';
+  W.sort((a, b) => b.ng / b.tot - a.ng / a.tot || b.ng - a.ng);
+  return `<h3>弱点（単元別の正答率）</h3>
+    <ul>${us.map(([k, u]) => `<li>${esc(k)}　${u.ok}/${u.ok + u.ng}（${Math.round(100 * u.ok / (u.ok + u.ng))}%）</li>`).join('')}</ul>
+    <h3>間違えた型</h3>
+    <ul>${W.slice(0, 10).map(w => `<li><a href="#" class="eyew" data-id="${esc(w.id)}">${esc(w.t)}</a>　${w.ng}/${w.tot} 回ミス</li>`).join('')}</ul>`;
+}
+function eyeHTML(){
+  const units = [...new Set([...LES.values()].map(l => byId.get(l.nodeId)).filter(Boolean).map(n => n.unit))];
+  if (!eye.cur) eye.cur = eyePick();
+  const c = eye.cur;
+  const done = Object.values(S.rcg), ok = done.reduce((a, r) => a + r.ok, 0), ng = done.reduce((a, r) => a + r.ng, 0);
+  let h = `<div class="doc"><h3>着眼点トレーニング</h3>
+    <p style="color:var(--dim)">解かずに、まず「この問題を見て最初に引き出す型」だけを選ぶ訓練です。間違えた型ほど多く出ます。通算 ${ok + ng ? `${ok}/${ok + ng} 正解` : 'まだ0問'}。</p>
+    <p><select id="eyeUnit"><option value="">全単元</option>${units.map(u => `<option${u === eye.unit ? ' selected' : ''}>${esc(u)}</option>`).join('')}</select></p>`;
+  if (!c) return h + '<p>この単元には出題できる型がありません。</p></div>';
+  const l = LES.get(c.id);
+  h += `<div class="wk"><b>問</b> ${esc(c.q || l.worked.problem)}</div><p>この問題を見て、最初に引き出す型は？</p>`;
+  h += c.opts.map(id => {
+    const mark = c.ans === null ? '' : id === c.id ? ' ✓' : id === c.ans ? ' ✗' : '';
+    return `<p><button class="eyeo" data-id="${id}"${c.ans !== null ? ' disabled' : ''}>${esc(byId.get(id).title)}${mark}</button></p>`;
+  }).join('');
+  if (c.ans !== null){
+    const ul = a => `<ul>${(a || []).map(x => `<li>${esc(x)}</li>`).join('')}</ul>`;
+    h += `<h3>${c.ans === c.id ? '正解' : '正解は「' + esc(byId.get(c.id).title) + '」'}</h3>
+      <p>${esc(l.core)}</p><h3>この手を出すサイン</h3>${ul(l.trigger)}
+      <p><button id="eyeNext">次の問題</button> <button id="eyeOpen">この型を開く</button></p>`;
+  }
+  return h + eyeWeakHTML() + '</div>';
+}
+function bindEye(){
+  document.querySelectorAll('.eyew').forEach(a => a.onclick = e => { e.preventDefault(); open(a.dataset.id); });
+  const u = $('#eyeUnit'); if (u) u.onchange = () => { eye.unit = u.value; eye.cur = null; render(); };
+  document.querySelectorAll('.eyeo').forEach(b => b.onclick = () => {
+    const c = eye.cur, id = b.dataset.id; c.ans = id;
+    const r = S.rcg[c.id] = S.rcg[c.id] || { ok: 0, ng: 0, t: 0 };
+    id === c.id ? r.ok++ : r.ng++; r.t = Date.now(); save(); render();
+  });
+  const nx = $('#eyeNext'); if (nx) nx.onclick = () => { eye.cur = null; render(); };
+  const op = $('#eyeOpen'); if (op) op.onclick = () => open(eye.cur.id);
+}
+
 function render(){
   header();
   const v = $('#view');
-  $('#filters').style.display = ['doc','mon','gacha','prob','past','today','mock'].includes(view) ? 'none' : 'flex';
+  $('#filters').style.display = ['doc','mon','gacha','prob','past','today','mock','eye'].includes(view) ? 'none' : 'flex';
 
   if (view === 'today'){
     v.innerHTML = todayHTML();
@@ -947,6 +1033,7 @@ function render(){
   else if (view === 'map')   { mapMode === 'unit' ? drawUnitMap() : drawMap(); }
   else if (view === 'prob')  v.innerHTML = probHTML();
   else if (view === 'past')  { v.innerHTML = pastHTML(); bindPast(); }
+  else if (view === 'eye') { v.innerHTML = eyeHTML(); bindEye(); }
   else if (view === 'mon')   v.innerHTML = monHTML();
   else if (view === 'gacha') { v.innerHTML = gachaHTML(); $('#pull').onclick = pull; }
   else                       v.innerHTML = docHTML();
