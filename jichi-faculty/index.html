@@ -70,7 +70,7 @@
   var $=function(id){return document.getElementById(id)};
   var esc=function(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})};
   var thisYear=new Date().getFullYear(), people=[];
-  function dk(x){var m=/^(?:医学部)?(.*?講座)/.exec(x.department||"");return m?m[1]:(x.department||"").replace(/^医学部/,"")}
+  function dk(x){var d=(x.department||"").normalize("NFKC").trim().replace("感染免疫学講座","感染・免疫学講座").replace(/総合医学第?一講座/,"総合医学第1講座").replace(/総合医学第?二講座/,"総合医学第2講座").replace("総合医学2講座","総合医学第2講座");var m=/^(?:医学部)?(.*?講座)/.exec(d);return m?m[1]:d.replace(/^医学部/,"")}
   function yr(p){return p.date?p.date.slice(0,4):""}
   function peer(x){return x.papers.filter(function(p){return p.peer}).length}
   function span(x){var ys=x.papers.map(function(p){return +yr(p)}).filter(Boolean);return ys.length?Math.max.apply(null,ys)-Math.min.apply(null,ys)+1:0}
