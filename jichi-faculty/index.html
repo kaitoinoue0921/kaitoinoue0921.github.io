@@ -95,6 +95,28 @@
       (x.papers.length?'　全教員中 上位 '+rank(x)+'%':'')+'</span>';
     return h;
   }
+  function nk(s){ return String(s||"").toLowerCase().replace(/[^a-z0-9\u3040-\u30ff\u4e00-\u9fff]/g,""); }
+  function dedupe(x){
+    var seen={}, out=[];
+    (x.papers||[]).forEach(function(p){
+      var k=nk(p.title), i=seen[k];
+      if(!k){ out.push(p); return; }
+      if(i===undefined){ seen[k]=out.length; out.push(p); return; }
+      var o=out[i];
+      if(!o.doi&&p.doi) o.doi=p.doi;
+      if(!o.journal&&p.journal) o.journal=p.journal;
+    });
+    x.papers=out;
+    var ja=/[\u3040-\u30ff\u4e00-\u9fff]/, la=/[A-Za-z]{4,}/, spans={};
+    (x.careers||[]).forEach(function(c){ if(ja.test(c.text)&&!la.test(c.text)) spans[c.from+"|"+c.to]=1; });
+    var cs={};
+    x.careers=(x.careers||[]).filter(function(c){
+      if((!ja.test(c.text)||la.test(c.text)) && spans[c.from+"|"+c.to]) return false;
+      var k=c.from+"|"+c.to+"|"+nk(c.text);
+      if(cs[k]) return false; cs[k]=1; return true;
+    });
+    return x;
+  }
   var PAGE=10;
   function paperLi(p){
     return '<li><span class="yr">'+esc(yr(p))+'</span>　'+esc(p.title)+'<br><span class="jr">'+esc(p.authors)+'　'+esc(p.journal)+'</span>'+link(p)+'</li>';
@@ -135,7 +157,7 @@
     $("list").innerHTML=r.length?r.map(card).join(""):'<div class="empty">'+(people.length?'条件に合う教員がいません。':'データはまだ入っていません。')+'</div>';
   }
   fetch("data/faculty.json").then(function(r){return r.json()}).then(function(j){
-    people=j.people||[];
+    people=(j.people||[]).map(dedupe);
     if(j.updated) $("upd").textContent=" データの取得日: "+j.updated+"。";
     var ds={}; people.forEach(function(x){if(dk(x)) ds[dk(x)]=1});
     Object.keys(ds).sort(function(a,b){return a.localeCompare(b,"ja")}).forEach(function(k){
