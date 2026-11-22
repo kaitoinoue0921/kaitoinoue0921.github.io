@@ -5574,6 +5574,8 @@ function selectSpot(id,focus=true){
   state.sel=id;
   if(MapA){ if(focus) MapA.focus(sp); MapA.highlight(id); }
   document.getElementById('dbody').innerHTML=detailHTML(sp);
+  if(window.KComments){ const cm=document.createElement('div'); cm.style.padding='0 16px 24px';
+    document.getElementById('dbody').appendChild(cm); KComments.mount(cm,'study-map/'+sp.id,'dark'); }
   document.getElementById('detail').classList.add('on');
   document.getElementById('side').classList.add('detail-on');
   document.getElementById('dbody').scrollTop=0;
@@ -6229,6 +6231,7 @@ async function fetchGooglePlace(sp){
 <!-- 応援ダイアログ。⚙ メニューの「♡ 作者を応援する」から開く。
      文面と金額は /support/support.js の設定ブロックで管理している。 -->
 <script src="/support/support.js" defer></script>
+<script src="/comments/comments.js"></script>
 <script data-goatcounter="https://kaitoinoue.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
 </body>
