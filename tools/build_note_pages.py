@@ -146,7 +146,7 @@ def write_katex(styles, scripts):
     return True
 
 
-def page(*, title, desc, url, css_math, body, crumbs_ld, site_id):
+def page(*, title, desc, url, css_math, body, crumbs_ld, site_id, head_extra=""):
     head_math = '<link rel="stylesheet" href="/assets/katex/katex.css">\n' if css_math else ''
     foot_math = ('<script defer src="/assets/katex/katex.js"></script>\n'
                  '<script defer src="/assets/katex/mhchem.js"></script>\n'
@@ -170,7 +170,7 @@ def page(*, title, desc, url, css_math, body, crumbs_ld, site_id):
 <meta property="og:description" content="{esc(desc)}">
 <meta property="og:url" content="{url}">
 <meta property="og:image" content="{BASE}/ogp.png">
-{head_math}<link rel="stylesheet" href="note.css">
+{head_math}<link rel="stylesheet" href="note.css">{head_extra}
 <script type="application/ld+json">{ld}</script>
 </head>
 <body data-site="{site_id}">
@@ -298,18 +298,47 @@ def build_note(folder, short):
     blocks = unit_blocks(lambda its: '<ol>' + ''.join(
         f'<li><a href="{x["id"]}.html">{esc(x["title"])}</a>{tier_badge(x)}</li>' for x in its) + '</ol>')
     lead = re.search(r'<meta name="description" content="([^"]*)"', src).group(1)
+    exam_link = ''
+    physics_tools = ''
+    physics_head = ''
+    if folder == 'physics-notes':
+        exam_link = '<p class="ip-pat"><a href="/juken/kyotsu/?subject=physics">共通テスト物理基礎の出題分析と演習 →</a></p>\n'
+        physics_head = '\n<link rel="stylesheet" href="/assets/physics-tools.css">\n<script defer src="/assets/physics-tools.js"></script>'
+        cards = (
+            ('ph-kinem-3eq.html', '等加速度', 'v = v₀ + at', '加速度が一定'),
+            ('ph-motion-law.html', '運動方程式', 'ΣF = ma', '同じ軸の力を合計'),
+            ('ph-energy-cons.html', '力学的エネルギー保存', 'K + U = 一定', '非保存力の仕事が0'),
+            ('ph-circuit-ohm.html', 'オームの法則', 'V = RI', '抵抗が一定'),
+            ('ph-thermo-calor.html', '熱量と比熱', 'Q = mcΔT', '相変化がないとき'),
+            ('ph-wave-eq.html', '波の速さ', 'v = fλ', '振動数 × 波長'),
+        )
+        formulas = ''.join(
+            f'<a class="physics-formula" href="{href}"><strong>{esc(label)}</strong>'
+            f'<span>{esc(formula)}</span><small>{esc(condition)}</small></a>'
+            for href, label, formula, condition in cards
+        )
+        physics_tools = f"""<section class="physics-tools" aria-label="公式と項目を探す">
+<h2>公式と項目を探す</h2>
+<div class="physics-controls" hidden>
+<label>キーワード・公式<input type="search" placeholder="例：運動方程式、F=ma"></label>
+<label>単元へ移動<select><option value="">単元を選ぶ</option></select></label>
+<label class="physics-must"><input type="checkbox">必須だけ表示</label>
+<output aria-live="polite"></output>
+</div>
+<details open><summary>基本公式6つ</summary><div class="physics-formulas">{formulas}</div></details>
+</section>\n"""
     body = f"""<header class="top"><a class="brand" href="../">{esc(note_title)}</a></header>
 <main class="ip-main ilist">
 <nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">{esc(short)}</a> › 項目一覧</nav>
 <h1>{esc(short)} 項目一覧（全{len(order)}項目）</h1>
 <p class="ip-note">{esc(lead)} 各項目を1ページずつ読めます。必須・差がつく・不要の3段階の線引きつき。</p>
 <p class="ip-pat"><a href="patterns.html">着眼点だけを1枚で見る →</a></p>
-{blocks}
+{exam_link}{physics_tools}{blocks}
 <p class="back"><a href="../">ノート全体を開く</a>（オフラインで使える1ファイル版。「理解した」のチェックと進み具合を記録できます）</p>
 </main>"""
     write(out / 'index.html', page(
         title=f'{short} 項目一覧（全{len(order)}項目）｜{note_title}', desc=f'{lead} 全{len(order)}項目を1ページずつ。',
-        url=items_url, css_math=False, body=body, site_id=site['id'],
+        url=items_url, css_math=False, body=body, site_id=site['id'], head_extra=physics_head,
         crumbs_ld=[('トップ', f'{BASE}/'), (short, note_url), ('項目一覧', items_url)]))
 
     # 着眼点まとめ
@@ -322,17 +351,21 @@ def build_note(folder, short):
         return f'<ul class="pt-list">{rows}</ul>'
     pat_title = f'{short}の着眼点まとめ（全{len(order)}項目）'
     pat_desc = f'{short}の全{len(order)}項目の着眼点（問題文のどこを見て、どう解き始めるか）を1ページにまとめた一覧。'
+    pat_page_title = f'{pat_title}｜{note_title}'
+    if folder == 'physics-notes':
+        pat_page_title = '高校物理・物理基礎の解き方｜問題の着眼点まとめ'
+        pat_desc = '力学・熱・波・電磁気・原子の問題で、どこに着目して解き始めるかを単元別に整理。物理基礎・高校物理の公式や解法を、例題のある項目ページから復習できます。'
     body = f"""<header class="top"><a class="brand" href="../">{esc(note_title)}</a></header>
 <main class="ip-main ilist plist">
 <nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">{esc(short)}</a> › 着眼点まとめ</nav>
 <h1>{esc(pat_title)}</h1>
 <p class="ip-note">各項目の「着眼点」（問題文のどこを見て、どう解き始めるか）を、単元ごとに1ページへ並べました。項目名を押すと、その項目のページに進みます。必須・差がつく・不要の3段階つき。</p>
-{unit_blocks(pattern_items)}
+{exam_link}{physics_tools}{unit_blocks(pattern_items)}
 <p class="back"><a href="./">{esc(short)}の項目一覧</a> ・ <a href="../">ノート全体を開く</a></p>
 </main>"""
     write(out / 'patterns.html', page(
-        title=f'{pat_title}｜{note_title}', desc=pat_desc, url=patterns_url,
-        css_math=has_katex and any('class="tx"' in f for f in focus_of.values()), body=body, site_id=site['id'],
+        title=pat_page_title, desc=pat_desc, url=patterns_url,
+        css_math=has_katex and any('class="tx"' in f for f in focus_of.values()), body=body, site_id=site['id'], head_extra=physics_head,
         crumbs_ld=[('トップ', f'{BASE}/'), (short, note_url), ('着眼点まとめ', patterns_url)]))
     print(f'{folder}: {len(order)} 項目 / 記事 {len(arts)} / 数式 {"あり" if has_katex else "なし"}')
     return sitemap

@@ -1,0 +1,14 @@
+.physics-tools{margin:1.1rem 0 1.55rem;padding:1rem;border:1px solid var(--line,#d7dde3);border-radius:9px;background:var(--card,transparent)}
+.physics-tools h2{margin:.1rem 0 .55rem;font-size:1.14rem}
+.physics-controls{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:.65rem;margin:.7rem 0}
+.physics-controls label{font-size:.89rem;font-weight:700}
+.physics-controls input[type="search"],.physics-controls select{display:block;width:100%;font:inherit;color:inherit;background:transparent;border:1px solid #8794a0;border-radius:5px;padding:.55rem;min-height:44px}
+.physics-tools .physics-must{display:flex;min-height:40px;align-items:center;gap:.4rem;font-size:.88rem}
+.physics-tools [hidden],.ilist li[hidden],.ilist ol[hidden],.ilist ul[hidden],.ilist h2[hidden],.ilist .grp[hidden]{display:none!important}
+.physics-tools :focus-visible{outline:2px solid #4771b7;outline-offset:3px}
+.physics-tools summary{cursor:pointer;font-weight:650;min-height:36px;align-content:center}
+.physics-tools output{display:block;min-height:1.65em;font-size:.87rem}
+.physics-formulas{display:grid;gap:.45rem;grid-template-columns:repeat(auto-fit,minmax(min(100%,12rem),1fr));margin:.5rem 0}
+.physics-formula{display:block;padding:.55rem .65rem;border-radius:6px;border:1px solid var(--line,#d7dde3);color:inherit;text-decoration:none}.physics-formula:hover{text-decoration:underline}
+.physics-formula strong,.physics-formula span,.physics-formula small{display:block}.physics-formula span{font-family:ui-monospace,monospace;font-size:1.02rem}.physics-formula small{font-size:.8rem}
+@media(max-width:580px){.physics-controls{grid-template-columns:1fr}.physics-tools{padding:.75rem}}
