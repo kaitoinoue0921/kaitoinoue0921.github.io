@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>確14 組分け（区別のない組は階乗で割る）（場合の数）｜受験数学マップ</title>
+<meta name="description" content="人を組に分けるとき、まず組に名前（A組・B組…）が付いているとして順に選ぶ。名前がない場合は、同じ人数の組どうしを入れ替えても同じ分け方になるので、同じ人数の組の数の階乗で割る。人数が違う組は入れ替えると別物なので割ら…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/ma-p14-grouping.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="確14 組分け（区別のない組は階乗で割る）（場合の数）｜受験数学マップ">
+<meta property="og:description" content="人を組に分けるとき、まず組に名前（A組・B組…）が付いているとして順に選ぶ。名前がない場合は、同じ人数の組どうしを入れ替えても同じ分け方になるので、同じ人数の組の数の階乗で割る。人数が違う組は入れ替えると別物なので割ら…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/ma-p14-grouping.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "確14 組分け（区別のない組は階乗で割る）", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/ma-p14-grouping.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 確14 組分け（区別のない組は階乗で割る）</nav>
+<h1>確14 組分け（区別のない組は階乗で割る）</h1>
+<p class="meta">数学A ／ 場合の数 ／ 東大での重要度 ★★★☆☆</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>人を組に分けるとき、まず組に名前（A組・B組…）が付いているとして順に選ぶ。名前がない場合は、同じ人数の組どうしを入れ替えても同じ分け方になるので、同じ人数の組の数の階乗で割る。人数が違う組は入れ替えると別物なので割らない。空の組を許すかどうかで、確3 の包除原理が要るかが変わる。</p>
+<h2>こんなときに使う</h2>
+<ul><li>『〜人ずつ〜組に分ける』</li><li>『2つのグループに分ける』（人数指定なし）</li><li>区別できる人を区別できる部屋・できない部屋に入れる</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 組に名前があると仮定して、組ごとに順にコンビネーションで選ぶ</li><li>2. 組に名前がなければ、同じ人数の組が m 個あるごとに m! で割る</li><li>3. 人数指定がなく空の組を許さないなら、部屋に入れる数 kⁿ から空き部屋の場合を引く（確3）</li><li>4. 組に区別がなければ、さらに k! で割る（空の組がないときだけ）</li><li>5. 小さい人数で全部書き出して照合する</li></ol>
+<h2>例題</h2>
+<div class="problem">6人を (1) 2人ずつ A, B, C の3組に、(2) 2人ずつ3組に、(3) 3人・2人・1人の3組に分ける方法はそれぞれ何通りか。</div><details><summary>解答</summary><ol class="steps"><li>(1) A組 6C2 × B組 4C2 × C組 2C2 = 15 × 6 × 1 = 90 通り</li><li>(2) 組に名前がなく、同じ人数の組が3つあるので 90 ÷ 3! = 15 通り</li><li>(3) 6C3 × 3C2 × 1C1 = 20 × 3 × 1 = 60 通り。人数が全部違うので割らない</li><li>検算：4人を2人ずつ2組なら 4C2/2! = 3 通り（{12|34}{13|24}{14|23}）</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>6人を2つの部屋 A, B に入れる（空き部屋なし）：2⁶ − 2 = 62 通り。部屋の区別がなければ 31 通り</li><li>4人・1人・1人のように一部だけ同じ人数なら、同じ人数の組の数だけ 2! で割る</li><li>区別しない玉を区別しない箱に分けるのは『分割数』で、書き出して数える</li></ul>
+<h2>落とし穴</h2>
+<ul><li>名前のない組なのに割り忘れる</li><li>人数の違う組まで割る</li><li>空の組を許すかどうかを確認しない（部屋への入れ方 kⁿ をそのまま k! で割る）</li><li>同じ人数の組が2つ以上あるのに割らない、または人数の違う組まで割る</li></ul>
+<h2>なぜ大事か</h2>
+<p>組に名前がなければ、組の入れ替えで同じ分け方になる分だけ割る</p>
+<h2>東大での出方</h2>
+<p>東大では確率の分母として組分けを数える形で出る。分母と分子で組の区別のしかたをそろえることが、確1 と同じく最重要。</p>
+<h2>確認問題</h2>
+<ul><li>6人を2つのグループに分ける方法は何通りか（どちらのグループも1人以上）（答：31通り）</li><li>6人を4人・1人・1人の3組に分ける方法は何通りか（答：15通り）</li></ul>
+<h2>発展</h2>
+<p>n 人を区別しない k 組に分ける（空の組なし）数は、確3 の全射の数 Σ(−1)ʲ kCj (k − j)ⁿ を k! で割ったもの。これが第2種スターリング数。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="ma-samekind.html">同じものを含む順列・円順列・じゅず順列</a></li></ul>
+<h2>このノードを前提にするノード</h2>
+<ul class="links"><li><a href="ma-partition.html">組分け・重複組合せ（仕切り）</a></li></ul>
+<h2>「場合の数」のノード</h2>
+<ul class="links"><li><a href="ma-count-basic.html">数え上げの原則（和の法則・積の法則・辞書式）</a></li><li><a href="ma-perm.html">順列・組合せ</a></li><li><a href="ma-samekind.html">同じものを含む順列・円順列・じゅず順列</a></li><li><a href="ma-partition.html">組分け・重複組合せ（仕切り）</a></li><li><a href="ma-incl.html">包除原理・余事象で数える</a></li><li><a href="ma-p03-incl-excl.html">確3 包除原理（AもBもすべて〜）</a></li><li><a href="ma-p04-stars-bars.html">確4 仕切り（重複組合せ）</a></li><li><a href="ma-p12-lattice.html">確12 格子の最短経路（通れない点・カタラン数）</a></li><li><a href="ma-p13-circular.html">確13 円順列・じゅず順列（1つを固定）</a></li><li><span class="cur">確14 組分け（区別のない組は階乗で割る）</span></li><li><a href="ma-p15-count-rec.html">確15 状況から漸化式を立てて数える（最後の1手）</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：個人 ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

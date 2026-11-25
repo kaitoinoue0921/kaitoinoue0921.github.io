@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>整14 ガウス記号（[x] = n ⇔ n ≦ x &lt; n + 1）（整数）｜受験数学マップ</title>
+<meta name="description" content="[x] は x を超えない最大の整数で、[x] = n（n は整数）は n ≦ x &lt; n + 1 と同じこと。ガウス記号を含む方程式は、[x] = n とおいて x を n で表し、この不等式に代入すると n の範囲…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/ma-i14-gauss.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="整14 ガウス記号（[x] = n ⇔ n ≦ x &lt; n + 1）（整数）｜受験数学マップ">
+<meta property="og:description" content="[x] は x を超えない最大の整数で、[x] = n（n は整数）は n ≦ x &lt; n + 1 と同じこと。ガウス記号を含む方程式は、[x] = n とおいて x を n で表し、この不等式に代入すると n の範囲…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/ma-i14-gauss.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "整14 ガウス記号（[x] = n ⇔ n ≦ x < n + 1）", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/ma-i14-gauss.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 整14 ガウス記号（[x] = n ⇔ n ≦ x &lt; n + 1）</nav>
+<h1>整14 ガウス記号（[x] = n ⇔ n ≦ x &lt; n + 1）</h1>
+<p class="meta">数学A ／ 整数 ／ 東大での重要度 ★★★☆☆</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>[x] は x を超えない最大の整数で、[x] = n（n は整数）は n ≦ x &lt; n + 1 と同じこと。ガウス記号を含む方程式は、[x] = n とおいて x を n で表し、この不等式に代入すると n の範囲が出て、整数 n が有限個に決まる。和 Σ[k/m] は、[k/m] が同じ値をとる k をまとめて数える。[2x] = 2[x] や [x + y] = [x] + [y] は一般には成り立たない。</p>
+<h2>こんなときに使う</h2>
+<ul><li>[x]、⌊x⌋、『x を超えない最大の整数』</li><li>[√n] = k となる n の個数、Σ[k/3] のような和</li><li>『x − [x]』（小数部分）を含む式</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. [x] = n（n は整数）とおき、n ≦ x &lt; n + 1 を書く</li><li>2. 方程式から x を n で表す</li><li>3. 不等式に代入して n の範囲を出し、整数 n を決める</li><li>4. それぞれの n で x を出し、もとの式に代入して確かめる</li><li>5. 和なら、[・] の値が同じになる区間ごとにまとめて足す</li></ol>
+<h2>例題</h2>
+<div class="problem">方程式 3[x] = 2x + 1 を解け。ただし [x] は x を超えない最大の整数とする。</div><details><summary>解答</summary><ol class="steps"><li>[x] = n とおくと 3n = 2x + 1 より x = (3n − 1)/2</li><li>n ≦ x &lt; n + 1 に代入して n ≦ (3n − 1)/2 &lt; n + 1</li><li>左の不等式から 2n ≦ 3n − 1 で n ≧ 1、右から 3n − 1 &lt; 2n + 2 で n &lt; 3</li><li>∴ n = 1, 2 で x = 1, 5/2</li><li>確認：[1] = 1 で 3 = 3、[5/2] = 2 で 6 = 6</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>[√n] = 3 ⇔ 3 ≦ √n &lt; 4 ⇔ 9 ≦ n &lt; 16 で 7 個</li><li>Σ_{k=1}^{30} [k/3]：値 m（1〜9）をとる k が3個ずつ、k = 30 で 10、合計 145</li><li>[x] ≦ x &lt; [x] + 1 から、x − 1 &lt; [x] ≦ x として評価に使う（極限のはさみうちで頻出）</li></ul>
+<h2>落とし穴</h2>
+<ul><li>[2x] = 2[x] とする（x = 0.5 で [1] = 1、2[0.5] = 0）</li><li>n の範囲を出したあと、もとの式に代入して確かめない</li><li>負の x で [−1.5] = −1 とする（正しくは −2）</li><li>[x] を x と同じように式変形して、[2x] = 2[x] や [x + y] = [x] + [y] とする</li></ul>
+<h2>なぜ大事か</h2>
+<p>[x] は不等式2本に直せば普通の不等式の問題になる。[x] を整数 n と置くのが出発点</p>
+<h2>東大での出方</h2>
+<p>東大では整数の個数を数える問題や、極限のはさみうちの評価 x − 1 &lt; [x] ≦ x として出る。不等式に直す1行目さえ書ければ、あとは普通の計算。</p>
+<h2>確認問題</h2>
+<ul><li>[√n] = 3 となる自然数 n は何個か（答：7個）</li><li>[x] = 2x − 3 を解け（答：x = 5/2, 3）</li></ul>
+<h2>発展</h2>
+<p>ルジャンドルの公式（整8）の [n/p] + [n/p²] + … もガウス記号の和。『1〜n のうち p の倍数の個数 = [n/p]』が、ガウス記号がいちばんよく使われる場面。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="ma-int-bound.html">整2 範囲で絞る（不等式評価で有限化）</a></li><li><a href="m1-ineq1.html">1次不等式・連立不等式</a></li></ul>
+<h2>「整数」のノード</h2>
+<ul class="links"><li><a href="ma-int-div.html">約数・倍数・素因数分解</a></li><li><a href="ma-int-euclid.html">整5 ユークリッドの互除法・最大公約数</a></li><li><a href="ma-int-dio.html">整6 1次不定方程式</a></li><li><a href="ma-int-mod.html">整4 余りで分類する（合同式 mod）</a></li><li><a href="ma-int-factor.html">整1 積の形に持ち込む（因数分解型の不定方程式）</a></li><li><a href="ma-int-bound.html">整2 範囲で絞る（不等式評価で有限化）</a></li><li><a href="ma-int-base.html">整15 n進法</a></li><li><a href="ma-i03-discriminant.html">整3 1文字の2次方程式とみて判別式で絞る</a></li><li><a href="ma-i07-prime.html">整7 素数の性質（積を割る・2とそれ以外で分ける）</a></li><li><a href="ma-i08-legendre.html">整8 素因数の個数（n! のルジャンドル・約数の個数と和）</a></li><li><a href="ma-i09-irrational.html">整9 無理数の証明（既約分数とおいて背理法）</a></li><li><a href="ma-i10-rational-root.html">整10 有理数解の定理（定数項の約数／最高次の係数の約数）</a></li><li><a href="ma-i11-binom-mod.html">整11 二項展開で割った余りを出す（(1 + p)ⁿ）</a></li><li><a href="ma-i12-fermat.html">整12 フェルマーの小定理・余りの周期</a></li><li><span class="cur">整14 ガウス記号（[x] = n ⇔ n ≦ x &lt; n + 1）</span></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：個人 ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

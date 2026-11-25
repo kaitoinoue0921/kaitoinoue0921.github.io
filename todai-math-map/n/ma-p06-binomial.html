@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>確6 反復試行（ちょうど n 回目で終わる）（確率）｜受験数学マップ</title>
+<meta name="description" content="確率 p の事象が n 回中ちょうど k 回起こる確率は nCk pᵏ(1 − p)ⁿ⁻ᵏ。nCk は『どの回で起こるか』の選び方。『ちょうど n 回目で終わる（初めて〜回に達する）』は、最後の n 回目が決まっている…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/ma-p06-binomial.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="確6 反復試行（ちょうど n 回目で終わる）（確率）｜受験数学マップ">
+<meta property="og:description" content="確率 p の事象が n 回中ちょうど k 回起こる確率は nCk pᵏ(1 − p)ⁿ⁻ᵏ。nCk は『どの回で起こるか』の選び方。『ちょうど n 回目で終わる（初めて〜回に達する）』は、最後の n 回目が決まっている…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/ma-p06-binomial.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "確6 反復試行（ちょうど n 回目で終わる）", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/ma-p06-binomial.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 確6 反復試行（ちょうど n 回目で終わる）</nav>
+<h1>確6 反復試行（ちょうど n 回目で終わる）</h1>
+<p class="meta">数学A ／ 確率 ／ 東大での重要度 ★★★★☆</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>確率 p の事象が n 回中ちょうど k 回起こる確率は nCk pᵏ(1 − p)ⁿ⁻ᵏ。nCk は『どの回で起こるか』の選び方。『ちょうど n 回目で終わる（初めて〜回に達する）』は、最後の n 回目が決まっているので、『n − 1 回目までに k − 1 回』×『n 回目に起こる』と分けて掛ける。</p>
+<h2>こんなときに使う</h2>
+<ul><li>『n 回投げてちょうど k 回』</li><li>『先に3勝したほうが優勝』『5回目で初めて』『ちょうど n 回目で終了』</li><li>数直線上を確率 p で右、1 − p で左に動く点の位置</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 1回の確率 p と回数 n、起こる回数 k を決める</li><li>2. 途中で終わらない試行なら nCk pᵏ(1 − p)ⁿ⁻ᵏ</li><li>3. 『ちょうど n 回目で終わる』なら、n 回目を固定し、n − 1 回までの配置だけを n−1Ck−1 で数える</li><li>4. 終わり方が複数ある（AとBのどちらが優勝しても終わる等）なら、それぞれ足す</li></ol>
+<h2>例題</h2>
+<div class="problem">A, B が試合を繰り返し、先に3勝したほうを優勝とする。各試合で A が勝つ確率は 1/2 で、引き分けはない。ちょうど5試合目で A が優勝する確率を求めよ。</div><details><summary>解答</summary><ol class="steps"><li>5試合目で A が優勝 ⇔ 4試合目までに A が2勝2敗、かつ5試合目に A が勝つ</li><li>4試合目までに A が2勝：4C2 (1/2)²(1/2)² = 6/16</li><li>5試合目に A が勝つ：1/2</li><li>∴ 6/16 × 1/2 = 3/16</li><li>5C3 (1/2)⁵ = 10/32 としないこと：A が最初の3試合で勝つと4試合目以降は行われない</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>数直線上の点が n 回で位置 m にいる：右に r 回、左に l 回として r + l = n, r − l = m を解き nCr pʳ qˡ</li><li>『初めて表が出るのが n 回目』は (1 − p)ⁿ⁻¹ p（幾何分布）</li><li>途中で原点に戻らない条件が付くと確12 の経路（反射）に持ち込む</li></ul>
+<h2>落とし穴</h2>
+<ul><li>最後の回が決まっている事象を nCk で数えて、途中で終わる場合まで含める</li><li>p と 1 − p を取り違える</li><li>AとBのどちらで終わってもよい問題で、片方しか数えない</li><li>『先に3勝で優勝』を 5C3 で数え、最後の試合が勝ちである条件を落とす</li></ul>
+<h2>なぜ大事か</h2>
+<p>独立な試行の繰り返しは nCk pᵏ qⁿ⁻ᵏ の1本で済む。『ちょうど n 回目で終わる』は最後の1回を切り離す</p>
+<h2>東大での出方</h2>
+<p>反復試行そのものより、『ちょうど n 回目』の切り分けや、数直線の動きを反復試行に直す場面で使う。確7・確9 の土台。</p>
+<h2>確認問題</h2>
+<ul><li>硬貨を6回投げて、表がちょうど3回出る確率を求めよ（答：5/16）</li><li>さいころを5回投げて、1の目がちょうど2回出る確率を求めよ（答：625/3888）</li></ul>
+<h2>発展</h2>
+<p>『先に3勝』のような問題は、試合を5試合目まで全部行ったと考えても優勝者は変わらない。この見方だと『A が5試合中3勝以上』として計算でき、検算に使える。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="ma-prob-def.html">確率の定義（同様に確からしい・根元事象の設定）</a></li><li><a href="ma-perm.html">順列・組合せ</a></li></ul>
+<h2>このノードを前提にするノード</h2>
+<ul class="links"><li><a href="ma-prob-indep.html">独立試行・反復試行</a></li><li><a href="ma-p07-prob-max.html">確7 確率の最大（P(k+1)/P(k) と 1 の比較）</a></li></ul>
+<h2>「確率」のノード</h2>
+<ul class="links"><li><a href="ma-prob-def.html">確率の定義（同様に確からしい・根元事象の設定）</a></li><li><a href="ma-prob-indep.html">独立試行・反復試行</a></li><li><a href="ma-prob-cond.html">条件付き確率・原因の確率</a></li><li><a href="ma-prob-rec.html">確9 確率漸化式（状態を分類して1手先を書く）</a></li><li><a href="ma-prob-exp.html">期待値</a></li><li><a href="ma-p01-distinguish.html">確1 区別して数える（根元事象をそろえる）</a></li><li><a href="ma-p02-complement.html">確2 余事象（少なくとも1つ）</a></li><li><a href="ma-p05-max-min.html">確5 最大値・最小値の確率（≦k の差）</a></li><li><span class="cur">確6 反復試行（ちょうど n 回目で終わる）</span></li><li><a href="ma-p07-prob-max.html">確7 確率の最大（P(k+1)/P(k) と 1 の比較）</a></li><li><a href="ma-p08-bayes.html">確8 条件付き確率・原因の確率</a></li><li><a href="ma-p10-symmetry.html">確10 対称性で状態を減らす</a></li><li><a href="ma-p11-linearity.html">確11 期待値の線形性（各対象の確率の和）</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：個人 ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

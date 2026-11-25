@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>整12 フェルマーの小定理・余りの周期（整数）｜受験数学マップ</title>
+<meta name="description" content="aⁿ を m で割った余りは、有限個しかないので必ずどこかで繰り返す。m が素数 p で a が p の倍数でなければ、a^(p−1) ≡ 1 (mod p)（フェルマーの小定理）なので、指数を p − 1 で割った余…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/ma-i12-fermat.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="整12 フェルマーの小定理・余りの周期（整数）｜受験数学マップ">
+<meta property="og:description" content="aⁿ を m で割った余りは、有限個しかないので必ずどこかで繰り返す。m が素数 p で a が p の倍数でなければ、a^(p−1) ≡ 1 (mod p)（フェルマーの小定理）なので、指数を p − 1 で割った余…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/ma-i12-fermat.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "整12 フェルマーの小定理・余りの周期", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/ma-i12-fermat.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 整12 フェルマーの小定理・余りの周期</nav>
+<h1>整12 フェルマーの小定理・余りの周期</h1>
+<p class="meta">数学A ／ 整数 ／ 東大での重要度 ★★★★☆</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>aⁿ を m で割った余りは、有限個しかないので必ずどこかで繰り返す。m が素数 p で a が p の倍数でなければ、a^(p−1) ≡ 1 (mod p)（フェルマーの小定理）なので、指数を p − 1 で割った余りだけ見ればよい。aᵈ ≡ 1 となる最小の d（位数）は p − 1 の約数なので、実際の周期はもっと短いこともある。どちらの場合も、まず余りを数個書き出して周期を見るのが確実。</p>
+<h2>こんなときに使う</h2>
+<ul><li>『2¹⁰⁰ を 13 で割った余り』のように、指数が大きい累乗の余り</li><li>『n⁵ − n は 30 の倍数』『n⁷ − n は 7 の倍数』のような、すべての n についての整除</li><li>『aⁿ ≡ 1 となる最小の n』（位数）</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 割る数が素数か確かめる。素数でなければ素因数ごとに分ける（30 = 2·3·5）</li><li>2. a¹, a², a³, … の余りを 1 に戻るまで書き出す（素数 p なら p − 1 以内で戻る）</li><li>3. 周期 d で指数を割った余り r を出し、aⁿ ≡ aʳ とする</li><li>4. すべての n についての整除なら、a ≡ 0 の場合とそれ以外（フェルマー）に分ける</li></ol>
+<h2>例題</h2>
+<div class="problem">2¹⁰⁰ を 13 で割った余りを求めよ。</div><details><summary>解答</summary><ol class="steps"><li>13 は素数で、2 は 13 の倍数でないので、フェルマーの小定理より 2¹² ≡ 1 (mod 13)</li><li>100 = 12·8 + 4</li><li>∴ 2¹⁰⁰ = (2¹²)⁸ · 2⁴ ≡ 1 · 16 ≡ 3 (mod 13)</li><li>∴ 余りは 3</li><li>検算：2⁶ = 64 ≡ 12 ≡ −1 なので 2¹² ≡ 1 で周期は確かに 12</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>n⁵ − n は 2, 3, 5 それぞれで割り切れるので 30 の倍数。5 はフェルマー（n⁵ ≡ n）、2 と 3 は n(n − 1)(n + 1) を含むことから</li><li>3²⁰²⁶ を 7 で割った余り：3⁶ ≡ 1、2026 = 6·337 + 4 で 3⁴ = 81 ≡ 4</li><li>割る数が素数でない（mod 100 など）なら、余りを書き出して周期を探すか整11 の二項展開</li></ul>
+<h2>落とし穴</h2>
+<ul><li>割る数が素数でないのに a^(m−1) ≡ 1 を使う</li><li>a が p の倍数の場合を除き忘れる</li><li>指数を p − 1 ではなく p で割る</li><li>フェルマーの小定理を、p が素数でないときや a が p の倍数のときにも使う</li></ul>
+<h2>なぜ大事か</h2>
+<p>aⁿ の余りは必ず周期的になる。素数で割るなら周期は p − 1 の約数と分かっている</p>
+<h2>東大での出方</h2>
+<p>東大は『すべての素数 p について〜』『aⁿ − 1 が p で割り切れる最小の n』の形でよく出す。答案では周期を書き出した表を1行添えると説得力が増す。</p>
+<h2>確認問題</h2>
+<ul><li>3²⁰²⁶ を 7 で割った余りを求めよ（答：4）</li><li>すべての整数 n について n⁵ − n は 30 の倍数であることを示せ（答：n⁵ − n = (n − 1)n(n + 1)(n² + 1) は連続3整数の積を含むので 6 の倍数。5 の倍数はフェルマーの小定理から n⁵ ≡ n (mod 5)）</li></ul>
+<h2>発展</h2>
+<p>フェルマーの小定理は、1, 2, …, p − 1 に a を掛けた a, 2a, …, (p − 1)a の余りが 1〜p − 1 の並べ替えになることから証明できる。全部掛けて (p − 1)! で割ると a^(p−1) ≡ 1。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="ma-int-mod.html">整4 余りで分類する（合同式 mod）</a></li><li><a href="ma-i07-prime.html">整7 素数の性質（積を割る・2とそれ以外で分ける）</a></li></ul>
+<h2>「整数」のノード</h2>
+<ul class="links"><li><a href="ma-int-div.html">約数・倍数・素因数分解</a></li><li><a href="ma-int-euclid.html">整5 ユークリッドの互除法・最大公約数</a></li><li><a href="ma-int-dio.html">整6 1次不定方程式</a></li><li><a href="ma-int-mod.html">整4 余りで分類する（合同式 mod）</a></li><li><a href="ma-int-factor.html">整1 積の形に持ち込む（因数分解型の不定方程式）</a></li><li><a href="ma-int-bound.html">整2 範囲で絞る（不等式評価で有限化）</a></li><li><a href="ma-int-base.html">整15 n進法</a></li><li><a href="ma-i03-discriminant.html">整3 1文字の2次方程式とみて判別式で絞る</a></li><li><a href="ma-i07-prime.html">整7 素数の性質（積を割る・2とそれ以外で分ける）</a></li><li><a href="ma-i08-legendre.html">整8 素因数の個数（n! のルジャンドル・約数の個数と和）</a></li><li><a href="ma-i09-irrational.html">整9 無理数の証明（既約分数とおいて背理法）</a></li><li><a href="ma-i10-rational-root.html">整10 有理数解の定理（定数項の約数／最高次の係数の約数）</a></li><li><a href="ma-i11-binom-mod.html">整11 二項展開で割った余りを出す（(1 + p)ⁿ）</a></li><li><span class="cur">整12 フェルマーの小定理・余りの周期</span></li><li><a href="ma-i14-gauss.html">整14 ガウス記号（[x] = n ⇔ n ≦ x &lt; n + 1）</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：個人 ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

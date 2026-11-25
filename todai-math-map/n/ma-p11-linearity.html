@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>確11 期待値の線形性（各対象の確率の和）（確率）｜受験数学マップ</title>
+<meta name="description" content="X = X₁ + X₂ + … + Xₙ なら E(X) = E(X₁) + … + E(Xₙ)。これは Xᵢ が独立でなくても成り立つ。個数を数える X は、『i 番目の対象が条件を満たせば 1、そうでなければ 0』…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/ma-p11-linearity.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="確11 期待値の線形性（各対象の確率の和）（確率）｜受験数学マップ">
+<meta property="og:description" content="X = X₁ + X₂ + … + Xₙ なら E(X) = E(X₁) + … + E(Xₙ)。これは Xᵢ が独立でなくても成り立つ。個数を数える X は、『i 番目の対象が条件を満たせば 1、そうでなければ 0』…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/ma-p11-linearity.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "確11 期待値の線形性（各対象の確率の和）", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/ma-p11-linearity.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 確11 期待値の線形性（各対象の確率の和）</nav>
+<h1>確11 期待値の線形性（各対象の確率の和）</h1>
+<p class="meta">数学A ／ 確率 ／ 東大での重要度 ★★★★☆</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>X = X₁ + X₂ + … + Xₙ なら E(X) = E(X₁) + … + E(Xₙ)。これは Xᵢ が独立でなくても成り立つ。個数を数える X は、『i 番目の対象が条件を満たせば 1、そうでなければ 0』という Xᵢ の和に分けられ、E(Xᵢ) = P(i 番目が条件を満たす)。だから期待値は確率の和になる。</p>
+<h2>こんなときに使う</h2>
+<ul><li>『〜の個数の期待値』『出ない目の種類の数の期待値』</li><li>分布 P(X = k) を全部求めるのが大変そう</li><li>対象が対称で、どの対象も同じ確率で条件を満たす</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 数えたい個数 X を、対象ごとの 0/1 の変数 Xᵢ の和に分ける</li><li>2. E(Xᵢ) = P(i 番目の対象が条件を満たす) を求める</li><li>3. E(X) = Σ P(i 番目が条件を満たす)。対称なら (対象の数) × (1つの確率)</li><li>4. 小さい場合で分布から直接計算して照合する</li></ol>
+<h2>例題</h2>
+<div class="problem">さいころを6回投げるとき、一度も出ない目の種類の数を X とする。X の期待値を求めよ。</div><details><summary>解答</summary><ol class="steps"><li>目 i（i = 1〜6）について、i が一度も出なければ Xᵢ = 1、出れば Xᵢ = 0 とする</li><li>X = X₁ + X₂ + … + X₆</li><li>E(Xᵢ) = P(i が一度も出ない) = (5/6)⁶</li><li>∴ E(X) = 6 × (5/6)⁶ = 15625/7776（約 2.01）</li><li>X の分布（X = 0, 1, …, 5 の確率）は包除原理が必要で重いが、期待値はこの1行で済む</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>n 人のプレゼント交換（ランダムな配り方）で自分のものを受け取る人数の期待値は、n に関係なく 1</li><li>硬貨を n 回投げて『表の次も表』となる箇所の個数の期待値は (n − 1)/4</li><li>ランダムな順列の『山』（左右より大きい項）の個数なども、位置ごとの確率の和</li></ul>
+<h2>落とし穴</h2>
+<ul><li>Xᵢ が独立でないと線形性が使えないと誤解する（分散は独立性が要るが、期待値は要らない）</li><li>Xᵢ の分け方が X とずれる（同じものを2回数える）</li><li>E(XY) = E(X)E(Y) を独立でないのに使う</li><li>独立でないから足せないと思い込み、分布を全部求めに行く</li></ul>
+<h2>なぜ大事か</h2>
+<p>『〜の個数の期待値』は分布を求めなくても、各対象が条件を満たす確率を足すだけで出る</p>
+<h2>東大での出方</h2>
+<p>東大では期待値を問う問題が増えている。分布を出させる小問のあとに期待値を聞く場合も、線形性で検算できる。</p>
+<h2>確認問題</h2>
+<ul><li>硬貨を10回投げて、i 回目と i+1 回目がどちらも表となる i の個数の期待値を求めよ（答：9/4）</li><li>1〜5 を並べたランダムな順列で、i 番目が i になっている i の個数の期待値を求めよ（答：1）</li></ul>
+<h2>発展</h2>
+<p>分散は V(X) = Σ V(Xᵢ) + 2Σ Cov(Xᵢ, Xⱼ) で、共分散が残る。期待値だけが独立性なしで足せることを、この式との違いで覚えておく。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="ma-prob-exp.html">期待値</a></li></ul>
+<h2>「確率」のノード</h2>
+<ul class="links"><li><a href="ma-prob-def.html">確率の定義（同様に確からしい・根元事象の設定）</a></li><li><a href="ma-prob-indep.html">独立試行・反復試行</a></li><li><a href="ma-prob-cond.html">条件付き確率・原因の確率</a></li><li><a href="ma-prob-rec.html">確9 確率漸化式（状態を分類して1手先を書く）</a></li><li><a href="ma-prob-exp.html">期待値</a></li><li><a href="ma-p01-distinguish.html">確1 区別して数える（根元事象をそろえる）</a></li><li><a href="ma-p02-complement.html">確2 余事象（少なくとも1つ）</a></li><li><a href="ma-p05-max-min.html">確5 最大値・最小値の確率（≦k の差）</a></li><li><a href="ma-p06-binomial.html">確6 反復試行（ちょうど n 回目で終わる）</a></li><li><a href="ma-p07-prob-max.html">確7 確率の最大（P(k+1)/P(k) と 1 の比較）</a></li><li><a href="ma-p08-bayes.html">確8 条件付き確率・原因の確率</a></li><li><a href="ma-p10-symmetry.html">確10 対称性で状態を減らす</a></li><li><span class="cur">確11 期待値の線形性（各対象の確率の和）</span></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：個人 ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

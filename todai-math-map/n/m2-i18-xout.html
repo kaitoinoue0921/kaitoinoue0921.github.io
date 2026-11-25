@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>積18 ∫(x−t)f(t)dt は x を外に出してから微分（微分積分）｜受験数学マップ</title>
+<meta name="description" content="∫[a→x](x − t)f(t)dt では、x は積分の上端と被積分関数の両方に入っている。t で積分している間は x は定数なので、まず x∫[a→x]f(t)dt − ∫[a→x]t f(t)dt と分けて x …">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/m2-i18-xout.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="積18 ∫(x−t)f(t)dt は x を外に出してから微分（微分積分）｜受験数学マップ">
+<meta property="og:description" content="∫[a→x](x − t)f(t)dt では、x は積分の上端と被積分関数の両方に入っている。t で積分している間は x は定数なので、まず x∫[a→x]f(t)dt − ∫[a→x]t f(t)dt と分けて x …">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/m2-i18-xout.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "積18 ∫(x−t)f(t)dt は x を外に出してから微分", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/m2-i18-xout.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 積18 ∫(x−t)f(t)dt は x を外に出してから微分</nav>
+<h1>積18 ∫(x−t)f(t)dt は x を外に出してから微分</h1>
+<p class="meta">数学II ／ 微分積分 ／ 東大での重要度 ★★★★☆</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>∫[a→x](x − t)f(t)dt では、x は積分の上端と被積分関数の両方に入っている。t で積分している間は x は定数なので、まず x∫[a→x]f(t)dt − ∫[a→x]t f(t)dt と分けて x を積分の外に出す。そのあとで積の微分と d/dx∫[a→x]g(t)dt = g(x)（積9）を使うと、d/dx∫[a→x](x − t)f(t)dt = ∫[a→x]f(t)dt となる。もう一度微分すれば f(x) が出る。x = a を代入すると積分が 0 になる条件も忘れずに使う。</p>
+<h2>こんなときに使う</h2>
+<ul><li>∫[0→x](x − t)f(t)dt = x⁴ のような、積分の中に x を含む等式</li><li>∫[1→x](x − t)f(t)dt = x³ − 3x + a のように、定数 a も決める</li><li>F(x) = ∫[0→x](x − t)f(t)dt の増減や極値を調べる</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 被積分関数の x を外に出す：x∫f(t)dt − ∫t f(t)dt</li><li>2. 積の微分で x について微分し、∫[a→x]f(t)dt を得る</li><li>3. 必要ならもう1回微分して f(x) を出す</li><li>4. 元の式と1回微分した式に x = a を代入し、定数の条件を出す</li></ol>
+<h2>例題</h2>
+<div class="problem">∫[0→x](x−t)f(t)dt=x⁴ を満たす f(x) を求めよ。</div><details><summary>解答</summary><ol class="steps"><li>左辺を x で1回微分すると ∫[0→x] f(t)dt、右辺は 4x³。</li><li>もう1回微分して f(x)=12x²。</li><li>（検算：∫[0→x](x−t)12t²dt=12(x⁴/3−x⁴/4)=x⁴）</li><li>∴ f(x)=12x²</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>∫[0→x](x − t)²f(t)dt は x² − 2xt + t² と展開して x², x を外に出す。3回微分すると 2f(x)</li><li>∫[0→1]|x − t|f(t)dt のように上端が定数なら、x は区間を分ける点になる（積17）</li><li>∫[a→x](x − t)f(t)dt は f を2回積分したもの（コーシーの公式）なので、F″(x) = f(x)、F(a) = F′(a) = 0</li></ul>
+<h2>落とし穴</h2>
+<ul><li>x = a を代入して定数を決める条件を落とす</li><li>x を外に出さずに「f(x) を代入して (x−x)f(x)=0」とするのは誤り。</li><li>x を外に出さずに微分して、(x − x)f(x) = 0 だけを答える</li></ul>
+<h2>なぜ大事か</h2>
+<p>積分の中にある x は t の積分では定数なので、外に出せば上端が x の積分の微分（積9）になる</p>
+<h2>東大での出方</h2>
+<p>東大・医学部では、関数方程式の条件として ∫(x − t)f(t)dt が出ることがある。外に出す一行を書けば、あとは微分の計算だけになる。</p>
+<h2>確認問題</h2>
+<ul><li>∫[0→x](x − t)f(t)dt = x³ + x² を満たす f(x) を求めよ。（答：f(x) = 6x + 2）</li></ul>
+<h2>発展</h2>
+<p>F(x) = ∫[a→x](x − t)f(t)dt は F″ = f、F(a) = F′(a) = 0 を満たすただ1つの関数。テイラーの定理の剰余項の積分表示はこの形をしている。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="m2-int-param.html">定積分で表された関数・パラメータ入り積分の最小化</a></li></ul>
+<h2>「微分積分」のノード</h2>
+<ul class="links"><li><a href="m2-diff-def.html">微分係数の定義・導関数</a></li><li><a href="m2-tangent.html">接線・法線</a></li><li><a href="m2-extremum.html">増減表・極値（3次関数）</a></li><li><a href="m2-root-count.html">3次方程式の実数解の個数（定数分離）</a></li><li><a href="m2-d09-tangent-count.html">微9 接線の本数は接点 t の方程式の実数解の個数</a></li><li><a href="m2-d10-common-tangent.html">微10 共通接線・2曲線が接する（接点の値と傾きが一致）</a></li><li><a href="m2-d14-cubic-sym.html">微14 3次関数の極値の差は (β−α)³、グラフは変曲点で点対称</a></li><li><a href="m2-d15-extcond.html">微15 極値をもつ条件は f′=0 が異なる2実解</a></li><li><a href="m2-d16-subst.html">微16 置き換えて3次関数（t の範囲つき）</a></li><li><a href="m2-d17-ext-sign.html">微17 定数分離できないときは極大値×極小値の符号</a></li><li><a href="m2-int-poly.html">多項式の定積分・面積</a></li><li><a href="m2-int-16.html">1/6公式・1/12公式と面積の等分</a></li><li><a href="m2-int-abs.html">積17 絶対値付きの積分は符号の変わり目で分割</a></li><li><a href="m2-int-param.html">定積分で表された関数・パラメータ入り積分の最小化</a></li><li><span class="cur">積18 ∫(x−t)f(t)dt は x を外に出してから微分</span></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：個人 ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

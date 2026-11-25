@@ -5,7 +5,7 @@
 ノードごとに URL を持たせて、「確率漸化式 解き方」のような検索から着地できるようにする。
 
   入力: todai-math-map/app.html（触らない）。中の DATA.nodes と DATA.lessons だけ使う。
-        DATA.pastexams / DATA.kakomon は入試問題の本文なので使わない（広告つきページに転載しない）。
+        DATA.pastexams / DATA.kakomon は入試問題の本文なので使わない（項目ページに転載しない）。
   出力: todai-math-map/n/<ノードID>.html  各ノード（175ページ）
         todai-math-map/n/index.html        単元ごとの一覧
         todai-math-map/n/style.css         共有の見た目
@@ -28,8 +28,6 @@ OUT = ROOT / 'todai-math-map' / 'n'
 TODAY = datetime.date.today().isoformat()
 SITE_NAME = '受験数学マップ'
 
-ADS = ('<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?'
-       'client=ca-pub-1744436882685241" crossorigin="anonymous"></script>')
 GOAT = ('<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" '
         'async src="//gc.zgo.at/count.js"></script>')
 FOOTER = """<footer class="site-footer">
@@ -106,7 +104,6 @@ def page(*, title, desc, url, body, crumbs):
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-{ADS}
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(desc)}">
 <link rel="canonical" href="{url}">

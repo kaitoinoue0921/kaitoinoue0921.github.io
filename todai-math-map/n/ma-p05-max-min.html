@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>確5 最大値・最小値の確率（≦k の差）（確率）｜受験数学マップ</title>
+<meta name="description" content="『最大値が k 以下』は『全部の回が k 以下』と同じなので (k/6)ⁿ と積で出る。『最大値がちょうど k』は『k 以下』から『k−1 以下』を除いたものだから、(k/6)ⁿ − ((k−1)/6)ⁿ。最小値なら『…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/ma-p05-max-min.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="確5 最大値・最小値の確率（≦k の差）（確率）｜受験数学マップ">
+<meta property="og:description" content="『最大値が k 以下』は『全部の回が k 以下』と同じなので (k/6)ⁿ と積で出る。『最大値がちょうど k』は『k 以下』から『k−1 以下』を除いたものだから、(k/6)ⁿ − ((k−1)/6)ⁿ。最小値なら『…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/ma-p05-max-min.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "確5 最大値・最小値の確率（≦k の差）", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/ma-p05-max-min.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 確5 最大値・最小値の確率（≦k の差）</nav>
+<h1>確5 最大値・最小値の確率（≦k の差）</h1>
+<p class="meta">数学A ／ 確率 ／ 東大での重要度 ★★★★☆</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>『最大値が k 以下』は『全部の回が k 以下』と同じなので (k/6)ⁿ と積で出る。『最大値がちょうど k』は『k 以下』から『k−1 以下』を除いたものだから、(k/6)ⁿ − ((k−1)/6)ⁿ。最小値なら『全部 k 以上』を使って同じ差を取る。</p>
+<h2>こんなときに使う</h2>
+<ul><li>『出た目の最大値が k』『最小値が k』</li><li>『最大値が5以上』のような不等式（余事象と組み合わせる）</li><li>カードを何枚か引いて『最も大きい番号が k』</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 最大なら P(最大 ≦ k) を、最小なら P(最小 ≧ k) を、各回の積で求める</li><li>2. P(最大 = k) = P(最大 ≦ k) − P(最大 ≦ k − 1)</li><li>3. P(最小 = k) = P(最小 ≧ k) − P(最小 ≧ k + 1)</li><li>4. k = 1 や k = 6 の端で値がおかしくないか確かめる</li></ol>
+<h2>例題</h2>
+<div class="problem">さいころを3回投げる。出た目の最大値が 4 である確率を求めよ。</div><details><summary>解答</summary><ol class="steps"><li>最大値が4以下 ⇔ 3回とも4以下：(4/6)³ = 64/216</li><li>最大値が3以下 ⇔ 3回とも3以下：(3/6)³ = 27/216</li><li>∴ P(最大値 = 4) = (64 − 27)/216 = 37/216</li><li>検算：k = 1〜6 について足すと (6³ − 0)/216 = 1 になる</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>『最大値が4かつ最小値が2』は『全部2〜4』−『全部3〜4』−『全部2〜3』＋『全部3』の包除（確3）</li><li>番号札を戻さずに引く場合は、積ではなく組合せ：P(最大 ≦ k) = kCr / NCr</li><li>期待値 E(最大値) は Σ P(最大 ≧ k) でも計算できる</li></ul>
+<h2>落とし穴</h2>
+<ul><li>(k/6)ⁿ を『最大値 = k』の確率と思い込む</li><li>最小値で差の向きを逆にする（最小 ≧ k から 最小 ≧ k+1 を引く）</li><li>戻さずに引く問題で、毎回 k/N を掛けてしまう</li><li>最大値が k の確率を (k/6)ⁿ としてしまう（それは最大値が k 以下）</li></ul>
+<h2>なぜ大事か</h2>
+<p>『最大値がちょうど k』は直接数えにくいが、『全部 k 以下』は各回の積で出る</p>
+<h2>東大での出方</h2>
+<p>東大では『最大値と最小値の差が〜』のように、最大・最小を組み合わせた形で出ることが多い。どちらも『全部が範囲に入る』確率の差で処理する。</p>
+<h2>確認問題</h2>
+<ul><li>さいころを3回投げて、最小値が2である確率を求めよ（答：61/216）</li><li>1〜10の番号札から3枚同時に引くとき、最大の番号が 7 である確率を求めよ（答：1/8）</li></ul>
+<h2>発展</h2>
+<p>最大値 − 最小値 = d の確率も、『全部が幅 d の区間に入る』確率の差の組合せで書ける。区間の位置で場合分けするのが定石。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="ma-prob-indep.html">独立試行・反復試行</a></li></ul>
+<h2>「確率」のノード</h2>
+<ul class="links"><li><a href="ma-prob-def.html">確率の定義（同様に確からしい・根元事象の設定）</a></li><li><a href="ma-prob-indep.html">独立試行・反復試行</a></li><li><a href="ma-prob-cond.html">条件付き確率・原因の確率</a></li><li><a href="ma-prob-rec.html">確9 確率漸化式（状態を分類して1手先を書く）</a></li><li><a href="ma-prob-exp.html">期待値</a></li><li><a href="ma-p01-distinguish.html">確1 区別して数える（根元事象をそろえる）</a></li><li><a href="ma-p02-complement.html">確2 余事象（少なくとも1つ）</a></li><li><span class="cur">確5 最大値・最小値の確率（≦k の差）</span></li><li><a href="ma-p06-binomial.html">確6 反復試行（ちょうど n 回目で終わる）</a></li><li><a href="ma-p07-prob-max.html">確7 確率の最大（P(k+1)/P(k) と 1 の比較）</a></li><li><a href="ma-p08-bayes.html">確8 条件付き確率・原因の確率</a></li><li><a href="ma-p10-symmetry.html">確10 対称性で状態を減らす</a></li><li><a href="ma-p11-linearity.html">確11 期待値の線形性（各対象の確率の和）</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：個人 ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

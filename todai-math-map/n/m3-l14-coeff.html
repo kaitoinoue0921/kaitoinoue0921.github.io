@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>極14 極限値から係数を決める（分母→0なら分子→0）（極限）｜受験数学マップ</title>
+<meta name="description" content="lim[x→a] g(x)/h(x) = c（有限）で h(x) → 0 なら、g(x) = {g(x)/h(x)}·h(x) → c·0 = 0 なので、分子 → 0 が必要になる。これで係数の関係式が1本出る。ただ…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/m3-l14-coeff.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="極14 極限値から係数を決める（分母→0なら分子→0）（極限）｜受験数学マップ">
+<meta property="og:description" content="lim[x→a] g(x)/h(x) = c（有限）で h(x) → 0 なら、g(x) = {g(x)/h(x)}·h(x) → c·0 = 0 なので、分子 → 0 が必要になる。これで係数の関係式が1本出る。ただ…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/m3-l14-coeff.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "極14 極限値から係数を決める（分母→0なら分子→0）", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/m3-l14-coeff.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 極14 極限値から係数を決める（分母→0なら分子→0）</nav>
+<h1>極14 極限値から係数を決める（分母→0なら分子→0）</h1>
+<p class="meta">数学III ／ 極限 ／ 東大での重要度 ★★★☆☆</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>lim[x→a] g(x)/h(x) = c（有限）で h(x) → 0 なら、g(x) = {g(x)/h(x)}·h(x) → c·0 = 0 なので、分子 → 0 が必要になる。これで係数の関係式が1本出る。ただしこれは必要条件なので、その関係を代入して約分（因数分解・有理化）し、極限が本当に c になるかを計算して、残りの係数を決める。</p>
+<h2>こんなときに使う</h2>
+<ul><li>『lim[x→1](x² + ax + b)/(x − 1) = 3 となる a, b を求めよ』</li><li>分母が 0 に近づき、分子に未知の係数がある極限</li><li>√ を含む分子で係数を決める問題（有理化が必要）</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 分母 → 0 を確かめる</li><li>2. 極限が有限なので分子 → 0 が必要、と書いて係数の関係式を出す</li><li>3. 関係式を代入して、分子を (x − a) × … の形にする（因数分解・有理化）</li><li>4. 約分して極限を計算し、与えられた値と等しいとおいて残りを決める</li><li>5. 求めた値で確かに条件を満たすことを書く（十分性）</li></ol>
+<h2>例題</h2>
+<div class="problem">lim[x→1](x²+ax+b)/(x−1)=3 となる a,b を求めよ。</div><details><summary>解答</summary><ol class="steps"><li>分母 →0 なので分子 →0 が必要：1+a+b=0、b=−1−a。</li><li>このとき分子 =x²+ax−1−a=(x−1)(x+1+a) なので</li><li>lim[x→1](x+1+a)=2+a=3</li><li>∴ a=1, b=−2</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>x → ∞ で lim(√(x² + ax) − bx) = 1 のような形は、b = 1 が必要（b ≠ 1 なら発散）を先に出す</li><li>分母 → 0 でも極限が ∞ でよい問題では、分子 → 0 は要らない（条件を読む）</li><li>lim[x→0](a + b cos x)/x² = 1 は a + b = 0 が必要、そのあと (1 − cos x)/x² → 1/2 を使う</li></ul>
+<h2>落とし穴</h2>
+<ul><li>分子 → 0 を『十分条件』のように扱い、極限の計算を省く</li><li>「分子 →0」は必要条件。その後に極限を計算して条件を満たすことを確認するまでが解答。</li><li>分子 → 0 から係数を決めたあと、実際に極限を計算して条件を満たすか確かめない</li></ul>
+<h2>なぜ大事か</h2>
+<p>分母 → 0 で極限が有限なら、分子 → 0 が必要。これで係数の関係が1本出る</p>
+<h2>東大での出方</h2>
+<p>東大で単独では出にくいが、整式の決定や関数の連続性・微分可能性の条件（x = a でつながる条件）として部品で出る。</p>
+<h2>確認問題</h2>
+<ul><li>lim[x→2](a√(x+2)−4)/(x−2)=b となる a,b を求めよ。（答：a=2, b=1/2）</li></ul>
+<h2>発展</h2>
+<p>『分母 → 0 なら分子 → 0』は、微分可能性の条件（f が x = a で微分可能なら連続）と同じ構造。lim{f(x) − f(a)}/(x − a) が有限なら f(x) − f(a) → 0。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="m3-lim-func.html">極1 不定形の処理（∞/∞ は最高次でくくる、∞−∞ は有理化）</a></li></ul>
+<h2>「極限」のノード</h2>
+<ul class="links"><li><a href="m3-lim-seq.html">極2 rⁿ の極限（|r| と 1 の大小で場合分け）</a></li><li><a href="m3-lim-squeeze.html">極3 はさみうちの原理</a></li><li><a href="m3-lim-series.html">極10 無限等比級数と収束条件</a></li><li><a href="m3-lim-func.html">極1 不定形の処理（∞/∞ は最高次でくくる、∞−∞ は有理化）</a></li><li><a href="m3-lim-sin.html">極5 sin x/x → 1 に持ち込む</a></li><li><a href="m3-lim-e.html">極6 e の定義の形を作る（(1 + 1/n)ⁿ、(eˣ − 1)/x）</a></li><li><a href="m3-lim-cont.html">極13 中間値の定理で解の存在を示す</a></li><li><a href="m3-l04-recur.html">極4 漸化式の極限（|aₙ₊₁−α|≦r|aₙ−α| で 0 に挟む）</a></li><li><a href="m3-l07-deriv.html">極7 微分係数の定義に読み替える</a></li><li><a href="m3-l11-telescope.html">極11 部分和を出してから極限（部分分数・望遠鏡和）</a></li><li><a href="m3-l12-growth.html">極12 指数と多項式・対数の強さ比べ</a></li><li><span class="cur">極14 極限値から係数を決める（分母→0なら分子→0）</span></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：個人 ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

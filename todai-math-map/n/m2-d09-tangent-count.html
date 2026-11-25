@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>微9 接線の本数は接点 t の方程式の実数解の個数（微分積分）｜受験数学マップ</title>
+<meta name="description" content="曲線 y = f(x) 上にない点 (p, q) を通る接線は、接点を (t, f(t)) とおいた接線 y = f′(t)(x − t) + f(t) が (p, q) を通る条件 q = f′(t)(p − t) …">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/m2-d09-tangent-count.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="微9 接線の本数は接点 t の方程式の実数解の個数（微分積分）｜受験数学マップ">
+<meta property="og:description" content="曲線 y = f(x) 上にない点 (p, q) を通る接線は、接点を (t, f(t)) とおいた接線 y = f′(t)(x − t) + f(t) が (p, q) を通る条件 q = f′(t)(p − t) …">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/m2-d09-tangent-count.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "微9 接線の本数は接点 t の方程式の実数解の個数", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/m2-d09-tangent-count.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 微9 接線の本数は接点 t の方程式の実数解の個数</nav>
+<h1>微9 接線の本数は接点 t の方程式の実数解の個数</h1>
+<p class="meta">数学II ／ 微分積分 ／ 東大での重要度 ★★★★★</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>曲線 y = f(x) 上にない点 (p, q) を通る接線は、接点を (t, f(t)) とおいた接線 y = f′(t)(x − t) + f(t) が (p, q) を通る条件 q = f′(t)(p − t) + f(t) を、t の方程式とみて解く。3次関数では接点が違えば接線も違うので、接線の本数 = この t の方程式の異なる実数解の個数になる。本数を問う問題は、t の3次方程式の解の個数（微4・微17）に帰着する。4次関数では2点で接する接線があり、接点の数と接線の本数がずれることがある。</p>
+<h2>こんなときに使う</h2>
+<ul><li>『点 A から曲線に引いた接線の方程式』</li><li>『点 (p, q) から引ける接線の本数』</li><li>『接線が3本引ける点の範囲を図示せよ』</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 接点を (t, f(t)) とおき、接線 y = f′(t)(x − t) + f(t) を書く</li><li>2. 通る点 (p, q) を代入して t の方程式にする</li><li>3. 方程式を解いて t を戻し、接線を答える</li><li>4. 本数を問うなら、t の方程式の異なる実数解の個数を数える（定数分離か極値の符号）</li><li>5. 3次関数では『接点が異なれば接線も異なる』と一言書く</li></ol>
+<h2>例題</h2>
+<div class="problem">点 (1,−3) から放物線 y=x² に引いた接線の方程式を求めよ。</div><details><summary>解答</summary><ol class="steps"><li>接点を (t,t²) とすると接線は y=2t(x−t)+t²=2tx−t²。</li><li>(1,−3) を通るので −3=2t−t²、t²−2t−3=0、(t−3)(t+1)=0。</li><li>t=3 のとき y=6x−9、t=−1 のとき y=−2x−1。</li><li>∴ y=6x−9, y=−2x−1</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>曲線上の点を通る接線も、その点で接する1本だけとは限らない（y = x³ の (1, 1) を通る接線は t = 1, −1/2 の2本）</li><li>接線が3本引ける点 (p, q) の領域は、t の3次方程式の (極大値)×(極小値) &lt; 0 を p, q の不等式に直す（微17）</li><li>放物線 y = x² では、外の点 (p, q) から2本引ける条件は q &lt; p²</li></ul>
+<h2>落とし穴</h2>
+<ul><li>通る点を接点と思い、f′(p) を傾きにする</li><li>4次関数などで、接点の個数をそのまま接線の本数とする</li><li>点が曲線上にあっても、その点以外で接する接線がありうる。「点 A を通る接線」と「点 A における接線」は別物。</li><li>通る点を接点と思い込み、その点での微分係数を傾きにする</li></ul>
+<h2>なぜ大事か</h2>
+<p>接点を t とおけば、『点を通る接線』の問題は t の方程式の解の問題になる</p>
+<h2>東大での出方</h2>
+<p>東大・京大で『接線が3本引ける点の範囲を図示せよ』は定番。t の3次方程式が異なる3実解をもつ条件 ⇔ 極大値×極小値 &lt; 0 に持ち込む。</p>
+<h2>確認問題</h2>
+<ul><li>点 (0,2) から曲線 y=x³−x に引いた接線の方程式を求めよ。（答：y=2x+2）</li></ul>
+<h2>発展</h2>
+<p>3次関数では、変曲点での接線と曲線で平面が分けられ、どの部分にある点かで引ける接線の本数が1本・2本・3本と決まる。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="m2-tangent.html">接線・法線</a></li><li><a href="m2-root-count.html">3次方程式の実数解の個数（定数分離）</a></li></ul>
+<h2>「微分積分」のノード</h2>
+<ul class="links"><li><a href="m2-diff-def.html">微分係数の定義・導関数</a></li><li><a href="m2-tangent.html">接線・法線</a></li><li><a href="m2-extremum.html">増減表・極値（3次関数）</a></li><li><a href="m2-root-count.html">3次方程式の実数解の個数（定数分離）</a></li><li><span class="cur">微9 接線の本数は接点 t の方程式の実数解の個数</span></li><li><a href="m2-d10-common-tangent.html">微10 共通接線・2曲線が接する（接点の値と傾きが一致）</a></li><li><a href="m2-d14-cubic-sym.html">微14 3次関数の極値の差は (β−α)³、グラフは変曲点で点対称</a></li><li><a href="m2-d15-extcond.html">微15 極値をもつ条件は f′=0 が異なる2実解</a></li><li><a href="m2-d16-subst.html">微16 置き換えて3次関数（t の範囲つき）</a></li><li><a href="m2-d17-ext-sign.html">微17 定数分離できないときは極大値×極小値の符号</a></li><li><a href="m2-int-poly.html">多項式の定積分・面積</a></li><li><a href="m2-int-16.html">1/6公式・1/12公式と面積の等分</a></li><li><a href="m2-int-abs.html">積17 絶対値付きの積分は符号の変わり目で分割</a></li><li><a href="m2-int-param.html">定積分で表された関数・パラメータ入り積分の最小化</a></li><li><a href="m2-i18-xout.html">積18 ∫(x−t)f(t)dt は x を外に出してから微分</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：個人 ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

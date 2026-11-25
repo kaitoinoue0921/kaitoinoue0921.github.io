@@ -1,0 +1,146 @@
+[
+  {
+    "id": "german-separable-verb",
+    "subject": "german",
+    "unit": "ドイツ語・文の構造",
+    "level": "foundation",
+    "title": "活用した動詞と文末の前つづりを結ぶ",
+    "cue": "平叙文で活用した動詞が前にあり、文末に an や auf が残っている。",
+    "steps": [
+      "活用した動詞を探し、その前の要素が主語か時刻などのまとまりかを見分ける。",
+      "文末の語が動詞の分離前つづりなら、活用した部分と合わせて辞書形と意味を考える。"
+    ],
+    "problem": "Am Montag fängt der Kurs um neun Uhr an. 「始まる」にあたる動詞の辞書形と、何が何時に始まるかを答えよう。",
+    "answer": "辞書形は anfangen。活用した fängt と文末の an が対応する。主語は der Kurs で、講座が月曜の9時に始まる。",
+    "pitfall": "文頭の Am Montag を主語だと思い込んだり、fängt だけを読んで an を見落としたりする。",
+    "skill": "structure",
+    "keywords": ["分離動詞", "前綴り", "動詞の位置", "anfangen", "独語"],
+    "links": [{"label": "分離動詞の語順（ゲーテ・インスティトゥート）", "href": "https://lernplattform.goethe.de/pluginfile.php/1493661/mod_folder/content/0/deutschonline_Redemittel_und_Grammatik_7.pdf"}]
+  },
+  {
+    "id": "german-opening-times",
+    "subject": "german",
+    "unit": "ドイツ語・案内文",
+    "level": "foundation",
+    "title": "開館時間と返却の条件を分ける",
+    "cue": "施設の案内で、利用できる時間と一部サービスの条件が別に書いてある。",
+    "steps": [
+      "von … bis … で示された時間帯が何にかかるか確かめる。",
+      "auch や nach の前後を読み、時間外にもできることを拾う。"
+    ],
+    "problem": "Die Bibliothek ist am Samstag von 10 bis 13 Uhr geöffnet. Bücher können Sie auch nach 13 Uhr am Rückgabeautomaten zurückgeben. 土曜の14時に館内を利用することと、本を返すことはそれぞれ可能か。",
+    "answer": "館内利用はできないが、本は返却機で返せる。開館は土曜の10時から13時までで、返却については13時を過ぎてもできると書かれている。",
+    "pitfall": "開館時間の上限を、別に条件が書かれた返却機にも当てはめる。",
+    "skill": "evidence",
+    "keywords": ["開館", "時間", "時刻", "案内", "施設", "bis", "独語"]
+  },
+  {
+    "id": "french-restriction",
+    "subject": "french",
+    "unit": "フランス語・限定",
+    "level": "foundation",
+    "title": "ne と que の組み合わせで限定を読む",
+    "cue": "動詞の前に ne があり、動詞の後ろに que が続く。",
+    "steps": [
+      "ne と呼応する語が pas か que かを確かめる。",
+      "ne … que … なら、que の直後の要素が「〜だけ」に当たると考える。",
+      "曜日や数字にかかるときは、許される範囲を一つに絞る。"
+    ],
+    "problem": "Le bus ne circule que le samedi. このバスは土曜日に運行するか。日曜日はどうか。",
+    "answer": "土曜日は運行し、日曜日は運行しない。ne … que le samedi は「土曜日だけ」を表す。",
+    "pitfall": "ne だけを見て「土曜日は運行しない」と訳す。",
+    "skill": "structure",
+    "keywords": ["限定", "否定", "ne que", "曜日", "仏語"],
+    "links": [{"label": "限定表現 ne … que（アカデミー・フランセーズ）", "href": "https://www.academie-francaise.fr/justine-d-france"}]
+  },
+  {
+    "id": "french-depuis",
+    "subject": "french",
+    "unit": "フランス語・時間表現",
+    "level": "foundation",
+    "title": "depuis を現在までの時間に置く",
+    "cue": "現在形の文で depuis の後ろに起点や期間が続く。",
+    "steps": [
+      "動詞の時制を確認し、depuis の後ろが過去の時点か、経過した期間かを見る。",
+      "現在形なら、過去の起点から現在まで続いている、という時間軸で読む。"
+    ],
+    "problem": "Léa travaille à la bibliothèque depuis deux semaines. レアが図書館で働き始めたのはいつか。今もそこで働いているか。",
+    "answer": "2週間前に働き始め、今もそこで働いている。現在形 travaille と depuis deux semaines の組み合わせが、始めてから現在まで2週間続いていることを表す。",
+    "pitfall": "期間の数字だけを見て「2週間後から働く」や「もう辞めた」と考える。",
+    "skill": "timeline",
+    "keywords": ["現在形", "期間", "継続", "depuis", "仏語"],
+    "links": [{"label": "depuis の意味（アカデミー・フランセーズ辞典）", "href": "https://www.dictionnaire-academie.fr/article/A9D1606"}]
+  },
+  {
+    "id": "chinese-comparison-bi",
+    "subject": "chinese",
+    "unit": "中国語・比較",
+    "level": "foundation",
+    "title": "比の前後を分けて比較の向きを読む",
+    "cue": "A 比 B … の形で、どちらが何の点で上回るかが問われる。",
+    "steps": [
+      "比の前を比較する対象、後ろを比較の基準として分ける。",
+      "どの点で差があるかと、差を表す数量を動詞・形容詞の周りから拾う。"
+    ],
+    "problem": "从我家到学校，坐公交车比走路快十五分钟。バスと徒歩のどちらが所要時間が短く、差は何分か。",
+    "answer": "バスの方が15分短い。坐公交车はバスに乗ること、走路は歩くこと。前者は後者より「快十五分钟」、つまり15分早い。",
+    "pitfall": "比の直後の走路を、比較で上回る側と考える。",
+    "skill": "compare",
+    "keywords": ["比", "比較文", "差", "所要時間", "簡体字"],
+    "links": [{"label": "比を用いた比較表現（東京外国語大学）", "href": "https://www.coelang.tufs.ac.jp/mt/zh/gmod/contents/explanation/058.html"}]
+  },
+  {
+    "id": "chinese-negation-time",
+    "subject": "chinese",
+    "unit": "中国語・否定と時を表す語",
+    "level": "foundation",
+    "title": "否定の意味を時を表す語と合わせて読む",
+    "cue": "没や不があり、起こらなかったことと今後の予定が一文に書かれている。",
+    "steps": [
+      "昨天、明天などの語で、いつの話かを分ける。",
+      "没が動作の実現を否定しているか、不が行動の予定・意思などを否定しているかを文脈で読み取る。"
+    ],
+    "problem": "我昨天没去图书馆，明天也不去。話し手は昨日図書館に行ったか。明日行く予定か。",
+    "answer": "昨日は行かなかった。明日も行かない。昨天没去 は昨日行くという出来事が起こらなかったこと、明天也不去 は明日も行かないことを示す。",
+    "pitfall": "二つの文の動作は同じでも、昨天と明天が表す時点は異なる。不を落として、明日の予定を肯定で読まない。",
+    "skill": "timeline",
+    "keywords": ["没", "没有", "不", "昨日", "明日", "否定", "時制"],
+    "links": [{"label": "動作の実現を表す 了 とその否定（東京外国語大学）", "href": "https://www.coelang.tufs.ac.jp/mt/zh/gmod/contents/explanation/041.html"}]
+  },
+  {
+    "id": "korean-particles-place",
+    "subject": "korean",
+    "unit": "韓国語・助詞",
+    "level": "foundation",
+    "title": "場所の助詞を後ろの動詞と結ぶ",
+    "cue": "同じ場所を表す名詞でも、에 と 에서 のどちらが付くかで役割が変わる。",
+    "steps": [
+      "助詞の後ろの動詞が移動を表すか、その場での行動を表すか確かめる。",
+      "移動の場合は出発点と行き先を分け、行動の場合はその場所を拾う。"
+    ],
+    "problem": "저는 집에서 학교에 가요. 오후에는 도서관에서 공부해요. 学校へ向かうときの出発点と、午後に勉強する場所はどこか。",
+    "answer": "出発点は家、午後の勉強場所は図書館。家の後の 에서 は移動の出発点、図書館の後の 에서 は勉強する場所を示す。학교에 は移動先。",
+    "pitfall": "에서 をいつも「〜で」と訳して、移動を始める場所の意味を見逃す。",
+    "skill": "structure",
+    "keywords": ["에", "에서", "行き先", "出発点", "場所", "ハングル", "朝鮮語"],
+    "links": [{"label": "助詞 에 と 에서（東京外国語大学）", "href": "https://www.coelang.tufs.ac.jp/mt/ko/gmod/contents/explanation/434.html"}]
+  },
+  {
+    "id": "korean-contrast-jiman",
+    "subject": "korean",
+    "unit": "韓国語・逆接と時刻",
+    "level": "foundation",
+    "title": "지만 の前後で時刻と場所を比べる",
+    "cue": "文の途中に 지만 があり、二つの情報が対照的に並ぶ。",
+    "steps": [
+      "지만 のところで前後を分け、「〜だが」とつなぐ。",
+      "時刻・場所・動作を別々に拾い、設問がどちらの場面を聞くかを確認する。"
+    ],
+    "problem": "평일에는 도서관이 아홉 시에 문을 열지만, 토요일에는 열 시에 문을 열어요. 図書館は平日と土曜日にそれぞれ何時に開くか。",
+    "answer": "平日は9時、土曜日は10時。평일에는 は「平日は」、토요일에는 は「土曜日は」。지만 を境に二つの時刻が対照されている。",
+    "pitfall": "最初の時刻をすべての曜日に当てはめ、土曜の時刻の書き分けを見落とす。",
+    "skill": "compare",
+    "keywords": ["지만", "逆接", "時刻", "曜日", "ハングル", "朝鮮語"],
+    "links": [{"label": "逆接の 지만（東京外国語大学）", "href": "https://www.coelang.tufs.ac.jp/mt/ko/gmod/contents/explanation/291.html"}]
+  }
+]

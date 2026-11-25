@@ -1,8 +1,6 @@
 <!doctype html>
 <html lang="ja">
 <head>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241"
-     crossorigin="anonymous"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>受験数学マップ</title>
@@ -25,9 +23,13 @@
   .hrow{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:var(--cover);
     padding:11px 16px 13px;border-bottom:3px solid var(--gold)}
   h1{font-size:15px;margin:0;font-weight:700;color:#fff;letter-spacing:.02em}
-  .hstat{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:rgba(255,255,255,.75);align-items:center}
+  .progress{color:#fff}
+  .progress[open]{width:100%}
+  .progress summary{width:fit-content;min-height:34px;padding:5px 0;cursor:pointer;font-size:13px}
+  .hstat{display:flex;gap:8px 14px;flex-wrap:wrap;font-size:12px;color:rgba(255,255,255,.82);align-items:center;padding-top:5px}
   .hstat b{color:#fff;font-size:14px;font-variant-numeric:tabular-nums}
-  .hstat button{background:none;border:1px solid rgba(255,255,255,.4)!important;color:rgba(255,255,255,.9)!important}
+  .hstat button{background:none;border:1px solid rgba(255,255,255,.65);color:#fff;
+    border-radius:5px;min-height:36px;padding:4px 9px;font:inherit;cursor:pointer}
   .pw{color:#9fe8cc!important}
   nav{padding:0 13px}
   nav{display:flex;gap:3px;margin-top:7px;flex-wrap:wrap}
@@ -35,11 +37,19 @@
     border-radius:6px;cursor:pointer;font-size:13px;font-family:inherit}
   nav button.on{background:var(--panel2);color:var(--fg);border-color:var(--line)}
   nav button .bdg{background:var(--hot);color:#fff;border-radius:8px;padding:0 5px;font-size:10px;margin-left:4px}
+  .mobile-nav{display:none}
+  @media(max-width:680px){
+    header nav{display:none}
+    .hrow{gap:4px 14px;padding:8px 16px}
+    .mobile-nav{display:flex;align-items:center;gap:10px;padding:6px 16px 0}
+    .mobile-nav select{flex:1;min-width:0;min-height:44px;font-size:16px}
+    #filters select,#filters input[type=search]{min-height:40px;font-size:16px;max-width:100%}
+  }
   main{padding:16px;max-width:1400px;margin:0 auto}
   .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
   select,input[type=search]{background:var(--panel);color:var(--fg);border:1px solid var(--line);
     border-radius:6px;padding:5px 9px;font-size:13px;font-family:inherit}
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:10px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr));gap:10px}
   .card{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--line);
     border-radius:8px;padding:11px 13px;cursor:pointer;transition:.15s}
   .card:hover{border-color:var(--accent)}
@@ -61,15 +71,16 @@
   #ov.on{display:block}
   #dp{position:fixed;top:0;right:0;bottom:0;width:min(680px,100%);background:var(--panel);
     border-left:1px solid var(--line);overflow-y:auto;padding:20px 24px 60px;z-index:51;
-    transform:translateX(100%);transition:transform .2s}
-  #dp.on{transform:none}
-  #dp h2{font-size:18px;margin:0 0 4px}
+    transform:translateX(100%);visibility:hidden;transition:transform .2s,visibility .2s}
+  #dp.on{transform:none;visibility:visible}
+  @media (prefers-reduced-motion:reduce){#dp{transition:none}}
+  #dp h2{font-size:18px;margin:0 0 4px;padding-right:44px}
   #dp h3{font-size:13px;color:var(--accent);margin:20px 0 6px;letter-spacing:.04em;
     border-bottom:1px solid var(--line);padding-bottom:4px}
   #dp p,#dp li{font-size:13.5px}
   #dp ul{padding-left:18px;margin:6px 0}
   #dp li{margin-bottom:5px}
-  .close{position:absolute;top:14px;right:18px;background:none;border:none;color:var(--dim);
+  .close{position:absolute;top:10px;right:10px;min-width:44px;min-height:44px;background:none;border:none;color:var(--dim);
     font-size:22px;cursor:pointer;line-height:1}
   .chip{display:inline-block;background:var(--panel2);border:1px solid var(--line);border-radius:5px;
     padding:2px 8px;margin:2px 3px 2px 0;font-size:12px;cursor:pointer}
@@ -312,14 +323,19 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="数学マップ">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/app.html">
+<meta name="description" content="受験数学マップ。単元の関係をたどり、例題と着眼点から解法を練習できます。">
 </head>
 <body>
 <header>
   <div class="hrow">
     <h1>受験数学マップ</h1>
-    <div class="hstat" id="hs"></div>
+    <details class="progress">
+      <summary id="progress-summary">進捗と保存</summary>
+      <div class="hstat" id="hs"></div>
+    </details>
   </div>
-  <nav>
+  <nav aria-label="学習する画面">
     <button data-v="units" class="on">単元</button>
     <button data-v="today">今日</button>
     <button data-v="next">次にやる</button>
@@ -336,6 +352,7 @@
     <button data-v="gacha">ガチャ</button>
     <button data-v="doc">設計方針</button>
   </nav>
+  <div class="mobile-nav"><label for="mobile-view">表示</label><select id="mobile-view"></select></div>
 </header>
 <main>
   <div id="installBar" style="display:none"></div>
@@ -359,7 +376,7 @@
 </main>
 
 <div id="ov"></div>
-<aside id="dp"><button class="close" id="cl">×</button><div id="dpc"></div></aside>
+<aside id="dp" role="dialog" aria-modal="true" aria-label="学習の詳細" inert><button class="close" id="cl" aria-label="閉じる">×</button><div id="dpc"></div></aside>
 
 <script>(function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -2861,6 +2878,7 @@ let view = 'units', sel = null;
 
 function header(){
   const rv = needRev().length;
+  $('#progress-summary').textContent = `進捗 ${Object.keys(S.rec).length}/${N.length}・保存`;
   $('#hs').innerHTML = `
     <span>Lv <b>${level()}</b></span>
     <span>パワー <b class="pw">${power().toFixed(0)}</b> / ${totW.toFixed(0)}</span>
@@ -2868,14 +2886,13 @@ function header(){
     <span>💎 <b>${S.gems}</b></span>
     <span>🔥 <b>${S.streak.days}</b>日連続</span>
     <span>習得 <b>${Object.keys(S.rec).length}</b>/${N.length}</span>
-    <button id="expo" style="background:none;border:1px solid var(--line);color:var(--dim);
-      border-radius:5px;padding:2px 9px;font-size:11px;cursor:pointer;font-family:inherit">進捗を書き出す</button>
-    <button id="impo" style="background:none;border:1px solid var(--line);color:var(--dim);
-      border-radius:5px;padding:2px 9px;font-size:11px;cursor:pointer;font-family:inherit">読み込む</button>
+    <button id="expo">進捗を書き出す</button>
+    <button id="impo">読み込む</button>
     <input type="file" id="impf" accept=".json,application/json" style="display:none">
     ${canStore ? '' : '<span style="color:var(--hot)">※この環境では進捗を保存できません</span>'}`;
   const b = $('#rvb');
   b.style.display = rv ? 'inline' : 'none'; b.textContent = rv;
+  $('#mobile-view option[value="review"]').textContent = rv ? `復習（${rv}件）` : '復習';
   $('#expo').onclick = exportProgress;
   $('#impo').onclick = () => $('#impf').click();
   $('#impf').onchange = e => { if (e.target.files[0]) importProgress(e.target.files[0]); };
@@ -2986,7 +3003,7 @@ function bindUnits(){
   $('#toPlace') && ($('#toPlace').onclick = e => { e.preventDefault(); startPlacement(); });
   $('#view').querySelectorAll('.unit').forEach(d => d.ontoggle = () =>
     d.open ? openUnits.add(d.dataset.k) : openUnits.delete(d.dataset.k));
-  $('#view').querySelectorAll('.urow').forEach(r => r.onclick = () => open(r.dataset.id));
+  document.querySelectorAll('#view .urow').forEach(bindOpenItem);
 }
 
 function filtered(){
@@ -2998,8 +3015,21 @@ function filtered(){
     (!f.q || (n.title + n.why + n.unit).includes(f.q)));
 }
 
+function selectView(nextView){
+  view = nextView;
+  history.replaceState(null, '', '#' + view);
+  render();
+  window.scrollTo(0, 0);
+}
+
 function render(){
   header();
+  $('#mobile-view').value = view;
+  document.querySelectorAll('header nav button[data-v]').forEach(button => {
+    const selected = button.dataset.v === view;
+    button.classList.toggle('on', selected);
+    button.setAttribute('aria-pressed', selected);
+  });
   const v = $('#view');
   $('#filters').style.display = ['doc','mon','gacha','prob','past','today','mock','units','search','eye','target'].includes(view) ? 'none' : 'flex';
 
@@ -3060,7 +3090,7 @@ function render(){
   else if (view === 'gacha') { v.innerHTML = gachaHTML(); $('#pull').onclick = pull; }
   else                       v.innerHTML = docHTML();
 
-  v.querySelectorAll('.card').forEach(c => c.onclick = () => open(c.dataset.id));
+  v.querySelectorAll('.card').forEach(bindOpenItem);
   $('#plstart') && ($('#plstart').onclick = startPlacement);
   $('#plskip')  && ($('#plskip').onclick  = () => { S.placed = true; save(); render(); });
 }
@@ -3073,8 +3103,8 @@ let placementGain = null;
 
 function startPlacement(){
   pl = { i: 0, correct: [], wrong: [] };
-  $('#ov').classList.add('on'); $('#dp').classList.add('on');
   showPl();
+  openDp();
 }
 
 function showPl(){
@@ -3185,7 +3215,7 @@ function finishPlacement(){
       本当は身についていない箇所はそこで炙り出されます。</p>
     <button class="btn" id="plgo">ここから始める</button>`;
   pl = null;
-  $('#plgo').onclick = () => { closeDp(); view = 'next'; render(); };
+  $('#plgo').onclick = () => { closeDp(); selectView('next'); };
   render();
 }
 
@@ -3296,9 +3326,7 @@ function drawUnitMap(){
   $('#view').querySelectorAll('.u').forEach(g => g.onclick = () => {
     $('#fField').value = ''; setUnitOptions();
     $('#fUnit').value = g.dataset.u;
-    document.querySelectorAll('nav button').forEach(x => x.classList.remove('on'));
-    document.querySelector('nav button[data-v="all"]').classList.add('on');
-    view = 'all'; render();
+    selectView('all');
   });
   bindToggle();
 }
@@ -3758,7 +3786,7 @@ function open(id){
     <h3>前提（これが無いと分からない）</h3><div>${up}</div>
     <h3>これを塞ぐと止まるもの</h3><div>${dn}</div>
     ${L}`;
-  $('#ov').classList.add('on'); $('#dp').classList.add('on');
+  openDp();
   bindDetail(id);
 }
 
@@ -3862,7 +3890,42 @@ function finish(){
   render();
 }
 
-const closeDp = () => { quiz = null; pl = null; $('#ov').classList.remove('on'); $('#dp').classList.remove('on'); };
+function bindOpenItem(item){
+  item.tabIndex = 0;
+  item.setAttribute('role', 'button');
+  item.onclick = () => open(item.dataset.id);
+  item.onkeydown = event => {
+    if (event.key !== 'Enter' && event.key !== ' ') return;
+    event.preventDefault();
+    item.click();
+  };
+}
+
+let detailOpener;
+function openDp(){
+  const panel = $('#dp');
+  if (panel.inert) detailOpener = document.activeElement;
+  panel.inert = false;
+  panel.classList.add('on');
+  $('#ov').classList.add('on');
+  $('body > header').inert = true;
+  $('body > main').inert = true;
+  panel.scrollTop = 0;
+  $('#cl').focus({preventScroll:true});
+}
+
+function closeDp(){
+  const panel = $('#dp');
+  if (panel.inert) return;
+  quiz = null;
+  pl = null;
+  panel.inert = true;
+  panel.classList.remove('on');
+  $('#ov').classList.remove('on');
+  $('body > header').inert = false;
+  $('body > main').inert = false;
+  if (detailOpener?.isConnected) detailOpener.focus({preventScroll:true});
+}
 
 /* ---------- 過去問の分類と分析 ----------
    問題文は載せない（著作権）。載せるのは「何年の第何問が何のテーマか」という分類だけ。
@@ -4058,11 +4121,12 @@ function setUnitOptions(){
   ['fUnit','fState','fTodai'].forEach(i => $('#'+i).onchange = render);
   $('#fQ').oninput = render;
   $('#reset').onclick = () => { if (confirm('進捗・レベル・所持品を全て消しますか？')){ S = JSON.parse(JSON.stringify(DEF)); save(); render(); } };
-  document.querySelectorAll('nav button').forEach(b => b.onclick = () => {
-    document.querySelectorAll('nav button').forEach(x => x.classList.remove('on'));
-    b.classList.add('on'); view = b.dataset.v; render();
-    history.replaceState(null, '', '#' + view);
-  });
+  const navButtons = [...document.querySelectorAll('header nav button[data-v]')];
+  $('#mobile-view').replaceChildren(...navButtons.map(button =>
+    new Option(button.firstChild.textContent.trim(), button.dataset.v)
+  ));
+  $('#mobile-view').onchange = event => selectView(event.target.value);
+  navButtons.forEach(button => button.onclick = () => selectView(button.dataset.v));
   $("#ov").onclick = closeDp; $("#cl").onclick = closeDp;
   document.onkeydown = e => e.key === "Escape" && closeDp();
   // 以前の版では診断テストで埋めた分に EXP が入らず、習得済みなのに Lv1・EXP0 のままになっていた。
@@ -4072,17 +4136,15 @@ function setUnitOptions(){
     S.expFixed = true; save();
   }
   const hashView = location.hash.slice(1);
-  const validViews = [...document.querySelectorAll('nav button')].map(b => b.dataset.v);
+  const validViews = navButtons.map(button => button.dataset.v);
   // #unit=数列 のように単元名を渡されたら、単元タブでその単元を開いた状態にする（医学部受験ロードマップからのリンク用）
-  const hashUnit = hashView.startsWith('unit=') ? decodeURIComponent(hashView.slice(5)) : '';
+  const hashUnit = new URLSearchParams(hashView).get('unit') || '';
   if (hashUnit && N.some(n => n.unit === hashUnit)){
     N.filter(n => n.unit === hashUnit).forEach(n => openUnits.add(n.field + '/' + n.unit));
     view = 'units';
   } else if (validViews.includes(hashView)){
     view = hashView;
   }
-  document.querySelectorAll('nav button').forEach(x => x.classList.remove('on'));
-  document.querySelector(`nav button[data-v="${view}"]`).classList.add('on');
   render();
   maybeNotify();
   if (isIOS() && !isStandalone()) showInstallBanner('ios');

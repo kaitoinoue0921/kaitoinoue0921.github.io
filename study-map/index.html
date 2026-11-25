@@ -3,7 +3,7 @@
 <head>
 <meta name="robots" content="noindex,follow">
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title id="pgtitle">スタディスポットMAP — 無料で勉強できる場所をみんなでランク付け</title>
 <meta id="pgdesc" name="description" content="栃木県内の図書館・公民館・カフェなど、無料で勉強できる場所を地図でランク付け。静音性・電源・Wi-Fiなど8軸で評価し、時間帯ごとの空き状況もわかります。">
 <link id="pgcanon" rel="canonical" href="https://kaitoinoue0921.github.io/study-map/">
@@ -119,8 +119,8 @@ button{cursor:pointer}
 .rankfilter button[data-r="Z"][data-on="1"]{background:var(--blocked);border-color:var(--busy);color:#fff}
 .row{display:flex;gap:6px}
 .row select{
-  flex:1;background:var(--panel2);border:1px solid var(--line);border-radius:8px;
-  padding:7px 8px;font-size:12.5px;outline:none
+  flex:1;min-width:0;background:var(--panel2);border:1px solid var(--line);border-radius:8px;
+  padding:7px 8px;font-size:12.5px
 }
 .chips{display:flex;gap:5px;flex-wrap:wrap}
 .chip{
@@ -345,6 +345,7 @@ button{cursor:pointer}
   #top h1{font-size:14px}
   .logo{width:26px;height:26px;flex:0 0 26px;font-size:14px}
   .controls{padding:9px 12px;gap:7px}
+  .row select,.region select,#topsearch{min-height:40px;font-size:16px}
   /* 絞り込みチップは折り返さず横スクロールさせる（3行に増えるのを防ぐ） */
   .chips{flex-wrap:nowrap;overflow-x:auto;overscroll-behavior-x:contain;
     scrollbar-width:none;padding-bottom:2px}
@@ -5382,6 +5383,7 @@ function LeafletAdapter(){
   };
 }
 
+const compactLayout = window.matchMedia('(max-width:900px)');
 function bootMap(){ initAdapter(LeafletAdapter()); }
 function initAdapter(a){
   MapA=a;
@@ -5389,7 +5391,7 @@ function initAdapter(a){
   render();
   const rows=filtered();
   MapA.fit(rows);
-  if(rows.length) selectSpot(rows[0].id,false);   // ← 開いてすぐ1位の情報が見える
+  if(rows.length && !compactLayout.matches) selectSpot(rows[0].id,false);
 }
 
 /* ---------- 絞り込み ---------- */
@@ -6001,7 +6003,7 @@ function backToList(){
 document.getElementById('pref').onchange=e=>{
   state.pref=e.target.value; state.city=''; fillRegion(); backToList(); syncPageMeta();
   const rows=filtered(); MapA&&MapA.fit(rows);
-  if(rows.length) selectSpot(rows[0].id,false);
+  if(rows.length && !compactLayout.matches) selectSpot(rows[0].id,false);
 };
 document.getElementById('city').onchange=e=>{
   state.city=e.target.value; backToList(); syncPageMeta();

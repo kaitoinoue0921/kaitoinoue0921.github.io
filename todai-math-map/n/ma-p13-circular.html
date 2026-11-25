@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>確13 円順列・じゅず順列（1つを固定）（場合の数）｜受験数学マップ</title>
+<meta name="description" content="円形に並べると、全員を同じだけ回した並びは区別しない。そこで1人（1つ）を固定すれば、残りは普通の一列の順列になり (n − 1)! 通り。じゅずやネックレスは裏返しても同じなので、さらに2で割る。ただし2で割れるのは…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/ma-p13-circular.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="確13 円順列・じゅず順列（1つを固定）（場合の数）｜受験数学マップ">
+<meta property="og:description" content="円形に並べると、全員を同じだけ回した並びは区別しない。そこで1人（1つ）を固定すれば、残りは普通の一列の順列になり (n − 1)! 通り。じゅずやネックレスは裏返しても同じなので、さらに2で割る。ただし2で割れるのは…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/ma-p13-circular.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "確13 円順列・じゅず順列（1つを固定）", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/ma-p13-circular.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 確13 円順列・じゅず順列（1つを固定）</nav>
+<h1>確13 円順列・じゅず順列（1つを固定）</h1>
+<p class="meta">数学A ／ 場合の数 ／ 東大での重要度 ★★☆☆☆</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>円形に並べると、全員を同じだけ回した並びは区別しない。そこで1人（1つ）を固定すれば、残りは普通の一列の順列になり (n − 1)! 通り。じゅずやネックレスは裏返しても同じなので、さらに2で割る。ただし2で割れるのは、裏返して自分自身に重なる並びがないとき（すべて異なるものを並べるとき）だけ。</p>
+<h2>こんなときに使う</h2>
+<ul><li>円卓に座る、輪になって並ぶ</li><li>ネックレス・ブレスレット・腕輪（裏返せる）</li><li>円形に並べて『交互に』『隣り合う』『向かい合う』</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 特別なもの（1人だけの人、1色だけの玉など）があれば、それを固定する</li><li>2. 固定した位置からの一列の順列として残りを数える</li><li>3. 交互・隣り合うなどの条件は、固定したあとに普通の順列と同じく処理する</li><li>4. 裏返してよいなら、対称な並びがないことを確かめてから2で割る</li></ol>
+<h2>例題</h2>
+<div class="problem">(1) 男子3人、女子3人が円卓に座る。男女が交互になる座り方は何通りか。(2) 異なる6色の玉でネックレスを作る方法は何通りか。</div><details><summary>解答</summary><ol class="steps"><li>(1) 男子1人を固定すると、残りの男子2人の席の並び方が 2! = 2 通り</li><li>男子の間の3席に女子3人を並べて 3! = 6 通り</li><li>∴ 2 × 6 = 12 通り</li><li>(2) 円順列 (6 − 1)! = 120 通り。すべて異なるので裏返して自分自身になるものはない</li><li>∴ 120 ÷ 2 = 60 通り</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>特定の2人が隣り合う：2人を1組にして (n − 2)! × 2</li><li>同じものを含む円順列は、固定するものを1つしかないものにする。全部が2個以上あるときは回転の対称を数え直す（バーンサイド）</li><li>向かい合う席の条件は、片方を固定すると相手の席が決まる</li></ul>
+<h2>落とし穴</h2>
+<ul><li>固定したのに、固定したものも含めて n! と数える</li><li>じゅず順列で、同じ色を含み左右対称な並びがあるのに2で割る</li><li>円卓の席に番号が付いている（区別がある）のに円順列にする</li><li>じゅず順列で、同じものを含み左右対称な並びがあるのに一律に2で割る</li></ul>
+<h2>なぜ大事か</h2>
+<p>回して同じになる並びは1つと数える。1人を固定すれば普通の順列になる</p>
+<h2>東大での出方</h2>
+<p>東大で単独で出ることはほぼない。確率の分母・分子を円順列でそろえる場面と、対称性の考え方の練習として使う。</p>
+<h2>確認問題</h2>
+<ul><li>6人が円卓に座るとき、特定の2人が隣り合う座り方は何通りか（答：48通り）</li><li>白玉4個と黒玉2個を円形に並べる方法は何通りか（回転で重なるものは同じ）（答：3通り）</li></ul>
+<h2>発展</h2>
+<p>同じものを含む円順列は『1つを固定』が使えないことがある。回転で不変な並びを数えて平均を取るバーンサイドの補題を使うと機械的に数えられる。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="ma-perm.html">順列・組合せ</a></li></ul>
+<h2>このノードを前提にするノード</h2>
+<ul class="links"><li><a href="ma-samekind.html">同じものを含む順列・円順列・じゅず順列</a></li></ul>
+<h2>「場合の数」のノード</h2>
+<ul class="links"><li><a href="ma-count-basic.html">数え上げの原則（和の法則・積の法則・辞書式）</a></li><li><a href="ma-perm.html">順列・組合せ</a></li><li><a href="ma-samekind.html">同じものを含む順列・円順列・じゅず順列</a></li><li><a href="ma-partition.html">組分け・重複組合せ（仕切り）</a></li><li><a href="ma-incl.html">包除原理・余事象で数える</a></li><li><a href="ma-p03-incl-excl.html">確3 包除原理（AもBもすべて〜）</a></li><li><a href="ma-p04-stars-bars.html">確4 仕切り（重複組合せ）</a></li><li><a href="ma-p12-lattice.html">確12 格子の最短経路（通れない点・カタラン数）</a></li><li><span class="cur">確13 円順列・じゅず順列（1つを固定）</span></li><li><a href="ma-p14-grouping.html">確14 組分け（区別のない組は階乗で割る）</a></li><li><a href="ma-p15-count-rec.html">確15 状況から漸化式を立てて数える（最後の1手）</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：個人 ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

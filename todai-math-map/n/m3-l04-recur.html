@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>極4 漸化式の極限（|aₙ₊₁−α|≦r|aₙ−α| で 0 に挟む）（極限）｜受験数学マップ</title>
+<meta name="description" content="aₙ₊₁ = f(aₙ) で決まる数列の極限は、まず α = f(α) を解いて候補を出す。ただしこれは『収束するなら α』という必要条件にすぎない。一般項が出る型（aₙ₊₁ = paₙ + q）なら aₙ − α を…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/m3-l04-recur.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="極4 漸化式の極限（|aₙ₊₁−α|≦r|aₙ−α| で 0 に挟む）（極限）｜受験数学マップ">
+<meta property="og:description" content="aₙ₊₁ = f(aₙ) で決まる数列の極限は、まず α = f(α) を解いて候補を出す。ただしこれは『収束するなら α』という必要条件にすぎない。一般項が出る型（aₙ₊₁ = paₙ + q）なら aₙ − α を…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/m3-l04-recur.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "極4 漸化式の極限（|aₙ₊₁−α|≦r|aₙ−α| で 0 に挟む）", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/m3-l04-recur.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 極4 漸化式の極限（|aₙ₊₁−α|≦r|aₙ−α| で 0 に挟む）</nav>
+<h1>極4 漸化式の極限（|aₙ₊₁−α|≦r|aₙ−α| で 0 に挟む）</h1>
+<p class="meta">数学III ／ 極限 ／ 東大での重要度 ★★★★★</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>aₙ₊₁ = f(aₙ) で決まる数列の極限は、まず α = f(α) を解いて候補を出す。ただしこれは『収束するなら α』という必要条件にすぎない。一般項が出る型（aₙ₊₁ = paₙ + q）なら aₙ − α を等比数列にして直接極限をとる。一般項が出ないときは |aₙ₊₁ − α| ≦ r|aₙ − α|（0 &lt; r &lt; 1 の定数）を示し、繰り返して |aₙ − α| ≦ rⁿ⁻¹|a₁ − α| → 0 と、はさみうち（極3）に持ち込む。</p>
+<h2>こんなときに使う</h2>
+<ul><li>aₙ₊₁ = √(aₙ + 2) のように一般項が求まらない漸化式で lim aₙ を問う</li><li>『|aₙ₊₁ − α| ≦ r|aₙ − α| を示せ』という誘導</li><li>aₙ₊₁ = f(aₙ) で f が α の近くで傾きが 1 より小さい</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. α = f(α) を解いて極限の候補 α を出す</li><li>2. aₙ₊₁ − α = f(aₙ) − f(α) を、aₙ − α を因数にもつ形に変形する（有理化・通分）</li><li>3. 残りの因数の絶対値を、aₙ の範囲（帰納法で示す）を使って r（&lt; 1）以下に評価する</li><li>4. 繰り返して |aₙ − α| ≦ rⁿ⁻¹|a₁ − α| とする</li><li>5. rⁿ⁻¹ → 0 なので、はさみうちの原理より aₙ → α</li></ol>
+<h2>例題</h2>
+<div class="problem">a₁=1, aₙ₊₁=(1/2)aₙ+3 のとき lim[n→∞]aₙ を求めよ。</div><details><summary>解答</summary><ol class="steps"><li>α=(1/2)α+3 より α=6。</li><li>aₙ₊₁−6=(1/2)(aₙ−6)</li><li>aₙ−6=(1−6)(1/2)ⁿ⁻¹=−5(1/2)ⁿ⁻¹→0</li><li>∴ 6</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>aₙ₊₁ = paₙ + q（|p| &lt; 1）は aₙ − α = (a₁ − α)pⁿ⁻¹ と一般項が出るので直接</li><li>f が微分できれば、平均値の定理で f(aₙ) − f(α) = f′(c)(aₙ − α) とし、|f′| ≦ r を示す</li><li>単調で有界な数列は収束する（はさみうちでなく単調性で示す型。誘導があるときだけ使う）</li></ul>
+<h2>落とし穴</h2>
+<ul><li>評価に使う aₙ の範囲（aₙ &gt; 0 など）を示さずに分母を評価する</li><li>r を n に依存する量のままにする（r は n によらない 1 未満の定数でなければならない）</li><li>「極限を α とおいて α=pα+q」だけでは、収束することを示していないので答案として不十分。</li><li>α = f(α) を解いて『極限は α』と書くだけで、収束することを示していない</li></ul>
+<h2>なぜ大事か</h2>
+<p>一般項が出ない漸化式でも、極限の候補 α との差が毎回 r 倍以下に縮むことを示せば収束が言える</p>
+<h2>東大での出方</h2>
+<p>東大・医学部では誘導つきで頻出。『|aₙ₊₁ − α| ≦ (1/2)|aₙ − α| を示せ』の誘導が出たら、この手順のどこを聞かれているかを確かめる。数列㉙と同じ型。</p>
+<h2>確認問題</h2>
+<ul><li>a₁=1, aₙ₊₁=√(aₙ+2) のとき、|aₙ₊₁−2|≦(1/2)|aₙ−2| を示し、lim[n→∞]aₙ を求めよ。（答：2）</li></ul>
+<h2>発展</h2>
+<p>平均値の定理で |f′(x)| ≦ r &lt; 1 を示す方法は、縮小写像の不動点定理の最も簡単な形。ニュートン法の収束の議論もこの延長にある。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="m3-lim-squeeze.html">極3 はさみうちの原理</a></li><li><a href="mb-rec-type.html">漸化式の型別処理（等比型・特性方程式・分数型・連立）</a></li></ul>
+<h2>「極限」のノード</h2>
+<ul class="links"><li><a href="m3-lim-seq.html">極2 rⁿ の極限（|r| と 1 の大小で場合分け）</a></li><li><a href="m3-lim-squeeze.html">極3 はさみうちの原理</a></li><li><a href="m3-lim-series.html">極10 無限等比級数と収束条件</a></li><li><a href="m3-lim-func.html">極1 不定形の処理（∞/∞ は最高次でくくる、∞−∞ は有理化）</a></li><li><a href="m3-lim-sin.html">極5 sin x/x → 1 に持ち込む</a></li><li><a href="m3-lim-e.html">極6 e の定義の形を作る（(1 + 1/n)ⁿ、(eˣ − 1)/x）</a></li><li><a href="m3-lim-cont.html">極13 中間値の定理で解の存在を示す</a></li><li><span class="cur">極4 漸化式の極限（|aₙ₊₁−α|≦r|aₙ−α| で 0 に挟む）</span></li><li><a href="m3-l07-deriv.html">極7 微分係数の定義に読み替える</a></li><li><a href="m3-l11-telescope.html">極11 部分和を出してから極限（部分分数・望遠鏡和）</a></li><li><a href="m3-l12-growth.html">極12 指数と多項式・対数の強さ比べ</a></li><li><a href="m3-l14-coeff.html">極14 極限値から係数を決める（分母→0なら分子→0）</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：個人 ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>微7 凸性で不等式（グラフは接線より上・弦より下）（微分法）｜受験数学マップ</title>
+<meta name="description" content="f″(x) &gt; 0（下に凸）の区間では、グラフはどの点での接線よりも上にあり、2点を結ぶ弦（割線）よりも下にある。だから f(x) ≧ f(a) + f′(a)(x − a)（接線の不等式）と、端の2点を結ぶ直線との不…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/m3-d07-convex.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="微7 凸性で不等式（グラフは接線より上・弦より下）（微分法）｜受験数学マップ">
+<meta property="og:description" content="f″(x) &gt; 0（下に凸）の区間では、グラフはどの点での接線よりも上にあり、2点を結ぶ弦（割線）よりも下にある。だから f(x) ≧ f(a) + f′(a)(x − a)（接線の不等式）と、端の2点を結ぶ直線との不…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/m3-d07-convex.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "微7 凸性で不等式（グラフは接線より上・弦より下）", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/m3-d07-convex.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 微7 凸性で不等式（グラフは接線より上・弦より下）</nav>
+<h1>微7 凸性で不等式（グラフは接線より上・弦より下）</h1>
+<p class="meta">数学III ／ 微分法 ／ 東大での重要度 ★★★★☆</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>f″(x) &gt; 0（下に凸）の区間では、グラフはどの点での接線よりも上にあり、2点を結ぶ弦（割線）よりも下にある。だから f(x) ≧ f(a) + f′(a)(x − a)（接線の不等式）と、端の2点を結ぶ直線との不等式が、差をとって何度も微分しなくても見通せる。eˣ ≧ 1 + x、log x ≦ x − 1、sin x ≦ x（x ≧ 0）はすべて接線の不等式。上に凸（f″ &lt; 0）なら向きが逆になる。記述式では、差をとった関数を微分して一度示すか、凸であることを根拠として明記する。</p>
+<h2>こんなときに使う</h2>
+<ul><li>eˣ ≧ 1 + x、log x ≦ x − 1 のような、接線との比較</li><li>{f(a) + f(b)}/2 と f((a + b)/2) の大小</li><li>sin x ≧ (2/π)x（0 ≦ x ≦ π/2）のような、弦との比較</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. f″ の符号を調べ、凸の向きを決める</li><li>2. 接線と比べるなら接点 a を決め、y = f(a) + f′(a)(x − a) を書く</li><li>3. 弦と比べるなら両端の2点を結ぶ直線を書く</li><li>4. 下に凸なら『グラフ ≧ 接線』『グラフ ≦ 弦』、上に凸なら逆</li><li>5. 等号が成り立つ点（接点・両端）を書く</li></ol>
+<h2>例題</h2>
+<div class="problem">0 ≦ x ≦ π/2 のとき sin x ≧ (2/π)x を示せ。</div><details><summary>解答</summary><ol class="steps"><li>f(x) = sin x は 0 &lt; x &lt; π/2 で f″(x) = −sin x &lt; 0 なので上に凸。</li><li>上に凸なグラフは、両端 (0, 0)、(π/2, 1) を結ぶ弦 y = (2/π)x より上にある。</li><li>よって 0 ≦ x ≦ π/2 で sin x ≧ (2/π)x。等号は x = 0, π/2。</li><li>（差で書くなら g(x) = sin x − (2/π)x とおくと g″(x) &lt; 0、g(0) = g(π/2) = 0 なので g は区間で 0 以上）</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>log x ≦ x − 1 は、上に凸な y = log x と x = 1 での接線 y = x − 1 の比較</li><li>(eᵃ + eᵇ)/2 ≧ e^((a + b)/2) は、下に凸な eˣ の弦の中点がグラフより上にあること</li><li>3点以上ではイェンゼンの不等式 f((x₁ + … + xₙ)/n) ≦ {f(x₁) + … + f(xₙ)}/n（下に凸）</li></ul>
+<h2>落とし穴</h2>
+<ul><li>上に凸なのに『接線より上』とする（上に凸は接線より下、弦より上）</li><li>f″ の符号を調べた区間と、示したい不等式の区間がずれている</li><li>上に凸と下に凸を取り違え、不等号の向きを逆にする</li></ul>
+<h2>なぜ大事か</h2>
+<p>f″ の符号だけで、グラフと接線・弦の上下が決まり、不等式の見当がつく</p>
+<h2>東大での出方</h2>
+<p>東大では積分の評価や極限のはさみうちで、eˣ ≧ 1 + x や sin x ≧ (2/π)x を部品として使う。グラフで見当をつけ、証明は差の微分で書くのが安全。</p>
+<h2>発展</h2>
+<p>弦の不等式を n 点に広げたのがイェンゼンの不等式。相加平均 ≧ 相乗平均も、上に凸な log x にイェンゼンを使うと出る。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="m3-graph.html">微3 グラフを描き切る（増減・凹凸・漸近線・端の極限）</a></li><li><a href="m3-ineq-diff.html">微6 不等式は差をとって微分（1回で決まらなければ2回）</a></li></ul>
+<h2>「微分法」のノード</h2>
+<ul class="links"><li><a href="m3-diff-formula.html">微1 積・商・合成関数の微分（合成は外側から）</a></li><li><a href="m3-diff-trig.html">三角関数・指数関数・対数関数の微分</a></li><li><a href="m3-diff-inv.html">微13 逆関数・陰関数の微分（dy/dx=1/(dx/dy)）</a></li><li><a href="m3-diff-param.html">微11 媒介変数表示の微分（dx/dt と dy/dt の符号表）</a></li><li><a href="m3-diff-log.html">微2 対数微分法（積・商・累乗が多い形、xˣ）</a></li><li><a href="m3-graph.html">微3 グラフを描き切る（増減・凹凸・漸近線・端の極限）</a></li><li><a href="m3-diff-minmax.html">微12 図形量の最大最小（変数を1つに決めて関数化）</a></li><li><a href="m3-root-count3.html">微4 定数分離（f(x)=a の解はグラフと水平線の交点）</a></li><li><a href="m3-ineq-diff.html">微6 不等式は差をとって微分（1回で決まらなければ2回）</a></li><li><a href="m3-mvt.html">微8 平均値の定理で差を評価する</a></li><li><a href="m3-velocity.html">速度・加速度・近似式</a></li><li><a href="m3-d05-param-minmax.html">微5 文字定数入りの最大最小（極値の位置と区間で場合分け）</a></li><li><span class="cur">微7 凸性で不等式（グラフは接線より上・弦より下）</span></li><li><a href="m3-d18-differentiable.html">微18 微分可能性は左右の微分係数の一致</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：個人 ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>確3 包除原理（AもBもすべて〜）（場合の数）｜受験数学マップ</title>
+<meta name="description" content="『AもBも起こる』の余事象は『Aが起こらない、またはBが起こらない』で、これは2つの事象の和集合。和集合の大きさは |X∪Y| = |X| + |Y| − |X∩Y| と、重なりを1回引いて直す。3つなら |X∪Y∪Z…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/ma-p03-incl-excl.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="確3 包除原理（AもBもすべて〜）（場合の数）｜受験数学マップ">
+<meta property="og:description" content="『AもBも起こる』の余事象は『Aが起こらない、またはBが起こらない』で、これは2つの事象の和集合。和集合の大きさは |X∪Y| = |X| + |Y| − |X∩Y| と、重なりを1回引いて直す。3つなら |X∪Y∪Z…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/ma-p03-incl-excl.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "確3 包除原理（AもBもすべて〜）", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/ma-p03-incl-excl.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 確3 包除原理（AもBもすべて〜）</nav>
+<h1>確3 包除原理（AもBもすべて〜）</h1>
+<p class="meta">数学A ／ 場合の数 ／ 東大での重要度 ★★★★☆</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>『AもBも起こる』の余事象は『Aが起こらない、またはBが起こらない』で、これは2つの事象の和集合。和集合の大きさは |X∪Y| = |X| + |Y| − |X∩Y| と、重なりを1回引いて直す。3つなら |X∪Y∪Z| = Σ|X| − Σ|X∩Y| + |X∩Y∩Z|。『全部の種類が出る』『空の箱がない』はこの形に必ずなる。</p>
+<h2>こんなときに使う</h2>
+<ul><li>『1の目と6の目の両方が出る』『すべての目が出る』</li><li>『どの部屋も空でない』『全員に1つ以上配る』（全射の個数）</li><li>『2でも3でも5でも割り切れない数』の個数</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 求める事象の余事象を『X₁ または X₂ または …』の形に書く（Xᵢ = i 番目の条件が満たされない）</li><li>2. |Xᵢ|、|Xᵢ∩Xⱼ|、… をそれぞれ求める。対称なら1つ求めて個数倍</li><li>3. 包除原理で和集合の大きさを出す（奇数個の共通部分は＋、偶数個は−）</li><li>4. 全体から引く</li><li>5. 小さい値（n = 2 など）で直接数えて確かめる</li></ol>
+<h2>例題</h2>
+<div class="problem">さいころを3回投げる。1の目と6の目がどちらも少なくとも1回出る確率を求めよ。</div><details><summary>解答</summary><ol class="steps"><li>X = 『1が出ない』、Y = 『6が出ない』とすると、求める事象の余事象は X∪Y</li><li>P(X) = P(Y) = (5/6)³ = 125/216、P(X∩Y) = (4/6)³ = 64/216</li><li>P(X∪Y) = 125/216 + 125/216 − 64/216 = 186/216</li><li>∴ 1 − 186/216 = 30/216 = 5/36</li><li>検算：1, 6, もう1つの目 の並べ方を直接数えると、もう1つが 2〜5 なら 4 × 3! = 24、1 か 6 なら 2 × 3 = 6、計 30 通りで一致</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>n 人を3つの部屋に空き部屋なく入れる：3ⁿ − 3·2ⁿ + 3</li><li>1〜N のうち 2, 3, 5 のどれでも割り切れない数：N − (N/2 + N/3 + N/5) + (N/6 + N/10 + N/15) − N/30（ガウス記号付き）</li><li>完全順列（誰も自分のプレゼントを受け取らない）も包除原理で出せる</li></ul>
+<h2>落とし穴</h2>
+<ul><li>2重に引いた X∩Y を足し戻さない</li><li>3つ以上の場合に符号を間違える（3つの共通部分は＋）</li><li>X を『1が出る』と取り、余事象との対応がずれる</li><li>余事象を引くだけで、2重に引いた部分を足し戻さない</li></ul>
+<h2>なぜ大事か</h2>
+<p>『1も6も出る』『どの部屋も空でない』は余事象が2つ以上重なる。重なりを足し引きで直す</p>
+<h2>東大での出方</h2>
+<p>東大では『すべての〜が出る確率』『どれも空でない』が繰り返し出る。2つまでの包除は暗算レベルにしておく。</p>
+<h2>確認問題</h2>
+<ul><li>4人を3つの部屋に空き部屋がないように入れる方法は何通りか（答：36通り）</li><li>1〜100 のうち、2, 3, 5 のいずれでも割り切れない数の個数を求めよ（答：26個）</li></ul>
+<h2>発展</h2>
+<p>n 人を k 部屋に空き部屋なく入れる数は Σ(−1)ʲ kCj (k − j)ⁿ。これを k! で割ると、区別しない k 組に分ける数（第2種スターリング数）になり、確14 の組分けとつながる。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="ma-p02-complement.html">確2 余事象（少なくとも1つ）</a></li></ul>
+<h2>このノードを前提にするノード</h2>
+<ul class="links"><li><a href="ma-incl.html">包除原理・余事象で数える</a></li></ul>
+<h2>「場合の数」のノード</h2>
+<ul class="links"><li><a href="ma-count-basic.html">数え上げの原則（和の法則・積の法則・辞書式）</a></li><li><a href="ma-perm.html">順列・組合せ</a></li><li><a href="ma-samekind.html">同じものを含む順列・円順列・じゅず順列</a></li><li><a href="ma-partition.html">組分け・重複組合せ（仕切り）</a></li><li><a href="ma-incl.html">包除原理・余事象で数える</a></li><li><span class="cur">確3 包除原理（AもBもすべて〜）</span></li><li><a href="ma-p04-stars-bars.html">確4 仕切り（重複組合せ）</a></li><li><a href="ma-p12-lattice.html">確12 格子の最短経路（通れない点・カタラン数）</a></li><li><a href="ma-p13-circular.html">確13 円順列・じゅず順列（1つを固定）</a></li><li><a href="ma-p14-grouping.html">確14 組分け（区別のない組は階乗で割る）</a></li><li><a href="ma-p15-count-rec.html">確15 状況から漸化式を立てて数える（最後の1手）</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：個人 ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

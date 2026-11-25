@@ -479,6 +479,7 @@
     .corner.tr, .corner.br{ right: 12px; }
   }
 </style>
+<link rel="stylesheet" href="/assets/study-entry.css">
 </head>
 <body>
 
@@ -509,6 +510,12 @@
 
 
       <main class="stack">
+      <section class="study-entry compact" aria-labelledby="study-title">
+        <div><h2 id="study-title">受験の解法ガイド</h2>
+        <p>科目や単元から一問を選び、解き方を学んで復習できます。無料・広告なし・登録不要。</p>
+        <div class="study-actions"><a class="study-open" href="/juken/guide/">解法ガイドを開く</a><a href="/juken/">受験教材の一覧</a></div></div>
+      </section>
+
 
         <section class="section" id="apps" aria-labelledby="apps-title">
           <p class="section-label">APPS</p>
@@ -527,7 +534,6 @@
               <span class="app-body"><span class="app-name">ママの健康ノート</span><span class="app-desc">薬やサプリを、食前・食後・外出前などのタイミングごとに管理して、飲み忘れを防ぎます。</span><span class="app-meta">iPhone ・ 無料 ・ App Storeで見る</span></span>
             </a></li>
           </ul>
-          <p class="apps-next">ほかに、SilentCam Pro（審査待ち）、5分でブロック・QuietTab（提出準備中）を作っています。</p>
         </section>
 
       <div class="finder" role="search">
@@ -763,14 +769,14 @@
     var add = function(title, desc, href, ext){
       if (!title || !href) return;
       var key = href;
-      try { key = new URL(href, location.href).pathname.replace(/\/$/, ''); } catch (e) {}
+      try { key = new URL(href, location.href).href.replace(/\/$/, ''); } catch (e) {}
       if (seen[key]) return;
       seen[key] = true;
       items.push({ title: title.trim(), desc: (desc || '').trim(), href: href, ext: ext });
     };
-    Array.prototype.forEach.call(document.querySelectorAll('.exp, .row'), function(a){
+    Array.prototype.forEach.call(document.querySelectorAll('.exp, .row, .study-open'), function(a){
       var t = a.querySelector('.exp-made, .row-title'), d = a.querySelector('.exp-desc, .row-desc'), q = a.querySelector('.exp-q');
-      add(t && t.textContent, (d ? d.textContent : '') + (q ? ' ' + q.textContent : ''), a.getAttribute('href'), a.target === '_blank');
+      add(t ? t.textContent : a.textContent, (d ? d.textContent : '') + (q ? ' ' + q.textContent : ''), a.getAttribute('href'), a.target === '_blank');
     });
     var loaded = false;
     var loadWorks = function(){
@@ -787,7 +793,7 @@
         search();
       }).catch(function(){});
     };
-    var norm = function(s){ return s.toLowerCase().replace(/[ァ-ヶ]/g, function(c){ return String.fromCharCode(c.charCodeAt(0) - 0x60); }); };
+    var norm = function(s){ return s.normalize('NFKC').toLowerCase().replace(/[ァ-ヶ]/g, function(c){ return String.fromCharCode(c.charCodeAt(0) - 0x60); }); };
     var search = function(){
       var words = norm(finderInput.value).split(/[\s　]+/).filter(Boolean);
       finderResults.innerHTML = '';

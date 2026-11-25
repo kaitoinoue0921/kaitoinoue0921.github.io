@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>確8 条件付き確率・原因の確率（確率）｜受験数学マップ</title>
+<meta name="description" content="P(A|B) = P(A∩B)/P(B) は『B が起こった世界だけを全体と見直したときの A の割合』。原因の確率は、樹形図で結果 B に至る経路を全部書き、その確率の和を分母、そのうち原因 A を通る経路を分子にす…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/ma-p08-bayes.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="確8 条件付き確率・原因の確率（確率）｜受験数学マップ">
+<meta property="og:description" content="P(A|B) = P(A∩B)/P(B) は『B が起こった世界だけを全体と見直したときの A の割合』。原因の確率は、樹形図で結果 B に至る経路を全部書き、その確率の和を分母、そのうち原因 A を通る経路を分子にす…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/ma-p08-bayes.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "確8 条件付き確率・原因の確率", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/ma-p08-bayes.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 確8 条件付き確率・原因の確率</nav>
+<h1>確8 条件付き確率・原因の確率</h1>
+<p class="meta">数学A ／ 確率 ／ 東大での重要度 ★★★☆☆</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>P(A|B) = P(A∩B)/P(B) は『B が起こった世界だけを全体と見直したときの A の割合』。原因の確率は、樹形図で結果 B に至る経路を全部書き、その確率の和を分母、そのうち原因 A を通る経路を分子にする。検査の陽性的中率のように、直感と大きくずれる答えが出るのが特徴。</p>
+<h2>こんなときに使う</h2>
+<ul><li>『〜であったとき』『〜と分かったとき』</li><li>『取り出した玉が赤であった。それが袋 A からである確率』（原因の確率）</li><li>検査の陽性・陰性、くじを引く順番の有利不利</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 原因（どの袋か・病気かどうか）→ 結果（色・陽性か）の順に樹形図を描く</li><li>2. 各経路の確率を掛け算で出す</li><li>3. 分母 P(B) = 結果 B に至る全経路の確率の和</li><li>4. 分子 P(A∩B) = そのうち原因 A を通る経路の確率</li><li>5. 割る。答えが原因の事前の確率と比べて妥当な向きに動いたか確かめる</li></ol>
+<h2>例題</h2>
+<div class="problem">ある病気の有病率は 1% である。検査は、病気の人を 90% の確率で陽性と判定し、病気でない人を 5% の確率で誤って陽性と判定する。陽性と判定された人が実際に病気である確率を求めよ。</div><details><summary>解答</summary><ol class="steps"><li>病気かつ陽性：0.01 × 0.9 = 0.009</li><li>病気でなく陽性：0.99 × 0.05 = 0.0495</li><li>P(陽性) = 0.009 + 0.0495 = 0.0585</li><li>∴ P(病気 | 陽性) = 0.009/0.0585 = 2/13（約 15%）</li><li>感度 90% でも的中率が低いのは、病気でない人が圧倒的に多く、偽陽性の経路が大きいから</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>くじ引きの順番：先に引いた人の結果が分からなければ、何番目に引いても当たる確率は同じ</li><li>『3人の子のうち少なくとも1人は男子』と分かったときの全員男子の確率（1/7）</li><li>条件付き確率を使った独立の判定：P(A|B) = P(A) なら独立</li></ul>
+<h2>落とし穴</h2>
+<ul><li>P(A|B) と P(B|A) を混同する</li><li>分母に、結果 B に至る経路の一部しか入れない</li><li>条件で全体を絞ったのに、分母を元の全体のまま計算する</li><li>P(A|B) と P(B|A) を取り違える（陽性のとき病気である確率と、病気のとき陽性である確率）</li></ul>
+<h2>なぜ大事か</h2>
+<p>『〜であったとき、それが〇〇による確率』は、分母を『結果が起こる全経路の和』にするだけ</p>
+<h2>東大での出方</h2>
+<p>東大では条件付き確率単独より、確率漸化式の途中で『〜のとき次に〜』を書く形で使う。医学部では検査の的中率がそのまま出る。</p>
+<h2>確認問題</h2>
+<ul><li>袋A（赤2個・白1個）と袋B（赤1個・白2個）から1つを等確率で選び1個取り出したら赤だった。袋Aからである確率を求めよ（答：2/3）</li><li>3人の子がいる家庭で、少なくとも1人が男子と分かっているとき、3人とも男子である確率を求めよ（答：1/7）</li></ul>
+<h2>発展</h2>
+<p>P(A|B) = P(B|A)P(A)/P(B) はベイズの定理。分母を P(B) = Σ P(B|Aᵢ)P(Aᵢ) と展開した形が、樹形図の経路の和そのものになっている。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="ma-prob-indep.html">独立試行・反復試行</a></li></ul>
+<h2>このノードを前提にするノード</h2>
+<ul class="links"><li><a href="ma-prob-cond.html">条件付き確率・原因の確率</a></li></ul>
+<h2>「確率」のノード</h2>
+<ul class="links"><li><a href="ma-prob-def.html">確率の定義（同様に確からしい・根元事象の設定）</a></li><li><a href="ma-prob-indep.html">独立試行・反復試行</a></li><li><a href="ma-prob-cond.html">条件付き確率・原因の確率</a></li><li><a href="ma-prob-rec.html">確9 確率漸化式（状態を分類して1手先を書く）</a></li><li><a href="ma-prob-exp.html">期待値</a></li><li><a href="ma-p01-distinguish.html">確1 区別して数える（根元事象をそろえる）</a></li><li><a href="ma-p02-complement.html">確2 余事象（少なくとも1つ）</a></li><li><a href="ma-p05-max-min.html">確5 最大値・最小値の確率（≦k の差）</a></li><li><a href="ma-p06-binomial.html">確6 反復試行（ちょうど n 回目で終わる）</a></li><li><a href="ma-p07-prob-max.html">確7 確率の最大（P(k+1)/P(k) と 1 の比較）</a></li><li><span class="cur">確8 条件付き確率・原因の確率</span></li><li><a href="ma-p10-symmetry.html">確10 対称性で状態を減らす</a></li><li><a href="ma-p11-linearity.html">確11 期待値の線形性（各対象の確率の和）</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：個人 ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

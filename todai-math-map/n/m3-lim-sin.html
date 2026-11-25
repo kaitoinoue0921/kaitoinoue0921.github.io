@@ -3,24 +3,23 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
-<title>sinx/x → 1 とその証明（極限）｜受験数学マップ</title>
+<title>極5 sin x/x → 1 に持ち込む（極限）｜受験数学マップ</title>
 <meta name="description" content="半径1、中心角θの扇形で、三角形OAB、扇形OAB、三角形OATの3つの面積を比較すると、sinθ&lt;θ&lt;tanθ（0&lt;θ&lt;π/2）という不等式が得られる。各辺をsinθで割ってはさみうちを適用すると、θ/sinθ→1、…">
 <link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/m3-lim-sin.html">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="小さな実験室">
-<meta property="og:title" content="sinx/x → 1 とその証明（極限）｜受験数学マップ">
+<meta property="og:title" content="極5 sin x/x → 1 に持ち込む（極限）｜受験数学マップ">
 <meta property="og:description" content="半径1、中心角θの扇形で、三角形OAB、扇形OAB、三角形OATの3つの面積を比較すると、sinθ&lt;θ&lt;tanθ（0&lt;θ&lt;π/2）という不等式が得られる。各辺をsinθで割ってはさみうちを適用すると、θ/sinθ→1、…">
 <meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/m3-lim-sin.html">
 <meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
 <link rel="stylesheet" href="style.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "sinx/x → 1 とその証明", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/m3-lim-sin.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "極5 sin x/x → 1 に持ち込む", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/m3-lim-sin.html"}]}</script>
 </head>
 <body>
 <header class="top"><a href="../">受験数学マップ</a></header>
 <main>
-<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › sinx/x → 1 とその証明</nav>
-<h1>sinx/x → 1 とその証明</h1>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 極5 sin x/x → 1 に持ち込む</nav>
+<h1>極5 sin x/x → 1 に持ち込む</h1>
 <p class="meta">数学III ／ 極限 ／ 東大での重要度 ★★★★★</p>
 <p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
 <h2>要点</h2>
@@ -32,19 +31,19 @@
 <h2>例題</h2>
 <div class="problem">lim[x→0]sin3x/xを求めよ。</div><details><summary>解答</summary><ol class="steps"><li>3・(sin3x)/(3x)と変形。括弧の中は1に収束するので極限は3</li></ol></details>
 <h2>落とし穴</h2>
-<ul><li>この極限をロピタルの定理で示そうとすると、(sinx)′=cosxの証明自体がこの極限に依存しているため循環論法になる</li><li>円弧の長さと面積の大小評価を再現できない</li></ul>
+<ul><li>この極限をロピタルの定理で示そうとすると、(sinx)′=cosxの証明自体がこの極限に依存しているため循環論法になる</li><li>x→∞ では使えない：lim[x→∞](sin x)/x=0（はさみうち）。x→0 の形に直してから使う。</li><li>円弧の長さと面積の大小評価を再現できない</li></ul>
 <h2>なぜ大事か</h2>
 <p>三角関数の微分の根拠。証明そのものが東大で出題された（1999年）</p>
 <h2>東大での出方</h2>
 <p>三角関数の微分の根拠。証明そのものが東大で出題された（1999年）。</p>
 <h2>確認問題</h2>
-<ul><li>lim[x→0]tan2x/xを求めよ</li></ul>
+<ul><li>lim[x→0]tan2x/xを求めよ</li><li>lim[x→0](sin3x)/x を求めよ。（答：3）</li><li>lim[x→0](1−cos x)/x² を求めよ。（答：1/2）</li><li>lim[x→0](tan2x)/x を求めよ（答：2）</li><li>lim[x→∞]x sin(1/x) を求めよ（答：1（t=1/x→0 とおくと (sin t)/t））</li></ul>
 <h2>前提になるノード</h2>
-<ul class="links"><li><a href="m3-lim-func.html">関数の極限・不定形の処理</a></li><li><a href="m3-lim-squeeze.html">はさみうちの原理</a></li></ul>
+<ul class="links"><li><a href="m3-lim-func.html">極1 不定形の処理（∞/∞ は最高次でくくる、∞−∞ は有理化）</a></li><li><a href="m3-lim-squeeze.html">極3 はさみうちの原理</a></li></ul>
 <h2>このノードを前提にするノード</h2>
 <ul class="links"><li><a href="m3-diff-trig.html">三角関数・指数関数・対数関数の微分</a></li></ul>
 <h2>「極限」のノード</h2>
-<ul class="links"><li><a href="m3-lim-seq.html">数列の極限・収束発散の判定</a></li><li><a href="m3-lim-squeeze.html">はさみうちの原理</a></li><li><a href="m3-lim-series.html">無限級数・無限等比級数</a></li><li><a href="m3-lim-func.html">関数の極限・不定形の処理</a></li><li><span class="cur">sinx/x → 1 とその証明</span></li><li><a href="m3-lim-e.html">e の定義と (1+1/n)^n 型の極限</a></li><li><a href="m3-lim-cont.html">連続性・中間値の定理</a></li></ul>
+<ul class="links"><li><a href="m3-lim-seq.html">極2 rⁿ の極限（|r| と 1 の大小で場合分け）</a></li><li><a href="m3-lim-squeeze.html">極3 はさみうちの原理</a></li><li><a href="m3-lim-series.html">極10 無限等比級数と収束条件</a></li><li><a href="m3-lim-func.html">極1 不定形の処理（∞/∞ は最高次でくくる、∞−∞ は有理化）</a></li><li><span class="cur">極5 sin x/x → 1 に持ち込む</span></li><li><a href="m3-lim-e.html">極6 e の定義の形を作る（(1 + 1/n)ⁿ、(eˣ − 1)/x）</a></li><li><a href="m3-lim-cont.html">極13 中間値の定理で解の存在を示す</a></li><li><a href="m3-l04-recur.html">極4 漸化式の極限（|aₙ₊₁−α|≦r|aₙ−α| で 0 に挟む）</a></li><li><a href="m3-l07-deriv.html">極7 微分係数の定義に読み替える</a></li><li><a href="m3-l11-telescope.html">極11 部分和を出してから極限（部分分数・望遠鏡和）</a></li><li><a href="m3-l12-growth.html">極12 指数と多項式・対数の強さ比べ</a></li><li><a href="m3-l14-coeff.html">極14 極限値から係数を決める（分母→0なら分子→0）</a></li></ul>
 <p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
 <p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
 </main>

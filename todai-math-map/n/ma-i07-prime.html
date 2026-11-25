@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>整7 素数の性質（積を割る・2とそれ以外で分ける）（整数）｜受験数学マップ</title>
+<meta name="description" content="素数 p が積 ab を割り切れば、p は a か b の少なくとも一方を割り切る。これが素数のいちばん大事な性質で、合成数では成り立たない（6 は 4·9 を割るが 4 も 9 も割らない）。もう1つ、素数のうち偶数…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/ma-i07-prime.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="整7 素数の性質（積を割る・2とそれ以外で分ける）（整数）｜受験数学マップ">
+<meta property="og:description" content="素数 p が積 ab を割り切れば、p は a か b の少なくとも一方を割り切る。これが素数のいちばん大事な性質で、合成数では成り立たない（6 は 4·9 を割るが 4 も 9 も割らない）。もう1つ、素数のうち偶数…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/ma-i07-prime.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "整7 素数の性質（積を割る・2とそれ以外で分ける）", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/ma-i07-prime.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 整7 素数の性質（積を割る・2とそれ以外で分ける）</nav>
+<h1>整7 素数の性質（積を割る・2とそれ以外で分ける）</h1>
+<p class="meta">数学A ／ 整数 ／ 東大での重要度 ★★★★☆</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>素数 p が積 ab を割り切れば、p は a か b の少なくとも一方を割り切る。これが素数のいちばん大事な性質で、合成数では成り立たない（6 は 4·9 を割るが 4 も 9 も割らない）。もう1つ、素数のうち偶数は 2 だけなので、式に素数が出てきたら『p = 2 か奇数か』でまず分けると偶奇の議論が使える。式を積の形にすれば『素数 = 1 × 自分』しかないので、片方の因数が 1 になる。</p>
+<h2>こんなときに使う</h2>
+<ul><li>『p, q は素数』と文字で置かれた方程式</li><li>『〜が素数となる n をすべて求めよ』（式を因数分解して片方を 1 にする）</li><li>p, p + 2, p + 4 のように素数が並ぶ条件（mod 3 で考える）</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 素数を含む式を、できれば積の形にする</li><li>2. 積が素数なら、因数の一方が ±1 になる</li><li>3. 偶奇が効きそうなら p = 2 と p が奇数の場合に分ける</li><li>4. 3 や 5 の倍数が効きそうなら、mod 3（mod 5）で p を分類する。p = 3 は別扱い</li><li>5. 残った候補を代入して確かめる</li></ol>
+<h2>例題</h2>
+<div class="problem">p² − 2q² = 1 を満たす素数の組 (p, q) をすべて求めよ。</div><details><summary>解答</summary><ol class="steps"><li>p² = 2q² + 1 は奇数なので p は奇数</li><li>(p − 1)(p + 1) = 2q² で、p − 1, p + 1 はともに偶数なので左辺は 4 の倍数</li><li>∴ 2q² が 4 の倍数で q² は偶数、q は偶数の素数なので q = 2</li><li>p² = 9 より p = 3（素数）</li><li>∴ (p, q) = (3, 2)</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>n² − 1 = (n − 1)(n + 1) が素数なら n − 1 = 1 で n = 2</li><li>n⁴ + 4 = (n² + 2n + 2)(n² − 2n + 2) と因数分解して、小さい方を 1 にする</li><li>p と p² + 2 がともに素数：p ≠ 3 なら p² ≡ 1 (mod 3) で p² + 2 は 3 の倍数</li></ul>
+<h2>落とし穴</h2>
+<ul><li>p | ab から p | a と p | b の両方を言う</li><li>p = 2 の場合を最初に分けない</li><li>因数が負になる場合（−1 × −p）を落とす</li><li>mod 3 で分類するとき p = 3 そのものを例外にし忘れる</li><li>p | ab から『p | a かつ p | b』としてしまう、または p = 2 の場合を見落とす</li></ul>
+<h2>なぜ大事か</h2>
+<p>素数は『積を割れば因数のどれかを割る』『2だけが偶数』の2点で式が強く縛られる</p>
+<h2>東大での出方</h2>
+<p>東大では『素数 p に対して〜を示せ』の形で、整12 のフェルマーの小定理や整8 の素因数の個数と組み合わさる。根っこにあるのは積を割る性質。</p>
+<h2>確認問題</h2>
+<ul><li>n⁴ + 4 が素数となる自然数 n をすべて求めよ（答：n = 1）</li><li>p, p + 2, p + 4 がすべて素数となる p をすべて求めよ（答：p = 3）</li></ul>
+<h2>発展</h2>
+<p>『p | ab ⇒ p | a または p | b』は、互除法（整5）から出る『gcd(p, a) = 1 なら px + ay = 1 となる整数がある』を使って証明できる。素因数分解の一意性の土台がこの性質。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="ma-int-div.html">約数・倍数・素因数分解</a></li></ul>
+<h2>このノードを前提にするノード</h2>
+<ul class="links"><li><a href="ma-int-mod.html">整4 余りで分類する（合同式 mod）</a></li><li><a href="ma-i09-irrational.html">整9 無理数の証明（既約分数とおいて背理法）</a></li><li><a href="ma-i12-fermat.html">整12 フェルマーの小定理・余りの周期</a></li></ul>
+<h2>「整数」のノード</h2>
+<ul class="links"><li><a href="ma-int-div.html">約数・倍数・素因数分解</a></li><li><a href="ma-int-euclid.html">整5 ユークリッドの互除法・最大公約数</a></li><li><a href="ma-int-dio.html">整6 1次不定方程式</a></li><li><a href="ma-int-mod.html">整4 余りで分類する（合同式 mod）</a></li><li><a href="ma-int-factor.html">整1 積の形に持ち込む（因数分解型の不定方程式）</a></li><li><a href="ma-int-bound.html">整2 範囲で絞る（不等式評価で有限化）</a></li><li><a href="ma-int-base.html">整15 n進法</a></li><li><a href="ma-i03-discriminant.html">整3 1文字の2次方程式とみて判別式で絞る</a></li><li><span class="cur">整7 素数の性質（積を割る・2とそれ以外で分ける）</span></li><li><a href="ma-i08-legendre.html">整8 素因数の個数（n! のルジャンドル・約数の個数と和）</a></li><li><a href="ma-i09-irrational.html">整9 無理数の証明（既約分数とおいて背理法）</a></li><li><a href="ma-i10-rational-root.html">整10 有理数解の定理（定数項の約数／最高次の係数の約数）</a></li><li><a href="ma-i11-binom-mod.html">整11 二項展開で割った余りを出す（(1 + p)ⁿ）</a></li><li><a href="ma-i12-fermat.html">整12 フェルマーの小定理・余りの周期</a></li><li><a href="ma-i14-gauss.html">整14 ガウス記号（[x] = n ⇔ n ≦ x &lt; n + 1）</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：個人 ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

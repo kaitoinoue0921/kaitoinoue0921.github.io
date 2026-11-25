@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>微18 微分可能性は左右の微分係数の一致（微分法）｜受験数学マップ</title>
+<meta name="description" content="f が x = a で微分可能とは、lim[h→0]{f(a + h) − f(a)}/h が有限な値に収束すること。これは h → +0 と h → −0 の極限（右微分係数・左微分係数）がともに存在して一致すること…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/m3-d18-differentiable.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="微18 微分可能性は左右の微分係数の一致（微分法）｜受験数学マップ">
+<meta property="og:description" content="f が x = a で微分可能とは、lim[h→0]{f(a + h) − f(a)}/h が有限な値に収束すること。これは h → +0 と h → −0 の極限（右微分係数・左微分係数）がともに存在して一致すること…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/m3-d18-differentiable.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "微18 微分可能性は左右の微分係数の一致", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/m3-d18-differentiable.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 微18 微分可能性は左右の微分係数の一致</nav>
+<h1>微18 微分可能性は左右の微分係数の一致</h1>
+<p class="meta">数学III ／ 微分法 ／ 東大での重要度 ★★★★☆</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>f が x = a で微分可能とは、lim[h→0]{f(a + h) − f(a)}/h が有限な値に収束すること。これは h → +0 と h → −0 の極限（右微分係数・左微分係数）がともに存在して一致することと同じ。場合分けで定義された関数の継ぎ目や、|x|・√ を含む関数では、公式で微分した式に代入するのではなく、この定義で左右を別々に計算する。微分可能なら連続なので、継ぎ目では『値がつながる（連続）』と『傾きがつながる』の2条件が出る。</p>
+<h2>こんなときに使う</h2>
+<ul><li>『x = 0 で微分可能か調べよ』</li><li>x ≦ 1 と x &gt; 1 で式が違う関数が『x = 1 で微分可能となる a, b』</li><li>|x|、x|x|、x² sin(1/x) のような関数の x = 0</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 継ぎ目 x = a で連続か（左右の極限と f(a) が一致するか）を確かめる</li><li>2. 右微分係数 lim[h→+0]{f(a + h) − f(a)}/h と左微分係数 lim[h→−0]{f(a + h) − f(a)}/h を定義で計算する</li><li>3. 両方が一致すれば微分可能で、その値が f′(a)</li><li>4. 係数を決める問題なら、連続の式と左右一致の式を連立する</li></ol>
+<h2>例題</h2>
+<div class="problem">f(x) = x²（x ≦ 1）、f(x) = ax + b（x &gt; 1）が x = 1 で微分可能となる a, b を求めよ。</div><details><summary>解答</summary><ol class="steps"><li>微分可能なら連続なので、x → 1 + 0 の極限 a + b が f(1) = 1 と一致する：a + b = 1。</li><li>左微分係数：lim[h→−0]{(1 + h)² − 1}/h = lim[h→−0](2 + h) = 2。</li><li>右微分係数：lim[h→+0]{a(1 + h) + b − 1}/h = lim[h→+0](a + b − 1 + ah)/h = a（a + b = 1 を使う）。</li><li>左右が一致するので a = 2、b = −1。</li><li>∴ a = 2, b = −1</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>|x| は x = 0 で右微分係数 1、左微分係数 −1 なので微分可能でない（連続ではある）</li><li>x|x| は x = 0 で微分可能で f′(0) = 0</li><li>x² sin(1/x)（x ≠ 0）、0（x = 0）は x = 0 で微分可能（f′(0) = 0）だが、f′ は x = 0 で連続でない</li></ul>
+<h2>落とし穴</h2>
+<ul><li>連続でない継ぎ目で、両側の導関数の式の極限が一致するだけで微分可能とする</li><li>連続の条件を書かずに、傾きの一致だけで係数を決める</li><li>連続の条件を書かずに、両側の導関数の式が一致することだけで微分可能とする</li></ul>
+<h2>なぜ大事か</h2>
+<p>継ぎ目や絶対値のある点では、公式ではなく定義で右と左の微分係数を別々に計算する</p>
+<h2>東大での出方</h2>
+<p>東大では関数方程式や、場合分けされた関数のなめらかな接続で出る。『微分可能 ⇒ 連続』を一行使って式を1本増やすのが定番。</p>
+<h2>確認問題</h2>
+<ul><li>定義に従って (√x)′ を求めよ（x&gt;0）。（答：1/(2√x)）</li><li>f(x) が x=a で微分可能のとき、lim[h→0](f(a+3h)−f(a−h))/h を f′(a) で表せ。（答：4f′(a)）</li><li>f(x)=x|x| は x=0 で微分可能か。（答：可能。(f(h)−f(0))/h=(h|h|)/h=|h|→0 より f′(0)=0）</li></ul>
+<h2>発展</h2>
+<p>至る所で連続なのに、どこでも微分可能でない関数（ワイエルシュトラス関数）もある。連続はグラフが切れないこと、微分可能は折れないことで、後者のほうが強い。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="m3-diff-formula.html">微1 積・商・合成関数の微分（合成は外側から）</a></li><li><a href="m3-lim-func.html">極1 不定形の処理（∞/∞ は最高次でくくる、∞−∞ は有理化）</a></li></ul>
+<h2>「微分法」のノード</h2>
+<ul class="links"><li><a href="m3-diff-formula.html">微1 積・商・合成関数の微分（合成は外側から）</a></li><li><a href="m3-diff-trig.html">三角関数・指数関数・対数関数の微分</a></li><li><a href="m3-diff-inv.html">微13 逆関数・陰関数の微分（dy/dx=1/(dx/dy)）</a></li><li><a href="m3-diff-param.html">微11 媒介変数表示の微分（dx/dt と dy/dt の符号表）</a></li><li><a href="m3-diff-log.html">微2 対数微分法（積・商・累乗が多い形、xˣ）</a></li><li><a href="m3-graph.html">微3 グラフを描き切る（増減・凹凸・漸近線・端の極限）</a></li><li><a href="m3-diff-minmax.html">微12 図形量の最大最小（変数を1つに決めて関数化）</a></li><li><a href="m3-root-count3.html">微4 定数分離（f(x)=a の解はグラフと水平線の交点）</a></li><li><a href="m3-ineq-diff.html">微6 不等式は差をとって微分（1回で決まらなければ2回）</a></li><li><a href="m3-mvt.html">微8 平均値の定理で差を評価する</a></li><li><a href="m3-velocity.html">速度・加速度・近似式</a></li><li><a href="m3-d05-param-minmax.html">微5 文字定数入りの最大最小（極値の位置と区間で場合分け）</a></li><li><a href="m3-d07-convex.html">微7 凸性で不等式（グラフは接線より上・弦より下）</a></li><li><span class="cur">微18 微分可能性は左右の微分係数の一致</span></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：個人 ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

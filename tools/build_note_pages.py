@@ -35,8 +35,6 @@ NOTES = [  # (フォルダ, ページタイトルで使う短い名前)
 TIER = {'must': '必須', 'core': '差がつく', 'skip': '不要'}
 TODAY = datetime.date.today().isoformat()
 
-ADS = ('<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?'
-       'client=ca-pub-1744436882685241" crossorigin="anonymous"></script>')
 GOAT = ('<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" '
         'async src="//gc.zgo.at/count.js"></script>')
 RENDER_JS = """(function(){function r(){if(!window.katex)return;
@@ -160,7 +158,6 @@ def page(*, title, desc, url, css_math, body, crumbs_ld, site_id, head_extra="")
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-{ADS}
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(desc)}">
 <link rel="canonical" href="{url}">

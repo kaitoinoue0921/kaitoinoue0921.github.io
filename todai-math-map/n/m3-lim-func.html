@@ -3,24 +3,23 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
-<title>関数の極限・不定形の処理（極限）｜受験数学マップ</title>
+<title>極1 不定形の処理（∞/∞ は最高次でくくる、∞−∞ は有理化）（極限）｜受験数学マップ</title>
 <meta name="description" content="0/0の不定形は、約分や有理化によって『0になる原因』を取り除くことで処理する。有理化は(√a−√b)(√a+√b)=a−bという恒等式を使い、根号による0の原因を分子から分母へ移す操作とみなせる。この視点があれば、ど…">
 <link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/m3-lim-func.html">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="小さな実験室">
-<meta property="og:title" content="関数の極限・不定形の処理（極限）｜受験数学マップ">
+<meta property="og:title" content="極1 不定形の処理（∞/∞ は最高次でくくる、∞−∞ は有理化）（極限）｜受験数学マップ">
 <meta property="og:description" content="0/0の不定形は、約分や有理化によって『0になる原因』を取り除くことで処理する。有理化は(√a−√b)(√a+√b)=a−bという恒等式を使い、根号による0の原因を分子から分母へ移す操作とみなせる。この視点があれば、ど…">
 <meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/m3-lim-func.html">
 <meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
 <link rel="stylesheet" href="style.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "関数の極限・不定形の処理", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/m3-lim-func.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "極1 不定形の処理（∞/∞ は最高次でくくる、∞−∞ は有理化）", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/m3-lim-func.html"}]}</script>
 </head>
 <body>
 <header class="top"><a href="../">受験数学マップ</a></header>
 <main>
-<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 関数の極限・不定形の処理</nav>
-<h1>関数の極限・不定形の処理</h1>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 極1 不定形の処理（∞/∞ は最高次でくくる、∞−∞ は有理化）</nav>
+<h1>極1 不定形の処理（∞/∞ は最高次でくくる、∞−∞ は有理化）</h1>
 <p class="meta">数学III ／ 極限 ／ 東大での重要度 ★★★★☆</p>
 <p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
 <h2>要点</h2>
@@ -32,19 +31,19 @@
 <h2>例題</h2>
 <div class="problem">lim[x→0](√(1+x)−1)/xを求めよ。</div><details><summary>解答</summary><ol class="steps"><li>分子を有理化：x/{x(√(1+x)+1)}=1/(√(1+x)+1)→1/2</li></ol></details>
 <h2>落とし穴</h2>
-<ul><li>有理化すべき場面で単純に代入して0/0のまま処理を止める</li></ul>
+<ul><li>有理化すべき場面で単純に代入して0/0のまま処理を止める</li><li>「∞−∞=0」「∞/∞=1」としない。不定形は形を変えるまで値が決まらない。</li><li>x&lt;0 で √(x²)=x としてしまうミスが多い（正しくは −x）。置き換えればこのミスが消える。</li><li>1/(x−1) の x→1 を「∞」と書くのは誤り。片側で符号が違うので、極限はない。</li></ul>
 <h2>なぜ大事か</h2>
 <p>0/0 を作って約分・有理化・既知の極限に帰着する型</p>
 <h2>東大での出方</h2>
 <p>0/0を作って約分・有理化・既知の極限に帰着する型の基礎。</p>
 <h2>確認問題</h2>
-<ul><li>lim[x→0](√(4+x)−2)/xを求めよ</li></ul>
+<ul><li>lim[x→0](√(4+x)−2)/xを求めよ</li><li>lim[n→∞](3n²−n+1)/(2n²+5) を求めよ。（答：3/2）</li><li>lim[n→∞](√(n²+3n)−n) を求めよ。（答：3/2）</li><li>lim[n→∞](2n+1)/n² を求めよ（答：0（n² で割ると (2/n+1/n²)/1→0））</li><li>lim[n→∞](√(n+1)−√n) を求めよ（答：0（有理化で 1/(√(n+1)+√n)→0））</li><li>lim[x→2](x²−4)/(x²−3x+2) を求めよ。（答：4）</li><li>lim[x→−∞](√(x²+x)+x) を求めよ。（答：−1/2）</li><li>lim[x→0](|x|)/x は存在するか。</li><li>lim[x→1+0]1/(x−1) と lim[x→1−0]1/(x−1) を求めよ。</li></ul>
 <h2>前提になるノード</h2>
 <ul class="links"><li><a href="m2-diff-def.html">微分係数の定義・導関数</a></li></ul>
 <h2>このノードを前提にするノード</h2>
-<ul class="links"><li><a href="m3-lim-sin.html">sinx/x → 1 とその証明</a></li><li><a href="m3-lim-e.html">e の定義と (1+1/n)^n 型の極限</a></li><li><a href="m3-lim-cont.html">連続性・中間値の定理</a></li><li><a href="m3-diff-formula.html">積・商の微分、合成関数の微分</a></li></ul>
+<ul class="links"><li><a href="m3-lim-sin.html">極5 sin x/x → 1 に持ち込む</a></li><li><a href="m3-lim-e.html">極6 e の定義の形を作る（(1 + 1/n)ⁿ、(eˣ − 1)/x）</a></li><li><a href="m3-lim-cont.html">極13 中間値の定理で解の存在を示す</a></li><li><a href="m3-l07-deriv.html">極7 微分係数の定義に読み替える</a></li><li><a href="m3-l12-growth.html">極12 指数と多項式・対数の強さ比べ</a></li><li><a href="m3-l14-coeff.html">極14 極限値から係数を決める（分母→0なら分子→0）</a></li><li><a href="m3-diff-formula.html">微1 積・商・合成関数の微分（合成は外側から）</a></li><li><a href="m3-d18-differentiable.html">微18 微分可能性は左右の微分係数の一致</a></li></ul>
 <h2>「極限」のノード</h2>
-<ul class="links"><li><a href="m3-lim-seq.html">数列の極限・収束発散の判定</a></li><li><a href="m3-lim-squeeze.html">はさみうちの原理</a></li><li><a href="m3-lim-series.html">無限級数・無限等比級数</a></li><li><span class="cur">関数の極限・不定形の処理</span></li><li><a href="m3-lim-sin.html">sinx/x → 1 とその証明</a></li><li><a href="m3-lim-e.html">e の定義と (1+1/n)^n 型の極限</a></li><li><a href="m3-lim-cont.html">連続性・中間値の定理</a></li></ul>
+<ul class="links"><li><a href="m3-lim-seq.html">極2 rⁿ の極限（|r| と 1 の大小で場合分け）</a></li><li><a href="m3-lim-squeeze.html">極3 はさみうちの原理</a></li><li><a href="m3-lim-series.html">極10 無限等比級数と収束条件</a></li><li><span class="cur">極1 不定形の処理（∞/∞ は最高次でくくる、∞−∞ は有理化）</span></li><li><a href="m3-lim-sin.html">極5 sin x/x → 1 に持ち込む</a></li><li><a href="m3-lim-e.html">極6 e の定義の形を作る（(1 + 1/n)ⁿ、(eˣ − 1)/x）</a></li><li><a href="m3-lim-cont.html">極13 中間値の定理で解の存在を示す</a></li><li><a href="m3-l04-recur.html">極4 漸化式の極限（|aₙ₊₁−α|≦r|aₙ−α| で 0 に挟む）</a></li><li><a href="m3-l07-deriv.html">極7 微分係数の定義に読み替える</a></li><li><a href="m3-l11-telescope.html">極11 部分和を出してから極限（部分分数・望遠鏡和）</a></li><li><a href="m3-l12-growth.html">極12 指数と多項式・対数の強さ比べ</a></li><li><a href="m3-l14-coeff.html">極14 極限値から係数を決める（分母→0なら分子→0）</a></li></ul>
 <p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
 <p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
 </main>

@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>学校・図書館で配る | 受験の解法ガイド</title>
+  <meta name="description" content="受験の解法ガイドを学校や図書館で紹介するための無料配布シート。QRコードと例題入りで、白黒A4一枚に印刷できます。">
+  <link rel="canonical" href="https://kaitoinoue0921.github.io/juken/guide/share/">
+  <link rel="icon" href="/favicon.png" type="image/png">
+  <link rel="stylesheet" href="./share.css">
+  <script src="./share.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">本文へ</a>
+  <header class="site-header screen-only">
+    <nav class="frame" aria-label="サイト内の位置">
+      <a href="/juken/">受験・学習</a>
+      <span aria-hidden="true">/</span>
+      <a href="../">受験の解法ガイド</a>
+    </nav>
+  </header>
+
+  <main class="frame" id="main">
+    <div class="page-intro screen-only">
+      <h1>学校・図書館で配る</h1>
+      <p>進路資料室や自習席で手に取れる、例題つきの配布シートです。白黒A4一枚で印刷できます。</p>
+      <div class="actions">
+        <button class="action primary" type="button" data-print hidden>配布シートを印刷</button>
+        <button class="action" type="button" data-copy hidden>ガイドのリンクをコピー</button>
+        <a class="action" href="../download.html" download>オフライン教材を保存</a>
+      </div>
+      <p class="status" role="status"></p>
+    </div>
+
+    <article class="sheet" aria-labelledby="sheet-title">
+      <header class="sheet-intro">
+        <div>
+          <h2 id="sheet-title">大学受験の解法ガイド</h2>
+          <p class="sheet-lead">問題を見て、最初の一手が分かる。</p>
+          <p>問題の見分け方、解き方、例題を科目ごとに読めます。スマホでも使えます。</p>
+          <p class="access">無料・広告なし・登録不要</p>
+        </div>
+        <img class="qr" src="./guide-qr.png" width="328" height="328" alt="受験の解法ガイドを開くQRコード">
+      </header>
+
+      <div class="sheet-url">
+        <span>ガイドを開く</span>
+        <a id="guide-url" href="https://kaitoinoue0921.github.io/juken/guide/">kaitoinoue0921.github.io/juken/guide/</a>
+      </div>
+
+      <section class="sample" aria-labelledby="sample-title">
+        <p class="sample-kind">例題 · 数学と物理</p>
+        <h3 id="sample-title">どちらの区間で速く走った？</h3>
+        <p>自転車で出発してから進んだ道のりを記録しました。0〜3分と3〜5分のうち、平均の速さが大きい区間はどちらですか。</p>
+        <table>
+          <caption>自転車の走行記録</caption>
+          <tbody>
+            <tr><th scope="row">出発からの時間</th><td>0分</td><td>3分</td><td>5分</td></tr>
+            <tr><th scope="row">進んだ道のり</th><td>0 m</td><td>600 m</td><td>1,200 m</td></tr>
+          </tbody>
+        </table>
+        <p class="first-step"><strong>最初の一手</strong> 各区間で増えた道のりを、かかった時間で割る。</p>
+        <p class="worked"><strong>解答</strong> 0〜3分は600 ÷ 3 = 200 m/分。3〜5分は (1,200 − 600) ÷ (5 − 3) = 300 m/分。後半の3〜5分のほうが速い。数学では2点を結ぶ直線の傾きと同じ計算です。</p>
+      </section>
+
+      <section class="sheet-next" aria-labelledby="sheet-next-title">
+        <h3 id="sheet-next-title">次は、自分が止まった問題を一つ。</h3>
+        <p>ガイドで科目や問題文のキーワードを探し、似た例題を一問解いてみましょう。</p>
+      </section>
+    </article>
+
+    <section class="distribution screen-only" aria-labelledby="distribution-title">
+      <h2 id="distribution-title">渡し方</h2>
+      <dl>
+        <div>
+          <dt>学校</dt>
+          <dd>進路資料室に置くか、学年だよりや学校の学習システムでURLを共有できます。放課後の自習時間に例題を一問だけ使うと、生徒が使い方をつかめます。</dd>
+        </div>
+        <div>
+          <dt>図書館・公民館</dt>
+          <dd>学習席の案内や進路の本の近くに一枚置くと、自分のスマホや家の端末から開けます。掲示や配架の相談先の例は、南島原市の <a href="https://www.city.minamishimabara.lg.jp/kiji0034164/index.html">口之津図書館</a>、<a href="https://www.city.minamishimabara.lg.jp/kiji0034216/index.html">口之津公民館</a>です。</dd>
+        </div>
+        <div>
+          <dt>通信が使いづらい場所</dt>
+          <dd>接続できるときに<a href="../download.html" download>オフライン教材</a>を保存し、あとでブラウザで開いて読めます。個人の端末に保存した教材は、通信なしで使えます。</dd>
+        </div>
+      </dl>
+    </section>
+  </main>
+
+  <footer class="site-footer screen-only">
+    <nav class="frame" aria-label="サイト情報">
+      <a href="/">トップ</a>
+      <a href="../">解法ガイド</a>
+      <a href="/about/">運営者情報</a>
+      <a href="/contact/">お問い合わせ</a>
+    </nav>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>整11 二項展開で割った余りを出す（(1 + p)ⁿ）（整数）｜受験数学マップ</title>
+<meta name="description" content="31³¹ を 900 で割った余りのように、割る数 m が大きいと周期を書き出すのは大変。底を 1 + 30 のように『1 + (m を割り切る数 k)』の形にして二項展開すると、(1 + k)ⁿ = 1 + nk +…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/ma-i11-binom-mod.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="整11 二項展開で割った余りを出す（(1 + p)ⁿ）（整数）｜受験数学マップ">
+<meta property="og:description" content="31³¹ を 900 で割った余りのように、割る数 m が大きいと周期を書き出すのは大変。底を 1 + 30 のように『1 + (m を割り切る数 k)』の形にして二項展開すると、(1 + k)ⁿ = 1 + nk +…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/ma-i11-binom-mod.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "整11 二項展開で割った余りを出す（(1 + p)ⁿ）", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/ma-i11-binom-mod.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 整11 二項展開で割った余りを出す（(1 + p)ⁿ）</nav>
+<h1>整11 二項展開で割った余りを出す（(1 + p)ⁿ）</h1>
+<p class="meta">数学A ／ 整数 ／ 東大での重要度 ★★★☆☆</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>31³¹ を 900 で割った余りのように、割る数 m が大きいと周期を書き出すのは大変。底を 1 + 30 のように『1 + (m を割り切る数 k)』の形にして二項展開すると、(1 + k)ⁿ = 1 + nk + nC2 k² + … で、k² が m の倍数なら3項目以降はすべて m の倍数になる。結局 1 + nk だけ計算すればよい。底を (m の倍数) − 1 にしてもよく、そのときは符号が交互になる。</p>
+<h2>こんなときに使う</h2>
+<ul><li>『aⁿ を m で割った余り』で、a が m の約数の倍数 ± 1 になる（31 と 900、11 と 100）</li><li>『(n + 1)ⁿ − 1 は n² で割り切れることを示せ』のような文字の整除</li><li>mod で周期を書き出すと周期が長すぎるとき</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 底 a を 1 + k（または k − 1）の形にする。k² が m の倍数になるように k を選ぶ</li><li>2. 二項展開して、k² 以上を含む項がすべて m の倍数であることを確かめる</li><li>3. 残った 1 + nk を m で割った余りを出す</li><li>4. k² が m の倍数にならなければ、k³ の項まで残して計算する</li></ol>
+<h2>例題</h2>
+<div class="problem">31³¹ を 900 で割った余りを求めよ。</div><details><summary>解答</summary><ol class="steps"><li>31 = 1 + 30 で、30² = 900</li><li>31³¹ = (1 + 30)³¹ = 1 + 31·30 + 31C2·30² + …</li><li>3項目以降はすべて 30² = 900 の倍数</li><li>∴ 31³¹ ≡ 1 + 930 = 931 ≡ 31 (mod 900)</li><li>∴ 余りは 31</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>11¹⁰ を 1000 で割った余り：10² = 100 は 1000 の倍数でないので、10³ の項まで残す。1 + 10·10 + 45·100 = 4601 で余り 601</li><li>3¹⁰⁰ を 100 で割った余り：3¹⁰⁰ = 9⁵⁰ = (10 − 1)⁵⁰ と書き直す</li><li>(n + 1)ⁿ − 1 = n·n + nC2 n² + … はすべて n² の倍数</li></ul>
+<h2>落とし穴</h2>
+<ul><li>k² が m の倍数でないのに2項目で打ち切る</li><li>(k − 1)ⁿ の展開で符号（(−1)ⁿ）を間違える</li><li>1 + nk が m を超えたときに、さらに m で割るのを忘れる</li><li>展開の何項目から割る数の倍数になるかを確かめずに、2項目までで打ち切る</li></ul>
+<h2>なぜ大事か</h2>
+<p>底を『割る数の倍数 ± 1』に書き直して展開すると、3項目以降が全部消える</p>
+<h2>東大での出方</h2>
+<p>東大では文字 n を含む整除の証明で使う。整12 のフェルマーの小定理が使えない（m が素数でない）ときの代わりとして覚えておく。</p>
+<h2>確認問題</h2>
+<ul><li>11¹⁰ を 1000 で割った余りを求めよ（答：601）</li><li>(n + 1)ⁿ − 1 は n² で割り切れることを示せ（答：二項展開すると n·n + nC2 n² + … となり、どの項も n² の倍数）</li></ul>
+<h2>発展</h2>
+<p>(1 + k)ⁿ ≡ 1 + nk (mod k²) はいつも成り立つ。だから a^d ≡ 1 (mod p) なら a^d = 1 + kp と書けて a^(dp) ≡ 1 (mod p²) になる。整12 の位数を mod p から mod p² へ持ち上げる議論の土台になる。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="m2-binom.html">二項定理・多項定理</a></li><li><a href="ma-int-mod.html">整4 余りで分類する（合同式 mod）</a></li></ul>
+<h2>「整数」のノード</h2>
+<ul class="links"><li><a href="ma-int-div.html">約数・倍数・素因数分解</a></li><li><a href="ma-int-euclid.html">整5 ユークリッドの互除法・最大公約数</a></li><li><a href="ma-int-dio.html">整6 1次不定方程式</a></li><li><a href="ma-int-mod.html">整4 余りで分類する（合同式 mod）</a></li><li><a href="ma-int-factor.html">整1 積の形に持ち込む（因数分解型の不定方程式）</a></li><li><a href="ma-int-bound.html">整2 範囲で絞る（不等式評価で有限化）</a></li><li><a href="ma-int-base.html">整15 n進法</a></li><li><a href="ma-i03-discriminant.html">整3 1文字の2次方程式とみて判別式で絞る</a></li><li><a href="ma-i07-prime.html">整7 素数の性質（積を割る・2とそれ以外で分ける）</a></li><li><a href="ma-i08-legendre.html">整8 素因数の個数（n! のルジャンドル・約数の個数と和）</a></li><li><a href="ma-i09-irrational.html">整9 無理数の証明（既約分数とおいて背理法）</a></li><li><a href="ma-i10-rational-root.html">整10 有理数解の定理（定数項の約数／最高次の係数の約数）</a></li><li><span class="cur">整11 二項展開で割った余りを出す（(1 + p)ⁿ）</span></li><li><a href="ma-i12-fermat.html">整12 フェルマーの小定理・余りの周期</a></li><li><a href="ma-i14-gauss.html">整14 ガウス記号（[x] = n ⇔ n ≦ x &lt; n + 1）</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：個人 ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

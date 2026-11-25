@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>確15 状況から漸化式を立てて数える（最後の1手）（場合の数）｜受験数学マップ</title>
+<meta name="description" content="n 段の階段の上り方、n 個の並べ方などを直接数えられないとき、最後の1手（最後に何段上ったか、最後の文字が何か）で場合分けする。場合ごとに『残り』は同じ種類のもっと小さい問題になるので、aₙ = aₙ₋₁ + aₙ₋…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/ma-p15-count-rec.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="確15 状況から漸化式を立てて数える（最後の1手）（場合の数）｜受験数学マップ">
+<meta property="og:description" content="n 段の階段の上り方、n 個の並べ方などを直接数えられないとき、最後の1手（最後に何段上ったか、最後の文字が何か）で場合分けする。場合ごとに『残り』は同じ種類のもっと小さい問題になるので、aₙ = aₙ₋₁ + aₙ₋…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/ma-p15-count-rec.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "確15 状況から漸化式を立てて数える（最後の1手）", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/ma-p15-count-rec.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 確15 状況から漸化式を立てて数える（最後の1手）</nav>
+<h1>確15 状況から漸化式を立てて数える（最後の1手）</h1>
+<p class="meta">数学A ／ 場合の数 ／ 東大での重要度 ★★★★☆</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>n 段の階段の上り方、n 個の並べ方などを直接数えられないとき、最後の1手（最後に何段上ったか、最後の文字が何か）で場合分けする。場合ごとに『残り』は同じ種類のもっと小さい問題になるので、aₙ = aₙ₋₁ + aₙ₋₂ のような漸化式が立つ。あとは初めの数項を数え、漸化式を順に計算するか一般項を求める。</p>
+<h2>こんなときに使う</h2>
+<ul><li>n が文字で、n 個（n 段・長さ n）のものの並べ方・敷き詰め方</li><li>『1が隣り合わない』『同じ文字が3つ続かない』などの並びの制約</li><li>具体的な n で答えさせているが、直接数えるには大きすぎる（n = 10 など）</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 最後（または最初）の1手で、排反かつ網羅的に場合分けする</li><li>2. 各場合で、残りが元の問題の何番目（aₙ₋₁, aₙ₋₂, …）になるか見る</li><li>3. 漸化式を立て、初めの数項を直接数える</li><li>4. 求める n まで順に計算するか、数列の型（⑮ 3項間など）で一般項を出す</li><li>5. 小さい n で書き出した数と照合する</li></ol>
+<h2>例題</h2>
+<div class="problem">階段を1回に1段または2段上る。10段の階段を上りきる方法は何通りか。</div><details><summary>解答</summary><ol class="steps"><li>n 段の上り方を aₙ とする。最後の1回が1段なら残り n − 1 段、2段なら残り n − 2 段</li><li>∴ aₙ = aₙ₋₁ + aₙ₋₂（n ≧ 3）、a₁ = 1、a₂ = 2</li><li>a₃ = 3, a₄ = 5, a₅ = 8, a₆ = 13, a₇ = 21, a₈ = 34, a₉ = 55, a₁₀ = 89</li><li>∴ 89 通り</li><li>検算：a₃ = 3 は（1,1,1）（1,2）（2,1）で一致</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>長さ n の 0, 1 の列で1が隣り合わないもの：最後が0か『01』かで分けて bₙ = bₙ₋₁ + bₙ₋₂</li><li>2 × n のマスを 1 × 2 のドミノで敷き詰める：左端が縦1枚か横2枚かで分けて同じ漸化式</li><li>制約が複雑なら『最後が0で終わる個数』『1で終わる個数』を別々の数列にして連立する（数列⑯）</li></ul>
+<h2>落とし穴</h2>
+<ul><li>最後の1手の場合分けが重なる（同じ並びを2回数える）</li><li>初めの項 a₁, a₂ を数え間違える</li><li>漸化式の成り立つ n の範囲を確かめない</li><li>最後の1手の場合分けに漏れや重なりがあり、漸化式がずれる</li></ul>
+<h2>なぜ大事か</h2>
+<p>n が文字の場合の数は、最後（または最初）の1手で場合分けすると、もっと小さい n の個数で書ける</p>
+<h2>東大での出方</h2>
+<p>東大では確率漸化式の場合の数版として出る。確9・確10 と同じく『何で場合分けするか』が勝負で、数えたあとの計算は数列の型に帰着する。</p>
+<h2>確認問題</h2>
+<ul><li>長さ5の 0, 1 の列で、1が隣り合わないものは何通りか（答：13通り）</li><li>2 × 5 のマスを 1 × 2 のドミノで敷き詰める方法は何通りか（答：8通り）</li></ul>
+<h2>発展</h2>
+<p>aₙ = aₙ₋₁ + aₙ₋₂ の一般項はフィボナッチ数の式（黄金比 (1 + √5)/2 の累乗）になる。答えの形が分かると、n が大きいときの増え方（約 1.618 倍ずつ）の見当がつく。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="ma-count-basic.html">数え上げの原則（和の法則・積の法則・辞書式）</a></li><li><a href="mb-p15-3term.html">⑮ 隣接3項間 a(n+2)+p·a(n+1)+q·a(n)=0</a></li></ul>
+<h2>「場合の数」のノード</h2>
+<ul class="links"><li><a href="ma-count-basic.html">数え上げの原則（和の法則・積の法則・辞書式）</a></li><li><a href="ma-perm.html">順列・組合せ</a></li><li><a href="ma-samekind.html">同じものを含む順列・円順列・じゅず順列</a></li><li><a href="ma-partition.html">組分け・重複組合せ（仕切り）</a></li><li><a href="ma-incl.html">包除原理・余事象で数える</a></li><li><a href="ma-p03-incl-excl.html">確3 包除原理（AもBもすべて〜）</a></li><li><a href="ma-p04-stars-bars.html">確4 仕切り（重複組合せ）</a></li><li><a href="ma-p12-lattice.html">確12 格子の最短経路（通れない点・カタラン数）</a></li><li><a href="ma-p13-circular.html">確13 円順列・じゅず順列（1つを固定）</a></li><li><a href="ma-p14-grouping.html">確14 組分け（区別のない組は階乗で割る）</a></li><li><span class="cur">確15 状況から漸化式を立てて数える（最後の1手）</span></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：個人 ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>整9 無理数の証明（既約分数とおいて背理法）（整数）｜受験数学マップ</title>
+<meta name="description" content="無理数であることは『有理数ではない』という否定なので、背理法で示す。有理数と仮定して p/q（p, q は互いに素な整数、q &gt; 0）とおき、両辺を整数の式に直すと、素数の性質（整7）や偶奇で『p も q も同じ素数で…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/ma-i09-irrational.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="整9 無理数の証明（既約分数とおいて背理法）（整数）｜受験数学マップ">
+<meta property="og:description" content="無理数であることは『有理数ではない』という否定なので、背理法で示す。有理数と仮定して p/q（p, q は互いに素な整数、q &gt; 0）とおき、両辺を整数の式に直すと、素数の性質（整7）や偶奇で『p も q も同じ素数で…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/ma-i09-irrational.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "整9 無理数の証明（既約分数とおいて背理法）", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/ma-i09-irrational.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 整9 無理数の証明（既約分数とおいて背理法）</nav>
+<h1>整9 無理数の証明（既約分数とおいて背理法）</h1>
+<p class="meta">数学A ／ 整数 ／ 東大での重要度 ★★★☆☆</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>無理数であることは『有理数ではない』という否定なので、背理法で示す。有理数と仮定して p/q（p, q は互いに素な整数、q &gt; 0）とおき、両辺を整数の式に直すと、素数の性質（整7）や偶奇で『p も q も同じ素数で割り切れる』などの矛盾が出る。log₂3 のような対数なら 3ⁿ = 2ᵐ になり、偶奇で矛盾する。無理数を含む等式 a + b√2 = 0 では、b ≠ 0 なら √2 = −a/b が有理数になるので b = 0、a = 0 と係数比較できる。</p>
+<h2>こんなときに使う</h2>
+<ul><li>『〜は無理数であることを示せ』</li><li>√2 + √3、log₂3、³√2 などが有理数でないこと</li><li>有理数 a, b で a + b√2 = c + d√2 のような等式（係数比較）</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 有理数であると仮定し、p/q（互いに素、q &gt; 0）とおく</li><li>2. 両辺を累乗するなどして、分母を払った整数の等式にする</li><li>3. 素数の性質（p | ab ⇒ p | a または p | b）や偶奇から、p も q も同じ素数で割り切れることを導く</li><li>4. 互いに素に矛盾する、と書いて終える</li><li>5. 和の形（√2 + √3）は、有理数 r とおいて2乗し、√6 が有理数になる形に帰着する</li></ol>
+<h2>例題</h2>
+<div class="problem">√3 は無理数であることを示せ。</div><details><summary>解答</summary><ol class="steps"><li>√3 が有理数であると仮定し、√3 = p/q（p, q は互いに素な正の整数）とおく</li><li>両辺を2乗して p² = 3q²</li><li>右辺は 3 の倍数なので 3 | p²。3 は素数なので 3 | p（整7）。p = 3k とおく</li><li>9k² = 3q² より q² = 3k²、同じく 3 | q</li><li>p, q がともに 3 で割り切れ、互いに素であることに矛盾。∴ √3 は無理数</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>log₂3 = m/n（m, n は正の整数）とおくと 2ᵐ = 3ⁿ。左辺は偶数、右辺は奇数で矛盾</li><li>√2 + √3 = r（有理数）とおくと 5 + 2√6 = r² で √6 が有理数になり矛盾</li><li>³√2 = p/q なら p³ = 2q³ から p は偶数、さらに q も偶数</li></ul>
+<h2>落とし穴</h2>
+<ul><li>『互いに素』の条件を書かずに p/q とおく（矛盾の行き先がなくなる）</li><li>3 | p² から 3 | p を言うときに理由（3 が素数）を書かない</li><li>4 | p² から 4 | p のように、素数でない数で同じ推論をする</li><li>p/q を既約分数とおかずに進めて、矛盾が出なくなる</li></ul>
+<h2>なぜ大事か</h2>
+<p>『有理数でない』は直接示せない。p/q とおいて整数の式に直し、矛盾を出す</p>
+<h2>東大での出方</h2>
+<p>単独より、大問の (1) で無理数性を示させ、(2) でそれを使う形が多い。証明の型が決まっているので、答案の書き方まで固定しておくと得点源になる。</p>
+<h2>確認問題</h2>
+<ul><li>log₂3 が無理数であることを示せ（答：log₂3 = m/n とおくと 2ᵐ = 3ⁿ で、左辺は偶数、右辺は奇数になり矛盾）</li><li>√2 + √3 が無理数であることを示せ（答：有理数 r とおくと √6 = (r² − 5)/2 が有理数になる。√6 が無理数であることを √3 と同じ方法で示して矛盾）</li></ul>
+<h2>発展</h2>
+<p>一般に、自然数 n が平方数でなければ √n は無理数。これは整10 の有理数解の定理を x² − n = 0 に使うとすぐ出る。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="m1-proof.html">対偶・背理法</a></li><li><a href="ma-i07-prime.html">整7 素数の性質（積を割る・2とそれ以外で分ける）</a></li></ul>
+<h2>このノードを前提にするノード</h2>
+<ul class="links"><li><a href="ma-i10-rational-root.html">整10 有理数解の定理（定数項の約数／最高次の係数の約数）</a></li></ul>
+<h2>「整数」のノード</h2>
+<ul class="links"><li><a href="ma-int-div.html">約数・倍数・素因数分解</a></li><li><a href="ma-int-euclid.html">整5 ユークリッドの互除法・最大公約数</a></li><li><a href="ma-int-dio.html">整6 1次不定方程式</a></li><li><a href="ma-int-mod.html">整4 余りで分類する（合同式 mod）</a></li><li><a href="ma-int-factor.html">整1 積の形に持ち込む（因数分解型の不定方程式）</a></li><li><a href="ma-int-bound.html">整2 範囲で絞る（不等式評価で有限化）</a></li><li><a href="ma-int-base.html">整15 n進法</a></li><li><a href="ma-i03-discriminant.html">整3 1文字の2次方程式とみて判別式で絞る</a></li><li><a href="ma-i07-prime.html">整7 素数の性質（積を割る・2とそれ以外で分ける）</a></li><li><a href="ma-i08-legendre.html">整8 素因数の個数（n! のルジャンドル・約数の個数と和）</a></li><li><span class="cur">整9 無理数の証明（既約分数とおいて背理法）</span></li><li><a href="ma-i10-rational-root.html">整10 有理数解の定理（定数項の約数／最高次の係数の約数）</a></li><li><a href="ma-i11-binom-mod.html">整11 二項展開で割った余りを出す（(1 + p)ⁿ）</a></li><li><a href="ma-i12-fermat.html">整12 フェルマーの小定理・余りの周期</a></li><li><a href="ma-i14-gauss.html">整14 ガウス記号（[x] = n ⇔ n ≦ x &lt; n + 1）</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：個人 ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

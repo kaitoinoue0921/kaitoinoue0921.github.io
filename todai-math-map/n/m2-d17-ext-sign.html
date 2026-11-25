@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>微17 定数分離できないときは極大値×極小値の符号（微分積分）｜受験数学マップ</title>
+<meta name="description" content="x³ の係数が正の3次方程式 f(x) = 0 の異なる実数解の個数は、グラフと x 軸の交点の数。極値をもたなければ1個。極値をもつときは、(極大値)×(極小値) &lt; 0 なら3個、= 0 なら2個（重解あり）、&gt; …">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/m2-d17-ext-sign.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="微17 定数分離できないときは極大値×極小値の符号（微分積分）｜受験数学マップ">
+<meta property="og:description" content="x³ の係数が正の3次方程式 f(x) = 0 の異なる実数解の個数は、グラフと x 軸の交点の数。極値をもたなければ1個。極値をもつときは、(極大値)×(極小値) &lt; 0 なら3個、= 0 なら2個（重解あり）、&gt; …">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/m2-d17-ext-sign.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "微17 定数分離できないときは極大値×極小値の符号", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/m2-d17-ext-sign.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 微17 定数分離できないときは極大値×極小値の符号</nav>
+<h1>微17 定数分離できないときは極大値×極小値の符号</h1>
+<p class="meta">数学II ／ 微分積分 ／ 東大での重要度 ★★★★★</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>x³ の係数が正の3次方程式 f(x) = 0 の異なる実数解の個数は、グラフと x 軸の交点の数。極値をもたなければ1個。極値をもつときは、(極大値)×(極小値) &lt; 0 なら3個、= 0 なら2個（重解あり）、&gt; 0 なら1個。文字 a が x と掛かっていて定数分離（微4）できないとき、または分離するとグラフが描きにくいときにこちらを使う。極値は f′(x) = 0 の解 α, β を代入して出すが、f(x) を f′(x) で割った余りに代入すると計算が軽い。</p>
+<h2>こんなときに使う</h2>
+<ul><li>x³ − 3ax + 2 = 0 のように、文字が x と掛かっている3次方程式</li><li>『異なる3つの実数解』『ちょうど2つの実数解』</li><li>接線が3本引ける条件（微9）で出てくる t の3次方程式</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. f′(x) = 0 が異なる2実解をもつ条件（微15）を書く</li><li>2. 極値 f(α)、f(β) を出す（割り算の余りを使うと楽）</li><li>3. 3個 ⇔ f(α)f(β) &lt; 0、2個 ⇔ f(α)f(β) = 0、1個 ⇔ f(α)f(β) &gt; 0</li><li>4. 極値をもたない場合も1個として合わせて答える</li></ol>
+<h2>例題</h2>
+<div class="problem">a を実数とする。x³−3ax+2=0 が異なる3つの実数解をもつ a の範囲を求めよ。</div><details><summary>解答</summary><ol class="steps"><li>f(x)=x³−3ax+2、f′(x)=3(x²−a)。</li><li>極値をもつには a&gt;0 が必要。このとき x=±√a で極値。</li><li>f(−√a)=2a√a+2&gt;0（極大）、f(√a)=2−2a√a（極小）。</li><li>極小値 &lt;0 が条件：a√a&gt;1 より a&gt;1。</li><li>∴ a&gt;1</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>f(α)f(β) を α + β、αβ の対称式で表して計算する</li><li>正の解の個数を問うときは、f(0) の符号と極値をとる x の位置も見る</li><li>微9 の『接線が3本引ける点』は、この条件を通る点の座標 p, q の不等式にしたもの</li></ul>
+<h2>落とし穴</h2>
+<ul><li>極値をもつ条件（a &gt; 0 など）を書き忘れる</li><li>重解をもつ2個の場合を3個に含める</li><li>極値をもつ条件（a &gt; 0 など）を書かずに、極値の符号だけで答える</li></ul>
+<h2>なぜ大事か</h2>
+<p>3次方程式の実数解の個数は、極大値と極小値が x 軸をはさむかどうかで決まる</p>
+<h2>東大での出方</h2>
+<p>文字定数入りの3次方程式は東大の定番。微9 の接線の本数と組み合わせて出ることが多い。</p>
+<h2>発展</h2>
+<p>x³ + px + q = 0 では f(α)f(β) = (4p³ + 27q²)/27 となり、3次方程式の判別式 −(4p³ + 27q²) と符号が逆になる。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="m2-root-count.html">3次方程式の実数解の個数（定数分離）</a></li><li><a href="m2-d15-extcond.html">微15 極値をもつ条件は f′=0 が異なる2実解</a></li></ul>
+<h2>「微分積分」のノード</h2>
+<ul class="links"><li><a href="m2-diff-def.html">微分係数の定義・導関数</a></li><li><a href="m2-tangent.html">接線・法線</a></li><li><a href="m2-extremum.html">増減表・極値（3次関数）</a></li><li><a href="m2-root-count.html">3次方程式の実数解の個数（定数分離）</a></li><li><a href="m2-d09-tangent-count.html">微9 接線の本数は接点 t の方程式の実数解の個数</a></li><li><a href="m2-d10-common-tangent.html">微10 共通接線・2曲線が接する（接点の値と傾きが一致）</a></li><li><a href="m2-d14-cubic-sym.html">微14 3次関数の極値の差は (β−α)³、グラフは変曲点で点対称</a></li><li><a href="m2-d15-extcond.html">微15 極値をもつ条件は f′=0 が異なる2実解</a></li><li><a href="m2-d16-subst.html">微16 置き換えて3次関数（t の範囲つき）</a></li><li><span class="cur">微17 定数分離できないときは極大値×極小値の符号</span></li><li><a href="m2-int-poly.html">多項式の定積分・面積</a></li><li><a href="m2-int-16.html">1/6公式・1/12公式と面積の等分</a></li><li><a href="m2-int-abs.html">積17 絶対値付きの積分は符号の変わり目で分割</a></li><li><a href="m2-int-param.html">定積分で表された関数・パラメータ入り積分の最小化</a></li><li><a href="m2-i18-xout.html">積18 ∫(x−t)f(t)dt は x を外に出してから微分</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：個人 ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

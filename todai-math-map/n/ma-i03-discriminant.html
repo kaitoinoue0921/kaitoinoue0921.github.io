@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>整3 1文字の2次方程式とみて判別式で絞る（整数）｜受験数学マップ</title>
+<meta name="description" content="x² + xy + y² = 7 のような2次の式は、積の形（整1）にしにくい。そこで x の2次方程式とみると、x が実数であるためには判別式 D ≧ 0 が要り、これが y の範囲を有限個に閉じ込める。さらに x …">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/ma-i03-discriminant.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="整3 1文字の2次方程式とみて判別式で絞る（整数）｜受験数学マップ">
+<meta property="og:description" content="x² + xy + y² = 7 のような2次の式は、積の形（整1）にしにくい。そこで x の2次方程式とみると、x が実数であるためには判別式 D ≧ 0 が要り、これが y の範囲を有限個に閉じ込める。さらに x …">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/ma-i03-discriminant.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "整3 1文字の2次方程式とみて判別式で絞る", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/ma-i03-discriminant.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 整3 1文字の2次方程式とみて判別式で絞る</nav>
+<h1>整3 1文字の2次方程式とみて判別式で絞る</h1>
+<p class="meta">数学A ／ 整数 ／ 東大での重要度 ★★★★☆</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>x² + xy + y² = 7 のような2次の式は、積の形（整1）にしにくい。そこで x の2次方程式とみると、x が実数であるためには判別式 D ≧ 0 が要り、これが y の範囲を有限個に閉じ込める。さらに x が整数（有理数）であるためには D が平方数でなければならない。範囲で絞る（整2）の中で、大小の仮定が置けないときに使う型。</p>
+<h2>こんなときに使う</h2>
+<ul><li>2次の項に xy を含む不定方程式（x² + xy + y² = c など）</li><li>x², y² の係数がどちらも正で、左辺が楕円のように『有界』になりそうな式</li><li>積の形にしようとして定数項が合わないとき</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 次数の低い文字、または係数の簡単な文字（x）について整理する</li><li>2. x の2次方程式の判別式 D を y の式で書く</li><li>3. D ≧ 0 から y の範囲を出す（有限個になる）</li><li>4. その範囲の y それぞれで D が平方数かを調べる</li><li>5. 平方数のときだけ解の公式で x を出し、整数か確かめる</li></ol>
+<h2>例題</h2>
+<div class="problem">x² + xy + y² = 7 を満たす整数の組 (x, y) をすべて求めよ。</div><details><summary>解答</summary><ol class="steps"><li>x について整理すると x² + yx + (y² − 7) = 0</li><li>判別式 D = y² − 4(y² − 7) = 28 − 3y² ≧ 0 より y² ≦ 28/3、∴ y = 0, ±1, ±2, ±3</li><li>D は y = 0 で 28、±1 で 25、±2 で 16、±3 で 1。平方数になるのは y = ±1, ±2, ±3</li><li>x = (−y ± √D)/2 より、y = 1 で x = 2, −3、y = 2 で x = 1, −3、y = 3 で x = −1, −2</li><li>y が負のときは (x, y) → (−x, −y) の対称性で、y = −1 で x = 3, −2、y = −2 で x = 3, −1、y = −3 で x = 1, 2</li><li>∴ (x, y) = (2, 1), (−3, 1), (1, 2), (−3, 2), (−1, 3), (−2, 3), (3, −1), (−2, −1), (3, −2), (−1, −2), (1, −3), (2, −3) の12組</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>x² + 2y² = c のように xy がない形でも、y² ≦ c/2 で同じく有限化できる</li><li>左辺が x² − y² のように不定符号なら判別式では有界にならない。積の形（整1）に戻る</li><li>パラメータ付きの2次方程式が整数解をもつ条件では、解と係数の関係で和・積を整数として扱う</li></ul>
+<h2>落とし穴</h2>
+<ul><li>D ≧ 0 だけで y を決めて、D が平方数でない y でも解があるとしてしまう</li><li>y が負の場合を忘れる</li><li>√D が整数でも、−y ± √D が偶数でないと x は整数にならない（係数が1以外のとき）</li><li>判別式 ≧ 0 で範囲を絞ったあと、判別式が平方数になる条件を確かめずに解を出す</li></ul>
+<h2>なぜ大事か</h2>
+<p>2次の不定方程式は、1文字について解けば『実数解をもつ』条件だけで範囲が有限になる</p>
+<h2>東大での出方</h2>
+<p>東大整数で、積の形にも大小の仮定にもならない2次式が出たときの第3の手。判別式で有限化するのは評価（整2）の一種と考えると整理しやすい。</p>
+<h2>確認問題</h2>
+<ul><li>x² + xy + y² = 1 を満たす整数の組は何組か（答：6組）</li><li>2x² + 2xy + y² = 5 を満たす整数の組は何組か（答：8組）</li></ul>
+<h2>発展</h2>
+<p>x² + xy + y² は複素数 ω（1の虚立方根）を使うと |x − yω|² と書ける。整数解の個数が6の倍数になるのはこの対称性のため。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="ma-int-factor.html">整1 積の形に持ち込む（因数分解型の不定方程式）</a></li><li><a href="m2f-disc.html">判別式と解の存在</a></li></ul>
+<h2>このノードを前提にするノード</h2>
+<ul class="links"><li><a href="ma-int-bound.html">整2 範囲で絞る（不等式評価で有限化）</a></li></ul>
+<h2>「整数」のノード</h2>
+<ul class="links"><li><a href="ma-int-div.html">約数・倍数・素因数分解</a></li><li><a href="ma-int-euclid.html">整5 ユークリッドの互除法・最大公約数</a></li><li><a href="ma-int-dio.html">整6 1次不定方程式</a></li><li><a href="ma-int-mod.html">整4 余りで分類する（合同式 mod）</a></li><li><a href="ma-int-factor.html">整1 積の形に持ち込む（因数分解型の不定方程式）</a></li><li><a href="ma-int-bound.html">整2 範囲で絞る（不等式評価で有限化）</a></li><li><a href="ma-int-base.html">整15 n進法</a></li><li><span class="cur">整3 1文字の2次方程式とみて判別式で絞る</span></li><li><a href="ma-i07-prime.html">整7 素数の性質（積を割る・2とそれ以外で分ける）</a></li><li><a href="ma-i08-legendre.html">整8 素因数の個数（n! のルジャンドル・約数の個数と和）</a></li><li><a href="ma-i09-irrational.html">整9 無理数の証明（既約分数とおいて背理法）</a></li><li><a href="ma-i10-rational-root.html">整10 有理数解の定理（定数項の約数／最高次の係数の約数）</a></li><li><a href="ma-i11-binom-mod.html">整11 二項展開で割った余りを出す（(1 + p)ⁿ）</a></li><li><a href="ma-i12-fermat.html">整12 フェルマーの小定理・余りの周期</a></li><li><a href="ma-i14-gauss.html">整14 ガウス記号（[x] = n ⇔ n ≦ x &lt; n + 1）</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：個人 ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

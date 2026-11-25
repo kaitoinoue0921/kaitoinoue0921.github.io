@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>確7 確率の最大（P(k+1)/P(k) と 1 の比較）（確率）｜受験数学マップ</title>
+<meta name="description" content="P(k) が最大になる k を探すには、P(k+1)/P(k) を計算する。比が 1 より大きいうちは増え、1 より小さくなると減る。nCk の比は (n − k)/(k + 1) ときれいに約分できるので、比は k …">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/ma-p07-prob-max.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="確7 確率の最大（P(k+1)/P(k) と 1 の比較）（確率）｜受験数学マップ">
+<meta property="og:description" content="P(k) が最大になる k を探すには、P(k+1)/P(k) を計算する。比が 1 より大きいうちは増え、1 より小さくなると減る。nCk の比は (n − k)/(k + 1) ときれいに約分できるので、比は k …">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/ma-p07-prob-max.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "確7 確率の最大（P(k+1)/P(k) と 1 の比較）", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/ma-p07-prob-max.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 確7 確率の最大（P(k+1)/P(k) と 1 の比較）</nav>
+<h1>確7 確率の最大（P(k+1)/P(k) と 1 の比較）</h1>
+<p class="meta">数学A ／ 確率 ／ 東大での重要度 ★★★☆☆</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>P(k) が最大になる k を探すには、P(k+1)/P(k) を計算する。比が 1 より大きいうちは増え、1 より小さくなると減る。nCk の比は (n − k)/(k + 1) ときれいに約分できるので、比は k の簡単な分数式になり、1 との大小が1次不等式で解ける。比 &gt; 1 となる最後の k の次、k + 1 で最大になる。</p>
+<h2>こんなときに使う</h2>
+<ul><li>『確率が最大となる k を求めよ』</li><li>P(k) に nCk や k! が含まれ、k が整数</li><li>比をとると約分で大きく消える形（二項係数・階乗・累乗）</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. P(k) を k の式で書く</li><li>2. P(k+1)/P(k) を計算し、約分する</li><li>3. 比 &gt; 1 となる k の範囲を求める（1次不等式）</li><li>4. 比 &gt; 1 の最後の k を k₀ とすれば、P(k₀ + 1) が最大。比 = 1 になる k があれば最大は2つ</li><li>5. 答えの前後の k で比を代入して確かめる</li></ol>
+<h2>例題</h2>
+<div class="problem">さいころを 100 回投げて、1の目がちょうど k 回出る確率を P(k) とする。P(k) が最大となる k を求めよ。</div><details><summary>解答</summary><ol class="steps"><li>P(k) = 100Ck (1/6)ᵏ (5/6)¹⁰⁰⁻ᵏ</li><li>P(k+1)/P(k) = (100 − k)/(k + 1) × (1/6)/(5/6) = (100 − k)/{5(k + 1)}</li><li>比 &gt; 1 ⇔ 100 − k &gt; 5k + 5 ⇔ k &lt; 95/6 = 15.8…</li><li>よって k ≦ 15 で P(k) &lt; P(k+1)、k ≧ 16 で P(k) &gt; P(k+1)</li><li>∴ P(0) &lt; … &lt; P(15) &lt; P(16) &gt; P(17) &gt; …　最大となるのは k = 16</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>比 = 1 になる整数 k があれば、P(k) = P(k+1) で最大が2つになる</li><li>差 P(k+1) − P(k) の符号を見る方法もある（積の形のときは比が速い）</li><li>期待値 np（この例では 16.7）の近くに最大があることは検算に使える</li></ul>
+<h2>落とし穴</h2>
+<ul><li>比 &gt; 1 となる最後の k（15）を答えてしまう</li><li>比の分子分母を逆にする</li><li>比 = 1 の場合を見落とす</li><li>比 &gt; 1 となる k の範囲の端をそのまま最大の k と答える（最大はその次）</li></ul>
+<h2>なぜ大事か</h2>
+<p>nCk を含む確率は k で微分できない。隣同士の比が 1 より大きいか小さいかで増減を読む</p>
+<h2>東大での出方</h2>
+<p>東大では頻度は高くないが、他の難関大・医学部で定番。nCk の比は (n − k)/(k + 1) と即答できるようにしておく。</p>
+<h2>確認問題</h2>
+<ul><li>さいころを20回投げて6の目がちょうど k 回出る確率が最大となる k を求めよ（答：k = 3）</li><li>P(k) = 2ᵏ/k! が最大となる自然数 k をすべて求めよ（答：k = 1, 2）</li></ul>
+<h2>発展</h2>
+<p>二項分布の最大は (n + 1)p 付近にある。比 &gt; 1 ⇔ k &lt; (n + 1)p − 1 が一般形で、ここから『(n+1)p が整数なら最大は2つ』と分かる。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="ma-p06-binomial.html">確6 反復試行（ちょうど n 回目で終わる）</a></li></ul>
+<h2>「確率」のノード</h2>
+<ul class="links"><li><a href="ma-prob-def.html">確率の定義（同様に確からしい・根元事象の設定）</a></li><li><a href="ma-prob-indep.html">独立試行・反復試行</a></li><li><a href="ma-prob-cond.html">条件付き確率・原因の確率</a></li><li><a href="ma-prob-rec.html">確9 確率漸化式（状態を分類して1手先を書く）</a></li><li><a href="ma-prob-exp.html">期待値</a></li><li><a href="ma-p01-distinguish.html">確1 区別して数える（根元事象をそろえる）</a></li><li><a href="ma-p02-complement.html">確2 余事象（少なくとも1つ）</a></li><li><a href="ma-p05-max-min.html">確5 最大値・最小値の確率（≦k の差）</a></li><li><a href="ma-p06-binomial.html">確6 反復試行（ちょうど n 回目で終わる）</a></li><li><span class="cur">確7 確率の最大（P(k+1)/P(k) と 1 の比較）</span></li><li><a href="ma-p08-bayes.html">確8 条件付き確率・原因の確率</a></li><li><a href="ma-p10-symmetry.html">確10 対称性で状態を減らす</a></li><li><a href="ma-p11-linearity.html">確11 期待値の線形性（各対象の確率の和）</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：個人 ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

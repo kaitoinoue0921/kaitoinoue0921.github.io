@@ -258,6 +258,7 @@
   "dateModified": "2026-09-12T00:00:00+09:00"
 }
 </script>
+<link rel="stylesheet" href="/assets/study-entry.css">
 </head>
 <body>
 
@@ -325,8 +326,20 @@
 
     <div class="container">
       <main class="stack">
+        <section class="study-entry compact" aria-labelledby="works-study-title">
+          <div><h2 id="works-study-title">受験の解法ガイド</h2>
+          <p>大学受験の例題、復習、過去問の入口をまとめました。</p>
+          <div class="study-actions"><a class="study-open" href="/juken/guide/">解法ガイドを開く</a></div></div>
+        </section>
+        <nav class="section-nav" aria-label="作品の種類">
+          <a href="#learning-works">受験教材</a>
+          <a href="#app-works">アプリ</a>
+          <a href="#other-works">そのほかの試作</a>
+          <a href="#campus">学内・部活</a>
+        </nav>
 
-        <section class="works-group">
+
+        <section class="works-group" id="learning-works">
           <h2 class="works-group-title">受験・学習のノートと地図</h2>
           <p class="works-group-lead">医学部受験のロードマップと、数学・英語・理科のノート、志望校別の対策マップ。家庭教師で実際に使うものから作っています。</p>
         </section>
@@ -878,7 +891,7 @@
           <div><a class="support-inline" href="#support" data-ksup-open="study-map">この作品を応援する</a></div>
         </article>
 
-        <section class="works-group">
+        <section class="works-group" id="app-works">
           <h2 class="works-group-title">アプリ</h2>
           <p class="works-group-lead">iPhone向けに作ったもの。勉強や生活の小さな困りごとから出発しています。</p>
         </section>
@@ -1234,7 +1247,7 @@
           </ul>
         </section>
 
-        <section class="works-group">
+        <section class="works-group" id="other-works">
           <h2 class="works-group-title">そのほかの試作</h2>
           <p class="works-group-lead">受験や学習とは別に、気になって作ってみたものです。</p>
         </section>

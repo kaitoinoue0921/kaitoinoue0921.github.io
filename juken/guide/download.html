@@ -1,0 +1,2189 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="受験の解法ガイドのオフライン版。">
+<title>受験の解法ガイド｜オフライン教材</title><meta name="robots" content="noindex">
+<style>:root {
+  color-scheme: light dark;
+  --base:#f8f7f2; --panel:#fff; --ink:#172c47; --muted:#465973;
+  --line:#ced7e1; --blue:#204f96; --strong:#153b74; --soft:#eaf2fd; --warm:#f7e8d3;
+  --display:"Yu Mincho", YuMincho, "Hiragino Mincho ProN", "Noto Serif CJK JP", serif;
+  --sans:system-ui, "Hiragino Sans", "Yu Gothic", sans-serif;
+  font-family:var(--sans); font-size:100%; scroll-padding-top:1rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --base:#15202d; --panel:#1d2c3e; --ink:#f2f7ff; --muted:#c0d1e4;
+    --line:#4a6079; --blue:#a9cbff; --strong:#c0d9ff; --soft:#253953; --warm:#44362c;
+  }
+}
+*, *::before, *::after { box-sizing:border-box; }
+[hidden] { display:none !important; }
+body { margin:0; color:var(--ink); background:var(--base); line-height:1.75; overflow-wrap:anywhere; }
+a { color:var(--blue); text-decoration-thickness:.07em; text-underline-offset:.22em; }
+a:hover { text-decoration-thickness:.14em; }
+a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visible, select:focus-visible {
+  outline:3px solid var(--blue); outline-offset:4px;
+}
+h1,h2,h3,p { margin:0; }
+h1,h2,h3 { line-height:1.34; }
+button, input, select, textarea { font:inherit; }
+.wrap { width:min(100% - 3rem, 74rem); margin-inline:auto; }
+.skip { position:absolute; left:1rem; top:-10rem; }
+.skip:focus { top:1rem; z-index:1; padding:.5rem 1rem; background:var(--panel); }
+.top { border-bottom:1px solid var(--line); background:var(--base); }
+.top-row { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:.35rem 1rem; padding-block:.65rem; }
+.brand { font-weight:800; font-size:1.06rem; color:var(--ink); text-decoration:none; }
+.top nav, .site-footer nav { display:flex; flex-wrap:wrap; column-gap:1.2rem; }
+.top a, .site-footer a { display:inline-flex; align-items:center; min-height:44px; }
+.top nav a { font-size:.9rem; }
+.hero { display:grid; grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr); align-items:center;
+  gap:clamp(1.5rem,4vw,4rem); padding:clamp(2.5rem,7vw,5.2rem) 0 2rem; }
+.hero h1, .subject-head h1 { font-family:var(--display); font-size:clamp(2.5rem,6.5vw,5.25rem);
+  font-weight:800; letter-spacing:.035em; }
+.eyebrow { color:var(--strong); font-weight:800; font-size:.88rem; letter-spacing:.04em; margin-bottom:.65rem; }
+.hero .intro { margin-top:.95rem; font-weight:600; font-size:clamp(1rem,1.8vw,1.22rem); }
+.hero-image { display:block; overflow:hidden; border-radius:.85rem; background:#d5e4e3; }
+.hero-image img { display:block; width:100%; height:auto; }
+.actions, .quick-links { display:flex; align-items:center; flex-wrap:wrap; gap:.65rem; margin-block:1.2rem .9rem; }
+.button, .quick-links a { display:inline-flex; min-height:44px; align-items:center; justify-content:center;
+  padding:.52rem 1rem; border:1px solid var(--line); color:var(--blue); background:var(--panel);
+  border-radius:.5rem; font-weight:800; text-decoration:none; cursor:pointer; }
+.button.primary { background:var(--strong); color:var(--base); border-color:var(--strong); }
+.button:hover, .quick-links a:hover { text-decoration:underline; }
+.muted { color:var(--muted); font-size:.9rem; }
+.section { margin-block:clamp(2.5rem,6vw,5rem); }
+.section-head { display:grid; grid-template-columns:minmax(0,1fr) minmax(15rem,.75fr); gap:.65rem 2rem;
+  align-items:end; margin-bottom:1.25rem; }
+.section-head > p { color:var(--muted); }
+.section h2, .offline-title { font-size:clamp(1.65rem,3.6vw,2.65rem); }
+.search-panel { background:var(--panel); border:1px solid var(--line); border-radius:.75rem; padding:clamp(.9rem,2.8vw,1.55rem); }
+.search-panel input[type=search], select { width:100%; display:block; min-width:0; margin-top:.22rem;
+  border:1px solid var(--line); min-height:46px; padding:.54rem .65rem; border-radius:.36rem; color:var(--ink); background:var(--base); }
+.query input { font-weight:500; }
+.search-panel label { display:block; font-size:.92rem; font-weight:750; }
+.filters { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.65rem; margin:.7rem 0; }
+.scope { display:flex !important; align-items:center; gap:.5rem; min-height:44px; width:fit-content; }
+.scope input { width:1.15rem; height:1.15rem; accent-color:var(--blue); }
+.search-panel button { margin-top:.35rem; min-width:7rem; }
+.results { border-bottom:1px solid var(--line); margin-top:1rem; padding-bottom:1.25rem; }
+#result-status { font-weight:750; }
+#result-list { list-style:none; margin:.55rem 0; padding:0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.48rem; }
+#result-list a { display:block; min-height:44px; height:100%; border:1px solid var(--line); border-radius:.55rem;
+  padding:.65rem .8rem; background:var(--panel); text-decoration:none; }
+#result-list a:hover strong { text-decoration:underline; }
+#result-list strong, #result-list small, #result-list span { display:block; }
+#result-list small, #result-list span { color:var(--muted); font-size:.87rem; }
+.browse-title { font-size:1.32rem; margin:1.6rem 0 .75rem; }
+.subject-grid, .skill-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.65rem; }
+.subject-grid { margin-bottom:.85rem; }
+.subject-group, .skill-card { padding:1rem; border:1px solid var(--line); border-radius:.65rem; background:var(--panel); }
+.subject-group h3 { display:flex; align-items:center; gap:.5rem; font-size:1.04rem; }
+.subject-group h3 span, .skill-card > span { display:grid; place-items:center; width:2.2rem; height:2.2rem;
+  border-radius:.42rem; color:var(--strong); background:var(--soft); font-size:1.1rem; }
+.subject-group div { display:flex; flex-wrap:wrap; gap:0 .85rem; margin-top:.4rem; }
+.subject-group a, .related-links a, .text-link { display:inline-flex; align-items:center; min-height:44px; font-size:.94rem; font-weight:700; }
+.course { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); list-style:none; counter-reset:lesson;
+  margin:0; padding:0; gap:.7rem; }
+.course li { counter-increment:lesson; border-top:4px solid var(--blue); padding:1rem .9rem; background:var(--panel); border-radius:.45rem; }
+.course li::before { content:counter(lesson); display:grid; place-items:center; background:var(--soft); color:var(--strong);
+  font-weight:800; width:2rem; height:2rem; border-radius:50%; margin-bottom:.65rem; }
+.course h3, .skill-card h3 { font-size:1.05rem; }
+.course p, .skill-card p, .access-band p { margin-top:.45rem; color:var(--muted); }
+.skill-card { color:var(--ink); text-decoration:none; display:block; }
+.skill-card:hover { border-color:var(--blue); }
+.skill-card h3 { margin-top:.45rem; }
+.skill-card small { color:var(--blue); font-weight:700; }
+.access-band { background:var(--soft); border:1px solid var(--line); border-radius:.8rem;
+  padding:clamp(1rem,4vw,2.3rem); }
+.site-footer { padding:1.75rem 0 2.5rem; border-top:1px solid var(--line); font-size:.91rem; }
+.subject-head { padding:clamp(1.75rem,5vw,3.2rem) 0 1.35rem; }
+.subject-head h1 { font-size:clamp(2.1rem,5vw,4.1rem); margin:.28rem 0 .62rem; }
+.subject-head p { color:var(--muted); }
+.toc, .editorial details { background:var(--panel); border:1px solid var(--line); border-radius:.6rem; padding:.2rem 1rem .5rem; }
+.toc ul { columns:2; padding-left:1.15rem; margin:.15rem 0 .55rem; }
+.toc li { break-inside:avoid; line-height:1.45; }
+.toc a { display:inline-flex; align-items:center; min-height:44px; padding-block:.2rem; }
+.editorial details > p, .editorial li p { margin-block:.25rem .6rem; }
+.lessons { display:grid; grid-template-columns:minmax(0,1fr); gap:1rem; margin:1rem 0 1.7rem; }
+.lesson { border:1px solid var(--line); border-radius:.72rem; background:var(--panel); padding:clamp(1rem,3vw,1.75rem); }
+.lesson:target { border-color:var(--blue); box-shadow:inset 4px 0 var(--blue); }
+.lesson h2 { font-size:clamp(1.36rem,3.2vw,2rem); }
+.lesson .eyebrow { margin-bottom:.35rem; }
+.level { display:inline-block; background:var(--soft); border-radius:.33rem; padding:0 .42rem; margin-left:.38rem; }
+.cue { margin:1rem 0; display:flex; gap:.5rem 1rem; align-items:baseline; flex-wrap:wrap; }
+.cue strong, .example strong { color:var(--strong); }
+.example { background:var(--soft); border-left:3px solid var(--blue); border-radius:.25rem;
+  padding:.7rem 1rem; margin-bottom:.65rem; }
+.example p { white-space:pre-line; }
+.lesson details { border-top:1px solid var(--line); }
+summary { min-height:44px; padding:.6rem .15rem; cursor:pointer; font-weight:800; }
+summary::marker { color:var(--blue); }
+.steps { padding-left:1.5rem; margin:.1rem 0 .95rem; }
+.steps li + li { margin-top:.35rem; }
+.solution > p { margin:.12rem 0 .7rem; }
+.pitfall { background:var(--warm); border-radius:.4rem; padding:.5rem .72rem; }
+.related-links { display:flex; flex-wrap:wrap; column-gap:1.1rem; }
+.worked-table { border-collapse:collapse; margin:.6rem 0 1rem; max-width:100%; font-size:.94rem; }
+.worked-table caption { text-align:left; font-weight:750; padding-bottom:.25rem; }
+.worked-table td, .worked-table th { border:1px solid var(--line); padding:.35rem .55rem; text-align:left; }
+.worked-table thead, .worked-table th[scope=row] { background:var(--soft); }
+@media (max-width: 880px) {
+  .subject-grid, .skill-grid, .course { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+@media (max-width: 680px) {
+  .wrap { width:calc(100% - 2rem); }
+  .hero, .section-head { grid-template-columns:minmax(0,1fr); }
+  .hero { padding-top:2rem; gap:1.05rem; }
+  .hero-image { max-height:15rem; }
+  .hero-image img { height:clamp(9rem,51vw,15rem); object-fit:cover; object-position:center 52%; }
+  .wide-break { display:none; }
+  .top nav { gap:0 1rem; }
+  .filters { grid-template-columns:minmax(0,1fr); }
+  .toc ul, #result-list { columns:1; grid-template-columns:minmax(0,1fr); }
+}
+@media (max-width: 430px) {
+  .subject-grid, .course { grid-template-columns:minmax(0,1fr); }
+  .skill-card { padding:.7rem; }
+}
+@media print {
+  :root { color-scheme:light; --base:#fff; --panel:#fff; --ink:#000; --muted:#222; --line:#888; --blue:#000; --strong:#000; --soft:#eee; --warm:#eee; }
+  .top, .skip, .site-footer, [data-practice], [data-review-list], .actions { display:none !important; }
+  .wrap { width:100%; }
+  .lesson { break-inside:avoid; }
+}
+.paper-form { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.7rem 1rem; }
+.paper-form label { align-self:start; }
+.paper-form label input { display:block; background:var(--base); border:1px solid var(--line); color:var(--ink);
+  border-radius:.36rem; width:100%; min-height:46px; margin-top:.22rem; padding:.54rem .65rem; }
+.paper-form .paper-wide { grid-column:1 / -1; }
+.paper-list { list-style:none; padding:0; }
+.paper-list li { display:flex; flex-direction:column; align-items:flex-start; }
+.paper-actions { margin-top:.6rem; }
+@media (max-width: 570px) { .paper-form { grid-template-columns:minmax(0,1fr); } }
+.topic-list { list-style:none; padding:0; }
+.topic h2 { font-size:1.18rem; }
+.topic p:last-child { color:var(--muted); }
+.topic:target { border-color:var(--blue); box-shadow:inset 3px 0 var(--blue); }
+.lesson-page { max-width:48rem; margin-inline:auto; padding:1rem 0 2.3rem; }
+.lesson-nav { display:flex; flex-wrap:wrap; gap:0 1.1rem; margin-bottom:.65rem; }
+.lesson-nav a { display:inline-flex; align-items:center; min-height:44px; }
+.lesson h1 { font-size:clamp(1.52rem,4.3vw,2.6rem); }
+.more-topic { margin-top:1.4rem; }
+.more-topic h2 { font-size:1.12rem; }
+.more-topic .quick-links { margin-top:.55rem; }
+[data-practice], [data-review-list], .practice-review-page {
+  --practice-ink: #142748;
+  --practice-muted: #4d5e7a;
+  --practice-accent: #244a97;
+  --practice-on-accent: #fff;
+  --practice-line: #a7b7ce;
+  --practice-paper: #fffefb;
+  --practice-pale: #eaf1fb;
+  --practice-page: #f4f6fa;
+  --practice-focus: #985023;
+  color: var(--practice-ink);
+}
+@media (prefers-color-scheme: dark) {
+  [data-practice], [data-review-list], .practice-review-page {
+    --practice-ink: #eef3fb;
+    --practice-muted: #bac7dd;
+    --practice-accent: #aac8fd;
+    --practice-on-accent: #102042;
+    --practice-line: #526682;
+    --practice-paper: #172335;
+    --practice-pale: #233a57;
+    --practice-page: #101b2a;
+    --practice-focus: #fbc893;
+  }
+}
+[data-practice] *, [data-review-list] *, .practice-review-page * { box-sizing: border-box; }
+[data-practice] [hidden], [data-review-list] [hidden] { display: none !important; }
+[data-practice] :focus-visible, [data-review-list] :focus-visible, .practice-review-page :focus-visible {
+  outline: 3px solid var(--practice-focus);
+  outline-offset: 3px;
+}
+[data-practice] { margin-block: .75rem; }
+.practice-panel {
+  border: 1px solid var(--practice-line);
+  border-radius: .6rem;
+  background: var(--practice-paper);
+}
+.practice-panel > summary {
+  padding: .62rem 1rem;
+  min-height: 2.75rem;
+  border-radius: .6rem;
+  color: var(--practice-accent);
+  font-weight: 700;
+}
+.practice-panel[open] > summary { border-radius: .6rem .6rem 0 0; background: var(--practice-pale); }
+.practice-panel summary, [data-review-list] summary, .practice-help summary { cursor: pointer; }
+.practice-panel-body { padding: .25rem 1rem 1rem; }
+.practice-section { margin-block: 0; padding-block: .8rem; }
+.practice-section + .practice-section { border-top: 1px solid var(--practice-line); }
+.practice-label, .practice-grading > summary { font-weight: 700; }
+.practice-label { margin: 0 0 .45rem; }
+.practice-muted, .practice-status, .practice-current { margin: .4rem 0 0; font-size: .9375rem; }
+.practice-muted { color: var(--practice-muted); font-weight: 400; }
+.practice-status { color: var(--practice-accent); }
+.practice-status:empty { margin: 0; }
+.practice-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; margin-top: .5rem; }
+.practice-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  padding: .4rem .75rem;
+  border: 1px solid var(--practice-line);
+  border-radius: .42rem;
+  background: var(--practice-paper);
+  color: var(--practice-accent);
+  font: inherit;
+  font-weight: 650;
+  line-height: 1.4;
+  text-align: center;
+  text-decoration: none;
+  white-space: normal;
+  cursor: pointer;
+}
+.practice-button:hover { background: var(--practice-pale); }
+.practice-button-primary { background: var(--practice-accent); border-color: var(--practice-accent); color: var(--practice-on-accent); }
+.practice-button-primary:hover { background: var(--practice-pale); color: var(--practice-accent); }
+.practice-button:disabled, .practice-button[aria-disabled="true"] { opacity: .64; cursor: default; }
+.practice-time {
+  min-width: 4.5rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.practice-grading > summary { min-height: 2.75rem; padding: .52rem 0; }
+.practice-grading label { display: block; margin-top: .75rem; }
+.practice-grading textarea {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  margin-top: .35rem;
+  padding: .55rem .65rem;
+  resize: vertical;
+  border: 1px solid var(--practice-line);
+  border-radius: .42rem;
+  color: var(--practice-ink);
+  background: var(--practice-paper);
+  font: inherit;
+  font-weight: 400;
+}
+.practice-sr-only, .practice-skip:not(:focus) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.practice-review-page {
+  color-scheme: light dark;
+  margin: 0;
+  background: var(--practice-page);
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+  line-height: 1.7;
+}
+.practice-review-page a:not(.practice-button), [data-review-list] a { color: var(--practice-accent); text-underline-offset: .18em; }
+.practice-frame { width: min(100% - 2rem, 52rem); margin-inline: auto; }
+.practice-site-nav { display: flex; flex-wrap: wrap; align-items: center; gap: .25rem .85rem; padding-block: .5rem; }
+.practice-site-nav a { display: inline-flex; align-items: center; min-height: 2.75rem; }
+.practice-skip { position: absolute; top: .5rem; left: .5rem; padding: .5rem; background: var(--practice-paper); }
+.practice-intro { margin: clamp(1rem, 6vw, 3rem) 0 1.25rem; }
+.practice-intro h1 { margin: 0; font-size: clamp(1.85rem, 6vw, 2.65rem); line-height: 1.3; }
+.practice-intro p { margin: .45rem 0 .9rem; color: var(--practice-muted); }
+.practice-review-groups { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; }
+.practice-review-groups > section {
+  min-width: 0;
+  padding: 1rem;
+  border: 1px solid var(--practice-line);
+  border-radius: .7rem;
+  background: var(--practice-paper);
+}
+.practice-review-groups h2 { margin: 0; font-size: 1.2rem; line-height: 1.4; }
+.practice-review-groups > section:nth-child(n+3) { grid-column: 1 / -1; }
+.practice-review-items { list-style: none; margin: .55rem 0 0; padding: 0; }
+.practice-review-items > li { border-top: 1px solid var(--practice-line); padding-block: .7rem; }
+.practice-review-items > li:last-child { padding-bottom: 0; }
+.practice-review-items summary, .practice-trend summary { padding-block: .5rem; min-height: 2.75rem; }
+.practice-review-lesson { display: block; width: fit-content; padding-block: .25rem; font-weight: 700; }
+.practice-memo { margin: .2rem 0 .65rem; white-space: pre-wrap; overflow-wrap: anywhere; }
+.practice-trend { border-top: 1px solid var(--practice-line); margin-top: .45rem; }
+.practice-trend li { margin-bottom: .5rem; }
+.practice-trend .practice-button { margin-left: .5rem; }
+.practice-help { margin-block: 1rem 2rem; }
+.practice-help > summary { width: fit-content; min-height: 2.75rem; padding-block: .5rem; color: var(--practice-accent); font-weight: 700; }
+.practice-help p { margin: .4rem 0; color: var(--practice-muted); }
+.practice-review-page .site-footer { border-top: 1px solid var(--practice-line); }
+@media (max-width: 38rem) {
+  .practice-review-groups { grid-template-columns: minmax(0, 1fr); }
+}
+@media print {
+  [data-practice], .practice-review-page .practice-button, .practice-review-page .practice-site-nav { display: none !important; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">本文へ</a>
+
+<main class="wrap" id="main"><header class="subject-head"><p class="eyebrow">オフライン教材</p>
+<h1>受験の解法ガイド</h1><p>インターネット接続なしで、全99題の例題と解説を読めます。</p>
+<p>復習や採点メモは、このファイルを開くブラウザが保存に対応している場合に使用できます。</p>
+</header><details class="toc" open><summary>科目を選ぶ</summary><ul><li><a href="#section-math">数学</a></li><li><a href="#section-japanese">国語</a></li><li><a href="#section-english">英語</a></li><li><a href="#section-german">ドイツ語</a></li><li><a href="#section-french">フランス語</a></li><li><a href="#section-chinese">中国語</a></li><li><a href="#section-korean">韓国語</a></li><li><a href="#section-physics">物理・物理基礎</a></li><li><a href="#section-chemistry">化学・化学基礎</a></li><li><a href="#section-biology">生物・生物基礎</a></li><li><a href="#section-earth-science">地学・地学基礎</a></li><li><a href="#section-science-basics">理科基礎の選択</a></li><li><a href="#section-geography">地理</a></li><li><a href="#section-japanese-history">日本史</a></li><li><a href="#section-world-history">世界史</a></li><li><a href="#section-civics">公共・倫理・政治経済</a></li><li><a href="#section-geography-history-mix">地理総合／歴史総合／公共</a></li><li><a href="#section-information">情報Ⅰ</a></li></ul></details>
+<section class="section"><h2>復習・苦手</h2><div data-review-list></div></section>
+<section class="section" id="section-math"><h2 class="offline-title">数学</h2><div class="lessons">
+<article class="lesson" id="quad-complete" data-subject-label="数学" data-unit="数Ⅰ・二次関数" data-review-anchor="#quad-complete">
+<header><p class="eyebrow">数Ⅰ・二次関数 <span class="level">基本</span></p>
+<h2>二次式を平方完成して頂点を出す</h2></header>
+<div class="cue"><strong>見分け方</strong><p>二次関数の頂点や最小値を聞かれたら、まず平方の形を作る。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>y=x²−6x+11 の頂点を求めよ。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>x²−6x の半分 −3 を使い、(x−3)² に足りない定数を調整する。</li><li>平方が0になる x で頂点を読む。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>y=(x−3)²+2 なので頂点は (3, 2)。平方は0以上で、x=3 で0になる。</p>
+
+<p class="pitfall"><strong>確認</strong> 括弧の中が x−3 なので、頂点の x 座標は −3 ではなく 3。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　条件を式や図にする</p><div class="related-links"><a href="#geography-industry-location">地理 · 何をどこまで運ぶか比べる</a><a href="#world-history-trade-directions">世界史 · 航路に品物と移動方向を書く</a></div></details>
+</article>
+<article class="lesson" id="quad-range" data-subject-label="数学" data-unit="数Ⅰ・二次関数" data-review-anchor="#quad-range">
+<header><p class="eyebrow">数Ⅰ・二次関数 <span class="level">標準</span></p>
+<h2>頂点と端点を比べて最大・最小</h2></header>
+<div class="cue"><strong>見分け方</strong><p>閉区間が指定されたら、頂点が区間内にあるか確かめる。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>y=(x−3)²+2 を 0≦x≦4 で考える。最大値、最小値を求めよ。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>軸を書き、区間内の頂点と両端を候補にする。</li><li>候補の関数値を代入して比べる。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>候補は x=0, 3, 4 で、値は順に 11, 2, 3。最大値は11、最小値は2。</p>
+<table class="worked-table"><caption>端点と頂点に絞る</caption><thead><tr><th scope="col">候補</th><th scope="col">x</th><th scope="col">y</th></tr></thead><tbody><tr><th scope="row">左端</th><td>0</td><td>11</td></tr><tr><th scope="row">頂点</th><td>3</td><td>2</td></tr><tr><th scope="row">右端</th><td>4</td><td>3</td></tr></tbody></table>
+<p class="pitfall"><strong>確認</strong> 上に開く放物線でも、定義域に頂点がなければ頂点の値は取れない。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　表やグラフを読む</p><div class="related-links"><a href="#geography-climate-season">地理 · 気温の山と雨の季節を重ねる</a><a href="#civics-economics-demand">公共・倫理・政治経済 · 需要曲線上の移動と曲線の移動を分ける</a></div></details>
+</article>
+<article class="lesson" id="quad-moving" data-subject-label="数学" data-unit="数Ⅰ・二次関数" data-review-anchor="#quad-moving">
+<header><p class="eyebrow">数Ⅰ・二次関数 <span class="level">融合</span></p>
+<h2>動く定義域を軸で場合分けする</h2></header>
+<div class="cue"><strong>見分け方</strong><p>定義域の端に文字があったら、端点と軸の位置関係を調べる。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>y=x² の a≦x≦a+2 における最小値を、実数 a で表せ。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>放物線 y=x² の軸 x=0 を数直線に置く。</li><li>区間が軸の右、軸を含む、軸の左の3通りで、0に最も近い x を選ぶ。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>a＜−2 なら右端で (a+2)²、−2≦a≦0 なら軸で0、0＜a なら左端で a²。</p>
+<table class="worked-table"><caption>軸と区間の位置関係</caption><thead><tr><th scope="col">区間の位置</th><th scope="col">軸の左</th><th scope="col">軸を含む</th><th scope="col">軸の右</th></tr></thead><tbody><tr><th scope="row">最小になる場所</th><td>右端</td><td>頂点</td><td>左端</td></tr></tbody></table>
+<p class="pitfall"><strong>確認</strong> 境界 a=−2, 0 をどれか一つの場合に含める。どちらも最小値は0。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　表やグラフを読む</p><div class="related-links"><a href="#geography-climate-season">地理 · 気温の山と雨の季節を重ねる</a><a href="#civics-economics-demand">公共・倫理・政治経済 · 需要曲線上の移動と曲線の移動を分ける</a></div></details>
+</article>
+<article class="lesson" id="venn-count" data-subject-label="数学" data-unit="数Ⅰ・集合と命題" data-review-anchor="#venn-count">
+<header><p class="eyebrow">数Ⅰ・集合と命題 <span class="level">基本</span></p>
+<h2>「どちらか」を重なりごと数える</h2></header>
+<div class="cue"><strong>見分け方</strong><p>二つの条件を満たす人数の集計で、一部が両方に含まれる。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>美術を選ぶ生徒は18人、音楽は12人、両方は5人。少なくとも一方を選ぶ生徒は何人か。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>全体と二つの集合を囲み、共通部分に最初に数字を書く。</li><li>和集合は各集合の人数を足して、二重に数えた共通部分を引く。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>18+12−5=25 人。両方の5人を1回ずつに戻した。</p>
+
+<p class="pitfall"><strong>確認</strong> 「ちょうど一方」なら共通部分は完全に除くので、答えは20人になる。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　構造を見抜く</p><div class="related-links"><a href="#german-separable-verb">ドイツ語 · 活用した動詞と文末の前つづりを結ぶ</a><a href="#french-restriction">フランス語 · ne と que の組み合わせで限定を読む</a></div></details>
+</article>
+<article class="lesson" id="conditional-prob" data-subject-label="数学" data-unit="数A・場合の数と確率" data-review-anchor="#conditional-prob">
+<header><p class="eyebrow">数A・場合の数と確率 <span class="level">基本</span></p>
+<h2>判明した条件で分母を絞る</h2></header>
+<div class="cue"><strong>見分け方</strong><p>「〜だと分かったとき」と聞かれたら、その条件を満たす結果だけを残す。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>公平な6面さいころを1回振った。偶数だったとき、4以上の確率は。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>同様に確からしい結果を列挙する。</li><li>先に条件に合うものを数え、その中で求める事象が起きる割合を求める。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>残るのは 2, 4, 6 の3通り。4と6が条件を満たすので 2/3。</p>
+<table class="worked-table"><caption>条件に当てはまる出目</caption><thead><tr><th scope="col">出目</th><th scope="col">2</th><th scope="col">4</th><th scope="col">6</th></tr></thead><tbody><tr><th scope="row">4以上か</th><td>いいえ</td><td>はい</td><td>はい</td></tr></tbody></table>
+<p class="pitfall"><strong>確認</strong> 求める事象と条件を逆にすると、分母が変わる。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　条件を式や図にする</p><div class="related-links"><a href="#biology-pea-testcross">生物・生物基礎 · 検定交雑で子の型から親の型を考える</a><a href="#geography-industry-location">地理 · 何をどこまで運ぶか比べる</a></div></details>
+</article>
+<article class="lesson" id="geometry-ratio" data-subject-label="数学" data-unit="数A・図形の性質" data-review-anchor="#geometry-ratio">
+<header><p class="eyebrow">数A・図形の性質 <span class="level">基本</span></p>
+<h2>平行線から相似を見つける</h2></header>
+<div class="cue"><strong>見分け方</strong><p>三角形の中に辺と平行な線があるとき、角と辺の対応を確認する。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>△ABC の辺ABに D、辺ACに E があり DE∥BC。AD=4、AB=10、BC=15 のとき DE は。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>共通角と平行線が作る同位角で二組の角が等しいことを示す。</li><li>頂点の対応順を保って辺の比を書く。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>△ADE∽△ABC なので DE/15=4/10。よって DE=6。</p>
+
+<p class="pitfall"><strong>確認</strong> 比に使うのは線分全体 AB。区間 DB=6 を同じ比の分母にしない。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　構造を見抜く</p><div class="related-links"><a href="#german-separable-verb">ドイツ語 · 活用した動詞と文末の前つづりを結ぶ</a><a href="#french-restriction">フランス語 · ne と que の組み合わせで限定を読む</a></div></details>
+</article>
+<article class="lesson" id="statistics-outlier" data-subject-label="数学" data-unit="数Ⅰ・データの分析" data-review-anchor="#statistics-outlier">
+<header><p class="eyebrow">数Ⅰ・データの分析 <span class="level">基本</span></p>
+<h2>極端な値が代表値をどう動かすか</h2></header>
+<div class="cue"><strong>見分け方</strong><p>外れた値があるデータを、平均と中央値で比べる問題。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>1, 2, 3, 4, 20 の平均と中央値を求め、20を5に置き換えた場合と比べよ。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>平均は和を件数で割る。</li><li>中央値は小さい順に並べて中央を確認し、件数が偶数なら中央2値の平均を取る。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>元は平均6、中央値3。置換後は平均3、中央値3。最大値が変わっても並びの中央は同じ。</p>
+
+<p class="pitfall"><strong>確認</strong> 中央値はデータの記録順の中央ではなく、値で並べ替えたときの中央。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　条件をそろえて比べる</p><div class="related-links"><a href="#chinese-comparison-bi">中国語 · 比の前後を分けて比較の向きを読む</a><a href="#korean-contrast-jiman">韓国語 · 지만 の前後で時刻と場所を比べる</a></div></details>
+</article>
+<article class="lesson" id="tangent" data-subject-label="数学" data-unit="数Ⅱ・微分" data-review-anchor="#tangent">
+<header><p class="eyebrow">数Ⅱ・微分 <span class="level">標準</span></p>
+<h2>微分係数を接線の傾きにする</h2></header>
+<div class="cue"><strong>見分け方</strong><p>曲線上の点が与えられ、その点の接線を求める。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>y=x³ の x=2 の点における接線を求めよ。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>関数を微分して指定の x における傾き m を求める。</li><li>接点 (a, f(a)) を使い、y−f(a)=m(x−a) を立てる。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>傾きは 3×2²=12、接点は (2, 8)。y−8=12(x−2) より y=12x−16。</p>
+
+<p class="pitfall"><strong>確認</strong> 傾きの式 f′(x) と、接点の座標を与える f(x) を取り違えない。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　表やグラフを読む</p><div class="related-links"><a href="#physics-vt-displacement">物理・物理基礎 · 速度の面積を符号付きで足す</a><a href="#geography-climate-season">地理 · 気温の山と雨の季節を重ねる</a></div></details>
+</article>
+<article class="lesson" id="area-switch" data-subject-label="数学" data-unit="数Ⅱ・積分" data-review-anchor="#area-switch">
+<header><p class="eyebrow">数Ⅱ・積分 <span class="level">標準</span></p>
+<h2>交点で区間を割って面積を足す</h2></header>
+<div class="cue"><strong>見分け方</strong><p>二曲線で囲まれた面積で、上下関係が途中で入れ替わる。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>−1≦x≦1 で y=x と x 軸にはさまれた部分の面積の合計は。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>方程式を解き交点を求め、各区間で上側のグラフを判定する。</li><li>各区間で「上の関数−下の関数」を積分して足す。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>x=0 で上下が逆転する。x=0 を境に底辺・高さがともに1の三角形が二つできるので、合計は1。</p>
+
+<p class="pitfall"><strong>確認</strong> x の符号付き積分をそのまま使うと、左右で打ち消して0になる。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　表やグラフを読む</p><div class="related-links"><a href="#geography-climate-season">地理 · 気温の山と雨の季節を重ねる</a><a href="#civics-economics-demand">公共・倫理・政治経済 · 需要曲線上の移動と曲線の移動を分ける</a></div></details>
+</article>
+<article class="lesson" id="integral-sub" data-subject-label="数学" data-unit="数Ⅲ・積分" data-review-anchor="#integral-sub">
+<header><p class="eyebrow">数Ⅲ・積分 <span class="level">標準</span></p>
+<h2>合成関数の内側で置換する</h2></header>
+<div class="cue"><strong>見分け方</strong><p>括弧の中の式と、その微分に比例する因子が積になっている。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>0から1まで 2x(x²+1)² を x で積分せよ。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>括弧内 u を置き、du に対応する因子と係数をまとめる。</li><li>定積分では積分範囲も u の値に直して計算する。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>u=x²+1 とすると du=2x dx、端は1と2。u² の積分は u³/3 なので (8−1)/3=7/3。</p>
+
+<p class="pitfall"><strong>確認</strong> 式を u に直したまま、x の値である0と1を上下端に入れない。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　構造を見抜く</p><div class="related-links"><a href="#german-separable-verb">ドイツ語 · 活用した動詞と文末の前つづりを結ぶ</a><a href="#french-restriction">フランス語 · ne と que の組み合わせで限定を読む</a></div></details>
+</article>
+<article class="lesson" id="sequence-shift" data-subject-label="数学" data-unit="数B・数列" data-review-anchor="#sequence-shift">
+<header><p class="eyebrow">数B・数列 <span class="level">標準</span></p>
+<h2>漸化式の定数項を平行移動で消す</h2></header>
+<div class="cue"><strong>見分け方</strong><p>次の項が「前の項×定数＋定数」になっている。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>a₁=1、aₙ₊₁=3aₙ+2 の一般項を求めよ。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>c=pa+b の a, c を同じ定数 k として k=pk+b を解く。</li><li>各項から k を引いた数列をつくり、等比数列として一般項を求める。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>k=3k+2 から k=−1。aₙ₊₁+1=3(aₙ+1) で初項 a₁+1=2。よって aₙ=2×3ⁿ⁻¹−1。</p>
+
+<p class="pitfall"><strong>確認</strong> 初項もずらす。元に戻すときに最後の −1 を忘れない。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　条件を式や図にする</p><div class="related-links"><a href="#geography-industry-location">地理 · 何をどこまで運ぶか比べる</a><a href="#world-history-trade-directions">世界史 · 航路に品物と移動方向を書く</a></div></details>
+</article>
+<article class="lesson" id="vector-foot" data-subject-label="数学" data-unit="数C・ベクトル" data-review-anchor="#vector-foot">
+<header><p class="eyebrow">数C・ベクトル <span class="level">標準</span></p>
+<h2>垂線の足を内積0で表す</h2></header>
+<div class="cue"><strong>見分け方</strong><p>点から直線に下ろした垂線の足を求める。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>点 (2, 0) から直線 y=x に下ろした垂線の足の座標を求めよ。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>直線上の点を、基準点＋実数倍の方向ベクトルで表す。</li><li>足に向かうベクトルと直線の方向ベクトルの内積を0と置いて、実数を求める。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>足を (t,t) と置くと、(t−2,t) と方向 (1,1) の内積は 2t−2。これが0だから足は (1,1)。</p>
+
+<p class="pitfall"><strong>確認</strong> 足が直線上にある条件と、足に向かう線分が直線に垂直な条件の二つを使う。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　条件を式や図にする</p><div class="related-links"><a href="#geography-industry-location">地理 · 何をどこまで運ぶか比べる</a><a href="#world-history-trade-directions">世界史 · 航路に品物と移動方向を書く</a></div></details>
+</article>
+<article class="lesson" id="complex-rotation" data-subject-label="数学" data-unit="数C・複素数平面" data-review-anchor="#complex-rotation">
+<header><p class="eyebrow">数C・複素数平面 <span class="level">標準</span></p>
+<h2>複素数の掛け算で回転を表す</h2></header>
+<div class="cue"><strong>見分け方</strong><p>原点を中心に点を回転させたり、回転後の座標を求めたりする。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>点 (2,1) を原点の周りに反時計回りに90°回転させよ。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>反時計回りの回転角 θ に対し、cos θ+i sin θ を掛ける。</li><li>実部と虚部を読み、座標に戻す。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>2+i に i を掛けると −1+2i。回転後は (−1,2)。</p>
+
+<p class="pitfall"><strong>確認</strong> 原点以外が中心なら、先に中心を引き、回転後に中心を足す。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　構造を見抜く</p><div class="related-links"><a href="#german-separable-verb">ドイツ語 · 活用した動詞と文末の前つづりを結ぶ</a><a href="#french-restriction">フランス語 · ne と que の組み合わせで限定を読む</a></div></details>
+</article>
+<article class="lesson" id="proof-disproof" data-subject-label="数学" data-unit="数Ⅰ・集合と命題" data-review-anchor="#proof-disproof">
+<header><p class="eyebrow">数Ⅰ・集合と命題 <span class="level">基本</span></p>
+<h2>全称命題を反例一つで検証する</h2></header>
+<div class="cue"><strong>見分け方</strong><p>「すべての」「必ず」が正しいか問うとき、境界や特殊な値から試す。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>「整数 a, b で ab が偶数なら a と b はどちらも偶数」は正しいか。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>主張が成り立つべき対象と条件を書く。</li><li>条件を満たし、結論が成り立たない具体例が見つかれば、その命題は偽。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>偽。a=2, b=3 では積は6で偶数だが b は奇数。</p>
+
+<p class="pitfall"><strong>確認</strong> 条件自体を満たしていない例では反例にならない。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　根拠を探す</p><div class="related-links"><a href="#german-opening-times">ドイツ語 · 開館時間と返却の条件を分ける</a><a href="#japan-history-source-position">日本史 · 書き手の立場と史料の目的を押さえる</a></div></details>
+</article>
+<article class="lesson" id="model-profit" data-subject-label="数学" data-unit="数Ⅰ・数Ⅱ 横断" data-review-anchor="#model-profit">
+<header><p class="eyebrow">数Ⅰ・数Ⅱ 横断 <span class="level">融合</span></p>
+<h2>文章の条件を変数と関数に移す</h2></header>
+<div class="cue"><strong>見分け方</strong><p>価格や人数などが同時に変わり、売上の最大値を尋ねる。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>値段200円で40人が買う。10円上げるごとに買う人が2人減るとする。値上げは0〜10回。売上を最大にする値段は。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>変数を一つ選び、その取り得る範囲と残りの量を式にする。</li><li>目的の量を関数にし、頂点と端点を調べて元の単位に戻す。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>値上げ x 回で売上は (200+10x)(40−2x)=8000−20x²。0≦x≦10 の整数では x=0 が最大なので200円。</p>
+
+<p class="pitfall"><strong>確認</strong> 最大化するのが売上なのか、買う人数や利益なのかを確かめる。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　条件を式や図にする</p><div class="related-links"><a href="#geography-industry-location">地理 · 何をどこまで運ぶか比べる</a><a href="#world-history-trade-directions">世界史 · 航路に品物と移動方向を書く</a></div></details>
+</article>
+<article class="lesson" id="trig-combine" data-subject-label="数学" data-unit="数Ⅱ・三角関数" data-review-anchor="#trig-combine">
+<header><p class="eyebrow">数Ⅱ・三角関数 <span class="level">標準</span></p>
+<h2>三角関数の和を一つの波にまとめる</h2></header>
+<div class="cue"><strong>見分け方</strong><p>同じ角度の sin と cos が並び、最大値や値の範囲を尋ねられる。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>実数 x 全体で 3 sin x + 4 cos x の最大値は。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>係数の二乗和の平方根で振幅を出す。</li><li>加法定理を使って一つの正弦に直し、角度の範囲と合わせて調べる。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>cos α=3/5、sin α=4/5 とすると 5 sin(x+α)。1を取る角度があるため最大値は5。</p>
+
+<p class="pitfall"><strong>確認</strong> 角度に制限がある場合は、振幅がそのまま最大値になるとは限らない。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　構造を見抜く</p><div class="related-links"><a href="#german-separable-verb">ドイツ語 · 活用した動詞と文末の前つづりを結ぶ</a><a href="#french-restriction">フランス語 · ne と que の組み合わせで限定を読む</a></div></details>
+</article>
+<article class="lesson" id="log-domain" data-subject-label="数学" data-unit="数Ⅱ・指数・対数" data-review-anchor="#log-domain">
+<header><p class="eyebrow">数Ⅱ・指数・対数 <span class="level">標準</span></p>
+<h2>対数の中身が正になる範囲から決める</h2></header>
+<div class="cue"><strong>見分け方</strong><p>変数を含む対数の式を、足したり引いたりして方程式を解く。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>log₂(x−1)+log₂(x−3)=3 を解け。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>式を変形する前に、すべての真数が正になる範囲を求める。</li><li>対数をまとめて方程式を解き、最初に求めた範囲でふるいにかける。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>真数条件は x＞3。(x−1)(x−3)=8 なので x²−4x−5=0。候補 x=5, −1 のうち x=5。</p>
+
+<p class="pitfall"><strong>確認</strong> 積が正でも、両方が負なら元の対数は定義されない。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　根拠を探す</p><div class="related-links"><a href="#german-opening-times">ドイツ語 · 開館時間と返却の条件を分ける</a><a href="#japan-history-source-position">日本史 · 書き手の立場と史料の目的を押さえる</a></div></details>
+</article>
+<article class="lesson" id="limit-rational" data-subject-label="数学" data-unit="数Ⅲ・極限" data-review-anchor="#limit-rational">
+<header><p class="eyebrow">数Ⅲ・極限 <span class="level">標準</span></p>
+<h2>差のルートを有理化して極限を調べる</h2></header>
+<div class="cue"><strong>見分け方</strong><p>大きくなる二つの平方根や量を引いていて、そのままでは差が決まらない。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>x を正のまま無限大に近づけるとき、√(x²+2x)−x の極限は。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>反対符号の和を分子・分母に掛けて、差の平方を作る。</li><li>分子と分母を同じ次数で割り、収束先を確かめる。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>√(x²+2x)−x=2x/(√(x²+2x)+x)。分子・分母を x で割ると 2/(√(1+2/x)+1) なので 1 に近づく。</p>
+
+<p class="pitfall"><strong>確認</strong> √(x²)=|x|。負方向に近づく場合に同じ計算をそのまま使わない。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　構造を見抜く</p><div class="related-links"><a href="#german-separable-verb">ドイツ語 · 活用した動詞と文末の前つづりを結ぶ</a><a href="#french-restriction">フランス語 · ne と que の組み合わせで限定を読む</a></div></details>
+</article>
+<article class="lesson" id="vector-probability" data-subject-label="数学" data-unit="数A・確率／数C・ベクトル" data-review-anchor="#vector-probability">
+<header><p class="eyebrow">数A・確率／数C・ベクトル <span class="level">融合</span></p>
+<h2>移動の順番と終点の条件を分ける</h2></header>
+<div class="cue"><strong>見分け方</strong><p>ランダムな移動を繰り返し、ある点や直線に着く確率を聞かれる。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>原点から4回、各回独立に (1,0) または (0,1) だけ等確率で進む。最後に直線 y=x にいる確率は。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>横と縦の移動回数を置き、終点の条件を回数の関係にする。</li><li>その回数になる並べ方を数え、同程度に起こる全経路数で割る。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>横2回・縦2回が必要。横に動く2回を4回から選ぶと6通り。全16経路のうち6なので3/8。</p>
+
+<p class="pitfall"><strong>確認</strong> 終点の5種類は等確率ではない。分母は終点の数5ではなく、同確率の全経路数16。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　条件を式や図にする</p><div class="related-links"><a href="#geography-industry-location">地理 · 何をどこまで運ぶか比べる</a><a href="#world-history-trade-directions">世界史 · 航路に品物と移動方向を書く</a></div></details>
+</article>
+<article class="lesson" id="integral-function-area" data-subject-label="数学" data-unit="数Ⅱ・微分と積分" data-review-anchor="#integral-function-area">
+<header><p class="eyebrow">数Ⅱ・微分と積分 <span class="level">融合</span></p>
+<h2>積分で決まる関数を微分して形を追う</h2></header>
+<div class="cue"><strong>見分け方</strong><p>上端が x の積分で関数が定義され、その最大値や増減を聞かれる。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>0≦x≦2 で、F(x) を 0 から x までの 2−2t の定積分とする。F(x) の最大値は。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>微分して被積分関数を求め、その符号が変わる点を出す。</li><li>増減と両端を調べ、必要な点で元の積分を計算する。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>F′(x)=2−2x。x=1 まで増加、その後減少する。F(1)=[2t−t²]₀¹=1 が最大。</p>
+
+<p class="pitfall"><strong>確認</strong> 問われたのは F の最大値。F′ の最大値や、面積の絶対値の和ではない。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　表やグラフを読む</p><div class="related-links"><a href="#geography-climate-season">地理 · 気温の山と雨の季節を重ねる</a><a href="#civics-economics-demand">公共・倫理・政治経済 · 需要曲線上の移動と曲線の移動を分ける</a></div></details>
+</article></div></section><section class="section" id="section-japanese"><h2 class="offline-title">国語</h2><div class="lessons">
+<article class="lesson" id="japanese-modern-claim" data-subject-label="国語" data-unit="現代文・評論" data-review-anchor="#japanese-modern-claim">
+<header><p class="eyebrow">現代文・評論 <span class="level">標準</span></p>
+<h2>具体例を支える主張を探す</h2></header>
+<div class="cue"><strong>見分け方</strong><p>本文に例がいくつもあり、筆者の考えを要約するよう求められる。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>「地域の記録には小さな発見が残る。たとえば、バスの時刻表から通学に使われた便を、商店の写真から人が集まった場所を知ることができる。」話題は何で、筆者はそれについて何を述べたか。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>たとえば、という印が付く部分をひとまとまりの例にする。</li><li>例の前後を読み、すべての例に共通する主張を一文にする。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>話題は地域の記録。筆者は、時刻表や写真のような記録から、当時の地域の暮らしについて具体的な発見が得られると述べている。</p>
+
+<p class="pitfall"><strong>確認</strong> バスの時刻表だけを要約に入れると、商店の写真にも当てはまる主張を取り逃がす。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　構造を見抜く</p><div class="related-links"><a href="#german-separable-verb">ドイツ語 · 活用した動詞と文末の前つづりを結ぶ</a><a href="#french-restriction">フランス語 · ne と que の組み合わせで限定を読む</a></div></details>
+</article>
+<article class="lesson" id="japanese-fiction-evidence" data-subject-label="国語" data-unit="現代文・小説" data-review-anchor="#japanese-fiction-evidence">
+<header><p class="eyebrow">現代文・小説 <span class="level">標準</span></p>
+<h2>言葉と行動から心情を読む</h2></header>
+<div class="cue"><strong>見分け方</strong><p>人物の心情が直接書かれておらず、発言・行動・描写が手掛かりになる。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>「もういいよ」と言った直後、凛は相手からの返事がないか何度も画面を見た。言葉と行動から、凛は返事を完全に諦めたと言えるか。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>設問の場面に戻り、人物の言葉とその直後の行動を並べる。</li><li>両方を説明できる心情だけを採用し、本文にない背景は足さない。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>言えない。言葉ではやりとりを切り上げる姿勢を見せたが、繰り返し画面を見る行動からは、まだ相手の返事を気にしていると読める。</p>
+
+<p class="pitfall"><strong>確認</strong> 会話文だけを根拠にして、会話のあとの描写を見落とす。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　根拠を探す</p><div class="related-links"><a href="#german-opening-times">ドイツ語 · 開館時間と返却の条件を分ける</a><a href="#japan-history-source-position">日本史 · 書き手の立場と史料の目的を押さえる</a></div></details>
+</article>
+<article class="lesson" id="japanese-classics-subject" data-subject-label="国語" data-unit="古文・主語" data-review-anchor="#japanese-classics-subject">
+<header><p class="eyebrow">古文・主語 <span class="level">標準</span></p>
+<h2>敬語で動作主を絞る</h2></header>
+<div class="cue"><strong>見分け方</strong><p>会話の外で主語が省略され、尊敬語が使われている。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>「女房、御前に歌を置く。中宮、それを手に取りて、読みたまふ。」歌を置いた人と読んだ人はそれぞれ誰か。現代語に訳すときの手掛かりも挙げよう。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>人物と動作を控え、現在だれについて述べているか確かめる。</li><li>尊敬語が付く動作に印を付け、敬意を向けられる人物を候補にする。</li><li>前後の状況を読み、動作をした人と動作を受ける人を区別する。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>置いたのは女房、読んだのは中宮。「中宮」が「手に取りて」に続き、「読みたまふ」の尊敬の補助動詞「たまふ」も、中宮が読むという解釈に合う。</p>
+
+<p class="pitfall"><strong>確認</strong> 直前の場面で動いた女房を、後の尊敬語が付いた動作の主語にまで引き継ぐ。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　根拠を探す</p><div class="related-links"><a href="#german-opening-times">ドイツ語 · 開館時間と返却の条件を分ける</a><a href="#japan-history-source-position">日本史 · 書き手の立場と史料の目的を押さえる</a></div></details>
+</article>
+<article class="lesson" id="japanese-classics-auxiliary" data-subject-label="国語" data-unit="古文・助動詞" data-review-anchor="#japanese-classics-auxiliary">
+<header><p class="eyebrow">古文・助動詞 <span class="level">標準</span></p>
+<h2>接続と文脈で助動詞を判別する</h2></header>
+<div class="cue"><strong>見分け方</strong><p>「ぬ」など、同じ表記でも接続によって異なる助動詞の形になる。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>「戸を開けぬ。外の光が差し込む。」と「戸を開けぬ人もあり。」の「ぬ」はそれぞれ何を表すか。下二段動詞「開く」の未然形と連用形はともに「開け」とする。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>直前の動詞を活用させ、何形に接続しているか判定する。</li><li>助動詞自体の活用形と文中の位置を見て、文脈に合う意味を選ぶ。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>前者は完了の助動詞「ぬ」の終止形で「戸を開けた」。後者は打消の助動詞「ず」の連体形で「戸を開けない人もいる」。接続する形が同じ表記なので、文中の位置と、戸が開いた結果を示す後続の文も手掛かりにした。</p>
+
+<p class="pitfall"><strong>確認</strong> この例では直前の「開け」だけで未然形と連用形を見分けられない。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　構造を見抜く</p><div class="related-links"><a href="#german-separable-verb">ドイツ語 · 活用した動詞と文末の前つづりを結ぶ</a><a href="#french-restriction">フランス語 · ne と que の組み合わせで限定を読む</a></div></details>
+</article>
+<article class="lesson" id="japanese-kanbun-scope" data-subject-label="国語" data-unit="漢文・否定" data-review-anchor="#japanese-kanbun-scope">
+<header><p class="eyebrow">漢文・否定 <span class="level">標準</span></p>
+<h2>否定がかかる語を決める</h2></header>
+<div class="cue"><strong>見分け方</strong><p>「不」と「必」などが並び、どの範囲を否定するのかが問われる。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>「学者不必勝。」を「学ぶ者は必ずしも勝たず。」と読むとき、「学ぶ者は絶対に勝たない」という意味になるか。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>否定語と、必ず・みなを表す語を見つける。</li><li>訓読順に読み、現代語の「すべて」や「必ず」を否定するのか、動作そのものを否定するのか確かめる。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>ならない。「必ずしも～ず」は「いつも～するとは限らない」という部分否定。学ぶ者が勝つ場合も残る。</p>
+
+<p class="pitfall"><strong>確認</strong> 「必ず～しない」と読んで、例外のある部分否定と強い否定を取り違える。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　構造を見抜く</p><div class="related-links"><a href="#german-separable-verb">ドイツ語 · 活用した動詞と文末の前つづりを結ぶ</a><a href="#french-restriction">フランス語 · ne と que の組み合わせで限定を読む</a></div></details>
+</article>
+<article class="lesson" id="japanese-kanbun-causative" data-subject-label="国語" data-unit="漢文・使役" data-review-anchor="#japanese-kanbun-causative">
+<header><p class="eyebrow">漢文・使役 <span class="level">標準</span></p>
+<h2>指示した人と動いた人を分ける</h2></header>
+<div class="cue"><strong>見分け方</strong><p>「使」や「令」があり、二人のうち誰が後ろの動作をしたか問われる。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>「兄使弟読書。」を「兄、弟をして書を読ましむ。」と読む。読んだのは誰か。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>「使」の前にある人物を、動作をさせた人として読む。</li><li>「使」の次の人物が、後に続く動作をするという関係に置き換える。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>弟。「兄が弟に書物を読ませる」という関係なので、兄が指示し、読む動作をするのは弟。</p>
+
+<p class="pitfall"><strong>確認</strong> 文全体の主語が兄だからといって、後ろの動作まで兄がしたと読む。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　構造を見抜く</p><div class="related-links"><a href="#german-separable-verb">ドイツ語 · 活用した動詞と文末の前つづりを結ぶ</a><a href="#french-restriction">フランス語 · ne と que の組み合わせで限定を読む</a></div></details>
+</article></div></section><section class="section" id="section-english"><h2 class="offline-title">英語</h2><div class="lessons">
+<article class="lesson" id="english-main-clause" data-subject-label="英語" data-unit="英文法・構文" data-review-anchor="#english-main-clause">
+<header><p class="eyebrow">英文法・構文 <span class="level">標準</span></p>
+<h2>修飾を外して主節を取る</h2></header>
+<div class="cue"><strong>見分け方</strong><p>主語の直後に who や that があり、動詞がいくつも見える。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>The student who drew the map explained the route. 道順を説明したのは誰か。主節の動詞も答えよう。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>関係詞節に括弧を付けて、どの名詞を説明しているか確かめる。</li><li>括弧の外で、主語と主節の動詞をつなぐ。</li><li>最後に修飾を戻して、誰がどこで何をしたか読む。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>地図を描いた生徒。who drew the map は The student を説明し、主節の動詞は explained。</p>
+<table class="worked-table"><caption>主節の骨格と修飾</caption><thead><tr><th scope="col">部分</th><th scope="col">役割</th></tr></thead><tbody><tr><th scope="row">The student</th><td>主節の主語</td></tr><tr><th scope="row">who drew the map</th><td>student を修飾</td></tr><tr><th scope="row">explained</th><td>主節の動詞</td></tr><tr><th scope="row">the route</th><td>目的語</td></tr></tbody></table>
+<p class="pitfall"><strong>確認</strong> 最初に出た動詞 drew を主節の動詞にすると、地図を描いたことしか拾えない。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　構造を見抜く</p><div class="related-links"><a href="#german-separable-verb">ドイツ語 · 活用した動詞と文末の前つづりを結ぶ</a><a href="#french-restriction">フランス語 · ne と que の組み合わせで限定を読む</a></div></details>
+</article>
+<article class="lesson" id="english-contrast" data-subject-label="英語" data-unit="長文読解" data-review-anchor="#english-contrast">
+<header><p class="eyebrow">長文読解 <span class="level">標準</span></p>
+<h2>逆接の前後を言い換える</h2></header>
+<div class="cue"><strong>見分け方</strong><p>however や but の前後に、よく似た内容の選択肢がある。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>I expected the online map to save time. However, many paths shown on it were closed. What did the writer find after using the map?</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>逆接の前と後をそれぞれ一言で言い換える。</li><li>設問が聞く人物・時点・理由に合う側を本文で探す。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>地図に載っている道のうち多くが通れなかったと分かった。前半の save time は使用前の予想で、使用後に分かった事実は however の後にある。</p>
+
+<p class="pitfall"><strong>確認</strong> 本文と同じ語があるだけで選ぶと、使用前の予想と使用後の発見を取り違える。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　条件をそろえて比べる</p><div class="related-links"><a href="#chinese-comparison-bi">中国語 · 比の前後を分けて比較の向きを読む</a><a href="#korean-contrast-jiman">韓国語 · 지만 の前後で時刻と場所を比べる</a></div></details>
+</article>
+<article class="lesson" id="english-multiple-texts" data-subject-label="英語" data-unit="複数資料" data-review-anchor="#english-multiple-texts">
+<header><p class="eyebrow">複数資料 <span class="level">標準</span></p>
+<h2>予定と条件を重ねる</h2></header>
+<div class="cue"><strong>見分け方</strong><p>案内や時刻表に加えて、利用する人物の予定が書かれている。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>Tours: A — Tue 14:00, free. B — Tue 17:00, free. C — Thu 17:00, ¥500. Mina can join only after 16:00 on Tuesday and has no money to spend. Which tour fits?</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>人物の条件を曜日、時刻、費用、申込のように分ける。</li><li>候補ごとに条件を照合し、合わない理由を一つ見つけたら候補から外す。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>B。火曜の16時より後で無料の両方を満たす。Aは開始時刻、Cは曜日と費用が合わない。</p>
+
+<p class="pitfall"><strong>確認</strong> 無料という条件だけでAを選ぶと、時刻の制約が抜ける。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　根拠を探す</p><div class="related-links"><a href="#german-opening-times">ドイツ語 · 開館時間と返却の条件を分ける</a><a href="#japan-history-source-position">日本史 · 書き手の立場と史料の目的を押さえる</a></div></details>
+</article>
+<article class="lesson" id="english-inference-limits" data-subject-label="英語" data-unit="推論" data-review-anchor="#english-inference-limits">
+<header><p class="eyebrow">推論 <span class="level">標準</span></p>
+<h2>言い切れる範囲を確かめる</h2></header>
+<div class="cue"><strong>見分け方</strong><p>本文から推測できることを選ぶときに、all や always のような強い語がある。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>Some students said short breaks helped them concentrate. これだけから「休憩はすべての生徒の集中に役立った」と言えるか。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>本文が述べている集団、期間、数量を控える。</li><li>選択肢の範囲が本文より広がっていないか確認する。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>言えない。本文が伝えるのは、一部の生徒が「役立った」と述べたことまで。すべての生徒への効果も、実際の効果の測定も示されていない。</p>
+
+<p class="pitfall"><strong>確認</strong> some を読み飛ばしたり、本人の感想を測定結果として扱ったりする。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　根拠を探す</p><div class="related-links"><a href="#german-opening-times">ドイツ語 · 開館時間と返却の条件を分ける</a><a href="#japan-history-source-position">日本史 · 書き手の立場と史料の目的を押さえる</a></div></details>
+</article>
+<article class="lesson" id="english-listening-revision" data-subject-label="英語" data-unit="リスニング" data-review-anchor="#english-listening-revision">
+<header><p class="eyebrow">リスニング <span class="level">標準</span></p>
+<h2>変更前の情報を消して聞く</h2></header>
+<div class="cue"><strong>見分け方</strong><p>待ち合わせや予約の会話に、変更を示す語が聞こえる。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>次の会話を一度だけ読んでもらい、最後の時刻と場所を答える。A: Let&#x27;s meet at the library at two. B: Can we make it three instead? A: Sure. The library works for me.</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>選択肢を見て、聞き取る項目を時刻・場所などに絞る。</li><li>instead や actually が聞こえたら、変わった項目だけをメモで置き換える。</li><li>設問が最終決定と当初の予定のどちらを聞くか確認する。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>3時に図書館。instead はこの会話では時刻を変えており、最後の発言で図書館はそのままと確認できる。</p>
+
+<p class="pitfall"><strong>確認</strong> 最初に聞いた時刻を答えたり、時刻と一緒に場所まで変更されたと思い込んだりする。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　時間順に整理する</p><div class="related-links"><a href="#french-depuis">フランス語 · depuis を現在までの時間に置く</a><a href="#chinese-negation-time">中国語 · 否定の意味を時を表す語と合わせて読む</a></div></details>
+</article>
+<article class="lesson" id="english-opinion-reason" data-subject-label="英語" data-unit="英作文" data-review-anchor="#english-opinion-reason">
+<header><p class="eyebrow">英作文 <span class="level">標準</span></p>
+<h2>主張と理由を結ぶ</h2></header>
+<div class="cue"><strong>見分け方</strong><p>自分の賛否と理由を数文で書くよう求められる。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>Should the school library stay open later? 賛成の立場と、通学事情に関係する理由を英語で書こう。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>設問で比べる案を確認し、自分の立場を一文にする。</li><li>理由が立場を支えるよう、誰にとって何がどう良くなるかを具体化する。</li><li>理由と具体例が同じ内容を言い直しているだけではないか確認する。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>I think the school library should stay open later. Students who take the last bus can use the library while they wait. 賛成の立場に続けて、バスを待つ生徒の利用場面を示している。</p>
+
+<p class="pitfall"><strong>確認</strong> It is a good idea because it is good. のように、同じ評価を繰り返すと理由が伝わらない。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　構造を見抜く</p><div class="related-links"><a href="#german-separable-verb">ドイツ語 · 活用した動詞と文末の前つづりを結ぶ</a><a href="#french-restriction">フランス語 · ne と que の組み合わせで限定を読む</a></div></details>
+</article></div></section><section class="section" id="section-german"><h2 class="offline-title">ドイツ語</h2><div class="lessons">
+<article class="lesson" id="german-separable-verb" data-subject-label="ドイツ語" data-unit="ドイツ語・文の構造" data-review-anchor="#german-separable-verb">
+<header><p class="eyebrow">ドイツ語・文の構造 <span class="level">基本</span></p>
+<h2>活用した動詞と文末の前つづりを結ぶ</h2></header>
+<div class="cue"><strong>見分け方</strong><p>平叙文で活用した動詞が前にあり、文末に an や auf が残っている。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>Am Montag fängt der Kurs um neun Uhr an. 「始まる」にあたる動詞の辞書形と、何が何時に始まるかを答えよう。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>活用した動詞を探し、その前の要素が主語か時刻などのまとまりかを見分ける。</li><li>文末の語が動詞の分離前つづりなら、活用した部分と合わせて辞書形と意味を考える。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>辞書形は anfangen。活用した fängt と文末の an が対応する。主語は der Kurs で、講座が月曜の9時に始まる。</p>
+
+<p class="pitfall"><strong>確認</strong> 文頭の Am Montag を主語だと思い込んだり、fängt だけを読んで an を見落としたりする。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　構造を見抜く</p><div class="related-links"><a href="#french-restriction">フランス語 · ne と que の組み合わせで限定を読む</a><a href="#korean-particles-place">韓国語 · 場所の助詞を後ろの動詞と結ぶ</a></div></details>
+</article>
+<article class="lesson" id="german-opening-times" data-subject-label="ドイツ語" data-unit="ドイツ語・案内文" data-review-anchor="#german-opening-times">
+<header><p class="eyebrow">ドイツ語・案内文 <span class="level">基本</span></p>
+<h2>開館時間と返却の条件を分ける</h2></header>
+<div class="cue"><strong>見分け方</strong><p>施設の案内で、利用できる時間と一部サービスの条件が別に書いてある。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>Die Bibliothek ist am Samstag von 10 bis 13 Uhr geöffnet. Bücher können Sie auch nach 13 Uhr am Rückgabeautomaten zurückgeben. 土曜の14時に館内を利用することと、本を返すことはそれぞれ可能か。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>von … bis … で示された時間帯が何にかかるか確かめる。</li><li>auch や nach の前後を読み、時間外にもできることを拾う。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>館内利用はできないが、本は返却機で返せる。開館は土曜の10時から13時までで、返却については13時を過ぎてもできると書かれている。</p>
+
+<p class="pitfall"><strong>確認</strong> 開館時間の上限を、別に条件が書かれた返却機にも当てはめる。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　根拠を探す</p><div class="related-links"><a href="#japan-history-source-position">日本史 · 書き手の立場と史料の目的を押さえる</a><a href="#world-history-map-and-claim">世界史 · 地図の変化から言える範囲を決める</a></div></details>
+</article></div></section><section class="section" id="section-french"><h2 class="offline-title">フランス語</h2><div class="lessons">
+<article class="lesson" id="french-restriction" data-subject-label="フランス語" data-unit="フランス語・限定" data-review-anchor="#french-restriction">
+<header><p class="eyebrow">フランス語・限定 <span class="level">基本</span></p>
+<h2>ne と que の組み合わせで限定を読む</h2></header>
+<div class="cue"><strong>見分け方</strong><p>動詞の前に ne があり、動詞の後ろに que が続く。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>Le bus ne circule que le samedi. このバスは土曜日に運行するか。日曜日はどうか。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>ne と呼応する語が pas か que かを確かめる。</li><li>ne … que … なら、que の直後の要素が「〜だけ」に当たると考える。</li><li>曜日や数字にかかるときは、許される範囲を一つに絞る。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>土曜日は運行し、日曜日は運行しない。ne … que le samedi は「土曜日だけ」を表す。</p>
+
+<p class="pitfall"><strong>確認</strong> ne だけを見て「土曜日は運行しない」と訳す。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　構造を見抜く</p><div class="related-links"><a href="#german-separable-verb">ドイツ語 · 活用した動詞と文末の前つづりを結ぶ</a><a href="#korean-particles-place">韓国語 · 場所の助詞を後ろの動詞と結ぶ</a></div></details>
+</article>
+<article class="lesson" id="french-depuis" data-subject-label="フランス語" data-unit="フランス語・時間表現" data-review-anchor="#french-depuis">
+<header><p class="eyebrow">フランス語・時間表現 <span class="level">基本</span></p>
+<h2>depuis を現在までの時間に置く</h2></header>
+<div class="cue"><strong>見分け方</strong><p>現在形の文で depuis の後ろに起点や期間が続く。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>Léa travaille à la bibliothèque depuis deux semaines. レアが図書館で働き始めたのはいつか。今もそこで働いているか。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>動詞の時制を確認し、depuis の後ろが過去の時点か、経過した期間かを見る。</li><li>現在形なら、過去の起点から現在まで続いている、という時間軸で読む。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>2週間前に働き始め、今もそこで働いている。現在形 travaille と depuis deux semaines の組み合わせが、始めてから現在まで2週間続いていることを表す。</p>
+
+<p class="pitfall"><strong>確認</strong> 期間の数字だけを見て「2週間後から働く」や「もう辞めた」と考える。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　時間順に整理する</p><div class="related-links"><a href="#chinese-negation-time">中国語 · 否定の意味を時を表す語と合わせて読む</a><a href="#japan-history-modern-order">日本史 · 制度の前後関係を組み立てる</a></div></details>
+</article></div></section><section class="section" id="section-chinese"><h2 class="offline-title">中国語</h2><div class="lessons">
+<article class="lesson" id="chinese-comparison-bi" data-subject-label="中国語" data-unit="中国語・比較" data-review-anchor="#chinese-comparison-bi">
+<header><p class="eyebrow">中国語・比較 <span class="level">基本</span></p>
+<h2>比の前後を分けて比較の向きを読む</h2></header>
+<div class="cue"><strong>見分け方</strong><p>A 比 B … の形で、どちらが何の点で上回るかが問われる。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>从我家到学校，坐公交车比走路快十五分钟。バスと徒歩のどちらが所要時間が短く、差は何分か。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>比の前を比較する対象、後ろを比較の基準として分ける。</li><li>どの点で差があるかと、差を表す数量を動詞・形容詞の周りから拾う。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>バスの方が15分短い。坐公交车はバスに乗ること、走路は歩くこと。前者は後者より「快十五分钟」、つまり15分早い。</p>
+
+<p class="pitfall"><strong>確認</strong> 比の直後の走路を、比較で上回る側と考える。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　条件をそろえて比べる</p><div class="related-links"><a href="#korean-contrast-jiman">韓国語 · 지만 の前後で時刻と場所を比べる</a><a href="#japan-history-land-tax">日本史 · 税の基準・納める人・方法を分ける</a></div></details>
+</article>
+<article class="lesson" id="chinese-negation-time" data-subject-label="中国語" data-unit="中国語・否定と時を表す語" data-review-anchor="#chinese-negation-time">
+<header><p class="eyebrow">中国語・否定と時を表す語 <span class="level">基本</span></p>
+<h2>否定の意味を時を表す語と合わせて読む</h2></header>
+<div class="cue"><strong>見分け方</strong><p>没や不があり、起こらなかったことと今後の予定が一文に書かれている。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>我昨天没去图书馆，明天也不去。話し手は昨日図書館に行ったか。明日行く予定か。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>昨天、明天などの語で、いつの話かを分ける。</li><li>没が動作の実現を否定しているか、不が行動の予定・意思などを否定しているかを文脈で読み取る。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>昨日は行かなかった。明日も行かない。昨天没去 は昨日行くという出来事が起こらなかったこと、明天也不去 は明日も行かないことを示す。</p>
+
+<p class="pitfall"><strong>確認</strong> 二つの文の動作は同じでも、昨天と明天が表す時点は異なる。不を落として、明日の予定を肯定で読まない。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　時間順に整理する</p><div class="related-links"><a href="#french-depuis">フランス語 · depuis を現在までの時間に置く</a><a href="#japan-history-modern-order">日本史 · 制度の前後関係を組み立てる</a></div></details>
+</article></div></section><section class="section" id="section-korean"><h2 class="offline-title">韓国語</h2><div class="lessons">
+<article class="lesson" id="korean-particles-place" data-subject-label="韓国語" data-unit="韓国語・助詞" data-review-anchor="#korean-particles-place">
+<header><p class="eyebrow">韓国語・助詞 <span class="level">基本</span></p>
+<h2>場所の助詞を後ろの動詞と結ぶ</h2></header>
+<div class="cue"><strong>見分け方</strong><p>同じ場所を表す名詞でも、에 と 에서 のどちらが付くかで役割が変わる。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>저는 집에서 학교에 가요. 오후에는 도서관에서 공부해요. 学校へ向かうときの出発点と、午後に勉強する場所はどこか。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>助詞の後ろの動詞が移動を表すか、その場での行動を表すか確かめる。</li><li>移動の場合は出発点と行き先を分け、行動の場合はその場所を拾う。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>出発点は家、午後の勉強場所は図書館。家の後の 에서 は移動の出発点、図書館の後の 에서 は勉強する場所を示す。학교에 は移動先。</p>
+
+<p class="pitfall"><strong>確認</strong> 에서 をいつも「〜で」と訳して、移動を始める場所の意味を見逃す。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　構造を見抜く</p><div class="related-links"><a href="#german-separable-verb">ドイツ語 · 活用した動詞と文末の前つづりを結ぶ</a><a href="#french-restriction">フランス語 · ne と que の組み合わせで限定を読む</a></div></details>
+</article>
+<article class="lesson" id="korean-contrast-jiman" data-subject-label="韓国語" data-unit="韓国語・逆接と時刻" data-review-anchor="#korean-contrast-jiman">
+<header><p class="eyebrow">韓国語・逆接と時刻 <span class="level">基本</span></p>
+<h2>지만 の前後で時刻と場所を比べる</h2></header>
+<div class="cue"><strong>見分け方</strong><p>文の途中に 지만 があり、二つの情報が対照的に並ぶ。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>평일에는 도서관이 아홉 시에 문을 열지만, 토요일에는 열 시에 문을 열어요. 図書館は平日と土曜日にそれぞれ何時に開くか。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>지만 のところで前後を分け、「〜だが」とつなぐ。</li><li>時刻・場所・動作を別々に拾い、設問がどちらの場面を聞くかを確認する。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>平日は9時、土曜日は10時。평일에는 は「平日は」、토요일에는 は「土曜日は」。지만 を境に二つの時刻が対照されている。</p>
+
+<p class="pitfall"><strong>確認</strong> 最初の時刻をすべての曜日に当てはめ、土曜の時刻の書き分けを見落とす。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　条件をそろえて比べる</p><div class="related-links"><a href="#chinese-comparison-bi">中国語 · 比の前後を分けて比較の向きを読む</a><a href="#japan-history-land-tax">日本史 · 税の基準・納める人・方法を分ける</a></div></details>
+</article></div></section><section class="section" id="section-physics"><h2 class="offline-title">物理・物理基礎</h2><div class="lessons">
+<article class="lesson" id="physics-vt-displacement" data-subject-label="物理・物理基礎" data-unit="物理基礎・運動の表し方" data-review-anchor="#physics-vt-displacement">
+<header><p class="eyebrow">物理基礎・運動の表し方 <span class="level">基本</span></p>
+<h2>速度の面積を符号付きで足す</h2></header>
+<div class="cue"><strong>見分け方</strong><p>速度–時間グラフから、変位と移動距離を求める。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>直線上を進む台車の速度は、0〜3秒では＋2m/s、その直後から5秒までは−1m/sだったとする。0秒から5秒までの変位と移動距離はそれぞれいくらか。</p><table class="worked-table"><caption>時間帯ごとに読み分ける</caption><thead><tr><th scope="col">時刻（秒）</th><th scope="col">速度（m/s）</th></tr></thead><tbody><tr><th scope="row">0〜3</th><td>+2</td></tr><tr><th scope="row">3直後〜5</th><td>−1</td></tr></tbody></table></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>横軸と縦軸の単位を確認し、加速の傾きと変位を表す面積を区別する。</li><li>横軸の上下で区間を分け、変位には符号を付け、移動距離には面積の大きさを使う。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>変位は＋4m、移動距離は8m。最初の区間の変位は＋6m、次は−2mなので、変位では6−2、移動距離では6＋2とする。</p>
+
+<p class="pitfall"><strong>確認</strong> 速度が負の区間を飛ばしたり、移動距離まで符号付きで足したりする。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　表やグラフを読む</p><div class="related-links"><a href="#geography-climate-season">地理 · 気温の山と雨の季節を重ねる</a><a href="#civics-economics-demand">公共・倫理・政治経済 · 需要曲線上の移動と曲線の移動を分ける</a></div></details>
+</article>
+<article class="lesson" id="physics-force-balance" data-subject-label="物理・物理基礎" data-unit="物理基礎・力と運動" data-review-anchor="#physics-force-balance">
+<header><p class="eyebrow">物理基礎・力と運動 <span class="level">基本</span></p>
+<h2>物体にはたらく力だけを描く</h2></header>
+<div class="cue"><strong>見分け方</strong><p>押したり引いたりしている物体について、合力や加速度を問われる。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>質量2kgの箱が水平面を右に滑っている。箱を右向きに10Nで押し、動摩擦力の大きさは4N。鉛直方向に加速しないとき、水平方向の加速度は。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>対象の物体を一つ決め、重力、垂直抗力、押す力、摩擦力を向き付きで書く。</li><li>方向ごとの合力を求め、加速している方向では合力＝質量×加速度を使う。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>右向きに3m/s²。滑っている箱への摩擦は左向きなので水平方向の合力は10−4＝6N。2kgで割る。</p>
+
+<p class="pitfall"><strong>確認</strong> 10Nだけで加速度を求めたり、箱が床を押す力まで、箱にはたらく力に足したりする。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　条件を式や図にする</p><div class="related-links"><a href="#geography-industry-location">地理 · 何をどこまで運ぶか比べる</a><a href="#world-history-trade-directions">世界史 · 航路に品物と移動方向を書く</a></div></details>
+</article>
+<article class="lesson" id="physics-energy-friction" data-subject-label="物理・物理基礎" data-unit="物理基礎・仕事とエネルギー" data-review-anchor="#physics-energy-friction">
+<header><p class="eyebrow">物理基礎・仕事とエネルギー <span class="level">基本</span></p>
+<h2>摩擦の仕事を引いて速さを求める</h2></header>
+<div class="cue"><strong>見分け方</strong><p>摩擦がある区間の前後で、物体の速さや高さを比べる。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>質量2kgの物体が水平面を4m/sで滑り始め、進行方向と逆向きに6Nの動摩擦力を受けながら2m進んだ。2m先での速さを求めよう。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>調べる区間を決め、最初と最後の運動エネルギー・位置エネルギーを書く。</li><li>摩擦の仕事を向きに注意して求め、力学的エネルギーの変化と結ぶ。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>2m/s。最初の運動エネルギーは16J、摩擦の仕事は−12Jなので、最後は4J。½×2×速さ²＝4から求まる。</p>
+
+<p class="pitfall"><strong>確認</strong> 摩擦が仕事をしているのに、物体の力学的エネルギーが一定だと置く。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　条件を式や図にする</p><div class="related-links"><a href="#geography-industry-location">地理 · 何をどこまで運ぶか比べる</a><a href="#world-history-trade-directions">世界史 · 航路に品物と移動方向を書く</a></div></details>
+</article>
+<article class="lesson" id="physics-circuit-branch" data-subject-label="物理・物理基礎" data-unit="物理基礎・電気回路" data-review-anchor="#physics-circuit-branch">
+<header><p class="eyebrow">物理基礎・電気回路 <span class="level">基本</span></p>
+<h2>並列の枝に同じ電圧を置く</h2></header>
+<div class="cue"><strong>見分け方</strong><p>枝分かれした回路で、電圧・電流・抵抗のどれが共通かを問われる。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>6Ωと3Ωの抵抗を並列につなぎ、その両端に6Vをかけた。6Ω側と3Ω側の電流、分岐前の電流はそれぞれいくらか。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>抵抗の両端がそれぞれ同じ接点につながっているか確認する。</li><li>並列部分の電圧を各枝に入れ、オームの法則で枝電流を求める。</li><li>分岐前の電流を求めるときは、枝電流を足す。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>6Ω側は1A、3Ω側は2A、分岐前は3A。枝ごとに同じ6Vがかかるので、電圧を各抵抗値で割る。</p>
+
+<p class="pitfall"><strong>確認</strong> 二つの抵抗に6Vを分けたり、枝ごとに同じ電流が流れると考えたりする。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　構造を見抜く</p><div class="related-links"><a href="#german-separable-verb">ドイツ語 · 活用した動詞と文末の前つづりを結ぶ</a><a href="#french-restriction">フランス語 · ne と que の組み合わせで限定を読む</a></div></details>
+</article>
+<article class="lesson" id="physics-wave-snapshots" data-subject-label="物理・物理基礎" data-unit="物理基礎・波の表し方" data-review-anchor="#physics-wave-snapshots">
+<header><p class="eyebrow">物理基礎・波の表し方 <span class="level">基本</span></p>
+<h2>波のグラフの横軸を見分ける</h2></header>
+<div class="cue"><strong>見分け方</strong><p>波の形を示すグラフと、一点の振動を示すグラフが与えられる。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>ある瞬間の波形で隣り合う山の間隔は0.60m。固定した観測点では、山が0.20秒おきに通った。波の速さは。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>横軸が位置なら、同じ位相の連続する二点の距離を波長として読む。</li><li>横軸が時刻なら、同じ点が同じ振動状態に戻る時間を周期として読む。</li><li>波の速さが必要なら、波長を周期で割る。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>3.0m/s。山の空間的な間隔0.60mが波長、通過の時間間隔0.20秒が周期なので0.60÷0.20。</p>
+<table class="worked-table"><caption>二つの「山の間隔」</caption><thead><tr><th scope="col">観測方法</th><th scope="col">間隔</th><th scope="col">意味</th></tr></thead><tbody><tr><th scope="row">同時に空間を見る</th><td>0.60 m</td><td>波長</td></tr><tr><th scope="row">同じ地点で待つ</th><td>0.20 秒</td><td>周期</td></tr></tbody></table>
+<p class="pitfall"><strong>確認</strong> 山から隣の谷までを波長と読んだり、位置のグラフだけで周期を求めたりする。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　表やグラフを読む</p><div class="related-links"><a href="#geography-climate-season">地理 · 気温の山と雨の季節を重ねる</a><a href="#civics-economics-demand">公共・倫理・政治経済 · 需要曲線上の移動と曲線の移動を分ける</a></div></details>
+</article>
+<article class="lesson" id="physics-momentum-collision" data-subject-label="物理・物理基礎" data-unit="物理・運動量と衝突" data-review-anchor="#physics-momentum-collision">
+<header><p class="eyebrow">物理・運動量と衝突 <span class="level">標準</span></p>
+<h2>衝突する二物体の運動量を足す</h2></header>
+<div class="cue"><strong>見分け方</strong><p>衝突して一体になった直後の速度を求める。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>水平面で、質量2kgで右向き3m/sの台車と、質量1kgで左向き3m/sの台車が衝突して一体になった。衝突の間に水平方向の外力の力積は無視できる。直後の速度は。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>二物体をまとめて、衝突の短い間にその方向の外力の力積を無視できるか確認する。</li><li>正方向を決め、衝突前の質量×速度の和を求める。</li><li>衝突後に一体なら、和を合計質量で割る。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>右向きに1m/s。右を正に取ると、衝突前の合計運動量は2×3＋1×(−3)＝3kg・m/s。二台の合計質量3kgで割る。</p>
+
+<p class="pitfall"><strong>確認</strong> 速度の符号を付け忘れたり、くっつく衝突で運動エネルギーも保存されると置いたりする。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　条件を式や図にする</p><div class="related-links"><a href="#geography-industry-location">地理 · 何をどこまで運ぶか比べる</a><a href="#world-history-trade-directions">世界史 · 航路に品物と移動方向を書く</a></div></details>
+</article>
+<article class="lesson" id="physics-thermo-signs" data-subject-label="物理・物理基礎" data-unit="物理・熱力学第一法則" data-review-anchor="#physics-thermo-signs">
+<header><p class="eyebrow">物理・熱力学第一法則 <span class="level">標準</span></p>
+<h2>熱の出入りと仕事の向きを分ける</h2></header>
+<div class="cue"><strong>見分け方</strong><p>気体が熱を受け取りながら膨張し、内部エネルギーの変化を問われる。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>ある気体に熱120Jを加えたところ、気体は外部に50Jの仕事をした。気体の内部エネルギーはどれだけ変わったか。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>熱が気体に入る向きか出る向きかを確かめる。</li><li>仕事は気体が外にする仕事か、外が気体にする仕事かを読み分ける。</li><li>気体に入った熱から、気体が外にした仕事を引く。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>70J増えた。気体に120Jが入り、そのうち50Jが外部に仕事として出るので、差は70J。</p>
+
+<p class="pitfall"><strong>確認</strong> 気体が外にした50Jを、気体が受け取ったエネルギーとして足す。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　条件を式や図にする</p><div class="related-links"><a href="#geography-industry-location">地理 · 何をどこまで運ぶか比べる</a><a href="#world-history-trade-directions">世界史 · 航路に品物と移動方向を書く</a></div></details>
+</article>
+<article class="lesson" id="physics-induction-direction" data-subject-label="物理・物理基礎" data-unit="物理・電磁誘導" data-review-anchor="#physics-induction-direction">
+<header><p class="eyebrow">物理・電磁誘導 <span class="level">標準</span></p>
+<h2>磁束の変化を打ち消す向きに電流を描く</h2></header>
+<div class="cue"><strong>見分け方</strong><p>コイルを貫く磁束が増減し、誘導電流の向きが問われる。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>水平に置いた閉じた円形コイルを上向きに貫く磁束が増えている。真上から見た誘導電流は時計回りか反時計回りか。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>磁束の向きと、磁束が増えるか減るかを確認する。</li><li>変化を妨げるように誘導電流がつくる磁場を決める。</li><li>右ねじの法則を使い、指定された視点からの電流の回転方向を書く。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>時計回り。上向きの磁束の増加を妨げるため、誘導電流は下向きの磁場をつくる。右手の親指を下に向けると、指は上から見て時計回りに曲がる。</p>
+
+<p class="pitfall"><strong>確認</strong> 元の磁場を打ち消すとだけ覚えると、磁束が減る例で向きが逆になる。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　構造を見抜く</p><div class="related-links"><a href="#german-separable-verb">ドイツ語 · 活用した動詞と文末の前つづりを結ぶ</a><a href="#french-restriction">フランス語 · ne と que の組み合わせで限定を読む</a></div></details>
+</article></div></section><section class="section" id="section-chemistry"><h2 class="offline-title">化学・化学基礎</h2><div class="lessons">
+<article class="lesson" id="chemistry-isotope-average" data-subject-label="化学・化学基礎" data-unit="化学基礎・原子と同位体" data-review-anchor="#chemistry-isotope-average">
+<header><p class="eyebrow">化学基礎・原子と同位体 <span class="level">基本</span></p>
+<h2>同位体の個数割合で平均する</h2></header>
+<div class="cue"><strong>見分け方</strong><p>同位体ごとの相対質量と存在比から原子量を求める。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>ある元素には相対質量10.0と11.0の同位体があり、原子の個数の20%が10.0、80%が11.0とする。この元素の原子量は。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>割合の合計が100%になるか確認し、小数に直す。</li><li>相対質量に存在比を掛けて足し、値が軽い同位体と重い同位体の間にあるか確かめる。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>10.8。10.0×0.20＋11.0×0.80で求まる。11.0の同位体の方が多いため、平均は11.0に近い。</p>
+
+<p class="pitfall"><strong>確認</strong> 割合を無視して10.0と11.0の単純平均を取る。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　条件を式や図にする</p><div class="related-links"><a href="#geography-industry-location">地理 · 何をどこまで運ぶか比べる</a><a href="#world-history-trade-directions">世界史 · 航路に品物と移動方向を書く</a></div></details>
+</article>
+<article class="lesson" id="chemistry-concentration-density" data-subject-label="化学・化学基礎" data-unit="化学基礎・溶液の濃度" data-review-anchor="#chemistry-concentration-density">
+<header><p class="eyebrow">化学基礎・溶液の濃度 <span class="level">基本</span></p>
+<h2>溶液1Lからモル濃度への道筋を作る</h2></header>
+<div class="cue"><strong>見分け方</strong><p>質量パーセント濃度と密度が分かり、モル濃度に換算する。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>密度1.20g/mLで、ある溶質を質量で10.0%含む水溶液がある。溶質のモル質量が60.0g/molのとき、モル濃度は。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>溶液1Lを1,000mLとして選び、密度を使って溶液の質量を求める。</li><li>質量パーセントを掛けて溶質の質量を出し、モル質量で割る。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>2.00mol/L。溶液1Lの質量は1,200g、溶質は120g。その物質量は120÷60.0＝2.00molなので、溶液1Lあたり2.00mol。</p>
+
+<p class="pitfall"><strong>確認</strong> 1Lをそのまま1,000gと考えたり、溶媒1Lを基準に取り違えたりする。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　条件を式や図にする</p><div class="related-links"><a href="#geography-industry-location">地理 · 何をどこまで運ぶか比べる</a><a href="#world-history-trade-directions">世界史 · 航路に品物と移動方向を書く</a></div></details>
+</article>
+<article class="lesson" id="chemistry-limiting-reactant" data-subject-label="化学・化学基礎" data-unit="化学基礎・化学反応式" data-review-anchor="#chemistry-limiting-reactant">
+<header><p class="eyebrow">化学基礎・化学反応式 <span class="level">基本</span></p>
+<h2>反応できる回数を係数でそろえる</h2></header>
+<div class="cue"><strong>見分け方</strong><p>二つの反応物を混ぜ、どちらが余るかを判断する。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>CaCO₃＋2HCl → CaCl₂＋H₂O＋CO₂ とする。CaCO₃が3.0mmol、HClが4.0mmolあるとき、反応し尽くすのはどちらで、CO₂は最大何mmol生じるか。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>反応式に係数を付け、各反応物の物質量をその係数で割る。</li><li>小さい値を反応の進んだ量として、残る量やできる量を係数から出す。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>HClが先に尽き、CO₂は2.0mmol生じる。係数で割るとCaCO₃側は3.0÷1、HCl側は4.0÷2なので、小さい方の2.0にCO₂の係数1を掛ける。</p>
+
+<p class="pitfall"><strong>確認</strong> 物質量の数値だけを比べて、3.0mmolのCaCO₃が先になくなると決める。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　条件をそろえて比べる</p><div class="related-links"><a href="#chinese-comparison-bi">中国語 · 比の前後を分けて比較の向きを読む</a><a href="#korean-contrast-jiman">韓国語 · 지만 の前後で時刻と場所を比べる</a></div></details>
+</article>
+<article class="lesson" id="chemistry-neutralization-amounts" data-subject-label="化学・化学基礎" data-unit="化学基礎・酸と塩基" data-review-anchor="#chemistry-neutralization-amounts">
+<header><p class="eyebrow">化学基礎・酸と塩基 <span class="level">基本</span></p>
+<h2>中和する量を価数まで入れて比べる</h2></header>
+<div class="cue"><strong>見分け方</strong><p>中和点での体積と濃度から、未知の濃度や必要な体積を求める。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>0.100mol/Lの硫酸水溶液10.0mLを、水酸化ナトリウム水溶液で完全に中和すると20.0mL消費した。水酸化ナトリウム水溶液の濃度は。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>反応式を書き、酸1molに対して必要な塩基の物質量を確かめる。</li><li>各溶液の濃度と体積から物質量を表し、中和点で反応式の比になるよう式を立てる。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>0.100mol/L。硫酸は1.00mmolで、反応式 H₂SO₄＋2NaOH → Na₂SO₄＋2H₂O よりNaOHは2.00mmol必要。20.0mLで割る。</p>
+
+<p class="pitfall"><strong>確認</strong> 酸と塩基の価数を調べずに、硫酸と水酸化ナトリウムの物質量が等しいと置く。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　構造を見抜く</p><div class="related-links"><a href="#german-separable-verb">ドイツ語 · 活用した動詞と文末の前つづりを結ぶ</a><a href="#french-restriction">フランス語 · ne と que の組み合わせで限定を読む</a></div></details>
+</article>
+<article class="lesson" id="chemistry-redox-electrons" data-subject-label="化学・化学基礎" data-unit="化学基礎・酸化還元" data-review-anchor="#chemistry-redox-electrons">
+<header><p class="eyebrow">化学基礎・酸化還元 <span class="level">基本</span></p>
+<h2>酸化数の上下で電子の移動を追う</h2></header>
+<div class="cue"><strong>見分け方</strong><p>反応前後で元素の形が変わり、酸化剤と還元剤を判定する。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>Zn＋Cu²⁺ → Zn²⁺＋Cu の反応で、酸化された物質と酸化剤を答えよう。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>同じ元素の反応前後の酸化数を横に並べる。</li><li>酸化数が下がった側は電子を受け取って還元されたと判断する。</li><li>相手を酸化した物質を酸化剤、相手を還元した物質を還元剤と呼ぶ。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>酸化された物質はZn、酸化剤はCu²⁺。Znの酸化数は0から＋2に上がり、Cu²⁺のCuは＋2から0に下がる。Cu²⁺が電子を受け取ってZnを酸化した。</p>
+
+<p class="pitfall"><strong>確認</strong> 「酸化剤」を自分自身が酸化された側の名前と考え、Znを選ぶ。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　条件をそろえて比べる</p><div class="related-links"><a href="#chinese-comparison-bi">中国語 · 比の前後を分けて比較の向きを読む</a><a href="#korean-contrast-jiman">韓国語 · 지만 の前後で時刻と場所を比べる</a></div></details>
+</article>
+<article class="lesson" id="chemistry-gas-partial-pressure" data-subject-label="化学・化学基礎" data-unit="化学・気体の状態" data-review-anchor="#chemistry-gas-partial-pressure">
+<header><p class="eyebrow">化学・気体の状態 <span class="level">標準</span></p>
+<h2>気体の分圧をモル分率から求める</h2></header>
+<div class="cue"><strong>見分け方</strong><p>混合気体の全圧と各成分の物質量から、一成分が受け持つ圧力を求める。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>He 1.0molとNe 3.0molを含む理想混合気体の全圧が200kPaだった。Heの分圧は何kPaか。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>理想気体として扱うことを確かめ、全成分の物質量を足す。</li><li>対象成分の物質量を合計で割り、そのモル分率を全圧に掛ける。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>50kPa。Heは全物質量4.0molのうち1.0molなので、全圧の1/4を受け持つ。</p>
+
+<p class="pitfall"><strong>確認</strong> モル分率の代わりに質量分率を掛ける。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　条件を式や図にする</p><div class="related-links"><a href="#geography-industry-location">地理 · 何をどこまで運ぶか比べる</a><a href="#world-history-trade-directions">世界史 · 航路に品物と移動方向を書く</a></div></details>
+</article>
+<article class="lesson" id="chemistry-equilibrium-direction" data-subject-label="化学・化学基礎" data-unit="化学・化学平衡" data-review-anchor="#chemistry-equilibrium-direction">
+<header><p class="eyebrow">化学・化学平衡 <span class="level">標準</span></p>
+<h2>濃度を平衡定数の式に入れて向きを決める</h2></header>
+<div class="cue"><strong>見分け方</strong><p>平衡定数は分かるが、与えられた濃度の組が平衡か分からない。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>A＋B ⇄ C の反応で、濃度をmol/Lで表したときの平衡定数の数値は4.0。現在は[A]＝1.0、[B]＝1.0、[C]＝2.0である。この後、正反応と逆反応のどちらが優勢になるか。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>反応式の係数を指数にして、生成物の濃度の積を反応物の濃度の積で割る式を書く。</li><li>その時点の濃度を入れた値と、同じ温度の平衡定数を比べる。</li><li>値が小さければ生成物を増やす向き、大きければ反応物を増やす向きに進む。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>正反応。今の値は[C]÷([A][B])＝2.0で、平衡の4.0より小さい。Cを増やす向きの反応が、差し引きで進む。</p>
+
+<p class="pitfall"><strong>確認</strong> 温度が同じでも、現在の濃度から出した値をそのまま平衡定数と呼ぶ。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　条件をそろえて比べる</p><div class="related-links"><a href="#chinese-comparison-bi">中国語 · 比の前後を分けて比較の向きを読む</a><a href="#korean-contrast-jiman">韓国語 · 지만 の前後で時刻と場所を比べる</a></div></details>
+</article>
+<article class="lesson" id="chemistry-ester-parts" data-subject-label="化学・化学基礎" data-unit="化学・有機化合物" data-review-anchor="#chemistry-ester-parts">
+<header><p class="eyebrow">化学・有機化合物 <span class="level">標準</span></p>
+<h2>エステルの骨格を二つに分ける</h2></header>
+<div class="cue"><strong>見分け方</strong><p>加水分解で生じるカルボン酸とアルコールから、元のエステルを推定する。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>あるエステルを加水分解したとき、酢酸 CH₃COOH とエタノール C₂H₅OH が得られた。元の化合物の示性式を求めよう。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>カルボン酸の炭素骨格を、エステルのカルボニル炭素を含む側に置く。</li><li>アルコールの炭素骨格を、エステルの酸素に続く側に置いてつなぐ。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>CH₃COOC₂H₅。酢酸由来のCH₃CO–がカルボニル側、エタノール由来の–OC₂H₅が酸素に続く側となる。</p>
+
+<p class="pitfall"><strong>確認</strong> 炭素の個数だけを足し合わせて、酸側とアルコール側を入れ替える。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　構造を見抜く</p><div class="related-links"><a href="#german-separable-verb">ドイツ語 · 活用した動詞と文末の前つづりを結ぶ</a><a href="#french-restriction">フランス語 · ne と que の組み合わせで限定を読む</a></div></details>
+</article></div></section><section class="section" id="section-biology"><h2 class="offline-title">生物・生物基礎</h2><div class="lessons">
+<article class="lesson" id="biology-microscope-scale" data-subject-label="生物・生物基礎" data-unit="生物基礎・細胞と観察" data-review-anchor="#biology-microscope-scale">
+<header><p class="eyebrow">生物基礎・細胞と観察 <span class="level">基本</span></p>
+<h2>スケールバーと細胞の長さを同じ画像で比べる</h2></header>
+<div class="cue"><strong>見分け方</strong><p>顕微鏡写真に倍率や目盛りがあり、細胞の大きさを求める。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>顕微鏡写真の『20µm』のスケールバーが紙の上で8mm、ある細胞の長径は同じ紙の上で12mmだった。細胞の実際の長径は。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>測りたい部分とスケールバーの長さを、同じ画像の上で測る。</li><li>スケールバーの何倍かを求め、バーに書かれた実際の長さに掛ける。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>30µm。紙の上では12÷8＝1.5倍なので、実際のスケール20µmに1.5を掛ける。</p>
+
+<p class="pitfall"><strong>確認</strong> 紙の上のmmをそれだけでµmに直し、画像の拡大を考えない。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　条件を式や図にする</p><div class="related-links"><a href="#geography-industry-location">地理 · 何をどこまで運ぶか比べる</a><a href="#world-history-trade-directions">世界史 · 航路に品物と移動方向を書く</a></div></details>
+</article>
+<article class="lesson" id="biology-photosynthesis-net" data-subject-label="生物・生物基礎" data-unit="生物基礎・同化と異化" data-review-anchor="#biology-photosynthesis-net">
+<header><p class="eyebrow">生物基礎・同化と異化 <span class="level">基本</span></p>
+<h2>観測された酸素量を発生と消費の差で読む</h2></header>
+<div class="cue"><strong>見分け方</strong><p>植物で、光を当てたときと暗くしたときの酸素量の変化が示される。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>植物を入れた透明な容器で、明所では酸素が毎分8単位増加し、暗所では毎分2単位減少した。呼吸の速さは明暗で同じとすると、明所で光合成だけが発生させた酸素は毎分何単位か。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>暗所では光合成による発生がないと考え、酸素の減少を呼吸による消費として読む。</li><li>明所の見かけの増加は、光合成で発生した量から呼吸で消費した量を引いた値と考える。</li><li>明所と暗所で呼吸の速さが等しいという条件があるかも確かめる。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>10単位。明所でも毎分2単位を呼吸が消費しているので、観測された増加8単位に消費の2単位を足す。</p>
+
+<p class="pitfall"><strong>確認</strong> 光がある間は呼吸しないと考え、容器内で増えた8単位をそのまま答える。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　表やグラフを読む</p><div class="related-links"><a href="#geography-climate-season">地理 · 気温の山と雨の季節を重ねる</a><a href="#civics-economics-demand">公共・倫理・政治経済 · 需要曲線上の移動と曲線の移動を分ける</a></div></details>
+</article>
+<article class="lesson" id="biology-feedback" data-subject-label="生物・生物基礎" data-unit="生物基礎・体内環境" data-review-anchor="#biology-feedback">
+<header><p class="eyebrow">生物基礎・体内環境 <span class="level">基本</span></p>
+<h2>変化を戻す向きの応答を探す</h2></header>
+<div class="cue"><strong>見分け方</strong><p>体内の値が変わると、ホルモンや器官がどう応答するかを問われる。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>食後に血糖値が上昇し、正常な調節によってインスリンの分泌量が増えた。インスリンの作用は、この変化を打ち消す向きか強める向きか。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>初めに変化する値と、上がったか下がったかを書き出す。</li><li>応答がその変化を打ち消す向きなら、負のフィードバックとして整理する。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>打ち消す向き。インスリンは筋肉などでのグルコース取り込みや、グルコースをグリコーゲンとして蓄える過程を促し、血糖値を下げる方向にはたらく。</p>
+
+<p class="pitfall"><strong>確認</strong> インスリン分泌量と血糖値が最初はどちらも増えることから、その作用も血糖値を上げると考える。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　条件を式や図にする</p><div class="related-links"><a href="#geography-industry-location">地理 · 何をどこまで運ぶか比べる</a><a href="#world-history-trade-directions">世界史 · 航路に品物と移動方向を書く</a></div></details>
+</article>
+<article class="lesson" id="biology-succession-conditions" data-subject-label="生物・生物基礎" data-unit="生物基礎・植生の遷移" data-review-anchor="#biology-succession-conditions">
+<header><p class="eyebrow">生物基礎・植生の遷移 <span class="level">基本</span></p>
+<h2>環境の変化と次に育つ植物をつなぐ</h2></header>
+<div class="cue"><strong>見分け方</strong><p>年数が経つと、ある植物が減り別の植物が増える理由を説明する。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>明るい場所に育つ木が林をつくると、林床に届く光が減った。日陰でも育つ木Pと、強い光が必要な木Qの実生を比べると、林冠に隙間が少ない間はどちらが育ちやすいか。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>初期の植物によって変わった光や土壌の条件を探す。</li><li>変化した条件で、どの植物の実生が成長しやすいか資料と照合する。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>P。林冠の下では光が弱く、資料で日陰に耐えられる条件をもつのがP。林の上を覆う木の成長が、次の世代の実生を取り巻く条件を変えている。</p>
+
+<p class="pitfall"><strong>確認</strong> 先に生えた木の種類が、次の世代でも必ず有利だと考える。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　時間順に整理する</p><div class="related-links"><a href="#french-depuis">フランス語 · depuis を現在までの時間に置く</a><a href="#chinese-negation-time">中国語 · 否定の意味を時を表す語と合わせて読む</a></div></details>
+</article>
+<article class="lesson" id="biology-pea-testcross" data-subject-label="生物・生物基礎" data-unit="生物・遺伝" data-review-anchor="#biology-pea-testcross">
+<header><p class="eyebrow">生物・遺伝 <span class="level">標準</span></p>
+<h2>検定交雑で子の型から親の型を考える</h2></header>
+<div class="cue"><strong>見分け方</strong><p>優性の形質を示す個体の遺伝子型が分からず、劣性の型との交雑結果がある。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>あるエンドウで花の形質はAがaに対して完全優性である。優性形質を示す個体をaaの個体と交雑したところ、劣性形質の子が得られた。優性形質を示す親の遺伝子型は。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>完全優性なら、優性の形質を示す親に考えられる遺伝子型を二つ書く。</li><li>劣性ホモ接合の親が出す配偶子を一種類に固定し、子で可能な組み合わせを比べる。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>Aa。劣性形質を示す子の型はaa。aaの親からaを一つ、優性形質を示す親からもaを一つ受け取ったので、優性の親はAAではなくAa。</p>
+
+<p class="pitfall"><strong>確認</strong> 優性の形質が見えることだけで、その個体をAAと決める。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　条件を式や図にする</p><div class="related-links"><a href="#geography-industry-location">地理 · 何をどこまで運ぶか比べる</a><a href="#world-history-trade-directions">世界史 · 航路に品物と移動方向を書く</a></div></details>
+</article>
+<article class="lesson" id="biology-control-light" data-subject-label="生物・生物基礎" data-unit="生物・実験考察" data-review-anchor="#biology-control-light">
+<header><p class="eyebrow">生物・実験考察 <span class="level">融合</span></p>
+<h2>調べたい条件だけが違う比較を選ぶ</h2></header>
+<div class="cue"><strong>見分け方</strong><p>一度に複数の条件が変わる実験から、特定の要因の影響を判断する。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>同種の植物を用いて、Aは20℃・弱光で光合成量4、Bは20℃・強光で量9、Cは30℃・強光で量7だった。その他の条件はすべて同じ。光の強さの影響を見るにはどの二組を比べるか。</p><table class="worked-table"><caption>実験の条件</caption><thead><tr><th scope="col">組</th><th scope="col">温度</th><th scope="col">光</th><th scope="col">光合成量</th></tr></thead><tbody><tr><th scope="row">A</th><td>20℃</td><td>弱</td><td>4</td></tr><tr><th scope="row">B</th><td>20℃</td><td>強</td><td>9</td></tr><tr><th scope="row">C</th><td>30℃</td><td>強</td><td>7</td></tr></tbody></table></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>何の影響を調べたいかを一つに決め、操作する条件に印を付ける。</li><li>その条件以外が同じ二組を探し、測定結果を比較する。</li><li>資料が示す条件の範囲で結論を書く。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>AとB。温度を20℃にそろえて光の強さだけを変えたので、この温度と光の範囲では強光の方が観測した光合成量が大きいといえる。</p>
+
+<p class="pitfall"><strong>確認</strong> AとCを比べると温度も光も異なり、差を光の強さだけに帰せない。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　条件をそろえて比べる</p><div class="related-links"><a href="#chinese-comparison-bi">中国語 · 比の前後を分けて比較の向きを読む</a><a href="#korean-contrast-jiman">韓国語 · 지만 の前後で時刻と場所を比べる</a></div></details>
+</article>
+<article class="lesson" id="biology-trophic-efficiency" data-subject-label="生物・生物基礎" data-unit="生物・生態系の物質とエネルギー" data-review-anchor="#biology-trophic-efficiency">
+<header><p class="eyebrow">生物・生態系の物質とエネルギー <span class="level">標準</span></p>
+<h2>栄養段階ごとに移る割合を掛ける</h2></header>
+<div class="cue"><strong>見分け方</strong><p>生産者から消費者へ移るエネルギー量を、段階ごとの割合から求める。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>単純化した食物連鎖で、生産者の純生産量は1,000kJ、一次消費者の生産量はその20%、二次消費者の生産量は一次消費者の生産量の10%だった。二次消費者の生産量は。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>生産者、一次消費者、二次消費者の順に並べる。</li><li>割合が何に対する割合かを確かめ、順に掛ける。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>20kJ。一次消費者は1,000×0.20＝200kJ、その10%が20kJ。最初の生産者から見ると2%にあたる。</p>
+
+<p class="pitfall"><strong>確認</strong> 両方の割合を生産者の純生産量の割合だと読み、二次消費者を100kJとする。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　条件を式や図にする</p><div class="related-links"><a href="#geography-industry-location">地理 · 何をどこまで運ぶか比べる</a><a href="#world-history-trade-directions">世界史 · 航路に品物と移動方向を書く</a></div></details>
+</article>
+<article class="lesson" id="biology-tree-ancestor" data-subject-label="生物・生物基礎" data-unit="生物・進化と系統" data-review-anchor="#biology-tree-ancestor">
+<header><p class="eyebrow">生物・進化と系統 <span class="level">標準</span></p>
+<h2>枝を戻って共通祖先を比べる</h2></header>
+<div class="cue"><strong>見分け方</strong><p>系統樹で、生物同士の進化上の近さを判断する。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>根付き系統樹で、最初にCの枝と残りの枝が分かれ、後に残りの枝からAとBが分かれた。AとB、BとCのうち、より最近の共通祖先をもつ組は。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>先端にある二つの系統から、枝を過去の方にたどる。</li><li>枝が最初に合流する分岐点を探し、他の組より最近の共通祖先か確かめる。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>AとB。AとBの枝を戻ると後の分岐点で合流する。BとCは、Cが分かれた最初の分岐点まで戻らないと合流しない。</p>
+
+<p class="pitfall"><strong>確認</strong> 図で隣に描かれた先端同士を、枝分かれを見ずに近縁と判断する。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　構造を見抜く</p><div class="related-links"><a href="#german-separable-verb">ドイツ語 · 活用した動詞と文末の前つづりを結ぶ</a><a href="#french-restriction">フランス語 · ne と que の組み合わせで限定を読む</a></div></details>
+</article></div></section><section class="section" id="section-earth-science"><h2 class="offline-title">地学・地学基礎</h2><div class="lessons">
+<article class="lesson" id="earth-science-ps-time" data-subject-label="地学・地学基礎" data-unit="地学基礎・地震波" data-review-anchor="#earth-science-ps-time">
+<header><p class="eyebrow">地学基礎・地震波 <span class="level">基本</span></p>
+<h2>到着時刻の差を速さの違いで説明する</h2></header>
+<div class="cue"><strong>見分け方</strong><p>P波とS波の到着時刻の差から震源までの距離を求める。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>単純化して、P波は6km/s、S波は3km/sで震源から観測点まで同じ経路を進むとする。S波がP波の12秒後に着いたとき、震源からの経路の長さは。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>二種類の波が同時に出たとみなし、観測点への到着時刻の差を求める。</li><li>それぞれの時間を距離÷速さで表し、S波の時間からP波の時間を引く。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>72km。距離をd kmとすると、到着の差はd/3−d/6＝12。したがってd/6＝12。</p>
+
+<p class="pitfall"><strong>確認</strong> P波とS波の速さの差に、到着時刻の差をそのまま掛ける。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　条件を式や図にする</p><div class="related-links"><a href="#geography-industry-location">地理 · 何をどこまで運ぶか比べる</a><a href="#world-history-trade-directions">世界史 · 航路に品物と移動方向を書く</a></div></details>
+</article>
+<article class="lesson" id="earth-science-strata-cuts" data-subject-label="地学・地学基礎" data-unit="地学基礎・地層と地史" data-review-anchor="#earth-science-strata-cuts">
+<header><p class="eyebrow">地学基礎・地層と地史 <span class="level">基本</span></p>
+<h2>地層を切ったものを後に置く</h2></header>
+<div class="cue"><strong>見分け方</strong><p>地層と断層・岩脈の関係から、出来事を古い順に並べる。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>逆転していない地層で、下から砂岩層A、泥岩層Bがあり、両層を断層が切っている。変形していない礫岩層Cがその切れ目の上を覆う。四つの出来事を古い順に並べよう。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>地層を切る断層や岩脈を探し、切られた地層の形成を先に置く。</li><li>後から積もった層が断層を覆っているなら、その堆積を断層より後に置く。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>Aの堆積、Bの堆積、断層によるずれ、Cの堆積。A・Bができた後に断層が生じ、Cはそのずれを覆うように堆積した。</p>
+<table class="worked-table"><caption>見え方と前後関係</caption><thead><tr><th scope="col">見え方</th><th scope="col">解釈</th></tr></thead><tbody><tr><th scope="row">Aの上にB</th><td>Aが先、Bが後</td></tr><tr><th scope="row">断層がAとBを切る</th><td>断層はA・Bより後</td></tr><tr><th scope="row">Cが断層を覆う</th><td>Cは断層より後</td></tr></tbody></table>
+<p class="pitfall"><strong>確認</strong> 上下関係だけを見て、地層を横切る断層がいつ生じたかを調べない。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　時間順に整理する</p><div class="related-links"><a href="#french-depuis">フランス語 · depuis を現在までの時間に置く</a><a href="#chinese-negation-time">中国語 · 否定の意味を時を表す語と合わせて読む</a></div></details>
+</article>
+<article class="lesson" id="earth-science-adiabatic-cloud" data-subject-label="地学・地学基礎" data-unit="地学基礎・大気と雲" data-review-anchor="#earth-science-adiabatic-cloud">
+<header><p class="eyebrow">地学基礎・大気と雲 <span class="level">基本</span></p>
+<h2>空気の上昇から雲までの順をつなぐ</h2></header>
+<div class="cue"><strong>見分け方</strong><p>空気が斜面を上がったときに、雲ができる理由を問われる。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>湿った空気が山の風上斜面を上昇し、十分に冷えた。斜面に沿って雲ができる理由を、気圧と凝結を使って説明しよう。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>高所では周囲の気圧が低いため、上昇した空気のかたまりが膨張すると考える。</li><li>膨張で気温が下がり、露点に達すると水蒸気が凝結し始めるという順に説明する。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>上空の気圧が低いので、持ち上げられた空気は膨張して温度が下がる。露点に達して水蒸気が凝結し、小さな水滴となって雲をつくる。</p>
+
+<p class="pitfall"><strong>確認</strong> 気圧が下がるとだけ書き、冷却と凝結の段階を抜かす。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　条件を式や図にする</p><div class="related-links"><a href="#geography-industry-location">地理 · 何をどこまで運ぶか比べる</a><a href="#world-history-trade-directions">世界史 · 航路に品物と移動方向を書く</a></div></details>
+</article>
+<article class="lesson" id="earth-science-moon-position" data-subject-label="地学・地学基礎" data-unit="地学基礎・太陽系と月" data-review-anchor="#earth-science-moon-position">
+<header><p class="eyebrow">地学基礎・太陽系と月 <span class="level">基本</span></p>
+<h2>月と太陽の向きを地球から比べる</h2></header>
+<div class="cue"><strong>見分け方</strong><p>月の満ち欠けから、月が昇るおよその時刻や方角を考える。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>中緯度で、地平線まで見通せる場所にいる。満月はおよそ日の出ごろと日没ごろのどちらに昇るか。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>地球から見た太陽と月の離れ方を図に置く。</li><li>月がどの形のときに、太陽とほぼ同方向か反対方向かを確かめる。</li><li>太陽の出入りと照らし合わせ、月が見える時刻の目安を求める。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>日没ごろ。満月は太陽とほぼ反対側に見えるので、太陽が西の空に沈むころ、月は東の空に昇る。</p>
+
+<p class="pitfall"><strong>確認</strong> 月がほぼ太陽の方向にあるのは新月のころ。満月まで同じ向きに置くと時刻が逆になる。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　条件を式や図にする</p><div class="related-links"><a href="#geography-industry-location">地理 · 何をどこまで運ぶか比べる</a><a href="#world-history-trade-directions">世界史 · 航路に品物と移動方向を書く</a></div></details>
+</article>
+<article class="lesson" id="earth-science-ocean-density" data-subject-label="地学・地学基礎" data-unit="地学・海水と海洋循環" data-review-anchor="#earth-science-ocean-density">
+<header><p class="eyebrow">地学・海水と海洋循環 <span class="level">標準</span></p>
+<h2>海水を温度と塩分の条件で比べる</h2></header>
+<div class="cue"><strong>見分け方</strong><p>温度と塩分が違う海水について、どちらが沈みやすいか考える。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>同じ圧力で、Aは数℃低いが塩分も低い海水、Bはそれより暖かいが塩分の高い海水である。温度と塩分の大小関係だけで、AとBの密度の大小を決められるか。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>同じ圧力・通常の海水の範囲で、低温と高塩分が密度を大きくする向きだと確認する。</li><li>二つの効果が逆向きなら、温度・塩分に対応する密度の図表から読み取る。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>決められない。Aの低温は密度を上げる方向、低い塩分は下げる方向なので、温度と塩分の具体的な値と、密度を読み取れる図表が要る。</p>
+
+<p class="pitfall"><strong>確認</strong> 温度か塩分の片方だけを見て、必ずどちらが重いと決める。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　条件をそろえて比べる</p><div class="related-links"><a href="#chinese-comparison-bi">中国語 · 比の前後を分けて比較の向きを読む</a><a href="#korean-contrast-jiman">韓国語 · 지만 の前後で時刻と場所を比べる</a></div></details>
+</article>
+<article class="lesson" id="earth-science-isotope-clock" data-subject-label="地学・地学基礎" data-unit="地学・放射年代" data-review-anchor="#earth-science-isotope-clock">
+<header><p class="eyebrow">地学・放射年代 <span class="level">標準</span></p>
+<h2>残った割合から半減期を数える</h2></header>
+<div class="cue"><strong>見分け方</strong><p>放射性同位体の残存割合から、岩石の形成年代を計算する。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>ある岩石ができてから、親同位体は放射壊変だけで減少した。半減期は5,000万年で、現在の親同位体は形成時の1/8。形成年代は何年前か。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>形成後に同位体の出入りがなく、残存割合の初期値が分かる条件を確認する。</li><li>1/2、1/4、1/8のように何回半分になったか数え、その回数を半減期に掛ける。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>1億5,000万年前。初期量から3回半分になると1/8になるので、半減期の3倍。</p>
+
+<p class="pitfall"><strong>確認</strong> 残った割合1/8を、半減期が8回という意味に読み替える。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　時間順に整理する</p><div class="related-links"><a href="#french-depuis">フランス語 · depuis を現在までの時間に置く</a><a href="#chinese-negation-time">中国語 · 否定の意味を時を表す語と合わせて読む</a></div></details>
+</article>
+<article class="lesson" id="earth-science-seafloor-rate" data-subject-label="地学・地学基礎" data-unit="地学・海洋底とプレート" data-review-anchor="#earth-science-seafloor-rate">
+<header><p class="eyebrow">地学・海洋底とプレート <span class="level">標準</span></p>
+<h2>海嶺の片側の速さと両側の広がりを分ける</h2></header>
+<div class="cue"><strong>見分け方</strong><p>海嶺からの距離と海洋底の岩石の年代から拡大速度を求める。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>海嶺の中心から両側に各60km離れた地点で、同じ300万年前の海洋底が見つかった。一定の速さで広がったとすると、片側の速さと左右の海洋底が離れる速さは。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>岩石が海嶺でできたとみなし、その後に進んだ海嶺からの距離を読む。</li><li>距離を年代で割って片側の速さを出し、両側が離れる速さを問われたときは両側の値を足す。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>片側は2cm/年、左右が離れる速さは4cm/年。60km÷300万年＝2cm/年で、両側が反対向きに同じ速さで動く。</p>
+
+<p class="pitfall"><strong>確認</strong> 海嶺から片側だけの距離を使い、両側が離れる速さをそのまま2cm/年とする。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　条件を式や図にする</p><div class="related-links"><a href="#geography-industry-location">地理 · 何をどこまで運ぶか比べる</a><a href="#world-history-trade-directions">世界史 · 航路に品物と移動方向を書く</a></div></details>
+</article>
+<article class="lesson" id="earth-science-spectral-shift" data-subject-label="地学・地学基礎" data-unit="地学・恒星と宇宙" data-review-anchor="#earth-science-spectral-shift">
+<header><p class="eyebrow">地学・恒星と宇宙 <span class="level">標準</span></p>
+<h2>スペクトル線を基準の波長と照合する</h2></header>
+<div class="cue"><strong>見分け方</strong><p>恒星や銀河のスペクトル線のずれから、視線方向の運動を判断する。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>ある恒星の吸収線が656.6nmで観測された。同じ線の実験室での波長は656.3nm。視線方向のドップラー効果だけを考えると、恒星は観測者に近づいているか遠ざかっているか。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>同じ元素の同じ線を選び、実験室の基準波長と観測波長を比べる。</li><li>運動のドップラー効果だけを考える条件で、長波長側なら遠ざかる、短波長側なら近づくと判断する。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>遠ざかっている。観測波長が基準より長く、赤方偏移している。</p>
+
+<p class="pitfall"><strong>確認</strong> 吸収線が暗く見えることと、吸収線の波長が長くなることを混同する。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　根拠を探す</p><div class="related-links"><a href="#german-opening-times">ドイツ語 · 開館時間と返却の条件を分ける</a><a href="#japan-history-source-position">日本史 · 書き手の立場と史料の目的を押さえる</a></div></details>
+</article></div></section><section class="section" id="section-science-basics"><h2 class="offline-title">理科基礎の選択</h2><div class="lessons">
+<article class="lesson" id="science-basics-two-ranges" data-subject-label="理科基礎の選択" data-unit="共通テスト・理科基礎の選択" data-review-anchor="#science-basics-two-ranges">
+<header><p class="eyebrow">共通テスト・理科基礎の選択 <span class="level">基本</span></p>
+<h2>志望校で使える二つの範囲を確認する</h2></header>
+<div class="cue"><strong>見分け方</strong><p>『物理基礎／化学基礎／生物基礎／地学基礎』を受ける予定で、勉強する分野を選ぶ。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>ある大学の募集要項には『理科基礎を用いる場合は化学基礎を含む二範囲』とあるとする。この大学を受けるとき、生物基礎と地学基礎の組み合わせで出願できるか。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>受験年度の出題範囲を確認して、理科基礎の一科目で解答する範囲の数を確かめる。</li><li>志望校・学部・選抜方式ごとの募集要項を見て、基礎科目を使えるか、指定の範囲や組み合わせがあるか調べる。</li><li>同じ組み合わせで出願できる候補を並べ、使える範囲から二つを決める。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>この要項では出願できない。理科基礎は四範囲から二つを解答する一科目だが、この大学は二範囲のうち化学基礎を含むことを求めている。</p>
+
+<p class="pitfall"><strong>確認</strong> 大学入試センターの選択ルールを満たす組み合わせが、志望校でもすべて利用できると思い込む。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　根拠を探す</p><div class="related-links"><a href="#german-opening-times">ドイツ語 · 開館時間と返却の条件を分ける</a><a href="#japan-history-source-position">日本史 · 書き手の立場と史料の目的を押さえる</a></div></details>
+</article></div></section><section class="section" id="section-geography"><h2 class="offline-title">地理</h2><div class="lessons">
+<article class="lesson" id="geography-climate-season" data-subject-label="地理" data-unit="気候・雨温図" data-review-anchor="#geography-climate-season">
+<header><p class="eyebrow">気候・雨温図 <span class="level">標準</span></p>
+<h2>気温の山と雨の季節を重ねる</h2></header>
+<div class="cue"><strong>見分け方</strong><p>雨温図で複数の地点を比べ、半球や乾季を判定する。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>地点Xの月平均気温は1月に最も高く、7月に最も低い。雨は12〜2月に少なく、6〜8月に多い。中緯度の地点とすると、どちらの半球で、どの季節に雨が少ないか。</p><table class="worked-table"><caption>雨と気温を同じ暦に置く</caption><thead><tr><th scope="col">月</th><th scope="col">気温の特徴</th><th scope="col">雨</th></tr></thead><tbody><tr><th scope="row">12〜2月</th><td>1月に最高</td><td>少</td></tr><tr><th scope="row">6〜8月</th><td>7月に最低</td><td>多</td></tr></tbody></table></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>気温が最も高い月と最も低い月に印を付け、その地点の夏・冬を判断する。</li><li>雨の少ない月がどちらの季節に重なるか確かめる。</li><li>気候区分まで問われるときは、年降水量や各月の基準値も見る。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>南半球で、夏に雨が少ない。中緯度では1月ごろが夏で7月ごろが冬という気温の並びを、雨が少ない月と重ねた。</p>
+
+<p class="pitfall"><strong>確認</strong> 日本と同じ月を夏とみなし、雨が少ない時期を冬と答える。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　表やグラフを読む</p><div class="related-links"><a href="#civics-economics-demand">公共・倫理・政治経済 · 需要曲線上の移動と曲線の移動を分ける</a><a href="#quad-range">数学 · 頂点と端点を比べて最大・最小</a></div></details>
+</article>
+<article class="lesson" id="geography-population-pyramid" data-subject-label="地理" data-unit="人口・都市" data-review-anchor="#geography-population-pyramid">
+<header><p class="eyebrow">人口・都市 <span class="level">標準</span></p>
+<h2>人口ピラミッドの幅と単位を見る</h2></header>
+<div class="cue"><strong>見分け方</strong><p>人口ピラミッドで国や時期を比べ、ある年齢層について判断する。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>総人口に占める0〜14歳の割合はA国20%、B国15%。総人口はA国500万人、B国1,000万人。0〜14歳の人数が多いのはどちらか。</p><table class="worked-table"><caption>比べる二つの国</caption><thead><tr><th scope="col">国</th><th scope="col">0〜14歳の割合</th><th scope="col">総人口</th></tr></thead><tbody><tr><th scope="row">A</th><td>20%</td><td>500万人</td></tr><tr><th scope="row">B</th><td>15%</td><td>1,000万人</td></tr></tbody></table></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>横軸が人数か割合か、左右が何を表すかを確かめる。</li><li>調べたい年齢層の幅を同じ単位で比べ、必要なら総人口を掛けて人数に戻す。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>B国。A国は500万人×20%＝100万人で、B国は1,000万人×15%＝150万人。グラフで割合が高くても、人数は総人口にも左右される。</p>
+
+<p class="pitfall"><strong>確認</strong> 割合の棒の長さをそのまま人数の大小に読み替える。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　表やグラフを読む</p><div class="related-links"><a href="#civics-economics-demand">公共・倫理・政治経済 · 需要曲線上の移動と曲線の移動を分ける</a><a href="#quad-range">数学 · 頂点と端点を比べて最大・最小</a></div></details>
+</article>
+<article class="lesson" id="geography-industry-location" data-subject-label="地理" data-unit="産業・工業立地" data-review-anchor="#geography-industry-location">
+<header><p class="eyebrow">産業・工業立地 <span class="level">標準</span></p>
+<h2>何をどこまで運ぶか比べる</h2></header>
+<div class="cue"><strong>見分け方</strong><p>原料産地と消費地の位置を見て、工場の立地理由を説明する。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>原料4tを加工して製品1tをつくる。原料産地と市場は80km離れ、運賃は原料・製品とも1t・1kmあたり同じ。輸送費だけを考えると、原料産地と市場のどちらに工場を置くとよいか。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>工場が原料と製品のどちらを遠くまで運ぶことになるか、候補ごとに書き出す。</li><li>重さ、距離、運賃の条件から輸送費を比べる。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>原料産地。市場に置くと原料を4×80＝320t・km運ぶ。原料産地なら、製品を1×80＝80t・km運べばよい。</p>
+
+<p class="pitfall"><strong>確認</strong> 市場への距離だけを見て、原料の運搬費を忘れる。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　条件を式や図にする</p><div class="related-links"><a href="#world-history-trade-directions">世界史 · 航路に品物と移動方向を書く</a><a href="#civics-economics-real">公共・倫理・政治経済 · 買える量で名目と実質を分ける</a></div></details>
+</article>
+<article class="lesson" id="geography-map-scale" data-subject-label="地理" data-unit="地図・GIS" data-review-anchor="#geography-map-scale">
+<header><p class="eyebrow">地図・GIS <span class="level">標準</span></p>
+<h2>縮尺を現地の距離に戻す</h2></header>
+<div class="cue"><strong>見分け方</strong><p>地図上の長さと縮尺から、実際の直線距離を求める。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>縮尺1:25,000の地図で、二つの地点の直線距離が8cmだった。実際の距離は何kmか。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>「1:N」を、地図上の1cmが現地でNcmと読む。</li><li>地図上の長さにNを掛け、必要な単位に換算する。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>2km。8cm×25,000＝200,000cm＝2,000m。求めたのは地点間の直線距離。</p>
+
+<p class="pitfall"><strong>確認</strong> cmからmへの換算を飛ばしたり、直線距離を道路に沿った距離と考えたりする。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　条件を式や図にする</p><div class="related-links"><a href="#world-history-trade-directions">世界史 · 航路に品物と移動方向を書く</a><a href="#civics-economics-real">公共・倫理・政治経済 · 買える量で名目と実質を分ける</a></div></details>
+</article></div></section><section class="section" id="section-japanese-history"><h2 class="offline-title">日本史</h2><div class="lessons">
+<article class="lesson" id="japan-history-land-tax" data-subject-label="日本史" data-unit="近代・明治の改革" data-review-anchor="#japan-history-land-tax">
+<header><p class="eyebrow">近代・明治の改革 <span class="level">標準</span></p>
+<h2>税の基準・納める人・方法を分ける</h2></header>
+<div class="cue"><strong>見分け方</strong><p>土地に関する改革のうち、似た制度を説明文で見分ける。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>「土地の価格を課税の基準とし、土地所有者が貨幣で納める」という、明治初期の改革は何か。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>税の基準、負担者、現物か貨幣かを分けて読む。</li><li>各用語の時代と三つの条件を照合する。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>地租改正。地価を基準とする負担を土地所有者に課し、金納としたという組み合わせが手掛かり。</p>
+
+<p class="pitfall"><strong>確認</strong> 土地の課税という共通点だけで、耕地の調査を中心とする太閤検地と取り違える。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　条件をそろえて比べる</p><div class="related-links"><a href="#chinese-comparison-bi">中国語 · 比の前後を分けて比較の向きを読む</a><a href="#korean-contrast-jiman">韓国語 · 지만 の前後で時刻と場所を比べる</a></div></details>
+</article>
+<article class="lesson" id="japan-history-medieval-office" data-subject-label="日本史" data-unit="中世・鎌倉幕府" data-review-anchor="#japan-history-medieval-office">
+<header><p class="eyebrow">中世・鎌倉幕府 <span class="level">標準</span></p>
+<h2>役職の管轄と仕事内容を照合する</h2></header>
+<div class="cue"><strong>見分け方</strong><p>幕府の役職が複数並び、どの範囲で何を担当したかを選ぶ。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>鎌倉時代の役職で、国ごとの軍事・警察に関わったのはA、個々の荘園・公領で管理や年貢徴収を担ったのはB。AとBに入る役職は何か。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>役職の管轄が国単位か、個々の荘園・公領かを確かめる。</li><li>軍事・警察か、土地の管理・年貢徴収かを照合する。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>Aは守護、Bは地頭。ともに幕府が任命した役職だが、国ごとの管轄と現地の所領の管理という違いで判別できる。</p>
+
+<p class="pitfall"><strong>確認</strong> 「守護・地頭」を一組の語としてだけ覚えると、職務を逆に当てはめやすい。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　条件をそろえて比べる</p><div class="related-links"><a href="#chinese-comparison-bi">中国語 · 比の前後を分けて比較の向きを読む</a><a href="#korean-contrast-jiman">韓国語 · 지만 の前後で時刻と場所を比べる</a></div></details>
+</article>
+<article class="lesson" id="japan-history-modern-order" data-subject-label="日本史" data-unit="近代・年代整序" data-review-anchor="#japan-history-modern-order">
+<header><p class="eyebrow">近代・年代整序 <span class="level">標準</span></p>
+<h2>制度の前後関係を組み立てる</h2></header>
+<div class="cue"><strong>見分け方</strong><p>近い時代の出来事を、古い順に並べる必要がある。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>①第1回衆議院議員総選挙、②民撰議院設立建白書、③大日本帝国憲法の発布を古い順に並べよう。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>出来事を、運動・準備・制度の開始のように整理する。</li><li>前の出来事が次の前提になっている部分からつなぎ、分かる年号で確認する。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>②→③→①。議会開設を求める建白書が1874年、憲法発布が1889年、第1回衆議院議員総選挙が1890年。</p>
+
+<p class="pitfall"><strong>確認</strong> 制度が実際に動き始める時期と、制度を求める運動やその公布の時期を混同する。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　時間順に整理する</p><div class="related-links"><a href="#french-depuis">フランス語 · depuis を現在までの時間に置く</a><a href="#chinese-negation-time">中国語 · 否定の意味を時を表す語と合わせて読む</a></div></details>
+</article>
+<article class="lesson" id="japan-history-source-position" data-subject-label="日本史" data-unit="歴史総合・史料読解" data-review-anchor="#japan-history-source-position">
+<header><p class="eyebrow">歴史総合・史料読解 <span class="level">標準</span></p>
+<h2>書き手の立場と史料の目的を押さえる</h2></header>
+<div class="cue"><strong>見分け方</strong><p>同じ地域や事件について異なる記録があり、何を言えるかを問われる。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>架空の町で、役所の布告には「露店を道に出してはならない」、翌月の旅行者の日記には「道に露店が並んでいた」とある。布告だけで露店がなくなったと言えるか。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>書き手、宛先、書かれた時期と目的を確認する。</li><li>記録が直接示す事実と、別の資料を見ないと確かめられないことを分ける。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>言えない。布告は役所が禁止したことを示す。旅行者の日記には翌月に残っていた例があるが、町のすべての道路の様子までは分からない。</p>
+
+<p class="pitfall"><strong>確認</strong> 規則で決められたことを、現場で実際に起きたことと同じように扱う。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　根拠を探す</p><div class="related-links"><a href="#german-opening-times">ドイツ語 · 開館時間と返却の条件を分ける</a><a href="#world-history-map-and-claim">世界史 · 地図の変化から言える範囲を決める</a></div></details>
+</article></div></section><section class="section" id="section-world-history"><h2 class="offline-title">世界史</h2><div class="lessons">
+<article class="lesson" id="world-history-same-period" data-subject-label="世界史" data-unit="地域間の比較・同時代史" data-review-anchor="#world-history-same-period">
+<header><p class="eyebrow">地域間の比較・同時代史 <span class="level">標準</span></p>
+<h2>一つの年代を別の地域にも置く</h2></header>
+<div class="cue"><strong>見分け方</strong><p>西洋とアジアなど、異なる地域で起きたことを時期で比べる。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>フランス革命が始まった1789年、中国を支配していた王朝は明と清のどちらか。明は17世紀半ばに滅んだと考えよう。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>年号や世紀が分かる事件を時間軸の基準にする。</li><li>もう一方の地域についても開始・終了年を押さえ、時間軸で重なるか確かめる。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>清。明の滅亡は17世紀半ばで、18世紀末の1789年には後を継いだ清が中国を支配していた。</p>
+
+<p class="pitfall"><strong>確認</strong> 出来事を地域別の年表で覚えたまま、別地域の世紀と照合しない。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　時間順に整理する</p><div class="related-links"><a href="#french-depuis">フランス語 · depuis を現在までの時間に置く</a><a href="#chinese-negation-time">中国語 · 否定の意味を時を表す語と合わせて読む</a></div></details>
+</article>
+<article class="lesson" id="world-history-trade-directions" data-subject-label="世界史" data-unit="近世・世界交易" data-review-anchor="#world-history-trade-directions">
+<header><p class="eyebrow">近世・世界交易 <span class="level">標準</span></p>
+<h2>航路に品物と移動方向を書く</h2></header>
+<div class="cue"><strong>見分け方</strong><p>どの品物がどの地域からどの地域に運ばれたかを問われる。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>スペイン領時代、船がアカプルコを出てマニラに銀を運び、マニラからアカプルコへはアジア産の絹織物などを運んだ。太平洋の西向きに運ばれた品物は何か。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>文中の出発地と到着地を拾い、矢印でつなぐ。</li><li>同じ航路でも、行きと帰りで運ばれた品物を分けて整理する。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>銀。アメリカ大陸側のアカプルコからアジア側のマニラへ向かう便なので、太平洋を横断する西向きの航路と分かる。</p>
+
+<p class="pitfall"><strong>確認</strong> 往路・復路を区別せず、アジア産の絹を西向きと答える。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　条件を式や図にする</p><div class="related-links"><a href="#geography-industry-location">地理 · 何をどこまで運ぶか比べる</a><a href="#civics-economics-real">公共・倫理・政治経済 · 買える量で名目と実質を分ける</a></div></details>
+</article>
+<article class="lesson" id="world-history-industrial-cause" data-subject-label="世界史" data-unit="近代・産業革命" data-review-anchor="#world-history-industrial-cause">
+<header><p class="eyebrow">近代・産業革命 <span class="level">標準</span></p>
+<h2>技術から生産の変化を説明する</h2></header>
+<div class="cue"><strong>見分け方</strong><p>新しい技術が生産や暮らしにどんな影響を与えたかを記述する。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>水車で機械を動かしていた工場が蒸気機関を使えるようになった。原料輸送に便利な町に工場を置きやすくなる理由を説明しよう。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>新技術が置き換えた作業や動力を決める。</li><li>技術の導入と結果を、何がどのように変わったかを表す一段階でつなぐ。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>蒸気機関は燃料と水を確保すれば利用でき、水車のように一定の水流を動力として直接利用する立地に縛られにくくなるから。</p>
+
+<p class="pitfall"><strong>確認</strong> 「工場が増えたから」と結果だけを書き、立地条件が変わった理由を示さない。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　条件を式や図にする</p><div class="related-links"><a href="#geography-industry-location">地理 · 何をどこまで運ぶか比べる</a><a href="#civics-economics-real">公共・倫理・政治経済 · 買える量で名目と実質を分ける</a></div></details>
+</article>
+<article class="lesson" id="world-history-map-and-claim" data-subject-label="世界史" data-unit="歴史総合・地図資料" data-review-anchor="#world-history-map-and-claim">
+<header><p class="eyebrow">歴史総合・地図資料 <span class="level">標準</span></p>
+<h2>地図の変化から言える範囲を決める</h2></header>
+<div class="cue"><strong>見分け方</strong><p>異なる時期の地図を比べ、貿易圏や政治的範囲の変化を説明する。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>二つの架空の交易地図では、100年前の図に港AとBを結ぶ航路があり、後の図にはAとB、およびAとCを結ぶ航路がある。この二枚からAがCを領有したと分かるか。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>地図の年、凡例、掲載する対象を確かめる。</li><li>直接示される変化を言葉にしてから、原因や支配を示す別の根拠があるか確認する。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>分からない。後の図から読み取れるのはAとCの航路が描かれたこと。領有を判断するには政治的な境界や行政の記録が必要。</p>
+
+<p class="pitfall"><strong>確認</strong> 交易、移住、植民など、地図が示す関係と別の関係を混同する。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　根拠を探す</p><div class="related-links"><a href="#german-opening-times">ドイツ語 · 開館時間と返却の条件を分ける</a><a href="#japan-history-source-position">日本史 · 書き手の立場と史料の目的を押さえる</a></div></details>
+</article></div></section><section class="section" id="section-civics"><h2 class="offline-title">公共・倫理・政治経済</h2><div class="lessons">
+<article class="lesson" id="civics-public-choices" data-subject-label="公共・倫理・政治経済" data-unit="公共・合意形成" data-review-anchor="#civics-public-choices">
+<header><p class="eyebrow">公共・合意形成 <span class="level">標準</span></p>
+<h2>利害が違う当事者を並べる</h2></header>
+<div class="cue"><strong>見分け方</strong><p>地域や学校のルールについて、複数の立場の意見を調整する。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>公民館を夜も開けたい生徒と、夜の騒音を心配する住民がいる。双方の要望を考慮した試行案を考えよう。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>当事者ごとに、何を必要としていて何を心配しているか並べる。</li><li>案ごとの利点と負担を比べ、調整案がどの困りごとを減らすか説明する。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>閉館時刻を一定期間だけ1時間延ばし、その時間は談話室を閉めて自習室だけを開く。生徒の学習時間を確保しながら会話の音を抑え、試行後に利用状況と住民の意見を確認できる。</p>
+
+<p class="pitfall"><strong>確認</strong> 賛否の人数だけで案を選び、誰にどんな負担が生じるかを検討しない。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　条件をそろえて比べる</p><div class="related-links"><a href="#chinese-comparison-bi">中国語 · 比の前後を分けて比較の向きを読む</a><a href="#korean-contrast-jiman">韓国語 · 지만 の前後で時刻と場所を比べる</a></div></details>
+</article>
+<article class="lesson" id="civics-ethics-kant" data-subject-label="公共・倫理・政治経済" data-unit="倫理・西洋思想" data-review-anchor="#civics-ethics-kant">
+<header><p class="eyebrow">倫理・西洋思想 <span class="level">標準</span></p>
+<h2>判断が拠って立つ原理を探す</h2></header>
+<div class="cue"><strong>見分け方</strong><p>同じ行動を勧める二人の説明から、義務の考え方と結果の考え方を判別する。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>Aは「約束を破ってよいと皆が考えるなら、約束そのものが成り立たない」と述べる。Bは「守る方が関係者全体の幸福が大きい」と述べる。カントの考えに近い方はどちらか。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>それぞれの説明から判断の理由を抜き出す。</li><li>誰にでも当てはまる行為の原則に着目しているか、行為が生む幸福などの結果に着目しているかを照合する。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>A。自分が従う行為の原則を、誰もが従う普遍的な原則にできるかを考えている。Bは幸福という結果で判断する功利主義に近い。</p>
+
+<p class="pitfall"><strong>確認</strong> 二人が選ぶ行動が同じなので、判断の理由も同じだと考える。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　条件をそろえて比べる</p><div class="related-links"><a href="#chinese-comparison-bi">中国語 · 比の前後を分けて比較の向きを読む</a><a href="#korean-contrast-jiman">韓国語 · 지만 の前後で時刻と場所を比べる</a></div></details>
+</article>
+<article class="lesson" id="civics-ethics-virtue" data-subject-label="公共・倫理・政治経済" data-unit="倫理・古代ギリシャ" data-review-anchor="#civics-ethics-virtue">
+<header><p class="eyebrow">倫理・古代ギリシャ <span class="level">標準</span></p>
+<h2>中庸を場面に合う行動で考える</h2></header>
+<div class="cue"><strong>見分け方</strong><p>アリストテレスの中庸について、二つの極端な行動と適切な行動を比べる。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>危険を恐れていつも避ける人と、無謀に飛び込む人の両方がいる。アリストテレスの中庸に沿う勇気を、この二つと比べて説明しよう。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>何が過剰で何が不足か、同じ性質の両極を見つける。</li><li>その場面にふさわしい行いを考え、二つの極端との違いを説明する。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>危険を正しく見積もり、必要な場面で向き合う態度。勇気は、恐れに従いすぎる臆病と、恐れを軽視しすぎる無謀との中庸にあたる。</p>
+
+<p class="pitfall"><strong>確認</strong> 中庸を両極端の数値的な真ん中とみなし、場面へのふさわしさを考えない。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　条件をそろえて比べる</p><div class="related-links"><a href="#chinese-comparison-bi">中国語 · 比の前後を分けて比較の向きを読む</a><a href="#korean-contrast-jiman">韓国語 · 지만 の前後で時刻と場所を比べる</a></div></details>
+</article>
+<article class="lesson" id="civics-politics-powers" data-subject-label="公共・倫理・政治経済" data-unit="政治・経済・政治制度" data-review-anchor="#civics-politics-powers">
+<header><p class="eyebrow">政治・経済・政治制度 <span class="level">標準</span></p>
+<h2>誰が誰に何をするかで権限を整理する</h2></header>
+<div class="cue"><strong>見分け方</strong><p>国会・内閣・裁判所の関係について、権限の主体と相手を問われる。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>「不信任決議が可決されたら、内閣が解散される」とまとめた。衆議院の内閣不信任決議について、この説明を直そう。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>行為をする主体と、行為の対象をそれぞれ書き出す。</li><li>条文や資料の動詞を見て、どの機関に与えられた権限か確かめる。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>決議をするのは衆議院で、不信任の対象は内閣。日本国憲法第69条では、可決後10日以内に衆議院が解散されない限り、内閣は総辞職する。解散の対象は衆議院。</p>
+
+<p class="pitfall"><strong>確認</strong> 解散の対象である衆議院と、不信任の対象である内閣を混同する。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　構造を見抜く</p><div class="related-links"><a href="#german-separable-verb">ドイツ語 · 活用した動詞と文末の前つづりを結ぶ</a><a href="#french-restriction">フランス語 · ne と que の組み合わせで限定を読む</a></div></details>
+</article>
+<article class="lesson" id="civics-economics-demand" data-subject-label="公共・倫理・政治経済" data-unit="政治・経済・市場" data-review-anchor="#civics-economics-demand">
+<header><p class="eyebrow">政治・経済・市場 <span class="level">標準</span></p>
+<h2>需要曲線上の移動と曲線の移動を分ける</h2></header>
+<div class="cue"><strong>見分け方</strong><p>買われる量が変わり、価格が原因か、価格以外の条件が原因かを問われる。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>冷たい飲料の価格を変えず、暑くなったために買いたい人が増えた。他の条件を一定とすると、需要曲線はどう動くか。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>最初に変わった条件を、商品の価格と価格以外に分ける。</li><li>同じ価格で需要量が変わったなら、曲線全体が動く向きを判断する。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>右へ移動する。同じ価格で買いたい量が増えるため、元の需要曲線上を価格の変化に沿って移動する場合とは異なる。</p>
+
+<p class="pitfall"><strong>確認</strong> 買う量の増加を見てすぐに「価格が下がった」と考え、最初に変わった条件を忘れる。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　表やグラフを読む</p><div class="related-links"><a href="#geography-climate-season">地理 · 気温の山と雨の季節を重ねる</a><a href="#quad-range">数学 · 頂点と端点を比べて最大・最小</a></div></details>
+</article>
+<article class="lesson" id="civics-economics-real" data-subject-label="公共・倫理・政治経済" data-unit="政治・経済・物価" data-review-anchor="#civics-economics-real">
+<header><p class="eyebrow">政治・経済・物価 <span class="level">標準</span></p>
+<h2>買える量で名目と実質を分ける</h2></header>
+<div class="cue"><strong>見分け方</strong><p>賃金や所得が増えている一方で、物価も上がっている。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>名目賃金が5%上がり、物価が10%上がった。物価指数に表れる買い物全体で、賃金の購買力は上がったか。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>賃金と物価の元の水準を100とし、変化後の指数を出す。</li><li>名目賃金指数を物価指数で割って100を掛け、100より上か下かを見る。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>下がった。実質賃金指数は105÷110×100≒95.5。同じ尺度で見たとき、賃金で買える量はおよそ4.5%減った。</p>
+
+<p class="pitfall"><strong>確認</strong> 名目賃金の伸びだけで購買力を判断したり、5%−10%を正確な変化率とみなしたりする。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　条件を式や図にする</p><div class="related-links"><a href="#geography-industry-location">地理 · 何をどこまで運ぶか比べる</a><a href="#world-history-trade-directions">世界史 · 航路に品物と移動方向を書く</a></div></details>
+</article></div></section><section class="section" id="section-geography-history-mix"><h2 class="offline-title">地理総合／歴史総合／公共</h2><div class="lessons">
+<article class="lesson" id="geo-history-public-data" data-subject-label="地理総合／歴史総合／公共" data-unit="地理総合／歴史総合／公共" data-review-anchor="#geo-history-public-data">
+<header><p class="eyebrow">地理総合／歴史総合／公共 <span class="level">標準</span></p>
+<h2>分野が変わっても資料の範囲を確かめる</h2></header>
+<div class="cue"><strong>見分け方</strong><p>地図、史料、アンケートを比べ、同じ結論を支える資料かを問われる。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>ある町の旧版地図には駅周辺の店が、日記には駅前の混雑が記録されている。町が駅前で行ったアンケートでは回答者の7割がバス増便に賛成した。町民の7割が増便に賛成だと言えるか。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>資料ごとに対象地域、年代、調べた人や事柄を控える。</li><li>主張に必要な範囲と資料の範囲を見比べ、どこまでなら判断できるか書く。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>言えない。7割は駅前で答えた人の中での割合。旧版地図と日記は過去の駅前の様子を示し、町民全体の増便への賛否を示す資料にはならない。</p>
+
+<p class="pitfall"><strong>確認</strong> 数値があると、回答者と町民全体の違いや、資料の年代差を見落としやすい。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　根拠を探す</p><div class="related-links"><a href="#german-opening-times">ドイツ語 · 開館時間と返却の条件を分ける</a><a href="#japan-history-source-position">日本史 · 書き手の立場と史料の目的を押さえる</a></div></details>
+</article></div></section><section class="section" id="section-information"><h2 class="offline-title">情報Ⅰ</h2><div class="lessons">
+<article class="lesson" id="info-trace" data-subject-label="情報Ⅰ" data-unit="情報Ⅰ・プログラミング" data-review-anchor="#info-trace">
+<header><p class="eyebrow">情報Ⅰ・プログラミング <span class="level">基本</span></p>
+<h2>繰り返しをトレース表で追う</h2></header>
+<div class="cue"><strong>見分け方</strong><p>変数が繰り返しの中で更新され、処理後の値を聞かれる。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>s=0 から始める。i を1, 2, 3, 4の順に取り、i が偶数のときだけ s に i を加える。終了時の s は。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>周回ごとに、条件判定・更新後の値・出力を分けて書く。</li><li>更新の順番をコード上の順で追う。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>s は順に 0, 2, 2, 6。条件を通るのは i=2 と i=4 なので、最後は6。</p>
+<table class="worked-table"><caption>繰り返しごとの変数の値</caption><thead><tr><th scope="col">i</th><th scope="col">1</th><th scope="col">2</th><th scope="col">3</th><th scope="col">4</th></tr></thead><tbody><tr><th scope="row">更新後の s</th><td>0</td><td>2</td><td>2</td><td>6</td></tr></tbody></table>
+<p class="pitfall"><strong>確認</strong> i が奇数の周回では s を0に戻さない。前の値を保つ。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　時間順に整理する</p><div class="related-links"><a href="#french-depuis">フランス語 · depuis を現在までの時間に置く</a><a href="#chinese-negation-time">中国語 · 否定の意味を時を表す語と合わせて読む</a></div></details>
+</article>
+<article class="lesson" id="info-binary" data-subject-label="情報Ⅰ" data-unit="情報Ⅰ・デジタル表現" data-review-anchor="#info-binary">
+<header><p class="eyebrow">情報Ⅰ・デジタル表現 <span class="level">基本</span></p>
+<h2>2進数を桁の重みで読む</h2></header>
+<div class="cue"><strong>見分け方</strong><p>0と1で表された数を10進数や情報量に直す。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>2進数 10110 は10進数でいくつか。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>右端から 1, 2, 4, 8… の重みを割り当てる。</li><li>1が立っている桁の重みだけを足す。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>16+4+2=22。重み8と1の桁は0なので加えない。</p>
+
+<p class="pitfall"><strong>確認</strong> ビット列が符号付きで読む規則の場合は、設問の表現規則を優先する。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　構造を見抜く</p><div class="related-links"><a href="#german-separable-verb">ドイツ語 · 活用した動詞と文末の前つづりを結ぶ</a><a href="#french-restriction">フランス語 · ne と que の組み合わせで限定を読む</a></div></details>
+</article>
+<article class="lesson" id="info-spreadsheet" data-subject-label="情報Ⅰ" data-unit="情報Ⅰ・データの活用" data-review-anchor="#info-spreadsheet">
+<header><p class="eyebrow">情報Ⅰ・データの活用 <span class="level">基本</span></p>
+<h2>複製される式の参照を追う</h2></header>
+<div class="cue"><strong>見分け方</strong><p>表計算の式を別のセルにコピーした後の参照先を求める。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>B2 の式 =A2*$D$1 を B4 にコピーすると式はどうなる。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>コピー元からコピー先への行・列の移動量を書く。</li><li>各参照で $ の付いた行または列を固定し、残りを動かす。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>=A4*$D$1。A2 は2行下へ移り、$D$1 の列と行は固定。</p>
+
+<p class="pitfall"><strong>確認</strong> $ が片方にだけ付くと、固定されるのも列か行の片方だけ。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　構造を見抜く</p><div class="related-links"><a href="#german-separable-verb">ドイツ語 · 活用した動詞と文末の前つづりを結ぶ</a><a href="#french-restriction">フランス語 · ne と que の組み合わせで限定を読む</a></div></details>
+</article>
+<article class="lesson" id="info-data" data-subject-label="情報Ⅰ" data-unit="情報Ⅰ・データの活用" data-review-anchor="#info-data">
+<header><p class="eyebrow">情報Ⅰ・データの活用 <span class="level">標準</span></p>
+<h2>相関と因果の間にある条件を探す</h2></header>
+<div class="cue"><strong>見分け方</strong><p>二つの数量に傾向があり、片方がもう片方の原因と言えるか問われる。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>日ごとのアイス販売数と水の販売数に正の相関があった。アイスの販売増が水の販売増の原因と結論できるか。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>図の軸と比較対象を読み、観測された関係を述べる。</li><li>両方を変化させる第三の条件や、比較群があるか確認する。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>この観測だけでは結論できない。気温の上昇がどちらの販売数にも影響した可能性がある。</p>
+
+<p class="pitfall"><strong>確認</strong> 相関の向きや強さだけで、因果の向きまで決めない。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　根拠を探す</p><div class="related-links"><a href="#german-opening-times">ドイツ語 · 開館時間と返却の条件を分ける</a><a href="#japan-history-source-position">日本史 · 書き手の立場と史料の目的を押さえる</a></div></details>
+</article>
+<article class="lesson" id="info-data-size" data-subject-label="情報Ⅰ" data-unit="情報Ⅰ・デジタル表現" data-review-anchor="#info-data-size">
+<header><p class="eyebrow">情報Ⅰ・デジタル表現 <span class="level">標準</span></p>
+<h2>画素数と色のビット数で容量を出す</h2></header>
+<div class="cue"><strong>見分け方</strong><p>非圧縮画像の大きさを問うときは、1画素のビット数を確認する。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>128×64画素で、1画素あたり8ビット。付加情報を含まない非圧縮画像は何バイトか。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>横×縦で全画素数を出し、1画素あたりのビット数を掛ける。</li><li>8ビットを1バイトとして、指定単位に変換する。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>128×64×8÷8=8192バイト。</p>
+
+<p class="pitfall"><strong>確認</strong> 1バイト=8ビット。圧縮後のサイズは画素数だけでは決められない。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　条件を式や図にする</p><div class="related-links"><a href="#geography-industry-location">地理 · 何をどこまで運ぶか比べる</a><a href="#world-history-trade-directions">世界史 · 航路に品物と移動方向を書く</a></div></details>
+</article>
+<article class="lesson" id="info-network" data-subject-label="情報Ⅰ" data-unit="情報Ⅰ・ネットワーク" data-review-anchor="#info-network">
+<header><p class="eyebrow">情報Ⅰ・ネットワーク <span class="level">基本</span></p>
+<h2>転送量を速さと同じ単位にする</h2></header>
+<div class="cue"><strong>見分け方</strong><p>ファイルの大きさがバイト、回線速度が毎秒ビットで示される。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>10 MBのファイルを20 Mbpsで送る。1 M=10⁶、通信の付加分は無視する。何秒か。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>バイトを8倍してビットに直す。</li><li>転送量を毎秒あたりの転送量で割る。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>10×8=80 Mbit。80÷20=4 秒。</p>
+
+<p class="pitfall"><strong>確認</strong> Mが10⁶なのか2²⁰なのか、設問の定義を読む。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　条件を式や図にする</p><div class="related-links"><a href="#geography-industry-location">地理 · 何をどこまで運ぶか比べる</a><a href="#world-history-trade-directions">世界史 · 航路に品物と移動方向を書く</a></div></details>
+</article>
+<article class="lesson" id="info-simulation" data-subject-label="情報Ⅰ" data-unit="情報Ⅰ・モデル化とシミュレーション" data-review-anchor="#info-simulation">
+<header><p class="eyebrow">情報Ⅰ・モデル化とシミュレーション <span class="level">標準</span></p>
+<h2>条件を一つずつ変えて比較する</h2></header>
+<div class="cue"><strong>見分け方</strong><p>モデルによる予測の差を、どの条件がもたらしたのか説明する。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>窓口の待ち時間を減らしたい。窓口の数が1個の場合と2個の場合を比べるとき、来訪データはどうするか。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>比較したい条件を一つ決め、他の入力をそろえる。</li><li>結果を同じ基準で測り、モデルに入れていない条件を区別する。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>同じ到着時刻・処理時間のデータを両方に使い、窓口数だけを変えて平均待ち時間を比べる。</p>
+
+<p class="pitfall"><strong>確認</strong> 窓口数と来訪データを同時に変えると、差の原因を絞れない。</p></details>
+<div data-practice hidden></div>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　条件をそろえて比べる</p><div class="related-links"><a href="#biology-control-light">生物・生物基礎 · 調べたい条件だけが違う比較を選ぶ</a><a href="#korean-contrast-jiman">韓国語 · 지만 の前後で時刻と場所を比べる</a></div></details>
+</article></div></section><p>配布元　<a href="https://kaitoinoue0921.github.io/juken/guide/">https://kaitoinoue0921.github.io/juken/guide/</a></p>
+</main>
+<script>(function () {
+  'use strict';
+
+  const prefix = 'juken-guide:review:v1:';
+  const changed = 'guide-review-changed';
+  const intervals = [1, 3, 7, 14, 30];
+  const storageError = 'このブラウザに保存できませんでした。必要な内容を紙に控えてください。';
+  let activeTimer;
+
+  function day(offset = 0, date = new Date()) {
+    const local = new Date(date);
+    local.setDate(local.getDate() + offset);
+    const month = String(local.getMonth() + 1).padStart(2, '0');
+    const dateOfMonth = String(local.getDate()).padStart(2, '0');
+    return `${local.getFullYear()}-${month}-${dateOfMonth}`;
+  }
+
+  function dateLabel(value) {
+    const [year, month, date] = value.split('-').map(Number);
+    const currentYear = new Date().getFullYear();
+    return `${year === currentYear ? '' : `${year}年`}${month}月${date}日`;
+  }
+
+  function validDate(value) {
+    return typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value);
+  }
+
+  function parseRecord(raw, id) {
+    try {
+      const record = JSON.parse(raw);
+      return record && record.id === id && typeof record.title === 'string' ? record : null;
+    } catch {
+      return null;
+    }
+  }
+
+  function read(id) {
+    return parseRecord(localStorage.getItem(prefix + id), id) || {};
+  }
+
+  function write(id, record) {
+    if (record.due || record.memo || record.result === 'retry') {
+      localStorage.setItem(prefix + id, JSON.stringify(record));
+    } else {
+      localStorage.removeItem(prefix + id);
+    }
+    window.dispatchEvent(new CustomEvent(changed, { detail: id }));
+  }
+
+  function watch(id, update) {
+    window.addEventListener(changed, event => {
+      if (!id || event.detail === id) update();
+    });
+    window.addEventListener('storage', event => {
+      if (!event.key || (id ? event.key === prefix + id : event.key.startsWith(prefix))) update();
+    });
+  }
+
+  function button(label, run, className = 'practice-button') {
+    const control = document.createElement('button');
+    control.type = 'button';
+    control.className = className;
+    control.textContent = label;
+    control.addEventListener('click', run);
+    return control;
+  }
+
+  function initTimer(panel) {
+    const time = panel.querySelector('[data-timer]');
+    const timerStatus = panel.querySelector('[data-timer-status]');
+    const toggle = panel.querySelector('[data-timer-toggle]');
+    const reset = panel.querySelector('[data-timer-reset]');
+    let elapsed = 0;
+    let start = null;
+    let tick;
+
+    function render() {
+      const running = start === null ? 0 : performance.now() - start;
+      const seconds = Math.floor((elapsed + running) / 1000);
+      time.textContent = `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}`;
+    }
+
+    function pause() {
+      if (start === null) return;
+      elapsed += performance.now() - start;
+      start = null;
+      clearInterval(tick);
+      activeTimer = undefined;
+      toggle.textContent = '計時を再開';
+      render();
+      timerStatus.textContent = `一時停止しました。経過 ${time.textContent}`;
+    }
+
+    toggle.addEventListener('click', () => {
+      if (start !== null) {
+        pause();
+        return;
+      }
+      if (activeTimer) activeTimer();
+      activeTimer = pause;
+      start = performance.now();
+      tick = setInterval(render, 250);
+      toggle.textContent = '一時停止';
+      reset.disabled = false;
+      timerStatus.textContent = '計時中';
+      render();
+    });
+
+    reset.addEventListener('click', () => {
+      pause();
+      elapsed = 0;
+      toggle.textContent = '計時を開始';
+      render();
+      toggle.focus();
+      reset.disabled = true;
+      timerStatus.textContent = '計時をリセットしました。';
+    });
+  }
+
+  function initPrompt(panel, lesson) {
+    const question = lesson.querySelector('[data-problem]');
+    if (!question) return;
+    const prompt = panel.querySelector('[data-grading-prompt]');
+    const answer = lesson.querySelector('[data-answer]');
+    const answerText = answer && answer.textContent.trim();
+    const output = panel.querySelector('[data-prompt-text]');
+    const status = panel.querySelector('[data-prompt-status]');
+    output.value = [
+      '大学受験の例題に対する、写真の手書き答案を採点してください。',
+      '',
+      '【問題】',
+      question.textContent.trim(),
+      ...(answerText ? ['', '【照合用の解答】', answerText] : []),
+      '',
+      '1. 写真から読める答えと考え方を書き出してください。読めない箇所は推測せず、どこが読めないか示してください。',
+      '2. 問題の条件、立てた式や使った根拠、計算や記述、最終答案を確認し、判定を「正解・一部正解・要再考・判定保留」で示してください。別解も妥当なら認めてください。',
+      '3. 最初に直すべき箇所を一つ、理由とともに示してください。次に紙で試す一手も一つ書いてください。',
+      '4. 最後に、保存用として「判定／できたこと／次の一手」を3行にまとめてください。'
+    ].join('\n');
+    prompt.hidden = false;
+    panel.querySelector('[data-copy-prompt]').addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(output.value);
+        status.textContent = '採点用の文をコピーしました。';
+      } catch {
+        output.focus();
+        output.select();
+        status.textContent = '文を選択しました。端末のコピー操作を使ってください。';
+      }
+    });
+  }
+
+  function initLesson(lesson) {
+    const mount = lesson.querySelector('[data-practice]');
+    const heading = lesson.querySelector('h1, h2');
+    if (!mount || !heading || !lesson.id) return;
+
+    const id = lesson.id;
+    const identity = {
+      id,
+      title: heading.textContent.trim(),
+      subject: lesson.dataset.subjectLabel || '',
+      unit: lesson.dataset.unit || '',
+      anchor: lesson.dataset.reviewAnchor || ''
+    };
+    mount.innerHTML = `
+      <details class="practice-panel">
+        <summary>紙で解く・復習する</summary>
+        <div class="practice-panel-body">
+          <section class="practice-section" aria-label="時間を測る">
+            <p class="practice-label">時間を測る <span class="practice-muted">任意</span></p>
+            <div class="practice-actions">
+              <output class="practice-time" aria-label="経過時間" aria-live="off" data-timer>0:00</output>
+              <button class="practice-button" type="button" data-timer-toggle>計時を開始</button>
+              <button class="practice-button" type="button" data-timer-reset disabled>リセット</button>
+            </div>
+            <p class="practice-sr-only" role="status" data-timer-status></p>
+          </section>
+          <section class="practice-section" aria-label="復習の予定">
+            <p class="practice-label">復習の予定</p>
+            <p class="practice-current" data-current-review></p>
+            <div class="practice-actions">
+              <button class="practice-button" type="button" data-queue>復習に追加</button>
+              <button class="practice-button" type="button" data-recall>思い出せた</button>
+              <button class="practice-button" type="button" data-retry>詰まった</button>
+            </div>
+            <p class="practice-muted">紙で解き直してから、思い出せたかを記録します。</p>
+            <p class="practice-status" role="status" data-review-status></p>
+          </section>
+          <details class="practice-section practice-grading">
+            <summary>採点の補助とメモ</summary>
+            <div data-grading-prompt hidden>
+              <p class="practice-muted">手書き答案の氏名・学校名などを隠し、自分のChatGPTなどに写真と下の文を添えます。判定は教材の解答でも確かめましょう。</p>
+              <label class="practice-label">AIに渡す採点用の文
+                <textarea readonly rows="4" data-prompt-text></textarea>
+              </label>
+              <div class="practice-actions">
+                <button class="practice-button" type="button" data-copy-prompt>採点用の文をコピー</button>
+              </div>
+              <p class="practice-status" role="status" data-prompt-status></p>
+            </div>
+            <label class="practice-label">採点メモ
+              <textarea rows="3" maxlength="6000" placeholder="できたこと、次に直すこと。AI採点の要点も貼れます。" data-grading-note></textarea>
+            </label>
+            <div class="practice-actions">
+              <button class="practice-button practice-button-primary" type="button" data-save-note>この端末に保存</button>
+              <button class="practice-button" type="button" data-delete-note disabled>メモを削除</button>
+            </div>
+            <p class="practice-muted">メモはこのブラウザに保存されます。共用端末では学習後に削除してください。</p>
+            <p class="practice-status" role="status" data-note-status></p>
+          </details>
+        </div>
+      </details>`;
+    mount.hidden = false;
+    initTimer(mount);
+    initPrompt(mount, lesson);
+
+    const current = mount.querySelector('[data-current-review]');
+    const reviewStatus = mount.querySelector('[data-review-status]');
+    const noteStatus = mount.querySelector('[data-note-status]');
+    const note = mount.querySelector('[data-grading-note]');
+    const deleteNote = mount.querySelector('[data-delete-note]');
+    const queue = mount.querySelector('[data-queue]');
+    let lastSavedNote = '';
+
+    function refresh() {
+      try {
+        const record = read(id);
+        const savedNote = typeof record.memo === 'string' ? record.memo : '';
+        if (note.value === lastSavedNote) note.value = savedNote;
+        lastSavedNote = savedNote;
+        deleteNote.disabled = !savedNote;
+        const due = validDate(record.due) ? record.due : '';
+        current.textContent = due ? `次の復習日 ${dateLabel(due)}` : '復習の予定はまだありません。';
+        queue.setAttribute('aria-disabled', String(Boolean(due)));
+        queue.textContent = due ? '復習に追加済み' : '復習に追加';
+      } catch {
+        current.textContent = storageError;
+      }
+    }
+
+    function updateReview(action) {
+      const today = day();
+      try {
+        const record = { ...read(id), ...identity };
+        if (action === 'queue') {
+          if (record.due) return;
+          record.stage = -1;
+          record.due = today;
+        } else if (action === 'retry') {
+          record.stage = -1;
+          record.result = 'retry';
+          record.due = day(1);
+        } else {
+          const stage = Number.isInteger(record.stage) ? record.stage : -1;
+          record.result = 'recall';
+          if (stage >= 0 && validDate(record.due) && record.due > today) {
+            write(id, record);
+            reviewStatus.textContent = `現在の復習日 ${dateLabel(record.due)} を残しました。`;
+            return;
+          }
+          record.stage = Math.min(Math.max(stage + 1, 0), intervals.length - 1);
+          record.due = day(intervals[record.stage]);
+        }
+        write(id, record);
+        reviewStatus.textContent = `復習を ${dateLabel(record.due)} に設定しました。`;
+      } catch {
+        reviewStatus.textContent = storageError;
+      }
+    }
+
+    queue.addEventListener('click', () => updateReview('queue'));
+    mount.querySelector('[data-recall]').addEventListener('click', () => updateReview('recall'));
+    mount.querySelector('[data-retry]').addEventListener('click', () => updateReview('retry'));
+    mount.querySelector('[data-save-note]').addEventListener('click', () => {
+      const value = note.value.trim();
+      if (!value) {
+        noteStatus.textContent = '保存する内容を入力してください。空にしたい場合は「メモを削除」を使えます。';
+        return;
+      }
+      try {
+        write(id, { ...read(id), ...identity, memo: value });
+        note.value = value;
+        lastSavedNote = value;
+        noteStatus.textContent = '採点メモを保存しました。';
+      } catch {
+        noteStatus.textContent = storageError;
+      }
+    });
+    deleteNote.addEventListener('click', () => {
+      try {
+        const record = read(id);
+        delete record.memo;
+        write(id, record);
+        note.value = '';
+        lastSavedNote = '';
+        note.focus();
+        noteStatus.textContent = '採点メモを削除しました。';
+      } catch {
+        noteStatus.textContent = storageError;
+      }
+    });
+    refresh();
+    watch(id, refresh);
+  }
+
+  function reviewHref(record) {
+    if (document.getElementById(record.id)?.matches('article.lesson')) {
+      return '#' + encodeURIComponent(record.id);
+    }
+    if (location.protocol !== 'file:' && typeof record.anchor === 'string'
+        && /^\/juken\/guide\/[a-z0-9-]+\/(?:[a-z0-9-]+\/|#[a-z0-9-]+)$/.test(record.anchor)) {
+      return record.anchor;
+    }
+    return '/juken/guide/';
+  }
+
+  function initReview(mount) {
+    const status = document.createElement('p');
+    status.className = 'practice-status';
+    status.setAttribute('role', 'status');
+    const view = document.createElement('div');
+    view.className = 'practice-review-groups';
+    mount.append(status, view);
+
+    function remove(record, key) {
+      try {
+        const current = read(record.id);
+        delete current[key];
+        if (key === 'due') delete current.stage;
+        write(record.id, current);
+        mount.focus({ preventScroll: true });
+        const messages = { due: '復習の予定を外しました。', memo: '採点メモを削除しました。', result: '自己評価を削除しました。' };
+        status.textContent = messages[key];
+      } catch {
+        status.textContent = storageError;
+      }
+    }
+
+    function listGroup(title, entries, emptyText) {
+      const section = document.createElement('section');
+      const heading = document.createElement('h2');
+      heading.textContent = title;
+      section.appendChild(heading);
+      if (!entries.length) {
+        const empty = document.createElement('p');
+        empty.className = 'practice-muted';
+        empty.textContent = emptyText;
+        section.appendChild(empty);
+        return section;
+      }
+      const list = document.createElement('ul');
+      list.className = 'practice-review-items';
+      for (const entry of entries) {
+        const item = document.createElement('li');
+        const meta = document.createElement('p');
+        meta.className = 'practice-muted';
+        meta.textContent = [entry.subject, validDate(entry.due) ? dateLabel(entry.due) : ''].filter(Boolean).join(' · ');
+        const link = document.createElement('a');
+        link.href = reviewHref(entry);
+        link.className = 'practice-review-lesson';
+        link.textContent = entry.title;
+        item.append(meta, link);
+        const actions = document.createElement('div');
+        actions.className = 'practice-actions';
+        if (entry.memo) {
+          const details = document.createElement('details');
+          const summary = document.createElement('summary');
+          summary.textContent = '採点メモを読む';
+          const memo = document.createElement('p');
+          memo.className = 'practice-memo';
+          memo.textContent = entry.memo;
+          details.append(summary, memo, button('メモを削除', () => remove(entry, 'memo')));
+          item.appendChild(details);
+        }
+        if (entry.due) {
+          actions.appendChild(button('予定を外す', () => remove(entry, 'due')));
+          item.appendChild(actions);
+        }
+        list.appendChild(item);
+      }
+      section.appendChild(list);
+      return section;
+    }
+
+    function reviewTrends(records) {
+      const section = document.createElement('section');
+      const heading = document.createElement('h2');
+      heading.textContent = '詰まった問題';
+      const explanation = document.createElement('p');
+      explanation.className = 'practice-muted';
+      const subjects = new Map();
+      for (const record of records) {
+        if (record.result !== 'retry') continue;
+        const subject = record.subject || '教材';
+        if (!subjects.has(subject)) subjects.set(subject, []);
+        subjects.get(subject).push(record);
+      }
+      explanation.textContent = subjects.size
+        ? '最後の自己評価が「詰まった」の問題です。似た問題を続けて見たいときに使えます。'
+        : '最後の自己評価が「詰まった」の問題はありません。';
+      section.append(heading, explanation);
+      for (const [subject, entries] of subjects) {
+        const group = document.createElement('details');
+        group.className = 'practice-trend';
+        const summary = document.createElement('summary');
+        summary.textContent = `${subject}（${entries.length}件）`;
+        const list = document.createElement('ul');
+        for (const entry of entries) {
+          const row = document.createElement('li');
+          const link = document.createElement('a');
+          link.href = reviewHref(entry);
+          link.textContent = entry.unit ? `${entry.unit} · ${entry.title}` : entry.title;
+          row.append(link, button('評価を消す', () => remove(entry, 'result')));
+          list.appendChild(row);
+        }
+        group.append(summary, list);
+        section.appendChild(group);
+      }
+      return section;
+    }
+
+    function render() {
+      try {
+        const records = [];
+        for (let index = 0; index < localStorage.length; index++) {
+          const key = localStorage.key(index);
+          if (!key?.startsWith(prefix)) continue;
+          const record = parseRecord(localStorage.getItem(key), key.slice(prefix.length));
+          if (record) records.push(record);
+        }
+        const due = records.filter(record => validDate(record.due));
+        due.sort((a, b) => a.due.localeCompare(b.due) || a.title.localeCompare(b.title, 'ja'));
+        const today = day();
+        const pending = due.filter(record => record.due <= today);
+        const later = due.filter(record => record.due > today);
+        const notes = records.filter(record => !validDate(record.due) && record.memo);
+        const groups = [
+          listGroup(`今日までの復習（${pending.length}件）`, pending, '期限を迎えた復習はありません。'),
+          listGroup(`明日以降の復習（${later.length}件）`, later, '教材で復習を記録すると、次の予定がここに並びます。'),
+          reviewTrends(records)
+        ];
+        if (notes.length) groups.push(listGroup('予定を付けていない採点メモ', notes, ''));
+        view.replaceChildren(...groups);
+      } catch {
+        status.textContent = storageError;
+      }
+    }
+
+    mount.tabIndex = -1;
+    render();
+    watch('', render);
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) render();
+    });
+  }
+
+  document.querySelectorAll('article.lesson').forEach(initLesson);
+  document.querySelectorAll('[data-review-list]').forEach(initReview);
+})();
+</script>
+</body></html>

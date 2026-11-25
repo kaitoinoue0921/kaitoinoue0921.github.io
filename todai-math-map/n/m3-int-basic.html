@@ -3,7 +3,6 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1744436882685241" crossorigin="anonymous"></script>
 <title>不定積分の基本形（微分の逆）（積分法）｜受験数学マップ</title>
 <meta name="description" content="積分は微分の逆演算であり、積分公式は覚えるものではなく、微分して元に戻るかで確かめるもの。∫xⁿdx=xⁿ⁺¹/(n+1)+Cがn=−1で使えないのは、原始関数の形そのものが多項式ではなくlog|x|という別の関数にな…">
 <link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/m3-int-basic.html">
@@ -32,19 +31,19 @@
 <h2>例題</h2>
 <div class="problem">∫(3x²+2/x)dxを求めよ。</div><details><summary>解答</summary><ol class="steps"><li>x³+2log|x|+C</li></ol></details>
 <h2>落とし穴</h2>
-<ul><li>1/xの積分でlog|x|の絶対値を忘れる</li></ul>
+<ul><li>1/xの積分でlog|x|の絶対値を忘れる</li><li>∫1/xdx の絶対値を落とさない。∫ x⁻¹dx=x⁰/0 とはしない。</li><li>中身が2次以上（e^(x²) など）にはこの公式は使えない。</li></ul>
 <h2>なぜ大事か</h2>
 <p>「見た瞬間に原始関数が浮かぶ」在庫の量が積分力そのもの</p>
 <h2>東大での出方</h2>
 <p>見た瞬間に原始関数が浮かぶ在庫の量が積分力そのもの。</p>
 <h2>確認問題</h2>
-<ul><li>∫(4x³−1/x²)dxを求めよ</li></ul>
+<ul><li>∫(4x³−1/x²)dxを求めよ</li><li>∫((x+1)²)/xdx を求めよ。</li><li>∫tan²xdx を求めよ。</li><li>∫ e³ˣ⁺¹dx を求めよ。</li><li>∫[0→1](1/(2x+1))dx を求めよ。</li><li>∫cos(2x−1)dx を求めよ（答：(1/2) sin(2x−1)+C）</li><li>∫(3x−2)⁴dx を求めよ（答：(1/15)(3x−2)⁵+C）</li></ul>
 <h2>前提になるノード</h2>
 <ul class="links"><li><a href="m3-diff-trig.html">三角関数・指数関数・対数関数の微分</a></li></ul>
 <h2>このノードを前提にするノード</h2>
-<ul class="links"><li><a href="m3-int-sub.html">置換積分（型の判別）</a></li><li><a href="m3-int-parts.html">部分積分（何を微分側に置くか）</a></li><li><a href="m3-int-def-prop.html">定積分の性質（偶奇・周期・区間の対称性）</a></li><li><a href="m3-int-diff-func.html">積分で定義された関数の微分（微積分学の基本定理）</a></li><li><a href="m3-int-riemann.html">区分求積法</a></li></ul>
+<ul class="links"><li><a href="m3-int-sub.html">積1 置換積分（f(g(x))g′(x) の形を見つけて g を t に）</a></li><li><a href="m3-int-parts.html">積2 部分積分（多項式・log を微分側に、eˣsin x は2回で元に戻る）</a></li><li><a href="m3-int-def-prop.html">積7 偶関数・奇関数・周期で区間を整理</a></li><li><a href="m3-int-diff-func.html">積9 積分で定義された関数（d/dx∫ₐˣf(t)dt=f(x)、∫ₐᵇ は定数とおく）</a></li><li><a href="m3-int-riemann.html">積10 区分求積（(1/n)Σf(k/n) の形を作る）</a></li></ul>
 <h2>「積分法」のノード</h2>
-<ul class="links"><li><span class="cur">不定積分の基本形（微分の逆）</span></li><li><a href="m3-int-sub.html">置換積分（型の判別）</a></li><li><a href="m3-int-parts.html">部分積分（何を微分側に置くか）</a></li><li><a href="m3-int-rational.html">有理関数の積分（部分分数分解）</a></li><li><a href="m3-int-trig.html">三角関数の積分（次数下げ・積和・t=tan(x/2)）</a></li><li><a href="m3-int-irrational.html">無理関数の積分（√(a²-x²) 型の三角置換）</a></li><li><a href="m3-int-def-prop.html">定積分の性質（偶奇・周期・区間の対称性）</a></li><li><a href="m3-int-recur.html">定積分と漸化式（I_n を n で結ぶ）</a></li><li><a href="m3-int-diff-func.html">積分で定義された関数の微分（微積分学の基本定理）</a></li><li><a href="m3-int-riemann.html">区分求積法</a></li><li><a href="m3-int-ineq.html">積分と不等式（面積比較・評価）</a></li></ul>
+<ul class="links"><li><span class="cur">不定積分の基本形（微分の逆）</span></li><li><a href="m3-int-sub.html">積1 置換積分（f(g(x))g′(x) の形を見つけて g を t に）</a></li><li><a href="m3-int-parts.html">積2 部分積分（多項式・log を微分側に、eˣsin x は2回で元に戻る）</a></li><li><a href="m3-int-rational.html">積3 有理関数は次数を下げて部分分数</a></li><li><a href="m3-int-trig.html">積4 三角関数の積分（次数下げ・積和・奇数乗の側を置換）</a></li><li><a href="m3-int-irrational.html">積5 √(a²−x²) は x=a sinθ、1/(x²+a²) は x=a tanθ</a></li><li><a href="m3-int-def-prop.html">積7 偶関数・奇関数・周期で区間を整理</a></li><li><a href="m3-i06-king.html">積6 キングプロパティ（x を a+b−x に置換して足す）</a></li><li><a href="m3-int-recur.html">積8 定積分の漸化式（Iₙ を部分積分で Iₙ₋₁, Iₙ₋₂ と結ぶ）</a></li><li><a href="m3-int-diff-func.html">積9 積分で定義された関数（d/dx∫ₐˣf(t)dt=f(x)、∫ₐᵇ は定数とおく）</a></li><li><a href="m3-int-riemann.html">積10 区分求積（(1/n)Σf(k/n) の形を作る）</a></li><li><a href="m3-int-ineq.html">積11 積分の不等式（被積分関数を挟んでから積分、和を積分で評価）</a></li></ul>
 <p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
 <p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
 </main>

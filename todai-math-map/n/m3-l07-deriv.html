@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>極7 微分係数の定義に読み替える（極限）｜受験数学マップ</title>
+<meta name="description" content="f′(a) = lim[h→0]{f(a + h) − f(a)}/h は、極限の計算の道具としても使える。分子が f(a + □) − f(a)、分母が同じ □ になるように係数を調整すれば、その部分は f′(a) …">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/m3-l07-deriv.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="極7 微分係数の定義に読み替える（極限）｜受験数学マップ">
+<meta property="og:description" content="f′(a) = lim[h→0]{f(a + h) − f(a)}/h は、極限の計算の道具としても使える。分子が f(a + □) − f(a)、分母が同じ □ になるように係数を調整すれば、その部分は f′(a) …">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/m3-l07-deriv.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "極7 微分係数の定義に読み替える", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/m3-l07-deriv.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 極7 微分係数の定義に読み替える</nav>
+<h1>極7 微分係数の定義に読み替える</h1>
+<p class="meta">数学III ／ 極限 ／ 東大での重要度 ★★★★☆</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>f′(a) = lim[h→0]{f(a + h) − f(a)}/h は、極限の計算の道具としても使える。分子が f(a + □) − f(a)、分母が同じ □ になるように係数を調整すれば、その部分は f′(a) に置き換わる。f が具体的な式でも、(x¹⁰ − 1)/(x − 1) のように展開が面倒な極限は『x¹⁰ の x = 1 での微分係数』と読めば一瞬で済む。f(a) が無い形は、f(a) を引いて足して2つに分ける。</p>
+<h2>こんなときに使う</h2>
+<ul><li>f が抽象的な関数で、f′(a) が与えられている極限</li><li>(xⁿ − 1)/(x − 1)、(eˣ − 1)/x、(sin x − sin a)/(x − a) のように、関数値の差 ÷ 変数の差の形</li><li>f(a + 3h) − f(a − h) のように、2つの点がどちらも a からずれている</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 分子を f(a + □) − f(a) の形にする（f(a) が無ければ引いて足す）</li><li>2. 分母を同じ □ にそろえ、余った係数を前に出す</li><li>3. □ → 0 を確かめて f′(a) に置き換える</li><li>4. x → a の形なら {f(x) − f(a)}/(x − a) → f′(a) をそのまま使う</li></ol>
+<h2>例題</h2>
+<div class="problem">定義に従って、f(x)=x² の導関数を求めよ。</div><details><summary>解答</summary><ol class="steps"><li>lim[h→0]((x+h)²−x²)/h=lim[h→0](2xh+h²)/h=lim[h→0](2x+h)=2x</li><li>∴ f′(x)=2x</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>lim[x→1](x¹⁰ − 1)/(x − 1) は f(x) = x¹⁰ の f′(1) = 10</li><li>lim[x→a]{x f(a) − a f(x)}/(x − a) は x f(a) − a f(a) + a f(a) − a f(x) と分けて f(a) − a f′(a)</li><li>lim[n→∞] n{f(a + 1/n) − f(a)} は h = 1/n とおいて f′(a)</li></ul>
+<h2>落とし穴</h2>
+<ul><li>□ をそろえずに置き換えて係数を落とす</li><li>f(a − h) − f(a) を h で割って +f′(a) とする（分母は −h なので −f′(a)）</li><li>「定義に従って」と言われたら公式 (xⁿ)′=nxⁿ⁻¹ で答えると0点になりうる。極限の計算を書く。</li><li>分子と分母の『□』をそろえずに f′(a) と置き換える（f(a + 3h) − f(a) を h で割って f′(a) とする）</li></ul>
+<h2>なぜ大事か</h2>
+<p>lim{f(a + □) − f(a)}/□ の形が見えれば、極限の計算をせずに f′(a) に置き換えられる</p>
+<h2>東大での出方</h2>
+<p>東大では関数方程式（f(x + y) = f(x) + f(y) など）から f′(x) を求める問題で、この読み替えが出発点になる。</p>
+<h2>確認問題</h2>
+<ul><li>lim[h→0](f(a+3h)−f(a−h))/h を f′(a) で表せ。（答：4f′(a)）</li></ul>
+<h2>発展</h2>
+<p>ロピタルの定理を使わずに済む 0/0 の多くは、実は微分係数の定義そのもの。sin x/x → 1 も『sin の x = 0 での微分係数が 1』と同じ内容だが、sin の微分公式の証明に sin x/x → 1 を使うので、こちらを定義で示すと循環論法になる。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="m3-lim-func.html">極1 不定形の処理（∞/∞ は最高次でくくる、∞−∞ は有理化）</a></li><li><a href="m2-diff-def.html">微分係数の定義・導関数</a></li></ul>
+<h2>「極限」のノード</h2>
+<ul class="links"><li><a href="m3-lim-seq.html">極2 rⁿ の極限（|r| と 1 の大小で場合分け）</a></li><li><a href="m3-lim-squeeze.html">極3 はさみうちの原理</a></li><li><a href="m3-lim-series.html">極10 無限等比級数と収束条件</a></li><li><a href="m3-lim-func.html">極1 不定形の処理（∞/∞ は最高次でくくる、∞−∞ は有理化）</a></li><li><a href="m3-lim-sin.html">極5 sin x/x → 1 に持ち込む</a></li><li><a href="m3-lim-e.html">極6 e の定義の形を作る（(1 + 1/n)ⁿ、(eˣ − 1)/x）</a></li><li><a href="m3-lim-cont.html">極13 中間値の定理で解の存在を示す</a></li><li><a href="m3-l04-recur.html">極4 漸化式の極限（|aₙ₊₁−α|≦r|aₙ−α| で 0 に挟む）</a></li><li><span class="cur">極7 微分係数の定義に読み替える</span></li><li><a href="m3-l11-telescope.html">極11 部分和を出してから極限（部分分数・望遠鏡和）</a></li><li><a href="m3-l12-growth.html">極12 指数と多項式・対数の強さ比べ</a></li><li><a href="m3-l14-coeff.html">極14 極限値から係数を決める（分母→0なら分子→0）</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：個人 ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

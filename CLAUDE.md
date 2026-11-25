@@ -6,15 +6,17 @@
 - コミットメッセージは日本語で、何をどう変えたかを1行で（例: `化学ノート: 単元マップを追加`）。
 - 文章は大げさな言葉を使わず、状態を正直に書く（making/index.html の方針）。
 - 新しいページを公開したら `sitemap.xml` に足す。中身の薄いページは `<meta name="robots" content="noindex">` にする（AdSense 審査のため）。
-- 公開ページの head には AdSense（`ca-pub-1744436882685241`）、body の最後には GoatCounter（`kaitoinoue.goatcounter.com`）と共通フッター（`<footer class="site-footer">`）を入れる。
+- 広告対象ページの head には AdSense（`ca-pub-1744436882685241`）、body の最後には GoatCounter（`kaitoinoue.goatcounter.com`）と共通フッター（`<footer class="site-footer">`）を入れる。
 - `life.html` と `NEXT_SESSION.md` は .gitignore 済みの私的なファイル。公開しない。
 
 ## 主な場所
 - `index.html` トップ / `works/` 作ったもの一覧 / `juken/` 受験・学習 / `about/` 運営者情報 / `support/` 寄付（Stripe）
+- 受験の入口・解法ガイド・共通テスト形式の演習・高校ノート・受験数学マップは広告なし。解法ガイドは閲覧計測も行わない。
+- juken/guide/content/*.json に自作の教材を追加し、python3 tools/build_study_guide.py を実行する。科目別HTML・検索索引・オフライン版・sitemap.xml が更新される。過去問は公式公開先と書誌情報を使う。
 - 医学部受験ロードマップ（/igakubu-roadmap/）は別リポジトリ `~/igakubu-roadmap` から配信。このリポジトリにあった古い写しは2026-11-22に削除
 - `works/{math,chem,physics,eng-grammar}-notes/index.html` 高校ノート。別の場所でビルドした1ファイル版（1〜2MB）。元のソースはこのリポジトリにない。
 - `works/*-notes/items/` ノートを1項目1ページに分けたもの。**手で直さない**。ノートを差し替えたら `python3 tools/build_note_pages.py` で作り直す（sitemap.xml の `/items/` 行も作り直される）。
-- `todai-math-map/n/` 受験数学マップを1ノード1ページにしたもの。**手で直さない**。`python3 tools/build_mathmap_pages.py` で作り直す（入試問題の本文 pastexams/kakomon は広告つきページに載せない）。`~/todai-math-map/` で数学マップを作り直して app.html を差し替えたときは、`python3 tools/build_mathmap_pages.py` も実行してからコミットする。
+- `todai-math-map/n/` 受験数学マップを1ノード1ページにしたもの。**手で直さない**。`python3 tools/build_mathmap_pages.py` で作り直す（入試問題の本文 pastexams/kakomon は項目ページに載せない）。`~/todai-math-map/` で数学マップを作り直して app.html を差し替えたときは、`python3 tools/build_mathmap_pages.py` も実行してからコミットする。
 - `assets/katex/` 項目ページ用の KaTeX（ノートから抜き出したもの）
 - `t/` 家庭教師の生徒用「今週の問題」（`weeks.json`）、`works/saitama-*` 埼玉大対策
 - `study-map/` スタディスポットMAP（Supabase）

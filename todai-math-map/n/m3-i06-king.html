@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>積6 キングプロパティ（x を a+b−x に置換して足す）（積分法）｜受験数学マップ</title>
+<meta name="description" content="∫[a→b]f(x)dx = ∫[a→b]f(a + b − x)dx は、x = a + b − t と置換すると区間が入れ替わり dx = −dt の符号で元に戻ることから出る（「積7 偶関数・奇関数・周期で区間を…">
+<link rel="canonical" href="https://kaitoinoue0921.github.io/todai-math-map/n/m3-i06-king.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="小さな実験室">
+<meta property="og:title" content="積6 キングプロパティ（x を a+b−x に置換して足す）（積分法）｜受験数学マップ">
+<meta property="og:description" content="∫[a→b]f(x)dx = ∫[a→b]f(a + b − x)dx は、x = a + b − t と置換すると区間が入れ替わり dx = −dt の符号で元に戻ることから出る（「積7 偶関数・奇関数・周期で区間を…">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/todai-math-map/n/m3-i06-king.html">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/todai-math-map/ogp.png">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kaitoinoue0921.github.io/"}, {"@type": "ListItem", "position": 2, "name": "受験数学マップ", "item": "https://kaitoinoue0921.github.io/todai-math-map/"}, {"@type": "ListItem", "position": 3, "name": "ノード一覧", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/"}, {"@type": "ListItem", "position": 4, "name": "積6 キングプロパティ（x を a+b−x に置換して足す）", "item": "https://kaitoinoue0921.github.io/todai-math-map/n/m3-i06-king.html"}]}</script>
+</head>
+<body>
+<header class="top"><a href="../">受験数学マップ</a></header>
+<main>
+<nav class="crumbs" aria-label="現在地"><a href="/">トップ</a> › <a href="../">受験数学マップ</a> › <a href="./">ノード一覧</a> › 積6 キングプロパティ（x を a+b−x に置換して足す）</nav>
+<h1>積6 キングプロパティ（x を a+b−x に置換して足す）</h1>
+<p class="meta">数学III ／ 積分法 ／ 東大での重要度 ★★★★☆</p>
+<p><a class="open" href="../app.html">アプリで開く →</a><br><span class="open-note">進み具合を記録できるアプリ版です（ノード単位の直リンクはありません）</span></p>
+<h2>要点</h2>
+<p>∫[a→b]f(x)dx = ∫[a→b]f(a + b − x)dx は、x = a + b − t と置換すると区間が入れ替わり dx = −dt の符号で元に戻ることから出る（「積7 偶関数・奇関数・周期で区間を整理」）。これを使う型では、求めたい積分 I を置換した形でも書き、2つを足す。2I = ∫[a→b]{f(x) + f(a + b − x)}dx の被積分関数が定数や簡単な式になるのが狙い。区間 0〜π/2 なら sin と cos が入れ替わり、0〜π なら x が π − x になって x の係数を外に出せる。分母が sin x + cos x、xⁿ + (a − x)ⁿ のような、入れ替えても同じ形のものが目印。</p>
+<h2>こんなときに使う</h2>
+<ul><li>∫[0→π/2]sin x/(sin x + cos x)dx のように、分母が sin と cos について対称</li><li>∫[0→π]x f(sin x)dx のように、x と sin x（または cos x）の積で区間が 0〜π</li><li>∫[0→a]f(x)/{f(x) + f(a − x)}dx の形、log(1 + tan x) の 0〜π/4</li></ul>
+<h2>手順</h2>
+<ol class="steps"><li>1. 求める積分を I とおく</li><li>2. x = a + b − t と置換し、I を別の形で書く（区間と dx の符号を両方入れる）</li><li>3. 元の I と足して 2I を出す。被積分関数が簡単になることを確かめる</li><li>4. 2I を計算して 2 で割る</li><li>5. 0〜π の x f(sin x) 型は、x を π − x にすると I = π∫f(sin x)dx − I</li></ol>
+<h2>例題</h2>
+<div class="problem">I = ∫[0→π/2] sin x/(sin x + cos x) dx を求めよ。</div><details><summary>解答</summary><ol class="steps"><li>x = π/2 − t とおくと、sin x = cos t、cos x = sin t、dx = −dt、x: 0→π/2 のとき t: π/2→0。</li><li>I = ∫[π/2→0] cos t/(cos t + sin t)·(−dt) = ∫[0→π/2] cos x/(sin x + cos x) dx。</li><li>元の I と足すと 2I = ∫[0→π/2] (sin x + cos x)/(sin x + cos x) dx = ∫[0→π/2] 1 dx = π/2。</li><li>∴ I = π/4</li></ol></details>
+<h2>別解・ほかの見方</h2>
+<ul><li>∫[0→π] x sin x/(1 + cos²x) dx は x = π − t で I = π∫[0→π]sin x/(1 + cos²x)dx − I。後ろは cos x = u で π/2 になり、I = π²/4</li><li>∫[0→π/4] log(1 + tan x) dx は x = π/4 − t で 1 + tan x が 2/(1 + tan t) になり、I = (π/8)log 2</li><li>∫[0→a] f(x)/{f(x) + f(a − x)} dx は、足すと被積分関数が 1 になって a/2</li></ul>
+<h2>落とし穴</h2>
+<ul><li>置換で区間を入れ替えたあと dx = −dt の符号を落とし、I = −I のような式になる</li><li>0〜π の型で sin(π − x) = sin x だが cos(π − x) = −cos x なのを取り違える</li><li>置換した積分を足すところまで行かず、元の積分と置換後の積分が等しいことだけで止まる</li></ul>
+<h2>なぜ大事か</h2>
+<p>直接は積分できない式でも、x → a + b − x で別の形が出て、足すと被積分関数が簡単になる</p>
+<h2>東大での出方</h2>
+<p>東大・医学部では、直接やると重い定積分を誘導なしで出すことがある。分母や区間の対称性を見て、まず a + b − x を試すのが定石。</p>
+<h2>確認問題</h2>
+<ul><li>∫[0→π/2] cos x/(sin x + cos x) dx を求めよ。（答：π/4）</li><li>∫[0→π] x sin x/(1 + cos²x) dx を求めよ。（答：π²/4）</li><li>∫[0→π/4] log(1 + tan x) dx を求めよ。（答：(π/8)log 2）</li></ul>
+<h2>発展</h2>
+<p>置換 x → a + b − x は区間の中点に関する折り返し。被積分関数をこの折り返しで偶の部分と奇の部分に分けると、奇の部分は積分が 0 になり偶の部分だけが残る。積7 の偶関数・奇関数を中点のまわりで見たものと同じ。</p>
+<h2>前提になるノード</h2>
+<ul class="links"><li><a href="m3-int-def-prop.html">積7 偶関数・奇関数・周期で区間を整理</a></li><li><a href="m3-int-sub.html">積1 置換積分（f(g(x))g′(x) の形を見つけて g を t に）</a></li></ul>
+<h2>「積分法」のノード</h2>
+<ul class="links"><li><a href="m3-int-basic.html">不定積分の基本形（微分の逆）</a></li><li><a href="m3-int-sub.html">積1 置換積分（f(g(x))g′(x) の形を見つけて g を t に）</a></li><li><a href="m3-int-parts.html">積2 部分積分（多項式・log を微分側に、eˣsin x は2回で元に戻る）</a></li><li><a href="m3-int-rational.html">積3 有理関数は次数を下げて部分分数</a></li><li><a href="m3-int-trig.html">積4 三角関数の積分（次数下げ・積和・奇数乗の側を置換）</a></li><li><a href="m3-int-irrational.html">積5 √(a²−x²) は x=a sinθ、1/(x²+a²) は x=a tanθ</a></li><li><a href="m3-int-def-prop.html">積7 偶関数・奇関数・周期で区間を整理</a></li><li><span class="cur">積6 キングプロパティ（x を a+b−x に置換して足す）</span></li><li><a href="m3-int-recur.html">積8 定積分の漸化式（Iₙ を部分積分で Iₙ₋₁, Iₙ₋₂ と結ぶ）</a></li><li><a href="m3-int-diff-func.html">積9 積分で定義された関数（d/dx∫ₐˣf(t)dt=f(x)、∫ₐᵇ は定数とおく）</a></li><li><a href="m3-int-riemann.html">積10 区分求積（(1/n)Σf(k/n) の形を作る）</a></li><li><a href="m3-int-ineq.html">積11 積分の不等式（被積分関数を挟んでから積分、和を積分で評価）</a></li></ul>
+<p class="own">解説は自作です。誤りに気づいたら <a href="/contact/">お問い合わせ（/contact/）</a>から教えてください。</p>
+<p class="back"><a href="./">ノード一覧</a> ・ <a href="../">受験数学マップについて</a></p>
+</main>
+<footer class="site-footer">
+  <ul>
+    <li><a href="/works/">作ったもの</a></li>
+    <li><a href="/about/">運営者情報</a></li>
+    <li><a href="/contact/">お問い合わせ</a></li>
+  </ul>
+  <p>運営：個人 ／ 広告とCookieについては<a href="/about/">運営者情報</a>をご覧ください</p>
+</footer>
+<script data-goatcounter="https://kaitoinoue.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
