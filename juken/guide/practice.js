@@ -1,6 +1,11 @@
 (function () {
   'use strict';
 
+  const printButton = document.querySelector('[data-lesson-print]');
+  if (printButton) {
+    printButton.hidden = false;
+    printButton.addEventListener('click', () => window.print());
+  }
   const prefix = 'juken-guide:review:v1:';
   const changed = 'guide-review-changed';
   const intervals = [1, 3, 7, 14, 30];

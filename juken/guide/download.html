@@ -174,6 +174,19 @@ summary::marker { color:var(--blue); }
 .more-topic { margin-top:1.4rem; }
 .more-topic h2 { font-size:1.12rem; }
 .more-topic .quick-links { margin-top:.55rem; }
+.challenge-options fieldset { border:0; padding:0; margin:0; }
+.challenge-options legend { font-weight:800; }
+.challenge-options label { display:flex; gap:.65rem; align-items:start; min-height:44px; padding:.5rem .6rem; cursor:pointer; }
+.challenge-options label:hover, .challenge-options label:has(input:checked) { background:var(--soft); border-radius:.3rem; }
+.challenge-options input { flex:none; accent-color:var(--blue); inline-size:1.1rem; block-size:1.1rem; margin-top:.35rem; }
+.challenge-options button { margin:.5rem 0; }
+.challenge-answer { margin-top:.5rem; }
+.challenge-answer p { margin:.35rem 0; }
+@media print {
+  .lesson-page .lesson-nav, .lesson-page .more-topic, .lesson-page .lesson .cue, .lesson-page .lesson details,
+  .lesson-page [data-lesson-print] { display:none !important; }
+  .lesson-page { padding:0; }
+}
 [data-practice], [data-review-list], .practice-review-page {
   --practice-ink: #142748;
   --practice-muted: #4d5e7a;
@@ -1728,6 +1741,11 @@ summary::marker { color:var(--blue); }
 <script>(function () {
   'use strict';
 
+  const printButton = document.querySelector('[data-lesson-print]');
+  if (printButton) {
+    printButton.hidden = false;
+    printButton.addEventListener('click', () => window.print());
+  }
   const prefix = 'juken-guide:review:v1:';
   const changed = 'guide-review-changed';
   const intervals = [1, 3, 7, 14, 30];

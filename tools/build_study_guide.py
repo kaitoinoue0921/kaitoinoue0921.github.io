@@ -269,7 +269,8 @@ def course_cards():
 <p>数学の二次関数で進み方を試せます。いま難しい段階から始めてください。</p></header>
 <ol class="course">{cards}</ol>
 <h3 class="browse-title">ほかのミニ講座</h3><div class="subject-grid">{tracks}</div>
-<div class="quick-links">{link("共通テスト形式の演習", "/juken/kyotsu/")}</div>
+<div class="quick-links">{link("解法名を見ずに方針を選ぶ", BASE + "challenge/")}
+{link("共通テスト形式の演習", "/juken/kyotsu/")}</div>
 </section>'''
 
 
@@ -375,7 +376,8 @@ def lesson_page(item, catalog):
     unit_links = ((subject_title + 'の例題一覧', BASE + subject + '/'), ('解法を探す', BASE + '#find'))
     next_links = f'<section class="more-topic"><h2>同じ科目の例題</h2><div class="quick-links">{links(jumps)}</div></section>' if jumps else ''
     body = f"""<div class="lesson-page">
-<nav class="lesson-nav" aria-label="教材の階層">{links(unit_links)}</nav>
+<nav class="lesson-nav" aria-label="教材の階層">{links(unit_links)}
+<button class="button" type="button" data-lesson-print hidden>この例題を印刷</button></nav>
 {lesson(item, catalog, heading="h1")}
 {next_links}
 </div>"""
@@ -430,6 +432,41 @@ def papers_page():
     return page('過去問を探す・集める｜受験の解法ガイド',
                 '大学・入試センターの公式過去問を探し、つまずいた単元をブラウザに記録できる無料のページ。',
                 BASE + 'papers/', body, scripts='<script src="papers.js" defer></script>')
+
+
+def challenge_page(catalog):
+    by_id = {item['id']: item for item in catalog}
+    rows = json.loads((GUIDE / 'challenge/data.json').read_text())
+    groups = {}
+    for group, ident, choices, correct, feedback in rows:
+        item = by_id[ident]
+        opts = ''.join(f'<label><input type="radio" name="choice" value="{index}">{escape(choice)}</label>'
+                       for index, choice in enumerate(choices))
+        solution = escape(choices[correct])
+        problem = escape(item['problem'])
+        figure = item.get('figure', {})
+        table = figure_block(figure) if figure.get('placement') == 'problem' else ''
+        number = sum(map(len, groups.values())) + 1
+        card = f"""<article class="lesson">
+<h3>問題 {number}</h3><div class="example"><p>{problem}</p>{table}</div>
+<form class="challenge-options" data-choice="{correct}">
+<fieldset><legend>最初に何をする？</legend>{opts}</fieldset>
+<button type="submit" class="button" hidden>選んだ方針を確かめる</button><p role="status"></p>
+</form>
+<details class="challenge-answer"><summary>方針と理由を見る</summary>
+<p><strong>{solution}</strong></p><p>{escape(feedback)}</p>{link("例題の解答と復習", lesson_href(item), "text-link")}</details>
+</article>"""
+        groups.setdefault(group, []).append(card)
+    group_links = ''.join(link(group, '#questions-' + str(index)) for index, group in enumerate(groups, 1))
+    sections = ''.join(f'<section class="section" id="questions-{index}"><h2>{group}</h2>'
+                       f'<div class="lessons">{"".join(cards)}</div></section>'
+                       for index, (group, cards) in enumerate(groups.items(), 1))
+    body = f"""<header class="subject-head"><a class="text-link" href="../#route">ミニ講座</a>
+<h1>最初の一手を選ぶ</h1>
+<p>解法名を伏せた{len(rows)}題。計算を始める前に、どの方針が使えそうかを言葉にします。</p>
+<nav class="quick-links" aria-label="問題を選ぶ">{group_links}</nav></header>{sections}"""
+    return page('最初の一手を選ぶ｜受験の解法ガイド', '解法名を伏せた数学・理科・資料読解の問題から、最初に使う方針を選ぶ無料演習。',
+                BASE + 'challenge/', body, scripts='<script src="challenge.js" defer></script>')
 
 
 def offline_page(catalog):
@@ -489,7 +526,7 @@ def update_sitemap(catalog):
     text = path.read_text()
     text = re.sub(r'\s*<url>\s*<loc>https://kaitoinoue0921\.github\.io/juken/guide/[^<]*</loc>.*?</url>',
                   '', text, flags=re.S)
-    routes = [BASE, BASE + 'share/', BASE + 'papers/'] + [BASE + key + '/' for key in SUBJECTS]
+    routes = [BASE, BASE + 'share/', BASE + 'papers/', BASE + 'challenge/'] + [BASE + key + '/' for key in SUBJECTS]
     routes.extend(lesson_href(item) for item in catalog)
     entries = ''.join(f'  <url>\n    <loc>{xml_escape(SITE + route)}</loc>\n  </url>\n' for route in routes)
     path.write_text(text.replace('</urlset>', entries + '</urlset>'))
@@ -509,6 +546,7 @@ def main():
         (folder / 'index.html').write_text(lesson_page(item, catalog))
     (GUIDE / 'download.html').write_text(offline_page(catalog))
     (GUIDE / 'papers/index.html').write_text(papers_page())
+    (GUIDE / 'challenge/index.html').write_text(challenge_page(catalog))
     update_sitemap(catalog)
     print(f'{len(catalog)} lessons over {len(SUBJECTS)} subjects; {count} index entries from existing materials')
 
