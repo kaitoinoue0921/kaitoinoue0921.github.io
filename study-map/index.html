@@ -111,6 +111,11 @@ button{cursor:pointer}
 
 /* ---------- filters ---------- */
 .controls{padding:12px 16px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:9px}
+.controls[hidden]{display:none}
+.side-main{display:flex;flex-direction:column;position:relative;flex:1;min-height:0}
+.list-views{display:flex;gap:6px;padding:10px 16px;border-bottom:1px solid var(--line)}
+.list-views button{flex:1}
+.access-filters{display:flex;gap:5px;flex-wrap:wrap}
 .rankfilter{display:flex;gap:6px}
 .rankfilter button{
   flex:1;background:var(--panel2);border:1px solid var(--line);border-radius:8px;
@@ -134,6 +139,9 @@ button{cursor:pointer}
   padding:4px 9px;font-size:11px;color:var(--tx2)
 }
 .chip[data-on="1"]{background:rgba(63,191,143,.16);border-color:var(--accent);color:var(--accent)}
+.list-views button[aria-pressed="true"],#favoriteSpot[aria-pressed="true"]{
+  background:rgba(63,191,143,.16);border-color:var(--accent);color:var(--accent)
+}
 .chip.now[data-on="1"]{background:rgba(240,180,41,.16);border-color:var(--s);color:var(--s)}
 
 /* ---------- list ---------- */
@@ -151,6 +159,7 @@ button{cursor:pointer}
 .badge.Z{background:var(--blocked);border:1px solid var(--busy);color:#fff}
 .cbody{min-width:0;flex:1}
 .cname{font-size:13.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.favorite-mark{color:var(--s);margin-right:5px}
 .cmeta{font-size:11px;color:var(--tx3);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .cscore{font-size:11.5px;color:var(--tx2);margin-top:5px;display:flex;align-items:center;gap:6px}
 .bar{flex:1;height:4px;background:#2b333b;border-radius:2px;overflow:hidden}
@@ -186,8 +195,11 @@ button{cursor:pointer}
 /* ---------- detail ---------- */
 #detail{position:absolute;inset:0;background:var(--panel);display:none;flex-direction:column;z-index:10}
 #detail.on{display:flex}
-.dhead{padding:12px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px}
+.dhead{padding:12px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .back{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:5px 10px;font-size:12px;color:var(--tx2)}
+#favoriteSpot{margin-left:auto}
+.detail-share{margin-top:8px}
+#facilityReport{scroll-margin-top:12px}
 .dbody{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:16px}
 .dtitle{display:flex;gap:12px;align-items:flex-start}
 .dtitle h2{margin:0;font-size:17px;line-height:1.45;font-weight:700}
@@ -394,6 +406,7 @@ button{cursor:pointer}
   #side{width:100%;height:auto;flex:none;border-top:1px solid var(--line);border-right:none}
   #list{flex:none;height:auto;overflow:visible}
   .dbody{flex:none;height:auto;overflow:visible}
+  #facilityReport{scroll-margin-top:155px}
   /* 詳細は重ねずに、一覧と入れ替える */
   #detail{position:static;inset:auto}
   #side.detail-on .controls,
@@ -458,7 +471,12 @@ button{cursor:pointer}
 
 <div id="app">
   <aside id="side">
-    <div class="controls">
+    <div class="list-views" role="group" aria-label="表示する一覧">
+      <button type="button" class="back" id="allView" aria-pressed="true">スポット一覧</button>
+      <button type="button" class="back" id="favoriteView" aria-pressed="false">★ お気に入り</button>
+    </div>
+    <div class="side-main">
+    <div class="controls" id="spotFilters">
       <div class="rankfilter" id="rankf">
         <button data-r="S" data-on="1">S</button>
         <button data-r="A" data-on="1">A</button>
@@ -498,6 +516,10 @@ button{cursor:pointer}
         <button class="chip" data-f="aircon">空調・空間</button>
         <button class="chip" data-f="free">完全無料</button>
       </div>
+      <div class="access-filters" role="group" aria-label="公式情報で確認できた自習の利用条件">
+        <button type="button" class="chip" data-f="highSchool" aria-pressed="false">高校生OK</button>
+        <button type="button" class="chip" data-f="noReservation" aria-pressed="false" title="事前予約なしで自習できる場所。受付や利用カードが必要な場合があります。">事前予約不要</button>
+      </div>
     </div>
 
     <div id="listhead"><span id="count"></span><span>ピンをクリックで詳細</span></div>
@@ -507,10 +529,11 @@ button{cursor:pointer}
     <div id="detail">
       <div class="dhead">
         <button class="back" id="back">← 一覧</button>
-        <div style="font-size:12px;color:var(--tx3)">スポット詳細</div>
-        <button class="back" id="shareSpot" style="margin-left:auto" title="このスポットのURLをコピー">🔗 URLコピー</button>
+        <button type="button" class="back" id="favoriteSpot" aria-label="お気に入り" aria-pressed="false">☆ お気に入り</button>
+        <button type="button" class="back" id="shareSpot" title="このスポットのURLをコピー">🔗 URLコピー</button>
       </div>
       <div class="dbody" id="dbody"></div>
+    </div>
     </div>
   </aside>
 
@@ -546,6 +569,7 @@ button{cursor:pointer}
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+<script src="./spot-research.js"></script>
 <script>
 /* =========================================================
    スタディスポットMAP — プロトタイプ
@@ -5195,6 +5219,359 @@ const SEED=[
    closed:'月曜（祝日の場合は翌日）・年末年始・特別整理期間',
    fee:'無料',facilities:{power:0},
    note:'2階（グループ用）・3階（個人用）学習室あり。コンセント使用不可（ポータブルバッテリー貸出制度あり）。',reviews:[]}),
+ /* ---------- 2026-11-25 Gemini batch14〜19 ---------- */
+ s({id:"186887af-2ce7-5aaf-95c7-8d1fe7500ca8",pref:"大阪府",name:"読書の森（松原市民松原図書館）",category:"図書館",city:"松原市",
+   address:"松原市田井城3-1-46",lat:34.577263,lng:135.548508,
+   hoursWd:"09:00–21:00",hoursWe:"09:00–21:00",closed:"第3木曜日（3月・8月・12月を除く）、年末年始",
+   fee:"無料",facilities:{"wifi": 1},note:"2階にキャレル席・長机席の自習室あり。利用カードなしでも窓口申込可。",reviews:[]}),
+ s({id:"4cb7171b-22b2-5901-8243-11d8d009948d",pref:"大阪府",name:"泉大津市立図書館シープラ",category:"図書館",city:"泉大津市",
+   address:"泉大津市旭町20番1号 アルザタウン泉大津4階",lat:34.502811,lng:135.407684,
+   hoursWd:"10:00–20:00",hoursWe:"10:00–20:00",closed:"毎月第3水曜日、年末年始（12月29日–1月3日）、特別整理期間",
+   fee:"無料",facilities:{"wifi": 1, "power": 1},note:"誰でも無料で勉強・読書に利用可能。館内に電源席約70席と無料Wi-Fi完備。",reviews:[]}),
+ s({id:"3968dcc4-3330-5efc-a7b0-b276eb50ee78",pref:"大阪府",name:"貝塚市民図書館",category:"図書館",city:"貝塚市",
+   address:"貝塚市畠中1丁目12番1号",lat:34.438953,lng:135.360016,
+   hoursWd:"09:30–19:30",hoursWe:"09:30–17:00",closed:"毎週火曜日、国民の祝日・休日、毎月末日、年末年始、特別整理期間",
+   fee:"無料",facilities:{},note:"学習室16席を開館時間内は誰でも利用可。1階カウンターで整理券を受取。",reviews:[]}),
+ s({id:"4e72b99b-e072-5672-a979-e6653f701e90",pref:"大阪府",name:"Topic（富田林市きらめき創造館）",category:"自習室",city:"富田林市",
+   address:"富田林市常盤町16-11",lat:34.500294,lng:135.598633,
+   hoursWd:"09:00–21:00",hoursWe:"09:00–21:00",closed:"祝日、年末年始（12月29日–1月3日）",
+   fee:"無料",facilities:{"wifi": 1},note:"自習室66席・交流スペース24席。初回に氏名・連絡先を登録してカードを発行。次回以降はカード提示または番号申告。近隣の高校の試験期間中は自習室が1日3時間まで。",reviews:[]}),
+ s({id:"22cd184a-5284-5d53-beb3-c7bf41faf5cf",pref:"大阪府",name:"交野市立図書館 青年の家図書室",category:"図書館",city:"交野市",
+   address:"交野市私部2丁目29番1号",lat:34.784908,lng:135.677567,
+   hoursWd:"10:00–19:00",hoursWe:"10:00–17:00",closed:"毎週月曜日（祝日の場合は翌火曜日も休館）、年末年始、特別整理期間",
+   fee:"無料",facilities:{"wifi": 0, "power": 0},note:"自習できる読書室あり（窓口受付）。火曜は13:00–19:00。電源・Wi-Fiなし。",reviews:[]}),
+ s({id:"3b394b35-93ac-5bdb-8bce-17d4a49b92ce",pref:"大阪府",name:"和泉市コミュニティセンター自習室",category:"コミュニティセンター",city:"和泉市",
+   address:"和泉市府中町2丁目7番5号",lat:34.483067,lng:135.424164,
+   hoursWd:"09:00–21:00",hoursWe:"09:00–21:00",closed:"年末年始",
+   fee:"",facilities:{},note:"座席24席で1日3部の完全入替制。利用前に1階事務所での手続きが必要。",reviews:[]}),
+ s({id:"4c5aeea1-19f2-514b-ab43-6c8d269372f2",pref:"大阪府",name:"守口市教育センター ライブラリー閲覧スペース",category:"市役所・公共施設",city:"守口市",
+   address:"守口市京阪本通2-5-5 守口市役所6階南エリア",lat:34.735928,lng:135.561172,
+   hoursWd:"09:00–17:30",hoursWe:"利用不可",closed:"土曜日、日曜日、祝日、12月29日–1月3日",
+   fee:"無料",facilities:{},note:"市役所6階の開放スペース。教育センター窓口で名簿記入により無料利用可。",reviews:[]}),
+ s({id:"3e755963-cec5-5857-afab-b556127aa568",pref:"富山県",name:"富山市立図書館 本館",category:"図書館",city:"富山市",
+   address:"富山市西町5-1",lat:36.688713,lng:137.214706,
+   hoursWd:"09:30–19:00（金曜は20:00まで）",hoursWe:"09:30–19:00（土曜は20:00まで）",closed:"毎月第1・第3水曜日（館内整理日）、年末年始（12月29日–1月3日）、蔵書点検期間",
+   fee:"無料",facilities:{"wifi": 1},note:"5階閲覧室59席（高校生以上）で持込学習可。3階セミナールーム（高校生以下）も行事のない日に開放。",reviews:[]}),
+ s({id:"f2b47bf8-cbe9-5fed-af69-9a17aded8bed",pref:"富山県",name:"魚津市立図書館",category:"図書館",city:"魚津市",
+   address:"魚津市本江1940",lat:36.817158,lng:137.402161,
+   hoursWd:"09:30–20:00",hoursWe:"09:30–17:00",closed:"毎週月曜日、毎月第4木曜日、年末年始、特別整理休館",
+   fee:"無料",facilities:{"wifi": 1, "power": 0},note:"2階学習室は利用カード持参で1階受付（県内在住者も登録可）。PC持込可だが電源なし。",reviews:[]}),
+ s({id:"bfca4813-2b79-51f1-b628-d798dff4019d",pref:"富山県",name:"小矢部市民図書館",category:"図書館",city:"小矢部市",
+   address:"小矢部市石動町11-10",lat:36.67289,lng:136.865311,
+   hoursWd:"要確認",hoursWe:"要確認",closed:"月曜日（祝日の場合は開館、翌平日が休館）、年末年始（12月29日–1月3日）、館内整理日（1月4日）",
+   fee:"無料",facilities:{},note:"イベント・講座のない時間帯に研修室を学習席として開放。使用できる時間帯は館内で案内。",reviews:[]}),
+ s({id:"4881a3c4-4e23-564c-ab85-0e6e76728e6c",pref:"富山県",name:"朝日町図書館",category:"図書館",city:"朝日町",
+   address:"下新川郡朝日町沼保969",lat:36.955727,lng:137.560669,
+   hoursWd:"09:00–19:30",hoursWe:"09:00–17:00",closed:"月曜日（祝日の場合は翌日）、整理休館日（毎月第4木曜日）、年末年始（12月29日–1月3日）、蔵書点検期間",
+   fee:"無料",facilities:{},note:"会議室を自習用に開放。パソコン持込可。タイピング音などに配慮。",reviews:[]}),
+ s({id:"3b72f7f6-996a-538b-a6c2-c0da04960076",pref:"富山県",name:"入善町健康交流プラザ サンウェル",category:"市役所・公共施設",city:"入善町",
+   address:"下新川郡入善町上野2793-1",lat:36.923294,lng:137.501892,
+   hoursWd:"09:00–22:00（月曜は09:00–17:00）",hoursWe:"09:00–22:00（日曜は09:00–17:00）",closed:"年末年始（12月29日–1月3日）",
+   fee:"無料",facilities:{},note:"1階せせらぎホールを開館日に試験開放。学生・一般問わず無料で利用可（入口に空き状況掲示）。",reviews:[]}),
+ s({id:"4118a3aa-b524-57cf-a4ea-6bf523322aee",pref:"富山県",name:"入善まちなか交流施設 うるおい館",category:"市役所・公共施設",city:"入善町",
+   address:"下新川郡入善町入膳5232-5",lat:36.938839,lng:137.501144,
+   hoursWd:"09:00–20:00（水曜のみ）",hoursWe:"09:00–20:00（日曜のみ）",closed:"年末年始（12月31日–1月3日）※学習スペース開放は毎週日曜・水曜",
+   fee:"無料",facilities:{},note:"1階マルチルームを毎週日曜・水曜に試験開放。学生・一般とも無料。詳しくは館内掲示を確認。",reviews:[]}),
+ s({id:"ae7c0b2c-0f8a-597c-ab8c-0318de9f4249",pref:"富山県",name:"入善町民会館",category:"公民館・生涯学習センター",city:"入善町",
+   address:"下新川郡入善町入膳3200",lat:36.935062,lng:137.501404,
+   hoursWd:"09:00–22:00",hoursWe:"09:00–22:00",closed:"毎週月曜日（祝日の場合を除く）、祝日の翌日、年末年始（12月29日–1月3日）",
+   fee:"無料",facilities:{},note:"2階視聴覚室を開館日の空き時間に学習室として試験開放。学生・一般問わず無料で利用可能。",reviews:[]}),
+ s({id:"044e4eb7-8f96-5d96-b2af-3e193d4d08e6",pref:"石川県",name:"羽咋市にぎわい交流拠点 LAKUNAはくい",category:"市役所・公共施設",city:"羽咋市",
+   address:"羽咋市川原町テ39番地1",lat:36.894939,lng:136.782349,
+   hoursWd:"09:00–22:00",hoursWe:"09:00–22:00",closed:"",
+   fee:"無料",facilities:{"wifi": 1},note:"羽咋駅西口前の交流拠点1階に図書カフェと学習スペースを併設。全館禁煙、フリーWi-Fi完備。",reviews:[]}),
+ s({id:"a2da3c1f-b041-54f5-a9fd-3425372b6b01",pref:"石川県",name:"ふるさと創修館 学習室",category:"自習室",city:"中能登町",
+   address:"鹿島郡中能登町一青こ部19番地1",lat:36.986633,lng:136.904205,
+   hoursWd:"13:00–18:00",hoursWe:"09:00–17:00",closed:"毎週火曜日、国民の祝日、12月28日–1月4日",
+   fee:"無料",facilities:{},note:"2026年3月開放の学習室（10席）。静かな環境で読書や勉強に利用できる。駐車場20台あり。（地図の位置は町名レベル）",reviews:[]}),
+ s({id:"1695abfa-2e9f-5161-aea9-ba79cc045fcb",pref:"石川県",name:"内灘町立図書館",category:"図書館",city:"内灘町",
+   address:"河北郡内灘町字大清台140番地",lat:36.650894,lng:136.643631,
+   hoursWd:"10:00–18:00",hoursWe:"10:00–18:00",closed:"月曜日、年末年始、蔵書点検期間",
+   fee:"無料",facilities:{"wifi": 1},note:"内灘町文化会館2階。自習コーナーで公衆無線LAN（freespot）が利用可能。初回要認証。",reviews:[]}),
+ s({id:"8a8cb829-2ad6-5711-86a5-73bf55938960",pref:"石川県",name:"柳田教養文化館",category:"市役所・公共施設",city:"能登町",
+   address:"鳳珠郡能登町字柳田礼部8-1",lat:37.373306,lng:137.080109,
+   hoursWd:"10:30–18:30",hoursWe:"10:30–18:30",closed:"毎週日曜日、祝日、12月29日–1月3日",
+   fee:"無料",facilities:{},note:"図書の貸し出しや文化展示を行う施設で、館内2階に学習スペースを併設。土曜も18:30まで開館。（地図の位置は町名レベル）",reviews:[]}),
+ s({id:"b87e09fc-9d6e-53e1-87dc-5aadc95a9141",pref:"石川県",name:"石川県立生涯学習センター まなびすとルーム",category:"公民館・生涯学習センター",city:"金沢市",
+   address:"金沢市石引4丁目17-1",lat:36.559387,lng:136.665359,
+   hoursWd:"09:00–18:00",hoursWe:"09:00–18:00",closed:"12月29日–1月3日",
+   fee:"無料",facilities:{"wifi": 1},note:"石川県本多の森庁舎中2階。オープンスペースの学習スペースで雑誌や新聞も閲覧可。入室17:30迄。",reviews:[]}),
+ s({id:"8287965f-771d-5507-9be9-4f9b20268d11",pref:"秋田県",name:"鹿角市立花輪図書館",category:"図書館",city:"鹿角市",
+   address:"鹿角市花輪字八正寺13",lat:40.192177,lng:140.787292,
+   hoursWd:"9:00–19:00",hoursWe:"9:00–19:00",closed:"毎週月曜日（祝日の場合は開館し翌平日休館）、特別整理期間、年末年始",
+   fee:"無料",facilities:{"wifi": 1},note:"コモッセ2階に16席の個人学習用スペース。Wi-Fiは1階でパスワードを発行。",reviews:[]}),
+ s({id:"b8b6daca-fd1b-576c-9828-be95293c548f",pref:"秋田県",name:"北秋田市民ふれあいプラザ コムコム",category:"市役所・公共施設",city:"北秋田市",
+   address:"北秋田市花園町10-5",lat:40.228256,lng:140.370483,
+   hoursWd:"8:30–22:00",hoursWe:"8:30–22:00",closed:"年中無休（清掃や点検による臨時休館あり）",
+   fee:"無料",facilities:{"wifi": 1},note:"2階に予約不要・無料の学習ラウンジあり。仕切り付き机やPCコーナー、Wi-Fi完備。",reviews:[]}),
+ s({id:"4b1142d5-e15d-5078-a947-20299f8cbf9a",pref:"秋田県",name:"美郷町立図書館",category:"図書館",city:"美郷町",
+   address:"仙北郡美郷町六郷字安楽寺122",lat:39.421043,lng:140.553909,
+   hoursWd:"9:00–19:00",hoursWe:"9:00–19:00",closed:"毎週月曜日（祝日の場合は火曜日）、年末年始、特別整理期間",
+   fee:"無料",facilities:{},note:"美郷町学友館内に図書館の学習席あり。利用方法・空き状況は施設に確認。",reviews:[]}),
+ s({id:"b2c9b9ab-7fec-5f97-b1ed-03b797685e75",pref:"秋田県",name:"にかほ市立図書館 こぴあ",category:"図書館",city:"にかほ市",
+   address:"にかほ市金浦字十二林70-10",lat:39.255959,lng:139.921204,
+   hoursWd:"10:00–18:00",hoursWe:"10:00–18:00",closed:"毎週水曜日（祝日の場合は翌日）、年末年始（12月29日–1月3日）",
+   fee:"無料",facilities:{},note:"JR金浦駅舎内。市広報に学習室の案内あり。利用方法は窓口で確認。パソコンコーナーは1日1時間まで。",reviews:[]}),
+ s({id:"db38e213-83c2-5f9e-8959-fcfeb2977991",pref:"和歌山県",name:"白浜町立図書館（本館）",category:"図書館",city:"白浜町",
+   address:"西牟婁郡白浜町1335番地の13",lat:33.665054,lng:135.351715,
+   hoursWd:"10:00–17:00",hoursWe:"10:00–17:00",closed:"月曜・火曜・第4金曜・祝日・年末年始・特別整理期間",
+   fee:"無料",facilities:{"wifi": 1},note:"2階自習スペースを一般開放しており、フリーWi-Fiも完備しています。",reviews:[]}),
+ s({id:"c05033b3-db87-59bf-997c-7f912e1c1bd5",pref:"和歌山県",name:"紀の川市立河北図書館（ひこぼし）",category:"図書館",city:"紀の川市",
+   address:"紀の川市西大井363番地",lat:34.270737,lng:135.361481,
+   hoursWd:"09:30–19:00",hoursWe:"09:30–18:00",closed:"月曜(祝日の場合翌日)・第4火曜・12/29–1/3・特別整理期間",
+   fee:"無料",facilities:{"wifi": 1, "power": 1},note:"各テーブルにコンセントとデスクライトを備え、フリーWi-Fiも利用できます。",reviews:[]}),
+ s({id:"58187c87-1428-5d2c-b8a1-3410199d7120",pref:"和歌山県",name:"紀の川市立河南図書館（おりひめ）",category:"図書館",city:"紀の川市",
+   address:"紀の川市貴志川町神戸327番地1",lat:34.2169,lng:135.313828,
+   hoursWd:"10:00–19:30",hoursWe:"10:00–18:00",closed:"木曜(祝日の場合翌日)・第3火曜・12/29–1/3・特別整理期間",
+   fee:"無料",facilities:{"wifi": 1},note:"館内に飲み物持込可の学習コーナー、無料Wi-Fiあり。",reviews:[]}),
+ s({id:"8258b3b9-74d9-5d13-ade1-5d22b3bc32c9",pref:"和歌山県",name:"上富田町立図書館",category:"図書館",city:"上富田町",
+   address:"西牟婁郡上富田町朝来758番地の1",lat:33.696827,lng:135.429962,
+   hoursWd:"09:30–17:00",hoursWe:"09:30–17:00",closed:"火曜・祝日・第2金曜・年末年始(12/29–1/3)・蔵書点検期間",
+   fee:"無料",facilities:{},note:"視聴覚室内に集中して勉強できる個別学習デスクが設置されています。",reviews:[]}),
+ s({id:"bfd84c6e-3ed9-5a2f-adb0-3efecc79944f",pref:"和歌山県",name:"打田地区公民館（打田生涯学習センター内）",category:"公民館・生涯学習センター",city:"紀の川市",
+   address:"紀の川市西大井363番地",lat:34.270737,lng:135.361481,
+   hoursWd:"09:00–17:00",hoursWe:"09:00–17:00",closed:"月曜・祝日・年末年始(12/29–1/3)",
+   fee:"無料",facilities:{},note:"公民館開館時は交流ラウンジを誰でも学習に利用可。図書館が開館する祝日は公民館の学習室3も開放。午後5時以降は夜間利用の有無を施設に確認。",reviews:[]}),
+ s({id:"82ad596d-877d-57ae-882b-583893dc016c",pref:"和歌山県",name:"粉河ふるさとセンター（粉河地区公民館）",category:"公民館・生涯学習センター",city:"紀の川市",
+   address:"紀の川市粉河580番地",lat:34.267525,lng:135.411133,
+   hoursWd:"09:00–17:00",hoursWe:"09:00–17:00",closed:"月曜・第2火曜・祝日・年末年始(12/29–1/3)",
+   fee:"無料",facilities:{},note:"2階の自習スペース9席。誰でも利用可。事前予約不可、事務所で利用者名簿に記入。各席にデスクライト。",reviews:[]}),
+ s({id:"10a4e935-38dd-596c-8d6d-8c738363eb59",pref:"和歌山県",name:"那賀総合センター（那賀地区公民館）",category:"公民館・生涯学習センター",city:"紀の川市",
+   address:"紀の川市名手市場1456番地",lat:34.275681,lng:135.430695,
+   hoursWd:"09:00–17:00",hoursWe:"09:00–17:00",closed:"月曜・祝日・年末年始(12/29–1/3)",
+   fee:"無料",facilities:{},note:"2階のNagaスタディルーム12席。誰でも利用可。利用前に那賀総合センター事務所で受付。",reviews:[]}),
+ s({id:"8464aa64-5657-507a-b927-bf08eb2d1b6c",pref:"和歌山県",name:"岩出市中央公民館（自習室）",category:"公民館・生涯学習センター",city:"岩出市",
+   address:"岩出市西野264",lat:34.256355,lng:135.309891,
+   hoursWd:"10:00–12:00 / 13:00–18:30",hoursWe:"10:00–12:00 / 13:00–18:30",closed:"木曜・祝日・年末年始(12/29–1/3)",
+   fee:"無料",facilities:{},note:"1階事務所で自習室利用簿に記入すれば無料で使えます（12:00–13:00除く）。",reviews:[]}),
+ s({id:"d3882ac8-ca9a-5db1-acc9-4735e2cea391",pref:"佐賀県",name:"アバンセ（佐賀県立男女共同参画センター・佐賀県立生涯学習センター）",category:"公民館・生涯学習センター",city:"佐賀市",
+   address:"佐賀市天神三丁目2-11",lat:33.26178,lng:130.290634,
+   hoursWd:"08:30–22:00",hoursWe:"土曜08:30–22:00 / 日祝08:30–17:00",closed:"月曜(祝日含む)・年末年始(12/29–1/3)",
+   fee:"無料",facilities:{"wifi": 1},note:"2階・3階に常設の学習コーナーがあり、2階交流サロンでWi-Fiも使えます。",reviews:[]}),
+ s({id:"589d2538-3424-5585-97dd-ceb91cbf4db7",pref:"佐賀県",name:"鳥栖市立図書館（本館）",category:"図書館",city:"鳥栖市",
+   address:"鳥栖市布津原町11-21",lat:33.374077,lng:130.500015,
+   hoursWd:"通常は利用不可（市内小中学校の長期休業期間は開放日あり）",hoursWe:"10:00–18:00（開放日のみ）",closed:"月曜(祝日の場合翌日以降直近平日)・第1木曜・年末年始(12/29–1/3)・特別整理期間",
+   fee:"無料",facilities:{},note:"2階集会室20席。土日祝と市内小中学校の長期休業期間の開放日は、公式案内のカレンダーを確認。",reviews:[]}),
+ s({id:"1840197c-ca04-523f-9b08-a5c1b8845d6f",pref:"佐賀県",name:"嬉野市塩田図書館",category:"図書館",city:"嬉野市",
+   address:"嬉野市塩田町大字馬場下甲1782",lat:33.128674,lng:130.047791,
+   hoursWd:"09:00–19:00",hoursWe:"09:00–17:00",closed:"月曜(祝日の場合開館・翌日休)・第3木曜・年末年始・特別整理期間",
+   fee:"無料",facilities:{},note:"館内に学習コーナーがあります。利用条件は図書館へ確認。（地図の位置は町名レベル）",reviews:[]}),
+ s({id:"bb6b5c62-3402-5b76-b045-f96ecac0718a",pref:"佐賀県",name:"佐賀市立図書館 諸富館",category:"図書館",city:"佐賀市",
+   address:"佐賀市諸富町大字諸富津47番地1",lat:33.221523,lng:130.355148,
+   hoursWd:"10:00–19:00",hoursWe:"土曜10:00–19:00 / 日祝10:00–17:00",closed:"月曜(祝日の場合翌平日)・最終木曜(12月除く)・年末年始(12/29–1/4)・特別整理期間",
+   fee:"無料",facilities:{"power": 0},note:"閲覧席と併用の学習コーナーが20席設けられています（持ち込みPC用電源なし）。",reviews:[]}),
+ s({id:"8651be14-958f-54a8-9f9f-1e0084ecbb45",pref:"佐賀県",name:"佐賀市立図書館 東与賀館",category:"図書館",city:"佐賀市",
+   address:"佐賀市東与賀町大字下古賀1228番地3",lat:33.208141,lng:130.287643,
+   hoursWd:"10:00–19:00",hoursWe:"土曜10:00–19:00 / 日祝10:00–17:00",closed:"月曜(祝日の場合翌平日)・最終木曜(12月除く)・年末年始(12/29–1/4)・特別整理期間",
+   fee:"無料",facilities:{"power": 0},note:"閲覧席と併用の調べもの（勉強）コーナーが12席あります（PC用電源なし）。",reviews:[]}),
+ s({id:"13624eb0-ca25-5129-a1c1-4f9dc557494b",pref:"佐賀県",name:"佐賀市立図書館 富士館",category:"図書館",city:"佐賀市",
+   address:"佐賀市富士町大字古湯2624番地",lat:33.376907,lng:130.193512,
+   hoursWd:"10:00–18:00",hoursWe:"土曜10:00–18:00 / 日祝10:00–17:00",closed:"月曜(祝日の場合翌平日)・最終木曜(12月除く)・年末年始(12/29–1/4)・特別整理期間",
+   fee:"無料",facilities:{"power": 0},note:"閲覧席と併用の学習コーナーが10席設けられています（PC用電源なし）。（地図の位置は町名レベル）",reviews:[]}),
+ s({id:"143bdfca-53a9-5370-bc51-bd4016ad3927",pref:"京都府",name:"精華町立図書館",category:"図書館",city:"精華町",
+   address:"相楽郡精華町大字南稲八妻小字北尻70番地",lat:34.761642,lng:135.786133,
+   hoursWd:"10:00–18:00",hoursWe:"09:00–17:00",closed:"月曜・祝休日(土日除く)・毎月最終木曜・年末年始(12/28–1/4)・特別整理期間",
+   fee:"無料",facilities:{"power": 0},note:"自習可能席が20席あり、1回3時間（1時間延長1回可）まで利用できます。",reviews:[]}),
+ s({id:"f2bea46a-3aa9-5495-ae21-02cdf49cd44e",pref:"京都府",name:"木津川市立加茂図書館",category:"図書館",city:"木津川市",
+   address:"木津川市加茂町里南古田156",lat:34.751751,lng:135.866165,
+   hoursWd:"09:30–18:00",hoursWe:"09:30–17:00",closed:"月曜(祝日の場合翌日も)・祝日(日曜除く)・毎月最終金曜(12月は28日)・年末年始・特別資料整理期間",
+   fee:"無料",facilities:{},note:"自習席が4席あり、受付で図書館利用カードを提示して利用します。",reviews:[]}),
+ s({id:"c45acd3b-5fcb-5248-8df3-ae0446107110",pref:"京都府",name:"木津川市立山城図書館",category:"図書館",city:"木津川市",
+   address:"木津川市山城町平尾前田24",lat:34.775818,lng:135.812363,
+   hoursWd:"09:30–18:00",hoursWe:"09:30–17:00",closed:"月曜・祝日の翌日・毎月最終金曜(12月は28日)・年末年始・特別資料整理期間",
+   fee:"無料",facilities:{},note:"自習席が4席あり、受付カウンターで図書館利用カードを提示して使えます。",reviews:[]}),
+ s({id:"ffcdf51f-a075-5a59-a367-3f1dda07960a",pref:"京都府",name:"綾部市図書館（あやテラス内）",category:"図書館",city:"綾部市",
+   address:"綾部市青野町西馬場下35番地の1",lat:35.302811,lng:135.253052,
+   hoursWd:"10:00–19:00",hoursWe:"10:00–18:00",closed:"月曜(祝日の場合火曜)・毎月最終火曜(祝日の場合水曜)・祝日の翌日・年末年始(12/28–1/4)・特別調整日",
+   fee:"無料",facilities:{},note:"JR綾部駅北口すぐの「あやテラス」内。静読室・学習スペースがあります。",reviews:[]}),
+ s({id:"eb5bd712-0f1e-5933-a58e-257368efec5a",pref:"高知県",name:"南国市立図書館 ごめんちあ",category:"図書館",city:"南国市",
+   address:"南国市駅前町3丁目1-2",lat:33.576824,lng:133.646103,
+   hoursWd:"10:00–18:00",hoursWe:"10:00–18:00",closed:"月曜・祝日・館内整理日(月曜除く毎月最終平日)・年末年始(12/29–1/3)・蔵書点検期間",
+   fee:"無料",facilities:{"wifi": 1},note:"2階集会室が貸出のない時に学習用へ無料開放され、カウンター席やWi-Fiも完備。",reviews:[]}),
+ s({id:"5cf12542-8a59-5e25-8efe-563a9c9d30bb",pref:"奈良県",name:"広陵町立図書館",category:"図書館",city:"広陵町",
+   address:"北葛城郡広陵町大字三吉396-1",lat:34.551247,lng:135.735275,
+   hoursWd:"09:30–17:00",hoursWe:"09:30–17:00",closed:"月曜(祝日の場合は直後の平日)・第2金曜・年末年始・特別整理日",
+   fee:"無料",facilities:{},note:"館内に33席の自習スペースがあり、静かな環境で集中して学習できる。",reviews:[]}),
+ s({id:"cea6201e-0850-55a5-8754-8515daead31e",pref:"奈良県",name:"宇陀市中央公民館 榛原分館（榛原総合センター内 自主学習スペース）",category:"公民館・生涯学習センター",city:"宇陀市",
+   address:"宇陀市榛原萩原2610-1",lat:34.532192,lng:135.957306,
+   hoursWd:"09:00–20:00",hoursWe:"09:00–20:00",closed:"火曜・祝日(祝日特別開館日あり)",
+   fee:"無料",facilities:{"wifi": 1},note:"オープン席・個別席・カウンター席あり。無料Wi-Fi。誰でも利用可。個別席とカウンター席は窓口で利用カードによる受付。",reviews:[]}),
+ s({id:"15838314-b6bd-54d5-a6d9-2dc862fbb328",pref:"奈良県",name:"奈良市立西部図書館",category:"図書館",city:"奈良市",
+   address:"奈良市鶴舞西町1-21",lat:34.701302,lng:135.750061,
+   hoursWd:"利用不可（祝日を除く）",hoursWe:"09:30–19:00",closed:"月曜(祝日除く)・年末年始",
+   fee:"無料",facilities:{},note:"自習室は土曜・日曜・祝日のみ（行事開催日を除く）。館内でのパソコン等の電子機器の使用は控えてください。",reviews:[]}),
+ s({id:"9ab09376-338a-5178-82c9-e68938894e3c",pref:"山梨県",name:"富士吉田市立図書館",category:"図書館",city:"富士吉田市",
+   address:"富士吉田市緑ヶ丘2-5-23",lat:35.491398,lng:138.796707,
+   hoursWd:"09:30–18:00（火・木は09:30–19:00）",hoursWe:"09:30–18:00",closed:"月曜・月末館内整理日(平日の毎月末)・年末年始(12/29–1/3)・特別整理期間",
+   fee:"無料",facilities:{"wifi": 1},note:"2階東側に学習スペース34席。図書館カードを持参し2階カウンターで机カードを借りて利用。",reviews:[]}),
+ s({id:"60504e76-1137-5492-ae6b-05b3991a0243",pref:"山梨県",name:"昭和町立図書館",category:"図書館",city:"昭和町",
+   address:"中巨摩郡昭和町押越575",lat:35.627396,lng:138.537262,
+   hoursWd:"10:00–19:00",hoursWe:"10:00–17:00",closed:"月曜・祝日・毎月末最終平日・年末年始(12/28–1/4)・特別整理期間",
+   fee:"無料",facilities:{"wifi": 1},note:"学習室を完備し、館内でWi-Fiも利用できる町立図書館。",reviews:[]}),
+ s({id:"7e0b7eb6-a144-544b-afa4-ea1ffa0064f6",pref:"山梨県",name:"甲州市立勝沼図書館",category:"図書館",city:"甲州市",
+   address:"甲州市勝沼町下岩崎1034-1",lat:35.657078,lng:138.721558,
+   hoursWd:"10:00–19:00",hoursWe:"10:00–17:00",closed:"月曜・祝日の翌日(月曜除く)・月末整理日・蔵書点検・年末年始(12/28–1/4)",
+   fee:"無料",facilities:{},note:"利用カード登録で利用できる学習席を備えた市立図書館。",reviews:[]}),
+ s({id:"e33bb552-4df9-54fe-a6ee-4ce3fc724bfd",pref:"山梨県",name:"甲州市立塩山図書館",category:"図書館",city:"甲州市",
+   address:"甲州市塩山上塩後240",lat:35.702736,lng:138.720215,
+   hoursWd:"10:00–19:00",hoursWe:"10:00–17:00",closed:"火曜・祝日の翌日・月末整理日・蔵書点検・年末年始(12/28–1/4)",
+   fee:"無料",facilities:{},note:"月曜も開館しており、利用カード登録で学習席を利用できる。",reviews:[]}),
+ s({id:"d6092984-c11b-5285-bcd0-c2ecb2836d1a",pref:"山口県",name:"長門市立図書館",category:"図書館",city:"長門市",
+   address:"長門市仙崎441-1",lat:34.390049,lng:131.198837,
+   hoursWd:"09:30–18:00",hoursWe:"09:30–17:00",closed:"月曜(祝日の場合翌日)・第1水曜・祝日(一部開館)・年末年始(12/29–1/4)・資料点検",
+   fee:"無料",facilities:{"wifi": 1},note:"2階研修室を学習スペースとして開放し、無線LANも利用できる。（地図の位置は町名レベル）",reviews:[]}),
+ s({id:"042c3522-98cd-531e-b1de-fe182899735a",pref:"山口県",name:"下松中央公民館（ほしらんどくだまつ 学習室）",category:"公民館・生涯学習センター",city:"下松市",
+   address:"下松市大手町2-3-1",lat:34.013702,lng:131.867706,
+   hoursWd:"09:00–18:30",hoursWe:"09:00–18:30",closed:"第4木曜・年末年始(12/29–1/3)",
+   fee:"無料",facilities:{},note:"交流室7・8を無料の学習室として18時30分まで開放している。",reviews:[]}),
+ s({id:"a41f2d3a-ffe3-54bd-ae29-90bed1af304e",pref:"山口県",name:"田布施町立図書館",category:"図書館",city:"田布施町",
+   address:"熊毛郡田布施町中央南11-1",lat:33.952251,lng:132.045044,
+   hoursWd:"09:00–17:00",hoursWe:"09:00–17:00",closed:"月曜・祝日(月曜の場合は翌日)・月末整理日・図書館整理日(年1回)・年末年始(12/28–1/3)",
+   fee:"無料",facilities:{},note:"館内2階に学習室を備える町立図書館。",reviews:[]}),
+ s({id:"3165da78-035a-58a3-aa1f-62768167c842",pref:"宮崎県",name:"日之影町立図書館",category:"図書館",city:"日之影町",
+   address:"西臼杵郡日之影町大字七折9079",lat:32.671638,lng:131.405487,
+   hoursWd:"09:00–19:00",hoursWe:"09:00–17:00",closed:"月曜・毎月最終木曜・祝日・特別整理日・年末年始(12/29–1/3)",
+   fee:"無料",facilities:{"wifi": 1},note:"2階に読書・学習スペース31席を備え、町Wi-Fiステーションが使える。（地図の位置は町名レベル）",reviews:[]}),
+ s({id:"7734c669-b96b-56d9-bb0a-0ad1a1118fe5",pref:"宮崎県",name:"町立高鍋図書館（柿原政一郎記念高鍋図書館）",category:"図書館",city:"高鍋町",
+   address:"児湯郡高鍋町大字南高鍋551",lat:32.108074,lng:131.514938,
+   hoursWd:"09:00–18:00",hoursWe:"09:00–17:00",closed:"月曜(祝日除く)・毎月1日図書整理日(土日の場合は次週火曜)・祝日の翌日・年末年始(12/28–1/4)",
+   fee:"無料",facilities:{},note:"館内に学習室があります。利用方法は図書館へ確認。（地図の位置は町名レベル）",reviews:[]}),
+ s({id:"98d99700-7dce-5a13-bfba-5c5466ed20b5",pref:"広島県",name:"三原市立中央図書館",category:"図書館",city:"三原市",
+   address:"三原市城町1-3-1",lat:34.399727,lng:133.082413,
+   hoursWd:"09:30–20:00",hoursWe:"09:30–20:00",closed:"毎月第1火曜・館内整理日・年末年始(12/28–1/4)・特別休館日",
+   fee:"無料",facilities:{},note:"2階学習室で持ち込み自習可。原則中学生以上で、三原市立図書館利用者カードが必要。",reviews:[]}),
+ s({id:"f0a9f32a-b110-506e-8e2f-b48aff440963",pref:"徳島県",name:"交流スペース kocolo（小松島みなと交流センター）",category:"市役所・公共施設",city:"小松島市",
+   address:"小松島市小松島町新港19",lat:34.013283,lng:134.5914,
+   hoursWd:"要確認（公式の開館案内参照）",hoursWe:"要確認（公式の開館案内参照）",closed:"木曜・年末年始・市イベント実施日",
+   fee:"無料",facilities:{"wifi": 1},note:"学生の自習や仕事に無料で利用可。本人確認書類（学生は学生証）を持参し1階で受付。利用時間は公式案内を確認。",reviews:[]}),
+ s({id:"800a8b22-48c5-5bfc-8ebd-1407d22825e9",pref:"徳島県",name:"徳島県立21世紀館（二十一世紀館学習室）",category:"自習室",city:"徳島市",
+   address:"徳島市八万町向寺山 文化の森総合公園内",lat:34.040089,lng:134.522202,
+   hoursWd:"長期休暇の指定日のみ（公式日程参照）",hoursWe:"09:30–16:30",closed:"月曜(祝日の場合翌日)・年末年始等",
+   fee:"無料",facilities:{"wifi": 1},note:"通常は土日祝に3階情報文化実習室を無料・予約不要で開放。長期休暇中は公園内各館の開放日程を確認。Wi-Fiあり。（地図の位置は町名レベル）",reviews:[]}),
+ s({id:"a3412213-6b40-5847-976e-daddb761960b",pref:"徳島県",name:"三好市地域みらい創発センター（ミライケ）",category:"市役所・公共施設",city:"三好市",
+   address:"三好市池田町マチ2183 1F",lat:34.02906,lng:133.805618,
+   hoursWd:"09:00–22:00",hoursWe:"09:00–22:00",closed:"12/29–1/3",
+   fee:"無料",facilities:{},note:"オープンスペース南に個人・集団学習スペースを備え、22時まで誰でも利用できる。",reviews:[]}),
+ s({id:"97f11c5a-34e4-5d0c-a07b-b6976dbd42b2",pref:"愛知県",name:"半田市立図書館「学習スペース」",category:"図書館",city:"半田市",
+   address:"半田市桐ヶ丘4-209-1",lat:34.891479,lng:136.914047,
+   hoursWd:"10:00–19:00（7/21–8/31は09:00–19:00）",hoursWe:"10:00–19:00（7/21–8/31は09:00–19:00）",closed:"月曜等（図書館休館日・行事開催時を除く）",
+   fee:"無料",facilities:{"power": 0},note:"2階3室の計58席を開放。平日は空席、土日祝は当日の整理券制。行事で開放しない場合あり。コンセント利用不可。",reviews:[]}),
+ s({id:"de87f5b5-8dee-5ba1-bc73-dd981a579fd7",pref:"愛知県",name:"日進市立図書館",category:"図書館",city:"日進市",
+   address:"日進市蟹甲町中島3",lat:35.131969,lng:137.043076,
+   hoursWd:"09:30–19:50",hoursWe:"09:30–16:50",closed:"月曜等（図書館休館日）",
+   fee:"無料",facilities:{"wifi": 1},note:"1階の学習室と2階のWi-Fiワークスペースで学習可。学習席は座席予約システムを利用。2階学習室は社会人専用。",reviews:[]}),
+ s({id:"a698cab5-24d3-56d0-b969-acc3b399603a",pref:"愛知県",name:"西尾市立図書館 本館",category:"図書館",city:"西尾市",
+   address:"西尾市亀沢町474",lat:34.873962,lng:137.053391,
+   hoursWd:"09:00–19:00",hoursWe:"09:00–19:00",closed:"月曜(祝日は開館)・館内整理日・年末年始・特別整理期間",
+   fee:"無料",facilities:{},note:"3階に持ち込み学習可能な学習室があり、行事がない日は会議室も学習席として開放。",reviews:[]}),
+ s({id:"e8d4bd9a-9f18-50ca-8c25-e88452546a8f",pref:"愛知県",name:"稲沢市立中央図書館",category:"図書館",city:"稲沢市",
+   address:"稲沢市正明寺3-114",lat:35.24509,lng:136.807343,
+   hoursWd:"09:30–19:30",hoursWe:"09:30–19:30",closed:"月曜(祝日の場合翌日)・祝日の翌日・第1金曜・年末年始(12/29–1/3)・特別整理休館日",
+   fee:"無料",facilities:{},note:"館内に学習室を備えた市立図書館。",reviews:[]}),
+ s({id:"d9b328f5-9bb9-59f5-9018-4dbecbba7393",pref:"福井県",name:"すこやか館内フリースペース",category:"市役所・公共施設",city:"勝山市",
+   address:"勝山市郡町1丁目1番50号 福祉健康センター「すこやか」内",lat:36.067978,lng:136.496979,
+   hoursWd:"08:30–21:30",hoursWe:"08:30–21:30",closed:"毎月第2日曜・年末年始（フリースペース案内参照）",
+   fee:"無料",facilities:{},note:"3番窓口横のロビー約30席を学習・休憩に一般開放。予約不要。休館日は市の施設案内と異なるため来館前に確認。",reviews:[]}),
+ s({id:"f65e8919-f37c-51fc-9d65-956991f0c46d",pref:"福井県",name:"小浜駅賑わい創出施設",category:"その他",city:"小浜市",
+   address:"小浜市駅前町1-1 小浜駅構内",lat:35.491844,lng:135.745834,
+   hoursWd:"09:00–20:00（20:00–22:00は要事前予約）",hoursWe:"09:00–20:00（20:00–22:00は要事前予約）",closed:"なし",
+   fee:"無料",facilities:{},note:"小浜駅構内待合室隣。20時までは予約不要で無料利用可。",reviews:[]}),
+ s({id:"d8a844e5-5ed2-5dca-ad1e-a4e208d0c05d",pref:"青森県",name:"平川市図書交流施設（よみまる）学習コーナー",category:"図書館",city:"平川市",
+   address:"平川市猿賀南田15番地1",lat:40.614784,lng:140.573166,
+   hoursWd:"09:00–18:00",hoursWe:"09:00–18:00",closed:"水曜・第3木曜・年末年始・蔵書点検期間（蔵書点検期間中の土日は09:00–17:00開館）",
+   fee:"無料",facilities:{},note:"施設3階に学習コーナーを設置。開館は尾上図書館に準拠。",reviews:[]}),
+ s({id:"f9af31ed-f26b-5798-ad65-ecf7972e56a4",pref:"青森県",name:"五所川原市役所オープンスペース",category:"市役所・公共施設",city:"五所川原市",
+   address:"五所川原市字布屋町41番地1",lat:40.808334,lng:140.445602,
+   hoursWd:"08:30–18:00",hoursWe:"閉庁",closed:"土曜・日曜・祝日・年末年始（12月29日–1月3日）",
+   fee:"無料",facilities:{"wifi": 1, "aircon": 1},note:"1階土間ホール・2階談話コーナー。開庁日は18時まで、待ち時間以外でも誰でも申請不要で利用可。",reviews:[]}),
+ s({id:"6f095f07-ab7e-563a-856c-687cc10c6b89",pref:"青森県",name:"弘前れんが倉庫美術館（ライブラリー内勉強スペース）",category:"市役所・公共施設",city:"弘前市",
+   address:"弘前市吉野町2-1",lat:40.598434,lng:140.472443,
+   hoursWd:"09:00–17:00（金曜21:00まで／12–2月は09:30–17:00・金曜20:00まで）",hoursWe:"09:00–17:00（土曜21:00まで／12–2月は09:30–17:00・土曜20:00まで）",closed:"火曜（祝日の場合は翌日）・年末年始・臨時休館日",
+   fee:"無料",facilities:{"wifi": 1},note:"無料ライブラリーを勉強・調べものに利用可。Wi-Fiあり。臨時休館・季節別の時間は公式サイト参照。",reviews:[]}),
+ s({id:"6c404b18-9a50-52ad-a8cc-1a2e9755e274",pref:"鳥取県",name:"ちえの森ちづ図書館",category:"図書館",city:"智頭町",
+   address:"八頭郡智頭町智頭2090-1",lat:35.267532,lng:134.23941,
+   hoursWd:"09:30–18:00",hoursWe:"09:30–17:30",closed:"月曜・祝日・毎月最終木曜・年末年始・蔵書点検期間",
+   fee:"無料",facilities:{},note:"個別に仕切られたスタディルームを館内に設置。（地図の位置は町名レベル）",reviews:[]}),
+ s({id:"4bac8bf9-efb9-5099-8ad5-a9862101d6fb",pref:"鳥取県",name:"キナルなんぶ（コワーキングスペース）",category:"市役所・公共施設",city:"南部町",
+   address:"西伯郡南部町法勝寺341番地",lat:35.343914,lng:133.334793,
+   hoursWd:"09:00–22:00",hoursWe:"09:00–22:00",closed:"年末年始（12月28日–1月4日）・保守点検日",
+   fee:"無料",facilities:{"wifi": 1, "power": 1},note:"各席電源・Wi-Fi完備の無料共有スペース。図書館併設。（地図の位置は町名レベル）",reviews:[]}),
+ s({id:"093e185a-321f-502d-a8e3-bdc838151522",pref:"兵庫県",name:"芦屋市 上宮川文化センター（自習室）",category:"公民館・生涯学習センター",city:"芦屋市",
+   address:"芦屋市上宮川町10番5号",lat:34.734573,lng:135.310532,
+   hoursWd:"09:00–17:00",hoursWe:"09:00–17:00（土曜のみ・日祝休）",closed:"日曜・祝日・年末年始（12月29日–1月3日）",
+   fee:"無料",facilities:{},note:"定員4名の小規模自習室。利用時は受付窓口で申請が必要。",reviews:[]}),
+ s({id:"56c482c1-c0c3-5ed0-a01e-3caa84e9b6d1",pref:"兵庫県",name:"神戸市立三宮図書館",category:"図書館",city:"神戸市",
+   address:"神戸市中央区小野浜町1-4 デザイン・クリエイティブセンター神戸（KIITO）2階",lat:34.684963,lng:135.198715,
+   hoursWd:"10:00–21:00（火–金）",hoursWe:"10:00–21:00（土曜）／10:00–18:00（日祝）",closed:"毎週月曜（祝休日の場合は翌平日）・年末年始・蔵書点検期間",
+   fee:"無料",facilities:{"wifi": 1},note:"KIITO2階。自習席はCo-Readingルーム14席・グループ学習室24席。無料Wi-Fiあり。",reviews:[]}),
+ s({id:"04f6890d-6d69-5712-b1f8-1a71ec5dbc57",pref:"兵庫県",name:"神戸市立北図書館",category:"図書館",city:"神戸市",
+   address:"神戸市北区鈴蘭台西町1-22-1 北区文化センター3・2階",lat:34.727188,lng:135.144012,
+   hoursWd:"10:00–20:00（火–金）",hoursWe:"10:00–20:00（土曜）／09:00–17:00（日祝）",closed:"毎週月曜（祝休日の場合は翌平日）・年末年始・蔵書点検期間",
+   fee:"無料",facilities:{"wifi": 1},note:"2階自習室76席・閲覧席84席を開放。無料Wi-Fiあり。",reviews:[]}),
+ s({id:"782b85bb-534a-56dc-9880-60e2888711da",pref:"兵庫県",name:"神戸市立灘図書館",category:"図書館",city:"神戸市",
+   address:"神戸市灘区永手町4-2-1 フォレスタ六甲2階",lat:34.7155,lng:135.238449,
+   hoursWd:"10:00–20:00（火–金）",hoursWe:"10:00–20:00（土曜）／10:00–18:00（日祝）",closed:"毎週月曜（祝休日の場合は翌平日）・年末年始・蔵書点検期間",
+   fee:"無料",facilities:{},note:"閲覧席29席を自習利用可（平日18–20時4席は中高生YA）。",reviews:[]}),
+ s({id:"06be2a61-ddb3-538a-8795-b0c822c44a1b",pref:"兵庫県",name:"姫路市立図書館 広畑分館（読書室）",category:"図書館",city:"姫路市",
+   address:"姫路市広畑区正門通三丁目7番地",lat:34.798634,lng:134.628586,
+   hoursWd:"10:00–18:00（火–金）",hoursWe:"10:00–18:00",closed:"月曜・休館日カレンダーに準ずる",
+   fee:"無料",facilities:{},note:"読書室36席を自習に利用可。開放日程は分館案内を確認。",reviews:[]}),
+ s({id:"2adbf079-f3e2-5994-9d57-0e2f47cc4495",pref:"兵庫県",name:"姫路市立図書館 網干分館（読書室）",category:"図書館",city:"姫路市",
+   address:"姫路市網干区垣内南町1429番地6",lat:34.787106,lng:134.587067,
+   hoursWd:"10:00–18:00（火–金）",hoursWe:"10:00–18:00",closed:"月曜・休館日カレンダーに準ずる",
+   fee:"無料",facilities:{},note:"読書室30席を自習に利用可。開放日程は分館案内を確認。",reviews:[]}),
+ s({id:"bbedf07b-ebc7-55b2-a8b9-fd4004fcf75f",pref:"愛媛県",name:"松山市立三津浜図書館",category:"図書館",city:"松山市",
+   address:"松山市住吉2丁目4-12",lat:33.863297,lng:132.714142,
+   hoursWd:"09:30–18:00",hoursWe:"09:30–18:00",closed:"月曜・月末・年末年始・特別整理期間",
+   fee:"無料",facilities:{},note:"2階の文化活動室16席を、貸出予約のない日に開放。予約不要で当日申込書を記入。公式の月別日程を確認。",reviews:[]}),
+ s({id:"c18d2d73-0474-5fca-b181-3f887b712520",pref:"愛媛県",name:"IYO夢みらい館（伊予市文化交流センター）",category:"市役所・公共施設",city:"伊予市",
+   address:"伊予市米湊768番地2",lat:33.759056,lng:132.705521,
+   hoursWd:"09:00–22:00（図書館は09:00–19:00・金曜20:00まで）",hoursWe:"09:00–22:00（図書館は09:00–19:00）",closed:"毎週火曜（祝日の場合は翌平日）・年末年始（12月29日–1月3日）",
+   fee:"無料",facilities:{"wifi": 1},note:"学習コーナー20席。事前予約なしで利用可。図書カードを使った優先利用システムあり。無料Wi-Fiあり。",reviews:[]}),
+ s({id:"8a00d8f4-548d-5c73-9b31-7dd953ae85e7",pref:"愛媛県",name:"東温市立図書館",category:"図書館",city:"東温市",
+   address:"東温市見奈良509-3",lat:33.792698,lng:132.872437,
+   hoursWd:"09:00–19:00",hoursWe:"09:00–19:00",closed:"月末・年末年始",
+   fee:"無料",facilities:{},note:"閲覧席スペース30席を予約不要の自習可能スペースとして案内。",reviews:[]}),
+ s({id:"d16321ff-33ee-5f3e-bb4e-b04f0b408151",pref:"愛媛県",name:"大洲市立図書館",category:"図書館",city:"大洲市",
+   address:"大洲市東若宮17-5",lat:33.528778,lng:132.565506,
+   hoursWd:"09:30–18:00",hoursWe:"09:30–18:00",closed:"月曜・毎月月末",
+   fee:"無料",facilities:{},note:"2階学習コーナー24席（図書閲覧席と共用・予約不要）。",reviews:[]}),
+ s({id:"51ccc7ac-d97c-5371-a88a-e1b2c5f6f042",pref:"愛媛県",name:"八幡浜市立市民図書館",category:"図書館",city:"八幡浜市",
+   address:"八幡浜市本町1丁目60-1",lat:33.458492,lng:132.426086,
+   hoursWd:"10:00–18:30",hoursWe:"10:00–18:30",closed:"月曜",
+   fee:"無料",facilities:{},note:"2階学習コーナー22席を予約不要で開放。（地図の位置は町名レベル）",reviews:[]}),
+ s({id:"89d20bcb-d8fb-55c1-a791-9d6875e5d1b3",pref:"愛媛県",name:"四国中央市役所 市民交流棟",category:"市役所・公共施設",city:"四国中央市",
+   address:"四国中央市三島宮川4丁目6-55",lat:33.980072,lng:133.549286,
+   hoursWd:"08:30–21:30",hoursWe:"閉庁",closed:"土曜・日曜・祝日・年末年始",
+   fee:"無料",facilities:{},note:"共用スペース33席（1階11席・2階22席）を予約不要で開放。",reviews:[]}),
+ s({id:"dd6a882f-5d12-537e-acf5-0994793220bf",pref:"沖縄県",name:"シャボン玉石けん くくる糸満（学習スペース）",category:"市役所・公共施設",city:"糸満市",
+   address:"糸満市潮崎町1丁目1番地2",lat:26.123459,lng:127.665543,
+   hoursWd:"09:00–18:00（18:00–22:00は貸館状況による）",hoursWe:"09:00–18:00（18:00–22:00は貸館状況による）",closed:"施設に準ずる（当日受付にて確認）",
+   fee:"無料",facilities:{},note:"交流ロビーの無料学習スペース。貸館利用がない時間に利用でき、18時以降も日によって開放。受付簿を記入し当日の可否を確認。",reviews:[]}),
+ s({id:"c6b014a5-3c3f-5370-9ff5-f8186357fd8c",pref:"沖縄県",name:"なは市民活動支援センター（めかる交流・学習ステーション）",category:"市民活動センター",city:"那覇市",
+   address:"那覇市銘苅2丁目3番1号 なは市民協働プラザ2階",lat:26.23019,lng:127.698471,
+   hoursWd:"09:00–21:00（水曜は09:00–17:00）",hoursWe:"09:00–17:00",closed:"年末年始・慰霊の日・臨時休館日",
+   fee:"無料",facilities:{},note:"2階オープンスペースを予約不要・無料で自由利用可。",reviews:[]}),
+ s({id:"2ec35205-9f29-5b49-85da-899be330e0fd",pref:"沖縄県",name:"うるま市生涯学習・文化振興センター ゆらてく（学習室）",category:"公民館・生涯学習センター",city:"うるま市",
+   address:"うるま市字仲嶺187番地",lat:26.356457,lng:127.851219,
+   hoursWd:"09:00–21:50（小中高生は年齢別時間制限あり）",hoursWe:"09:00–21:50（小中高生は年齢別時間制限あり）",closed:"毎週月曜・年末年始",
+   fee:"無料",facilities:{},note:"コモンズスペース併設。無料自習室。小学生は17:30、中学生は18:30、高校生は20:00、一般は21:50まで。",reviews:[]}),
+ s({id:"0b4a22d8-d0d1-546b-b59e-f53bdf4b1ad1",pref:"沖縄県",name:"うるま市 石川地区公民館（学習室）",category:"公民館・生涯学習センター",city:"うるま市",
+   address:"うるま市石川曙2-1-52",lat:26.421541,lng:127.825539,
+   hoursWd:"09:00–21:50（小中高生は年齢別時間制限あり）",hoursWe:"09:00–21:50（小中高生は年齢別時間制限あり）",closed:"毎週月曜・祝日・年末年始",
+   fee:"無料",facilities:{},note:"無料自習室。小学生は17:30、中学生は18:30、高校生は20:00、一般は21:50まで。",reviews:[]}),
+ s({id:"5cd1d349-b9d3-5368-a165-33ebb350afc6",pref:"沖縄県",name:"うるま市 勝連地区公民館（学習室）",category:"公民館・生涯学習センター",city:"うるま市",
+   address:"うるま市勝連平安名3047番地",lat:26.312374,lng:127.89666,
+   hoursWd:"09:00–21:50（小中高生は年齢別時間制限あり）",hoursWe:"09:00–21:50（小中高生は年齢別時間制限あり）",closed:"毎週月曜・祝日・年末年始",
+   fee:"無料",facilities:{},note:"無料自習室。小学生は17:30、中学生は18:30、高校生は20:00、一般は21:50まで。",reviews:[]}),
+ s({id:"efc35ea4-8671-5331-83b0-3e53bf043381",pref:"香川県",name:"綾川町立生涯学習センター（図書館）",category:"図書館",city:"綾川町",
+   address:"綾歌郡綾川町滝宮318",lat:34.249687,lng:133.925461,
+   hoursWd:"09:00–18:00（毎月最終金曜は19:00まで）",hoursWe:"09:00–18:00",closed:"毎週月曜（祝休日の場合は翌日）・第4木曜・特別資料整理日・年末年始（12月29日–1月3日）",
+   fee:"無料",facilities:{"wifi": 1},note:"学習室・PC席・Wi-Fiを備えた町立図書館。",reviews:[]}),
+ s({id:"4fd2c5ca-cebd-58b0-873e-77ce2bbcbe7c",pref:"香川県",name:"多度津町立明徳会図書館",category:"図書館",city:"多度津町",
+   address:"仲多度郡多度津町栄町3丁目1-56",lat:34.270191,lng:133.753448,
+   hoursWd:"09:00–17:00",hoursWe:"09:00–17:00",closed:"月曜・祝休日（月曜が祝休日の場合は月・火曜）・月末・図書整理日・年末年始（12月28日–1月4日）",
+   fee:"無料",facilities:{},note:"町議会答弁で一般に開放する学習スペースとして案内。JR多度津駅から徒歩圏内。",reviews:[]}),
 ];
 
 /* ---------- スコア ---------- */
@@ -5580,7 +5957,43 @@ function renderDbStat(){
 
 /* ---------- 状態 ---------- */
 const state={pref:'栃木県',city:'',q:'',cat:'',sort:'score',ranks:{S:1,A:1,B:1,C:1,'?':1,'Z':1},chips:{},
-  sel:null,adding:false,near:null,facIncludeUnknown:false,initSpot:null};
+  sel:null,adding:false,near:null,facIncludeUnknown:false,initSpot:null,shareAction:null,favoriteView:false};
+
+const FAVORITE_KEY='tsm.favorites.v1';
+const favoriteId=sp=>JSON.stringify([sp.pref||'栃木県',sp.city,sp.name]);
+const favorites=new Set();
+try{
+  const saved=JSON.parse(localStorage.getItem(FAVORITE_KEY)||'[]');
+  if(Array.isArray(saved)) saved.filter(key=>typeof key==='string').forEach(key=>favorites.add(key));
+}catch(e){}
+
+function renderFavoriteButton(sp){
+  const isFavorite=favorites.has(favoriteId(sp));
+  const button=document.getElementById('favoriteSpot');
+  button.setAttribute('aria-pressed',String(isFavorite));
+  button.textContent=isFavorite?'★ お気に入り':'☆ お気に入り';
+}
+
+const spotResearch=sp=>window.STUDY_SPOT_RESEARCH?.[JSON.stringify([sp.pref||'栃木県',sp.name])];
+
+function officialLink(value){
+  if(typeof value!=='string') return '';
+  try{
+    const url=new URL(value);
+    if(['http:','https:'].includes(url.protocol)&&!url.username&&!url.password) return url.href;
+  }catch(e){}
+  return '';
+}
+
+function accessLabels(research){
+  if(research?.selfStudy===false) return ['自習利用不可'];
+  if(research?.selfStudy!==true) return [];
+  const labels=[];
+  if(typeof research.highSchool==='boolean') labels.push(research.highSchool?'高校生OK':'高校生は利用不可');
+  if(typeof research.reservationRequired==='boolean') labels.push(research.reservationRequired?'事前予約が必要':'事前予約不要');
+  if(typeof research.cardRequired==='boolean') labels.push(research.cardRequired?'利用カードが必要':'利用カード不要');
+  return labels;
+}
 
 /* ---------- 地図アダプタ ---------- */
 let MapA=null;
@@ -5649,15 +6062,29 @@ function initAdapter(a){
   MapA.onMapClick((lat,lng)=>{ if(state.adding) openAddForm(lat,lng); });
   render();
   if(state.initSpot){
-    const target=SPOTS.find(x=>x.id===state.initSpot||x.name===state.initSpot);
+    const {id,name,pref,city,action}=state.initSpot;
+    const target=SPOTS.find(x=>x.id===id)
+      || SPOTS.find(x=>x.name===name&&(!pref||x.pref===pref)&&(!city||x.city===city))
+      || SPOTS.find(x=>x.name===id);
     state.initSpot=null;
     if(target){
       state.pref=target.pref||'栃木県'; state.city=target.city||'';
-      fillRegion(); render(); syncPageMeta();
+      fillRegion(); render();
       const rows=filtered(); MapA.fit(rows);
-      selectSpot(target.id,true);
+      selectSpot(target.id,true,action);
+      if(action==='review'){
+        openReviewForm(target);
+        const title=document.querySelector('#sheet h2');
+        title.tabIndex=-1;
+        title.focus();
+      }else if(action==='facilities'){
+        const title=document.getElementById('facilityReport');
+        title.focus({preventScroll:true});
+        title.scrollIntoView({block:'start'});
+      }
       return;
     }
+    toast('共有されたスポットが見つかりませんでした');
   }
   const rows=filtered();
   MapA.fit(rows);
@@ -5667,12 +6094,23 @@ function initAdapter(a){
 /* ---------- 絞り込み ---------- */
 function filtered(){
   const q=state.q.trim().toLowerCase();
+  const matchesQuery=sp=>!q||(sp.name+sp.city+(sp.address||'')+sp.category).toLowerCase().includes(q);
+  if(state.favoriteView){
+    const byKey=new Map(SPOTS.map(sp=>[favoriteId(sp),sp]));
+    return [...favorites].reverse().map(key=>byKey.get(key)).filter(sp=>sp&&matchesQuery(sp));
+  }
   let out=SPOTS.filter(sp=>{
     if(state.pref && (sp.pref||'栃木県')!==state.pref) return false;
     if(state.city && sp.city!==state.city) return false;
     if(!state.ranks[rankOfSpot(sp)]) return false;
     if(state.cat && !catMatches(sp.category,state.cat)) return false;
-    if(q && !(sp.name+sp.city+(sp.address||'')+sp.category).toLowerCase().includes(q)) return false;
+    if(!matchesQuery(sp)) return false;
+    if(state.chips.highSchool||state.chips.noReservation){
+      const research=spotResearch(sp);
+      if(research?.selfStudy!==true) return false;
+      if(state.chips.highSchool&&research.highSchool!==true) return false;
+      if(state.chips.noReservation&&research.reservationRequired!==false) return false;
+    }
     const a=avgAxes(sp);
     // 電源・Wi-Fiは原則「あり確定」のみ通すが、不明も含むモードでは「なし確定」だけ除外する。
     for(const k of ['power','wifi']){
@@ -5751,6 +6189,7 @@ function hideSuggest(){
 }
 function jumpToSpot(id){
   const sp=SPOTS.find(x=>x.id===id); if(!sp) return;
+  state.favoriteView=false;
   state.pref=sp.pref||'栃木県'; state.city=sp.city; state.q='';
   document.getElementById('topsearch').value='';
   hideSuggest();
@@ -5782,7 +6221,11 @@ function applyURLParams(){
   if(pref===''&&p.has('pref')) state.pref='';
   else if(pref && PREFS.includes(pref)) state.pref=pref;
   if(city && SPOTS.some(sp=>sp.city===city && (!state.pref||(sp.pref||'栃木県')===state.pref))) state.city=city;
-  if(spot) state.initSpot=spot;
+  if(spot){
+    const action=p.get('action');
+    state.initSpot={id:spot,name:p.get('spotName')||spot,pref,city,
+      action:['review','facilities'].includes(action)?action:null};
+  }
 }
 function syncPageMeta(){
   const base='スタディスポットMAP';
@@ -5792,6 +6235,9 @@ function syncPageMeta(){
   if(selSp){
     title=`${selSp.name}（${selSp.pref||''}${selSp.city}）| ${base}`;
     desc=`${selSp.name}の勉強環境・設備（電源・Wi-Fi）・営業時間・口コミ情報。`;
+  }else if(state.favoriteView){
+    title=`お気に入り | ${base}`;
+    desc='この端末でお気に入りに追加した勉強スポットを表示します。';
   }else if(state.pref && state.city){
     title=`${state.city}の無料勉強スポット${count}件（${state.pref}）| ${base}`;
     desc=`${state.pref}${state.city}で無料で勉強できる場所${count}件。図書館・カフェ・公民館などを静音性や電源の有無で比較できます。`;
@@ -5807,25 +6253,35 @@ function syncPageMeta(){
   document.getElementById('pgogtitle').setAttribute('content',title);
   document.getElementById('pgogdesc').setAttribute('content',desc);
   const p=new URLSearchParams();
-  if(state.pref) p.set('pref',state.pref);
+  const pref=(state.favoriteView&&selSp)?selSp.pref:state.pref;
+  const city=(state.favoriteView&&selSp)?selSp.city:state.city;
+  if(pref) p.set('pref',pref);
   else if(state.sel) p.set('pref','');
-  if(state.city) p.set('city',state.city);
+  if(city) p.set('city',city);
   if(state.sel) p.set('spot',state.sel);
+  const pageParams=new URLSearchParams(p);
+  if(selSp&&state.shareAction){
+    pageParams.set('spotName',selSp.name);
+    pageParams.set('action',state.shareAction);
+  }
   const qs=p.toString();
   const url='https://kaitoinoue0921.github.io/study-map/'+(qs?`?${qs}`:'');
   document.getElementById('pgcanon').setAttribute('href',url);
   document.getElementById('pgogurl').setAttribute('content',url);
-  history.replaceState(null,'',location.pathname+(qs?`?${qs}`:''));
+  history.replaceState(null,'',location.pathname+(pageParams.size?`?${pageParams}`:''));
 }
 /* ---------- 描画 ---------- */
 function render(){
   const rows=filtered();
+  document.getElementById('allView').setAttribute('aria-pressed',String(!state.favoriteView));
+  document.getElementById('favoriteView').setAttribute('aria-pressed',String(state.favoriteView));
+  document.getElementById('spotFilters').hidden=state.favoriteView;
   document.getElementById('count').textContent=`${rows.length} 件`;
   document.getElementById('topcount').textContent=
-    `${state.pref||'全国'}${state.city?' / '+state.city:''} — ${rows.length}件`;
+    `${state.favoriteView?'お気に入り':(state.pref||'全国')+(state.city?' / '+state.city:'')} — ${rows.length}件`;
 
   const facbar=document.getElementById('facbar');
-  if(state.chips.power||state.chips.wifi||state.chips.aircon){
+  if(!state.favoriteView&&(state.chips.power||state.chips.wifi||state.chips.aircon)){
     facbar.innerHTML=`<div class="fac-bar">
       <span>${state.facIncludeUnknown?'設備「不明」の施設も表示中':'確認済みの設備のみ表示中（未確認を除外）'}</span>
       <button type="button" id="toggleFacUnk">${state.facIncludeUnknown?'確認済みのみに戻す':'未確認も含める'}</button>
@@ -5834,6 +6290,12 @@ function render(){
   }else facbar.innerHTML='';
 
   const list=document.getElementById('list');
+  const empty=state.favoriteView
+    ? (state.q.trim()?'検索条件に合うお気に入りがありません。':'スポットの詳細で「☆ お気に入り」を押すと、ここに表示されます。')
+    : `${state.pref||'この地域'}では条件に合うスポットが見つかりませんでした。<br>
+      ${(state.chips.power||state.chips.wifi)?'※ 電源・Wi-Fiの「未確認も含める」を試すか、絞り込みを緩めてみてください。<br>':''}
+      ${(state.chips.highSchool||state.chips.noReservation)?'自習の利用条件を公式情報で確認できたスポットを表示しています。<br>':''}
+      右下の「＋ スポットを追加」から新しい場所を登録することもできます。`;
   list.innerHTML= rows.length ? rows.map(sp=>{
     const sc=score100(sp),rk=rankOfSpot(sp),a=avgAxes(sp),bs=bestSlot(sp),ost=openStatus(sp);
     const dist=spotDistKm(sp);
@@ -5855,19 +6317,26 @@ function render(){
       : `<span style="width:30px">${sc}点</span>
          <span class="bar"><i style="width:${sc}%;background:${RCOL[rk]}"></i></span>
          <span>口コミ${sp.reviews.length}</span>`;
-    return `<div class="card ${state.sel===sp.id?'sel':''}" data-id="${sp.id}">
+    const favoriteMark=favorites.has(favoriteId(sp))?'<span class="favorite-mark" aria-label="お気に入り">★</span>':'';
+    return `<div class="card ${state.sel===sp.id?'sel':''}" data-id="${esc(sp.id)}" role="button" tabindex="0" aria-label="${esc(sp.name)}の詳細">
       <div class="badge ${rk===UNRATED?'un':rk}">${rk===UNRATED?'未<br>評価':rk}</div>
       <div class="cbody">
-        <div class="cname">${esc(sp.name)}</div>
-        <div class="cmeta">${esc((state.pref?'':(sp.pref||'')+' ')+sp.city)}・${esc(sp.category)}</div>
+        <div class="cname">${favoriteMark}${esc(sp.name)}</div>
+        <div class="cmeta">${esc((state.pref&&!state.favoriteView?'':(sp.pref||'')+' ')+sp.city)}・${esc(sp.category)}</div>
         <div class="cscore">${score}</div>
         <div class="ctags">${tags.join('')}</div>
       </div></div>`;
-  }).join('') : `<div class="empty">${state.pref||'この地域'}では条件に合うスポットが見つかりませんでした。<br>
-      ${(state.chips.power||state.chips.wifi)?'※ 電源・Wi-Fiの「未確認も含める」を試すか、絞り込みを緩めてみてください。<br>':''}
-      右下の「＋ スポットを追加」から新しい場所を登録することもできます。</div>`;
+  }).join('') : `<div class="empty">${empty}</div>`;
 
-  list.querySelectorAll('.card').forEach(c=>c.onclick=()=>selectSpot(c.dataset.id));
+  list.querySelectorAll('.card').forEach(card=>{
+    card.onclick=()=>selectSpot(card.dataset.id);
+    card.onkeydown=e=>{
+      if(e.key!=='Enter'&&e.key!==' ') return;
+      e.preventDefault();
+      selectSpot(card.dataset.id);
+      document.getElementById('back').focus();
+    };
+  });
 
   if(MapA){
     MapA.clear();
@@ -5877,9 +6346,11 @@ function render(){
 }
 
 let lastQuickFacAt=0;
-function selectSpot(id,focus=true){
+function selectSpot(id,focus=true,shareAction=null){
   const sp=SPOTS.find(x=>x.id===id); if(!sp) return;
   state.sel=id;
+  state.shareAction=shareAction;
+  renderFavoriteButton(sp);
   if(MapA){ if(focus) MapA.focus(sp); MapA.highlight(id); }
   document.getElementById('dbody').innerHTML=detailHTML(sp);
   if(window.KComments){
@@ -5894,6 +6365,9 @@ function selectSpot(id,focus=true){
   document.getElementById('side').classList.add('detail-on');
   document.getElementById('dbody').scrollTop=0;
   const b=document.getElementById('addRev'); if(b) b.onclick=()=>openReviewForm(sp);
+  document.getElementById('dbody').querySelectorAll('[data-share-action]').forEach(button=>{
+    button.onclick=()=>copySpotLink(sp,button.dataset.shareAction);
+  });
   const fb=document.getElementById('addFlag'); if(fb) fb.onclick=()=>openFlagForm(sp);
   const gb=document.getElementById('btnGplace'); if(gb) gb.onclick=()=>fetchGooglePlace(sp);
   document.querySelectorAll('.fac-qbtn').forEach(btn=>{
@@ -5953,6 +6427,7 @@ function heatHTML(sp){
 
 function detailHTML(sp){
   const sc=score100(sp),rk=rankOfSpot(sp),a=avgAxes(sp),ost=openStatus(sp),dist=spotDistKm(sp);
+  const research=spotResearch(sp), url=officialLink(research?.url), access=accessLabels(research);
   const ax=AXES.map(x=>`<div class="ax"><label>${x.label}</label>
       <span class="bar"><i style="width:${a[x.k]/5*100}%;background:${RCOL[rk]}"></i></span>
       <b>${a[x.k].toFixed(1)}</b></div>`).join('');
@@ -6036,7 +6511,10 @@ function detailHTML(sp){
     <div class="kv"><span>土日祝</span><span>${esc(sp.hoursWe||'—')}</span></div>
     <div class="kv"><span>休館日</span><span>${esc(sp.closed||'—')}</span></div>
     <div class="kv"><span>料金</span><span>${esc(sp.fee||'—')}</span></div>
+    ${access.length?`<div class="kv"><span>自習の利用条件</span><span>${access.join('・')}</span></div>`:''}
     <div class="kv" style="border:none"><span>メモ</span><span>${esc(sp.note||'—')}</span></div>
+    ${url?`<a class="btn ghost" style="text-decoration:none;margin-top:12px" target="_blank" rel="noopener noreferrer"
+       href="${esc(url)}">施設の公式案内を開く</a>`:''}
     <a class="btn ghost" style="text-decoration:none;margin-top:12px" target="_blank" rel="noopener"
        href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(sp.name+' '+(sp.address||''))}">
        Googleマップで開く（営業時間・写真を確認）</a>
@@ -6050,11 +6528,12 @@ function detailHTML(sp){
       <button class="btn" id="addRev" style="flex:1">＋ 評価・口コミを書く</button>
       <button class="btn ghost" id="addFlag" style="flex:1">⚠ ここでは勉強できなかった</button>
     </div>
+    <button type="button" class="back detail-share" data-share-action="review">口コミ投稿用リンクをコピー</button>
     ${revs}
   </div>
 
   <div class="sect">
-    <h3>設備（確認できている事実）</h3>
+    <h3 id="facilityReport" tabindex="-1">設備（確認できている事実）</h3>
     <div class="facs">
       ${FACS.map(f=>{
         const v=facOf(sp,f.k);
@@ -6067,6 +6546,7 @@ function detailHTML(sp){
       <div>現地で確認できた設備があれば、ワンタップで教えてください（匿名で更新できます）</div>
       ${quickFacRows}
     </div>
+    <button type="button" class="back detail-share" data-share-action="facilities">設備報告用リンクをコピー</button>
     <p class="hint">「不明」は未確認の項目です。5軸評価とは別に、確認できた事実を載せています。</p>
   </div>
 
@@ -6381,7 +6861,13 @@ function esc(s){ return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&
 function backToList(){
   document.getElementById('detail').classList.remove('on');
   document.getElementById('side').classList.remove('detail-on');
-  state.sel=null; MapA&&MapA.highlight(null); syncPageMeta(); render();
+  state.sel=null; state.shareAction=null; MapA&&MapA.highlight(null); syncPageMeta(); render();
+}
+function showFavoriteView(enabled){
+  if(state.favoriteView===enabled&&!state.sel) return;
+  state.favoriteView=enabled;
+  backToList();
+  MapA&&MapA.fit(filtered());
 }
 function requestNearMe(){
   const btn=document.getElementById('btnNear');
@@ -6397,6 +6883,7 @@ function requestNearMe(){
   navigator.geolocation.getCurrentPosition(pos=>{
     btn.disabled=false;
     state.near={lat:pos.coords.latitude,lng:pos.coords.longitude};
+    state.favoriteView=false;
     state.pref=''; state.city=''; state.sort='dist';
     document.getElementById('sort').value='dist';
     btn.classList.add('on'); btn.textContent='📍 現在地✓';
@@ -6411,19 +6898,44 @@ function requestNearMe(){
   },{enableHighAccuracy:true,timeout:8000});
 }
 document.getElementById('btnNear').onclick=requestNearMe;
-document.getElementById('shareSpot').onclick=async()=>{
-  if(!state.sel) return;
-  syncPageMeta();
-  const url=location.href;
-  try{ await navigator.clipboard.writeText(url); toast('このスポットのURLをコピーしました'); }
-  catch(e){ prompt('このURLをコピーしてください',url); }
+document.getElementById('allView').onclick=()=>showFavoriteView(false);
+document.getElementById('favoriteView').onclick=()=>showFavoriteView(true);
+document.getElementById('favoriteSpot').onclick=()=>{
+  const sp=SPOTS.find(x=>x.id===state.sel); if(!sp) return;
+  const key=favoriteId(sp), adding=!favorites.has(key);
+  if(adding) favorites.add(key);
+  else favorites.delete(key);
+  renderFavoriteButton(sp);
+  try{
+    localStorage.setItem(FAVORITE_KEY,JSON.stringify([...favorites]));
+    toast(adding?'お気に入りに追加しました':'お気に入りから外しました');
+  }catch(e){ toast('このブラウザではお気に入りを保存できませんでした'); }
+};
+async function copySpotLink(sp,action){
+  const url=new URL(location.pathname,location.href);
+  url.searchParams.set('pref',sp.pref||'栃木県');
+  if(sp.city) url.searchParams.set('city',sp.city);
+  url.searchParams.set('spot',sp.id);
+  url.searchParams.set('spotName',sp.name);
+  if(action) url.searchParams.set('action',action);
+  const label=action==='review'?'口コミ投稿用リンク':action==='facilities'?'設備報告用リンク':'このスポットのURL';
+  try{
+    await navigator.clipboard.writeText(url.href);
+    toast(`${label}をコピーしました`);
+  }catch(e){ prompt('このURLをコピーしてください',url.href); }
+}
+document.getElementById('shareSpot').onclick=()=>{
+  const sp=SPOTS.find(x=>x.id===state.sel);
+  if(sp) copySpotLink(sp);
 };
 document.getElementById('pref').onchange=e=>{
+  state.favoriteView=false;
   state.pref=e.target.value; state.city=''; fillRegion(); backToList(); syncPageMeta();
   const rows=filtered(); MapA&&MapA.fit(rows);
   if(rows.length && !compactLayout.matches) selectSpot(rows[0].id,false);
 };
 document.getElementById('city').onchange=e=>{
+  state.favoriteView=false;
   state.city=e.target.value; backToList(); syncPageMeta();
   const rows=filtered(); MapA&&MapA.fit(rows);
 };
@@ -6448,11 +6960,20 @@ document.getElementById('rankf').onclick=e=>{
   const b=e.target.closest('button'); if(!b) return;
   const on=b.dataset.on==='1'?'0':'1'; b.dataset.on=on; state.ranks[b.dataset.r]=on==='1'; render();
 };
-document.getElementById('chips').onclick=e=>{
+document.getElementById('spotFilters').onclick=e=>{
   const b=e.target.closest('.chip'); if(!b) return;
-  const on=b.dataset.on==='1'?'0':'1'; b.dataset.on=on; state.chips[b.dataset.f]=on==='1'; render();
+  const on=!state.chips[b.dataset.f];
+  state.chips[b.dataset.f]=on;
+  b.dataset.on=on?'1':'0';
+  b.setAttribute('aria-pressed',String(on));
+  render();
 };
-document.getElementById('back').onclick=backToList;
+document.getElementById('back').onclick=()=>{
+  const id=state.sel;
+  backToList();
+  const card=[...document.querySelectorAll('#list .card')].find(el=>el.dataset.id===id);
+  (card||document.getElementById(state.favoriteView?'favoriteView':'allView')).focus();
+};
 document.getElementById('addbtn').onclick=()=>setAdding(!state.adding);
 
 /* ⚙ 設定メニューの開閉。地図の邪魔にならないよう、ふだんは畳んでおく */
