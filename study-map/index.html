@@ -5,14 +5,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title id="pgtitle">スタディスポットMAP — 無料で勉強できる場所をみんなでランク付け</title>
-<meta id="pgdesc" name="description" content="栃木県内の図書館・公民館・カフェなど、無料で勉強できる場所を地図でランク付け。静音性・電源・Wi-Fiなど8軸で評価し、時間帯ごとの空き状況もわかります。">
+<meta id="pgdesc" name="description" content="全国の図書館・公民館・カフェなど、無料で勉強できる場所を地図でランク付け。静音性・座席・周囲の集中度など5軸評価と電源・Wi-Fi設備、時間帯ごとの空き状況もわかります。">
 <link id="pgcanon" rel="canonical" href="https://kaitoinoue0921.github.io/study-map/">
 <meta id="pgogtitle" property="og:title" content="スタディスポットMAP — 無料で勉強できる場所をみんなでランク付け">
-<meta id="pgogdesc" property="og:description" content="栃木県内の図書館・公民館・カフェなど、無料で勉強できる場所を地図でランク付け。静音性・電源・Wi-Fiなど8軸で評価し、時間帯ごとの空き状況もわかります。">
+<meta id="pgogdesc" property="og:description" content="全国の図書館・公民館・カフェなど、無料で勉強できる場所を地図でランク付け。静音性・座席・周囲の集中度など5軸評価と電源・Wi-Fi設備、時間帯ごとの空き状況もわかります。">
 <meta property="og:type" content="website">
 <meta id="pgogurl" property="og:url" content="https://kaitoinoue0921.github.io/study-map/">
 <meta property="og:image" content="https://kaitoinoue0921.github.io/ogp.png">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css">
 <style>
 :root{
   --bg:#0f1214; --panel:#171b1f; --panel2:#1e242a; --line:#2b333b;
@@ -92,6 +94,10 @@ button{cursor:pointer}
 #topthanks{font-size:10.5px;padding:4px 9px;border-radius:999px;white-space:nowrap;
   border:1px solid var(--line);background:var(--panel2);color:var(--tx2);cursor:pointer;font-family:inherit}
 #topthanks:hover{border-color:var(--accent);color:var(--accent)}
+#btnNear{font-size:11.5px;padding:7px 10px;border-radius:9px;white-space:nowrap;
+  border:1px solid var(--line);background:var(--panel2);color:var(--tx2);cursor:pointer;font-weight:600}
+#btnNear:hover{border-color:var(--accent);color:var(--accent)}
+#btnNear.on{border-color:var(--accent);color:#08120e;background:var(--accent)}
 
 /* ---------- layout ---------- */
 #app{display:flex;height:calc(100vh - 58px);height:calc(100dvh - 58px)}
@@ -160,6 +166,21 @@ button{cursor:pointer}
 .tg{font-size:10px;padding:2px 6px;border-radius:5px;background:#232a31;color:var(--tx2)}
 .tg.free{background:rgba(63,191,143,.15);color:var(--accent)}
 .tg.time{background:rgba(240,180,41,.14);color:var(--s)}
+.tg.warn{background:rgba(217,83,79,.16);color:#f08a87}
+.tg.dist{background:rgba(77,157,224,.16);color:#7cc0f5}
+.fac-bar{margin:8px 10px 4px;padding:8px 10px;border-radius:9px;background:var(--panel2);
+  border:1px dashed var(--line);font-size:11px;color:var(--tx2);display:flex;align-items:center;
+  justify-content:space-between;gap:8px}
+.fac-bar button{background:transparent;border:1px solid var(--accent);color:var(--accent);
+  border-radius:6px;padding:3px 8px;font-size:10.5px;white-space:nowrap}
+.fac-quick{margin-top:8px;padding:9px 10px;background:var(--panel2);border:1px solid var(--line);
+  border-radius:9px;font-size:11px;color:var(--tx3)}
+.fac-quick-row{display:flex;align-items:center;gap:6px;margin-top:6px;flex-wrap:wrap}
+.fac-quick-row span{width:46px;color:var(--tx2);font-weight:600}
+.fac-quick-row button{background:var(--panel);border:1px solid var(--line);color:var(--tx2);
+  border-radius:6px;padding:3px 9px;font-size:11px}
+.fac-quick-row button:hover{border-color:var(--accent);color:var(--accent)}
+.fac-quick-row button.cur{border-color:var(--accent);background:rgba(63,191,143,.15);color:var(--accent);font-weight:700}
 .empty{padding:34px 18px;text-align:center;color:var(--tx3);font-size:12.5px;line-height:1.9}
 
 /* ---------- detail ---------- */
@@ -189,6 +210,7 @@ button{cursor:pointer}
 .openstat{display:inline-block;font-size:11px;font-weight:700;padding:3px 9px;border-radius:6px;margin-left:8px}
 .openstat.o{background:rgba(63,191,143,.18);color:var(--accent)}
 .openstat.x{background:rgba(124,136,148,.2);color:var(--tx3)}
+.openstat.c{background:rgba(217,83,79,.18);color:#f08a87}
 
 /* heatmap */
 .heat{width:100%;border-collapse:separate;border-spacing:3px;table-layout:fixed}
@@ -325,6 +347,7 @@ button{cursor:pointer}
   #topabout{order:1}
   #topthanks{order:1}
   .region{order:2}
+  #btnNear{min-height:40px;padding:7px 10px;font-size:12px;flex:0 0 auto}
   .searchwrap{order:3}
   .region{margin-left:0;width:100%}
   .region select{flex:1;min-width:0}
@@ -381,6 +404,13 @@ button{cursor:pointer}
 .leaflet-container{background:#e5e3df}
 .leaflet-control-attribution{background:rgba(15,18,20,.75)!important;color:#6c7a88!important;font-size:9px!important}
 .leaflet-control-attribution a{color:#9aa7b4!important}
+.marker-cluster-small,.marker-cluster-medium,.marker-cluster-large{background:rgba(63,191,143,.24)!important}
+.marker-cluster-small div,.marker-cluster-medium div,.marker-cluster-large div{
+  background:rgba(23,27,31,.94)!important;color:var(--tx)!important;
+  border:1.5px solid var(--accent)!important;font-weight:700;font-size:12px
+}
+.near-dot{width:14px;height:14px;border-radius:50%;background:#4d9de0;
+  border:2.5px solid #fff;box-shadow:0 0 0 5px rgba(77,157,224,.3)}
 </style>
 <script type="application/ld+json">
 {
@@ -389,12 +419,12 @@ button{cursor:pointer}
   "@id": "https://kaitoinoue0921.github.io/study-map/#webpage",
   "url": "https://kaitoinoue0921.github.io/study-map/",
   "name": "スタディスポットMAP — 無料で勉強できる場所をみんなでランク付け",
-  "description": "栃木県内の図書館・公民館・カフェなど、無料で勉強できる場所を地図でランク付け。静音性・電源・Wi-Fiなど8軸で評価し、時間帯ごとの空き状況もわかります。",
+  "description": "全国の図書館・公民館・カフェなど、無料で勉強できる場所を地図でランク付け。静音性・座席・周囲の集中度など5軸評価と電源・Wi-Fi設備、時間帯ごとの空き状況もわかります。",
   "inLanguage": "ja",
   "isPartOf": { "@id": "https://kaitoinoue0921.github.io/#website" },
   "author": { "@id": "https://kaitoinoue0921.github.io/#person" },
   "publisher": { "@id": "https://kaitoinoue0921.github.io/#person" },
-  "dateModified": "2026-09-12T00:00:00+09:00"
+  "dateModified": "2026-11-25T00:00:00+09:00"
 }
 </script>
 </head>
@@ -412,6 +442,7 @@ button{cursor:pointer}
     <select id="pref" aria-label="都道府県を選択"></select>
     <span class="sep">›</span>
     <select id="city" aria-label="市区町村を選択"></select>
+    <button type="button" id="btnNear" title="現在地周辺のスポットを近い順に探す">📍 現在地</button>
   </div>
   <div class="searchwrap">
     <input id="topsearch" placeholder="施設名で検索（例: 図書館、みるる）" autocomplete="off" aria-label="施設名で検索">
@@ -441,13 +472,14 @@ button{cursor:pointer}
           <option value="">すべての種別</option>
           <option>図書館</option><option>公民館・生涯学習センター</option>
           <option>コミュニティセンター</option><option>市民活動センター</option>
-          <option>カフェ</option><option>ファミレス</option><option>フードコート</option>
+          <option>自習室</option><option>カフェ</option><option>ファミレス</option><option>フードコート</option>
           <option>温泉・入浴施設</option><option>道の駅</option>
           <option>サービスエリア・PA</option><option>大学・学習施設</option>
-          <option>市役所・公共施設</option><option>商業施設</option>
+          <option>市役所・公共施設</option><option>商業施設</option><option>その他</option>
         </select>
         <select id="sort" aria-label="並び順">
           <option value="score">スコア順</option>
+          <option value="dist">近い順（現在地）</option>
           <option value="rank">ランク順</option>
           <option value="late">遅くまで開いている順</option>
           <option value="rev">口コミ数順</option>
@@ -457,22 +489,26 @@ button{cursor:pointer}
       <div class="chips" id="chips">
         <button class="chip now" data-f="now">🕐 いま空いてる</button>
         <button class="chip" data-f="open">いま開いてる</button>
-        <button class="chip" data-f="power">電源</button>
-        <button class="chip" data-f="wifi">Wi-Fi</button>
-        <button class="chip" data-f="aircon">空調・空間</button>
-        <button class="chip" data-f="privacy">集中ムードがある</button>
+        <button class="chip" data-f="power">⚡ 電源</button>
+        <button class="chip" data-f="wifi">📶 Wi-Fi</button>
         <button class="chip" data-f="quiet">静か</button>
+        <button class="chip" data-f="seat">座席快適</button>
+        <button class="chip" data-f="privacy">集中ムード</button>
+        <button class="chip" data-f="refresh">息抜きしやすい</button>
+        <button class="chip" data-f="aircon">空調・空間</button>
         <button class="chip" data-f="free">完全無料</button>
       </div>
     </div>
 
     <div id="listhead"><span id="count"></span><span>ピンをクリックで詳細</span></div>
+    <div id="facbar"></div>
     <div id="list"></div>
 
     <div id="detail">
       <div class="dhead">
         <button class="back" id="back">← 一覧</button>
         <div style="font-size:12px;color:var(--tx3)">スポット詳細</div>
+        <button class="back" id="shareSpot" style="margin-left:auto" title="このスポットのURLをコピー">🔗 URLコピー</button>
       </div>
       <div class="dbody" id="dbody"></div>
     </div>
@@ -483,13 +519,14 @@ button{cursor:pointer}
     <button class="mapui" id="toolstoggle" aria-expanded="false" aria-controls="toolbar"
             title="表示と保存の設定">⚙</button>
     <div class="mapui" id="toolbar" hidden>
+      <button id="btnExport">⬇ データ書き出し（JSON）</button>
+      <button data-ksup-open="study-map" data-skin="dark">♡ 作者を応援する</button>
+      <div style="border-top:1px solid var(--line);margin:3px 4px;padding-top:4px;font-size:9.5px;color:var(--tx3);padding-left:11px">詳細・運営設定</div>
       <button id="btnCloud">☁ 共有DBの設定</button>
       <button id="btnPlaces">📍 Google情報の設定</button>
-      <button id="btnExport">⬇ データ書き出し</button>
       <button id="btnImport">⬆ データ読み込み</button>
       <button id="btnReset">↺ サンプルに戻す</button>
       <button id="btnAdmin">🔒 管理者モード</button>
-      <button data-ksup-open="study-map" data-skin="dark">♡ 作者を応援する</button>
     </div>
     <div class="mapui" id="banner"></div>
     <button class="mapui" id="addbtn">＋ スポットを追加</button>
@@ -508,6 +545,7 @@ button{cursor:pointer}
 <div id="modal"><div class="sheet" id="sheet"></div></div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
 <script>
 /* =========================================================
    スタディスポットMAP — プロトタイプ
@@ -596,12 +634,24 @@ const FACS=[{k:'aircon',label:'空調'}];
 const ALLFACS=[...TOPFACS,...FACS];
 const facOf=(sp,k)=>sp.facilities?sp.facilities[k]:undefined;
 const RCOL={S:'var(--s)',A:'var(--a)',B:'var(--b)',C:'var(--c)','?':'var(--un)',Z:'var(--blocked)'};
+const CATEGORIES=['図書館','公民館・生涯学習センター','コミュニティセンター','市民活動センター',
+  '自習室','カフェ','ファミレス','フードコート','温泉・入浴施設','道の駅',
+  'サービスエリア・PA','大学・学習施設','市役所・公共施設','商業施設','その他'];
+function catMatches(spCat, filterCat){
+  if(!filterCat) return true;
+  if(spCat===filterCat) return true;
+  if(filterCat==='公民館・生涯学習センター' && spCat==='公民館') return true;
+  if(filterCat==='大学・学習施設' && spCat==='大学') return true;
+  return false;
+}
 
 /* ---------- ピンをクリックしたときの簡易吹き出し ---------- */
 function miniPopupHTML(sp,rank,sc){
-  const op=isOpenNow(sp), h=hoursFor(sp);
-  const statusHtml = op===true?`<span class="mp-open o">開館中</span>`
-    : op===false?`<span class="mp-open x">時間外</span>`:'';
+  const ost=openStatus(sp), h=hoursFor(sp);
+  const statusHtml = ost==='open'?`<span class="mp-open o">開館中</span>`
+    : ost==='closed_today'?`<span class="mp-open x" style="color:#f08a87">本日休館</span>`
+    : ost==='unavailable'?`<span class="mp-open x" style="color:#f08a87">利用不可</span>`
+    : ost==='outside'?`<span class="mp-open x">時間外</span>`:'';
   const scoreHtml = rank===UNRATED ? `<span class="mp-unrated">未評価</span>`
     : rank===BLOCKED ? `<span class="mp-badge" style="background:${RCOL[rank]}">${rank}</span><span class="mp-unrated">勉強できなかった、との報告あり</span>`
     : `<span class="mp-badge" style="background:${RCOL[rank]}">${rank}</span><span class="mp-score">${sc}点</span>`;
@@ -624,7 +674,7 @@ const LEVELS={1:{t:'混雑',c:'var(--busy)'},2:{t:'ふつう',c:'var(--mid)'},3:
 
 function nowCell(){
   const d=new Date(), h=d.getHours()+d.getMinutes()/60;
-  const day=(d.getDay()===0||d.getDay()===6)?'we':'wd';
+  const day=(d.getDay()===0||d.getDay()===6||isJapaneseHoliday(d))?'we':'wd';
   const i=SLOTS.findIndex(s=>h>=s[0]&&h<s[1]);
   return i<0?null:{day,slot:i};
 }
@@ -638,7 +688,20 @@ const PREFS=['北海道','青森県','岩手県','宮城県','秋田県','山形
 
 /* ---------- サンプルデータ ---------- */
 const rid=()=>Math.random().toString(36).slice(2,9);
-function s(o){ return Object.assign({id:'seed-'+rid(),pref:'栃木県',seed:true},o); }
+function hashStr(str){
+  let h=2166136261;
+  for(let i=0;i<str.length;i++){ h^=str.charCodeAt(i); h=Math.imul(h,16777619); }
+  return (h>>>0).toString(36);
+}
+const _seedIds=new Set();
+function s(o){
+  const pref=o.pref||'栃木県';
+  let base='seed-'+hashStr(pref+'|'+(o.city||'')+'|'+(o.name||'')+'|'+(o.address||''));
+  let id=base, n=2;
+  while(_seedIds.has(id)){ id=base+'-'+n++; }
+  _seedIds.add(id);
+  return Object.assign({id,pref,seed:true},o);
+}
 /* ガスト・ココスのようなファミレスチェーンは、店舗ごとに実測しなくても
    写真や一般的な特徴（会話が多い・ドリンクバーがある等）から大体の評価がつく。
    実際に行った人が投稿すればこの目安は口コミの1件として平均に混ざり、
@@ -5181,20 +5244,176 @@ function freeNow(sp){
   const c=heatData(sp)[n.day][n.slot];
   return c.n>0 && c.t/c.n>=2.5;
 }
-/* 営業時間（"9:00–19:00" 形式）から開館中か判定 */
+/* ---------- 祝日・休館日・営業時間パーサ ---------- */
+function isJapaneseHoliday(d){
+  const y=d.getFullYear(), mo=d.getMonth()+1, day=d.getDate(), wd=d.getDay();
+  const isBaseHol=(dt)=>{
+    const yy=dt.getFullYear(), mm=dt.getMonth()+1, dd=dt.getDate(), ww=dt.getDay();
+    const nth=(m2,w,n)=>mm===m2 && ww===w && Math.floor((dd-1)/7)+1===n;
+    const fixed=[[1,1],[2,11],[2,23],[4,29],[5,3],[5,4],[5,5],[8,11],[11,3],[11,23]];
+    if(fixed.some(([a,b])=>a===mm&&b===dd)) return true;
+    if(nth(1,1,2)||nth(7,1,3)||nth(9,1,3)||nth(10,1,2)) return true;
+    const vernal=Math.floor(20.8431+0.242194*(yy-1980)-Math.floor((yy-1980)/4));
+    const autumnal=Math.floor(23.2488+0.242194*(yy-1980)-Math.floor((yy-1980)/4));
+    return (mm===3&&dd===vernal)||(mm===9&&dd===autumnal);
+  };
+  if(isBaseHol(d)) return true;
+  if(wd!==0){
+    const prev=new Date(y,mo-1,day-1);
+    while(isBaseHol(prev)){
+      if(prev.getDay()===0) return true;
+      prev.setDate(prev.getDate()-1);
+    }
+  }
+  if(mo===9&&day>15&&day<25){
+    if(isBaseHol(new Date(y,mo-1,day-1))&&isBaseHol(new Date(y,mo-1,day+1))) return true;
+  }
+  return false;
+}
+const WMAP={'日':0,'月':1,'火':2,'水':3,'木':4,'金':5,'土':6};
+function matchDaySpec(spec, d){
+  const wd=d.getDay(), dom=d.getDate();
+  const nth=Math.floor((dom-1)/7)+1;
+  const isLast=new Date(d.getFullYear(),d.getMonth()+1,0).getDate()-dom<7;
+  const days=new Set();
+  const rangeRe=/([日月火水木金土])曜?[日]?[–~〜～-]([日月火水木金土])曜?/g;
+  let rm;
+  while((rm=rangeRe.exec(spec))!==null){
+    const a=WMAP[rm[1]], b=WMAP[rm[2]];
+    for(let i=0;i<7;i++){ const cur=(a+i)%7; days.add(cur); if(cur===b) break; }
+  }
+  // 「祝日」「本日」「毎日」等の「日」を日曜日と誤認しないよう、曜付き or 単独曜字のみ拾う
+  const cleaned=spec.replace(/祝日|祝休日|休館日|定休日|毎日|本日|前日|翌日|当日|利用日|日曜日以外/g,'');
+  for(const ch of Object.keys(WMAP)){
+    if(new RegExp(ch+'曜|(?:^|[・、,\\s])'+ch+'(?=[・、,\\s]|$)').test(cleaned)) days.add(WMAP[ch]);
+  }
+  if(!days.has(wd)) return false;
+  const nths=[...spec.matchAll(/第(\d)/g)].map(x=>+x[1]);
+  const hasLast=/最終/.test(spec);
+  if(nths.length||hasLast) return nths.includes(nth)||(hasLast&&isLast);
+  return true;
+}
+function isClosedToday(sp, now=new Date()){
+  const cl=(sp.closed||'').trim();
+  if(!cl || /年中無休|無休/.test(cl)) return false;
+  const mo=now.getMonth()+1, day=now.getDate();
+  if(/年末年始|年始/.test(cl)){
+    const rm=/12\/(\d{1,2})[–~〜～-]+1\/(\d{1,2})/.exec(cl);
+    const s1=rm?+rm[1]:29, e1=rm?+rm[2]:3;
+    if((mo===12&&day>=s1)||(mo===1&&day<=e1)) return true;
+  }
+  const clauses=cl.split(/[・、\n]/).map(x=>x.trim()).filter(Boolean);
+  const holNow=isJapaneseHoliday(now);
+  for(const c of clauses){
+    if(/第\d|最終|[日月火水木金土]曜/.test(c)){
+      const hasShiftNext=/祝日の?場合は?翌/.test(c);
+      const hasShiftPrev=/祝日の?場合は?前/.test(c);
+      const exclHol=/祝日を除/.test(c);
+      if(hasShiftNext){
+        if(holNow && matchDaySpec(c,now)) continue;
+        const yest=new Date(now.getFullYear(),mo-1,day-1);
+        if(isJapaneseHoliday(yest) && matchDaySpec(c,yest)) return true;
+      }else if(hasShiftPrev){
+        if(holNow && matchDaySpec(c,now)) continue;
+        const tom=new Date(now.getFullYear(),mo-1,day+1);
+        if(isJapaneseHoliday(tom) && matchDaySpec(c,tom)) return true;
+      }else if(exclHol && holNow){
+        continue;
+      }
+      if(matchDaySpec(c,now)) return true;
+    }
+    if(/祝日|国民の祝日|祝休日/.test(c) && !/祝日を除|祝日の場合|祝日と重なる/.test(c)){
+      if(holNow) return true;
+    }
+  }
+  return false;
+}
+function pickHoursSegment(h, now=new Date()){
+  const segs=h.split(/\s*[/／]\s*/).map(x=>x.trim()).filter(Boolean);
+  if(segs.length<=1) return h;
+  const mo=now.getMonth()+1;
+  for(const seg of segs){
+    const sm=/(\d{1,2})月?[–~〜～-](\d{1,2})月/.exec(seg);
+    if(sm){
+      const a=+sm[1], b=+sm[2];
+      const inR=a<=b?(mo>=a&&mo<=b):(mo>=a||mo<=b);
+      if(inR) return seg;
+    }
+  }
+  for(const seg of segs){
+    if(/[日月火水木金土]/.test(seg) && matchDaySpec(seg,now)) return seg;
+  }
+  return segs[0];
+}
 function parseHM(t){ const m=/(\d{1,2}):(\d{2})/.exec(t||''); return m?+m[1]+ +m[2]/60:null; }
-function hoursFor(sp){
-  const d=new Date().getDay();
-  return (d===0||d===6)?(sp.hoursWe||sp.hoursWd):(sp.hoursWd||sp.hoursWe);
+function hoursFor(sp, now=new Date()){
+  const d=now.getDay(), isWe=(d===0||d===6||isJapaneseHoliday(now));
+  let h=isWe?(sp.hoursWe||sp.hoursWd):(sp.hoursWd||sp.hoursWe);
+  if(h && /^(土日祝も)?平日と同じ/.test(h.trim())) h=sp.hoursWd||'';
+  return h||'';
+}
+function parseHoursInfo(sp, now=new Date()){
+  const raw=hoursFor(sp,now);
+  if(!raw) return null;
+  if(/^(利用不可|開放なし|閉庁|休館)/.test(raw.trim())) return {unavailable:true,raw};
+  if(/24時間/.test(raw)) return {start:0,end:24,open24:true,raw};
+  const seg=pickHoursSegment(raw,now);
+  if(/^(利用不可|開放なし|閉庁|休館)/.test(seg.trim())) return {unavailable:true,raw};
+  const noParen=seg.replace(/（[^）]*）|\([^)]*\)/g,' ').trim();
+  const re=/(\d{1,2}:\d{2})\s*[–~〜～-]\s*(翌\s*)?(?:最長\s*)?(\d{1,2}:\d{2})/;
+  const rm=re.exec(noParen)||re.exec(seg);
+  if(rm){
+    const a=parseHM(rm[1]); let b=parseHM(rm[3]);
+    if(a!=null&&b!=null){
+      if(rm[2]||b<=a) b+=24;
+      return {start:a,end:b,raw:seg};
+    }
+  }
+  const endOnly=/[–~〜～-]\s*(翌\s*)?(\d{1,2}:\d{2})/.exec(noParen);
+  if(endOnly){
+    let b=parseHM(endOnly[2]); if(endOnly[1]) b+=24;
+    return {start:null,end:b,raw:seg};
+  }
+  return null;
+}
+function openStatus(sp, now=new Date()){
+  const info=parseHoursInfo(sp,now);
+  if(info && info.unavailable) return 'unavailable';
+  if(isClosedToday(sp,now)) return 'closed_today';
+  if(!info || info.start==null) return null;
+  if(info.open24) return 'open';
+  const cur=now.getHours()+now.getMinutes()/60;
+  if(cur>=info.start && cur<info.end) return 'open';
+  if(info.end>24 && cur<(info.end-24)){
+    const yest=new Date(now.getFullYear(),now.getMonth(),now.getDate()-1);
+    if(!isClosedToday(sp,yest)) return 'open';
+  }
+  return 'outside';
 }
 function isOpenNow(sp){
-  const h=hoursFor(sp); if(!h) return null;
-  const p=h.split(/[–~-]/); if(p.length<2) return null;
-  const a=parseHM(p[0]), b=parseHM(p[1]); if(a==null||b==null) return null;
-  const now=new Date().getHours()+new Date().getMinutes()/60;
-  return now>=a&&now<b;
+  const st=openStatus(sp);
+  return st==='open'?true:st?false:null;
 }
-function closeHour(sp){ const h=hoursFor(sp)||''; const p=h.split(/[–~-]/); return p[1]?(parseHM(p[1])??0):0; }
+function closeHour(sp){
+  const info=parseHoursInfo(sp);
+  return info&&info.end!=null?info.end:0;
+}
+
+/* ---------- 距離計算 ---------- */
+function haversineKm(lat1,lng1,lat2,lng2){
+  const R=6371, rad=Math.PI/180;
+  const dLat=(lat2-lat1)*rad, dLng=(lng2-lng1)*rad;
+  const a=Math.sin(dLat/2)**2+Math.cos(lat1*rad)*Math.cos(lat2*rad)*Math.sin(dLng/2)**2;
+  return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
+}
+function spotDistKm(sp){
+  if(!state.near||sp.lat==null||sp.lng==null) return null;
+  return haversineKm(state.near.lat,state.near.lng,sp.lat,sp.lng);
+}
+function formatDist(km){
+  if(km==null) return '';
+  return km<1?`約${Math.round(km*1000)}m`:`約${km.toFixed(1)}km`;
+}
 
 /* =========================================================
    ストア — 共有DB(Supabase)が設定されていればそちら、
@@ -5277,16 +5496,27 @@ const DB={
       this.mode='cloud'; return 'cloud';
     }catch(e){ this.err=e.message||String(e); this.mode='local'; return 'local'; }
   },
+  async fetchAll(table, orderCol){
+    const out=[]; const page=1000;
+    for(let from=0; ; from+=page){
+      let q=this.sb.from(table).select('*').range(from,from+page-1);
+      if(orderCol) q=q.order(orderCol,{ascending:true});
+      const r=await q;
+      if(r.error) throw r.error;
+      const rows=r.data||[];
+      out.push(...rows);
+      if(rows.length<page) break;
+    }
+    return out;
+  },
   async list(){
     if(this.mode==='local') return loadLocal();
-    const [sp,rv]=await Promise.all([
-      this.sb.from('spots').select('*'),
-      this.sb.from('reviews').select('*').order('created_at',{ascending:true})
+    const [spRows,rvRows]=await Promise.all([
+      this.fetchAll('spots','created_at'),
+      this.fetchAll('reviews','created_at')
     ]);
-    if(sp.error) throw sp.error;
-    if(rv.error) throw rv.error;
-    const by={}; (rv.data||[]).forEach(r=>{ (by[r.spot_id]??=[]).push(rowToReview(r)); });
-    return (sp.data||[]).map(r=>rowToSpot(r,by[r.id]||[]));
+    const by={}; rvRows.forEach(r=>{ (by[r.spot_id]??=[]).push(rowToReview(r)); });
+    return spRows.map(r=>rowToSpot(r,by[r.id]||[]));
   },
   async addSpot(sp){
     if(this.mode==='local'){ SPOTS.push(sp); saveLocal(); return sp; }
@@ -5349,7 +5579,8 @@ function renderDbStat(){
 }
 
 /* ---------- 状態 ---------- */
-const state={pref:'栃木県',city:'',q:'',cat:'',sort:'score',ranks:{S:1,A:1,B:1,C:1,'?':1,'Z':1},chips:{},sel:null,adding:false};
+const state={pref:'栃木県',city:'',q:'',cat:'',sort:'score',ranks:{S:1,A:1,B:1,C:1,'?':1,'Z':1},chips:{},
+  sel:null,adding:false,near:null,facIncludeUnknown:false,initSpot:null};
 
 /* ---------- 地図アダプタ ---------- */
 let MapA=null;
@@ -5359,25 +5590,53 @@ function LeafletAdapter(){
   L.control.zoom({position:'topleft'}).addTo(map);
   L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png',
     {attribution:'&copy; <a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noopener">国土地理院</a>',maxNativeZoom:18,maxZoom:19}).addTo(map);
-  let markers=[], byId=new Map();
+  const useCluster=(typeof L.markerClusterGroup==='function');
+  const layer=useCluster
+    ? L.markerClusterGroup({maxClusterRadius:38,disableClusteringAtZoom:12,showCoverageOnHover:false,spiderfyOnMaxZoom:true}).addTo(map)
+    : L.layerGroup().addTo(map);
+  let byId=new Map(), nearMarker=null;
   return {
-    clear(){ markers.forEach(m=>map.removeLayer(m)); markers=[]; byId.clear(); },
+    clear(){ layer.clearLayers(); byId.clear(); },
     add(sp,rank,sc,onClick){
       const cls=rank===UNRATED?'un':rank, mark=rank===UNRATED?'未':rank;
       const icon=L.divIcon({html:`<div class="pin ${cls}" data-id="${sp.id}"><b>${mark}</b></div>`,
         className:'',iconSize:[26,26],iconAnchor:[13,26]});
-      const m=L.marker([sp.lat,sp.lng],{icon}).addTo(map);
+      const m=L.marker([sp.lat,sp.lng],{icon});
       const rankLabel=rank===UNRATED?'未評価':rank===BLOCKED?'勉強できなかった、との報告あり':sc+'点';
-      m.bindTooltip(`<b>${esc(sp.name)}</b><br><em>${rankLabel} ・ ${esc(hoursFor(sp)||'—')}</em>`,
+      const dist=spotDistKm(sp);
+      const distTxt=dist!=null?' ・ '+formatDist(dist):'';
+      m.bindTooltip(`<b>${esc(sp.name)}</b><br><em>${rankLabel} ・ ${esc(hoursFor(sp)||'—')}${distTxt}</em>`,
         {className:'tip',direction:'top',offset:[0,-28]});
       m.bindPopup(miniPopupHTML(sp,rank,sc),{className:'mini-pop',closeButton:true,offset:[0,-14],maxWidth:240,autoPan:false});
       m.on('click',()=>{ onClick(sp.id); MapA.openPopup(sp.id); });
-      markers.push(m); byId.set(sp.id,m);
+      layer.addLayer(m); byId.set(sp.id,m);
+    },
+    setUserLocation(near){
+      if(nearMarker){ map.removeLayer(nearMarker); nearMarker=null; }
+      if(!near) return;
+      const icon=L.divIcon({html:'<div class="near-dot"></div>',className:'',iconSize:[14,14],iconAnchor:[7,7]});
+      nearMarker=L.marker([near.lat,near.lng],{icon,zIndexOffset:1000}).addTo(map);
+      nearMarker.bindTooltip('現在地',{className:'tip',direction:'top'});
     },
     highlight(id){ document.querySelectorAll('.pin').forEach(p=>p.classList.toggle('act',p.dataset.id===id)); },
-    focus(sp){ map.setView([sp.lat,sp.lng],Math.max(map.getZoom(),13),{animate:true}); },
+    focus(sp){
+      const m=byId.get(sp.id);
+      if(useCluster&&m&&typeof layer.zoomToShowLayer==='function'){
+        layer.zoomToShowLayer(m,()=>map.setView([sp.lat,sp.lng],Math.max(map.getZoom(),13),{animate:true}));
+      }else{
+        map.setView([sp.lat,sp.lng],Math.max(map.getZoom(),13),{animate:true});
+      }
+    },
     fit(rows){ if(!rows.length) return; map.fitBounds(rows.map(x=>[x.lat,x.lng]),{padding:[60,60],maxZoom:13}); },
-    openPopup(id){ const m=byId.get(id); if(m) m.openPopup(); },
+    fitNear(near,rows){
+      const pts=[[near.lat,near.lng],...rows.slice(0,5).map(x=>[x.lat,x.lng])];
+      map.fitBounds(pts,{padding:[60,60],maxZoom:14});
+    },
+    openPopup(id){
+      const m=byId.get(id); if(!m) return;
+      if(useCluster&&typeof layer.zoomToShowLayer==='function') layer.zoomToShowLayer(m,()=>m.openPopup());
+      else m.openPopup();
+    },
     onMapClick(fn){ map.on('click',e=>fn(e.latlng.lat,e.latlng.lng)); },
     cursor(on){ document.getElementById('map').style.cursor=on?'crosshair':''; }
   };
@@ -5389,6 +5648,17 @@ function initAdapter(a){
   MapA=a;
   MapA.onMapClick((lat,lng)=>{ if(state.adding) openAddForm(lat,lng); });
   render();
+  if(state.initSpot){
+    const target=SPOTS.find(x=>x.id===state.initSpot||x.name===state.initSpot);
+    state.initSpot=null;
+    if(target){
+      state.pref=target.pref||'栃木県'; state.city=target.city||'';
+      fillRegion(); render(); syncPageMeta();
+      const rows=filtered(); MapA.fit(rows);
+      selectSpot(target.id,true);
+      return;
+    }
+  }
   const rows=filtered();
   MapA.fit(rows);
   if(rows.length && !compactLayout.matches) selectSpot(rows[0].id,false);
@@ -5401,28 +5671,41 @@ function filtered(){
     if(state.pref && (sp.pref||'栃木県')!==state.pref) return false;
     if(state.city && sp.city!==state.city) return false;
     if(!state.ranks[rankOfSpot(sp)]) return false;
-    if(state.cat && sp.category!==state.cat) return false;
+    if(state.cat && !catMatches(sp.category,state.cat)) return false;
     if(q && !(sp.name+sp.city+(sp.address||'')+sp.category).toLowerCase().includes(q)) return false;
     const a=avgAxes(sp);
-    // 電源・Wi-Fiは主観評価を持たない「絶対条件」。確認できたものだけを通す。
+    // 電源・Wi-Fiは原則「あり確定」のみ通すが、不明も含むモードでは「なし確定」だけ除外する。
     for(const k of ['power','wifi']){
-      if(state.chips[k] && facOf(sp,k)!==1) return false;
+      if(state.chips[k]){
+        const fv=facOf(sp,k);
+        if(state.facIncludeUnknown){ if(fv===0) return false; }
+        else if(fv!==1) return false;
+      }
     }
     // 空調・空間は設備の事実があればそれを優先し、無ければ口コミの平均で判定する。
     if(state.chips.aircon){
       const f=facOf(sp,'aircon');
       if(f===0) return false;
-      if(f!==1 && a.aircon<3.5) return false;
+      if(f!==1 && !state.facIncludeUnknown && a.aircon<3.5) return false;
     }
+    if(state.chips.seat && a.seat<3.5) return false;
     if(state.chips.privacy && a.privacy<3.5) return false;
+    if(state.chips.refresh && a.refresh<3.5) return false;
     if(state.chips.quiet && a.quiet<4) return false;
     if(state.chips.free && !/無料/.test(sp.fee||'')) return false;
     if(state.chips.open && isOpenNow(sp)!==true) return false;
     if(state.chips.now && !freeNow(sp)) return false;
     return true;
   });
+  if(state.sort==='dist' && state.near){
+    out.sort((x,y)=>{
+      const dx=spotDistKm(x)??1e9, dy=spotDistKm(y)??1e9;
+      return dx-dy;
+    });
+    return out;
+  }
   const key={score:x=>-score100(x),rank:x=>-score100(x),late:x=>-closeHour(x),
-             rev:x=>-x.reviews.length,name:x=>x.name}[state.sort];
+             rev:x=>-x.reviews.length,name:x=>x.name,dist:x=>-score100(x)}[state.sort]||(x=>-score100(x));
   out.sort((x,y)=>{
     // 未評価は点数で並べられないので、名前順以外では常に末尾へ
     if(state.sort!=='name' && rated(x)!==rated(y)) return rated(x)?-1:1;
@@ -5495,15 +5778,21 @@ function fillRegion(){
    書き換えだけで済ませる「軽い」実装。 */
 function applyURLParams(){
   const p=new URLSearchParams(location.search);
-  const pref=p.get('pref'), city=p.get('city');
-  if(pref && PREFS.includes(pref)) state.pref=pref;
-  if(city && SPOTS.some(sp=>sp.city===city && (sp.pref||'栃木県')===state.pref)) state.city=city;
+  const pref=p.get('pref'), city=p.get('city'), spot=p.get('spot');
+  if(pref===''&&p.has('pref')) state.pref='';
+  else if(pref && PREFS.includes(pref)) state.pref=pref;
+  if(city && SPOTS.some(sp=>sp.city===city && (!state.pref||(sp.pref||'栃木県')===state.pref))) state.city=city;
+  if(spot) state.initSpot=spot;
 }
 function syncPageMeta(){
   const base='スタディスポットMAP';
   const count=filtered().length;
+  const selSp=state.sel?SPOTS.find(x=>x.id===state.sel):null;
   let title,desc;
-  if(state.pref && state.city){
+  if(selSp){
+    title=`${selSp.name}（${selSp.pref||''}${selSp.city}）| ${base}`;
+    desc=`${selSp.name}の勉強環境・設備（電源・Wi-Fi）・営業時間・口コミ情報。`;
+  }else if(state.pref && state.city){
     title=`${state.city}の無料勉強スポット${count}件（${state.pref}）| ${base}`;
     desc=`${state.pref}${state.city}で無料で勉強できる場所${count}件。図書館・カフェ・公民館などを静音性や電源の有無で比較できます。`;
   }else if(state.pref){
@@ -5511,7 +5800,7 @@ function syncPageMeta(){
     desc=`${state.pref}内で無料で勉強できる場所${count}件を地図とランキングで比較。静音性・電源・Wi-Fiなどの設備もわかります。`;
   }else{
     title=`${base} — 無料で勉強できる場所をみんなでランク付け`;
-    desc='栃木県内の図書館・公民館・カフェなど、無料で勉強できる場所を地図でランク付け。静音性・電源・Wi-Fiなど8軸で評価し、時間帯ごとの空き状況もわかります。';
+    desc='全国の図書館・公民館・カフェなど、無料で勉強できる場所を地図でランク付け。静音性・座席・周囲の集中度など5軸評価と電源・Wi-Fi設備、時間帯ごとの空き状況もわかります。';
   }
   document.title=title;
   document.getElementById('pgdesc').setAttribute('content',desc);
@@ -5519,7 +5808,9 @@ function syncPageMeta(){
   document.getElementById('pgogdesc').setAttribute('content',desc);
   const p=new URLSearchParams();
   if(state.pref) p.set('pref',state.pref);
+  else if(state.sel) p.set('pref','');
   if(state.city) p.set('city',state.city);
+  if(state.sel) p.set('spot',state.sel);
   const qs=p.toString();
   const url='https://kaitoinoue0921.github.io/study-map/'+(qs?`?${qs}`:'');
   document.getElementById('pgcanon').setAttribute('href',url);
@@ -5533,12 +5824,25 @@ function render(){
   document.getElementById('topcount').textContent=
     `${state.pref||'全国'}${state.city?' / '+state.city:''} — ${rows.length}件`;
 
+  const facbar=document.getElementById('facbar');
+  if(state.chips.power||state.chips.wifi||state.chips.aircon){
+    facbar.innerHTML=`<div class="fac-bar">
+      <span>${state.facIncludeUnknown?'設備「不明」の施設も表示中':'確認済みの設備のみ表示中（未確認を除外）'}</span>
+      <button type="button" id="toggleFacUnk">${state.facIncludeUnknown?'確認済みのみに戻す':'未確認も含める'}</button>
+    </div>`;
+    facbar.querySelector('#toggleFacUnk').onclick=()=>{ state.facIncludeUnknown=!state.facIncludeUnknown; render(); };
+  }else facbar.innerHTML='';
+
   const list=document.getElementById('list');
   list.innerHTML= rows.length ? rows.map(sp=>{
-    const sc=score100(sp),rk=rankOfSpot(sp),a=avgAxes(sp),bs=bestSlot(sp),op=isOpenNow(sp);
+    const sc=score100(sp),rk=rankOfSpot(sp),a=avgAxes(sp),bs=bestSlot(sp),ost=openStatus(sp);
+    const dist=spotDistKm(sp);
     const tags=[];
-    if(op===true) tags.push(`<span class="tg free">開館中 ${esc(hoursFor(sp)||'')}</span>`);
-    else if(op===false) tags.push(`<span class="tg">${esc(hoursFor(sp)||'')}</span>`);
+    if(dist!=null) tags.push(`<span class="tg dist">${formatDist(dist)}</span>`);
+    if(ost==='open') tags.push(`<span class="tg free">開館中 ${esc(hoursFor(sp)||'')}</span>`);
+    else if(ost==='closed_today') tags.push(`<span class="tg warn">本日休館</span>`);
+    else if(ost==='unavailable') tags.push(`<span class="tg warn">本日利用不可</span>`);
+    else if(ost==='outside') tags.push(`<span class="tg">${esc(hoursFor(sp)||'')}</span>`);
     if(bs) tags.push(`<span class="tg time">${bs.day}${bs.slot}時が空き</span>`);
     ALLFACS.forEach(f=>{
       const v=facOf(sp,f.k);
@@ -5555,12 +5859,13 @@ function render(){
       <div class="badge ${rk===UNRATED?'un':rk}">${rk===UNRATED?'未<br>評価':rk}</div>
       <div class="cbody">
         <div class="cname">${esc(sp.name)}</div>
-        <div class="cmeta">${esc(sp.city)}・${esc(sp.category)}</div>
+        <div class="cmeta">${esc((state.pref?'':(sp.pref||'')+' ')+sp.city)}・${esc(sp.category)}</div>
         <div class="cscore">${score}</div>
         <div class="ctags">${tags.join('')}</div>
       </div></div>`;
-  }).join('') : `<div class="empty">${state.pref||'この地域'}にはまだスポットがありません。<br>
-      右下の「＋ スポットを追加」から、<br>あなたの知っている場所を最初に登録してみてください。</div>`;
+  }).join('') : `<div class="empty">${state.pref||'この地域'}では条件に合うスポットが見つかりませんでした。<br>
+      ${(state.chips.power||state.chips.wifi)?'※ 電源・Wi-Fiの「未確認も含める」を試すか、絞り込みを緩めてみてください。<br>':''}
+      右下の「＋ スポットを追加」から新しい場所を登録することもできます。</div>`;
 
   list.querySelectorAll('.card').forEach(c=>c.onclick=()=>selectSpot(c.dataset.id));
 
@@ -5571,19 +5876,47 @@ function render(){
   }
 }
 
+let lastQuickFacAt=0;
 function selectSpot(id,focus=true){
   const sp=SPOTS.find(x=>x.id===id); if(!sp) return;
   state.sel=id;
   if(MapA){ if(focus) MapA.focus(sp); MapA.highlight(id); }
   document.getElementById('dbody').innerHTML=detailHTML(sp);
-  if(window.KComments){ const cm=document.createElement('div'); cm.style.padding='0 16px 24px';
-    document.getElementById('dbody').appendChild(cm); KComments.mount(cm,'study-map/'+sp.id,'dark'); }
+  if(window.KComments){
+    const wrap=document.createElement('div'); wrap.style.padding='0 16px 24px';
+    wrap.innerHTML='<p class="hint" style="margin:8px 0 -18px">※ 5軸評価・混雑報告は上の「評価・口コミを書く」から。質問やちょっとした情報交換は下のコメント欄へどうぞ。</p>';
+    const cm=document.createElement('div');
+    wrap.appendChild(cm);
+    document.getElementById('dbody').appendChild(wrap);
+    KComments.mount(cm,'study-map/'+sp.id,'dark');
+  }
   document.getElementById('detail').classList.add('on');
   document.getElementById('side').classList.add('detail-on');
   document.getElementById('dbody').scrollTop=0;
   const b=document.getElementById('addRev'); if(b) b.onclick=()=>openReviewForm(sp);
   const fb=document.getElementById('addFlag'); if(fb) fb.onclick=()=>openFlagForm(sp);
   const gb=document.getElementById('btnGplace'); if(gb) gb.onclick=()=>fetchGooglePlace(sp);
+  document.querySelectorAll('.fac-qbtn').forEach(btn=>{
+    btn.onclick=async()=>{
+      const now=Date.now();
+      if(now-lastQuickFacAt<3000){ toast('少し間を空けてから押してください'); return; }
+      const k=btn.dataset.fk, val=+btn.dataset.fv;
+      if(facOf(sp,k)===val){ toast('すでに同じ状態が記録されています'); return; }
+      const label=ALLFACS.find(f=>f.k===k)?.label||k;
+      const txt=val===1?'あり':'なし';
+      if(!confirm(`「${sp.name}」の${label}を「${txt}」として共有しますか？`)) return;
+      btn.disabled=true;
+      try{
+        await DB.updateFacilities(sp,{[k]:val});
+        lastQuickFacAt=Date.now();
+        selectSpot(sp.id,false);
+        toast(`${label}を「${txt}」に更新しました`);
+      }catch(err){
+        btn.disabled=false;
+        toast('更新できませんでした: '+(err.message||err));
+      }
+    };
+  });
   document.querySelectorAll('.rev-del').forEach(db=>{
     db.onclick=async()=>{
       const rv=sp.reviews.find(r=>r.id===db.dataset.rid); if(!rv) return;
@@ -5594,6 +5927,7 @@ function selectSpot(id,focus=true){
       selectSpot(sp.id,false); toast('削除しました');
     };
   });
+  syncPageMeta();
   render();
 }
 
@@ -5618,7 +5952,7 @@ function heatHTML(sp){
 }
 
 function detailHTML(sp){
-  const sc=score100(sp),rk=rankOfSpot(sp),a=avgAxes(sp),op=isOpenNow(sp);
+  const sc=score100(sp),rk=rankOfSpot(sp),a=avgAxes(sp),ost=openStatus(sp),dist=spotDistKm(sp);
   const ax=AXES.map(x=>`<div class="ax"><label>${x.label}</label>
       <span class="bar"><i style="width:${a[x.k]/5*100}%;background:${RCOL[rk]}"></i></span>
       <b>${a[x.k].toFixed(1)}</b></div>`).join('');
@@ -5645,11 +5979,28 @@ function detailHTML(sp){
     return `<span class="fac ${st}">${f.icon} ${f.label} ${mk}</span>`;
   }).join('');
 
+  const openBadge = ost==='open'?'<span class="openstat o">開館中</span>'
+    : ost==='closed_today'?'<span class="openstat c">本日休館</span>'
+    : ost==='unavailable'?'<span class="openstat c">本日利用不可</span>'
+    : ost==='outside'?'<span class="openstat x">時間外</span>':'';
+
+  const quickFacRows = ALLFACS.map(f=>{
+    const v=facOf(sp,f.k);
+    return `<div class="fac-quick-row"><span>${f.label}</span>
+      <button type="button" class="fac-qbtn ${v===1?'cur':''}" data-fk="${f.k}" data-fv="1">あり</button>
+      <button type="button" class="fac-qbtn ${v===0?'cur':''}" data-fk="${f.k}" data-fv="0">なし</button>
+    </div>`;
+  }).join('');
+
+  const footNote = DB.mode==='cloud'
+    ? '※ 基本情報は各施設の公式情報等をもとに登録しています。投稿された口コミ・設備報告は共有データベースに保存されます。'
+    : '※ 共有DBに接続されていないため、現在このブラウザ内にのみ保存されます。';
+
   return `
   <div class="dtitle">
     <div class="badge ${rk===UNRATED?'un':rk}" style="width:44px;height:44px;flex:0 0 44px;font-size:${rk===UNRATED?'11px':'20px'}">${rk===UNRATED?'未<br>評価':rk}</div>
     <div><h2>${esc(sp.name)}</h2>
-      <div class="sub">${esc(sp.pref||'')} ${esc(sp.city)}・${esc(sp.category)}</div></div>
+      <div class="sub">${esc(sp.pref||'')} ${esc(sp.city)}・${esc(sp.category)}${dist!=null?'・現在地から'+formatDist(dist):''}</div></div>
   </div>
 
   <div class="facs" style="margin:-4px 0 12px">${topfacs}</div>
@@ -5667,7 +6018,7 @@ function detailHTML(sp){
       </div>
       <div style="flex:1;font-size:11.5px;color:var(--tx2);line-height:1.8">
         本日 ${esc(hoursFor(sp)||'—')}
-        ${op===true?'<span class="openstat o">開館中</span>':op===false?'<span class="openstat x">時間外</span>':''}
+        ${openBadge}
         <br><span style="color:var(--tx3)">休館: ${esc(sp.closed||'—')}</span>
       </div>
     </div>
@@ -5712,7 +6063,11 @@ function detailHTML(sp){
         return `<span class="fac ${st}">${f.label} ${mk}</span>`;
       }).join('')}
     </div>
-    <p class="hint">「不明」は誰も確認していない項目です。投稿の5軸評価とは別に、公式情報などで確認できた事実だけを載せています。電源・Wi-Fiの有無は上部のバッジをご覧ください。</p>
+    <div class="fac-quick">
+      <div>現地で確認できた設備があれば、ワンタップで教えてください（匿名で更新できます）</div>
+      ${quickFacRows}
+    </div>
+    <p class="hint">「不明」は未確認の項目です。5軸評価とは別に、確認できた事実を載せています。</p>
   </div>
 
   <div class="sect">
@@ -5721,7 +6076,7 @@ function detailHTML(sp){
     <p class="hint">口コミ投稿時の「行った時間帯と混み具合」から集計しています。</p>
   </div>
 
-  <p class="hint">※ サンプルデータを含みます。データはこのブラウザ内にのみ保存されます。</p>`;
+  <p class="hint">${footNote}</p>`;
 }
 
 /* ---------- 入力部品 ---------- */
@@ -5855,11 +6210,12 @@ function openFlagForm(sp){
 /* ---------- スポット追加 ---------- */
 function openAddForm(lat,lng){
   setAdding(false);
+  let curLat=lat, curLng=lng;
   const vals={}; AXES.forEach(x=>vals[x.k]=3);
   const n=nowCell()||{day:'wd',slot:2};
   const sel={day:n.day,slot:String(n.slot),level:'3'};
   openModal(`<h2>スポットを追加</h2>
-    <p class="lead">緯度 ${lat.toFixed(5)} / 経度 ${lng.toFixed(5)} に登録します。<br>
+    <p class="lead" id="addCoord">緯度 ${curLat.toFixed(5)} / 経度 ${curLng.toFixed(5)} に登録します。<br>
     最初の評価がそのままこのスポットのスコアになります。</p>
     <div class="field"><label for="n">施設名 <span style="color:var(--s)">*</span></label><input id="n" placeholder="例）○○市立図書館"></div>
     <div class="row" style="gap:8px">
@@ -5868,13 +6224,14 @@ function openAddForm(lat,lng){
       <div class="field" style="flex:1"><label for="ci">市町村</label><input id="ci" value="${esc(state.city||'')}" placeholder="例）宇都宮市"></div>
     </div>
     <div class="field"><label for="ca">種別</label>
-      <select id="ca"><option>図書館</option><option>公民館・生涯学習センター</option>
-      <option>コミュニティセンター</option><option>市民活動センター</option>
-      <option>カフェ</option><option>ファミレス</option><option>フードコート</option>
-      <option>温泉・入浴施設</option><option>道の駅</option>
-      <option>サービスエリア・PA</option><option>大学・学習施設</option>
-      <option>市役所・公共施設</option><option>商業施設</option></select></div>
-    <div class="field"><label for="ad">住所</label><input id="ad" placeholder="例）宇都宮市○○町1-2-3"></div>
+      <select id="ca">${CATEGORIES.map(c=>`<option>${c}</option>`).join('')}</select></div>
+    <div class="field"><label for="ad">住所</label>
+      <div class="row" style="gap:6px">
+        <input id="ad" style="flex:1" placeholder="例）宇都宮市○○町1-2-3">
+        <button type="button" class="back" id="geoBtn" title="住所から座標を取得">🔍 位置取得</button>
+        <button type="button" class="back" id="nearGeoBtn" title="現在地の座標を使う">📍 現在地</button>
+      </div>
+    </div>
     <div class="row" style="gap:8px">
       <div class="field" style="flex:1"><label for="hw">平日の利用時間</label><input id="hw" placeholder="9:00–19:00"></div>
       <div class="field" style="flex:1"><label for="he">土日祝の利用時間</label><input id="he" placeholder="9:00–17:00"></div>
@@ -5887,29 +6244,55 @@ function openAddForm(lat,lng){
     ${AXES.map(x=>starsRow(x.k,x.label,3)).join('')}
     ${visitBlock(sel)}
     ${factsBlock(sel)}
-    <div class="field" style="margin-top:14px"><label for="no">コメント・注意点</label>
+    <div class="field" style="margin-top:14px"><label for="au">ニックネーム</label><input id="au" placeholder="名無しでもOK"></div>
+    <div class="field"><label for="no">コメント・注意点</label>
       <textarea id="no" placeholder="例）2階の学習室が自由に使える。土日は混雑。給水機は1階。"></textarea></div>
     <button class="btn" id="asave">登録する</button>
     <button class="btn ghost" id="acancel">キャンセル</button>`);
   const sh=document.getElementById('sheet');
   wireStars(sh,vals); wireSeg(sh,sel);
+  const updateCoord=()=>{
+    sh.querySelector('#addCoord').innerHTML=`緯度 ${curLat.toFixed(5)} / 経度 ${curLng.toFixed(5)} に登録します。<br>最初の評価がそのままこのスポットのスコアになります。`;
+  };
+  sh.querySelector('#geoBtn').onclick=async()=>{
+    const addr=sh.querySelector('#ad').value.trim()||sh.querySelector('#n').value.trim();
+    if(!addr){ toast('先に住所または施設名を入力してください'); return; }
+    const gb=sh.querySelector('#geoBtn'); gb.disabled=true; gb.textContent='検索中…';
+    try{
+      const r=await fetch('https://msearch.gsi.go.jp/address-search/AddressSearch?q='+encodeURIComponent(addr));
+      const d=await r.json();
+      if(Array.isArray(d)&&d.length&&d[0].geometry&&d[0].geometry.coordinates){
+        curLng=+d[0].geometry.coordinates[0]; curLat=+d[0].geometry.coordinates[1];
+        updateCoord(); toast('住所から位置を取得しました');
+      }else toast('住所から位置が見つかりませんでした');
+    }catch(e){ toast('位置の取得に失敗しました'); }
+    gb.disabled=false; gb.textContent='🔍 位置取得';
+  };
+  sh.querySelector('#nearGeoBtn').onclick=()=>{
+    if(!navigator.geolocation){ toast('このブラウザは位置情報に対応していません'); return; }
+    navigator.geolocation.getCurrentPosition(pos=>{
+      curLat=pos.coords.latitude; curLng=pos.coords.longitude;
+      updateCoord(); toast('現在地の位置を設定しました');
+    },()=>toast('現在地を取得できませんでした'),{enableHighAccuracy:true,timeout:8000});
+  };
   sh.querySelector('#acancel').onclick=closeModal;
   sh.querySelector('#asave').onclick=async(e)=>{
     const name=sh.querySelector('#n').value.trim();
     if(!name){ toast('施設名を入力してください'); return; }
     const btn=e.currentTarget; btn.disabled=true; btn.textContent='保存中…';
     const note=sh.querySelector('#no').value.trim();
+    const user=sh.querySelector('#au').value.trim()||'名無し';
     const sp={id:'u-'+rid(),name,
       pref:sh.querySelector('#pf').value,
       city:sh.querySelector('#ci').value.trim()||'—',
       category:sh.querySelector('#ca').value,
-      address:sh.querySelector('#ad').value.trim(),lat,lng,
+      address:sh.querySelector('#ad').value.trim(),lat:curLat,lng:curLng,
       hoursWd:sh.querySelector('#hw').value.trim(),
       hoursWe:sh.querySelector('#he').value.trim(),
       closed:sh.querySelector('#cl').value.trim(),
       fee:sh.querySelector('#fe').value.trim(),note,
       facilities:factsPatch(sel),
-      reviews:[{id:rid(),user:'投稿者',axes:{...vals},comment:note||'（登録時の評価）',
+      reviews:[{id:rid(),user,axes:{...vals},comment:note||'（登録時の評価）',
         visit:{day:sel.day,slot:+sel.slot,level:+sel.level},
         date:new Date().toISOString().slice(0,7)}]};
     try{ await DB.addSpot(sp); }
@@ -5973,8 +6356,8 @@ document.getElementById('topabout').onclick=()=>{
     <p>塾の自習室や有料のコワーキングスペースは、月に何千円・何万円もかかります。動ける範囲も、
     知っている選択肢も、お金がある人ほど広がります。でも図書館や公民館には、今日から座れる机と椅子が、
     もう無料で用意されています。問題は、それがあまり知られていないことと、比較する手段がなかったことです。</p>
-    <p>このサイトは、無料で勉強できる場所を地図に並べて、静音性・電源・Wi-Fiなど8軸でS〜Cのランクをつけている
-    だけのものです。行った人の口コミが増えるほど、次に行く人が場所を選びやすくなります。</p>
+    <p>このサイトは、無料で勉強できる場所を地図に並べて、静音性・座席・周囲の集中度・息抜き・空調空間の5軸と電源・Wi-Fiの設備情報でS〜Cのランクをつけています。
+    行った人の口コミが増えるほど、次に行く人が場所を選びやすくなります。</p>
     <p class="hint">図書館や公民館は、もっと活用されていい場所だと思っています。個人で作って、個人で運営しています。</p>
     <button class="btn ghost" id="aboutclose">閉じる</button>`);
   document.getElementById('sheet').querySelector('#aboutclose').onclick=closeModal;
@@ -5998,8 +6381,43 @@ function esc(s){ return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&
 function backToList(){
   document.getElementById('detail').classList.remove('on');
   document.getElementById('side').classList.remove('detail-on');
-  state.sel=null; MapA&&MapA.highlight(null); render();
+  state.sel=null; MapA&&MapA.highlight(null); syncPageMeta(); render();
 }
+function requestNearMe(){
+  const btn=document.getElementById('btnNear');
+  if(state.near){
+    state.near=null; btn.classList.remove('on'); btn.textContent='📍 現在地';
+    if(state.sort==='dist'){ state.sort='score'; document.getElementById('sort').value='score'; }
+    MapA&&MapA.setUserLocation(null);
+    render(); toast('現在地による並び替えを解除しました');
+    return;
+  }
+  if(!navigator.geolocation){ toast('このブラウザは位置情報に対応していません'); return; }
+  btn.disabled=true; btn.textContent='測位中…';
+  navigator.geolocation.getCurrentPosition(pos=>{
+    btn.disabled=false;
+    state.near={lat:pos.coords.latitude,lng:pos.coords.longitude};
+    state.pref=''; state.city=''; state.sort='dist';
+    document.getElementById('sort').value='dist';
+    btn.classList.add('on'); btn.textContent='📍 現在地✓';
+    fillRegion(); backToList(); syncPageMeta();
+    const rows=filtered();
+    MapA&&MapA.setUserLocation(state.near);
+    MapA&&MapA.fitNear(state.near,rows);
+    toast('現在地から近い順に並べ替えました');
+  },err=>{
+    btn.disabled=false; btn.textContent='📍 現在地';
+    toast('現在地を取得できませんでした（位置情報の許可を確認してください）');
+  },{enableHighAccuracy:true,timeout:8000});
+}
+document.getElementById('btnNear').onclick=requestNearMe;
+document.getElementById('shareSpot').onclick=async()=>{
+  if(!state.sel) return;
+  syncPageMeta();
+  const url=location.href;
+  try{ await navigator.clipboard.writeText(url); toast('このスポットのURLをコピーしました'); }
+  catch(e){ prompt('このURLをコピーしてください',url); }
+};
 document.getElementById('pref').onchange=e=>{
   state.pref=e.target.value; state.city=''; fillRegion(); backToList(); syncPageMeta();
   const rows=filtered(); MapA&&MapA.fit(rows);
@@ -6010,7 +6428,11 @@ document.getElementById('city').onchange=e=>{
   const rows=filtered(); MapA&&MapA.fit(rows);
 };
 const topsearchEl=document.getElementById('topsearch');
-topsearchEl.oninput=e=>{ state.q=e.target.value; render(); renderSuggest(); };
+let qTimer=null;
+topsearchEl.oninput=e=>{
+  state.q=e.target.value; renderSuggest();
+  clearTimeout(qTimer); qTimer=setTimeout(render,120);
+};
 topsearchEl.onfocus=()=>{ if(topsearchEl.value.trim()) renderSuggest(); };
 topsearchEl.onkeydown=e=>{ if(e.key==='Escape') hideSuggest(); };
 document.addEventListener('click',e=>{
@@ -6018,7 +6440,10 @@ document.addEventListener('click',e=>{
   if(!box.hidden && !box.contains(e.target) && e.target!==topsearchEl) hideSuggest();
 });
 document.getElementById('cat').onchange=e=>{ state.cat=e.target.value; render(); };
-document.getElementById('sort').onchange=e=>{ state.sort=e.target.value; render(); };
+document.getElementById('sort').onchange=e=>{
+  if(e.target.value==='dist'&&!state.near){ requestNearMe(); return; }
+  state.sort=e.target.value; render();
+};
 document.getElementById('rankf').onclick=e=>{
   const b=e.target.closest('button'); if(!b) return;
   const on=b.dataset.on==='1'?'0':'1'; b.dataset.on=on; state.ranks[b.dataset.r]=on==='1'; render();
@@ -6209,7 +6634,7 @@ async function fetchGooglePlace(sp){
     const rating=place.rating
       ? `<p>★ ${place.rating}（${place.userRatingCount||0}件のGoogle評価）</p>` : '';
     box.innerHTML=`<div class="sect" style="margin-top:0"><h3>Googleでの情報</h3>${rating}${hours}
-      <p class="hint">study-mapの8軸評価とは別の、Google側の情報です。実際と異なる場合があります。</p></div>`;
+      <p class="hint">study-mapの5軸評価とは別の、Google側の情報です。実際と異なる場合があります。</p></div>`;
   }catch(e){
     box.innerHTML=`<p class="hint">読み込みに失敗: ${esc(e.message||e)}</p>`;
   }

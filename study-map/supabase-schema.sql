@@ -157,6 +157,20 @@ create policy messages_insert on public.messages
 -- ---------------------------------------------------------
 -- 本番向けに切り替えるとき:
 --
+-- 【段階1】ログイン未導入のまま「荒らしによる全削除・改ざん」だけ防ぐ最小構成
+--   drop policy if exists spots_update   on public.spots;
+--   drop policy if exists spots_delete   on public.spots;
+--   drop policy if exists reviews_delete on public.reviews;
+--   -- 削除は authenticated（管理者ログイン）のみに制限し、匿名での削除を禁止する。
+--   create policy spots_delete   on public.spots   for delete to authenticated using (true);
+--   create policy reviews_delete on public.reviews for delete to authenticated using (true);
+--   -- 設備更新（facilities列のみ）用の安全な RPC 関数を用意するか、
+--   -- spots_update も authenticated のみに絞ることを推奨。
+--   -- ※ index.html 内の ADMIN_PASS による削除ボタンは UI 表示の切り替えに過ぎないため、
+--   --   本番で削除を守るには必ず上記 RLS の切り替えが必要です。
+--
+-- 【段階2】完全ログイン制＋承認フローに切り替えるとき:
+--
 --   drop policy spots_insert   on public.spots;
 --   drop policy reviews_insert on public.reviews;
 --
