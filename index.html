@@ -229,9 +229,23 @@
     border-bottom: 1px solid var(--line-faint);
     padding-bottom: 1px;
   }
+  .home-nav{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 20px;
+    margin-top: 14px;
+  }
+  .home-nav a{
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: var(--ink);
+    font-size: 14px;
+    text-underline-offset: 4px;
+  }
 
   /* ---------- sections ---------- */
-  .stack{ padding: var(--gap) 0 0; }
+  .stack{ padding-top: clamp(12px, 3vw, 24px); }
   .section{
     margin-bottom: var(--gap);
     scroll-margin-top: 32px;
@@ -479,7 +493,6 @@
     .corner.tr, .corner.br{ right: 12px; }
   }
 </style>
-<link rel="stylesheet" href="/assets/study-entry.css">
 </head>
 <body>
 
@@ -506,17 +519,13 @@
         <h1 class="name">小さな実験室<span class="name-en">SMALL EXPERIMENTS</span></h1>
         <p class="tagline">自分がつまずいたところから始めて、小さく作って試しています。うまくいったものも、途中のものも、ここに置いておきます。</p>
         <p class="operator">運営　<a href="./about/">運営者情報</a></p>
+        <nav class="home-nav" aria-label="ページ内メニュー">
+          <a href="#apps">アプリ</a><a href="#experiments">公開作品</a><a href="#notes">学習教材</a>
+        </nav>
       </header>
 
 
       <main class="stack">
-      <section class="study-entry compact" aria-labelledby="study-title">
-        <div><h2 id="study-title">受験の解法ガイド</h2>
-        <p>科目や単元から一問を選び、解き方を学んで復習できます。無料・広告なし・登録不要。</p>
-        <div class="study-actions"><a class="study-open" href="/juken/guide/">解法ガイドを開く</a><a href="/juken/">受験教材の一覧</a></div></div>
-      </section>
-
-
         <section class="section" id="apps" aria-labelledby="apps-title">
           <p class="section-label">APPS</p>
           <h2 class="section-title" id="apps-title">App Storeで配信しているアプリ</h2>
@@ -622,9 +631,13 @@
         </section>
 
         <section class="section" id="notes" aria-labelledby="notes-title">
-          <p class="section-label">NOTES</p>
-          <h2 class="section-title" id="notes-title">高校4教科のノート</h2>
+          <p class="section-label">STUDY</p>
+          <h2 class="section-title" id="notes-title">学習教材</h2>
           <ul class="rows">
+            <li><a class="row" href="/juken/guide/">
+              <span class="row-text"><span class="row-title">受験の解法ガイド</span><span class="row-desc">科目や単元から一問を選び、解き方を学んで復習できます。無料・広告なし・登録不要。</span></span>
+              <svg class="row-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8 H13 M9 4 L13 8 L9 12" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a></li>
             <li><a class="row" href="./works/math-notes/">
               <span class="row-text"><span class="row-title">高校数学ノート</span><span class="row-desc">公式と解き方の型を例題つきで。ネットがなくても開けます。</span></span>
               <svg class="row-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8 H13 M9 4 L13 8 L9 12" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -643,6 +656,10 @@
             </a></li>
             <li><a class="row" href="./works/physics-notes/">
               <span class="row-text"><span class="row-title">高校物理ノート</span><span class="row-desc">物理基礎・物理の要点と解き方を単元ごとに。</span></span>
+              <svg class="row-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8 H13 M9 4 L13 8 L9 12" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a></li>
+            <li><a class="row" href="/juken/">
+              <span class="row-text"><span class="row-title">受験教材の一覧</span><span class="row-desc">過去問、志望校別の対策、分野別の教材を探せます。</span></span>
               <svg class="row-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8 H13 M9 4 L13 8 L9 12" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a></li>
           </ul>
@@ -774,7 +791,7 @@
       seen[key] = true;
       items.push({ title: title.trim(), desc: (desc || '').trim(), href: href, ext: ext });
     };
-    Array.prototype.forEach.call(document.querySelectorAll('.exp, .row, .study-open'), function(a){
+    Array.prototype.forEach.call(document.querySelectorAll('.exp, .row'), function(a){
       var t = a.querySelector('.exp-made, .row-title'), d = a.querySelector('.exp-desc, .row-desc'), q = a.querySelector('.exp-q');
       add(t ? t.textContent : a.textContent, (d ? d.textContent : '') + (q ? ' ' + q.textContent : ''), a.getAttribute('href'), a.target === '_blank');
     });
