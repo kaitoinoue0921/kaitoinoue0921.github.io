@@ -256,21 +256,21 @@ h1{
 .formula.show-formula > .fm-head .fm-toggle-arrow{transform:rotate(90deg);}
 .formula.show-check .fm-check-head .fm-toggle-arrow{transform:rotate(90deg);}
 
+.fm-actions{display:flex; flex-wrap:wrap; gap:8px; margin-top:8px;}
 .fm-check-btn{
   display:inline-flex; align-items:center; gap:5px;
-  margin-top:8px; padding:6px 12px;
-  background:var(--ok); color:var(--surface); border:none; border-radius:5px;
+  padding:6px 12px; min-height:36px;
+  background:var(--surface); color:var(--ink); border:1px solid var(--rule-strong); border-radius:5px;
   font-size:12px; font-weight:700; font-family:inherit; cursor:pointer;
 }
-.fm-check-btn:hover{opacity:.88;}
+.fm-check-btn:hover{background:var(--surface-2);}
+.fm-check-btn[aria-pressed="true"]{background:var(--ok); color:#fff; border-color:var(--ok);}
 .fm-answer{
   margin-top:10px; padding-top:8px; border-top:1px dashed var(--rule);
-  font-size:12.5px; line-height:1.75; display:none;
+  font-size:12.5px; line-height:1.75;
 }
-.fm-answer.shown{display:block;}
 .fm-answer p{margin:0 0 6px; white-space:pre-line;}
 .fm-answer .lbl{font-size:10.5px; font-weight:700; color:var(--ink-soft); letter-spacing:.05em; display:block; margin-bottom:2px;}
-.fm-check-btn[hidden]{display:none;}
 
 .empty-msg{text-align:center; color:var(--ink-soft); padding:40px 0; font-size:13px; display:none;}
 
@@ -474,8 +474,11 @@ function render(){
                 <div class="fm-check-head" data-toggle-check="1"><span class="fm-toggle-arrow">▸</span>確認問題で知識をチェック</div>
                 <div class="fm-check">
                   <p><span class="lbl">問題</span>${em(n.formula_q)}</p>
-                  <button type="button" class="fm-check-btn" data-reveal-answer="1">✓ 答えをチェック(習得済みにする)</button>
-                  <div class="fm-answer">
+                  <div class="fm-actions">
+                    <button type="button" class="fm-check-btn" data-reveal-answer="1" aria-expanded="false" aria-controls="fm-answer-${esc(n.id)}">答えを見る</button>
+                    <button type="button" class="fm-check-btn" data-status="o">○ 習得済み</button>
+                  </div>
+                  <div class="fm-answer" id="fm-answer-${esc(n.id)}" hidden>
                     <p><span class="lbl">答え</span>${em(n.formula_a)}</p>
                     ${n.formula_derivation && n.formula_derivation.length ? `<p><span class="lbl">導出・確かめ方</span>${em(n.formula_derivation.join("\n"))}</p>` : ""}
                   </div>
@@ -503,22 +506,29 @@ function render(){
           </div>
         `;
 
+        const statusButtons = row.querySelectorAll("button[data-status]");
+        function updateStatusButtons(){
+          statusButtons.forEach(btn => {
+            const pressed = status[n.id] === btn.dataset.status;
+            btn.classList.toggle("active", pressed);
+            btn.setAttribute("aria-pressed", String(pressed));
+          });
+        }
+
         function setStatus(val){
           if(status[n.id] === val) delete status[n.id];
           else status[n.id] = val;
           save();
           renderStats();
-          row.querySelectorAll(".status-btn").forEach(b => {
-            b.classList.toggle("active", status[n.id] === b.dataset.status);
-          });
+          updateStatusButtons();
           row.classList.remove("done","status-triangle","status-x");
           if(status[n.id] === "o") row.classList.add("done");
           else if(status[n.id] === "triangle") row.classList.add("status-triangle");
           else if(status[n.id] === "x") row.classList.add("status-x");
         }
 
-        row.querySelectorAll(".status-btn").forEach(btn => {
-          btn.classList.toggle("active", status[n.id] === btn.dataset.status);
+        updateStatusButtons();
+        statusButtons.forEach(btn => {
           btn.addEventListener("click", (e) => {
             e.stopPropagation();
             setStatus(btn.dataset.status);
@@ -543,11 +553,13 @@ function render(){
 
         const revealBtn = row.querySelector("[data-reveal-answer]");
         if(revealBtn){
+          const answer = row.querySelector(".fm-answer");
           revealBtn.addEventListener("click", (e) => {
             e.stopPropagation();
-            revealBtn.nextElementSibling.classList.add("shown");
-            revealBtn.hidden = true;
-            if(status[n.id] !== "o") setStatus("o");
+            const reveal = answer.hidden;
+            answer.hidden = !reveal;
+            revealBtn.setAttribute("aria-expanded", String(reveal));
+            revealBtn.textContent = reveal ? "答えを閉じる" : "答えを見る";
           });
         }
 
