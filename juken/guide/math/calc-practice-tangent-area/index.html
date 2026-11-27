@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="接点で曲線と接線は高さも傾きも一致する。曲線と接線の差を因数分解すると、もう一つの交点と上下関係が分かる。">
+<title>三次関数と接線に囲まれる面積から接点を求める｜数Ⅱ・微分と積分｜受験の解法ガイド</title>
+<link rel="canonical" href="https://kaitoinoue0921.github.io/juken/guide/math/calc-practice-tangent-area/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="三次関数と接線に囲まれる面積から接点を求める｜数Ⅱ・微分と積分｜受験の解法ガイド">
+<meta property="og:description" content="接点で曲線と接線は高さも傾きも一致する。曲線と接線の差を因数分解すると、もう一つの交点と上下関係が分かる。">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/juken/guide/math/calc-practice-tangent-area/">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/juken/guide/study-900.webp">
+<link rel="icon" href="/favicon.png">
+<link rel="stylesheet" href="/juken/guide/guide.css">
+
+</head>
+<body>
+<a class="skip" href="#main">本文へ</a>
+<header class="top"><div class="wrap top-row">
+<a class="brand" href="/juken/guide/">受験の解法ガイド</a><nav aria-label="学習メニュー"><a href="/juken/guide/review/">復習・苦手</a><a href="/juken/guide/papers/">過去問</a><a href="/juken/guide/share/">配布・印刷</a></nav>
+</div></header>
+<main class="wrap" id="main"><div class="lesson-page">
+<nav class="lesson-nav" aria-label="教材の階層"><a href="/juken/guide/math/">数学の例題一覧</a><a href="/juken/guide/#find">解法を探す</a>
+<button class="button" type="button" data-lesson-print hidden>この例題を印刷</button></nav>
+
+<article class="lesson" id="calc-practice-tangent-area" data-subject-label="数学" data-unit="数Ⅱ・微分と積分" data-review-anchor="/juken/guide/math/calc-practice-tangent-area/">
+<header><p class="eyebrow">数Ⅱ・微分と積分 <span class="level">融合</span></p>
+<h1>三次関数と接線に囲まれる面積から接点を求める</h1></header>
+<div class="cue"><strong>見分け方</strong><p>接点で曲線と接線は高さも傾きも一致する。曲線と接線の差を因数分解すると、もう一つの交点と上下関係が分かる。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>a＞0 とする。曲線 y=x³−3x と、その曲線上の点 (a, a³−3a) における接線で囲まれる部分の面積を a で表せ。また、面積が 27/4 になるときの a を求めよ。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>接線を ℓ(x)=f(a)+f′(a)(x−a) とおき、差を f(x)−ℓ(x)=(x−a)²(x+2a) と因数分解する。</li><li>もう一つの交点は x=−2a。a＞0 より −2a＜x＜a では f(x)＞ℓ(x) なので、曲線から接線を引いて積分する。</li><li>面積を a の式で表し、指定の面積と等しい正の a を求める。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>接線は ℓ(x)=(3a²−3)x−2a³。差は f(x)−ℓ(x)=(x−a)²(x+2a)=x³−3a²x+2a³ となり、交点 x=−2a, a の間で正。差の原始関数 x⁴/4−3a²x²/2+2a³x は x=a で 3a⁴/4、x=−2a で −6a⁴ なので、面積は 27a⁴/4。指定の面積より a⁴=1。a＞0 より a=1。</p>
+
+<p class="pitfall"><strong>確認</strong> 積分するのは曲線と接線の差。接点 x=a は差の二重根で、もう一つの交点 x=−2a が積分の下端になる。</p></details>
+<div data-practice hidden></div>
+<nav class="quick-links more-topic" aria-label="接線と面積の類題セット"><a href="/juken/guide/math/calc-practice-tangent-slope/">基本</a><a href="/juken/guide/math/calc-practice-signed-area/">標準</a><span aria-current="step">融合</span><a href="/juken/guide/challenge/#calculus-tangent-and-area">方針選択の演習</a></nav>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　<a href="/juken/guide/?skill=structure#find">構造を見抜く</a></p><div class="related-links"><a href="/juken/guide/german/german-separable-verb/">ドイツ語 · 活用した動詞と文末の前つづりを結ぶ</a><a href="/juken/guide/french/french-restriction/">フランス語 · ne と que の組み合わせで限定を読む</a></div></details>
+</article>
+
+</div>
+</main><footer class="site-footer wrap">
+<nav aria-label="サイト案内"><a href="/juken/">受験・学習</a><a href="/">小さな実験室</a><a href="/about/">運営者情報</a><a href="/contact/">教材の誤りを知らせる</a></nav></footer>
+<link rel="stylesheet" href="/juken/guide/review/practice.css"><script src="/juken/guide/practice.js" defer></script>
+</body></html>

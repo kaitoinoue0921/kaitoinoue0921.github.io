@@ -53,6 +53,29 @@ BOOKS = (
 )
 LINKS = (('解法ガイド', BASE), ('復習・苦手', BASE + 'review/'),
          ('過去問', BASE + 'papers/'), ('配布・印刷', BASE + 'share/'))
+MATH_PRACTICE = {
+    '二次関数': ('quadratic-practice', {
+        '平方完成と最大・最小': 'quadratic-extrema',
+        '放物線と水平線の交点': 'quadratic-intersections',
+        '二次不等式と整数解': 'quadratic-integer-solutions',
+        '長方形の面積と条件': 'quadratic-rectangle',
+    }),
+    '確率': ('probability-practice', {
+        '球の取り出しと条件付き確率': 'probability-draws',
+        '反復試行と打ち切り': 'probability-repeated-trials',
+        '組合せと条件付き確率': 'probability-combinations',
+        '期待値と選択': 'probability-expected-value',
+    }),
+    '微積': ('calculus-practice', {
+        '接線と面積': 'calculus-tangent-and-area',
+        '速度と道のり': 'calculus-motion',
+        '積分で定まる関数': 'calculus-accumulation',
+        '水平線で分ける面積': 'calculus-horizontal-cut',
+    }),
+}
+PRACTICE_ANCHORS = {series: anchor for _, series_list in MATH_PRACTICE.values()
+                    for series, anchor in series_list.items()}
+MATH_PRACTICE_LINK = ('数学の類題セット', BASE + 'challenge/#math-practice')
 
 
 def link(label, href, css=''):
@@ -176,7 +199,24 @@ def related_lessons(item, catalog):
     return related
 
 
-def lesson(item, catalog, offline=False, heading="h2"):
+def practice_navigation(item, practice, offline):
+    if practice is None:
+        return ''
+    series, entries = practice
+    steps = []
+    for entry in entries:
+        level = LEVEL[entry['level']]
+        if entry['id'] == item['id']:
+            steps.append(f'<span aria-current="step">{level}</span>')
+        else:
+            href = '#' + entry['id'] if offline else lesson_href(entry)
+            steps.append(link(level, href))
+    if not offline:
+        steps.append(link('方針選択の演習', BASE + 'challenge/#' + PRACTICE_ANCHORS[series]))
+    return f'<nav class="quick-links more-topic" aria-label="{escape(series)}の類題セット">{"".join(steps)}</nav>\n'
+
+
+def lesson(item, catalog, offline=False, heading="h2", practice=None):
     ident = item['id']
     title = escape(item['title'])
     skill_label = SKILLS[item['skill']][0]
@@ -210,7 +250,7 @@ def lesson(item, catalog, offline=False, heading="h2"):
 {"" if problem_figure else diagram}
 <p class="pitfall"><strong>確認</strong> {escape(item["pitfall"])}</p></details>
 <div data-practice hidden></div>
-{extra}
+{practice_navigation(item, practice, offline)}{extra}
 </article>'''
 
 
@@ -269,7 +309,7 @@ def course_cards():
 <p>数学の二次関数で進み方を試せます。いま難しい段階から始めてください。</p></header>
 <ol class="course">{cards}</ol>
 <h3 class="browse-title">ほかのミニ講座</h3><div class="subject-grid">{tracks}</div>
-<div class="quick-links">{link("解法名を見ずに方針を選ぶ", BASE + "challenge/")}
+<div class="quick-links">{link(*MATH_PRACTICE_LINK)}{link("解法名を見ずに方針を選ぶ", BASE + "challenge/")}
 {link("共通テスト形式の演習", "/juken/kyotsu/")}</div>
 </section>'''
 
@@ -343,9 +383,11 @@ def home(catalog):
 def subject_page(subject, catalog):
     title = SUBJECTS[subject]
     entries = [entry for entry in catalog if entry['subject'] == subject]
-    mentor = NOTES.get(subject, [])
-    if mentor:
-        further = f'<div class="quick-links" aria-label="関連教材">{links(mentor)}</div>'
+    resources = list(NOTES.get(subject, []))
+    if subject == 'math':
+        resources.insert(0, MATH_PRACTICE_LINK)
+    if resources:
+        further = f'<div class="quick-links" aria-label="関連教材">{links(resources)}</div>'
     else:
         further = ''
     cards = ''.join(
@@ -365,7 +407,7 @@ def subject_page(subject, catalog):
                 BASE + subject + '/', body)
 
 
-def lesson_page(item, catalog):
+def lesson_page(item, catalog, practice):
     subject = item['subject']
     subject_title = SUBJECTS[subject]
     entries = [entry for entry in catalog if entry['subject'] == subject]
@@ -374,11 +416,11 @@ def lesson_page(item, catalog):
     following = entries[index + 1] if index + 1 < len(entries) else None
     jumps = [(entry['title'], lesson_href(entry)) for entry in (previous, following) if entry]
     unit_links = ((subject_title + 'の例題一覧', BASE + subject + '/'), ('解法を探す', BASE + '#find'))
-    next_links = f'<section class="more-topic"><h2>同じ科目の例題</h2><div class="quick-links">{links(jumps)}</div></section>' if jumps else ''
+    next_links = f'<section class="more-topic"><h2>同じ科目の例題</h2><div class="quick-links">{links(jumps)}</div></section>' if jumps and practice is None else ''
     body = f"""<div class="lesson-page">
 <nav class="lesson-nav" aria-label="教材の階層">{links(unit_links)}
 <button class="button" type="button" data-lesson-print hidden>この例題を印刷</button></nav>
-{lesson(item, catalog, heading="h1")}
+{lesson(item, catalog, heading="h1", practice=practice)}
 {next_links}
 </div>"""
     return page(item['title'] + '｜' + item['unit'] + '｜受験の解法ガイド', item['cue'], lesson_href(item), body,
@@ -434,11 +476,10 @@ def papers_page():
                 BASE + 'papers/', body, scripts='<script src="papers.js" defer></script>')
 
 
-def challenge_page(catalog):
+def challenge_page(catalog, rows):
     by_id = {item['id']: item for item in catalog}
-    rows = json.loads((GUIDE / 'challenge/data.json').read_text())
     groups = {}
-    for group, ident, choices, correct, feedback in rows:
+    for number, (group, ident, choices, correct, feedback) in enumerate(rows, 1):
         item = by_id[ident]
         opts = ''.join(f'<label><input type="radio" name="choice" value="{index}">{escape(choice)}</label>'
                        for index, choice in enumerate(choices))
@@ -446,9 +487,10 @@ def challenge_page(catalog):
         problem = escape(item['problem'])
         figure = item.get('figure', {})
         table = figure_block(figure) if figure.get('placement') == 'problem' else ''
-        number = sum(map(len, groups.values())) + 1
+        practice = group in PRACTICE_ANCHORS
+        heading = f'<h5>{LEVEL[item["level"]]}</h5>' if practice else f'<h3>問題 {number}</h3>'
         card = f"""<article class="lesson">
-<h3>問題 {number}</h3><div class="example"><p>{problem}</p>{table}</div>
+{heading}<div class="example"><p>{problem}</p>{table}</div>
 <form class="challenge-options" data-choice="{correct}">
 <fieldset><legend>最初に何をする？</legend>{opts}</fieldset>
 <button type="submit" class="button" hidden>選んだ方針を確かめる</button><p role="status"></p>
@@ -457,23 +499,48 @@ def challenge_page(catalog):
 <p><strong>{solution}</strong></p><p>{escape(feedback)}</p>{link("例題の解答と復習", lesson_href(item), "text-link")}</details>
 </article>"""
         groups.setdefault(group, []).append(card)
-    group_links = ''.join(link(group, '#questions-' + str(index)) for index, group in enumerate(groups, 1))
-    sections = ''.join(f'<section class="section" id="questions-{index}"><h2>{group}</h2>'
-                       f'<div class="lessons">{"".join(cards)}</div></section>'
-                       for index, (group, cards) in enumerate(groups.items(), 1))
+    sections = []
+    group_links = []
+    for group, cards in groups.items():
+        if group in PRACTICE_ANCHORS:
+            continue
+        ident = f'questions-{len(sections) + 1}'
+        group_links.append((group, '#' + ident))
+        sections.append(f'<section class="section" id="{ident}"><h2>{escape(group)}</h2>'
+                        f'<div class="lessons">{"".join(cards)}</div></section>')
+    general_count = sum(len(groups[group]) for group, _ in group_links)
+    group_links.append((MATH_PRACTICE_LINK[0], '#math-practice'))
+    practice_links = links((topic, '#' + anchor) for topic, (anchor, _) in MATH_PRACTICE.items())
+    practice_sections = []
+    for topic, (anchor, series_list) in MATH_PRACTICE.items():
+        series_links = links((title, '#' + ident) for title, ident in series_list.items())
+        series_sections = ''.join(
+            f'<section class="practice-series" id="{ident}"><h4>{escape(title)}</h4>'
+            f'<div class="lessons">{"".join(groups[title])}</div></section>'
+            for title, ident in series_list.items())
+        practice_sections.append(f'<section class="section" id="{anchor}"><h3>{escape(topic)}</h3>'
+                                 f'<nav class="quick-links" aria-label="{escape(topic)}の類題セット">{series_links}</nav>'
+                                 f'{series_sections}</section>')
     body = f"""<header class="subject-head"><a class="text-link" href="../#route">ミニ講座</a>
 <h1>最初の一手を選ぶ</h1>
-<p>解法名を伏せた{len(rows)}題。計算を始める前に、どの方針が使えそうかを言葉にします。</p>
-<nav class="quick-links" aria-label="問題を選ぶ">{group_links}</nav></header>{sections}"""
-    return page('最初の一手を選ぶ｜受験の解法ガイド', '解法名を伏せた数学・理科・資料読解の問題から、最初に使う方針を選ぶ無料演習。',
+<p>数学・理科・資料読解の{general_count}題で、問題文を手がかりに方針を選びます。数学の類題セットでは、同じ題材で段階を上げて練習できます。</p>
+<nav class="quick-links" aria-label="問題を選ぶ">{links(group_links)}</nav></header>
+{"".join(sections)}
+<section class="section" id="math-practice">
+<h2>数学の類題セット</h2>
+<p>単元から類題セットを選び、基本、標準、融合の順に解きます。条件が変わったら、最初の一手も変わるか考えてみましょう。</p>
+<nav class="quick-links" aria-label="数学の類題セットの単元">{practice_links}</nav>
+{"".join(practice_sections)}</section>"""
+    return page('最初の一手を選ぶ｜受験の解法ガイド', '数学・理科・資料読解の方針選択と、二次関数・確率・微積を段階別に解く無料演習。',
                 BASE + 'challenge/', body, scripts='<script src="challenge.js" defer></script>')
 
 
-def offline_page(catalog):
+def offline_page(catalog, practice_by_id):
     toc = ''.join(f'<li><a href="#section-{key}">{name}</a></li>' for key, name in SUBJECTS.items())
     subjects = ''.join(
         f'<section class="section" id="section-{key}"><h2 class="offline-title">{name}</h2><div class="lessons">'
-        + ''.join(lesson(item, catalog, offline=True) for item in catalog if item['subject'] == key)
+        + ''.join(lesson(item, catalog, offline=True, practice=practice_by_id.get(item['id']))
+                  for item in catalog if item['subject'] == key)
         + '</div></section>' for key, name in SUBJECTS.items())
     body = f'''<header class="subject-head"><p class="eyebrow">オフライン教材</p>
 <h1>受験の解法ガイド</h1><p>インターネット接続なしで、全{len(catalog)}題の例題と解説を読めます。</p>
@@ -534,6 +601,17 @@ def update_sitemap(catalog):
 
 def main():
     catalog = load_lessons()
+    challenge_rows = json.loads((GUIDE / 'challenge/data.json').read_text())
+    by_id = {item['id']: item for item in catalog}
+    practice_groups = {}
+    for group, ident, *_ in challenge_rows:
+        if group in PRACTICE_ANCHORS:
+            practice_groups.setdefault(group, []).append(by_id[ident])
+    for series in PRACTICE_ANCHORS:
+        if [item['level'] for item in practice_groups.get(series, [])] != list(LEVEL):
+            raise ValueError(f'{series}: expected a foundation, standard, and mixed problem in order')
+    practice_by_id = {item['id']: (group, entries)
+                      for group, entries in practice_groups.items() for item in entries}
     count = write_indices(catalog)
     (GUIDE / 'index.html').write_text(home(catalog))
     for subject in SUBJECTS:
@@ -543,10 +621,10 @@ def main():
     for item in catalog:
         folder = GUIDE / item['subject'] / item['id']
         folder.mkdir(exist_ok=True)
-        (folder / 'index.html').write_text(lesson_page(item, catalog))
-    (GUIDE / 'download.html').write_text(offline_page(catalog))
+        (folder / 'index.html').write_text(lesson_page(item, catalog, practice_by_id.get(item['id'])))
+    (GUIDE / 'download.html').write_text(offline_page(catalog, practice_by_id))
     (GUIDE / 'papers/index.html').write_text(papers_page())
-    (GUIDE / 'challenge/index.html').write_text(challenge_page(catalog))
+    (GUIDE / 'challenge/index.html').write_text(challenge_page(catalog, challenge_rows))
     update_sitemap(catalog)
     print(f'{len(catalog)} lessons over {len(SUBJECTS)} subjects; {count} index entries from existing materials')
 

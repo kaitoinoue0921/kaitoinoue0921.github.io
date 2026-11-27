@@ -167,6 +167,9 @@ summary::marker { color:var(--blue); }
 .more-topic { margin-top:1.4rem; }
 .more-topic h2 { font-size:1.12rem; }
 .more-topic .quick-links { margin-top:.55rem; }
+.practice-series { margin-block:1.5rem 2.25rem; }
+.practice-series h4 { margin:0; font-size:1.15rem; }
+.practice-series h5 { margin:0 0 .55rem; font-size:1rem; }
 .challenge-options fieldset { border:0; padding:0; margin:0; }
 .challenge-options legend { font-weight:800; }
 .challenge-options label { display:flex; gap:.65rem; align-items:start; min-height:44px; padding:.5rem .6rem; cursor:pointer; }
@@ -176,7 +179,7 @@ summary::marker { color:var(--blue); }
 .challenge-answer { margin-top:.5rem; }
 .challenge-answer p { margin:.35rem 0; }
 @media print {
-  .lesson-page .lesson-nav, .lesson-page .more-topic, .lesson-page .lesson .cue, .lesson-page .lesson details,
+  .lesson-page .lesson-nav, .more-topic, .lesson-page .lesson .cue, .lesson-page .lesson details,
   .lesson-page [data-lesson-print] { display:none !important; }
   .lesson-page { padding:0; }
 }

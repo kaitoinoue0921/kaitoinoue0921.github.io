@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="曲線が x 軸の上下にまたがると、定積分では上下の面積に異なる符号が付く。交点で区切って足す。">
+<title>x軸を横切る曲線の面積を求める｜数Ⅱ・微分と積分｜受験の解法ガイド</title>
+<link rel="canonical" href="https://kaitoinoue0921.github.io/juken/guide/math/calc-practice-signed-area/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="x軸を横切る曲線の面積を求める｜数Ⅱ・微分と積分｜受験の解法ガイド">
+<meta property="og:description" content="曲線が x 軸の上下にまたがると、定積分では上下の面積に異なる符号が付く。交点で区切って足す。">
+<meta property="og:url" content="https://kaitoinoue0921.github.io/juken/guide/math/calc-practice-signed-area/">
+<meta property="og:image" content="https://kaitoinoue0921.github.io/juken/guide/study-900.webp">
+<link rel="icon" href="/favicon.png">
+<link rel="stylesheet" href="/juken/guide/guide.css">
+
+</head>
+<body>
+<a class="skip" href="#main">本文へ</a>
+<header class="top"><div class="wrap top-row">
+<a class="brand" href="/juken/guide/">受験の解法ガイド</a><nav aria-label="学習メニュー"><a href="/juken/guide/review/">復習・苦手</a><a href="/juken/guide/papers/">過去問</a><a href="/juken/guide/share/">配布・印刷</a></nav>
+</div></header>
+<main class="wrap" id="main"><div class="lesson-page">
+<nav class="lesson-nav" aria-label="教材の階層"><a href="/juken/guide/math/">数学の例題一覧</a><a href="/juken/guide/#find">解法を探す</a>
+<button class="button" type="button" data-lesson-print hidden>この例題を印刷</button></nav>
+
+<article class="lesson" id="calc-practice-signed-area" data-subject-label="数学" data-unit="数Ⅱ・微分と積分" data-review-anchor="/juken/guide/math/calc-practice-signed-area/">
+<header><p class="eyebrow">数Ⅱ・微分と積分 <span class="level">標準</span></p>
+<h1>x軸を横切る曲線の面積を求める</h1></header>
+<div class="cue"><strong>見分け方</strong><p>曲線が x 軸の上下にまたがると、定積分では上下の面積に異なる符号が付く。交点で区切って足す。</p></div>
+<div class="example" data-problem><strong>例題</strong><p>−1≦x≦1 において、曲線 y=x³−3x と x 軸の間にある部分の面積の合計を求めよ。</p></div>
+<details><summary>最初の一手を見る</summary><ol class="steps"><li>f(x)=x(x²−3) と因数分解し、−1≦x≦1 で x 軸と交わるのは x=0 だけだと分かる。</li><li>左半分では f(x) が正、右半分では負。右半分では −f(x) を積分する。奇関数なので左右の面積は等しい。</li></ol></details>
+<details class="solution"><summary>解答とつまずきやすい所</summary>
+<p data-answer>x²−3＜0 なので、曲線は左半分では x 軸の上、右半分では下。f(−x)=−f(x) より面積は右半分の2倍で、2∫₀¹(3x−x³)dx=2(3/2−1/4)=5/2。</p>
+
+<p class="pitfall"><strong>確認</strong> 区間全体の定積分は0になるが、左右の面積はそれぞれ正。</p></details>
+<div data-practice hidden></div>
+<nav class="quick-links more-topic" aria-label="接線と面積の類題セット"><a href="/juken/guide/math/calc-practice-tangent-slope/">基本</a><span aria-current="step">標準</span><a href="/juken/guide/math/calc-practice-tangent-area/">融合</a><a href="/juken/guide/challenge/#calculus-tangent-and-area">方針選択の演習</a></nav>
+<details class="related"><summary>つながる知識・詳しい解説</summary>
+<p class="muted">共通する考え方　<a href="/juken/guide/?skill=graphs#find">表やグラフを読む</a></p><div class="related-links"><a href="/juken/guide/geography/geography-climate-season/">地理 · 気温の山と雨の季節を重ねる</a><a href="/juken/guide/civics/civics-economics-demand/">公共・倫理・政治経済 · 需要曲線上の移動と曲線の移動を分ける</a></div></details>
+</article>
+
+</div>
+</main><footer class="site-footer wrap">
+<nav aria-label="サイト案内"><a href="/juken/">受験・学習</a><a href="/">小さな実験室</a><a href="/about/">運営者情報</a><a href="/contact/">教材の誤りを知らせる</a></nav></footer>
+<link rel="stylesheet" href="/juken/guide/review/practice.css"><script src="/juken/guide/practice.js" defer></script>
+</body></html>
